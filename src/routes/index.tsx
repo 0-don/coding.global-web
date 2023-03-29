@@ -1,4 +1,7 @@
 import { Layout } from '../components/container/Layout';
+import { ArrowLink } from '../components/links/ArrowLink';
+import { UnstyledLink } from '../components/links/UnstyledLink';
+
 
 export default function Home() {
   return (
@@ -6,19 +9,19 @@ export default function Home() {
       <main>
         <section class='text-white'>
           <div class='layout flex min-h-screen flex-col items-center justify-center text-center'>
-            <a href='https://discord.gg/coding'>
+            <UnstyledLink href='https://discord.gg/coding'>
               <div class='mt-5 rounded-full bg-white px-1 py-5 pb-8 text-6xl font-medium md:mt-0'>
                 <span class='mb-10 text-red-600'>{'<'}</span>
                 <span class='text-black'>/</span>
                 <span class='text-red-600'>{'>'}</span>
               </div>
-            </a>
+            </UnstyledLink>
             <h1 class='mt-4'>Official Coding Discord Website</h1>
             <p class='mt-2 text-sm text-white'>
               Official{' '}
-              <a class='underline' href='https://discord.gg/coding'>
+              <ArrowLink className='underline' href='https://discord.gg/coding'>
                 discord.gg/coding
-              </a>
+              </ArrowLink>
               Website for the Coding Discord Server
             </p>
             <p class='mt-2 text-sm text-white'>
