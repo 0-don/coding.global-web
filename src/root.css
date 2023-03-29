@@ -22,7 +22,6 @@ body {
     cursor: url('/images/new-tab.png') 10 10, pointer;
   }
 
-  /* #region  /**=========== Typography =========== */
   .h0 {
     @apply text-3xl font-bold md:text-5xl;
   }
@@ -60,11 +59,7 @@ body {
 @layer utilities {
   .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),
-      linear-gradient(
-        to right,
-        var(--color-primary-400),
-        var(--color-primary-500)
-      );
+      linear-gradient(to right, red, blue);
     background-size: 100% 2px, 0 2px;
     background-position: 100% 100%, 0 100%;
     background-repeat: no-repeat;
