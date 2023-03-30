@@ -2,7 +2,6 @@ import { Layout } from '../components/container/Layout';
 import { ArrowLink } from '../components/links/ArrowLink';
 import { UnstyledLink } from '../components/links/UnstyledLink';
 
-
 export default function Home() {
   return (
     <Layout>
@@ -25,14 +24,14 @@ export default function Home() {
               Website for the Coding Discord Server
             </p>
             <p class='mt-2 text-sm text-white'>
-              <a href='https://github.com/Don-Cryptus/discord.global-web'>
+              <ArrowLink href='https://github.com/Don-Cryptus/discord.global-web'>
                 See the repository
-              </a>
+              </ArrowLink>
             </p>
             <div class='mt-4 flex items-center space-x-2'>
-              <a
+              <UnstyledLink
                 href='https://discord.gg/coding'
-                class='bg-discord w-36 rounded-md px-2 py-1 text-2xl font-black'
+                className='w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black'
               >
                 <div class='flex items-center'>
                   <img
@@ -44,10 +43,10 @@ export default function Home() {
                   />
                   <span>Discord</span>
                 </div>
-              </a>
+              </UnstyledLink>
               <a
                 href='/faq'
-                class='cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black'
+                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
               >
                 FAQ
               </a>
@@ -55,19 +54,19 @@ export default function Home() {
             <div class='mt-4 flex items-center space-x-2'>
               <a
                 href='/rules'
-                class='cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black'
+                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
               >
                 Rules
               </a>
               <a
                 href='/team'
-                class='cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black'
+                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
               >
                 Team
               </a>
               <a
                 href='/bot'
-                class='cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black'
+                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
               >
                 Bots
               </a>

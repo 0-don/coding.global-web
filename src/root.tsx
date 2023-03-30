@@ -1,18 +1,15 @@
 // @refresh reload
 import { Suspense } from 'solid-js';
 import {
-  useLocation,
-  A,
   Body,
   ErrorBoundary,
   FileRoutes,
-  Head,
   Html,
-  Meta,
   Routes,
   Scripts,
-  Title,
+  useLocation,
 } from 'solid-start';
+import Seo from './components/Seo';
 import './root.css';
 
 export default function Root() {
@@ -23,11 +20,7 @@ export default function Root() {
       : 'border-transparent hover:border-sky-600';
   return (
     <Html lang='en'>
-      <Head>
-        <Title>SolidStart - With TailwindCSS</Title>
-        <Meta charset='utf-8' />
-        <Meta name='viewport' content='width=device-width, initial-scale=1' />
-      </Head>
+      <Seo />
       <Body>
         <Suspense>
           <ErrorBoundary>
