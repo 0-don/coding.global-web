@@ -67,3 +67,34 @@ body {
     background-size: 0 2px, 100% 2px;
   }
 }
+
+::-webkit-scrollbar {
+  @apply h-[2px] w-[2px];
+}
+::-webkit-scrollbar-button {
+  @apply h-0 w-0;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-t from-transparent via-red-600 to-transparent;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  @apply bg-gradient-to-l from-transparent via-red-600 to-transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb:active {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track:hover {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track:active {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-corner {
+  @apply bg-transparent;
+}

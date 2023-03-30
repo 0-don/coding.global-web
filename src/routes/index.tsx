@@ -1,5 +1,6 @@
 import { Layout } from '../components/container/Layout';
 import { ArrowLink } from '../components/links/ArrowLink';
+import { UnderlineLink } from '../components/links/UnderlineLink';
 import { UnstyledLink } from '../components/links/UnstyledLink';
 
 export default function Home() {
@@ -44,32 +45,12 @@ export default function Home() {
                   <span>Discord</span>
                 </div>
               </UnstyledLink>
-              <a
-                href='/faq'
-                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
-              >
-                FAQ
-              </a>
-            </div>
-            <div class='mt-4 flex items-center space-x-2'>
-              <a
-                href='/rules'
-                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
-              >
-                Rules
-              </a>
-              <a
+              <UnstyledLink
                 href='/team'
-                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
+                className='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
               >
                 Team
-              </a>
-              <a
-                href='/bot'
-                class='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
-              >
-                Bots
-              </a>
+              </UnstyledLink>
             </div>
             <iframe
               src='https://discord.com/widget?id=693908458986143824&theme=dark'
@@ -81,30 +62,15 @@ export default function Home() {
               sandbox='allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts'
             ></iframe>
 
-            {/* <ButtonLink class='mt-6' href='/components' variant='light'>
-              See all components
-            </ButtonLink> */}
-
-            {/* <UnstyledLink
-              href='https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Ftheodorusclarence%2Fts-nextjs-tailwind-starter'
-              class='mt-4'
-            >
-               eslint-disable-next-line @next/next/no-img-element 
-              <img
-                width='92'
-                height='32'
-                src='https://vercel.com/button'
-                alt='Deploy with Vercel'
-              />
-            </UnstyledLink> */}
-
-            <footer class='bottom-2 text-white md:absolute '>
-              © {new Date().getFullYear()} By{' '}
-              <a href='https://github.com/Don-Cryptus'>Don Cryptus</a>
+            <footer class='text-white tall:absolute tall:bottom-0'>
+              <span>{`&#169; ${new Date().getFullYear()} By `}</span>
+              <UnderlineLink href='https://github.com/Don-Cryptus'>
+                Don Cryptus
+              </UnderlineLink>
               {' & '}
-              <a href='https://github.com/Bit-Barron'>Barron</a>
-              {' & '}
-              <a href='https://github.com/Superriot'>Superriot</a>
+              <UnderlineLink href='https://github.com/Superriot'>
+                Superriot
+              </UnderlineLink>
             </footer>
           </div>
         </section>

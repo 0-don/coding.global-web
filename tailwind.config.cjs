@@ -13,6 +13,9 @@ module.exports = {
           dark: '#0e0e10',
         },
       },
+      screens: {
+        tall: { raw: '(min-height: 820px)' },
+      },
       keyframes: {
         flicker: {
           '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {
