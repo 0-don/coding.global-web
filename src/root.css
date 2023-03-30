@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#242729];
+  @apply bg-background !text-white;
 }
 
 .img-fade {
