@@ -7,7 +7,7 @@ import {
   Routes,
   Scripts,
 } from 'solid-start';
-import Seo from './components/Seo';
+import Seo from './components/seo/Seo';
 import './root.css';
 
 export default function Root() {
