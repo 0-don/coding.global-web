@@ -34,7 +34,7 @@ export default function Home() {
               See the repository
             </ArrowLink>
           </p>
-          <div class='mt-4 flex items-center space-x-2'>
+          <div class='mt-4 flex items-center space-x-2 flex-wrap'>
             <UnstyledLink
               href='https://discord.gg/coding'
               className='w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black'

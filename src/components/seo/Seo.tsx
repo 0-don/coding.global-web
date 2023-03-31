@@ -45,6 +45,10 @@ export default function Seo(props: SeoProps) {
     <Head>
       <Title>{meta.title}</Title>
       <Meta name='robots' content={meta.robots} />
+      <Meta
+        name='viewport'
+        content='width=device-width, initial-scale=1.0'
+      ></Meta>
       <Meta content={meta.description} name='description' />
       <Meta property='og:url' content={`${meta.url}${location.pathname}`} />
       <Link rel='canonical' href={`${meta.url}${location.pathname}`} />
