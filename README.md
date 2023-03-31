@@ -48,9 +48,9 @@ This Project is for the users from discord.gg/coding
 
 - Web
   - [typescript](https://www.npmjs.com/package/typescript)
-  - [react](https://www.npmjs.com/package/react)
+  - [solidjs](https://www.npmjs.com/package/solid-js)
   - [tailwindcss](https://www.npmjs.com/package/tailwindcss)
-  - [next](https://www.npmjs.com/package/next)
+  - [solid-start](https://www.npmjs.com/package/solid-start)
 
 <!-- GETTING STARTED DEVELOPMENT  -->
 
@@ -67,13 +67,7 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
 
   ```sh
   node -v
-  v16.5.0
-  ```
-
-- important to install yarn package manager globally
-
-  ```sh
-  npm i yarn -g
+  v18.5.0
   ```
 
 ## Installation Development
@@ -91,13 +85,13 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
 1. install packages
 
    ```sh
-   yarn
+   npm install
    ```
 
 2. start dev server
 
    ```sh
-   yarn dev
+   npm run dev
    ```
 
 <!-- USAGE EXAMPLES -->
