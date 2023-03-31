@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <TitleDescription
-        title='Home'
+        title='Coding Discord'
         description='discord.gg/coding official discord'
       />
 
