@@ -13,7 +13,7 @@ export default function Home() {
       />
 
       <Layout>
-        <div class='flex min-h-screen flex-col items-center justify-center text-center'>
+        <div class='flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
           <UnstyledLink href='https://discord.gg/coding'>
             <div class='mt-5 rounded-full bg-white px-1 py-5 pb-8 text-6xl font-medium md:mt-0'>
               <span class='mb-10 text-red-600'>{'<'}</span>
