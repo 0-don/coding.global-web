@@ -78,10 +78,6 @@ export default function Home() {
             <UnderlineLink href='https://github.com/Don-Cryptus'>
               Don Cryptus
             </UnderlineLink>
-            {' & '}
-            <UnderlineLink href='https://github.com/Superriot'>
-              Superriot
-            </UnderlineLink>
           </footer>
         </div>
       </Layout>
