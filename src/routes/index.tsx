@@ -13,10 +13,10 @@ export default function Home() {
       />
 
       <Layout>
-        <div class='flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
+        <div class='my-2 flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
           <UnstyledLink href='https://discord.gg/coding'>
-            <div class='mt-5 rounded-full bg-white px-1 py-5 pb-8 text-6xl font-medium md:mt-0'>
-              <span class='mb-10 text-red-600'>{'<'}</span>
+            <div class='flex h-28 items-center rounded-full bg-white p-2 text-6xl font-medium leading-[0px]'>
+              <span class='text-red-600'>{'<'}</span>
               <span class='text-black'>/</span>
               <span class='text-red-600'>{'>'}</span>
             </div>
@@ -34,7 +34,7 @@ export default function Home() {
               See the repository
             </ArrowLink>
           </p>
-          <div class='mt-4 flex items-center space-x-2 flex-wrap'>
+          <div class='mt-4 flex flex-wrap items-center space-x-2'>
             <UnstyledLink
               href='https://discord.gg/coding'
               className='w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black'
@@ -50,6 +50,8 @@ export default function Home() {
                 <span>Discord</span>
               </div>
             </UnstyledLink>
+          </div>
+          <div class='mt-2 flex space-x-2'>
             <UnstyledLink
               href='/team'
               className='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
