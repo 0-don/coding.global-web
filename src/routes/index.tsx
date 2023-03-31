@@ -69,7 +69,7 @@ export default function Home() {
             ></iframe>
 
             <footer class='text-white tall:absolute tall:bottom-0'>
-              <span>{`&#169; ${new Date().getFullYear()} By `}</span>
+              <span>{`© ${new Date().getFullYear()} By `}</span>
               <UnderlineLink href='https://github.com/Don-Cryptus'>
                 Don Cryptus
               </UnderlineLink>
