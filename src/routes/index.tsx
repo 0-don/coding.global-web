@@ -57,6 +57,12 @@ export default function Home() {
               >
                 Team
               </UnstyledLink>
+              <UnstyledLink
+                href='/rules'
+                className='cursor-newtab w-32 rounded-md bg-discord py-1 text-2xl font-black'
+              >
+                Rules
+              </UnstyledLink>
             </div>
             <iframe
               src='https://discord.com/widget?id=693908458986143824&theme=dark'
