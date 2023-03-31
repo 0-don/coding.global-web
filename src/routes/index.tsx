@@ -1,10 +1,11 @@
+import { Layout } from '../components/container/Layout';
 import { ArrowLink } from '../components/links/ArrowLink';
 import { UnderlineLink } from '../components/links/UnderlineLink';
 import { UnstyledLink } from '../components/links/UnstyledLink';
 
 export default function Home() {
   return (
-    <main>
+    <Layout>
       <section class='text-white'>
         <div class='layout flex min-h-screen flex-col items-center justify-center text-center'>
           <UnstyledLink href='https://discord.gg/coding'>
@@ -72,6 +73,6 @@ export default function Home() {
           </footer>
         </div>
       </section>
-    </main>
+    </Layout>
   );
 }
