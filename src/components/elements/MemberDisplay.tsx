@@ -6,7 +6,7 @@ interface MemberDisplayProps {
   unresolvedMember: UnresolvedMember;
 }
 
-const MemberDisplay: Component<MemberDisplayProps> = ({
+export const MemberDisplay: Component<MemberDisplayProps> = ({
   unresolvedMember: { description, id },
 }) => {
   const [resolvedMember, setResolvedMember] = createSignal<ResolvedMember>();
@@ -48,5 +48,3 @@ const MemberDisplay: Component<MemberDisplayProps> = ({
     </div>
   );
 };
-
-export default MemberDisplay;

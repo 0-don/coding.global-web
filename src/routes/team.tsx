@@ -1,6 +1,6 @@
 import { Layout } from '../components/container/Layout';
 import { Header } from '../components/elements/Header';
-import MemberDisplay from '../components/elements/MemberDisplay';
+import { MemberDisplay } from '../components/elements/MemberDisplay';
 import { teamMembers } from '../utils/teamMembers';
 
 export default function Team() {
