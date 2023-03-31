@@ -13,9 +13,9 @@ export default function Home() {
       />
 
       <Layout>
-        <div class='my-2 flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
+        <div class='flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
           <UnstyledLink href='https://discord.gg/coding'>
-            <div class='flex h-28 items-center rounded-full bg-white p-2 text-6xl font-medium leading-[0px]'>
+            <div class='flex h-28 items-center rounded-full bg-white pb-4 text-6xl font-medium leading-[0px]'>
               <span class='text-red-600'>{'<'}</span>
               <span class='text-black'>/</span>
               <span class='text-red-600'>{'>'}</span>
