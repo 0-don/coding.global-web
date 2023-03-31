@@ -1,5 +1,5 @@
 {
-  "name": "solid",
+  "name": "coding.global-web",
   "private": true,
   "scripts": {
     "dev": "solid-start dev",
