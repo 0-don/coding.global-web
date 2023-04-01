@@ -13,7 +13,7 @@ export default function Home() {
       />
 
       <Layout>
-        <div class='flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
+        <div class='flex w-full h-full flex-col items-center justify-center text-center lg:min-h-screen'>
           <UnstyledLink href='https://discord.gg/coding'>
             <div class='flex h-28 w-28 justify-center items-center rounded-full bg-white pb-1 text-center text-6xl font-medium'>
               <span class='text-red-600'>{'<'}</span>
@@ -71,11 +71,11 @@ export default function Home() {
             height='500'
             title='Discord Widget'
             frame-border='0'
-            class='mt-4'
+            class='mt-4 flex-shrink-0'
             sandbox='allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts'
           ></iframe>
 
-          <footer class='text-white tall:absolute tall:bottom-3'>
+          <footer class='text-white mt-auto'>
             <span>{`© ${new Date().getFullYear()} By `}</span>
             <UnderlineLink href='https://github.com/Don-Cryptus'>
               Don Cryptus
