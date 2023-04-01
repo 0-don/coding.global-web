@@ -14,6 +14,7 @@ export default function Home() {
 
       <Layout>
         <div class='flex w-full h-full flex-col items-center justify-center text-center lg:min-h-screen'>
+          <div class="mt-auto"></div>
           <UnstyledLink href='https://discord.gg/coding'>
             <div class='flex h-28 w-28 justify-center items-center rounded-full bg-white pb-1 text-center text-6xl font-medium'>
               <span class='text-red-600'>{'<'}</span>
