@@ -15,7 +15,7 @@ export default function Home() {
       <Layout>
         <div class='flex w-full flex-col items-center justify-center text-center lg:min-h-screen'>
           <UnstyledLink href='https://discord.gg/coding'>
-            <div class='flex h-28 items-center rounded-full bg-white pb-3 text-6xl font-medium leading-[0px]'>
+            <div class='flex h-28 w-28 justify-center items-center rounded-full bg-white pb-1 text-center text-6xl font-medium'>
               <span class='text-red-600'>{'<'}</span>
               <span class='text-black'>/</span>
               <span class='text-red-600'>{'>'}</span>
@@ -75,10 +75,14 @@ export default function Home() {
             sandbox='allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts'
           ></iframe>
 
-          <footer class='text-white tall:absolute tall:bottom-0'>
+          <footer class='text-white tall:absolute tall:bottom-3'>
             <span>{`© ${new Date().getFullYear()} By `}</span>
             <UnderlineLink href='https://github.com/Don-Cryptus'>
               Don Cryptus
+            </UnderlineLink>
+            <span> & </span>
+            <UnderlineLink href='https://github.com/kryptn36'>
+              kryptn36
             </UnderlineLink>
           </footer>
         </div>

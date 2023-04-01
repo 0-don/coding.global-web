@@ -26,7 +26,7 @@ export const MemberDisplay: Component<MemberDisplayProps> = ({
         <div class='preserve-3d group-hover:my-rotate-y-180 relative duration-1000'>
           <div class='backface-hidden absolute'>
             {!resolvedMember() ? (
-              <div class='h-[150px] w-24 rounded-full bg-gray-300'></div>
+              <div class='h-[150px] w-[150px] rounded-full bg-gray-300'></div>
             ) : (
               <img
                 src={resolvedMember()?.avatar.link}

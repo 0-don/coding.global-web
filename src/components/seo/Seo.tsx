@@ -1,5 +1,5 @@
 import { Head, Link, Meta, Title, useLocation } from 'solid-start';
-import { openGraph } from '../../utils/helpert';
+import { openGraph } from '../../utils/helper';
 
 export const defaultMeta = {
   title: 'Official Coding Discord Website',
