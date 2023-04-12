@@ -6,7 +6,7 @@
   <h3 align="center">coding.global Official Discord Website</h3>
 
   <p align="center">
-    Official <a href="https://discord.gg/coding">discord.gg/coding</a> Website for the Coding Discord Server
+    Official <a href="https://discord.gg/coding">discord.gg/coding</a> Website for the Coding Discord Server.
     <br />
     <a href="#about-the-project"><strong>» Explore the docs</strong></a>
     <br />
