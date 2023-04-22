@@ -13,12 +13,10 @@ export default function Home() {
       />
 
       <Layout>
-        <div class='flex w-full h-full flex-col items-center text-center'>
-          <UnstyledLink className="mt-auto" href='https://discord.gg/coding'>
-            <div class='flex h-28 w-28 justify-center items-center rounded-full bg-white pb-1 text-center text-6xl font-medium'>
-              <span class='text-red-600'>{'<'}</span>
-              <span class='text-black'>/</span>
-              <span class='text-red-600'>{'>'}</span>
+        <div class='flex h-full w-full flex-col items-center text-center'>
+          <UnstyledLink className='mt-auto' href='https://discord.gg/coding'>
+            <div class='flex h-36 w-36 items-center justify-center rounded-full bg-white p-2 text-center text-6xl font-medium'>
+              <img src='/images/logo.gif' />
             </div>
           </UnstyledLink>
           <h1 class='mt-4'>Official Coding Discord Website</h1>
@@ -75,7 +73,7 @@ export default function Home() {
             sandbox='allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts'
           ></iframe>
 
-          <footer class='text-white mt-auto'>
+          <footer class='mt-auto text-white'>
             <span>{`© ${new Date().getFullYear()} By `}</span>
             <UnderlineLink href='https://github.com/Don-Cryptus'>
               Don Cryptus
