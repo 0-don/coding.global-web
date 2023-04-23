@@ -15,10 +15,8 @@ export default function Home() {
       <Layout>
         <div class='flex h-full w-full flex-col items-center text-center'>
           <UnstyledLink className='mt-auto' href='https://discord.gg/coding'>
-            <div
-              class={`' flex h-36 w-36 items-center justify-center rounded-full`}
-            >
-              <img src='/images/logo_512.gif' />
+            <div class={`h-36 w-36`}>
+              <img src='/images/logo_512.gif' class='rounded-full' />
             </div>
           </UnstyledLink>
           <h1 class='mt-4'>Official Coding Discord Website</h1>
