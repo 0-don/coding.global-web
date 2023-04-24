@@ -28,7 +28,7 @@ export default function Home() {
             Website for the Coding Discord Server
           </p>
           <p class='mt-2 text-sm text-white'>
-            <ArrowLink href='https://github.com/Don-Cryptus/discord.global-web'>
+            <ArrowLink href='https://github.com/Don-Cryptus/coding.global-web'>
               See the repository
             </ArrowLink>
           </p>
