@@ -1,5 +1,5 @@
-import { Title, Meta } from '@solidjs/meta';
-import { Component } from 'solid-js';
+import { Meta, MetaProvider, Title } from "@solidjs/meta";
+import { Component } from "solid-js";
 
 interface TitleDescriptionProps {
   title: string;
@@ -11,9 +11,9 @@ export const TitleDescription: Component<TitleDescriptionProps> = ({
   description,
 }) => {
   return (
-    <>
+    <MetaProvider>
       <Title>{title}</Title>
-      <Meta content={description} name='description' />
-    </>
+      <Meta content={description} name="description" />
+    </MetaProvider>
   );
 };
