@@ -1,5 +1,6 @@
+import { A } from '@solidjs/router';
 import { Component } from 'solid-js';
-import { A } from 'solid-start';
+
 
 interface HeaderProps {
   name: string;

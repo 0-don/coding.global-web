@@ -1,4 +1,5 @@
-import { Head, Link, Meta, Title, useLocation } from 'solid-start';
+import { Link, Meta, Title } from "@solidjs/meta";
+import { useLocation } from '@solidjs/router';
 import { openGraph } from '../../utils/helper';
 
 export const defaultMeta = {
@@ -42,7 +43,7 @@ export default function Seo(props: SeoProps) {
   });
 
   return (
-    <Head>
+    <>
       <Title>{meta.title}</Title>
       <Meta name='robots' content={meta.robots} />
       <Meta
@@ -90,7 +91,7 @@ export default function Seo(props: SeoProps) {
         content='/favicon/ms-icon-144x144.png'
       />
       <Meta name='theme-color' content='#ffffff' />
-    </Head>
+    </>
   );
 }
 
