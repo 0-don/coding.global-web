@@ -1,5 +1,5 @@
+import { Title, Meta } from '@solidjs/meta';
 import { Component } from 'solid-js';
-import { Meta, Title } from 'solid-start';
 
 interface TitleDescriptionProps {
   title: string;

@@ -25,8 +25,8 @@ FROM node:18-alpine AS prod
 WORKDIR /app
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/.solid ./.solid
+COPY --from=builder /app/.output ./.output
+COPY --from=builder /app/.vinxi ./.vinxi
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 

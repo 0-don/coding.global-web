@@ -4,7 +4,12 @@ dist
 .output
 .vercel
 .netlify
+.vinxi
 netlify
+
+# Environment
+.env
+.env*.local
 
 # dependencies
 /node_modules
@@ -22,6 +27,7 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
+
 yarn.lock
 package-lock.json
 pnpm-lock.yaml

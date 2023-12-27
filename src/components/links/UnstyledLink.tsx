@@ -1,5 +1,5 @@
+import { A } from '@solidjs/router';
 import { Component, ComponentProps, JSX } from 'solid-js';
-import { A } from 'solid-start';
 
 export type UnstyledLinkProps = {
   href: string;
