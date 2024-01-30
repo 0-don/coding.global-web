@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/Don-Cryptus/echat">
+  <a href="https://github.com/0-don/echat">
     <img src="public/favicon/favicon-96x96.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -13,9 +13,9 @@
     <br />
     <a href="https://coding.global">View Site</a>
     ·
-    <a href="https://github.com/Don-Cryptus/coding.global-web/issues">Report Bug</a>
+    <a href="https://github.com/0-don/coding.global-web/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Don-Cryptus/coding.global-web/issues">Request Feature</a>
+    <a href="https://github.com/0-don/coding.global-web/issues">Request Feature</a>
   </p>
 </p>
 
@@ -75,7 +75,7 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
 - Clone the repo
 
   ```sh
-  git clone https://github.com/Don-Cryptus/coding.global-web
+  git clone https://github.com/0-don/coding.global-web
   cd coding.global-web/
   code .
   ```
@@ -106,7 +106,7 @@ _For more examples, please refer to the [FAQ](https://coding.global/faq)_
 
 # Roadmap
 
-See the [open issues](https://github.com/Don-Cryptus/coding.global-web/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/0-don/coding.global-web/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -126,4 +126,4 @@ Any contributions you make are **greatly appreciated**.
 
 Your Email - don.cryptus@gmail.com
 
-Project Link: [https://github.com/Don-Cryptus/coding.global-web/](https://github.com/Don-Cryptus/coding.global-web)
+Project Link: [https://github.com/0-don/coding.global-web/](https://github.com/0-don/coding.global-web)
