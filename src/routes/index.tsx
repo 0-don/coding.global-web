@@ -28,7 +28,7 @@ export default function Home() {
             Website for the Coding Discord Server
           </p>
           <p class='mt-2 text-sm text-white'>
-            <ArrowLink href='https://github.com/Don-Cryptus/coding.global-web'>
+            <ArrowLink href='https://github.com/0-don/coding.global-web'>
               See the repository
             </ArrowLink>
           </p>
@@ -75,7 +75,7 @@ export default function Home() {
 
           <footer class='mt-auto text-white'>
             <span>{`© ${new Date().getFullYear()} By `}</span>
-            <UnderlineLink href='https://github.com/Don-Cryptus'>
+            <UnderlineLink href='https://github.com/0-don'>
               Don Cryptus
             </UnderlineLink>
             <span> & </span>
