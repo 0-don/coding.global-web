@@ -1,6 +1,13 @@
-import { Component, createSignal, onMount } from 'solid-js';
-import { ResolvedMember, UnresolvedMember } from '../../types';
-import { DiscordApi } from '../../utils/discord-api.client';
+import { Component, createSignal, onMount } from "solid-js";
+import { ResolvedMember, UnresolvedMember } from "../../types";
+import { DiscordApi } from "../../utils/discord-api.client";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 
 interface MemberDisplayProps {
   unresolvedMember: UnresolvedMember;
@@ -17,34 +24,24 @@ export const MemberDisplay: Component<MemberDisplayProps> = ({
   });
 
   return (
-    <div
-      class={`mt-10 flex flex-col items-center ${
-        !resolvedMember() ? 'animate-pulse' : ''
-      }`}
-    >
-      <div class='perspective group h-[150px] w-[150px] rounded-full bg-black text-xs text-white'>
-        <div class='preserve-3d group-hover:my-rotate-y-180 relative duration-1000'>
-          <div class='backface-hidden absolute'>
-            {!resolvedMember() ? (
-              <div class='h-[150px] w-[150px] rounded-full bg-gray-300'></div>
-            ) : (
-              <img
-                src={resolvedMember()?.avatar.link}
-                class='h-[150px] w-[150px] rounded-full'
-                alt={resolvedMember()?.tag}
-                height={100}
-                width={100}
-              />
-            )}
-          </div>
-          <div class='my-rotate-y-180 backface-hidden flex h-[150px] items-center justify-center rounded-full px-4'>
-            {resolvedMember()?.description ?? ''}
-          </div>
-        </div>
-      </div>
-      {resolvedMember()?.tag ?? (
-        <div class='mt-[14px] h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600'></div>
-      )}
+    <div class="">
+      <Card class="">
+        <CardHeader>
+          <img
+            src={resolvedMember()?.avatar.link}
+            class="rounded-full"
+            alt={resolvedMember()?.tag}
+            height={100}
+            width={100}
+          />
+          <CardDescription>
+            {resolvedMember()?.description ?? ""}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CardTitle>{resolvedMember()?.tag ?? ""}</CardTitle>
+        </CardContent>
+      </Card>
     </div>
   );
 };
