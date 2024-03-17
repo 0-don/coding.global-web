@@ -12,16 +12,15 @@
     "@solidjs/router": "^0.13.0",
     "@solidjs/start": "^0.7.5",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.8.15"
+    "solid-js": "^1.8.15",
+    "vinxi": "^0.3.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.18",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.4.2",
-    "vinxi": "^0.1.10"
+    "tailwindcss": "^3.4.1"
   },
   "engines": {
     "node": ">=18"

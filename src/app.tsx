@@ -5,7 +5,15 @@ import "./app.css";
 
 export default function App() {
   return (
-    <Router root={(props) => <Suspense>{props.children}</Suspense>}>
+    <Router
+      root={(props) => (
+        <>
+          <Suspense fallback={<div class="news-list-nav">Loading...</div>}>
+            {props.children}
+          </Suspense>
+        </>
+      )}
+    >
       <FileRoutes />
     </Router>
   );
