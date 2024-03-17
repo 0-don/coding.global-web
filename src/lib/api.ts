@@ -3,8 +3,8 @@ import { Staff } from "~/types";
 
 async function fetchAPI(url: string, init?: RequestInit | undefined) {
   try {
-    let response = await fetch(url, init);
-    let text = await response.text();
+    const response = await fetch(url, init);
+    const text = await response.text();
     try {
       if (text === null) {
         return { error: "Not found" };

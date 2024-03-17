@@ -6,7 +6,7 @@ interface HeaderProps {
   name: string;
 }
 
-export const Header: Component<HeaderProps> = ({ name }) => {
+export const Header: Component<HeaderProps> = (props) => {
   return (
     <div class="mt-6 grid grid-cols-3  content-center">
       <A href="/">
@@ -16,7 +16,7 @@ export const Header: Component<HeaderProps> = ({ name }) => {
       </A>
 
       <h1 class="font-secondary text-center text-2xl font-bold text-white">
-        {name}
+        {props.name}
       </h1>
     </div>
   );
