@@ -1,86 +1,78 @@
-import { Staff } from "~/types";
-import { Layout } from "../components/container/Layout";
-import { Header } from "../components/elements/Header";
-import { TitleDescription } from "../components/seo/TitleDescription";
-import { Show, createSignal } from "solid-js";
-import { onMount } from "solid-js";
+import {
+  RouteDefinition,
+  RouteSectionProps,
+  createAsync,
+} from "@solidjs/router";
+import { AiOutlineGlobal, AiOutlineUserAdd } from "solid-icons/ai";
+import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
-import { AiOutlineUserAdd } from "solid-icons/ai";
-import { AiOutlineGlobal } from "solid-icons/ai";
-import { staffMembers } from "~/utils/staffMembers";
-import { For } from "solid-js";
+import { getStaffMembers } from "~/lib/api";
+import { STAFF_MEMBERS } from "~/utils/staffMembers";
+import { Header } from "../components/container/Header";
+import { Layout } from "../components/container/Layout";
 
-export default function Team() {
-  const [members, setMembers] = createSignal<Staff[]>([]);
+export const route = {
+  load: ({ params }) => void getStaffMembers(),
+} satisfies RouteDefinition;
 
-  onMount(async () => {
-    const res = await fetch(
-      "https://bot.coding.global/api/693908458986143824/staff",
-    );
-    const data: Staff[] = await res.json();
-    setMembers(data);
+export default function Team({ params }: RouteSectionProps) {
+  const members = createAsync(() => getStaffMembers(), {
+    deferStream: true,
   });
 
-  const findRole = (role: string) => {
-    return staffMembers.find((member) => member.role === role);
-  };
-
   return (
-    <>
-      <TitleDescription title="Team" description="Coding discord Team" />
+    <Layout>
+      <section class="container mx-auto">
+        <Header name="Team" />
 
-      <Layout>
-        <section class="bg-dark-light container mx-auto rounded-md bg-opacity-80 text-white">
-          <Header name="Team" />
+        <div class="mt-10 gap-5 md:grid md:grid-cols-5">
+          <For each={members()}>
+            {(m) => (
+              <Card class="min-h-64">
+                <CardHeader>
+                  <img
+                    src={m.displayAvatarURL}
+                    class="h-52 w-full object-cover"
+                    alt={m.username}
+                  />
+                  <CardDescription class="flex items-center space-x-1">
+                    <AiOutlineUserAdd />
+                    <span>{m.username}</span>
+                  </CardDescription>
+                  <Show when={m.globalName}>
+                    <CardDescription class="flex items-center space-x-1">
+                      <AiOutlineGlobal />
+                      <span class="font-bold">{m.globalName}</span>
+                    </CardDescription>
+                  </Show>
 
-          <div class="mt-10 gap-10 md:grid md:grid-cols-4">
-            {members().map((m) => (
-              <div class="">
-                <Card class="min-h-96">
-                  <CardHeader>
-                    <img
-                      src={m.avatarUrl}
-                      class="h-52 w-full object-cover"
-                      alt={m.username}
-                    />
-                    <div class="">
-                      <Show when={m.globalName}>
-                        <CardDescription class="flex space-x-2 font-bold">
-                          <AiOutlineGlobal class="mt-1 text-xl" />
-                          <span class="text-lg font-bold">{m.globalName}</span>
-                        </CardDescription>
-                      </Show>
-                      <CardDescription class="flex space-x-2 font-bold">
-                        <AiOutlineUserAdd class="mt-1 text-xl" />
-                        <span class="text-lg">{m.username}</span>
-                      </CardDescription>
+                  <CardDescription class="flex flex-wrap space-x-2">
+                    <For each={m.memberRoles}>
+                      {(staffRole) => {
+                        const role = STAFF_MEMBERS.find(
+                          (member) => member.role === staffRole,
+                        );
 
-                      <CardDescription>
-                        <For each={m.memberRoles}>
-                          {(staffRole) => {
-                            const role = findRole(staffRole);
-                            if (!role) return null;
+                        if (!role) return <></>;
 
-                            return (
-                              <span
-                                class={`flex gap-2 text-lg ${role.color} font-bold`}
-                              >
-                                <role.Icon class="mt-1 text-xl" />
+                        return (
+                          <span
+                            class={`flex items-center gap-1 ${role.color} `}
+                          >
+                            <role.Icon />
 
-                                {role.role}
-                              </span>
-                            );
-                          }}
-                        </For>
-                      </CardDescription>
-                    </div>
-                  </CardHeader>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </section>
-      </Layout>
-    </>
+                            {role.role}
+                          </span>
+                        );
+                      }}
+                    </For>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            )}
+          </For>
+        </div>
+      </section>
+    </Layout>
   );
 }

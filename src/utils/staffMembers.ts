@@ -1,13 +1,13 @@
+import { AiFillBug, AiFillCode } from "solid-icons/ai";
+import { FiHelpCircle } from "solid-icons/fi";
+import { AiFillCrown } from 'solid-icons/ai'
 import { MemberRole } from "../types";
-import { RiFinanceVipCrownFill } from "solid-icons/ri";
-import { AiFillCode } from "solid-icons/ai";
-import { AiFillBug } from "solid-icons/ai";
 
-export const staffMembers: MemberRole[] = [
+export const STAFF_MEMBERS: MemberRole[] = [
   {
     role: "Owner",
     color: "text-red-500",
-    Icon: RiFinanceVipCrownFill,
+    Icon: AiFillCrown,
   },
   {
     role: "Moderator",
@@ -18,5 +18,10 @@ export const staffMembers: MemberRole[] = [
     role: "Admin",
     color: "text-yellow-500",
     Icon: AiFillCode,
+  },
+  {
+    role: "Helper",
+    color: "text-blue-500",
+    Icon: FiHelpCircle,
   },
 ];

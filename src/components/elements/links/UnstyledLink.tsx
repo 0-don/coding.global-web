@@ -1,5 +1,5 @@
-import { A } from '@solidjs/router';
-import { Component, ComponentProps, JSX } from 'solid-js';
+import { A } from "@solidjs/router";
+import { Component, ComponentProps, JSX } from "solid-js";
 
 export type UnstyledLinkProps = {
   href: string;
@@ -22,7 +22,7 @@ export const UnstyledLink: Component<UnstyledLinkProps> = ({
   const isNewTab =
     openNewTab !== undefined
       ? openNewTab
-      : href && !href.startsWith('/') && !href.startsWith('#');
+      : href && !href.startsWith("/") && !href.startsWith("#");
 
   if (!isNewTab) {
     return (
@@ -35,8 +35,8 @@ export const UnstyledLink: Component<UnstyledLinkProps> = ({
   return (
     <a
       ref={ref}
-      target='_blank'
-      rel='noopener noreferrer'
+      target="_blank"
+      rel="noopener noreferrer"
       href={href}
       {...rest}
       class={className}
