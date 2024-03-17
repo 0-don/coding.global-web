@@ -111,3 +111,108 @@
     @apply px-4;
   }
 }
+
+body {
+  @apply bg-background !text-white;
+}
+
+.img-fade {
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(0, 0, 0, 1)),
+    to(rgba(0, 0, 0, 0))
+  );
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+@layer base {
+  .cursor-newtab {
+    cursor:
+      url("/images/new-tab.png") 10 10,
+      pointer;
+  }
+
+  .h0 {
+    @apply text-3xl font-bold md:text-5xl;
+  }
+
+  h1,
+  .h1 {
+    @apply text-2xl font-bold md:text-4xl;
+  }
+
+  h2,
+  .h2 {
+    @apply text-xl font-bold md:text-3xl;
+  }
+
+  h3,
+  .h3 {
+    @apply text-lg font-bold md:text-2xl;
+  }
+
+  h4,
+  .h4 {
+    @apply text-base font-bold md:text-lg;
+  }
+}
+
+@layer utilities {
+  .animated-underline {
+    background-image: linear-gradient(#33333300, #33333300),
+      linear-gradient(to right, red, black);
+    background-size:
+      100% 2px,
+      0 2px;
+    background-position:
+      100% 100%,
+      0 100%;
+    background-repeat: no-repeat;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .animated-underline {
+      transition: 0.3s ease;
+      transition-property: background-size, color, background-color,
+        border-color;
+    }
+  }
+  .animated-underline:hover,
+  .animated-underline:focus-visible {
+    background-size:
+      0 2px,
+      100% 2px;
+  }
+}
+
+::-webkit-scrollbar {
+  @apply h-[2px] w-[2px];
+}
+::-webkit-scrollbar-button {
+  @apply h-0 w-0;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-t from-transparent via-red-600 to-transparent;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  @apply bg-gradient-to-l from-transparent via-red-600 to-transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb:active {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track:hover {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-track:active {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-corner {
+  @apply bg-transparent;
+}

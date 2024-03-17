@@ -1,6 +1,6 @@
 # Install dependencies only when needed
 # Stage 0
-FROM node:20-alpine AS deps
+FROM node:lts-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -10,7 +10,7 @@ RUN yarn install
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM node:20-alpine AS builder
+FROM node:lts-alpine AS builder
 WORKDIR /app
 
 COPY . .
@@ -21,7 +21,7 @@ RUN yarn build
 
 # Production image, copy only production files
 # Stage 2
-FROM node:20-alpine AS prod
+FROM node:lts-alpine AS prod
 WORKDIR /app
 
 COPY --from=builder /app/public ./public
