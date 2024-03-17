@@ -15,7 +15,7 @@ export const route = {
   load: ({ params }) => void getStaffMembers(),
 } satisfies RouteDefinition;
 
-export default function Team({ params }: RouteSectionProps) {
+export default function Team(props: RouteSectionProps) {
   const members = createAsync(() => getStaffMembers(), {
     deferStream: true,
   });

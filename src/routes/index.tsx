@@ -5,9 +5,9 @@ import { Layout } from "../components/container/layout";
 export default function Home() {
   return (
     <Layout>
-      <div class="flex h-full w-full flex-col items-center text-center">
+      <div class="flex size-full flex-col items-center text-center">
         <A class="mt-auto" href="https://discord.gg/coding">
-          <div class={`h-36 w-36`}>
+          <div class={`size-36`}>
             <img src="/images/logo_512.gif" class="rounded-full" />
           </div>
         </A>
@@ -55,9 +55,9 @@ export default function Home() {
           height="500"
           title="Discord Widget"
           frame-border="0"
-          class="mt-4 flex-shrink-0"
+          class="mt-4 shrink-0"
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-        ></iframe>
+         />
 
         <footer class="mt-auto">
           <span>{`© ${new Date().getFullYear()} By `}</span>
