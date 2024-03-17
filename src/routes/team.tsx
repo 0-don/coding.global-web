@@ -13,7 +13,7 @@ export default function Team() {
         <section class="bg-dark-light container mx-auto rounded-md bg-opacity-80 text-white">
           <Header name="Team" />
 
-          <div class="mt-10 md:grid md:grid-cols-3 gap-10">
+          <div class="mt-10 gap-10 md:grid md:grid-cols-3">
             {teamMembers.map((m) => (
               <MemberDisplay unresolvedMember={m} />
             ))}
