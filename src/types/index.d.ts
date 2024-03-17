@@ -14,4 +14,12 @@ export interface Image {
   link: string;
 }
 
+export interface Staff {
+  id: string;
+  username: string;
+  guildName: string;
+  avatarUrl: string;
+  staffRoles: string[];
+}
+
 export type ResolvedMember = UnresolvedMember & DiscordMember;
