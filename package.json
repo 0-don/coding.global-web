@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@kobalte/core": "^0.12.6",
