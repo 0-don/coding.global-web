@@ -1,6 +1,5 @@
-import { AiFillBug, AiFillCode } from "solid-icons/ai";
+import { AiFillBug, AiFillCode, AiFillCrown } from "solid-icons/ai";
 import { FiHelpCircle } from "solid-icons/fi";
-import { AiFillCrown } from 'solid-icons/ai'
 import { MemberRole } from "../types";
 
 export const STAFF_MEMBERS: MemberRole[] = [
