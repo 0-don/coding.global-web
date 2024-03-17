@@ -7,9 +7,9 @@ import { AiOutlineGlobal, AiOutlineUserAdd } from "solid-icons/ai";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { getStaffMembers } from "~/lib/api";
-import { STAFF_MEMBERS } from "~/utils/staffMembers";
-import { Header } from "../components/container/Header";
-import { Layout } from "../components/container/Layout";
+import { STAFF_MEMBERS } from "~/lib/staffMembers";
+import { Header } from "../components/container/header";
+import { Layout } from "../components/container/layout";
 
 export const route = {
   load: ({ params }) => void getStaffMembers(),

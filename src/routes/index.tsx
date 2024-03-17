@@ -1,60 +1,53 @@
-import { Layout } from "../components/container/Layout";
-import { ArrowLink } from "../components/elements/links/ArrowLink";
-import { UnderlineLink } from "../components/elements/links/UnderlineLink";
-import { UnstyledLink } from "../components/elements/links/UnstyledLink";
+import { A } from "@solidjs/router";
+import { FaBrandsDiscord } from "solid-icons/fa";
+import { Layout } from "../components/container/layout";
 
 export default function Home() {
   return (
     <Layout>
       <div class="flex h-full w-full flex-col items-center text-center">
-        <UnstyledLink className="mt-auto" href="https://discord.gg/coding">
+        <A class="mt-auto" href="https://discord.gg/coding">
           <div class={`h-36 w-36`}>
             <img src="/images/logo_512.gif" class="rounded-full" />
           </div>
-        </UnstyledLink>
+        </A>
         <h1 class="mt-4">Official Coding Discord Website</h1>
-        <p class="mt-2 text-sm text-white">
+        <p class="mt-2 text-sm">
           Official{" "}
-          <ArrowLink className="underline" href="https://discord.gg/coding">
+          <A class="underline" href="https://discord.gg/coding">
             discord.gg/coding
-          </ArrowLink>
+          </A>
           Website for the Coding Discord Server
         </p>
-        <p class="mt-2 text-sm text-white">
-          <ArrowLink href="https://github.com/0-don/coding.global-web">
+        <p class="mt-2 text-sm">
+          <A href="https://github.com/0-don/coding.global-web">
             See the repository
-          </ArrowLink>
+          </A>
         </p>
         <div class="mt-4 flex flex-wrap items-center space-x-2">
-          <UnstyledLink
+          <A
             href="https://discord.gg/coding"
-            className="bg-discord w-36 rounded-md px-2 py-1 text-2xl font-black"
+            class="bg-discord w-36 rounded-md px-2 py-1 text-2xl font-black"
           >
-            <div class="flex items-center">
-              <img
-                class="mt-0.5 px-1"
-                src="/images/discord.png"
-                width="31"
-                height="24"
-                alt="Discord Logo"
-              />
+            <div class="flex items-center text-white">
+              <FaBrandsDiscord />
               <span>Discord</span>
             </div>
-          </UnstyledLink>
+          </A>
         </div>
         <div class="mt-2 flex space-x-2">
-          <UnstyledLink
+          <A
             href="/team"
-            className="cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black"
+            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
           >
             Team
-          </UnstyledLink>
-          <UnstyledLink
+          </A>
+          <A
             href="/rules"
-            className="cursor-newtab bg-discord w-32 rounded-md py-1 text-2xl font-black"
+            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
           >
             Rules
-          </UnstyledLink>
+          </A>
         </div>
         <iframe
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
@@ -66,15 +59,11 @@ export default function Home() {
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
         ></iframe>
 
-        <footer class="mt-auto text-white">
+        <footer class="mt-auto">
           <span>{`© ${new Date().getFullYear()} By `}</span>
-          <UnderlineLink href="https://github.com/0-don">
-            Don Cryptus
-          </UnderlineLink>
+          <A href="https://github.com/0-don">Don Cryptus</A>
           <span> & </span>
-          <UnderlineLink href="https://github.com/kryptn36">
-            kryptn36
-          </UnderlineLink>
+          <A href="https://github.com/kryptn36">kryptn36</A>
         </footer>
       </div>
     </Layout>
