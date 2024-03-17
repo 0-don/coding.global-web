@@ -36,7 +36,7 @@ export default function Team() {
           <div class="mt-10 gap-10 md:grid md:grid-cols-4">
             {members().map((m) => (
               <div class="">
-                <Card class="">
+                <Card class="min-h-96">
                   <CardHeader>
                     <img
                       src={m.avatarUrl}
