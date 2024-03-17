@@ -1,6 +1,6 @@
+import { A } from "@solidjs/router";
 import { TbProgressAlert } from "solid-icons/tb";
-import { Layout } from "../components/container/Layout";
-import { ArrowLink } from "../components/elements/links/ArrowLink";
+import { Layout } from "../components/container/layout";
 
 export default function NotFound() {
   return (
@@ -11,9 +11,9 @@ export default function NotFound() {
           class="drop-shadow-glow animate-flicker text-red-500"
         />
         <h1 class="mt-8 text-4xl md:text-6xl">Page Not Found</h1>
-        <ArrowLink className="mt-4 md:text-lg" href="/">
+        <A class="mt-4 md:text-lg" href="/">
           Back to Home
-        </ArrowLink>
+        </A>
       </div>
     </Layout>
   );
