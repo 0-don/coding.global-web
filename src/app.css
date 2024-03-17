@@ -19,7 +19,9 @@ body {
 
 @layer base {
   .cursor-newtab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
+    cursor:
+      url("/images/new-tab.png") 10 10,
+      pointer;
   }
 
   .h0 {
@@ -51,8 +53,12 @@ body {
   .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),
       linear-gradient(to right, red, black);
-    background-size: 100% 2px, 0 2px;
-    background-position: 100% 100%, 0 100%;
+    background-size:
+      100% 2px,
+      0 2px;
+    background-position:
+      100% 100%,
+      0 100%;
     background-repeat: no-repeat;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -64,7 +70,9 @@ body {
   }
   .animated-underline:hover,
   .animated-underline:focus-visible {
-    background-size: 0 2px, 100% 2px;
+    background-size:
+      0 2px,
+      100% 2px;
   }
 }
 
