@@ -1,8 +1,4 @@
-import {
-  RouteDefinition,
-  RouteSectionProps,
-  createAsync,
-} from "@solidjs/router";
+import { RouteDefinition, createAsync } from "@solidjs/router";
 import { AiOutlineGlobal, AiOutlineUserAdd } from "solid-icons/ai";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
@@ -12,10 +8,10 @@ import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
 
 export const route = {
-  load: ({ params }) => void getStaffMembers(),
+  load: () => void getStaffMembers(),
 } satisfies RouteDefinition;
 
-export default function Team(props: RouteSectionProps) {
+export default function Team() {
   const members = createAsync(() => getStaffMembers(), {
     deferStream: true,
   });
