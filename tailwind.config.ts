@@ -1,3 +1,5 @@
+import uipreset from "./ui.preset";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ["class", '[data-kb-theme="dark"]'],
@@ -10,5 +12,5 @@ export default {
     },
   },
 
-  presets: [require("./ui.preset.js")],
+  presets: [uipreset],
 };
