@@ -17,7 +17,7 @@ export default function Home() {
           <A class="underline" href="https://discord.gg/coding">
             discord.gg/coding
           </A>
-          Website for the Coding Discord Server
+          y Website for the Coding Discord Server
         </p>
         <p class="mt-2 text-sm">
           <A href="https://github.com/0-don/coding.global-web">
@@ -27,7 +27,7 @@ export default function Home() {
         <div class="mt-4 flex flex-wrap items-center space-x-2">
           <A
             href="https://discord.gg/coding"
-            class="w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black"
+            class="bg-discord w-36 rounded-md px-2 py-1 text-2xl font-black"
           >
             <div class="flex items-center text-white">
               <FaBrandsDiscord />
@@ -38,13 +38,13 @@ export default function Home() {
         <div class="mt-2 flex space-x-2">
           <A
             href="/team"
-            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
+            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
           >
             Team
           </A>
           <A
             href="/rules"
-            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
+            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
           >
             Rules
           </A>
@@ -57,7 +57,7 @@ export default function Home() {
           frame-border="0"
           class="mt-4 shrink-0"
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-         />
+        />
 
         <footer class="mt-auto">
           <span>{`© ${new Date().getFullYear()} By `}</span>
