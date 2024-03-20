@@ -1,6 +1,6 @@
 # Install dependencies only when needed
 # Stage 0
-FROM node:lts-alpine AS deps
+FROM oven/bun:latest AS deps
 WORKDIR /app
 
 COPY package.json ./
