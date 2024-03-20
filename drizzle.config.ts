@@ -9,7 +9,7 @@ console.log("DATABASE_URL: ", process.env.DATABASE_URL);
 export default {
   driver: "pg",
   schema: "./src/routes/api/schema.ts",
-  out: "./src/drizzle",
+  out: "./src/utils/drizzle",
   dbCredentials: { connectionString: process.env.DATABASE_URL },
   // Print all statements
   verbose: true,
