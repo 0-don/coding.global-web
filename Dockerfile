@@ -17,9 +17,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/bun.lockb ./bun.lockb
 
-ARG DATABASE_URL
 ARG VITE_HOST_URL
-ENV DATABASE_URL=$DATABASE_URL
 ENV VITE_HOST_URL=$VITE_HOST_URL
 
 RUN bun run build
@@ -43,9 +41,7 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 
 ARG DATABASE_URL
-ARG VITE_HOST_URL
 ENV DATABASE_URL=$DATABASE_URL
-ENV VITE_HOST_URL=$VITE_HOST_URL
 
 CMD ["bun", "start"]
 #############################################
