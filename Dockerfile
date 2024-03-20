@@ -18,7 +18,9 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/bun.lockb ./bun.lockb
 
 ARG DATABASE_URL
+ARG VITE_HOST_URL
 ENV DATABASE_URL=$DATABASE_URL
+ENV VITE_HOST_URL=$VITE_HOST_URL
 
 RUN bun run build
 RUN rm -rf node_modules
