@@ -4,7 +4,7 @@ FROM node:lts-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
-RUN yarn install
+RUN bun install
 #############################################
 
 
@@ -15,7 +15,7 @@ WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN bun install
+RUN bun build
 #############################################
 
 
