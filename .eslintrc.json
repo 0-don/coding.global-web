@@ -19,7 +19,8 @@
   ],
   "rules": {
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "off"
+    "tailwindcss/classnames-order": "off",
+    "drizzle/enforce-delete-with-where": "off"
   },
   "settings": {
     "tailwindcss": {
