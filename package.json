@@ -31,10 +31,10 @@
     "solid-js": "^1.8.16",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "vinxi": "^0.3.10"
+    "vinxi": "^0.3.10",
+    "@dotenvx/dotenvx": "^0.26.0"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.18",

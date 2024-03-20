@@ -1,6 +1,6 @@
 # Install dependencies only when needed
 # Stage 0
-FROM oven/bun:latest AS deps
+FROM oven/bun:alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -10,7 +10,7 @@ RUN bun install
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM oven/bun:latest AS builder
+FROM oven/bun:alpine AS builder
 WORKDIR /app
 
 COPY . .
@@ -20,12 +20,15 @@ ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
 
 RUN bun run build
+RUN rm -rf node_modules
+RUN bun install --production
 #############################################
 
 
 # Production image, copy only production files
 # Stage 2
-FROM oven/bun:latest AS prod
+FROM oven/bun:alpine AS prod
+
 WORKDIR /app
 
 COPY --from=builder /app/public ./public
