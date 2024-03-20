@@ -10,18 +10,18 @@ RUN yarn install
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM node:lts-alpine AS builder
+FROM oven/bun:latest AS builder
 WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN yarn build 
+RUN bun install
 #############################################
 
 
 # Production image, copy only production files
 # Stage 2
-FROM node:lts-alpine AS prod
+FROM oven/bun:latest AS prod
 WORKDIR /app
 
 COPY --from=builder /app/public ./public
@@ -32,5 +32,5 @@ COPY --from=builder /app/package.json ./package.json
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["bun", "start"]
 #############################################

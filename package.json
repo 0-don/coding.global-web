@@ -7,7 +7,7 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "prettier": "prettier --write .",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --format stylish"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish"
   },
   "dependencies": {
     "@kobalte/core": "^0.12.6",
