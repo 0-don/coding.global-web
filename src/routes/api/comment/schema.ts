@@ -6,7 +6,7 @@ export const comment = pgTable("comment", {
   id: uuid("id").primaryKey().defaultRandom(),
   user: text("user").notNull(),
   content: text("content").notNull(),
-  timestamp3: timestamp("timestamp3").defaultNow(),
+  createdAt: timestamp("createdAt").defaultNow(),
 });
 
 const insertSchema = createInsertSchema(comment, {
