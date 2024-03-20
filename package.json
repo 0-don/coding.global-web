@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "gen": "dotenvx run -- drizzle-kit drop && drizzle-kit push:pg && drizzle-kit generate:pg",
     "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit drop && drizzle-kit generate:pg",
+    "generate": "drizzle-kit generate:pg",
     "drop": "dotenvx run -- drizzle-kit drop"
   },
   "dependencies": {
