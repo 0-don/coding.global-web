@@ -15,7 +15,7 @@ WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/bun.lock ./bun.lock
+COPY --from=deps /app/bun.lockb ./bun.lockb
 
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
