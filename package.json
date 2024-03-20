@@ -5,14 +5,14 @@
   "scripts": {
     "dev": "dotenvx run -- vinxi dev",
     "build": "dotenvx run -- vinxi build",
-    "start": " dotenvx run -- vinxi start",
+    "start": "dotenvx run -- vinxi start",
+    "prod": "dotenvx run -- node .output/server/index.mjs",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "push": "dotenvx run -- drizzle-kit push:pg",
     "generate": "dotenvx run -- drizzle-kit generate:pg"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^0.26.0",
     "@elysiajs/eden": "^1.0.5",
     "@kobalte/core": "^0.12.6",
     "@solidjs/meta": "^0.29.3",
@@ -33,6 +33,7 @@
     "vinxi": "^0.3.10"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^0.26.0",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.18",
