@@ -12,7 +12,7 @@ const serverEnvSchema = t.Object({
 });
 
 const serverEnv = parse(serverEnvSchema, {
-  DATABASE_URL: process.env.DATABASE_URL,
+  DATABASE_URL: import.meta.env.DATABASE_URL,
 });
 
 export const db = drizzle(postgres(serverEnv.DATABASE_URL), {
