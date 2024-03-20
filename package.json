@@ -6,7 +6,6 @@
     "dev": "dotenvx run -- vinxi dev",
     "build": "dotenvx run -- vinxi build",
     "start": "dotenvx run -- vinxi start",
-    "prod": "dotenvx run -- node .output/server/index.mjs",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "push": "dotenvx run -- drizzle-kit push:pg",
