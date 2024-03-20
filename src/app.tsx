@@ -27,7 +27,7 @@ export default function App() {
   const storageManager = cookieStorageManagerSSR(
     isServer ? getServerCookies() : document.cookie,
   );
-  
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

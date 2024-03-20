@@ -7,7 +7,8 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "prettier": "prettier --write .",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
+    "push": "drizzle-kit push:pg"
   },
   "dependencies": {
     "@kobalte/core": "^0.12.6",
@@ -17,9 +18,11 @@
     "@tanstack/solid-query": "^5.28.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "drizzle-kit": "^0.20.14",
     "drizzle-orm": "^0.30.4",
     "drizzle-typebox": "^0.1.1",
     "pg": "^8.11.3",
+    "postgres": "3.4.3",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.16",
     "tailwind-merge": "^2.2.2",
@@ -31,8 +34,9 @@
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.18",
-    "drizzle-kit": "^0.20.14",
     "eslint": "^8.57.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-drizzle": "0.2.3",
     "eslint-plugin-solid": "^0.13.1",
     "eslint-plugin-tailwindcss": "^3.15.1",
     "postcss": "^8.4.37",
