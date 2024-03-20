@@ -8,8 +8,6 @@ const serverEnvSchema = t.Object({
   }),
 });
 
-console.log(process.env.DATABASE_URL);
-
 export const serverEnv = parse(serverEnvSchema, {
   DATABASE_URL: process.env.DATABASE_URL,
 });

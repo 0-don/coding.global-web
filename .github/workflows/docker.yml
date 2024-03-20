@@ -21,6 +21,7 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+          echo VITE_HOST_URL=${{ secrets.VITE_HOST_URL }} >> .env
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build

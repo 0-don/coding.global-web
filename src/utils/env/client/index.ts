@@ -8,6 +8,8 @@ const clientEnvSchema = t.Object({
   }),
 });
 
+console.log(import.meta.env);
+
 export const clientEnv = parse(clientEnvSchema, {
-  HOST_URL: import.meta.env.VITE_HOST_URL || "http://localhost:3000",
+  HOST_URL: import.meta.env.VITE_HOST_URL,
 });
