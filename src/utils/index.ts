@@ -1,3 +1,4 @@
+import { EdenFetchError } from "@elysiajs/eden/dist/errors";
 import {
   DefaultErrorFunction,
   Errors,
@@ -35,7 +36,7 @@ export function handleEden<T>(
       }
     | {
         data: null;
-        error: any;
+        error: EdenFetchError<number, string>;
       }
   ) & {
     status: number;
@@ -44,5 +45,5 @@ export function handleEden<T>(
   },
 ): T {
   if (response.error) throw response.error;
-  return response.data!;
+  return response.data;
 }
