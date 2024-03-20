@@ -9,6 +9,7 @@ services:
       target: prod
       args:
         - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}?schema=public
+        - VITE_HOST_URL=${VITE_HOST_URL}
     restart: always
     networks:
       - proxy

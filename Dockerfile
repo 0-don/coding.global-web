@@ -37,7 +37,9 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 
 ARG DATABASE_URL
+ARG VITE_HOST_URL
 ENV DATABASE_URL=$DATABASE_URL
+ENV VITE_HOST_URL=$VITE_HOST_URL
 
 CMD ["bun", "start"]
 #############################################
