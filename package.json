@@ -9,7 +9,8 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit generate:pg"
+    "generate": "dotenvx run -- drizzle-kit generate:pg",
+    "drop": "drizzle-kit drop"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.0.5",
