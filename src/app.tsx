@@ -1,3 +1,4 @@
+import { edenTreaty } from "@elysiajs/eden";
 import {
   ColorModeProvider,
   ColorModeScript,
@@ -16,12 +17,16 @@ import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
 import "./app.css";
 import { ModeToggle } from "./components/navbar/mode-toggle";
+import type { App } from "./routes/api";
+import { clientEnv } from "./utils/env/client";
 
 function getServerCookies() {
   "use server";
   const colorMode = getCookie("kb-color-mode");
   return colorMode ? `kb-color-mode=${colorMode}` : "";
 }
+
+export const app = edenTreaty<App>(clientEnv.HOST_URL);
 
 export default function App() {
   const storageManager = cookieStorageManagerSSR(

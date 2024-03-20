@@ -1,5 +1,5 @@
 import { cache } from "@solidjs/router";
-import { Staff } from "~/types";
+import { Staff } from "~/utils/types";
 
 async function fetchAPI(url: string, init?: RequestInit | undefined) {
   try {
