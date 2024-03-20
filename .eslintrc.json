@@ -11,11 +11,11 @@
     "plugin:drizzle/recommended"
   ],
   "plugins": [
+    "@typescript-eslint",
     "solid",
     "tailwindcss",
-    "drizzle",
-    "@typescript-eslint",
-    "import"
+    "import",
+    "drizzle"
   ],
   "rules": {
     "tailwindcss/no-custom-classname": "off",
