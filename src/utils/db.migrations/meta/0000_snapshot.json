@@ -1,5 +1,5 @@
 {
-  "id": "5349969e-5d45-4e20-b112-e1130c477231",
+  "id": "cf660634-79f8-45f8-86ee-79ea432fbc18",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -27,8 +27,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "timestamp3": {
-          "name": "timestamp3",
+        "createdAt": {
+          "name": "createdAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,

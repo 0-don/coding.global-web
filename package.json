@@ -9,7 +9,7 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "push": "drizzle-kit push:pg",
-    "migration": "drizzle-kit migration:pg"
+    "generate": "drizzle-kit generate:pg"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.0.5",
