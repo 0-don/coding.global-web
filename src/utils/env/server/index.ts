@@ -1,5 +1,4 @@
 import { Type as t } from "@sinclair/typebox/type";
-import "dotenv/config";
 import { parse } from "~/utils";
 
 const serverEnvSchema = t.Object({
@@ -9,7 +8,7 @@ const serverEnvSchema = t.Object({
   }),
 });
 
-console.log(import.meta.env);
+console.log(process.env.DATABASE_URL);
 
 export const serverEnv = parse(serverEnvSchema, {
   DATABASE_URL: process.env.DATABASE_URL,
