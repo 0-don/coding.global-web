@@ -1,11 +1,12 @@
 import { Type as t } from "@sinclair/typebox/type";
-import { pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
 
 export const comment = pgTable("comment", {
   id: uuid("id").primaryKey().defaultRandom(),
   user: text("user").notNull(),
   content: text("content").notNull(),
+  timestamp3: timestamp("timestamp3").defaultNow(),
 });
 
 const insertSchema = createInsertSchema(comment, {

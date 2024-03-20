@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710967977730,
+      "tag": "0000_spooky_human_cannonball",
+      "breakpoints": true
+    }
+  ]
+}
