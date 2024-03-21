@@ -11,7 +11,8 @@
     "gen": "dotenvx run -- drizzle-kit drop && drizzle-kit push:pg && drizzle-kit generate:pg",
     "drop": "dotenvx run -- drizzle-kit drop",
     "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit generate:pg"
+    "generate": "dotenvx run -- drizzle-kit generate:pg",
+    "i18n": "typesafe-i18n"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^0.26.0",
@@ -28,6 +29,7 @@
     "postgres": "3.4.3",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.16",
+    "typesafe-i18n": "^5.26.2",
     "vinxi": "^0.3.10"
   },
   "devDependencies": {
