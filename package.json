@@ -14,6 +14,7 @@
     "drop": "dotenvx run -- drizzle-kit drop"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^0.26.0",
     "@elysiajs/eden": "^1.0.5",
     "@kobalte/core": "^0.12.6",
     "@solidjs/meta": "^0.29.3",
@@ -26,13 +27,14 @@
     "postgres": "3.4.3",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.16",
-    "vinxi": "^0.3.10",
-    "@dotenvx/dotenvx": "^0.26.0"
+    "vinxi": "^0.3.10"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.19",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-drizzle": "0.2.3",
@@ -41,12 +43,10 @@
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.4.3",
     "tailwind-merge": "^2.2.2",
+    "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "clsx": "^2.1.0",
-    "class-variance-authority": "^0.7.0"
+    "typescript": "^5.4.3"
   },
   "engines": {
     "node": ">=18"
