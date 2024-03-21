@@ -50,7 +50,7 @@ export default function Chat() {
               {authForm.submitting && (
                 <TbLoader class="mr-2 size-4 animate-spin" />
               )}
-              Login
+              Add Comment
             </Button>
           </Grid>
         </Form>
