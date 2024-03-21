@@ -8,6 +8,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { handleEden } from "~/utils";
 import { Layout } from "../components/container/layout";
+import { data } from "tailwindcss/defaultTheme";
 
 type Message = {
   content: string;
@@ -16,12 +17,12 @@ type Message = {
 export default function Chat() {
   const [authForm, { Form, Field }] = createForm<Message>();
 
-  const commentsQuery = createQuery(() => ({
+  const { data } = createQuery(() => ({
     queryKey: ["comments"],
     queryFn: async () => handleEden(await rpc.api.comment.get()),
   }));
 
-  console.log(commentsQuery);
+  console.log(data);
 
   const handleSubmit: SubmitHandler<Message> = () => {
     return new Promise((resolve) => setTimeout(resolve, 2000));
