@@ -14,26 +14,21 @@ import {
 } from "./api/comment/schema";
 
 export default function Chat() {
-  const { commentsQuery, commentAdd } = CommentHook();
+  const comment = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
   });
 
   const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
-    const newComment = await commentAdd.mutateAsync(values);
-
+    const newComment = await comment.commentAdd.mutateAsync(values);
     console.log(newComment);
   };
 
   return (
     <Layout>
       <section class="container mx-auto">
-        <For each={commentsQuery.data}>
-          {(comment) => (
-            <div>
-              <p>{comment.content}</p>
-            </div>
-          )}
+        <For each={comment.commentsQuery.data}>
+          {(comment) => <div>{comment.content}</div>}
         </For>
         <Form onSubmit={handleSubmit}>
           <Grid class="gap-4">
