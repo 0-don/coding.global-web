@@ -14,7 +14,7 @@ import {
 } from "./api/comment/schema";
 
 export default function Chat() {
-  const { comments, commentAdd } = CommentHook();
+  const { commentsQuery, commentAdd } = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
   });
@@ -28,7 +28,7 @@ export default function Chat() {
   return (
     <Layout>
       <section class="container mx-auto">
-        <For each={comments}>
+        <For each={commentsQuery.data}>
           {(comment) => (
             <div>
               <p>{comment.content}</p>
