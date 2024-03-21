@@ -15,7 +15,7 @@ const insertSchema = createInsertSchema(comment, {
 });
 
 export const commentInsertSchema = t.Omit(insertSchema, ["id"]);
-export type commentInsert = typeof commentInsertSchema.static;
+export type CommentInsert = typeof commentInsertSchema.static;
 
 export const commentSelectSchema = createSelectSchema(comment);
-export type commentSelect = typeof commentSelectSchema.static;
+export type CommentSelect = typeof commentSelectSchema.static;
