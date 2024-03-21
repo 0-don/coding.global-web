@@ -12,7 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/solid-query";
-import { ErrorBoundary, Suspense } from "solid-js";
+import { Suspense } from "solid-js";
 import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
 import "./app.css";
@@ -53,19 +53,19 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <Title>coding.global</Title>
             <ColorModeScript storageType={storageManager.type} />
-            <ErrorBoundary
+            {/* <ErrorBoundary
               fallback={(err) => {
                 console.error(err);
                 return err;
               }}
-            >
-              <ColorModeProvider storageManager={storageManager}>
-                <div class="absolute right-0 top-0 z-[9999]">
-                  <ModeToggle />
-                </div>
-                <Suspense>{props.children}</Suspense>
-              </ColorModeProvider>
-            </ErrorBoundary>
+            > */}
+            <ColorModeProvider storageManager={storageManager}>
+              <div class="absolute right-0 top-0 z-[9999]">
+                <ModeToggle />
+              </div>
+              <Suspense>{props.children}</Suspense>
+            </ColorModeProvider>
+            {/* </ErrorBoundary> */}
           </QueryClientProvider>
         </MetaProvider>
       )}

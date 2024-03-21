@@ -21,14 +21,14 @@ export default function Team() {
       <section class="container mx-auto">
         <Header name="Team" />
 
-        <div class="mt-10 gap-5 md:grid md:grid-cols-5">
+        <div class="mt-10 gap-2 md:grid md:grid-cols-6">
           <For each={members()}>
             {(m) => (
-              <Card class="min-h-64">
+              <Card class="">
                 <CardHeader>
                   <img
                     src={m.displayAvatarURL}
-                    class="h-52 w-full object-cover"
+                    class="w-full object-cover"
                     alt={m.username}
                   />
                   <CardDescription class="flex items-center space-x-1">
@@ -53,7 +53,7 @@ export default function Team() {
 
                         return (
                           <span
-                            class={`flex items-center gap-1 ${role.color} `}
+                            class={`flex items-center gap-1 text-xs ${role.color}`}
                           >
                             <role.Icon />
 
