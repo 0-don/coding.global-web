@@ -22,9 +22,9 @@ export const CommentHook = () => {
     mutationFn: async (args: CommentInsertSimple) =>
       handleEden(await rpc.api.comment.post(args)),
     onSuccess: (newComment) => {
-      queryClient.setQueryData(
+      queryClient.setQueryData<CommentSelect[]>(
         ["comments"],
-        (oldQueryData: CommentSelect[]) => [...oldQueryData, newComment],
+        (oldQueryData = []) => [...oldQueryData, newComment],
       );
     },
   }));
