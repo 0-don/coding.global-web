@@ -9,10 +9,10 @@ import {
 import { FiHelpCircle } from "solid-icons/fi";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
-import { getStaffMembers } from "~/lib/api";
+import { clientEnv } from "~/utils/env/client";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
-import { MemberRole } from "../utils/types";
+import { MemberRole, Staff } from "../utils/types";
 
 const STAFF_MEMBERS: MemberRole[] = [
   {
@@ -38,9 +38,9 @@ const STAFF_MEMBERS: MemberRole[] = [
 ];
 
 export default function Team() {
-  const { data } = createQuery(() => ({
+  const { data } = createQuery<Staff[]>(() => ({
     queryKey: ["staffMembers"],
-    queryFn: () => getStaffMembers(),
+    queryFn: () => fetch(clientEnv.STAFF_MEMERS_URL).then((res) => res.json()),
   }));
 
   return (
