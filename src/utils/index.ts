@@ -1,4 +1,5 @@
 import { EdenFetchError } from "@elysiajs/eden/dist/errors";
+import {} from "@elysiajs/eden/dist/types";
 import {
   DefaultErrorFunction,
   Errors,
@@ -40,7 +41,7 @@ export function handleEden<T>(
       }
   ) & {
     status: number;
-    response: Response;
+    response: Record<number, unknown>;
     headers: Record<string, string>;
   },
 ): T {

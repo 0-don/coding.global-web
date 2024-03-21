@@ -26,7 +26,7 @@ function getServerCookies() {
   return colorMode ? `kb-color-mode=${colorMode}` : "";
 }
 
-export const app = edenTreaty<App>(clientEnv.HOST_URL);
+export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
 export default function App() {
   const storageManager = cookieStorageManagerSSR(
@@ -53,19 +53,12 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <Title>coding.global</Title>
             <ColorModeScript storageType={storageManager.type} />
-            {/* <ErrorBoundary
-              fallback={(err) => {
-                console.error(err);
-                return err;
-              }}
-            > */}
             <ColorModeProvider storageManager={storageManager}>
               <div class="absolute right-0 top-0 z-[9999]">
                 <ModeToggle />
               </div>
               <Suspense>{props.children}</Suspense>
             </ColorModeProvider>
-            {/* </ErrorBoundary> */}
           </QueryClientProvider>
         </MetaProvider>
       )}
