@@ -13,7 +13,7 @@ import { handleEden } from "~/utils";
 export const CommentHook = () => {
   const queryClient = useQueryClient();
 
-  const { data: comments } = createQuery(() => ({
+  const commentsQuery = createQuery(() => ({
     queryKey: ["comments"],
     queryFn: async () => handleEden(await rpc.api.comment.get()),
   }));
@@ -29,5 +29,5 @@ export const CommentHook = () => {
     },
   }));
 
-  return { comments, commentAdd };
+  return { commentsQuery, commentAdd };
 };
