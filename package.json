@@ -9,9 +9,9 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "gen": "dotenvx run -- drizzle-kit drop && drizzle-kit push:pg && drizzle-kit generate:pg",
+    "drop": "dotenvx run -- drizzle-kit drop",
     "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit generate:pg",
-    "drop": "dotenvx run -- drizzle-kit drop"
+    "generate": "dotenvx run -- drizzle-kit generate:pg"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^0.26.0",
