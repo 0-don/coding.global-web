@@ -9,8 +9,10 @@ const connection = postgres(serverEnv.DATABASE_URL);
 
 export const db = drizzle(connection, { schema, logger: import.meta.env.DEV });
 
-await migrate(db, { migrationsFolder: resolve("db.migrations") });
+(async () => {
+  await migrate(db, { migrationsFolder: resolve("db.migrations") });
 
-await connection.end();
+  await connection.end();
 
-console.log("Database migrated successfully");
+  console.log("Database migrated successfully");
+})();
