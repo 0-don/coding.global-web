@@ -1,13 +1,23 @@
 import { eq } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
-import { comment, commentInsertSchema, commentSelectSchema } from "./schema";
+import {
+  comment,
+  commentInsertSimpleSchema,
+  commentSelectSchema,
+} from "./schema";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => await db.select().from(comment))
-  .post("", async ({ body }) => await db.insert(comment).values(body), {
-    body: commentInsertSchema,
-  })
+  .post(
+    "",
+    async ({ body }) =>
+      await db
+        .insert(comment)
+        .values({ ...body, user: "test" })
+        .returning(),
+    { body: commentInsertSimpleSchema },
+  )
   .delete(
     "/:id",
     async ({ params }) =>
