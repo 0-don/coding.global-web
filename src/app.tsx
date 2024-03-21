@@ -12,6 +12,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/solid-query";
+import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { Suspense } from "solid-js";
 import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
@@ -42,7 +43,7 @@ export default function App() {
       },
     },
     mutationCache: new MutationCache({
-      onSuccess: async () => void (await queryClient.invalidateQueries()),
+      // onSuccess: async () => void (await queryClient.invalidateQueries()),
     }),
   });
 
@@ -51,6 +52,7 @@ export default function App() {
       root={(props) => (
         <MetaProvider>
           <QueryClientProvider client={queryClient}>
+            <SolidQueryDevtools initialIsOpen={false} />
             <Title>coding.global</Title>
             <ColorModeScript storageType={storageManager.type} />
             <ColorModeProvider storageManager={storageManager}>

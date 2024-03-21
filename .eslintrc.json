@@ -8,7 +8,8 @@
     "plugin:solid/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:import/typescript",
-    "plugin:drizzle/recommended"
+    "plugin:drizzle/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
