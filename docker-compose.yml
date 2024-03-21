@@ -11,6 +11,8 @@ services:
         - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
         - VITE_HOST_URL=${VITE_HOST_URL}
     restart: always
+    depends_on:
+      - coding-global-web-db
     networks:
       - proxy
     labels:
