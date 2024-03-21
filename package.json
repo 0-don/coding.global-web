@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "dotenvx run -- vinxi dev",
+    "dev": "concurrently \"dotenvx run -- vinxi dev\" ",
     "build": "dotenvx run -- vinxi build",
     "start": "dotenvx run -- vinxi start",
     "prettier": "prettier --write .",
@@ -40,6 +40,7 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-drizzle": "0.2.3",
