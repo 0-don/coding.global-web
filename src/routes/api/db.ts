@@ -1,9 +1,16 @@
 import { drizzle } from "drizzle-orm/postgres-js";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { resolve } from "path";
 import postgres from "postgres";
 import { serverEnv } from "~/utils/env/server";
 import * as schema from "./schema";
 
-export const db = drizzle(postgres(serverEnv.DATABASE_URL), {
-  schema,
-  logger: import.meta.env.DEV,
-});
+const connection = postgres(serverEnv.DATABASE_URL);
+
+export const db = drizzle(connection, { schema, logger: import.meta.env.DEV });
+
+await migrate(db, { migrationsFolder: resolve("db.migrations") });
+
+await connection.end();
+
+console.log("Database migrated successfully");
