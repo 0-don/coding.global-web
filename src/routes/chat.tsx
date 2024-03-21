@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { useI18nContext } from "~/i18n/i18n-solid";
 import { CommentHook } from "~/lib/hook/comment-hook";
 import { Layout } from "../components/container/layout";
 import {
@@ -14,6 +15,7 @@ import {
 } from "./api/comment/schema";
 
 export default function Chat() {
+  const { LL } = useI18nContext();
   const comment = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
@@ -49,7 +51,7 @@ export default function Chat() {
               {authForm.submitting && (
                 <TbLoader class="mr-2 size-4 animate-spin" />
               )}
-              Add Comment
+              {LL().HI({ name: "world" })}
             </Button>
           </Grid>
         </Form>
