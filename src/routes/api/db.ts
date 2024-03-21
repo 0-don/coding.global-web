@@ -12,7 +12,5 @@ export const db = drizzle(connection, { schema, logger: import.meta.env.DEV });
 (async () => {
   await migrate(db, { migrationsFolder: resolve("db.migrations") });
 
-  await connection.end();
-
   console.log("Database migrated successfully");
 })();
