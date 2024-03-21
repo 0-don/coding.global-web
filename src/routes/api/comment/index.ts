@@ -11,14 +11,13 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => await db.select().from(comment))
   .post(
     "",
-    async ({ body }) => {
-      const [result] = await db
-        .insert(comment)
-        .values({ ...body, user: "test" })
-        .returning();
-      console.log(result);
-      return result;
-    },
+    async ({ body }) =>
+      (
+        await db
+          .insert(comment)
+          .values({ ...body, user: "test" })
+          .returning()
+      ).at(0)!,
     { body: commentInsertSimpleSchema },
   )
   .delete(
