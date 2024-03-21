@@ -1,9 +1,12 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
+import { createQuery } from "@tanstack/solid-query";
 import { TbLoader } from "solid-icons/tb";
+import { rpc } from "~/app";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { handleEden } from "~/utils";
 import { Layout } from "../components/container/layout";
 
 type Message = {
@@ -12,6 +15,13 @@ type Message = {
 
 export default function Chat() {
   const [authForm, { Form, Field }] = createForm<Message>();
+
+  const commentsQuery = createQuery(() => ({
+    queryKey: ["comments"],
+    queryFn: async () => handleEden(await rpc.api.comment.get()),
+  }));
+
+  console.log(commentsQuery);
 
   const handleSubmit: SubmitHandler<Message> = () => {
     return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -25,10 +35,14 @@ export default function Chat() {
             <Field name="content">
               {(_, props) => (
                 <Grid class="gap-1">
-                  <Label class="sr-only" for="email">
-                    Email
+                  <Label class="sr-only" for="content">
+                    Comment
                   </Label>
-                  <Input {...props} type="email" placeholder="me@email.com" />
+                  <Input
+                    {...props}
+                    type="text"
+                    placeholder="write your comment"
+                  />
                 </Grid>
               )}
             </Field>
