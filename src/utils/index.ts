@@ -1,5 +1,4 @@
-import { EdenFetchError } from "@elysiajs/eden/dist/errors";
-import {} from "@elysiajs/eden/dist/types";
+import type { EdenFetchError } from "@elysiajs/eden/dist/errors";
 import {
   DefaultErrorFunction,
   Errors,
