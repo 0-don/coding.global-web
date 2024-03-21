@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "dotenvx run -- vinxi dev",
     "build": "dotenvx run -- vinxi build",
-    "start": "dotenvx run -- drizzle-kit start",
+    "start": "drizzle-kit start",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
     "gen": "dotenvx run -- drizzle-kit drop && drizzle-kit push:pg && drizzle-kit generate:pg",
