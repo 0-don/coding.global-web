@@ -6,14 +6,11 @@ if (!process.env.DATABASE_URL)
 
 const pg = postgres(process.env.DATABASE_URL);
 
-async function createDatabaseIfNotExists(dbName: string) {
-  const exists = await pg`SELECT 1 FROM pg_database WHERE datname = ${dbName}`;
-  if (exists.count === 0) {
-    await pg.unsafe(`CREATE DATABASE ${dbName}`);
-  }
-}
+const createDatabaseIfNotExists = async (dbName: string) =>
+  (await pg`SELECT 1 FROM pg_database WHERE datname = ${dbName}`).count === 0 &&
+  (await pg.unsafe(`CREATE DATABASE ${dbName}`));
 
-await createDatabaseIfNotExists(process.env.POSTGRES_DB);
+createDatabaseIfNotExists(process.env.POSTGRES_DB);
 
 export default {
   driver: "pg",
