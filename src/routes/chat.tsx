@@ -1,6 +1,8 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
-import { createQuery } from "@tanstack/solid-query";
+import { Create } from "@sinclair/typebox/value";
+import { createMutation, createQuery } from "@tanstack/solid-query";
 import { TbLoader } from "solid-icons/tb";
+import { For } from "solid-js";
 import { rpc } from "~/app";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
@@ -8,29 +10,42 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { handleEden } from "~/utils";
 import { Layout } from "../components/container/layout";
-import { data } from "tailwindcss/defaultTheme";
-
-type Message = {
-  content: string;
-};
+import {
+  CommentInsertSimple,
+  commentInsertSimpleSchema,
+} from "./api/comment/schema";
 
 export default function Chat() {
-  const [authForm, { Form, Field }] = createForm<Message>();
+  const [authForm, { Form, Field }] = createForm({
+    initialValues: Create(commentInsertSimpleSchema),
+  });
 
-  const { data } = createQuery(() => ({
+  const { data: comments } = createQuery(() => ({
     queryKey: ["comments"],
     queryFn: async () => handleEden(await rpc.api.comment.get()),
   }));
 
-  console.log(data);
+  const commentAdd = createMutation(() => ({
+    mutationFn: async (args: CommentInsertSimple) =>
+      handleEden(await rpc.api.comment.post(args)),
+  }));
 
-  const handleSubmit: SubmitHandler<Message> = () => {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
+  const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
+    const newComment = await commentAdd.mutateAsync(values);
+
+    console.log(newComment);
   };
 
   return (
     <Layout>
       <section class="container mx-auto">
+        <For each={comments}>
+          {(comment) => (
+            <div>
+              <p>{comment.content}</p>
+            </div>
+          )}
+        </For>
         <Form onSubmit={handleSubmit}>
           <Grid class="gap-4">
             <Field name="content">

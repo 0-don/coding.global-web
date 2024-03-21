@@ -10,11 +10,17 @@ export const comment = pgTable("comment", {
 });
 
 const insertSchema = createInsertSchema(comment, {
-  user: t.String({ minLength: 1, default: "" }),
   content: t.String({ minLength: 1, default: "" }),
 });
 
-export const commentInsertSchema = t.Omit(insertSchema, ["id"]);
+export const commentInsertSimpleSchema = t.Omit(insertSchema, [
+  "id",
+  "user",
+  "createdAt",
+]);
+export type CommentInsertSimple = typeof commentInsertSimpleSchema.static;
+
+export const commentInsertSchema = t.Omit(insertSchema, ["id", "createdAt"]);
 export type CommentInsert = typeof commentInsertSchema.static;
 
 export const commentSelectSchema = createSelectSchema(comment);

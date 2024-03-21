@@ -1,20 +1,47 @@
-import { RouteDefinition, createAsync } from "@solidjs/router";
-import { AiOutlineGlobal, AiOutlineUserAdd } from "solid-icons/ai";
+import { createQuery } from "@tanstack/solid-query";
+import {
+  AiFillBug,
+  AiFillCode,
+  AiFillCrown,
+  AiOutlineGlobal,
+  AiOutlineUserAdd,
+} from "solid-icons/ai";
+import { FiHelpCircle } from "solid-icons/fi";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { getStaffMembers } from "~/lib/api";
-import { STAFF_MEMBERS } from "~/lib/staffMembers";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
+import { MemberRole } from "../utils/types";
 
-export const route = {
-  load: () => void getStaffMembers(),
-} satisfies RouteDefinition;
+const STAFF_MEMBERS: MemberRole[] = [
+  {
+    role: "Owner",
+    color: "text-red-500",
+    Icon: AiFillCrown,
+  },
+  {
+    role: "Moderator",
+    color: "text-green-500",
+    Icon: AiFillBug,
+  },
+  {
+    role: "Admin",
+    color: "text-yellow-500",
+    Icon: AiFillCode,
+  },
+  {
+    role: "Helper",
+    color: "text-blue-500",
+    Icon: FiHelpCircle,
+  },
+];
 
 export default function Team() {
-  const members = createAsync(() => getStaffMembers(), {
-    deferStream: true,
-  });
+  const { data } = createQuery(() => ({
+    queryKey: ["staffMembers"],
+    queryFn: () => getStaffMembers(),
+  }));
 
   return (
     <Layout>
@@ -22,7 +49,7 @@ export default function Team() {
         <Header name="Team" />
 
         <div class="mt-10 gap-2 md:grid md:grid-cols-6">
-          <For each={members()}>
+          <For each={data}>
             {(m) => (
               <Card class="">
                 <CardHeader>
