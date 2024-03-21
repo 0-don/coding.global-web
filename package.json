@@ -31,6 +31,8 @@
     "vinxi": "^0.3.10"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.28.6",
+    "@tanstack/solid-query-devtools": "^5.28.6",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.3.1",
     "autoprefixer": "^10.4.19",
