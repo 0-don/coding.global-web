@@ -1,14 +1,12 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
 import { Create } from "@sinclair/typebox/value";
-import { createMutation, createQuery } from "@tanstack/solid-query";
 import { TbLoader } from "solid-icons/tb";
 import { For } from "solid-js";
-import { rpc } from "~/app";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { handleEden } from "~/utils";
+import { CommentHook } from "~/lib/hook/comment-hook";
 import { Layout } from "../components/container/layout";
 import {
   CommentInsertSimple,
@@ -16,19 +14,10 @@ import {
 } from "./api/comment/schema";
 
 export default function Chat() {
+  const { comments, commentAdd } = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
   });
-
-  const { data: comments } = createQuery(() => ({
-    queryKey: ["comments"],
-    queryFn: async () => handleEden(await rpc.api.comment.get()),
-  }));
-
-  const commentAdd = createMutation(() => ({
-    mutationFn: async (args: CommentInsertSimple) =>
-      handleEden(await rpc.api.comment.post(args)),
-  }));
 
   const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
     const newComment = await commentAdd.mutateAsync(values);
