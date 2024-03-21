@@ -20,8 +20,7 @@ export default function Chat() {
   });
 
   const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
-    const newComment = await comment.commentAdd.mutateAsync(values);
-    console.log(newComment);
+    await comment.commentAdd.mutateAsync(values);
   };
 
   return (
