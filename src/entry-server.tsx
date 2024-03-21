@@ -1,4 +1,5 @@
 import { createHandler, StartServer } from "@solidjs/start/server";
+import "~/routes/api/db";
 
 export default createHandler(() => (
   <StartServer
