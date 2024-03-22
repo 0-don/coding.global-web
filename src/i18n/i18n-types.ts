@@ -3,7 +3,7 @@
 import type { BaseTranslation as BaseTranslationType, LocalizedString } from 'typesafe-i18n'
 
 export type BaseTranslation = BaseTranslationType
-export type BaseLocale = 'de'
+export type BaseLocale = 'en'
 
 export type Locales =
 	| 'de'
@@ -15,22 +15,22 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * H​a​l​l​o
+	 * H​i​ 
 	 */
 	HI: string
 	/**
-	 * H​a​l​l​o
+	 * H​i​ 
 	 */
 	AXS: string
 }
 
 export type TranslationFunctions = {
 	/**
-	 * Hallo
+	 * Hi 
 	 */
 	HI: () => LocalizedString
 	/**
-	 * Hallo
+	 * Hi 
 	 */
 	AXS: () => LocalizedString
 }
