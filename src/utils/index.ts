@@ -12,6 +12,11 @@ SetErrorFunction((error) => {
   return DefaultErrorFunction(error);
 });
 
+export function parseCookie(cookie: string, key: string): string | undefined {
+  const match = cookie.match(new RegExp(`(^| )${key}=([^;]+)`));
+  return match?.[2];
+}
+
 export const parse = <T extends TSchema>(
   schema: T,
   value: unknown,

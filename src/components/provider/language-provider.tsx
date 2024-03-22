@@ -1,21 +1,34 @@
-import { createEffect, createSignal, JSX, Show } from "solid-js";
-import { localStorageDetector } from "typesafe-i18n/detectors";
+import { JSX } from "solid-js";
+import { isServer } from "solid-js/web";
+import { getCookie, setCookie } from "vinxi/http";
 import TypesafeI18n from "~/i18n/i18n-solid";
-import { detectLocale } from "~/i18n/i18n-util";
+import { Locales } from "~/i18n/i18n-types";
+import { baseLocale } from "~/i18n/i18n-util";
 import { loadLocaleAsync } from "~/i18n/i18n-util.async";
+import { parseCookie } from "~/utils";
+import { clientEnv } from "~/utils/env/client";
 
-const detectedLocale = detectLocale(localStorageDetector);
+function getServerLanguageCookie() {
+  "use server";
+  const cookieValue = getCookie(clientEnv.LANGUAGE_KEY);
+
+  if (!cookieValue) {
+    setCookie(clientEnv.LANGUAGE_KEY, baseLocale, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: "/",
+    });
+  }
+
+  return cookieValue
+    ? `${clientEnv.LANGUAGE_KEY}=${cookieValue}`
+    : `${clientEnv.LANGUAGE_KEY}=${baseLocale}`;
+}
 
 export default function LanguageProvider(props: { children: JSX.Element }) {
-  const [wasLoaded, setWasLoaded] = createSignal(false);
+  const cookie = isServer ? getServerLanguageCookie() : document.cookie;
+  const detectedLocale = parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locales;
 
-  createEffect(() =>
-    loadLocaleAsync(detectedLocale).then(() => setWasLoaded(true)),
-  );
+  loadLocaleAsync(detectedLocale);
 
-  return (
-    <Show when={wasLoaded()}>
-      <TypesafeI18n locale={detectedLocale}>{props.children}</TypesafeI18n>
-    </Show>
-  );
+  return <TypesafeI18n locale={detectedLocale}>{props.children}</TypesafeI18n>;
 }
