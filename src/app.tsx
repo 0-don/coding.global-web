@@ -7,6 +7,7 @@ import "./app.css";
 import { Providers } from "./providers";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
+import { Suspense } from "solid-js";
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
@@ -19,7 +20,9 @@ export default function App() {
         <MetaProvider>
           <Title>coding.global</Title>
           <Toaster />
-          <Providers>{props.children}</Providers>
+          <Suspense>
+            <Providers>{props.children}</Providers>
+          </Suspense>
         </MetaProvider>
       )}
     >
