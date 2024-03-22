@@ -1,21 +1,27 @@
-import type { Component, ComponentProps } from "solid-js"
-import { mergeProps, splitProps } from "solid-js"
+import type { Component, ComponentProps } from "solid-js";
+import { mergeProps, splitProps } from "solid-js";
 
-import { cn } from "~/lib/utils"
+import { cn } from "~/lib/utils";
 
-type Cols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
-type Span = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+type Cols = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type Span = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
 export interface GridProps extends ComponentProps<"div"> {
-  cols?: Cols
-  colsSm?: Cols
-  colsMd?: Cols
-  colsLg?: Cols
+  cols?: Cols;
+  colsSm?: Cols;
+  colsMd?: Cols;
+  colsLg?: Cols;
 }
 
 const Grid: Component<GridProps> = (rawProps) => {
-  const props = mergeProps({ cols: 1 } satisfies GridProps, rawProps)
-  const [, rest] = splitProps(props, ["cols", "colsSm", "colsMd", "colsLg", "class"])
+  const props = mergeProps({ cols: 1 } satisfies GridProps, rawProps);
+  const [, rest] = splitProps(props, [
+    "cols",
+    "colsSm",
+    "colsMd",
+    "colsLg",
+    "class",
+  ]);
 
   return (
     <div
@@ -25,23 +31,29 @@ const Grid: Component<GridProps> = (rawProps) => {
         props.colsSm && gridColsSm[props.colsSm],
         props.colsMd && gridColsMd[props.colsMd],
         props.colsLg && gridColsLg[props.colsLg],
-        props.class
+        props.class,
       )}
       {...rest}
     />
-  )
-}
+  );
+};
 
 export interface ColProps extends ComponentProps<"div"> {
-  span?: Span
-  spanSm?: Span
-  spanMd?: Span
-  spanLg?: Span
+  span?: Span;
+  spanSm?: Span;
+  spanMd?: Span;
+  spanLg?: Span;
 }
 
 const Col: Component<ColProps> = (rawProps) => {
-  const props = mergeProps({ span: 1 as Span }, rawProps)
-  const [, rest] = splitProps(props, ["span", "spanSm", "spanMd", "spanLg", "class"])
+  const props = mergeProps({ span: 1 as Span }, rawProps);
+  const [, rest] = splitProps(props, [
+    "span",
+    "spanSm",
+    "spanMd",
+    "spanLg",
+    "class",
+  ]);
 
   return (
     <div
@@ -50,14 +62,14 @@ const Col: Component<ColProps> = (rawProps) => {
         props.spanSm && colSpanSm[props.spanSm],
         props.spanMd && colSpanMd[props.spanMd],
         props.spanLg && colSpanLg[props.spanLg],
-        props.class
+        props.class,
       )}
       {...rest}
     />
-  )
-}
+  );
+};
 
-export { Grid, Col }
+export { Grid, Col };
 
 const gridCols: { [key in Cols]: string } = {
   0: "grid-cols-none",
@@ -72,8 +84,8 @@ const gridCols: { [key in Cols]: string } = {
   9: "grid-cols-9",
   10: "grid-cols-10",
   11: "grid-cols-11",
-  12: "grid-cols-12"
-}
+  12: "grid-cols-12",
+};
 
 const gridColsSm: { [key in Cols]: string } = {
   0: "sm:grid-cols-none",
@@ -88,8 +100,8 @@ const gridColsSm: { [key in Cols]: string } = {
   9: "sm:grid-cols-9",
   10: "sm:grid-cols-10",
   11: "sm:grid-cols-11",
-  12: "sm:grid-cols-12"
-}
+  12: "sm:grid-cols-12",
+};
 
 const gridColsMd: { [key in Cols]: string } = {
   0: "md:grid-cols-none",
@@ -104,8 +116,8 @@ const gridColsMd: { [key in Cols]: string } = {
   9: "md:grid-cols-9",
   10: "md:grid-cols-10",
   11: "md:grid-cols-11",
-  12: "md:grid-cols-12"
-}
+  12: "md:grid-cols-12",
+};
 
 const gridColsLg: { [key in Cols]: string } = {
   0: "lg:grid-cols-none",
@@ -120,8 +132,8 @@ const gridColsLg: { [key in Cols]: string } = {
   9: "lg:grid-cols-9",
   10: "lg:grid-cols-10",
   11: "lg:grid-cols-11",
-  12: "lg:grid-cols-12"
-}
+  12: "lg:grid-cols-12",
+};
 
 const colSpan: { [key in Span]: string } = {
   1: "col-span-1",
@@ -136,8 +148,8 @@ const colSpan: { [key in Span]: string } = {
   10: "col-span-10",
   11: "col-span-11",
   12: "col-span-12",
-  13: "col-span-13"
-}
+  13: "col-span-13",
+};
 
 const colSpanSm: { [key in Span]: string } = {
   1: "sm:col-span-1",
@@ -152,8 +164,8 @@ const colSpanSm: { [key in Span]: string } = {
   10: "sm:col-span-10",
   11: "sm:col-span-11",
   12: "sm:col-span-12",
-  13: "sm:col-span-13"
-}
+  13: "sm:col-span-13",
+};
 
 const colSpanMd: { [key in Span]: string } = {
   1: "md:col-span-1",
@@ -168,8 +180,8 @@ const colSpanMd: { [key in Span]: string } = {
   10: "md:col-span-10",
   11: "md:col-span-11",
   12: "md:col-span-12",
-  13: "md:col-span-13"
-}
+  13: "md:col-span-13",
+};
 
 const colSpanLg: { [key in Span]: string } = {
   1: "lg:col-span-1",
@@ -184,5 +196,5 @@ const colSpanLg: { [key in Span]: string } = {
   10: "lg:col-span-10",
   11: "lg:col-span-11",
   12: "lg:col-span-12",
-  13: "lg:col-span-13"
-}
+  13: "lg:col-span-13",
+};
