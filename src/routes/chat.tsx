@@ -1,5 +1,6 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
 import { Create } from "@sinclair/typebox/value";
+import { signIn } from "@solid-mediakit/auth/client";
 import { TbLoader, TbTrashXFilled } from "solid-icons/tb";
 import { For } from "solid-js";
 import { Button } from "~/components/ui/button";
@@ -64,6 +65,7 @@ export default function Chat() {
             </Button>
           </Grid>
         </Form>
+        <Button onClick={() => signIn()}>Login</Button>
       </section>
     </Layout>
   );
