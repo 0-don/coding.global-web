@@ -16,19 +16,19 @@ import {
 
 export default function Chat() {
   const { LL } = useI18nContext();
-  const comment = CommentHook();
+  const { commentAdd, commentsQuery } = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
   });
 
   const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
-    await comment.commentAdd.mutateAsync(values);
+    await commentAdd.mutateAsync(values);
   };
 
   return (
     <Layout>
       <section class="container mx-auto">
-        <For each={comment.commentsQuery.data}>
+        <For each={commentsQuery.data}>
           {(comment) => <div>{comment.content}</div>}
         </For>
         <Form onSubmit={handleSubmit}>
