@@ -18,6 +18,10 @@ type RootTranslation = {
 	 * H​i​ 
 	 */
 	HI: string
+	/**
+	 * H​i​ 
+	 */
+	AS: string
 }
 
 export type TranslationFunctions = {
@@ -25,6 +29,10 @@ export type TranslationFunctions = {
 	 * Hi 
 	 */
 	HI: () => LocalizedString
+	/**
+	 * Hi 
+	 */
+	AS: () => LocalizedString
 }
 
 export type Formatters = {}
