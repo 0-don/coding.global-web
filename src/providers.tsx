@@ -11,6 +11,7 @@ import {
   QueryClientProvider,
   isServer,
 } from "@tanstack/solid-query";
+import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { Component, JSX, Suspense } from "solid-js";
 import { getCookie } from "vinxi/http";
 
@@ -41,6 +42,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
       <ColorModeScript storageType={storageManager.type} />
       <SessionProvider>
         <QueryClientProvider client={queryClient}>
+          <SolidQueryDevtools initialIsOpen={false} />
           <ColorModeProvider storageManager={storageManager}>
             <LanguageProvider>
               <Suspense>{props.children}</Suspense>

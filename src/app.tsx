@@ -3,7 +3,6 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { clientOnly } from "@solidjs/start";
 import { FileRoutes } from "@solidjs/start/router";
-import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import "./app.css";
 import { Providers } from "./providers";
 import type { App } from "./routes/api";
@@ -18,7 +17,6 @@ export default function App() {
     <Router
       root={(props) => (
         <MetaProvider>
-          <SolidQueryDevtools initialIsOpen={false} />
           <Title>coding.global</Title>
           <Toaster />
           <Providers>{props.children}</Providers>
