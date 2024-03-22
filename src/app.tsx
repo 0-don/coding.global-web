@@ -30,6 +30,8 @@ const LanguageProvider = clientOnly(
   () => import("./components/provider/language-provider"),
 );
 
+const Toaster = clientOnly(() => import("./components/ui/toast"));
+
 export default function App() {
   const storageManager = cookieStorageManagerSSR(
     isServer ? getServerCookies() : document.cookie,
@@ -46,6 +48,7 @@ export default function App() {
           <QueryClientProvider client={queryClient}>
             <SolidQueryDevtools initialIsOpen={false} />
             <Title>coding.global</Title>
+            <Toaster />
             <ColorModeScript storageType={storageManager.type} />
             <ColorModeProvider storageManager={storageManager}>
               <LanguageProvider>
