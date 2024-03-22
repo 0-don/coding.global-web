@@ -1,8 +1,9 @@
 import { As } from "@kobalte/core";
-import { For, Show } from "solid-js";
+import { For, Show, onMount } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { useI18nContext } from "~/i18n/i18n-solid";
-import { locales } from "~/i18n/i18n-util";
+import { Locales } from "~/i18n/i18n-types";
+import { baseLocale, locales } from "~/i18n/i18n-util";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,16 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
+const langKey = "lang";
+
 export function LanguageToggle() {
   const { setLocale, locale } = useI18nContext();
+
+  onMount(() => {
+    const lang = window.localStorage.getItem(langKey);
+    setLocale((lang as Locales) || baseLocale);
+    if (!lang) window.localStorage.setItem(langKey, baseLocale);
+  });
 
   return (
     <DropdownMenu>
@@ -30,7 +39,10 @@ export function LanguageToggle() {
         <For each={locales}>
           {(locale) => (
             <DropdownMenuItem
-              onSelect={() => setLocale(locale)}
+              onSelect={() => {
+                setLocale(locale);
+                window.localStorage.setItem(langKey, locale);
+              }}
               class="flex space-x-2"
             >
               <Show when={locale === "de"}>
