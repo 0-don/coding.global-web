@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/0-don/echat">
-    <img src="public/favicon/favicon-96x96.png" alt="Logo" width="80" height="80">
+    <img src="public/images/logo_512.gif" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">coding.global Official Discord Website</h3>
