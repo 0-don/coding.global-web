@@ -48,6 +48,12 @@ export default function Home() {
           >
             Rules
           </A>
+          <A
+            href="/chat"
+            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
+          >
+            Chat
+          </A>
         </div>
         <iframe
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
