@@ -26,7 +26,8 @@ function getServerLanguageCookie() {
 
 export default function LanguageProvider(props: { children: JSX.Element }) {
   const cookie = isServer ? getServerLanguageCookie() : document.cookie;
-  const detectedLocale = parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locales;
+  const detectedLocale =
+    (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locales) || baseLocale;
 
   loadLocaleAsync(detectedLocale);
 
