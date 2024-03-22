@@ -13,8 +13,8 @@ const insertSchema = createInsertSchema(comment, {
   content: t.String({ minLength: 1, default: "" }),
 });
 
-export const commentInsertSimpleSchema = t.Omit(insertSchema, [
-  "id",
+
+  "id",export const commentInsertSimpleSchema = t.Omit(insertSchema, [
   "user",
   "createdAt",
 ]);
