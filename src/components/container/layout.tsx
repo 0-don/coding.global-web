@@ -1,6 +1,6 @@
 import { Component, JSX } from "solid-js";
 import { LanguageToggle } from "../navbar/language-toggle";
-import { ModeToggle } from "../navbar/mode-toggle";
+import { ThemeToggle } from "../navbar/theme-toggle";
 
 interface LayoutProps {
   children: JSX.Element;
@@ -10,7 +10,7 @@ export const Layout: Component<LayoutProps> = (props) => {
   return (
     <>
       <div class="absolute right-0 top-0 z-[9999]">
-        <ModeToggle />
+        <ThemeToggle />
       </div>
       <div class="absolute left-0 top-0 z-[9999]">
         <LanguageToggle />
