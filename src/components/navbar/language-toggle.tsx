@@ -2,7 +2,7 @@ import { As } from "@kobalte/core";
 import { For, onMount } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { useI18nContext } from "~/i18n/i18n-solid";
-import { Locales } from "~/i18n/i18n-types";
+import { Locales, Translation } from "~/i18n/i18n-types";
 import { baseLocale, locales } from "~/i18n/i18n-util";
 import { loadLocaleAsync } from "~/i18n/i18n-util.async";
 import { parseCookie } from "~/utils";
@@ -26,7 +26,7 @@ const localeFlags = {
 };
 
 export default function LanguageToggle() {
-  const { setLocale, locale } = useI18nContext();
+  const { setLocale, locale, LL } = useI18nContext();
 
   onMount(() => {
     const lang =
@@ -41,7 +41,7 @@ export default function LanguageToggle() {
       <DropdownMenuTrigger asChild>
         <As component={Button} variant="ghost" size="sm" class="w-9 px-0">
           {localeFlags[locale()] || "🌍"}
-          <span class="sr-only">Toggle language</span>
+          <span class="sr-only">{LL().TOGGLE_LANGUAGE()}</span>
         </As>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -56,7 +56,8 @@ export default function LanguageToggle() {
               }}
               class="space-x-2"
             >
-              <span>{localeFlags[loc]}</span> <span>{loc}</span>
+              <span>{localeFlags[loc]}</span>{" "}
+              <span>{LL()[loc.toUpperCase() as keyof Translation]()}</span>
             </DropdownMenuItem>
           )}
         </For>

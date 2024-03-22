@@ -2,7 +2,12 @@ import type { Translation } from "../i18n-types.js";
 
 const de = {
   HI: "Hallo",
-  AXS: "Hallo",
+  TOGGLE_LANGUAGE: "Sprache wechseln",
+  EN: "Englisch",
+  DE: "Deutsch",
+  LIGHT: "Licht",
+  DARK: "Dunkel",
+  SYSTEM: "System",
 } satisfies Translation;
 
 export default de;
