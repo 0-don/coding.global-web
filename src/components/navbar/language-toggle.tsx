@@ -1,10 +1,12 @@
 import { As } from "@kobalte/core";
-import { For, Show, onMount } from "solid-js";
+import { For, onMount } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { useI18nContext } from "~/i18n/i18n-solid";
 import { Locales } from "~/i18n/i18n-types";
 import { baseLocale, locales } from "~/i18n/i18n-util";
 import { loadLocaleAsync } from "~/i18n/i18n-util.async";
+import { parseCookie } from "~/utils";
+import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,49 +14,49 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-const langKey = "lang";
+export function setLanguageCookie(lang: Locales) {
+  const expiryDate = new Date();
+  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
+}
+
+const localeFlags = {
+  en: "🇺🇸",
+  de: "🇩🇪",
+};
 
 export function LanguageToggle() {
   const { setLocale, locale } = useI18nContext();
 
   onMount(() => {
-    const lang = window.localStorage.getItem(langKey);
-    setLocale((lang as Locales) || baseLocale);
-    if (!lang) window.localStorage.setItem(langKey, baseLocale);
+    const lang =
+      (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locales) ||
+      baseLocale;
+    setLocale(lang);
+    loadLocaleAsync(lang);
   });
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <As component={Button} variant="ghost" size="sm" class="w-9 px-0">
-          <Show when={locale() === "de"}>
-            <span>🇩🇪</span>
-          </Show>
-          <Show when={locale() === "en"}>
-            <span>🇺🇸</span>
-          </Show>
+          {localeFlags[locale()] || "🌍"}
           <span class="sr-only">Toggle language</span>
         </As>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <For each={locales}>
-          {(locale) => (
+          {(loc) => (
             <DropdownMenuItem
               onSelect={() => {
-                loadLocaleAsync(locale).then(() => {
-                  window.localStorage.setItem(langKey, locale);
-                  setLocale(locale);
+                loadLocaleAsync(loc).then(() => {
+                  setLanguageCookie(loc);
+                  setLocale(loc);
                 });
               }}
-              class="flex space-x-2"
+              class="space-x-2"
             >
-              <Show when={locale === "de"}>
-                <span>🇩🇪</span>
-              </Show>
-              <Show when={locale === "en"}>
-                <span>🇺🇸</span>
-              </Show>
-              <span>{locale}</span>
+              <span>{localeFlags[loc]}</span> <span>{loc}</span>
             </DropdownMenuItem>
           )}
         </For>
