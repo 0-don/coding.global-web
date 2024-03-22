@@ -8,18 +8,16 @@ import { loadLocaleAsync } from "~/i18n/i18n-util.async";
 import { parseCookie } from "~/utils";
 import { clientEnv } from "~/utils/env/client";
 
-function getServerLanguageCookie() {
+function getLocale(): Locales {
   "use server";
-  const language = getCookie(clientEnv.LANGUAGE_KEY);
-  return language ? `${clientEnv.LANGUAGE_KEY}=${language}` : "";
+  const cookieValue = isServer
+    ? getCookie(clientEnv.LANGUAGE_KEY)
+    : parseCookie(document.cookie, clientEnv.LANGUAGE_KEY);
+  return (cookieValue as Locales) || baseLocale;
 }
 
 export default function LanguageProvider(props: { children: JSX.Element }) {
-  const detectedLocale =
-    (parseCookie(
-      isServer ? getServerLanguageCookie() : document.cookie,
-      clientEnv.LANGUAGE_KEY,
-    ) as Locales) || baseLocale;
+  const detectedLocale = getLocale();
 
   loadLocaleAsync(detectedLocale);
 
