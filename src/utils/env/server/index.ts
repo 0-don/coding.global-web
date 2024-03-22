@@ -29,9 +29,7 @@ export const authOpts: SolidAuthConfig = {
     Discord({
       clientId: serverEnv.DISCORD_CLIENT_ID,
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
-      authorization: {
-        params: { scope: ["identify", "email"].join(" ") },
-      },
+      authorization: { params: { scope: "identify" } },
     }),
   ],
   debug: false,
