@@ -14,16 +14,23 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
+function initLanguage() {
+  const cookieLang = parseCookie(document.cookie, clientEnv.LANGUAGE_KEY);
+  const lang = (cookieLang as Locales) || baseLocale;
+
+  loadLocaleAsync(lang);
+
+  const expiryDate = new Date();
+  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
+
+  return lang;
+}
+
 export function LanguageToggle() {
   const { setLocale, locale } = useI18nContext();
 
-  onMount(() => {
-    const cookieLang = parseCookie(document.cookie, clientEnv.LANGUAGE_KEY);
-    const lang = (cookieLang as Locales) || baseLocale;
-    setLocale(lang);
-    loadLocaleAsync(lang);
-    document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang}`;
-  });
+  onMount(() => setLocale(initLanguage()));
 
   return (
     <DropdownMenu>
