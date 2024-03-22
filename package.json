@@ -16,10 +16,12 @@
     "i18n": "typesafe-i18n"
   },
   "dependencies": {
+    "@auth/core": "latest",
     "@dotenvx/dotenvx": "^0.26.0",
     "@elysiajs/eden": "^1.0.5",
     "@kobalte/core": "^0.12.6",
     "@modular-forms/solid": "^0.20.0",
+    "@solid-mediakit/auth": "latest",
     "@solidjs/meta": "^0.29.3",
     "@solidjs/router": "^0.13.1",
     "@solidjs/start": "^1.0.0-rc.0",
