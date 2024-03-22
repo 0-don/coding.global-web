@@ -52,12 +52,12 @@ export default function App() {
   return (
     <Router
       root={(props) => (
-        <TypesafeI18n locale="en">
-          <MetaProvider>
-            <QueryClientProvider client={queryClient}>
-              <SolidQueryDevtools initialIsOpen={false} />
-              <Title>coding.global</Title>
-              <ColorModeScript storageType={storageManager.type} />
+        <MetaProvider>
+          <QueryClientProvider client={queryClient}>
+            <SolidQueryDevtools initialIsOpen={false} />
+            <Title>coding.global</Title>
+            <ColorModeScript storageType={storageManager.type} />
+            <TypesafeI18n locale="en">
               <ColorModeProvider storageManager={storageManager}>
                 <div class="absolute right-0 top-0 z-[9999]">
                   <ModeToggle />
@@ -67,9 +67,9 @@ export default function App() {
                 </div>
                 <Suspense>{props.children}</Suspense>
               </ColorModeProvider>
-            </QueryClientProvider>
-          </MetaProvider>
-        </TypesafeI18n>
+            </TypesafeI18n>
+          </QueryClientProvider>
+        </MetaProvider>
       )}
     >
       <FileRoutes />
