@@ -27,10 +27,6 @@ function getServerCookies() {
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
-// const LanguageProvider = clientOnly(
-//   () => import("./components/provider/language-provider"),
-// );
-
 const Toaster = clientOnly(() => import("./components/ui/toast"));
 
 export default function App() {
