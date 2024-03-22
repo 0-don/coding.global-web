@@ -19,12 +19,15 @@ function initLanguage() {
   const lang = (cookieLang as Locales) || baseLocale;
 
   loadLocaleAsync(lang);
+  setLanguageCookie(lang);
 
+  return lang;
+}
+
+export function setLanguageCookie(lang: Locales) {
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
   document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
-
-  return lang;
 }
 
 export function LanguageToggle() {
@@ -51,7 +54,7 @@ export function LanguageToggle() {
             <DropdownMenuItem
               onSelect={() => {
                 loadLocaleAsync(locale).then(() => {
-                  document.cookie = `${clientEnv.LANGUAGE_KEY}=${locale}`;
+                  setLanguageCookie(locale);
                   setLocale(locale);
                 });
               }}
