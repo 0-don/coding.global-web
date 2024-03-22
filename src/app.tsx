@@ -15,6 +15,7 @@ import { Suspense } from "solid-js";
 import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
 import "./app.css";
+import LanguageProvider from "./components/provider/language-provider";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
 
@@ -26,9 +27,9 @@ function getServerCookies() {
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
-const LanguageProvider = clientOnly(
-  () => import("./components/provider/language-provider"),
-);
+// const LanguageProvider = clientOnly(
+//   () => import("./components/provider/language-provider"),
+// );
 
 const Toaster = clientOnly(() => import("./components/ui/toast"));
 
