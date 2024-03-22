@@ -1,6 +1,6 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
 import { Create } from "@sinclair/typebox/value";
-import { TbLoader } from "solid-icons/tb";
+import { TbLoader, TbTrashXFilled } from "solid-icons/tb";
 import { For } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
@@ -16,7 +16,7 @@ import {
 
 export default function Chat() {
   const { LL } = useI18nContext();
-  const { commentAdd, commentsQuery } = CommentHook();
+  const { commentAdd, commentsQuery, commentDelete } = CommentHook();
   const [authForm, { Form, Field }] = createForm({
     initialValues: Create(commentInsertSimpleSchema),
   });
@@ -29,7 +29,16 @@ export default function Chat() {
     <Layout>
       <section class="container mx-auto">
         <For each={commentsQuery.data}>
-          {(comment) => <div>{comment.content}</div>}
+          {(comment) => (
+            <div>
+              {comment.content}{" "}
+              <TbTrashXFilled
+                onClick={() => {
+                  commentDelete.mutateAsync(comment.id);
+                }}
+              />
+            </div>
+          )}
         </For>
         <Form onSubmit={handleSubmit}>
           <Grid class="gap-4">
