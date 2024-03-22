@@ -43,6 +43,7 @@ EXPOSE 3000
 
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
+ENV BUN=true
 
 CMD ["bun", "start"]
 #############################################
