@@ -14,7 +14,7 @@ export const authOpts: SolidAuthConfig = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
-  debug: false,
+  debug: true,
 };
 
 console.log("authOpts", authOpts);

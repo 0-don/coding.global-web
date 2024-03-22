@@ -38,18 +38,16 @@ export const Providers: Component<ProvidersProps> = (props) => {
     defaultOptions: { queries: { refetchOnWindowFocus: false } },
   });
   return (
-    <>
+    <Suspense>
       <ColorModeScript storageType={storageManager.type} />
-      <SessionProvider>
-        <QueryClientProvider client={queryClient}>
-          <SolidQueryDevtools initialIsOpen={false} />
-          <ColorModeProvider storageManager={storageManager}>
-            <LanguageProvider>
-              <Suspense>{props.children}</Suspense>
-            </LanguageProvider>
-          </ColorModeProvider>
-        </QueryClientProvider>
-      </SessionProvider>
-    </>
+      <QueryClientProvider client={queryClient}>
+        <SolidQueryDevtools initialIsOpen={false} />
+        <ColorModeProvider storageManager={storageManager}>
+          <LanguageProvider>
+            <SessionProvider>{props.children}</SessionProvider>
+          </LanguageProvider>
+        </ColorModeProvider>
+      </QueryClientProvider>
+    </Suspense>
   );
 };
