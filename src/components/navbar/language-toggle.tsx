@@ -4,6 +4,7 @@ import { Button } from "~/components/ui/button";
 import { useI18nContext } from "~/i18n/i18n-solid";
 import { Locales } from "~/i18n/i18n-types";
 import { baseLocale, locales } from "~/i18n/i18n-util";
+import { loadLocaleAsync } from "~/i18n/i18n-util.async";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,8 +41,10 @@ export function LanguageToggle() {
           {(locale) => (
             <DropdownMenuItem
               onSelect={() => {
-                setLocale(locale);
-                window.localStorage.setItem(langKey, locale);
+                loadLocaleAsync(locale).then(() => {
+                  window.localStorage.setItem(langKey, locale);
+                  setLocale(locale);
+                });
               }}
               class="flex space-x-2"
             >
