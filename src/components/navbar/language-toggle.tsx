@@ -54,9 +54,9 @@ export function LanguageToggle() {
                   setLocale(loc);
                 });
               }}
-              class="flex space-x-2"
+              class="space-x-2"
             >
-              {localeFlags[loc]} <span>{loc}</span>
+              <span>{localeFlags[loc]}</span> <span>{loc}</span>
             </DropdownMenuItem>
           )}
         </For>
