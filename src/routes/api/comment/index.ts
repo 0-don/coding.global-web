@@ -7,18 +7,18 @@ import {
   commentSelectSchema,
 } from "./schema";
 
-export const commentRoute = new Elysia()
+export const commentRoute = new Elysia({ prefix: "/comment" })
   .delete(
-    "/comment/:id",
+    "/:id",
     async ({ params }) =>
       (
         await db.delete(comment).where(eq(comment.id, params.id)).returning()
       ).at(0),
     { params: t.Pick(commentSelectSchema, ["id"]) },
   )
-  .get("/comment", async () => await db.select().from(comment))
+  .get("", async () => await db.select().from(comment))
   .post(
-    "/comment",
+    "",
     async ({ body }) =>
       (
         await db
