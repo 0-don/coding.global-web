@@ -1,7 +1,7 @@
 import { SubmitHandler, createForm } from "@modular-forms/solid";
 import { Create } from "@sinclair/typebox/value";
 import { TbLoader } from "solid-icons/tb";
-import { For } from "solid-js";
+import { For, onMount } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
@@ -24,6 +24,10 @@ export default function Chat() {
   const handleSubmit: SubmitHandler<CommentInsertSimple> = async (values) => {
     await commentAdd.mutateAsync(values);
   };
+
+  onMount(() => {
+    console.log(LL());
+  });
 
   return (
     <Layout>
