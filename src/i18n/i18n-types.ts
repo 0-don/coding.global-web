@@ -23,6 +23,10 @@ type RootTranslation = {
 	 */
 	TOGGLE_LANGUAGE: string
 	/**
+	 * T​o​g​g​l​e​ ​T​h​e​m​e
+	 */
+	TOGGLE_THEME: string
+	/**
 	 * E​n​g​l​i​s​h
 	 */
 	EN: string
@@ -53,6 +57,10 @@ export type TranslationFunctions = {
 	 * Toggle Language
 	 */
 	TOGGLE_LANGUAGE: () => LocalizedString
+	/**
+	 * Toggle Theme
+	 */
+	TOGGLE_THEME: () => LocalizedString
 	/**
 	 * English
 	 */
