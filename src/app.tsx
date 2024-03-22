@@ -36,13 +36,7 @@ export default function App() {
   );
 
   const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        refetchOnWindowFocus: false,
-        placeholderData: (previousData: unknown) => previousData,
-      },
-    },
+    defaultOptions: { queries: { refetchOnWindowFocus: false } },
   });
 
   return (
