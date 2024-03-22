@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"dotenvx run -- vinxi dev\" \"typesafe-i18n\"",
-    "dev2": "dotenvx run -- vinxi dev",
+    "dev2": "vinxi dev",
     "build": "dotenvx run -- vinxi build",
     "start": "dotenvx run -- vinxi start",
     "prettier": "prettier --write .",
