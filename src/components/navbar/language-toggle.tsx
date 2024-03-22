@@ -25,7 +25,7 @@ const localeFlags = {
   de: "🇩🇪",
 };
 
-export function LanguageToggle() {
+export default function LanguageToggle() {
   const { setLocale, locale } = useI18nContext();
 
   onMount(() => {
