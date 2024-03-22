@@ -19,9 +19,29 @@ type RootTranslation = {
 	 */
 	HI: string
 	/**
-	 * H​i​ 
+	 * T​o​g​g​l​e​ ​L​a​n​g​u​a​g​e
 	 */
-	AXS: string
+	TOGGLE_LANGUAGE: string
+	/**
+	 * E​n​g​l​i​s​h
+	 */
+	EN: string
+	/**
+	 * G​e​r​m​a​n
+	 */
+	DE: string
+	/**
+	 * L​i​g​h​t
+	 */
+	LIGHT: string
+	/**
+	 * D​a​r​k
+	 */
+	DARK: string
+	/**
+	 * S​y​s​t​e​m
+	 */
+	SYSTEM: string
 }
 
 export type TranslationFunctions = {
@@ -30,9 +50,29 @@ export type TranslationFunctions = {
 	 */
 	HI: () => LocalizedString
 	/**
-	 * Hi 
+	 * Toggle Language
 	 */
-	AXS: () => LocalizedString
+	TOGGLE_LANGUAGE: () => LocalizedString
+	/**
+	 * English
+	 */
+	EN: () => LocalizedString
+	/**
+	 * German
+	 */
+	DE: () => LocalizedString
+	/**
+	 * Light
+	 */
+	LIGHT: () => LocalizedString
+	/**
+	 * Dark
+	 */
+	DARK: () => LocalizedString
+	/**
+	 * System
+	 */
+	SYSTEM: () => LocalizedString
 }
 
 export type Formatters = {}
