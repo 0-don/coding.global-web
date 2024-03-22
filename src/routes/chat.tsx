@@ -30,9 +30,10 @@ export default function Chat() {
       <section class="container mx-auto">
         <For each={commentsQuery.data}>
           {(comment) => (
-            <div>
-              {comment.content}{" "}
+            <div class="flex w-64 items-center justify-between truncate">
+              <span>{comment.content}</span>
               <TbTrashXFilled
+                class="cursor-pointer hover:text-red-500"
                 onClick={() => {
                   commentDelete.mutateAsync(comment.id);
                 }}
