@@ -4,9 +4,9 @@ import TypesafeI18n from "~/i18n/i18n-solid";
 import { detectLocale } from "~/i18n/i18n-util";
 import { loadLocaleAsync } from "~/i18n/i18n-util.async";
 
-export default function LanguageProvider(props: { children: JSX.Element }) {
-  const detectedLocale = detectLocale(localStorageDetector);
+const detectedLocale = detectLocale(localStorageDetector);
 
+export default function LanguageProvider(props: { children: JSX.Element }) {
   const [wasLoaded, setWasLoaded] = createSignal(false);
 
   createEffect(() => {
