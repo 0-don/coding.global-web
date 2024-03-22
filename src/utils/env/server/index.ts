@@ -30,7 +30,7 @@ export const authOpts: SolidAuthConfig = {
       clientId: serverEnv.DISCORD_CLIENT_ID,
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
       authorization: {
-        params: { scope: ["identify", "guilds", "email"].join(" ") },
+        params: { scope: ["identify", "email"].join(" ") },
       },
     }),
   ],
