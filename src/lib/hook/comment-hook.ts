@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/solid-query";
 import { rpc } from "~/app";
+import { showToast } from "~/components/ui/toast";
 import {
   CommentInsertSimple,
   CommentSelect,
@@ -26,6 +27,13 @@ export const CommentHook = () => {
         ["comments"],
         (oldQueryData = []) => [...oldQueryData, newComment],
       );
+    },
+    onError: (error) => {
+      showToast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   }));
 
