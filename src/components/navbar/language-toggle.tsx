@@ -5,6 +5,8 @@ import { useI18nContext } from "~/i18n/i18n-solid";
 import { Locales } from "~/i18n/i18n-types";
 import { baseLocale, locales } from "~/i18n/i18n-util";
 import { loadLocaleAsync } from "~/i18n/i18n-util.async";
+import { parseCookie } from "~/utils";
+import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,15 +14,15 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-const langKey = "lang";
-
 export function LanguageToggle() {
   const { setLocale, locale } = useI18nContext();
 
   onMount(() => {
-    const lang = window.localStorage.getItem(langKey);
-    setLocale((lang as Locales) || baseLocale);
-    if (!lang) window.localStorage.setItem(langKey, baseLocale);
+    const cookieLang = parseCookie(document.cookie, clientEnv.LANGUAGE_KEY);
+    const lang = (cookieLang as Locales) || baseLocale;
+    setLocale(lang);
+    loadLocaleAsync(lang);
+    document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang}`;
   });
 
   return (
@@ -42,7 +44,7 @@ export function LanguageToggle() {
             <DropdownMenuItem
               onSelect={() => {
                 loadLocaleAsync(locale).then(() => {
-                  window.localStorage.setItem(langKey, locale);
+                  document.cookie = `${clientEnv.LANGUAGE_KEY}=${locale}`;
                   setLocale(locale);
                 });
               }}

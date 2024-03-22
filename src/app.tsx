@@ -7,7 +7,6 @@ import {
 } from "@kobalte/core";
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
-import { clientOnly } from "@solidjs/start";
 import { FileRoutes } from "@solidjs/start/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
@@ -15,6 +14,7 @@ import { Suspense } from "solid-js";
 import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
 import "./app.css";
+import LanguageProvider from "./components/provider/language-provider";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
 
@@ -25,10 +25,6 @@ function getServerCookies() {
 }
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
-
-const LanguageProvider = clientOnly(
-  () => import("./components/provider/language-provider"),
-);
 
 export default function App() {
   const storageManager = cookieStorageManagerSSR(
