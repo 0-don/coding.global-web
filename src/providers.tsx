@@ -5,7 +5,6 @@ import {
   cookieStorageManagerSSR,
 } from "@kobalte/core";
 import { SessionProvider } from "@solid-mediakit/auth/client";
-import { clientOnly } from "@solidjs/start";
 import {
   QueryClient,
   QueryClientProvider,
@@ -14,6 +13,7 @@ import {
 import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { Component, JSX, Suspense } from "solid-js";
 import { getCookie } from "vinxi/http";
+import LanguageProvider from "./components/provider/language-provider";
 
 interface ProvidersProps {
   children: JSX.Element;
@@ -25,9 +25,9 @@ function getServerCookies() {
   return colorMode ? `${COLOR_MODE_STORAGE_KEY}=${colorMode}` : "";
 }
 
-const LanguageProvider = clientOnly(
-  () => import("./components/provider/language-provider"),
-);
+// const LanguageProvider = clientOnly(
+//   () => import("./components/provider/language-provider"),
+// );
 
 export const Providers: Component<ProvidersProps> = (props) => {
   const storageManager = cookieStorageManagerSSR(
