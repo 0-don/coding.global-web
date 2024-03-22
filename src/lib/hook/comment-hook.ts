@@ -29,5 +29,17 @@ export const CommentHook = () => {
     },
   }));
 
-  return { commentsQuery, commentAdd };
+  const commentDelete = createMutation(() => ({
+    mutationFn: async (id: string) =>
+      handleEden(await rpc.api.comment[id].delete()),
+    onSuccess: (c) => {
+      queryClient.setQueryData<CommentSelect[]>(
+        ["comments"],
+        (oldQueryData = []) =>
+          oldQueryData.filter((comment) => comment.id !== c.id),
+      );
+    },
+  }));
+
+  return { commentsQuery, commentAdd, commentDelete };
 };
