@@ -1,5 +1,6 @@
 import { edenTreaty } from "@elysiajs/eden";
 import {
+  COLOR_MODE_STORAGE_KEY,
   ColorModeProvider,
   ColorModeScript,
   cookieStorageManagerSSR,
@@ -19,8 +20,8 @@ import { clientEnv } from "./utils/env/client";
 
 function getServerCookies() {
   "use server";
-  const colorMode = getCookie("kb-color-mode");
-  return colorMode ? `kb-color-mode=${colorMode}` : "";
+  const colorMode = getCookie(COLOR_MODE_STORAGE_KEY);
+  return colorMode ? `${COLOR_MODE_STORAGE_KEY}=${colorMode}` : "";
 }
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
