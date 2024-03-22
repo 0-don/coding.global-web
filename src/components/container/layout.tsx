@@ -1,4 +1,4 @@
-import clientOnly from "@solidjs/start/dist/shared/clientOnly";
+import { clientOnly } from "@solidjs/start";
 import { Component, JSX } from "solid-js";
 import { LanguageToggle } from "../navbar/language-toggle";
 import { ModeToggle } from "../navbar/mode-toggle";
@@ -6,6 +6,7 @@ import { ModeToggle } from "../navbar/mode-toggle";
 interface LayoutProps {
   children: JSX.Element;
 }
+
 const LanguageProvider = clientOnly(
   () => import("../provider/language-provider"),
 );
