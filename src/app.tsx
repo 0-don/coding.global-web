@@ -52,11 +52,11 @@ export default function App() {
             <SolidQueryDevtools initialIsOpen={false} />
             <Title>coding.global</Title>
             <ColorModeScript storageType={storageManager.type} />
-            <LanguageProvider>
-              <ColorModeProvider storageManager={storageManager}>
+            <ColorModeProvider storageManager={storageManager}>
+              <LanguageProvider>
                 <Suspense>{props.children}</Suspense>
-              </ColorModeProvider>
-            </LanguageProvider>
+              </LanguageProvider>
+            </ColorModeProvider>
           </QueryClientProvider>
         </MetaProvider>
       )}
