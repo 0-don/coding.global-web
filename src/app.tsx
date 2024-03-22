@@ -6,6 +6,7 @@ import {
 } from "@kobalte/core";
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
+import { clientOnly } from "@solidjs/start";
 import { FileRoutes } from "@solidjs/start/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
@@ -23,6 +24,10 @@ function getServerCookies() {
 }
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
+
+const LanguageProvider = clientOnly(
+  () => import("./components/provider/language-provider"),
+);
 
 export default function App() {
   const storageManager = cookieStorageManagerSSR(
@@ -47,10 +52,11 @@ export default function App() {
             <SolidQueryDevtools initialIsOpen={false} />
             <Title>coding.global</Title>
             <ColorModeScript storageType={storageManager.type} />
-
-            <ColorModeProvider storageManager={storageManager}>
-              <Suspense>{props.children}</Suspense>
-            </ColorModeProvider>
+            <LanguageProvider>
+              <ColorModeProvider storageManager={storageManager}>
+                <Suspense>{props.children}</Suspense>
+              </ColorModeProvider>
+            </LanguageProvider>
           </QueryClientProvider>
         </MetaProvider>
       )}
