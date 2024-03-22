@@ -37,6 +37,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { refetchOnWindowFocus: false } },
   });
+
   return (
     <Suspense>
       <ColorModeScript storageType={storageManager.type} />
