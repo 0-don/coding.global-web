@@ -3,11 +3,11 @@ import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { clientOnly } from "@solidjs/start";
 import { FileRoutes } from "@solidjs/start/router";
+import { Suspense } from "solid-js";
 import "./app.css";
 import { Providers } from "./providers";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
-import { Suspense } from "solid-js";
 
 export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
