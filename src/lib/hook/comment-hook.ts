@@ -36,7 +36,7 @@ export const CommentHook = () => {
       queryClient.setQueryData<CommentSelect[]>(
         ["comments"],
         (oldQueryData = []) =>
-          oldQueryData.filter((comment) => comment.id !== c.id),
+          oldQueryData.filter((comment) => comment.id !== c?.id),
       );
     },
   }));

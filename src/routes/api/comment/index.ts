@@ -13,7 +13,7 @@ export const commentRoute = new Elysia()
     async ({ params }) =>
       (
         await db.delete(comment).where(eq(comment.id, params.id)).returning()
-      ).at(0)!,
+      ).at(0),
     { params: t.Pick(commentSelectSchema, ["id"]) },
   )
   .get("/comment", async () => await db.select().from(comment))
