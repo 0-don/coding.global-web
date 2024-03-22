@@ -65,7 +65,7 @@ export default function Chat() {
             </Button>
           </Grid>
         </Form>
-        <Button onClick={() => signIn("discord")}>Login</Button>
+        <Button onClick={() => signIn()}>Login</Button>
       </section>
     </Layout>
   );
