@@ -26,7 +26,7 @@ export default function Chat() {
   };
 
   onMount(() => {
-    console.log(LL());
+    console.log(JSON.parse(JSON.stringify(LL())));
   });
 
   return (
@@ -45,6 +45,7 @@ export default function Chat() {
                   </Label>
                   <Input
                     {...props}
+                    id="content"
                     type="text"
                     placeholder="write your comment"
                   />
