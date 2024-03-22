@@ -17,10 +17,11 @@ import { Suspense } from "solid-js";
 import { isServer } from "solid-js/web";
 import { getCookie } from "vinxi/server";
 import "./app.css";
+import { LanguageToggle } from "./components/navbar/language-toggle";
 import { ModeToggle } from "./components/navbar/mode-toggle";
+import TypesafeI18n from "./i18n/i18n-solid";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
-import TypesafeI18n from "./i18n/i18n-solid";
 
 function getServerCookies() {
   "use server";
@@ -60,6 +61,9 @@ export default function App() {
               <ColorModeProvider storageManager={storageManager}>
                 <div class="absolute right-0 top-0 z-[9999]">
                   <ModeToggle />
+                </div>
+                <div class="absolute left-0 top-0 z-[9999]">
+                  <LanguageToggle />
                 </div>
                 <Suspense>{props.children}</Suspense>
               </ColorModeProvider>
