@@ -1,12 +1,13 @@
-import { clientOnly } from "@solidjs/start";
+// import { clientOnly } from "@solidjs/start";
 import { Component, JSX } from "solid-js";
 import { ThemeToggle } from "../navbar/theme-toggle";
+import LanguageToggle from "../navbar/language-toggle";
 
 interface LayoutProps {
   children: JSX.Element;
 }
 
-const LanguageToggle = clientOnly(() => import("../navbar/language-toggle"));
+// const LanguageToggle = clientOnly(() => import("../navbar/language-toggle"));
 
 export const Layout: Component<LayoutProps> = (props) => {
   return (
