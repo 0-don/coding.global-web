@@ -5,6 +5,7 @@ import {
   ColorModeScript,
   cookieStorageManagerSSR,
 } from "@kobalte/core";
+import { SessionProvider } from "@solid-mediakit/auth/client";
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { clientOnly } from "@solidjs/start";
@@ -45,17 +46,19 @@ export default function App() {
     <Router
       root={(props) => (
         <MetaProvider>
-          <QueryClientProvider client={queryClient}>
-            <SolidQueryDevtools initialIsOpen={false} />
-            <Title>coding.global</Title>
-            <Toaster />
-            <ColorModeScript storageType={storageManager.type} />
-            <ColorModeProvider storageManager={storageManager}>
-              <LanguageProvider>
-                <Suspense>{props.children}</Suspense>
-              </LanguageProvider>
-            </ColorModeProvider>
-          </QueryClientProvider>
+          <SessionProvider>
+            <QueryClientProvider client={queryClient}>
+              <SolidQueryDevtools initialIsOpen={false} />
+              <Title>coding.global</Title>
+              <Toaster />
+              <ColorModeScript storageType={storageManager.type} />
+              <ColorModeProvider storageManager={storageManager}>
+                <LanguageProvider>
+                  <Suspense>{props.children}</Suspense>
+                </LanguageProvider>
+              </ColorModeProvider>
+            </QueryClientProvider>
+          </SessionProvider>
         </MetaProvider>
       )}
     >
