@@ -4,7 +4,7 @@ import { getCookie } from "vinxi/http";
 import TypesafeI18n from "~/i18n/i18n-solid";
 import { Locales } from "~/i18n/i18n-types";
 import { baseLocale } from "~/i18n/i18n-util";
-import { loadLocale } from "~/i18n/i18n-util.sync";
+import { loadLocaleAsync } from "~/i18n/i18n-util.async";
 import { parseCookie } from "~/utils";
 import { clientEnv } from "~/utils/env/client";
 
@@ -29,7 +29,7 @@ export default function LanguageProvider(props: { children: JSX.Element }) {
   const detectedLocale =
     (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locales) || baseLocale;
 
-  loadLocale(detectedLocale);
+  loadLocaleAsync(detectedLocale);
 
   return <TypesafeI18n locale={detectedLocale}>{props.children}</TypesafeI18n>;
 }
