@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-export function setLanguageCookie(lang: Locales) {
+function setLanguageCookie(lang: Locales) {
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
   document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
@@ -33,7 +33,6 @@ export function LanguageToggle() {
       (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locales) ||
       baseLocale;
     setLocale(lang);
-    loadLocaleAsync(lang);
     setLanguageCookie(lang);
   });
 
