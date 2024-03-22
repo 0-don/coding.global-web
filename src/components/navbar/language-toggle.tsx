@@ -49,9 +49,10 @@ export default function LanguageToggle() {
           {(loc) => (
             <DropdownMenuItem
               onSelect={() => {
-                loadLocaleAsync(loc);
-                setLanguageCookie(loc);
-                setLocale(loc);
+                loadLocaleAsync(loc).then(() => {
+                  setLanguageCookie(loc);
+                  setLocale(loc);
+                });
               }}
               class="space-x-2"
             >
