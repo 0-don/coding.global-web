@@ -8,14 +8,6 @@ import {
 } from "./schema";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
-  .delete(
-    "/:id",
-    async ({ params }) =>
-      (
-        await db.delete(comment).where(eq(comment.id, params.id)).returning()
-      ).at(0),
-    { params: t.Pick(commentSelectSchema, ["id"]) },
-  )
   .get("", async () => await db.select().from(comment))
   .post(
     "",
@@ -27,4 +19,12 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
           .returning()
       ).at(0)!,
     { body: commentInsertSimpleSchema },
+  )
+  .delete(
+    "/:id",
+    async ({ params }) =>
+      (
+        await db.delete(comment).where(eq(comment.id, params.id)).returning()
+      ).at(0),
+    { params: t.Pick(commentSelectSchema, ["id"]) },
   );
