@@ -34,6 +34,7 @@ export function LanguageToggle() {
       baseLocale;
     setLocale(lang);
     loadLocaleAsync(lang);
+    setLanguageCookie(lang);
   });
 
   return (
