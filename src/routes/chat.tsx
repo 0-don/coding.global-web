@@ -51,7 +51,7 @@ export default function Chat() {
               {authForm.submitting && (
                 <TbLoader class="mr-2 size-4 animate-spin" />
               )}
-              {LL().HI({ name: "world" })}
+              {LL().HI()}
             </Button>
           </Grid>
         </Form>
