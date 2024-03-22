@@ -1,6 +1,8 @@
+import { getSession } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
+import { authOpts } from "~/utils/env/server";
 import {
   comment,
   commentInsertSimpleSchema,
@@ -11,13 +13,16 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => await db.select().from(comment))
   .post(
     "",
-    async ({ body }) =>
-      (
+    async ({ body, request }) => {
+      const session = await getSession(request, authOpts);
+      console.log(session);
+      return (
         await db
           .insert(comment)
           .values({ ...body, user: "test" })
           .returning()
-      ).at(0)!,
+      ).at(0)!;
+    },
     { body: commentInsertSimpleSchema },
   )
   .delete(
