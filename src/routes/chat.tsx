@@ -34,9 +34,7 @@ export default function Chat() {
               <span>{comment.content}</span>
               <TbTrashXFilled
                 class="cursor-pointer hover:text-red-500"
-                onClick={() => {
-                  commentDelete.mutateAsync(comment.id);
-                }}
+                onClick={() => commentDelete.mutateAsync(comment.id)}
               />
             </div>
           )}
