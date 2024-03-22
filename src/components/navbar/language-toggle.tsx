@@ -29,7 +29,10 @@ export function LanguageToggle() {
       <DropdownMenuContent>
         <For each={locales}>
           {(locale) => (
-            <DropdownMenuItem onSelect={() => setLocale(locale)} class="flex space-x-2">
+            <DropdownMenuItem
+              onSelect={() => setLocale(locale)}
+              class="flex space-x-2"
+            >
               <Show when={locale === "de"}>
                 <span>🇩🇪</span>
               </Show>
