@@ -9,7 +9,7 @@ export default {
   out: "./db.migrations",
   dbCredentials: { connectionString: process.env.DATABASE_URL },
   // Print all statements
-  // verbose: true,
+  verbose: false,
   // Always ask for confirmation
-  // strict: true,
+  strict: false,
 } satisfies Config;
