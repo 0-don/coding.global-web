@@ -15,10 +15,10 @@ export const authOpts: SolidAuthConfig = {
     }),
   ],
   callbacks: {
-    jwt({ token, user, profile }) {
+    jwt({ user, profile }) {
       if (profile?.picture) user["image"] = profile.picture as string;
 
-      return { ...token, ...profile, ...user } as JWT;
+      return { ...profile, ...user } as JWT;
     },
     session({ token, session }) {
       return { ...session, user: { ...token } } as DefaultSession;
