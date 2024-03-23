@@ -12,12 +12,19 @@ export const authOpts: SolidAuthConfig = {
       clientId: serverEnv.DISCORD_CLIENT_ID,
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile?.username || profile.global_name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
     }),
   ],
+
   callbacks: {
     jwt({ token, user, profile }) {
-      if (profile?.picture) user["image"] = profile.picture as string;
-
       return { ...token, ...profile, ...user } as JWT;
     },
     session({ token, session }) {
