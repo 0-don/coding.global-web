@@ -15,7 +15,7 @@ export default function Chat() {
   return (
     <Layout>
       <section class="container mx-auto">
-        <Card class="">
+        <Card class="mt-10 p-5">
           <For each={commentsQuery.data}>
             {(comment) => (
               <div class="flex w-64 items-center justify-between truncate">

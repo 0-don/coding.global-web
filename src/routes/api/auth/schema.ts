@@ -1,4 +1,5 @@
 import type { AdapterAccount } from "@auth/core/adapters";
+import { Type as t } from "@sinclair/typebox/type";
 import {
   integer,
   pgTable,
@@ -6,6 +7,7 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-typebox";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -43,3 +45,9 @@ export const accounts = pgTable(
     }),
   }),
 );
+
+export const userSchema = createInsertSchema(users);
+
+export const userSelectSchema = t.Omit(userSchema, ["email"]);
+
+export type UserSelecSchema = typeof userSelectSchema.static;

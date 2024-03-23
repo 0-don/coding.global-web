@@ -35,11 +35,13 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
 
       const { email, ...user } = getTableColumns(users);
 
-      return await db
-        .select({ ...getTableColumns(comment), user })
-        .from(comment)
-        .fullJoin(users, eq(comment.userId, users.id))
-        .where(eq(comment.id, newComment.id));
+      return (
+        await db
+          .select({ ...getTableColumns(comment), user })
+          .from(comment)
+          .fullJoin(users, eq(comment.userId, users.id))
+          .where(eq(comment.id, newComment.id))
+      ).at(0)!;
     },
     { body: commentInsertSimpleSchema },
   )
