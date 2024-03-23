@@ -32,7 +32,7 @@ export const authOpts: SolidAuthConfig = {
     }),
   ],
   events: {
-    createUser() {
+    createUser({ user }) {
       getSession(getWebRequest(), authOpts).then((session) =>
         db
           .update(users)
@@ -43,13 +43,12 @@ export const authOpts: SolidAuthConfig = {
             bannerColor: session?.user?.banner_color,
             emailVerified: new Date(),
           })
-          .where(eq(users.id, session!.user!.id!)),
+          .where(eq(users.id, user.id!)),
       );
     },
   },
   callbacks: {
     jwt({ token, user, profile }) {
-      profile && (profile.test = "test");
       return { ...token, ...profile, ...user } as JWT;
     },
     session({ token, session }) {
