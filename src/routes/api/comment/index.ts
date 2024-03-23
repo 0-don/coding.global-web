@@ -15,7 +15,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
     "",
     async ({ body, request }) => {
       const session = await getSession(request, authOpts);
-      
+
       if (!session?.user?.name)
         throw new Error("You must be logged in to comment.");
 
