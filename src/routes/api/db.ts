@@ -9,7 +9,7 @@ import * as schema from "./schema";
 
 const connection = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
 
-export const db = drizzle(connection, { schema, logger: false });
+export const db = drizzle(connection, { schema });
 
 export const dbAdapter = DrizzleAdapter(db);
 
