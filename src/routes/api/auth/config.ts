@@ -7,6 +7,9 @@ import { serverEnv } from "~/utils/env/server";
 import { db } from "../db";
 import { users } from "./schema";
 
+const getImage = (profile: DiscordProfile) =>
+  `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar?.startsWith("a_") ? "gif" : "png"}`;
+
 export const authOpts: SolidAuthConfig = {
   adapter: DrizzleAdapter(db),
   providers: [
@@ -15,13 +18,12 @@ export const authOpts: SolidAuthConfig = {
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
       profile(profile) {
-        const image = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar.startsWith("a_") ? "gif" : "png"}`;
-        profile.image = image;
+        profile.image = getImage(profile);
         return {
           id: profile.id,
           name: profile?.username || profile.global_name,
           email: profile.email,
-          image,
+          image: profile.image,
         };
       },
     }),
@@ -31,7 +33,9 @@ export const authOpts: SolidAuthConfig = {
       const p = profile as DiscordProfile;
       db.update(users)
         .set({
+          name: p?.username,
           globalName: p?.global_name,
+          image: getImage(p),
           accentColor: p?.accent_color,
           banner: p?.banner,
           bannerColor: p?.banner_color,
@@ -50,8 +54,6 @@ export const authOpts: SolidAuthConfig = {
       return { ...session, user: { ...token } } as DefaultSession;
     },
   },
-  session: {
-    strategy: "jwt",
-  },
+  session: { strategy: "jwt" },
   debug: false,
 };
