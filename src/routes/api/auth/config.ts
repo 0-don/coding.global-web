@@ -17,7 +17,6 @@ export const authOpts: SolidAuthConfig = {
   callbacks: {
     jwt({ token, user, profile }) {
       if (profile?.picture) user["image"] = profile.picture as string;
-      if (profile?.username) user["name"] = profile?.username as string;
 
       return { ...token, ...profile, ...user } as JWT;
     },
