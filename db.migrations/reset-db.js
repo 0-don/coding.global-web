@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { error, log } from "console";
 import postgres from "postgres";
 
 const sql = postgres(process.env.DATABASE_URL);
@@ -21,10 +22,10 @@ try {
         );
       }
     });
-    console.log("All public tables have been dropped.");
+    log("All public tables have been dropped.");
   } else {
-    console.log("No tables found in the public schema.");
+    log("No tables found in the public schema.");
   }
-} catch (error) {
-  console.error("Error dropping tables:", error);
+} catch (err) {
+  error("Error dropping tables:", err);
 }
