@@ -2,12 +2,12 @@ import { getSession } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
-import { authOpts } from "../auth/[...solidauth]";
 import {
   comment,
   commentInsertSimpleSchema,
   commentSelectSchema,
 } from "./schema";
+import { authOpts } from "../auth/config";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => await db.select().from(comment))
