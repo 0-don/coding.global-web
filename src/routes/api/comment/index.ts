@@ -16,14 +16,15 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
     async ({ body, request }) => {
       const session = await getSession(request, authOpts);
 
-      console.log(session);
       if (!session?.user?.name)
         throw new Error("You must be logged in to comment.");
+
+      console.log(session);
 
       return (
         await db
           .insert(comment)
-          .values({ ...body, user: session.user.name })
+          .values({ ...body, userId: session.user.name })
           .returning()
       ).at(0)!;
     },
