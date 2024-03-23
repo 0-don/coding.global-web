@@ -21,6 +21,7 @@
   "rules": {
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/classnames-order": "off",
-    "drizzle/enforce-delete-with-where": "off"
+    "drizzle/enforce-delete-with-where": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }
