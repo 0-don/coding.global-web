@@ -1,13 +1,8 @@
 import { JWT } from "@auth/core/jwt";
-import Discord from "@auth/core/providers/discord";
+import Discord, { DiscordProfile } from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import {
-  DefaultSession,
-  SolidAuthConfig,
-  getSession,
-} from "@solid-mediakit/auth";
+import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
-import { getWebRequest } from "vinxi/http";
 import { serverEnv } from "~/utils/env/server";
 import { db } from "../db";
 import { users } from "./schema";
@@ -32,24 +27,24 @@ export const authOpts: SolidAuthConfig = {
     }),
   ],
   events: {
-    createUser({ user }) {
-      getSession(getWebRequest(), authOpts).then((session) => {
-        console.log(session);
-        db.update(users)
-          .set({
-            globalName: session?.user?.global_name,
-            accentColor: session?.user?.accent_color,
-            banner: session?.user?.banner,
-            bannerColor: session?.user?.banner_color,
-            emailVerified: new Date(),
-          })
-          .where(eq(users.id, user.id!));
-      });
+    signIn({ user, profile }) {
+      const p = profile as DiscordProfile;
+      db.update(users)
+        .set({
+          globalName: p?.global_name,
+          accentColor: p?.accent_color,
+          banner: p?.banner,
+          bannerColor: p?.banner_color,
+          emailVerified: new Date(),
+        })
+        .where(eq(users.id, user.id!))
+        .then();
     },
   },
   callbacks: {
     jwt({ token, user, profile }) {
-      return { ...token, ...profile, ...user } as JWT;
+      if (profile && user) return { ...token, me: user, profile } as JWT;
+      return { ...token } as JWT;
     },
     session({ token, session }) {
       return { ...session, user: { ...token } } as DefaultSession;
