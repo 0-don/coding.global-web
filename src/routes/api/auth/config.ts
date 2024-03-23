@@ -33,9 +33,9 @@ export const authOpts: SolidAuthConfig = {
   ],
   events: {
     createUser({ user }) {
-      getSession(getWebRequest(), authOpts).then((session) =>
-        db
-          .update(users)
+      getSession(getWebRequest(), authOpts).then((session) => {
+        console.log(session);
+        db.update(users)
           .set({
             globalName: session?.user?.global_name,
             accentColor: session?.user?.accent_color,
@@ -43,8 +43,8 @@ export const authOpts: SolidAuthConfig = {
             bannerColor: session?.user?.banner_color,
             emailVerified: new Date(),
           })
-          .where(eq(users.id, user.id!)),
-      );
+          .where(eq(users.id, user.id!));
+      });
     },
   },
   callbacks: {

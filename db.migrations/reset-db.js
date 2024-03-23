@@ -2,7 +2,7 @@
 import { error, log } from "console";
 import postgres from "postgres";
 
-const sql = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
+const sql = postgres(process.env.DATABASE_URL, { onnotice: () => {} });
 
 try {
   // Fetch all table names in the public schema
