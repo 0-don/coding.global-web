@@ -18,8 +18,8 @@ const insertSchema = createInsertSchema(comment, {
 
 export const commentInsertSimpleSchema = t.Omit(insertSchema, [
   "id",
-  "user",
   "createdAt",
+  "userId",
 ]);
 export type CommentInsertSimple = typeof commentInsertSimpleSchema.static;
 
