@@ -1,3 +1,4 @@
+
 import { log } from "console";
 import { drizzle } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
@@ -9,6 +10,7 @@ import * as schema from "./schema";
 const connection = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
 
 export const db = drizzle(connection, { schema });
+
 
 
 (async () => {
