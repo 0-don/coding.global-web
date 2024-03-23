@@ -14,10 +14,10 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 
-  global_name: text("global_name"),
+  globalName: text("global_name"),
   banner: text("banner"),
-  banner_color: text("banner_color"),
-  accent_color: integer("accent_color"),
+  bannerColor: text("banner_color"),
+  accentColor: integer("accent_color"),
 });
 
 export const accounts = pgTable(

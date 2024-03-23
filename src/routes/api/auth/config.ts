@@ -1,9 +1,16 @@
 import { JWT } from "@auth/core/jwt";
 import Discord from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
+import {
+  DefaultSession,
+  SolidAuthConfig,
+  getSession,
+} from "@solid-mediakit/auth";
+import { eq } from "drizzle-orm";
+import { getWebRequest } from "vinxi/http";
 import { serverEnv } from "~/utils/env/server";
 import { db } from "../db";
+import { users } from "./schema";
 
 export const authOpts: SolidAuthConfig = {
   adapter: DrizzleAdapter(db),
@@ -15,23 +22,29 @@ export const authOpts: SolidAuthConfig = {
       profile(profile) {
         const image = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar.startsWith("a_") ? "gif" : "png"}`;
         profile.image = image;
-        console.log(profile);
         return {
           id: profile.id,
           name: profile?.username || profile.global_name,
-          global_name: profile.global_name,
           email: profile.email,
           image,
-          banner: profile.banner,
-          banner_color: profile.banner_color,
-          accent_color: profile.accent_color,
         };
       },
     }),
   ],
   events: {
-    createUser({ user }) {
-      console.log(user);
+    createUser() {
+      getSession(getWebRequest(), authOpts).then((session) =>
+        db
+          .update(users)
+          .set({
+            globalName: session?.user?.global_name,
+            accentColor: session?.user?.accent_color,
+            banner: session?.user?.banner,
+            bannerColor: session?.user?.banner_color,
+            emailVerified: new Date(),
+          })
+          .where(eq(users.id, session!.user!.id!)),
+      );
     },
   },
   callbacks: {
