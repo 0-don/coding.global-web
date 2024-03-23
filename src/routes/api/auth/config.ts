@@ -23,7 +23,6 @@ export const authOpts: SolidAuthConfig = {
           profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`;
         }
         return {
-          ...profile,
           id: profile.id,
           name: profile.global_name ?? profile.username,
           email: profile.email,
@@ -32,5 +31,8 @@ export const authOpts: SolidAuthConfig = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
   debug: false,
 };
