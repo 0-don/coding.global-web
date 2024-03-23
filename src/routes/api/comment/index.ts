@@ -1,5 +1,5 @@
 import { getSession } from "@solid-mediakit/auth";
-import { eq, getTableColumns } from "drizzle-orm";
+import { and, eq, getTableColumns } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
 import { authOpts } from "../auth/config";
@@ -45,9 +45,23 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
   )
   .delete(
     "/:id",
-    async ({ params }) =>
-      (
-        await db.delete(comment).where(eq(comment.id, params.id)).returning()
-      ).at(0),
+    async ({ params, request }) => {
+      const session = await getSession(request, authOpts);
+
+      if (!session?.user?.me?.id)
+        throw new Error("You must be logged in to delete a comment.");
+
+      return (
+        await db
+          .delete(comment)
+          .where(
+            and(
+              eq(comment.id, params.id),
+              eq(comment.userId, session?.user?.me?.id),
+            ),
+          )
+          .returning()
+      ).at(0);
+    },
     { params: t.Pick(commentSelectSchema, ["id"]) },
   );
