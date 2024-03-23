@@ -1,6 +1,6 @@
 import { createSession } from "@solid-mediakit/auth/client";
 import { TbTrashXFilled } from "solid-icons/tb";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { CreateMessage } from "~/components/pages/chat/create-message";
 import { Card } from "~/components/ui/card";
 import { useI18nContext } from "~/i18n/i18n-solid";
@@ -15,16 +15,19 @@ export default function Chat() {
   return (
     <Layout>
       <section class="container mx-auto">
-        <Card class="mt-10 p-5">
+        <Card class="mt-10 bg-secondary p-5">
           <For each={commentsQuery.data}>
             {(comment) => (
-              <div class="flex w-64 items-center justify-between truncate">
+              <Card class="flex w-64 items-center justify-between truncate p-5">
+                <Show when={comment?.user?.image}>
+                  {(img) => <img src={img()} />}
+                </Show>
                 <span>{comment.content}</span>
                 <TbTrashXFilled
                   class="cursor-pointer hover:text-red-500"
                   onClick={() => commentDelete.mutateAsync(comment.id!)}
                 />
-              </div>
+              </Card>
             )}
           </For>
 
