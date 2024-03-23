@@ -13,6 +13,8 @@ export const db = drizzle(connection, { schema });
 
 export const dbAdapter = DrizzleAdapter(db);
 
+console.log(dbAdapter);
+
 (async () => {
   await migrate(db, { migrationsFolder: resolve("db.migrations") });
 
