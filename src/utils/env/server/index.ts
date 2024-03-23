@@ -68,6 +68,9 @@ export const authOpts: SolidAuthConfig = {
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
     }),
   ],
+  session: {
+    strategy: "database",
+  },
   callbacks: {
     // jwt: async ({ account, token, user, profile, session }) => {
     //   if (account) {
