@@ -15,19 +15,28 @@ export const authOpts: SolidAuthConfig = {
       profile(profile) {
         const image = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar.startsWith("a_") ? "gif" : "png"}`;
         profile.image = image;
+        console.log(profile);
         return {
           id: profile.id,
           name: profile?.username || profile.global_name,
+          global_name: profile.global_name,
           email: profile.email,
           image,
+          banner: profile.banner,
+          banner_color: profile.banner_color,
+          accent_color: profile.accent_color,
         };
       },
     }),
   ],
-
+  events: {
+    createUser({ user }) {
+      console.log(user);
+    },
+  },
   callbacks: {
     jwt({ token, user, profile }) {
-      console.log(profile);
+      profile && (profile.test = "test");
       return { ...token, ...profile, ...user } as JWT;
     },
     session({ token, session }) {

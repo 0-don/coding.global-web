@@ -25,7 +25,11 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"name" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text
+	"image" text,
+	"global_name" text,
+	"banner" text,
+	"banner_color" text,
+	"accent_color" integer
 );
 --> statement-breakpoint
 DO $$ BEGIN
