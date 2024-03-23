@@ -67,17 +67,16 @@ export const authOpts: SolidAuthConfig = {
     }),
   ],
   callbacks: {
-    jwt: async ({ account, token, user, profile, session }) => {
-      if (user) {
-        token = { ...token, ...user };
-      }
-      return Promise.resolve(token);
-    },
-    session: async ({ session, user, token }) => {
-      return {
-        ...session,
-        user: user,
-      };
+    // jwt: async ({ account, token, user, profile, session }) => {
+    //   if (account) {
+    //     token.id = account.id;
+    //   }
+    //   return token;
+    // },
+    session: async ({ session, user }) => {
+      console.log("session", session);
+      session.user.id = user.id;
+      return session;
     },
   },
   debug: false,
