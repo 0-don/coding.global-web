@@ -19,12 +19,10 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
       if (!session?.user?.name)
         throw new Error("You must be logged in to comment.");
 
-      console.log(session);
-
       return (
         await db
           .insert(comment)
-          .values({ ...body, userId: session.user.name })
+          .values({ ...body, userId: session.user.id! })
           .returning()
       ).at(0)!;
     },
