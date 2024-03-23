@@ -1,2 +1,2 @@
-export { accounts, sessions, users, verificationTokens } from "./auth/schema";
+export { accounts, users } from "./auth/schema";
 export { comment } from "./comment/schema";
