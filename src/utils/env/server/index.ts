@@ -1,7 +1,9 @@
 import type { OAuthConfig, OAuthUserConfig } from "@auth/core/providers";
 import { DiscordProfile } from "@auth/core/providers/discord";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { Type as t } from "@sinclair/typebox/type";
 import { SolidAuthConfig } from "@solid-mediakit/auth";
+import { db } from "~/routes/api/db";
 import { parse } from "~/utils";
 
 const serverEnvSchema = t.Object({
@@ -60,6 +62,7 @@ export function Discord<P extends DiscordProfile>(
 }
 
 export const authOpts: SolidAuthConfig = {
+  adapter: DrizzleAdapter(db),
   providers: [
     Discord({
       clientId: serverEnv.DISCORD_CLIENT_ID,
@@ -73,9 +76,11 @@ export const authOpts: SolidAuthConfig = {
     //   }
     //   return token;
     // },
-    session: async ({ session, user }) => {
-      console.log("session", session);
-      session.user.id = user.id;
+    session: async ({ session, user, token }) => {
+      console.log(token, user);
+
+      // console.log("session", session);
+      // session.user.id = user.id;
       return session;
     },
   },
