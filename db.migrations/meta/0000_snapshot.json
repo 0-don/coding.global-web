@@ -1,5 +1,5 @@
 {
-  "id": "09d3faa4-75ed-41cb-b0e3-deacece71f14",
+  "id": "392d33bf-4999-4f61-bbc6-e1f4bd588884",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -113,8 +113,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user": {
-          "name": "user",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -134,7 +134,21 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "comment_userId_user_id_fk": {
+          "name": "comment_userId_user_id_fk",
+          "tableFrom": "comment",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },

@@ -1,10 +1,13 @@
 import { Type as t } from "@sinclair/typebox/type";
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
+import { users } from "../schema";
 
 export const comment = pgTable("comment", {
   id: uuid("id").primaryKey().defaultRandom(),
-  user: text("user").notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   content: text("content").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
