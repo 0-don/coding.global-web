@@ -22,7 +22,7 @@ export const authOpts: SolidAuthConfig = {
         return {
           id: profile.id,
           name: profile?.username || profile.global_name,
-          email: profile.email,
+          email: profile?.email || profile.id,
           image: profile.image,
         };
       },
