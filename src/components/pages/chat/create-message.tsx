@@ -1,3 +1,4 @@
+import { createSession, signIn } from "@solid-mediakit/auth/client";
 import { TbLoader } from "solid-icons/tb";
 import { Component, JSX, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
@@ -6,7 +7,6 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { useI18nContext } from "~/i18n/i18n-solid";
 import { CommentHook } from "~/lib/hook/comment-hook";
-import { createSession, signIn } from "@solid-mediakit/auth/client";
 
 interface CreateMessageProps {}
 
@@ -20,8 +20,6 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
     e.preventDefault();
     await commentAdd.mutateAsync({ content: content() });
   };
-
-  console.log(session())
 
   return (
     <>
