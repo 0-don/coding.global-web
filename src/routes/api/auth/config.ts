@@ -31,6 +31,7 @@ export const authOpts: SolidAuthConfig = {
   events: {
     signIn({ user, profile }) {
       const p = profile as DiscordProfile;
+      console.log("User signed in", p);
       db.update(users)
         .set({
           name: p?.username,
