@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/solid-query";
 import { rpc } from "~/app";
+import { showToast } from "~/components/ui/toast";
 import {
   CommentInsertSimple,
   CommentSelect,
@@ -28,16 +29,15 @@ export const CommentHook = () => {
       );
     },
     onError: (error) => {
-      console.log("test", JSON.parse(JSON.stringify(error)).errors);
-      console.log("xxx", error.message);
-      // for (const description of error.message) {
-      //   console.error(description);
-      //   showToast({
-      //     title: "Error",
-      //     description,
-      //     variant: "destructive",
-      //   });
-      // }
+      const err = JSON.parse(error.message).errors as Error[];
+
+      for (const { message } of err) {
+        showToast({
+          title: "Error",
+          description: message,
+          variant: "destructive",
+        });
+      }
     },
   }));
 
@@ -50,6 +50,17 @@ export const CommentHook = () => {
         (oldQueryData = []) =>
           oldQueryData.filter((comment) => comment.id !== c?.id),
       );
+    },
+    onError: (error) => {
+      const err = JSON.parse(error.message).errors as Error[];
+
+      for (const { message } of err) {
+        showToast({
+          title: "Error",
+          description: message,
+          variant: "destructive",
+        });
+      }
     },
   }));
 
