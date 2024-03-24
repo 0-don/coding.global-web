@@ -16,7 +16,7 @@ export const authOpts: SolidAuthConfig = {
     Discord({
       clientId: serverEnv.DISCORD_CLIENT_ID,
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
-      authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
+      // authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
       profile(profile) {
         profile.image = getImage(profile);
         return {
