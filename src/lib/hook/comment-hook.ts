@@ -29,11 +29,14 @@ export const CommentHook = () => {
       );
     },
     onError: (error) => {
-      showToast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
+      for (const description of error.message) {
+        console.error(description);
+        showToast({
+          title: "Error",
+          description,
+          variant: "destructive",
+        });
+      }
     },
   }));
 

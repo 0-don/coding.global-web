@@ -6,6 +6,7 @@ import { Card } from "~/components/ui/card";
 import { useI18nContext } from "~/i18n/i18n-solid";
 import { CommentHook } from "~/lib/hook/comment-hook";
 import { Layout } from "../components/container/layout";
+import { Header } from "~/components/container/header";
 
 export default function Chat() {
   const session = createSession();
@@ -15,6 +16,7 @@ export default function Chat() {
   return (
     <Layout>
       <section class="container mx-auto">
+        <Header name="Chat" />
         <Card class="mt-10 bg-secondary p-5">
           <For each={commentsQuery.data}>
             {(comment) => (
