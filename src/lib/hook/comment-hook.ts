@@ -4,7 +4,6 @@ import {
   useQueryClient,
 } from "@tanstack/solid-query";
 import { rpc } from "~/app";
-import { showToast } from "~/components/ui/toast";
 import {
   CommentInsertSimple,
   CommentSelect,
@@ -29,14 +28,16 @@ export const CommentHook = () => {
       );
     },
     onError: (error) => {
-      for (const description of error.message) {
-        console.error(description);
-        showToast({
-          title: "Error",
-          description,
-          variant: "destructive",
-        });
-      }
+      console.log("test", JSON.parse(JSON.stringify(error)).errors);
+      console.log("xxx", error.message);
+      // for (const description of error.message) {
+      //   console.error(description);
+      //   showToast({
+      //     title: "Error",
+      //     description,
+      //     variant: "destructive",
+      //   });
+      // }
     },
   }));
 
