@@ -3,7 +3,7 @@
     <img src="public/images/logo_512.gif" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">coding.global Official Discord Website</h3>
+  <h3 align="center">coding.global Official Discord Website.</h3>
 
   <p align="center">
     Official <a href="https://discord.gg/coding">discord.gg/coding</a> Website for the Coding Discord Server.
