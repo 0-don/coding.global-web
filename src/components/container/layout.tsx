@@ -1,13 +1,12 @@
-// import { clientOnly } from "@solidjs/start";
 import { Component, JSX } from "solid-js";
-import { ThemeToggle } from "../navbar/theme-toggle";
 import LanguageToggle from "../navbar/language-toggle";
+import { ThemeToggle } from "../navbar/theme-toggle";
 
 interface LayoutProps {
+  class?: string;
+  container?: boolean;
   children: JSX.Element;
 }
-
-// const LanguageToggle = clientOnly(() => import("../navbar/language-toggle"));
 
 export const Layout: Component<LayoutProps> = (props) => {
   return (
@@ -20,9 +19,15 @@ export const Layout: Component<LayoutProps> = (props) => {
       </div>
       <img
         src="/images/banner.webp"
-        class="img-fade relative h-[50vh] w-full object-cover object-top opacity-20 md:h-screen"
+        class="img-fade static h-[50vh] w-full object-cover object-top opacity-20 md:h-screen"
       />
-      <div class="absolute inset-0">{props.children}</div>
+      <div class="absolute inset-0">
+        <section
+          class={`${props.container ? "container mx-auto" : ""} ${props.class}`}
+        >
+          {props.children}
+        </section>
+      </div>
     </>
   );
 };
