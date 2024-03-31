@@ -1,3 +1,4 @@
+import { createSession } from "@solid-mediakit/auth/client";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { TbTrashXFilled } from "solid-icons/tb";
@@ -10,6 +11,7 @@ interface ChatMessagesProps {}
 
 export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const { commentsQuery, commentDelete } = CommentHook();
+  const session = createSession();
 
   return (
     <div>
@@ -28,10 +30,12 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
               </div>
               <div>
                 <p>{comment.content}</p>
-                <TbTrashXFilled
-                  class="absolute right-0 top-0 hidden cursor-pointer hover:text-red-500 group-hover:block"
-                  onClick={() => commentDelete.mutateAsync(comment.id!)}
-                />
+                <Show when={comment?.user?.id === session()?.user?.me.id}>
+                  <TbTrashXFilled
+                    class="absolute right-0 top-0 hidden cursor-pointer hover:text-red-500 group-hover:block"
+                    onClick={() => commentDelete.mutateAsync(comment.id)}
+                  />
+                </Show>
               </div>
             </div>
           </div>
