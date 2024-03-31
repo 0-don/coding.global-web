@@ -1,4 +1,5 @@
 import { A } from "@solidjs/router";
+import { HiSolidHomeModern } from "solid-icons/hi";
 import { Component } from "solid-js";
 import { Button } from "~/components/ui/button";
 
@@ -8,14 +9,15 @@ interface HeaderProps {
 
 export const Header: Component<HeaderProps> = (props) => {
   return (
-    <div class="mt-6 grid grid-cols-3  content-center">
+    <div class="grid grid-cols-3 content-center">
       <A href="/">
-        <button class="rounded bg-blue-500 font-bold hover:bg-blue-700">
-          <Button variant="outline">Home</Button>
-        </button>
+        <Button>
+          <HiSolidHomeModern />
+          <span>Home</span>
+        </Button>
       </A>
 
-      <h1 class="font-secondary text-center text-2xl font-bold text-white">
+      <h1 class="font-secondary text-center text-3xl font-bold">
         {props.name}
       </h1>
     </div>
