@@ -1,32 +1,21 @@
-import { getSession } from "@solid-mediakit/auth";
-import { createSession, signIn } from "@solid-mediakit/auth/client";
+import { signIn } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
-import { JSX, Show, createResource, createSignal } from "solid-js";
-import { isServer } from "solid-js/web";
-import { getWebRequest } from "vinxi/http";
+import { JSX, Show, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { CommentHook } from "~/lib/hook/comment-hook";
-import { authOpts } from "~/routes/api/auth/config";
+import { SessionHook } from "~/lib/hook/session-hook";
 
 interface CreateMessageProps {
   class?: string;
 }
 
-async function getMySession() {
-  "use server";
-  return await getSession(getWebRequest(), authOpts);
-}
-
 export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
   const [content, setContent] = createSignal("");
-  const [session] = createResource(async () =>
-    isServer ? await getMySession() : createSession()(),
-  );
-
+  const session = SessionHook();
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
     await commentAdd.mutateAsync({ content: content() });

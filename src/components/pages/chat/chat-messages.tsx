@@ -1,9 +1,9 @@
-import { createSession } from "@solid-mediakit/auth/client";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { TbTrashXFilled } from "solid-icons/tb";
 import { Component, For, Show } from "solid-js";
 import { CommentHook } from "~/lib/hook/comment-hook";
+import { SessionHook } from "~/lib/hook/session-hook";
 
 dayjs.extend(localizedFormat);
 
@@ -13,7 +13,7 @@ interface ChatMessagesProps {
 
 export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const { commentsQuery, commentDelete } = CommentHook();
-  const session = createSession();
+  const session = SessionHook();
 
   return (
     <div class={props.class}>
