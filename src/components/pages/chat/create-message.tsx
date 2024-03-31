@@ -7,7 +7,9 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { CommentHook } from "~/lib/hook/comment-hook";
 
-interface CreateMessageProps {}
+interface CreateMessageProps {
+  class?: string;
+}
 
 export const CreateMessage: Component<CreateMessageProps> = (props) => {
   const { commentAdd } = CommentHook();
@@ -25,7 +27,7 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
   });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} class={props.class}>
       <Show when={session()?.user}>
         <Grid class="gap-1">
           <Label class="sr-only" for="content">
