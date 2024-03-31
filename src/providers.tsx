@@ -19,7 +19,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
       <SolidQueryDevtools initialIsOpen={false} />
       <ThemeProvider>
         <LanguageProvider>
-          <SessionProvider>{props.children}</SessionProvider>
+          <SessionProvider refetchOnWindowFocus>{props.children}</SessionProvider>
         </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
