@@ -20,6 +20,8 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
     setContent("");
   };
 
+  console.log(session());
+
   return (
     <form onSubmit={handleSubmit}>
       <Show when={session()?.user}>
