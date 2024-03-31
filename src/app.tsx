@@ -1,4 +1,5 @@
 import { edenTreaty } from "@elysiajs/eden";
+import { SessionProvider } from "@solid-mediakit/auth/client";
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { clientOnly } from "@solidjs/start";
@@ -20,9 +21,11 @@ export default function App() {
         <MetaProvider>
           <Title>coding.global</Title>
           <Toaster />
-          <Suspense>
-            <Providers>{props.children}</Providers>
-          </Suspense>
+          <SessionProvider>
+            <Suspense>
+              <Providers>{props.children}</Providers>
+            </Suspense>
+          </SessionProvider>
         </MetaProvider>
       )}
     >
