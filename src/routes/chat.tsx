@@ -1,8 +1,12 @@
+import { clientOnly } from "@solidjs/start";
 import { Header } from "~/components/container/header";
 import { ChatMessages } from "~/components/pages/chat/chat-messages";
-import { CreateMessage } from "~/components/pages/chat/create-message";
 import { Card } from "~/components/ui/card";
 import { Layout } from "../components/container/layout";
+
+const CreateMessage = clientOnly(
+  () => import("~/components/pages/chat/create-message"),
+);
 
 export default function Chat() {
   return (
