@@ -10,9 +10,7 @@ interface ProvidersProps {
 }
 
 export const Providers: Component<ProvidersProps> = (props) => {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { refetchOnWindowFocus: false } },
-  });
+  const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
