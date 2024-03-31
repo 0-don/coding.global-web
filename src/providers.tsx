@@ -1,3 +1,4 @@
+import { SessionProvider } from "@solid-mediakit/auth/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import { SolidQueryDevtools } from "@tanstack/solid-query-devtools";
 import { Component, JSX } from "solid-js";
@@ -9,13 +10,17 @@ interface ProvidersProps {
 }
 
 export const Providers: Component<ProvidersProps> = (props) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { refetchOnWindowFocus: false } },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
       <SolidQueryDevtools initialIsOpen={false} />
       <ThemeProvider>
-        <LanguageProvider>{props.children}</LanguageProvider>
+        <LanguageProvider>
+          <SessionProvider>{props.children}</SessionProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
