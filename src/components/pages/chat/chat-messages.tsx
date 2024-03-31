@@ -14,7 +14,7 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const session = createSession();
 
   return (
-    <div>
+    <div class="my-5 flex-1 overflow-y-auto">
       <For each={commentsQuery.data}>
         {(comment) => (
           <div class="group my-2 flex w-full items-center space-x-2 truncate rounded-md p-1 hover:bg-zinc-200 hover:dark:bg-stone-900/20">
