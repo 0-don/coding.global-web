@@ -7,7 +7,7 @@ import { Layout } from "../components/container/layout";
 export default function Chat() {
   return (
     <Layout container class="mt-10">
-      <Card class="bg-secondary p-10">
+      <Card class="bg-secondary p-10 ">
         <Header name="Chat" />
         <ChatMessages />
         <CreateMessage />
