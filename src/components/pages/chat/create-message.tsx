@@ -22,8 +22,6 @@ async function getMySession() {
 
 export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
-
-  // const session = isServer ? createSession() : createSession();
   const [content, setContent] = createSignal("");
   const [session] = createResource(async () =>
     isServer ? await getMySession() : createSession()(),
