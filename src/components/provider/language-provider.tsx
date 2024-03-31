@@ -12,13 +12,6 @@ function getServerLanguageCookie() {
   "use server";
   const cookieValue = getCookie(clientEnv.LANGUAGE_KEY);
 
-  // if (!cookieValue && isServer) {
-  //   setCookie(clientEnv.LANGUAGE_KEY, baseLocale, {
-  //     maxAge: 60 * 60 * 24 * 365,
-  //     path: "/",
-  //   });
-  // }
-
   return cookieValue
     ? `${clientEnv.LANGUAGE_KEY}=${cookieValue}`
     : `${clientEnv.LANGUAGE_KEY}=${baseLocale}`;

@@ -17,7 +17,7 @@ export const Header: Component<HeaderProps> = (props) => {
         </Button>
       </A>
 
-      <h1 class="text-3xl font-bold">{props.name}</h1>
+      <h1 class="text-center text-3xl font-bold">{props.name}</h1>
     </div>
   );
 };
