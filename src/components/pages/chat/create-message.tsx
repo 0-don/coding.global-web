@@ -1,6 +1,6 @@
 import { createSession, signIn } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
-import { Component, JSX, Show, createSignal } from "solid-js";
+import { Component, JSX, Show, createEffect, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
@@ -20,7 +20,9 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
     setContent("");
   };
 
-  console.log(session());
+  createEffect(() => {
+    console.log(session());
+  });
 
   return (
     <form onSubmit={handleSubmit}>
