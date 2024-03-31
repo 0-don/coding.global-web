@@ -1,6 +1,6 @@
 import { createSession, signIn } from "@solid-mediakit/auth/client";
-import { TbLoader } from "solid-icons/tb";
-import { Component, JSX, createSignal } from "solid-js";
+import { FaBrandsDiscord } from "solid-icons/fa";
+import { Component, JSX, Show, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
@@ -25,28 +25,35 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
     <>
       <form onSubmit={handleSubmit}>
         <Grid class="gap-4">
-          <Grid class="gap-1">
-            <Label class="sr-only" for="content">
-              Comment
-            </Label>
-            <Input
-              value={content()}
-              onInput={(e) => setContent(e.currentTarget.value)}
-              id="content"
-              type="text"
-              placeholder="write your comment"
-            />
-          </Grid>
-
-          <Button type="submit" disabled={commentAdd.isPending}>
-            {commentAdd.isPending && (
-              <TbLoader class="mr-2 size-4 animate-spin" />
-            )}
-            {LL().HI()}
-          </Button>
+          <Show when={session()?.user}>
+            <Grid class="border-1 gap-1 border-primary">
+              <Label class="sr-only" for="content">
+                Comment
+              </Label>
+              <Input
+                class="!border-1 gap-1 !border-secondary"
+                value={content()}
+                onInput={(e) => setContent(e.currentTarget.value)}
+                id="content"
+                type="text"
+                placeholder="write your comment"
+              />
+            </Grid>
+          </Show>
+          <Show when={!session()?.user}>
+            <Button
+              type="button"
+              onClick={() => signIn("discord")}
+              class="w-full rounded-md bg-discord px-2 py-1 text-2xl font-black hover:bg-discord hover:opacity-90"
+            >
+              <div class="flex items-center text-white">
+                <FaBrandsDiscord />
+                <span>Discord Login</span>
+              </div>
+            </Button>
+          </Show>
         </Grid>
       </form>
-      <Button onClick={() => signIn("discord")}>Login</Button>
     </>
   );
 };
