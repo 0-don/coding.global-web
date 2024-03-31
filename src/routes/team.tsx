@@ -44,7 +44,7 @@ export default function Team() {
   }));
 
   return (
-    <Layout container>
+    <Layout container class="mt-10">
       <Header name="Team" />
 
       <div class="mt-10 gap-2 md:grid md:grid-cols-6">
