@@ -13,7 +13,7 @@ interface CreateMessageProps {}
 export const CreateMessage: Component<CreateMessageProps> = (props) => {
   const session = createSession();
   const { LL } = useI18nContext();
-  const { commentAdd, commentsQuery, commentDelete } = CommentHook();
+  const { commentAdd } = CommentHook();
   const [content, setContent] = createSignal("");
 
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
@@ -26,12 +26,12 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
       <form onSubmit={handleSubmit}>
         <Grid class="gap-4">
           <Show when={session()?.user}>
-            <Grid class="border-1 gap-1 border-primary">
+            <Grid class="gap-1">
               <Label class="sr-only" for="content">
                 Comment
               </Label>
               <Input
-                class="!border-1 gap-1 !border-secondary"
+                class="bg-gray-200 outline-none focus:!outline-none dark:bg-zinc-700"
                 value={content()}
                 onInput={(e) => setContent(e.currentTarget.value)}
                 id="content"
