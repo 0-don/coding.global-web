@@ -28,7 +28,7 @@ export default function CreateMessage(props: CreateMessageProps) {
 
   return (
     <form onSubmit={handleSubmit} class={props.class}>
-      <Show when={session()?.user}>
+      <Show when={session()}>
         <Grid class="gap-1">
           <Label class="sr-only" for="content">
             Comment
@@ -43,7 +43,7 @@ export default function CreateMessage(props: CreateMessageProps) {
           />
         </Grid>
       </Show>
-      <Show when={!session()?.user}>
+      <Show when={!session()}>
         <Button
           type="button"
           onClick={() => signIn("discord")}
