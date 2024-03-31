@@ -7,14 +7,16 @@ import { CommentHook } from "~/lib/hook/comment-hook";
 
 dayjs.extend(localizedFormat);
 
-interface ChatMessagesProps {}
+interface ChatMessagesProps {
+  class?: string;
+}
 
 export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const { commentsQuery, commentDelete } = CommentHook();
   const session = createSession();
 
   return (
-    <div class="my-5 flex-1 overflow-y-auto">
+    <div class={props.class}>
       <For each={commentsQuery.data}>
         {(comment) => (
           <div class="group my-2 flex w-full items-center space-x-2 truncate rounded-md p-1 hover:bg-zinc-200 hover:dark:bg-stone-900/20">
