@@ -1,6 +1,6 @@
 import { createSession, signIn } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
-import { Component, JSX, Show, createEffect, createSignal } from "solid-js";
+import { JSX, Show, createEffect, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
@@ -11,7 +11,7 @@ interface CreateMessageProps {
   class?: string;
 }
 
-export const CreateMessage: Component<CreateMessageProps> = (props) => {
+export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
   const session = createSession();
   const [content, setContent] = createSignal("");
@@ -57,4 +57,4 @@ export const CreateMessage: Component<CreateMessageProps> = (props) => {
       </Show>
     </form>
   );
-};
+}
