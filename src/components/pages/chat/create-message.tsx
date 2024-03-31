@@ -5,15 +5,13 @@ import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useI18nContext } from "~/i18n/i18n-solid";
 import { CommentHook } from "~/lib/hook/comment-hook";
 
 interface CreateMessageProps {}
 
 export const CreateMessage: Component<CreateMessageProps> = (props) => {
-  const session = createSession();
-  const { LL } = useI18nContext();
   const { commentAdd } = CommentHook();
+  const session = createSession();
   const [content, setContent] = createSignal("");
 
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
