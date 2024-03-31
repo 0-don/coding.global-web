@@ -16,7 +16,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
     return await db
       .select({ ...getTableColumns(comment), user })
       .from(comment)
-      .fullJoin(users, eq(comment.userId, users.id));
+      .leftJoin(users, eq(comment.userId, users.id));
   })
   .post(
     "",
@@ -39,7 +39,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
         await db
           .select({ ...getTableColumns(comment), user })
           .from(comment)
-          .fullJoin(users, eq(comment.userId, users.id))
+          .leftJoin(users, eq(comment.userId, users.id))
           .where(eq(comment.id, newComment.id))
       ).at(0)!;
     },
