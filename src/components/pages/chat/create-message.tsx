@@ -25,9 +25,9 @@ export default function CreateMessage(props: CreateMessageProps) {
 
   // const session = isServer ? createSession() : createSession();
   const [content, setContent] = createSignal("");
-  const [session] = createResource(async () => {
-    return isServer ? await getMySession() : createSession()();
-  });
+  const [session] = createResource(async () =>
+    isServer ? await getMySession() : createSession()(),
+  );
 
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
