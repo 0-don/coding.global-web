@@ -15,7 +15,8 @@ WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/bun.lockb ./bun.lockb
+# COPY --from=deps /app/bun.lockb ./bun.lockb
+COPY --from=deps /app/yarn.lock ./yarn.lock
 
 ARG VITE_HOST_URL
 ENV VITE_HOST_URL=$VITE_HOST_URL
