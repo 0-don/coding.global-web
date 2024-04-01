@@ -25,7 +25,7 @@ export const CommentHook = () => {
     onSuccess: (newComment) => {
       queryClient.setQueryData<typeof commentsQuery.data>(
         ["comments"],
-        (oldQueryData = [] as typeof commentsQuery.data) => [...oldQueryData, newComment],
+        (oldQueryData = []) => [...oldQueryData, newComment],
       );
     },
     onError: (error) => {
