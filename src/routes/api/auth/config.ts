@@ -48,12 +48,12 @@ export const authOpts: SolidAuthConfig = {
   },
   callbacks: {
     jwt({ token, user, profile }) {
-      console.log("jwt", token, user, profile);
+      console.log("jwt");
       if (profile && user) return { ...token, me: user, profile } as JWT;
       return { ...token } as JWT;
     },
     session({ token, session }) {
-      console.log("session", token, session);
+      console.log("session");
       return { ...session, user: { ...token } } as DefaultSession;
     },
   },
