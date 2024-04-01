@@ -1,4 +1,4 @@
-import { signIn } from "@solid-mediakit/auth/client";
+import { createSession, signIn } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
 import { JSX, Show, createSignal } from "solid-js";
 import { Button } from "~/components/ui/button";
@@ -6,7 +6,6 @@ import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { CommentHook } from "~/lib/hook/comment-hook";
-import { SessionHook } from "~/lib/hook/session-hook";
 
 interface CreateMessageProps {
   class?: string;
@@ -15,7 +14,7 @@ interface CreateMessageProps {
 export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
   const [content, setContent] = createSignal("");
-  const session = SessionHook();
+  const session = createSession();
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
     await commentAdd.mutateAsync({ content: content() });
