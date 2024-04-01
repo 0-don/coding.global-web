@@ -38,7 +38,7 @@ const STAFF_MEMBERS: MemberRole[] = [
 ];
 
 export default function Team() {
-  const { data } = createQuery<Staff[]>(() => ({
+  const staff = createQuery<Staff[]>(() => ({
     queryKey: ["staffMembers"],
     queryFn: () => fetch(clientEnv.STAFF_MEMERS_URL).then((res) => res.json()),
   }));
@@ -48,7 +48,7 @@ export default function Team() {
       <Header name="Team" />
 
       <div class="mt-10 gap-2 md:grid md:grid-cols-6">
-        <For each={data}>
+        <For each={staff.data}>
           {(m) => (
             <Card class="">
               <CardHeader>
