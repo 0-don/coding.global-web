@@ -1,31 +1,32 @@
 # Install dependencies only when needed
 # Stage 0
-FROM node:20-alpine AS deps
+FROM oven/bun:1.0.36-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
-RUN yarn
+RUN bun install
 #############################################
 
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM node:20-alpine AS builder
+FROM oven/bun:1.0.36-alpine AS builder
 WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/bun.lockb ./bun.lockb
 
 ARG VITE_HOST_URL
 ENV VITE_HOST_URL=$VITE_HOST_URL
 
-RUN yarn build
+RUN bun run build
 #############################################
 
 
 # Production image, copy only production files
 # Stage 2
-FROM node:20-alpine AS prod
+FROM oven/bun:1.0.36-alpine AS prod
 
 WORKDIR /app
 
@@ -51,5 +52,5 @@ ENV DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
 ENV DISCORD_CLIENT_SECRET=$DISCORD_CLIENT_SECRET
 ENV BUN=true
 
-CMD ["yarn", "start"]
+CMD ["bun", "start"]
 #############################################
