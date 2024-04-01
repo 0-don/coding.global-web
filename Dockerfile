@@ -21,8 +21,6 @@ ARG VITE_HOST_URL
 ENV VITE_HOST_URL=$VITE_HOST_URL
 
 RUN bun run build
-RUN rm -rf node_modules
-RUN bun install --production
 #############################################
 
 
