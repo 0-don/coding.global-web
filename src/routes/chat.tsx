@@ -1,8 +1,8 @@
 import { Header } from "~/components/container/header";
-import { ChatMessages } from "~/components/pages/chat/chat-messages";
+import CreateMessage from "~/components/pages/chat/create-message";
 import { Card } from "~/components/ui/card";
 import { Layout } from "../components/container/layout";
-import CreateMessage from "~/components/pages/chat/create-message";
+import ChatMessages from "~/components/pages/chat/chat-messages";
 
 // const CreateMessage = clientOnly(
 //   () => import("~/components/pages/chat/create-message"),
