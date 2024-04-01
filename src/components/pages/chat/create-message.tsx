@@ -15,6 +15,7 @@ export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
   const [content, setContent] = createSignal("");
   const session = createSession();
+
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
     await commentAdd.mutateAsync({ content: content() });
