@@ -38,8 +38,8 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.28.6",
     "@tanstack/solid-query-devtools": "^5.28.10",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
