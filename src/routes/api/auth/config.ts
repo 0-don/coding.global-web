@@ -1,6 +1,7 @@
+import { JWT } from "@auth/core/jwt";
 import Discord, { DiscordProfile } from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { SolidAuthConfig } from "@solid-mediakit/auth";
+import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
 import { serverEnv } from "~/utils/env/server";
 import { db } from "../db";
@@ -46,9 +47,15 @@ export const authOpts: SolidAuthConfig = {
     },
   },
   callbacks: {
-    jwt: ({ token, user, profile }) =>
-      profile && user ? { ...token, me: user, profile } : token,
-    session: ({ token, session }) => ({ ...session, user: token }),
+    jwt({ token, user, profile }) {
+      console.log("jwt", token, user, profile);
+      if (profile && user) return { ...token, me: user, profile } as JWT;
+      return { ...token } as JWT;
+    },
+    session({ token, session }) {
+      console.log("session", token, session);
+      return { ...session, user: { ...token } } as DefaultSession;
+    },
   },
   session: { strategy: "jwt" },
   debug: false,
