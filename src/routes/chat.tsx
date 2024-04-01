@@ -14,7 +14,6 @@ export default function Chat() {
       <Card class="flex h-full flex-col bg-secondary/85 p-10">
         <Header name="Chat" />
         <ChatMessages class="my-5 flex-1 overflow-y-auto" />
-
         <CreateMessage />
       </Card>
     </Layout>
