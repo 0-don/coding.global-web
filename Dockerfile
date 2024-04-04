@@ -26,7 +26,7 @@ RUN bun run build
 
 # Production image, copy only production files
 # Stage 2
-FROM oven/bun:1.0.36-alpine AS prod
+FROM oven/bun:alpine AS prod
 
 WORKDIR /app
 
