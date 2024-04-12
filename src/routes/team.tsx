@@ -36,7 +36,6 @@ const STAFF_MEMBERS: MemberRole[] = [
     color: "text-blue-500",
     Icon: FiHelpCircle,
   },
-
   {
     role: "Techlead",
     color: "text-orange-500",
