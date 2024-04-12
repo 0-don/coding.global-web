@@ -6,6 +6,7 @@ import {
   AiOutlineGlobal,
   AiOutlineUserAdd,
 } from "solid-icons/ai";
+import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
@@ -34,6 +35,12 @@ const STAFF_MEMBERS: MemberRole[] = [
     role: "Helper",
     color: "text-blue-500",
     Icon: FiHelpCircle,
+  },
+
+  {
+    role: "Techlead",
+    color: "text-orange-500",
+    Icon: CgSupport,
   },
 ];
 
