@@ -94,7 +94,7 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
    npm run dev
    ```
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE EXAMPLES! -->
 
 # Usage
 
