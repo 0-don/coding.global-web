@@ -100,7 +100,7 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
 
 Browse, Join and lookup helper tutorials
 
-_For more examples, please refer to the [FAQ](https://coding.global/faq)_
+For more examples, please refer to the [FAQ](https://coding.global/faq)_
 
 <!-- ROADMAP -->
 
