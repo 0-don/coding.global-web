@@ -37,7 +37,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/db.migrations ./db.migrations
 
-EXPOSE 3000
 
 ARG DATABASE_URL
 ARG AUTH_SECRET
@@ -51,6 +50,8 @@ ENV AUTH_TRUST_HOST=$AUTH_TRUST_HOST
 ENV DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
 ENV DISCORD_CLIENT_SECRET=$DISCORD_CLIENT_SECRET
 ENV BUN=true
+
+EXPOSE 3000
 
 CMD ["bun", "start"]
 #############################################
