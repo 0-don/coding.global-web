@@ -1,11 +1,11 @@
 import { createSession, signIn } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
 import { JSX, Show, createSignal } from "solid-js";
+import { CommentHook } from "~/components/hook/comment-hook";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { CommentHook } from "~/lib/hook/comment-hook";
 
 interface CreateMessageProps {
   class?: string;

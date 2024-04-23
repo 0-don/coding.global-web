@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { TbTrashXFilled } from "solid-icons/tb";
 import { Component, For, Show } from "solid-js";
-import { CommentHook } from "~/lib/hook/comment-hook";
+import { CommentHook } from "~/components/hook/comment-hook";
 
 dayjs.extend(localizedFormat);
 
