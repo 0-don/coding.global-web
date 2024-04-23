@@ -1,10 +1,8 @@
 import { As } from "@kobalte/core";
 import { For, onMount } from "solid-js";
+import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { useI18nContext } from "~/lib/i18n/i18n-solid";
-import { Locales, Translation } from "~/lib/i18n/i18n-types";
-import { baseLocale, locales } from "~/lib/i18n/i18n-util";
-import { loadLocaleAsync } from "~/lib/i18n/i18n-util.async";
+import { Dictionary, Locale, baseLocale } from "~/lib/i18n";
 import { parseCookie } from "~/utils";
 import { clientEnv } from "~/utils/env/client";
 import {
@@ -14,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
 
-function setLanguageCookie(lang: Locales) {
+function setLanguageCookie(lang: Locale) {
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
   document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
@@ -26,11 +24,11 @@ const localeFlags = {
 };
 
 export default function LanguageToggle() {
-  const { setLocale, locale, LL } = useI18nContext();
+  const { t, setLocale, locale } = useLanguage();
 
   onMount(() => {
     const lang =
-      (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locales) ||
+      (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locale) ||
       baseLocale;
     setLocale(lang);
     setLanguageCookie(lang);
@@ -41,23 +39,23 @@ export default function LanguageToggle() {
       <DropdownMenuTrigger asChild>
         <As component={Button} variant="ghost" size="sm" class="w-9 px-0">
           {localeFlags[locale()] || "🌍"}
-          <span class="sr-only">{LL().TOGGLE_LANGUAGE()}</span>
+          <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
         </As>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <For each={locales}>
+        <For each={clientEnv.LANGUAGES}>
           {(loc) => (
             <DropdownMenuItem
               onSelect={() => {
-                loadLocaleAsync(loc).then(() => {
+                setTimeout(() => {
                   setLanguageCookie(loc);
                   setLocale(loc);
-                });
+                }, 150);
               }}
               class="space-x-2"
             >
               <span>{localeFlags[loc]}</span>{" "}
-              <span>{LL()[loc.toUpperCase() as keyof Translation]()}</span>
+              <span>{t(loc.toUpperCase() as keyof Dictionary)}</span>
             </DropdownMenuItem>
           )}
         </For>

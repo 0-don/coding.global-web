@@ -1,12 +1,29 @@
-import { JSX } from "solid-js";
-import { isServer } from "solid-js/web";
+import { resolveTemplate, translator } from "@solid-primitives/i18n";
+import { isServer } from "@tanstack/solid-query";
+import {
+  Accessor,
+  JSX,
+  createContext,
+  createResource,
+  createSignal,
+  useContext,
+} from "solid-js";
 import { getCookie } from "vinxi/http";
-import TypesafeI18n from "~/lib/i18n/i18n-solid";
-import { Locales } from "~/lib/i18n/i18n-types";
-import { baseLocale } from "~/lib/i18n/i18n-util";
-import { loadLocaleAsync } from "~/lib/i18n/i18n-util.async";
+import { Dictionary, Locale, baseLocale, fetchDictionary } from "~/lib/i18n";
 import { parseCookie } from "~/utils";
 import { clientEnv } from "~/utils/env/client";
+
+export interface LanguageContextType {
+  locale: Accessor<Locale>;
+  setLocale: (locale: Locale) => void;
+  t: ReturnType<typeof translator<Dictionary>>;
+}
+
+export const LanguageContext = createContext<LanguageContextType>();
+
+export function useLanguage() {
+  return useContext(LanguageContext!)!;
+}
 
 function getServerLanguageCookie() {
   "use server";
@@ -20,9 +37,19 @@ function getServerLanguageCookie() {
 export default function LanguageProvider(props: { children: JSX.Element }) {
   const cookie = isServer ? getServerLanguageCookie() : document.cookie;
   const detectedLocale =
-    (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locales) || baseLocale;
+    (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locale) || baseLocale;
+  const [locale, setLocale] = createSignal<Locale>(detectedLocale);
+  const [dict] = createResource(locale, fetchDictionary);
 
-  loadLocaleAsync(detectedLocale);
+  const contextValue: LanguageContextType = {
+    locale,
+    setLocale,
+    t: translator(dict, resolveTemplate),
+  };
 
-  return <TypesafeI18n locale={detectedLocale}>{props.children}</TypesafeI18n>;
+  return (
+    <LanguageContext.Provider value={contextValue}>
+      {props.children}
+    </LanguageContext.Provider>
+  );
 }

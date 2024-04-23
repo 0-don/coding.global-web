@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"dotenvx run -- vinxi dev\" \"typesafe-i18n\"",
+    "dev": "dotenvx run -- vinxi dev",
     "build": "dotenvx run -- vinxi build",
     "start": "dotenvx run -- vinxi start",
     "prettier": "prettier --write .",
@@ -12,8 +12,7 @@
     "drop-db": "dotenvx run -- node ./db.migrations/reset-db.js",
     "drop": "dotenvx run -- drizzle-kit drop",
     "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit generate:pg",
-    "i18n": "typesafe-i18n"
+    "generate": "dotenvx run -- drizzle-kit generate:pg"
   },
   "dependencies": {
     "@auth/core": "latest",
@@ -33,7 +32,6 @@
     "postgres": "3.4.4",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.8.17",
-    "typesafe-i18n": "^5.26.2",
     "vinxi": "^0.3.11"
   },
   "devDependencies": {
@@ -44,7 +42,6 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "concurrently": "^8.2.2",
     "drizzle-kit": "^0.20.17",
     "eslint": "^9.1.1",
     "eslint-import-resolver-typescript": "3.6.1",
