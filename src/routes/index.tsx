@@ -17,7 +17,7 @@ export default function Home() {
           <A class="underline" href="https://discord.gg/coding">
             discord.gg/coding
           </A>
-          y Website for the Coding Discord Server
+          Website for the Coding Discord Server
         </p>
         <p class="mt-2 text-sm">
           <A href="https://github.com/0-don/coding.global-web">
