@@ -1,6 +1,6 @@
 import { Component, JSX } from "solid-js";
-import LanguageToggle from "../navbar/language-toggle";
-import { ThemeToggle } from "../navbar/theme-toggle";
+import LanguageToggle from "./navbar/language-toggle";
+import { ThemeToggle } from "./navbar/theme-toggle";
 
 interface LayoutProps {
   class?: string;

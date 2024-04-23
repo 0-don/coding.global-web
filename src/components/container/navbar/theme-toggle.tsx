@@ -5,14 +5,14 @@ import { BsMoonStars } from "solid-icons/bs";
 import { FiSun } from "solid-icons/fi";
 import { For } from "solid-js";
 import { Button } from "~/components/ui/button";
-import { useI18nContext } from "~/i18n/i18n-solid";
-import { Translation } from "~/i18n/i18n-types";
+import { useI18nContext } from "~/lib/i18n/i18n-solid";
+import { Translation } from "~/lib/i18n/i18n-types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 
 const themeOptions = [
   { mode: "light", Icon: FiSun },

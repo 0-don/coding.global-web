@@ -1,10 +1,10 @@
 import { As } from "@kobalte/core";
 import { For, onMount } from "solid-js";
 import { Button } from "~/components/ui/button";
-import { useI18nContext } from "~/i18n/i18n-solid";
-import { Locales, Translation } from "~/i18n/i18n-types";
-import { baseLocale, locales } from "~/i18n/i18n-util";
-import { loadLocaleAsync } from "~/i18n/i18n-util.async";
+import { useI18nContext } from "~/lib/i18n/i18n-solid";
+import { Locales, Translation } from "~/lib/i18n/i18n-types";
+import { baseLocale, locales } from "~/lib/i18n/i18n-util";
+import { loadLocaleAsync } from "~/lib/i18n/i18n-util.async";
 import { parseCookie } from "~/utils";
 import { clientEnv } from "~/utils/env/client";
 import {
@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 
 function setLanguageCookie(lang: Locales) {
   const expiryDate = new Date();
