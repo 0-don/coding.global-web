@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@auth/core": "latest",
-    "@auth/drizzle-adapter": "1.0.0",
+    "@auth/drizzle-adapter": "1.0.1",
     "@dotenvx/dotenvx": "^0.35.1",
     "@elysiajs/eden": "^1.0.12",
     "@kobalte/core": "^0.12.6",
