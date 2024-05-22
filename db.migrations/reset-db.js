@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { error, log } from "console";
 import postgres from "postgres";
 
