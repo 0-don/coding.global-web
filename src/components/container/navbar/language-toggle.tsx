@@ -1,4 +1,3 @@
-import { As } from "@kobalte/core";
 import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
@@ -36,11 +35,14 @@ export default function LanguageToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <As component={Button} variant="ghost" size="sm" class="w-9 px-0">
-          {localeFlags[locale()] || "🌍"}
-          <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
-        </As>
+      <DropdownMenuTrigger
+        as={Button<"button">}
+        variant="ghost"
+        size="sm"
+        class="w-9 px-0"
+      >
+        {localeFlags[locale()] || "🌍"}
+        <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <For each={clientEnv.LANGUAGES}>
