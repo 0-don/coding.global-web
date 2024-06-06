@@ -67,7 +67,7 @@ export default function Home() {
 
         <footer class="mt-auto">
           <span>{`© ${new Date().getFullYear()} By `}</span>
-          <A href="https://github.com/0-don">Don Cryptus</A>
+          <A href="https://github.com/0-don">Don</A>
           <span> & </span>
           <A href="https://github.com/kryptn36">kryptn36</A>
         </footer>
