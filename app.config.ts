@@ -13,7 +13,6 @@ export default defineConfig({
   },
   vite: {
     ssr: { external: ["@tanstack/solid-query", "@auth/core", "@panva/hkdf"] },
-
     optimizeDeps: {
       include: ["@panva/hkdf"],
     },
