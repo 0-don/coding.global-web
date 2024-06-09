@@ -5,7 +5,12 @@ export default defineConfig({
   server: {
     preset: process.env.BUN ? "bun" : undefined,
     rollupConfig: {
-      external: ["@panva/hkdf"],
+      external: ["@panva/hkdf", "@auth/core"],
+    },
+    esbuild: {
+      options: {
+        target: "esnext ",
+      },
     },
   },
   vite: {
