@@ -3,7 +3,7 @@
     <img src="public/images/logo_512.gif" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">coding.global Official Discord Website</h3>
+  <h3 align="center">coding.global Official Discord Website.</h3>
 
   <p align="center">
     Official <a href="https://discord.gg/coding">discord.gg/coding</a> Website for the Coding Discord Server.
@@ -100,7 +100,7 @@ This project requires NodeJS (version 16 or later), Yarn VScode. Node, Yarn and 
 
 Browse, Join and lookup helper tutorials
 
-For more examples, please refer to the [FAQ](https://coding.global/faq)_
+For more examples, please refer to the [FAQ](https://coding.global/faq)\_
 
 <!-- ROADMAP -->
 

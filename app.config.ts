@@ -4,9 +4,7 @@ export default defineConfig({
   ssr: process.env.BUN ? true : false,
   server: {
     preset: "bun",
-    rollupConfig: {
-      external: ["@panva/hkdf", "@auth/core"],
-    },
+
     esbuild: {
       options: {
         target: "esnext",
