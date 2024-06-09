@@ -9,7 +9,7 @@ export default defineConfig({
     },
     esbuild: {
       options: {
-        target: "esnext ",
+        target: "esnext",
       },
     },
   },
