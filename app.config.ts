@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     preset: process.env.BUN ? "bun" : undefined,
     rollupConfig: {
-      external: ["@auth/core", "@panva/hkdf"],
+      external: ["@panva/hkdf"],
     },
   },
   vite: {
