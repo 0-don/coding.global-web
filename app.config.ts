@@ -3,7 +3,7 @@ import { defineConfig } from "@solidjs/start/config";
 export default defineConfig({
   ssr: process.env.BUN ? true : false,
   server: {
-    preset: process.env.BUN ? "bun" : undefined,
+    preset: "bun",
     rollupConfig: {
       external: ["@panva/hkdf", "@auth/core"],
     },
