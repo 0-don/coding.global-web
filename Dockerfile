@@ -1,6 +1,6 @@
 # Install dependencies only when needed
 # Stage 0
-FROM oven/bun:alpine AS deps
+FROM oven/bun:1.0.36-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -10,7 +10,7 @@ RUN bun install
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM oven/bun:alpine AS builder
+FROM oven/bun:1.0.36-alpine AS builder
 WORKDIR /app
 
 COPY . .
@@ -26,7 +26,7 @@ RUN bun run build
 
 # Production image, copy only production files
 # Stage 2
-FROM oven/bun:alpine AS prod
+FROM oven/bun:1.0.36-alpine AS prod
 
 WORKDIR /app
 
