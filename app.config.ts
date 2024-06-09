@@ -7,14 +7,8 @@ export default defineConfig({
     rollupConfig: {
       external: ["@auth/core", "@panva/hkdf"],
     },
-    externals: {
-      external: ["@auth/core", "@panva/hkdf"],
-    },
   },
   vite: {
-    ssr: { external: ["@tanstack/solid-query", "@auth/core", "@panva/hkdf"] },
-    optimizeDeps: {
-      include: ["@panva/hkdf"],
-    },
+    ssr: { external: ["@tanstack/solid-query"] },
   },
 });
