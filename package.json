@@ -17,7 +17,7 @@
   "dependencies": {
     "@auth/core": "latest",
     "@auth/drizzle-adapter": "1.2.0",
-    "@dotenvx/dotenvx": "^0.44.1",
+    "@dotenvx/dotenvx": "^0.44.2",
     "@elysiajs/eden": "^1.0.14",
     "@kobalte/core": "^0.13.3",
     "@solid-mediakit/auth": "latest",
