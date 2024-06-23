@@ -8,7 +8,7 @@ import {
 } from "solid-icons/ai";
 import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
-import { IoDiamond } from "solid-icons/io";
+import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { clientEnv } from "~/utils/env/client";
@@ -45,7 +45,7 @@ const STAFF_MEMBERS: MemberRole[] = [
   {
     role: "Booster",
     color: "text-pink-600",
-    Icon: IoDiamond,
+    Icon: ImDiamonds,
   },
 ];
 
