@@ -17,7 +17,7 @@
   "dependencies": {
     "@auth/core": "latest",
     "@auth/drizzle-adapter": "1.4.1",
-    "@dotenvx/dotenvx": "^1.0.1",
+    "@dotenvx/dotenvx": "^1.5.0",
     "@elysiajs/eden": "^1.0.14",
     "@kobalte/core": "^0.13.3",
     "@solid-mediakit/auth": "latest",
@@ -25,7 +25,7 @@
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.13.6",
     "@solidjs/start": "^1.0.2",
-    "@tanstack/solid-query": "^5.48.0",
+    "@tanstack/solid-query": "^5.49.1",
     "dayjs": "^1.11.11",
     "drizzle-orm": "^0.31.2",
     "drizzle-typebox": "^0.1.1",
@@ -35,26 +35,26 @@
     "vinxi": "^0.3.12"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.47.0",
-    "@tanstack/solid-query-devtools": "^5.48.0",
-    "@typescript-eslint/eslint-plugin": "^7.14.1",
-    "@typescript-eslint/parser": "^7.14.1",
+    "@tanstack/eslint-plugin-query": "^5.49.1",
+    "@tanstack/solid-query-devtools": "^5.49.1",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "drizzle-kit": "^0.22.7",
+    "drizzle-kit": "^0.22.8",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-drizzle": "0.2.3",
     "eslint-plugin-solid": "^0.14.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "3.4.4",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "engines": {
     "node": ">=18"
