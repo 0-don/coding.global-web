@@ -18,7 +18,7 @@
     "@auth/core": "latest",
     "@auth/drizzle-adapter": "1.4.1",
     "@dotenvx/dotenvx": "^1.6.4",
-    "@elysiajs/eden": "^1.1.1",
+    "@elysiajs/eden": "^1.1.2",
     "@kobalte/core": "^0.13.4",
     "@solid-mediakit/auth": "latest",
     "@solid-primitives/i18n": "^2.1.1",
@@ -31,7 +31,7 @@
     "drizzle-typebox": "^0.1.1",
     "postgres": "3.4.4",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.8.18",
+    "solid-js": "^1.8.19",
     "vinxi": "^0.4.1"
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "eslint-plugin-drizzle": "0.2.3",
     "eslint-plugin-solid": "^0.14.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "postcss": "^8.4.39",
+    "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwind-merge": "^2.4.0",
