@@ -25,7 +25,7 @@
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.14.1",
     "@solidjs/start": "^1.0.6",
-    "@tanstack/solid-query": "^5.51.9",
+    "@tanstack/solid-query": "^5.51.15",
     "dayjs": "^1.11.12",
     "drizzle-orm": "^0.32.1",
     "drizzle-typebox": "^0.1.1",
@@ -35,8 +35,8 @@
     "vinxi": "^0.4.1"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.51.12",
-    "@tanstack/solid-query-devtools": "^5.51.9",
+    "@tanstack/eslint-plugin-query": "^5.51.15",
+    "@tanstack/solid-query-devtools": "^5.51.15",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.17.0",
     "autoprefixer": "^10.4.19",
@@ -52,7 +52,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss": "3.4.6",
+    "tailwindcss": "3.4.7",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.5.4"
   },
