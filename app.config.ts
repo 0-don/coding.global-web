@@ -10,7 +10,7 @@ export default defineConfig({
     //   },
     // },
   },
-  vite: {
-    ssr: { external: ["@tanstack/solid-query"] },
-  },
+  // vite: {
+  //   ssr: { external: ["@tanstack/solid-query"] },
+  // },
 });
