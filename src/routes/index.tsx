@@ -18,6 +18,12 @@ export default function Home() {
             discord.gg/coding
           </A>
           Website for the Coding Discord Server
+          <A
+            class="underline"
+            href="https://disboard.org/server/693908458986143824"
+          >
+            Disboard
+          </A>
         </p>
         <p class="mt-2 text-sm">
           <A href="https://github.com/0-don/coding.global-web">

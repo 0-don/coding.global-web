@@ -2,7 +2,7 @@ import { getSession } from "@solid-mediakit/auth";
 import { and, eq, getTableColumns } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
-import { authOpts } from "../auth/config";
+import { authOpts } from "../../../server/auth";
 import { users } from "../schema";
 import {
   comment,
