@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
-const DATABASE_URL = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`;
+const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`;
 
 export default defineConfig({
   dialect: "postgresql",
