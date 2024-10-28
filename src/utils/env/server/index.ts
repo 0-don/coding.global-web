@@ -38,4 +38,4 @@ const serverEnvSchema = t.Object({
   }),
 });
 
-export const serverEnv = parse(serverEnvSchema, import.meta.env);
+export const serverEnv = parse(serverEnvSchema, process.env);
