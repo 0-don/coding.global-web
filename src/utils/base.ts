@@ -4,7 +4,12 @@ import {
   Errors,
   SetErrorFunction,
 } from "@sinclair/typebox/errors";
-import type { Static, TSchema } from "@sinclair/typebox/type";
+import type {
+  Static,
+  TObject,
+  TProperties,
+  TSchema,
+} from "@sinclair/typebox/type";
 import { Convert } from "@sinclair/typebox/value";
 
 SetErrorFunction((error) => {
@@ -21,8 +26,30 @@ export const parse = <T extends TSchema>(
   schema: T,
   value: unknown,
 ): Static<T> => {
-  const convert = Convert(schema, value);
-  if (!convert) throw new Error(Errors(schema, value).First()?.message);
+  const defaultValues: Partial<Static<T>> = {};
+
+  const isObjectSchema = (schema: TSchema): schema is TObject<TProperties> =>
+    schema.type === "object" && "properties" in schema;
+
+  if (isObjectSchema(schema)) {
+    for (const [key, prop] of Object.entries(schema.properties)) {
+      if (prop && typeof prop === "object" && "default" in prop) {
+        defaultValues[key as keyof Static<T>] =
+          prop.default as Static<T>[keyof Static<T>];
+      }
+    }
+  }
+
+  // Ensure value is an object before spreading
+  const valueAsObject = value && typeof value === "object" ? value : {};
+
+  const mergedValue = {
+    ...defaultValues,
+    ...valueAsObject,
+  };
+
+  const convert = Convert(schema, mergedValue);
+  if (!convert) throw new Error(Errors(schema, mergedValue).First()?.message);
   return convert;
 };
 
