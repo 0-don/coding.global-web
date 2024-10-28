@@ -1,3 +1,4 @@
+import { useAuth } from "@solid-mediakit/auth/client";
 import { FaBrandsDiscord } from "solid-icons/fa";
 import { JSX, Show, createSignal } from "solid-js";
 import { CommentHook } from "~/components/hook/comment-hook";
@@ -13,7 +14,7 @@ interface CreateMessageProps {
 export default function CreateMessage(props: CreateMessageProps) {
   const { commentAdd } = CommentHook();
   const [content, setContent] = createSignal("");
-  // const auth = useAuth();
+  const auth = useAuth();
 
   const handleSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ export default function CreateMessage(props: CreateMessageProps) {
 
   return (
     <form onSubmit={handleSubmit} class={props.class}>
-      <Show when={1}>
+      <Show when={auth.session()}>
         <Grid class="gap-1">
           <Label class="sr-only" for="content">
             Comment
@@ -38,10 +39,10 @@ export default function CreateMessage(props: CreateMessageProps) {
           />
         </Grid>
       </Show>
-      <Show when={1}>
+      <Show when={!auth.session()}>
         <Button
           type="button"
-          onClick={() => 1}
+          onClick={() => auth.signIn("discord")}
           class="w-full rounded-md bg-discord px-2 py-1 text-2xl font-black hover:bg-discord hover:opacity-90"
         >
           <div class="flex items-center text-white">
