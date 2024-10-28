@@ -23,6 +23,7 @@ jobs:
           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
 
           echo VITE_HOST_URL=${{ secrets.VITE_HOST_URL }} >> .env
+          echo AUTH_URL=${{ secrets.VITE_HOST_URL }} >> .env
 
           echo AUTH_SECRET=${{ secrets.AUTH_SECRET }} >> .env
           echo AUTH_TRUST_HOST=${{ secrets.AUTH_TRUST_HOST }} >> .env
