@@ -5,7 +5,7 @@ import {
   SetErrorFunction,
 } from "@sinclair/typebox/errors";
 import type { Static, TSchema } from "@sinclair/typebox/type";
-import { Check } from "@sinclair/typebox/value";
+import { Convert } from "@sinclair/typebox/value";
 
 SetErrorFunction((error) => {
   if (typeof error.schema.error === "string") return error.schema.error;
@@ -21,16 +21,9 @@ export const parse = <T extends TSchema>(
   schema: T,
   value: unknown,
 ): Static<T> => {
-  const check = Check(schema, value);
+  const check = Convert(schema, value);
   if (!check) throw new Error(Errors(schema, value).First()?.message);
   return value;
-};
-
-export const validate = <T extends TSchema>(
-  schema: T,
-  value: unknown,
-): boolean => {
-  return Check(schema, value);
 };
 
 export function handleEden<T>(
