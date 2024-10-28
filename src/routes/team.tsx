@@ -52,7 +52,7 @@ const STAFF_MEMBERS: MemberRole[] = [
 export default function Team() {
   const staff = createQuery<Staff[]>(() => ({
     queryKey: ["staffMembers"],
-
+    deferStream: true,
     queryFn: () => fetch(clientEnv.STAFF_MEMERS_URL).then((res) => res.json()),
   }));
 

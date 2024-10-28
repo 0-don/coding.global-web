@@ -16,6 +16,7 @@ export const CommentHook = () => {
 
   const commentsQuery = createQuery(() => ({
     queryKey: ["comments"],
+    deferStream: true,
     queryFn: async () => handleEden(await rpc.api.comment.get()),
   }));
 
