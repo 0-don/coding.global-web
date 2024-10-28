@@ -1,5 +1,5 @@
 import { edenTreaty } from "@elysiajs/eden";
-import type { App } from "~/routes/api";
+import type { App } from "~/routes/api/elysia";
 
 export const rpc = edenTreaty<App>(
   typeof window === "undefined"
