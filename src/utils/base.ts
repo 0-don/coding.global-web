@@ -21,9 +21,9 @@ export const parse = <T extends TSchema>(
   schema: T,
   value: unknown,
 ): Static<T> => {
-  const check = Convert(schema, value);
-  if (!check) throw new Error(Errors(schema, value).First()?.message);
-  return value;
+  const convert = Convert(schema, value);
+  if (!convert) throw new Error(Errors(schema, value).First()?.message);
+  return convert;
 };
 
 export function handleEden<T>(
