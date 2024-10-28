@@ -5,10 +5,7 @@ import {
 } from "@tanstack/solid-query";
 import { showToast } from "~/components/ui/toast";
 import { rpc } from "~/lib/client-rpc";
-import {
-  CommentInsertSimple,
-  CommentSelect,
-} from "~/routes/api/comment/schema";
+import { CommentInsertSimple, CommentSelect } from "~/server/comment/schema";
 import { handleEden } from "~/utils/base";
 
 export const CommentHook = () => {

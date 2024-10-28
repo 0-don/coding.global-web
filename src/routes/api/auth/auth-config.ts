@@ -4,9 +4,9 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
 import { serverEnv } from "~/utils/env/server";
-import { users } from "../routes/api/auth/schema";
-import { db } from "../routes/api/db";
 import { AdapterUser } from "@auth/core/adapters";
+import { db } from "../db";
+import { users } from "./schema";
 
 declare module "@auth/core/types" {
   export interface Session {
