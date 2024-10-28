@@ -64,7 +64,6 @@ ENV DISCORD_CLIENT_ID=$DISCORD_CLIENT_ID
 ENV DISCORD_CLIENT_SECRET=$DISCORD_CLIENT_SECRET
 ENV VITE_HOST_URL=$VITE_HOST_URL
 
-EXPOSE 3000
 
-CMD ["bun", "start"]
+CMD bun start
 #############################################
