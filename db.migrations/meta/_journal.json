@@ -1,13 +1,5 @@
 {
   "version": "5",
   "dialect": "pg",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1730153824885,
-      "tag": "0000_uneven_blockbuster",
-      "breakpoints": true
-    }
-  ]
+  "entries": []
 }
