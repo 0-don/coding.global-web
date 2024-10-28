@@ -1,14 +1,14 @@
 import { getSession } from "@solid-mediakit/auth";
 import { and, eq, getTableColumns } from "drizzle-orm";
 import Elysia, { t } from "elysia";
-import { authOpts } from "~/routes/api/auth/auth-config";
-import { users } from "~/routes/api/auth/schema";
 import { db } from "~/routes/api/db";
+import { users } from "~/server/auth/schema";
 import {
   comment,
   commentInsertSimpleSchema,
   commentSelectSchema,
 } from "./schema";
+import { authOpts } from "../auth/auth-config";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => {

@@ -4,8 +4,8 @@ import Discord, { DiscordProfile } from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
+import { db } from "~/routes/api/db";
 import { serverEnv } from "~/utils/env/server";
-import { db } from "../db";
 import { users } from "./schema";
 
 declare module "@auth/core/types" {
