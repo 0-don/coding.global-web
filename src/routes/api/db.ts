@@ -4,8 +4,8 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import { resolve } from "path";
 import postgres from "postgres";
 import { serverEnv } from "~/utils/env/server";
+import { accounts, users } from "../../server/auth/schema";
 import { comment } from "../../server/comment/schema";
-import { accounts, users } from "./auth/schema";
 
 const connection = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
 
