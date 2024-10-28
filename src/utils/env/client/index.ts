@@ -1,5 +1,5 @@
 import { Type as t } from "@sinclair/typebox/type";
-import { parse } from "~/utils";
+import { parse } from "~/utils/base";
 
 const clientEnvSchema = t.Object({
   HOST_URL: t.String({

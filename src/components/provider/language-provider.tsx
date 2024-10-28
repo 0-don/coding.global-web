@@ -10,7 +10,7 @@ import {
 } from "solid-js";
 import { getCookie } from "vinxi/http";
 import { Dictionary, Locale, baseLocale, fetchDictionary } from "~/lib/i18n";
-import { parseCookie } from "~/utils";
+import { parseCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 
 export interface LanguageContextType {
