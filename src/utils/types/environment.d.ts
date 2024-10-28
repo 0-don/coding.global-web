@@ -9,8 +9,8 @@ declare namespace NodeJS {
     VITE_AUTH_PATH: string;
     VITE_HOST_URL: string;
 
-    AUTH_SECRET: string;
     AUTH_URL: string;
+    AUTH_SECRET: string;
     AUTH_TRUST_HOST: string;
 
     DISCORD_CLIENT_ID: string;
