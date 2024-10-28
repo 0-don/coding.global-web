@@ -10,7 +10,6 @@ import { Providers } from "./providers";
 import type { App } from "./routes/api";
 import { clientEnv } from "./utils/env/client";
 
-export const rpc = edenTreaty<App>(clientEnv.HOST_URL);
 
 export default function App() {
   return (
