@@ -6,10 +6,14 @@ import { eq } from "drizzle-orm";
 import { serverEnv } from "~/utils/env/server";
 import { users } from "../routes/api/auth/schema";
 import { db } from "../routes/api/db";
+import { AdapterUser } from "@auth/core/adapters";
 
 declare module "@auth/core/types" {
   export interface Session {
-    user?: DefaultSession["user"];
+    user?: User & {
+      me: User | AdapterUser;
+      profile: DiscordProfile;
+    };
   }
 }
 
@@ -66,5 +70,4 @@ export const authOpts: SolidAuthConfig = {
   },
   session: { strategy: "jwt" },
   debug: false,
-  basePath: import.meta.env.VITE_AUTH_PATH,
 };
