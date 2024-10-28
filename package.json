@@ -8,8 +8,8 @@
     "start": "vinxi start",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
-    "gen": "bun run drop-db & bun drizzle-kit drop && drizzle-kit push && drizzle-kit generate",
-    "drop-db": "bun ./db.migrations/reset-db.js",
+    "gen": "npm run drop-db & drizzle-kit drop && drizzle-kit push && drizzle-kit generate",
+    "drop-db": "node ./db.migrations/reset-db.js",
     "drop": "drizzle-kit drop",
     "push": "drizzle-kit push:pg",
     "generate": "drizzle-kit generate:pg"
@@ -43,6 +43,7 @@
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.26.2",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "3.6.3",
