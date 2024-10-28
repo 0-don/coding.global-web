@@ -1,3 +1,4 @@
+// @refresh reload
 import { edenTreaty } from "@elysiajs/eden";
 import { MetaProvider, Title } from "@solidjs/meta";
 import { Router } from "@solidjs/router";

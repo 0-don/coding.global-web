@@ -3,16 +3,16 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "dotenvx run -- vinxi dev",
-    "build": "dotenvx run -- vinxi build",
-    "start": "dotenvx run -- vinxi start",
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
-    "gen": "dotenvx run -- npm run drop-db & dotenvx run -- drizzle-kit drop && dotenvx run -- drizzle-kit push && dotenvx run -- drizzle-kit generate",
-    "drop-db": "dotenvx run -- node ./db.migrations/reset-db.js",
-    "drop": "dotenvx run -- drizzle-kit drop",
-    "push": "dotenvx run -- drizzle-kit push:pg",
-    "generate": "dotenvx run -- drizzle-kit generate:pg"
+    "gen": "npm run drop-db & drizzle-kit drop && drizzle-kit push && drizzle-kit generate",
+    "drop-db": "node ./db.migrations/reset-db.js",
+    "drop": "drizzle-kit drop",
+    "push": "drizzle-kit push:pg",
+    "generate": "drizzle-kit generate:pg"
   },
   "dependencies": {
     "@auth/core": "latest",
