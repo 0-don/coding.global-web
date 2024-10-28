@@ -1,4 +1,5 @@
 import { Type as t } from "@sinclair/typebox/type";
+import "dotenv/config";
 import { parse } from "~/utils/base";
 
 const serverEnvSchema = t.Object({
@@ -38,4 +39,7 @@ const serverEnvSchema = t.Object({
   }),
 });
 
-export const serverEnv = parse(serverEnvSchema, process.env);
+export const serverEnv = parse(serverEnvSchema, {
+  ...process.env,
+  DATABASE_URL: `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`,
+});
