@@ -1,5 +1,5 @@
 import { APIEvent } from "@solidjs/start/server";
-import Elysia from "elysia";
+import { Elysia } from "elysia";
 import { commentRoute } from "~/server/comment/route";
 
 const handler = async (event: APIEvent) => await app.handle(event.request);
