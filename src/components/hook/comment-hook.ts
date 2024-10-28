@@ -3,8 +3,8 @@ import {
   createQuery,
   useQueryClient,
 } from "@tanstack/solid-query";
-import { rpc } from "~/app";
 import { showToast } from "~/components/ui/toast";
+import { rpc } from "~/lib/client-rpc";
 import {
   CommentInsertSimple,
   CommentSelect,
@@ -20,9 +20,9 @@ export const CommentHook = () => {
     enabled: false,
     queryFn: async () => {
       const res = await rpc.api.comment.get();
-      const result = handleEden(await rpc.api.comment.get())
+      const result = handleEden(res);
       return result;
-    }
+    },
   }));
 
   const commentAdd = createMutation(() => ({
