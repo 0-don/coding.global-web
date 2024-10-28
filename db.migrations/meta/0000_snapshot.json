@@ -1,10 +1,10 @@
 {
-  "id": "4a92a775-f61d-4df9-8c32-460ab2ec9e22",
+  "id": "d0436cd0-2e07-4504-adf5-f3dbeaa6afe9",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "account": {
+    "public.account": {
       "name": "account",
       "schema": "",
       "columns": {
@@ -100,9 +100,10 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "comment": {
+    "public.comment": {
       "name": "comment",
       "schema": "",
       "columns": {
@@ -150,9 +151,10 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -214,11 +216,14 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
   "enums": {},
   "schemas": {},
+  "sequences": {},
+  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},
