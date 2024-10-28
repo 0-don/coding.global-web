@@ -13,7 +13,7 @@ interface ChatMessagesProps {
 
 export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const { commentsQuery, commentDelete } = CommentHook();
-  const auth = useAuth();
+  // const auth = useAuth();
   return (
     <div class={props.class}>
       <For each={commentsQuery.data}>
@@ -31,12 +31,12 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
               </div>
               <div>
                 <p>{comment.content}</p>
-                <Show when={comment?.user?.id === auth.session()?.user?.me.id}>
+                {/* <Show when={comment?.user?.id === auth.session()?.user?.me.id}>
                   <TbTrashXFilled
                     class="absolute right-0 top-0 hidden cursor-pointer hover:text-red-500 group-hover:block"
                     onClick={() => commentDelete.mutateAsync(comment.id)}
                   />
-                </Show>
+                </Show> */}
               </div>
             </div>
           </div>

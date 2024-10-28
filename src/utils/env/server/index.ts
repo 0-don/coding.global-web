@@ -32,6 +32,10 @@ const serverEnvSchema = t.Object({
       error: "AUTH_TRUST_HOST server environment variable is not set!",
     }),
   ),
+  AUTH_URL: t.String({
+    minLength: 1,
+    error: "AUTH_URL server environment variable is not set!",
+  }),
 });
 
 export const serverEnv = parse(serverEnvSchema, import.meta.env);
