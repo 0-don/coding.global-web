@@ -1,6 +1,8 @@
 import { error, log } from "console";
 import postgres from "postgres";
 
+console.log(process.env.DATABASE_URL);
+
 const sql = postgres(process.env.DATABASE_URL, { onnotice: () => {} });
 
 try {

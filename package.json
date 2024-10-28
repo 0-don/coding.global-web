@@ -8,8 +8,8 @@
     "start": "vinxi start",
     "prettier": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --format stylish",
-    "gen": "npm run drop-db & drizzle-kit drop && drizzle-kit push && drizzle-kit generate",
-    "drop-db": "node ./db.migrations/reset-db.js",
+    "gen": "bun run drop-db & bun drizzle-kit drop && drizzle-kit push && drizzle-kit generate",
+    "drop-db": "bun ./db.migrations/reset-db.js",
     "drop": "drizzle-kit drop",
     "push": "drizzle-kit push:pg",
     "generate": "drizzle-kit generate:pg"
