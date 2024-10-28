@@ -7,7 +7,7 @@ export default function Home() {
     <Layout>
       <div class="flex size-full flex-col items-center text-center">
         <A class="mt-auto" href="https://discord.gg/coding">
-          <div class="size-36">
+          <div class="mt-2 size-36">
             <img src="/images/logo_512.gif" class="rounded-full" />
           </div>
         </A>
