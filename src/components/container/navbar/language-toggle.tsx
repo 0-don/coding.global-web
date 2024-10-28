@@ -2,7 +2,7 @@ import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { Dictionary, Locale, baseLocale } from "~/lib/i18n";
-import { parseCookie } from "~/utils";
+import { parseCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,

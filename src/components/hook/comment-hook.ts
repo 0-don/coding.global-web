@@ -9,7 +9,7 @@ import {
   CommentInsertSimple,
   CommentSelect,
 } from "~/routes/api/comment/schema";
-import { handleEden } from "~/utils";
+import { handleEden } from "~/utils/base";
 
 export const CommentHook = () => {
   const queryClient = useQueryClient();
