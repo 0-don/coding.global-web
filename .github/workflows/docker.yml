@@ -23,10 +23,12 @@ jobs:
           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
 
           echo VITE_HOST_URL=${{ secrets.VITE_HOST_URL }} >> .env
-          echo AUTH_URL=${{ secrets.VITE_HOST_URL }} >> .env
+          echo VITE_AUTH_PATH=/api/auth >> .env
 
+          echo AUTH_URL=${{ secrets.VITE_HOST_URL }} >> .env
           echo AUTH_SECRET=${{ secrets.AUTH_SECRET }} >> .env
           echo AUTH_TRUST_HOST=${{ secrets.AUTH_TRUST_HOST }} >> .env
+
           echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> .env
           echo DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }} >> .env
 

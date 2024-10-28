@@ -1,10 +1,10 @@
+import { AdapterUser } from "@auth/core/adapters";
 import { JWT } from "@auth/core/jwt";
 import Discord, { DiscordProfile } from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
 import { eq } from "drizzle-orm";
 import { serverEnv } from "~/utils/env/server";
-import { AdapterUser } from "@auth/core/adapters";
 import { db } from "../db";
 import { users } from "./schema";
 
@@ -21,6 +21,9 @@ const getImage = (profile: DiscordProfile) =>
   `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar?.startsWith("a_") ? "gif" : "png"}`;
 
 export const authOpts: SolidAuthConfig = {
+  basePath: import.meta.env.VITE_AUTH_PATH,
+  session: { strategy: "jwt" },
+  debug: false,
   adapter: DrizzleAdapter(db),
   providers: [
     Discord({
@@ -68,6 +71,4 @@ export const authOpts: SolidAuthConfig = {
       return { ...session, user: { ...token } } as DefaultSession;
     },
   },
-  session: { strategy: "jwt" },
-  debug: false,
 };
