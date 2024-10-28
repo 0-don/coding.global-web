@@ -3,20 +3,23 @@ import { and, eq, getTableColumns } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import { db } from "~/routes/api/db";
 import { authOpts } from "../../../server/auth";
-import { users } from "../schema";
 import {
   comment,
   commentInsertSimpleSchema,
   commentSelectSchema,
 } from "./schema";
+import { users } from "../auth/schema";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
   .get("", async () => {
     const { email, ...user } = getTableColumns(users);
-    return await db
+
+    const comments = await db
       .select({ ...getTableColumns(comment), user })
       .from(comment)
       .leftJoin(users, eq(comment.userId, users.id));
+
+    return comments;
   })
   .post(
     "",

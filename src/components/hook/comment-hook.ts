@@ -17,7 +17,12 @@ export const CommentHook = () => {
   const commentsQuery = createQuery(() => ({
     queryKey: ["comments"],
     deferStream: true,
-    queryFn: async () => handleEden(await rpc.api.comment.get()),
+    enabled: false,
+    queryFn: async () => {
+      const res = await rpc.api.comment.get();
+      const result = handleEden(await rpc.api.comment.get())
+      return result;
+    }
   }));
 
   const commentAdd = createMutation(() => ({
