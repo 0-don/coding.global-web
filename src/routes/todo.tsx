@@ -1,20 +1,21 @@
+import { RouteDefinition } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { Layout } from "~/components/container/layout";
-import { prefetchQuery, TodoHook } from "~/components/hook/todo-hook";
+import { prefetchTodos, TodoHook } from "~/components/hook/todo-hook";
 import { Card } from "~/components/ui/card";
 import { todoSchemas } from "~/lib/schema/todo";
 
 export const route = {
-  load: () => prefetchQuery(),
-};
+  preload: () => prefetchTodos(),
+} satisfies RouteDefinition;
 
 export default function Demo() {
-  const { todo, setTodo, todoAdd, todoQuery, todoDelete } = TodoHook();
+  const { todo, setTodo, todoAdd, todosQuery, todoDelete } = TodoHook();
 
   return (
     <Layout>
       <Card class={"mx-auto p-4 text-center text-gray-700"}>
-        <Show when={todoQuery.data}>
+        <Show when={todosQuery.data}>
           {(todoList) => (
             <For each={todoList()}>
               {(todo) => (

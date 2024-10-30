@@ -9,25 +9,25 @@ import { createStore } from "solid-js/store";
 import { rpc } from "~/lib/rpc";
 import { todoInsertSchema } from "~/lib/schema/todo";
 
-export const prefetchQuery = cache(async () => {
+export const prefetchTodos = cache(async () => {
   "use server";
   return (await rpc.api.todo.get()).data!;
-}, "todo");
+}, "todos");
 
 export const TodoHook = () => {
   const queryClient = useQueryClient();
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
 
-  const todoQuery = createQuery(() => ({
-    queryKey: ["todo"],
-    queryFn: async () => await prefetchQuery(),
+  const todosQuery = createQuery(() => ({
+    queryKey: ["todos"],
+    queryFn: async () => await prefetchTodos(),
   }));
 
   const todoAdd = createMutation(() => ({
     mutationFn: async () => (await rpc.api.todo.post(todo)).data!,
     onSuccess: (todo) => {
       setTodo(Create(todoInsertSchema));
-      queryClient.setQueryData<typeof todoQuery.data>(
+      queryClient.setQueryData<typeof todosQuery.data>(
         ["todo"],
         (oldQueryData = []) => [...oldQueryData, todo],
       );
@@ -38,5 +38,5 @@ export const TodoHook = () => {
     mutationFn: async (id: string) => await rpc.api.todo({ id }).delete(),
   }));
 
-  return { todoQuery, todoAdd, todoDelete, todo, setTodo };
+  return { todosQuery, todoAdd, todoDelete, todo, setTodo };
 };

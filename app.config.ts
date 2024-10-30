@@ -30,7 +30,7 @@ export default defineConfig({
         log: true,
         authOpts: {
           name: "authOptions",
-          dir: "~/server/auth",
+          dir: "~/server/auth-options",
         },
       }),
     ],

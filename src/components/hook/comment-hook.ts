@@ -2,33 +2,24 @@ import { cache } from "@solidjs/router";
 import {
   createMutation,
   createQuery,
-  SolidQueryOptions,
   useQueryClient,
 } from "@tanstack/solid-query";
 import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
 import { CommentInsertSimple, CommentSelect } from "~/lib/schema/comment";
 
-const comments = cache(async () => {
+const prefetchComments = cache(async () => {
   "use server";
   return (await rpc.api.comment.get()).data!;
 }, "comments");
 
-export const commentsQueryOpts = (props: Partial<SolidQueryOptions> = {}) =>
-  ({
-    // deferStream: true,
-    experimental_prefetchInRender: true,
-    ...(props as object),
-    queryKey: ["comments"],
-    queryFn: async () => await comments(),
-  }) satisfies SolidQueryOptions;
-
 export const CommentHook = () => {
   const queryClient = useQueryClient();
 
-  const commentsQuery = createQuery(() =>
-    commentsQueryOpts({ enabled: false }),
-  );
+  const commentsQuery = createQuery(() => ({
+    queryKey: ["comments"],
+    queryFn: async () => await prefetchComments(),
+  }));
 
   const commentAdd = createMutation(() => ({
     mutationFn: async (args: CommentInsertSimple) =>
