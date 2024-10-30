@@ -1,6 +1,10 @@
 import { Create } from "@sinclair/typebox/value";
 import { cache } from "@solidjs/router";
-import { createMutation, createQuery } from "@tanstack/solid-query";
+import {
+  createMutation,
+  createQuery,
+  useQueryClient,
+} from "@tanstack/solid-query";
 import { For, Show } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Layout } from "~/components/container/layout";
@@ -21,6 +25,7 @@ export const route = {
 };
 
 export default function Demo() {
+  const queryClient = useQueryClient();
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
 
   const todoQuery = createQuery(() => ({
@@ -31,8 +36,14 @@ export default function Demo() {
   }));
 
   const todoAdd = createMutation(() => ({
-    mutationFn: async () => await rpc.api.todo.post(todo),
-    onSuccess: () => setTodo(Create(todoInsertSchema)),
+    mutationFn: async () => (await rpc.api.todo.post(todo)).data!,
+    onSuccess: (todo) => {
+      setTodo(Create(todoInsertSchema));
+      queryClient.setQueryData<typeof todoQuery.data>(
+        ["todo"],
+        (oldQueryData = []) => [...oldQueryData, todo],
+      );
+    },
   }));
 
   return (
