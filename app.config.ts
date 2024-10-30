@@ -18,7 +18,6 @@ export default defineConfig({
     },
   },
   vite: {
-    ssr: { external: ["drizzle-orm"] },
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
