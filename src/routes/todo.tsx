@@ -1,10 +1,8 @@
 import { For, Show } from "solid-js";
 import { Layout } from "~/components/container/layout";
 import { prefetchQuery, TodoHook } from "~/components/hook/todo-hook";
-import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { todoSchemas } from "~/lib/schema/todo";
-import { clientEnv } from "~/utils/env/client";
 
 export const route = {
   load: () => prefetchQuery(),
@@ -16,7 +14,6 @@ export default function Demo() {
   return (
     <Layout>
       <Card class={"mx-auto p-4 text-center text-gray-700"}>
-        <Button>{clientEnv.HOST_URL}</Button>
         <Show when={todoQuery.data}>
           {(todoList) => (
             <For each={todoList()}>
