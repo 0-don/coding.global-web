@@ -32,7 +32,7 @@ export default function Demo() {
                   <Button
                     variant="destructive"
                     disabled={todoDelete.isPending}
-                    onClick={() => todoDelete.mutate(todo.id)}
+                    onClick={() => todoDelete.mutateAsync(todo.id)}
                   >
                     X
                   </Button>

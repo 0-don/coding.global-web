@@ -9,17 +9,19 @@ import { createStore } from "solid-js/store";
 import { rpc } from "~/lib/rpc";
 import { todoInsertSchema } from "~/lib/schema/todo";
 
+export const TODOS_KEY = "todos";
+
 export const prefetchTodos = cache(async () => {
   "use server";
   return (await rpc.api.todo.get()).data!;
-}, "todos");
+}, TODOS_KEY);
 
 export const TodoHook = () => {
   const queryClient = useQueryClient();
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
 
   const todosQuery = createQuery(() => ({
-    queryKey: ["todos"],
+    queryKey: [TODOS_KEY],
     queryFn: async () => await prefetchTodos(),
   }));
 
@@ -28,7 +30,7 @@ export const TodoHook = () => {
     onSuccess: (todo) => {
       setTodo(Create(todoInsertSchema));
       queryClient.setQueryData<typeof todosQuery.data>(
-        ["todos"],
+        [TODOS_KEY],
         (oldQueryData = []) => [...oldQueryData, todo],
       );
     },
@@ -39,7 +41,7 @@ export const TodoHook = () => {
       (await rpc.api.todo({ id }).delete()).data,
     onSuccess: (id) => {
       queryClient.setQueryData<typeof todosQuery.data>(
-        ["todos"],
+        [TODOS_KEY],
         (oldQueryData = []) => oldQueryData.filter((todo) => todo.id !== id),
       );
     },
