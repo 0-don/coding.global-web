@@ -1,7 +1,6 @@
 import { For, Show } from "solid-js";
 import { Layout } from "~/components/container/layout";
 import { prefetchQuery, TodoHook } from "~/components/hook/todo-hook";
-import Todo from "~/components/Todo";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { todoSchemas } from "~/lib/schema/todo";
@@ -12,7 +11,7 @@ export const route = {
 };
 
 export default function Demo() {
-  const { todo, setTodo, todoAdd, todoQuery } = TodoHook();
+  const { todo, setTodo, todoAdd, todoQuery, todoDelete } = TodoHook();
 
   return (
     <Layout>
@@ -23,7 +22,18 @@ export default function Demo() {
             <For each={todoList()}>
               {(todo) => (
                 <div class={"mb-2"}>
-                  <Todo id={todo.id} data={todo.data} />
+                  <div class={"flex flex-row justify-center gap-4"}>
+                    <pre>{todo.data}</pre>
+                    <button
+                      class={
+                        "rounded border-2 border-black bg-red-300 px-4 transition-all hover:bg-red-400 active:bg-red-400 disabled:cursor-not-allowed disabled:bg-red-400"
+                      }
+                      disabled={todoDelete.isPending}
+                      onClick={() => todoDelete.mutate(todo.id)}
+                    >
+                      X
+                    </button>
+                  </div>
                 </div>
               )}
             </For>

@@ -34,5 +34,9 @@ export const TodoHook = () => {
     },
   }));
 
-  return { todoQuery, todoAdd, todo, setTodo };
+  const todoDelete = createMutation(() => ({
+    mutationFn: async (id: string) => await rpc.api.todo({ id }).delete(),
+  }));
+
+  return { todoQuery, todoAdd, todoDelete, todo, setTodo };
 };
