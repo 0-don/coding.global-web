@@ -4,7 +4,7 @@ import { STAFF_MEMBERS_KEY } from "~/utils/cache/keys";
 import { serverEnv } from "~/utils/env/server";
 import { Staff } from "~/utils/types";
 
-const prefetchStaffMembers = cache(async () => {
+export const prefetchStaffMembers = cache(async () => {
   "use server";
   return (await fetch(serverEnv.STAFF_MEMERS_URL).then((res) =>
     res.json(),

@@ -1,3 +1,4 @@
+import { RouteDefinition } from "@solidjs/router";
 import {
   AiFillBug,
   AiFillCode,
@@ -9,11 +10,19 @@ import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
-import { DiscordHook } from "~/components/hook/discord-hook";
+import {
+  DiscordHook,
+  prefetchStaffMembers,
+} from "~/components/hook/discord-hook";
+import { QueryBoundary } from "~/components/query-boundary";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
 import { MemberRole } from "../utils/types";
+
+export const route = {
+  preload: () => prefetchStaffMembers(),
+} satisfies RouteDefinition;
 
 export default function Team() {
   const { staffMembersQuery } = DiscordHook();
@@ -22,53 +31,60 @@ export default function Team() {
     <Layout container class="mt-10">
       <Header name="Team" />
 
-      <div class="mt-10 gap-2 md:grid md:grid-cols-6">
-        <For each={staffMembersQuery.data}>
-          {(m) => (
-            <Card class="">
-              <CardHeader>
-                <img
-                  src={m.displayAvatarURL}
-                  class="w-full object-cover"
-                  alt={m.username}
-                />
-                <CardDescription class="flex items-center space-x-1">
-                  <AiOutlineUserAdd />
-                  <span>{m.username}</span>
-                </CardDescription>
-                <Show when={m.globalName}>
-                  <CardDescription class="flex items-center space-x-1">
-                    <AiOutlineGlobal />
-                    <span class="font-bold">{m.globalName}</span>
-                  </CardDescription>
-                </Show>
+      <QueryBoundary
+        query={staffMembersQuery}
+        loadingFallback={<>loading...</>}
+      >
+        {(staffMembers) => (
+          <div class="mt-10 gap-2 md:grid md:grid-cols-6">
+            <For each={staffMembers}>
+              {(m) => (
+                <Card class="">
+                  <CardHeader>
+                    <img
+                      src={m.displayAvatarURL}
+                      class="w-full object-cover"
+                      alt={m.username}
+                    />
+                    <CardDescription class="flex items-center space-x-1">
+                      <AiOutlineUserAdd />
+                      <span>{m.username}</span>
+                    </CardDescription>
+                    <Show when={m.globalName}>
+                      <CardDescription class="flex items-center space-x-1">
+                        <AiOutlineGlobal />
+                        <span class="font-bold">{m.globalName}</span>
+                      </CardDescription>
+                    </Show>
 
-                <CardDescription class="flex flex-wrap space-x-2">
-                  <For each={m.memberRoles}>
-                    {(staffRole) => {
-                      const role = STAFF_MEMBERS.find(
-                        (member) => member.role === staffRole,
-                      );
+                    <CardDescription class="flex flex-wrap space-x-2">
+                      <For each={m.memberRoles}>
+                        {(staffRole) => {
+                          const role = STAFF_MEMBERS.find(
+                            (member) => member.role === staffRole,
+                          );
 
-                      if (!role) return <></>;
+                          if (!role) return <></>;
 
-                      return (
-                        <span
-                          class={`flex items-center gap-1 text-xs ${role.color}`}
-                        >
-                          <role.Icon />
+                          return (
+                            <span
+                              class={`flex items-center gap-1 text-xs ${role.color}`}
+                            >
+                              <role.Icon />
 
-                          {role.role}
-                        </span>
-                      );
-                    }}
-                  </For>
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          )}
-        </For>
-      </div>
+                              {role.role}
+                            </span>
+                          );
+                        }}
+                      </For>
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              )}
+            </For>
+          </div>
+        )}
+      </QueryBoundary>
     </Layout>
   );
 }
