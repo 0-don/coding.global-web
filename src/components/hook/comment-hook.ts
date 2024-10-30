@@ -1,25 +1,38 @@
+import { cache } from "@solidjs/router";
 import {
   createMutation,
   createQuery,
+  SolidQueryOptions,
   useQueryClient,
 } from "@tanstack/solid-query";
-import { showToast } from "~/components/ui/toast";
-import { rpc } from "~/lib/client-rpc";
-import { CommentInsertSimple, CommentSelect } from "~/server/comment/schema";
-import { handleEden } from "~/utils/base";
+import { toast } from "solid-sonner";
+import { rpc } from "~/lib/rpc";
+import { CommentInsertSimple, CommentSelect } from "~/lib/schema/comment";
+
+const comments = cache(async () => {
+  "use server";
+  return (await rpc.api.comment.get()).data!;
+}, "comments");
+
+export const commentsQueryOpts = (props: Partial<SolidQueryOptions> = {}) =>
+  ({
+    // deferStream: true,
+    experimental_prefetchInRender: true,
+    ...(props as object),
+    queryKey: ["comments"],
+    queryFn: async () => await comments(),
+  }) satisfies SolidQueryOptions;
 
 export const CommentHook = () => {
   const queryClient = useQueryClient();
 
-  const commentsQuery = createQuery(() => ({
-    queryKey: ["comments"],
-    deferStream: true,
-    queryFn: async () => handleEden(await rpc.api.comment.get()),
-  }));
+  const commentsQuery = createQuery(() =>
+    commentsQueryOpts({ enabled: false }),
+  );
 
   const commentAdd = createMutation(() => ({
     mutationFn: async (args: CommentInsertSimple) =>
-      handleEden(await rpc.api.comment.post(args)),
+      (await rpc.api.comment.post(args)).data!,
     onSuccess: (newComment) => {
       queryClient.setQueryData<typeof commentsQuery.data>(
         ["comments"],
@@ -30,18 +43,14 @@ export const CommentHook = () => {
       const err = JSON.parse(error.message).errors as Error[];
 
       for (const { message } of err) {
-        showToast({
-          title: "Error",
-          description: message,
-          variant: "destructive",
-        });
+        toast.error(message);
       }
     },
   }));
 
   const commentDelete = createMutation(() => ({
     mutationFn: async (id: string) =>
-      handleEden(await rpc.api.comment[id].delete()),
+      (await rpc.api.comment({ id }).delete()).data!,
     onSuccess: (c) => {
       queryClient.setQueryData<CommentSelect[]>(
         ["comments"],
@@ -53,11 +62,7 @@ export const CommentHook = () => {
       const err = JSON.parse(error.message).errors as Error[];
 
       for (const { message } of err) {
-        showToast({
-          title: "Error",
-          description: message,
-          variant: "destructive",
-        });
+        toast.error(message);
       }
     },
   }));

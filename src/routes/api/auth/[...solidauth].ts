@@ -1,4 +1,4 @@
 import { SolidAuth } from "@solid-mediakit/auth";
-import { authOpts } from "~/server/auth/auth-config";
+import { authOptions } from "~/server/auth/auth-options";
 
-export const { GET, POST } = SolidAuth(authOpts);
+export const { GET, POST } = SolidAuth(authOptions);

@@ -1,5 +1,13 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "entries": []
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1730222539367,
+      "tag": "0000_parched_zarek",
+      "breakpoints": true
+    }
+  ]
 }

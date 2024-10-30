@@ -1,15 +1,11 @@
-import "dotenv/config";
-import { defineConfig } from "drizzle-kit";
+import type { Config } from "drizzle-kit";
 
-const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`;
+if (!process.env.DATABASE_URL)
+  throw new Error("DATABASE_URL environment variable is not set!");
 
-export default defineConfig({
+export default {
   dialect: "postgresql",
-  schema: "./src/routes/api/schema.ts",
+  schema: "./src/lib/schema/index.ts",
   out: "./db.migrations",
-  dbCredentials: { url: DATABASE_URL },
-  // Print all statements
-  verbose: false,
-  // Always ask for confirmation
-  strict: false,
-});
+  dbCredentials: { url: process.env.DATABASE_URL },
+} satisfies Config;

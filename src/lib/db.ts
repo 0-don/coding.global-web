@@ -1,21 +1,20 @@
 import { log } from "console";
-import { drizzle } from "drizzle-orm/postgres-js";
+import { DrizzleConfig } from "drizzle-orm";
+import { drizzle as drizzlePostgres } from "drizzle-orm/postgres-js";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import { resolve } from "path";
 import postgres from "postgres";
-import { serverEnv } from "~/utils/env/server";
-import { accounts, users } from "../../server/auth/schema";
-import { comment } from "../../server/comment/schema";
+import * as schema from "~/lib/schema";
+import { serverEnv } from "../utils/env/server";
 
 const connection = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
 
-export const db = drizzle(connection, {
-  schema: {
-    accounts,
-    users,
-    comment,
-  },
-});
+const options: DrizzleConfig<typeof schema> = {
+  schema,
+  logger: import.meta.env.DEV,
+};
+
+export const db = drizzlePostgres(connection, options);
 
 (async () => {
   await migrate(db, { migrationsFolder: resolve("db.migrations") });
