@@ -4,8 +4,7 @@ import { JSX, Show, createSignal } from "solid-js";
 import { CommentHook } from "~/components/hook/comment-hook";
 import { Button } from "~/components/ui/button";
 import { Grid } from "~/components/ui/grid";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
+import { TextFieldLabel, TextField } from "~/components/ui/textfield";
 
 interface CreateMessageProps {
   class?: string;
@@ -23,13 +22,13 @@ export default function CreateMessage(props: CreateMessageProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} class={props.class}>
+    <div class={props.class}>
       <Show when={auth.session()}>
         <Grid class="gap-1">
-          <Label class="sr-only" for="content">
+          <TextFieldLabel class="sr-only" for="content">
             Comment
-          </Label>
-          <Input
+          </TextFieldLabel>
+          <TextField
             class="bg-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-zinc-700"
             value={content()}
             onInput={(e) => setContent(e.currentTarget.value)}
@@ -42,7 +41,9 @@ export default function CreateMessage(props: CreateMessageProps) {
       <Show when={!auth.session()}>
         <Button
           type="button"
-          onClick={() => auth.signIn("discord")}
+          onClick={() => {
+            auth.signIn("discord");
+          }}
           class="w-full rounded-md bg-discord px-2 py-1 text-2xl font-black hover:bg-discord hover:opacity-90"
         >
           <div class="flex items-center text-white">
@@ -51,6 +52,6 @@ export default function CreateMessage(props: CreateMessageProps) {
           </div>
         </Button>
       </Show>
-    </form>
+    </div>
   );
 }

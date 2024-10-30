@@ -1,46 +1,29 @@
-version: "3.8"
-
 services:
-  coding-global-web:
-    container_name: coding-global-web
+  app:
+    restart: always
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: .
       target: prod
       args:
-        - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
+        - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
 
         - VITE_HOST_URL=${VITE_HOST_URL}
-        - VITE_AUTH_PATH=/api/auth
+        - VITE_AUTH_PATH=${VITE_AUTH_PATH}
 
         - AUTH_SECRET=${AUTH_SECRET}
         - AUTH_TRUST_HOST=${AUTH_TRUST_HOST}
 
         - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
         - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
-    restart: always
     depends_on:
-      - coding-global-web-db
-    networks:
-      - proxy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.coding-global-web.rule=Host(`coding.global`) || Host(`www.coding.global`)"
-      - "traefik.http.routers.coding-global-web.entrypoints=websecure"
-      - "traefik.http.routers.coding-global-web.tls.certresolver=letsencrypt"
-      - "traefik.http.services.coding-global-web.loadbalancer.server.port=3000"
-  coding-global-web-db:
-    container_name: coding-global-web-db
-    image: postgres:latest
-    restart: always
-    networks:
-      - proxy
-    environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - database
+    ports:
+      - ${PORT:-3000}:3000
 
-networks:
-  proxy:
-    external: false
-    name: proxy
+  database:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-example}
+      POSTGRES_DB: ${POSTGRES_DB:-dbest}

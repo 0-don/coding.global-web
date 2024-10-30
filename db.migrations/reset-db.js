@@ -1,10 +1,7 @@
 import { error, log } from "console";
-import "dotenv/config";
 import postgres from "postgres";
 
-const DATABASE_URL = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}/${process.env.POSTGRES_DB}`;
-
-const sql = postgres(DATABASE_URL, { onnotice: () => {} });
+const sql = postgres(process.env.DATABASE_URL, { onnotice: () => {} });
 
 try {
   // Fetch all table names in the public schema

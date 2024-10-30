@@ -1,4 +1,4 @@
-import type { AdapterAccount } from "@auth/core/adapters";
+import type { AdapterAccountType } from "@auth/core/adapters";
 import { Type as t } from "@sinclair/typebox/type";
 import {
   integer,
@@ -10,9 +10,11 @@ import {
 import { createInsertSchema } from "drizzle-typebox";
 
 export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
-  email: text("email").notNull(),
+  email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 
@@ -28,7 +30,7 @@ export const accounts = pgTable(
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccount["type"]>().notNull(),
+    type: text("type").$type<AdapterAccountType>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
     refresh_token: text("refresh_token"),

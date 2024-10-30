@@ -14,6 +14,7 @@ interface ChatMessagesProps {
 export const ChatMessages: Component<ChatMessagesProps> = (props) => {
   const { commentsQuery, commentDelete } = CommentHook();
   const auth = useAuth();
+
   return (
     <div class={props.class}>
       <For each={commentsQuery.data}>
