@@ -6,7 +6,7 @@ import {
 } from "@tanstack/solid-query";
 import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
-import { CommentInsertSimple, CommentSelect } from "~/lib/schema/comment";
+import { CommentInsertSimple } from "~/lib/schema/comment";
 import { COMMENTS_KEY } from "~/utils/cache/keys";
 
 const prefetchComments = cache(async () => {
@@ -43,7 +43,7 @@ export const CommentHook = () => {
     mutationFn: async (id: string) =>
       (await rpc.api.comment({ id }).delete()).data!,
     onSuccess: (c) => {
-      queryClient.setQueryData<CommentSelect[]>(
+      queryClient.setQueryData<typeof commentsQuery.data>(
         [COMMENTS_KEY],
         (oldQueryData = []) =>
           oldQueryData.filter((comment) => comment.id !== c?.id),
