@@ -13,7 +13,7 @@ export const route = {
 
 export default function Demo() {
   const { todo, setTodo, todoAdd, todosQuery, todoDelete } = TodoHook();
-  
+
   const onSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
     e.preventDefault();
     if (!todoAdd.isPending && todoSchemas.insert.safeParse(todo).success)
@@ -52,7 +52,6 @@ export default function Demo() {
             type={"text"}
             value={todo.data}
             onInput={({ currentTarget: { value: data } }) => setTodo({ data })}
-            onKeyUp={({ key }) => {}}
           />
           <Button
             disabled={
