@@ -1,3 +1,4 @@
+import { authVite } from "@solid-mediakit/auth-plugin";
 import { defineConfig } from "@solidjs/start/config";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,5 +24,15 @@ export default defineConfig({
         "@": resolve(__dirname, "./src"),
       },
     },
+    plugins: [
+      authVite({
+        redirectTo: "/",
+        log: true,
+        authOpts: {
+          name: "authOptions",
+          dir: "~/server/auth",
+        },
+      }),
+    ],
   },
 });
