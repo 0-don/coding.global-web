@@ -11,11 +11,11 @@ const prefetchStaffMembers = cache(async () => {
   )) as Staff[];
 }, STAFF_MEMBERS_KEY);
 
-export const TodoHook = () => {
+export const DiscordHook = () => {
   const staffMembersQuery = createQuery(() => ({
     queryKey: [STAFF_MEMBERS_KEY],
     queryFn: async () => await prefetchStaffMembers(),
   }));
 
-  return { staff: staffMembersQuery };
+  return { staffMembersQuery };
 };

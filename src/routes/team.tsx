@@ -1,4 +1,3 @@
-import { createQuery } from "@tanstack/solid-query";
 import {
   AiFillBug,
   AiFillCode,
@@ -10,58 +9,21 @@ import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
+import { DiscordHook } from "~/components/hook/discord-hook";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
-import { clientEnv } from "~/utils/env/client";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
-import { MemberRole, Staff } from "../utils/types";
-
-const STAFF_MEMBERS: MemberRole[] = [
-  {
-    role: "Owner",
-    color: "text-red-500",
-    Icon: AiFillCrown,
-  },
-  {
-    role: "Moderator",
-    color: "text-green-500",
-    Icon: AiFillBug,
-  },
-  {
-    role: "Admin",
-    color: "text-yellow-500",
-    Icon: AiFillCode,
-  },
-  {
-    role: "Helper",
-    color: "text-blue-500",
-    Icon: FiHelpCircle,
-  },
-  {
-    role: "Techlead",
-    color: "text-orange-500",
-    Icon: CgSupport,
-  },
-  {
-    role: "Booster",
-    color: "text-pink-600",
-    Icon: ImDiamonds,
-  },
-];
+import { MemberRole } from "../utils/types";
 
 export default function Team() {
-  const staff = createQuery<Staff[]>(() => ({
-    queryKey: ["staffMembers"],
-    deferStream: true,
-    queryFn: () => fetch(clientEnv.STAFF_MEMERS_URL).then((res) => res.json()),
-  }));
+  const { staffMembersQuery } = DiscordHook();
 
   return (
     <Layout container class="mt-10">
       <Header name="Team" />
 
       <div class="mt-10 gap-2 md:grid md:grid-cols-6">
-        <For each={staff.data}>
+        <For each={staffMembersQuery.data}>
           {(m) => (
             <Card class="">
               <CardHeader>
@@ -110,3 +72,36 @@ export default function Team() {
     </Layout>
   );
 }
+
+const STAFF_MEMBERS: MemberRole[] = [
+  {
+    role: "Owner",
+    color: "text-red-500",
+    Icon: AiFillCrown,
+  },
+  {
+    role: "Moderator",
+    color: "text-green-500",
+    Icon: AiFillBug,
+  },
+  {
+    role: "Admin",
+    color: "text-yellow-500",
+    Icon: AiFillCode,
+  },
+  {
+    role: "Helper",
+    color: "text-blue-500",
+    Icon: FiHelpCircle,
+  },
+  {
+    role: "Techlead",
+    color: "text-orange-500",
+    Icon: CgSupport,
+  },
+  {
+    role: "Booster",
+    color: "text-pink-600",
+    Icon: ImDiamonds,
+  },
+];
