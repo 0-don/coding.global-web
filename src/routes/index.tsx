@@ -33,7 +33,7 @@ export default function Home() {
         <div class="mt-4 flex flex-wrap items-center space-x-2">
           <A
             href="https://discord.gg/coding"
-            class="bg-discord w-36 rounded-md px-2 py-1 text-2xl font-black"
+            class="w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black"
           >
             <div class="flex items-center text-white">
               <FaBrandsDiscord />
@@ -44,28 +44,28 @@ export default function Home() {
         <div class="mt-2 flex space-x-2">
           <A
             href="/team"
-            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
+            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
           >
             Team
           </A>
           <A
             href="/rules"
-            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
+            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
           >
             Rules
           </A>
           <A
             href="/chat"
-            class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
+            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
           >
             Chat
           </A>
         </div>
         <A
-          href="/demo"
-          class="bg-discord w-32 rounded-md py-1 text-2xl font-black text-white"
+          href="/todo"
+          class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
         >
-          Demo
+          Todo
         </A>
         <iframe
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
