@@ -21,40 +21,34 @@ export default function Demo() {
   };
 
   return (
-    <Layout>
-      <Card class={"mx-auto p-4 text-center text-gray-700"}>
+    <Layout container>
+      <Card class="mt-5">
         <Show when={todosQuery.data}>
           {(todoList) => (
             <For each={todoList()}>
               {(todo) => (
-                <div class={"mb-2"}>
-                  <div class={"flex flex-row justify-center gap-4"}>
-                    <pre>{todo.data}</pre>
-                    <button
-                      class={
-                        "rounded border-2 bg-red-300 px-4 transition-all hover:bg-red-400 active:bg-red-400 disabled:cursor-not-allowed disabled:bg-red-400"
-                      }
-                      disabled={todoDelete.isPending}
-                      onClick={() => todoDelete.mutate(todo.id)}
-                    >
-                      X
-                    </button>
-                  </div>
+                <div class={"flex items-center justify-center gap-4"}>
+                  <p>{todo.data}</p>
+                  <Button
+                    variant="destructive"
+                    disabled={todoDelete.isPending}
+                    onClick={() => todoDelete.mutate(todo.id)}
+                  >
+                    X
+                  </Button>
                 </div>
               )}
             </For>
           )}
         </Show>
-        <br />
+
         <form onSubmit={onSubmit} class={"flex flex-row justify-center gap-4"}>
           <TextFieldRoot class="w-full max-w-xs" validationState="invalid">
             <TextField
               class={"rounded border-2 px-2 py-1"}
               type={"text"}
               value={todo.data}
-              onInput={({ currentTarget: { value: data } }) =>
-                setTodo({ data })
-              }
+              onInput={(e) => setTodo({ data: e.currentTarget.value })}
             />
           </TextFieldRoot>
           <Button
@@ -67,7 +61,6 @@ export default function Demo() {
           </Button>
         </form>
         <br />
-        <pre>DrizzleORM + Bun + ElysiaJS + SolidStart + Tailwind CSS</pre>
       </Card>
     </Layout>
   );
