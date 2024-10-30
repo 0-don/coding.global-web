@@ -27,9 +27,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
       <Suspense>
         <ThemeProvider>
           <LanguageProvider>
-            <SessionProvider deferStream refetchAfterServer={false}>
-              {props.children}
-            </SessionProvider>
+            <SessionProvider>{props.children}</SessionProvider>
           </LanguageProvider>
           <Toaster />
         </ThemeProvider>
