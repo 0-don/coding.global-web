@@ -28,20 +28,21 @@ export const TodoHook = () => {
     onSuccess: (todo) => {
       setTodo(Create(todoInsertSchema));
       queryClient.setQueryData<typeof todosQuery.data>(
-        ["todo"],
+        ["todos"],
         (oldQueryData = []) => [...oldQueryData, todo],
       );
     },
   }));
 
   const todoDelete = createMutation(() => ({
-    mutationFn: async (id: string) => (await rpc.api.todo({ id }).delete()).data,
+    mutationFn: async (id: string) =>
+      (await rpc.api.todo({ id }).delete()).data,
     onSuccess: (id) => {
       queryClient.setQueryData<typeof todosQuery.data>(
         ["todos"],
         (oldQueryData = []) => oldQueryData.filter((todo) => todo.id !== id),
       );
-    }
+    },
   }));
 
   return { todosQuery, todoAdd, todoDelete, todo, setTodo };
