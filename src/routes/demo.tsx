@@ -1,50 +1,18 @@
-import { Create } from "@sinclair/typebox/value";
-import { cache } from "@solidjs/router";
-import {
-  createMutation,
-  createQuery,
-  useQueryClient,
-} from "@tanstack/solid-query";
 import { For, Show } from "solid-js";
-import { createStore } from "solid-js/store";
 import { Layout } from "~/components/container/layout";
+import { prefetchQuery, TodoHook } from "~/components/hook/todo-hook";
 import Todo from "~/components/Todo";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
-import { rpc } from "~/lib/rpc";
-import { todoInsertSchema, todoSchemas } from "~/lib/schema/todo";
+import { todoSchemas } from "~/lib/schema/todo";
 import { clientEnv } from "~/utils/env/client";
 
-const todos = cache(async () => {
-  "use server";
-  return (await rpc.api.todo.get()).data!;
-}, "todo");
-
 export const route = {
-  load: () => todos(),
+  load: () => prefetchQuery(),
 };
 
 export default function Demo() {
-  const queryClient = useQueryClient();
-  const [todo, setTodo] = createStore(Create(todoInsertSchema));
-
-  const todoQuery = createQuery(() => ({
-    queryKey: ["todo"],
-    deferStream: true,
-    experimental_prefetchInRender: true,
-    queryFn: async () => await todos(),
-  }));
-
-  const todoAdd = createMutation(() => ({
-    mutationFn: async () => (await rpc.api.todo.post(todo)).data!,
-    onSuccess: (todo) => {
-      setTodo(Create(todoInsertSchema));
-      queryClient.setQueryData<typeof todoQuery.data>(
-        ["todo"],
-        (oldQueryData = []) => [...oldQueryData, todo],
-      );
-    },
-  }));
+  const { todo, setTodo, todoAdd, todoQuery } = TodoHook();
 
   return (
     <Layout>
