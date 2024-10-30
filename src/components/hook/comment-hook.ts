@@ -7,17 +7,18 @@ import {
 import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
 import { CommentInsertSimple, CommentSelect } from "~/lib/schema/comment";
+import { COMMENTS_KEY } from "~/utils/cache/keys";
 
 const prefetchComments = cache(async () => {
   "use server";
   return (await rpc.api.comment.get()).data!;
-}, "comments");
+}, COMMENTS_KEY);
 
 export const CommentHook = () => {
   const queryClient = useQueryClient();
 
   const commentsQuery = createQuery(() => ({
-    queryKey: ["comments"],
+    queryKey: [COMMENTS_KEY],
     queryFn: async () => await prefetchComments(),
   }));
 
@@ -26,13 +27,12 @@ export const CommentHook = () => {
       (await rpc.api.comment.post(args)).data!,
     onSuccess: (newComment) => {
       queryClient.setQueryData<typeof commentsQuery.data>(
-        ["comments"],
+        [COMMENTS_KEY],
         (oldQueryData = []) => [...oldQueryData, newComment],
       );
     },
     onError: (error) => {
       const err = JSON.parse(error.message).errors as Error[];
-
       for (const { message } of err) {
         toast.error(message);
       }
@@ -44,14 +44,13 @@ export const CommentHook = () => {
       (await rpc.api.comment({ id }).delete()).data!,
     onSuccess: (c) => {
       queryClient.setQueryData<CommentSelect[]>(
-        ["comments"],
+        [COMMENTS_KEY],
         (oldQueryData = []) =>
           oldQueryData.filter((comment) => comment.id !== c?.id),
       );
     },
     onError: (error) => {
       const err = JSON.parse(error.message).errors as Error[];
-
       for (const { message } of err) {
         toast.error(message);
       }

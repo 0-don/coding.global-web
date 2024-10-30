@@ -8,8 +8,7 @@ import {
 import { createStore } from "solid-js/store";
 import { rpc } from "~/lib/rpc";
 import { todoInsertSchema } from "~/lib/schema/todo";
-
-export const TODOS_KEY = "todos";
+import { TODOS_KEY } from "~/utils/cache/keys";
 
 export const prefetchTodos = cache(async () => {
   "use server";
