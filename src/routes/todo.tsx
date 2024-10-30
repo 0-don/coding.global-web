@@ -1,8 +1,10 @@
 import { RouteDefinition } from "@solidjs/router";
-import { For, Show } from "solid-js";
+import { For, JSX, Show } from "solid-js";
 import { Layout } from "~/components/container/layout";
 import { prefetchTodos, TodoHook } from "~/components/hook/todo-hook";
+import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import { TextField } from "~/components/ui/textfield";
 import { todoSchemas } from "~/lib/schema/todo";
 
 export const route = {
@@ -11,6 +13,12 @@ export const route = {
 
 export default function Demo() {
   const { todo, setTodo, todoAdd, todosQuery, todoDelete } = TodoHook();
+  
+  const onSubmit: JSX.IntrinsicElements["form"]["onsubmit"] = async (e) => {
+    e.preventDefault();
+    if (!todoAdd.isPending && todoSchemas.insert.safeParse(todo).success)
+      todoAdd.mutate();
+  };
 
   return (
     <Layout>
@@ -24,7 +32,7 @@ export default function Demo() {
                     <pre>{todo.data}</pre>
                     <button
                       class={
-                        "rounded border-2 border-black bg-red-300 px-4 transition-all hover:bg-red-400 active:bg-red-400 disabled:cursor-not-allowed disabled:bg-red-400"
+                        "rounded border-2 bg-red-300 px-4 transition-all hover:bg-red-400 active:bg-red-400 disabled:cursor-not-allowed disabled:bg-red-400"
                       }
                       disabled={todoDelete.isPending}
                       onClick={() => todoDelete.mutate(todo.id)}
@@ -38,33 +46,23 @@ export default function Demo() {
           )}
         </Show>
         <br />
-        <div class={"flex flex-row justify-center gap-4"}>
-          <input
-            class={"rounded border-2 border-black px-2 py-1"}
+        <form onSubmit={onSubmit} class={"flex flex-row justify-center gap-4"}>
+          <TextField
+            class={"rounded border-2 px-2 py-1"}
             type={"text"}
             value={todo.data}
             onInput={({ currentTarget: { value: data } }) => setTodo({ data })}
-            onKeyUp={({ key }) => {
-              if (
-                key === "Enter" &&
-                !todoAdd.isPending &&
-                todoSchemas.insert.safeParse(todo).success
-              )
-                todoAdd.mutate();
-            }}
+            onKeyUp={({ key }) => {}}
           />
-          <button
-            class={
-              "rounded border-2 border-black bg-gray-300 px-4 transition-all hover:bg-gray-400 active:bg-gray-400 disabled:cursor-not-allowed disabled:bg-gray-400"
-            }
+          <Button
             disabled={
               todoAdd.isPending || !todoSchemas.insert.safeParse(todo).success
             }
             onClick={() => todoAdd.mutate()}
           >
             Submit
-          </button>
-        </div>
+          </Button>
+        </form>
         <br />
         <pre>DrizzleORM + Bun + ElysiaJS + SolidStart + Tailwind CSS</pre>
       </Card>
