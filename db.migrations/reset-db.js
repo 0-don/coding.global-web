@@ -1,6 +1,9 @@
+import { config } from "@dotenvx/dotenvx";
 import { error, log } from "console";
 import postgres from "postgres";
-require("@dotenvx/dotenvx").config();
+
+config();
+
 const sql = postgres(process.env.DATABASE_URL, { onnotice: () => {} });
 
 try {
