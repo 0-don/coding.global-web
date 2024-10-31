@@ -1,15 +1,15 @@
 {
-  "HI": "Hallo",
-  "TOGGLE_LANGUAGE": "Sprache wechseln",
-  "TOGGLE_THEME": "Thema wechseln",
-  "EN": "Englisch",
-  "DE": "Deutsch",
-  "LIGHT": "Licht",
-  "DARK": "Dunkel",
-  "SYSTEM": "System",
-  "MAIN": {
-    "ERROR": {
-      "UNAUTHORIZED": "Nicht autorisiert"
-    }
-  }
+	"DARK": "Dunkel",
+	"DE": "Deutsch",
+	"EN": "Englisch",
+	"HI": "Hallo",
+	"LIGHT": "Licht",
+	"MAIN": {
+		"ERROR": {
+			"UNAUTHORIZED": "Nicht autorisiert"
+		}
+	},
+	"SYSTEM": "System",
+	"TOGGLE_LANGUAGE": "Sprache wechseln",
+	"TOGGLE_THEME": "Thema wechseln"
 }
