@@ -10,7 +10,6 @@ export default defineConfig({
   ssr: true,
   middleware: "./src/server/middleware.ts",
   server: {
-    preset: "bun",
     esbuild: {
       options: {
         target: "esnext",
