@@ -7,6 +7,11 @@ const de = {
   LIGHT: "Licht",
   DARK: "Dunkel",
   SYSTEM: "System",
+  MAIN: {
+    ERROR: {
+      UNAUTHORIZED: "Nicht autorisiert",
+    },
+  },
 };
 
 export default de;

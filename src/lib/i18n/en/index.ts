@@ -7,6 +7,11 @@ const en = {
   LIGHT: "Light",
   DARK: "Dark",
   SYSTEM: "System",
+  MAIN: {
+    ERROR: {
+      UNAUTHORIZED: "Unauthorized",
+    },
+  },
 };
 
 export default en;
