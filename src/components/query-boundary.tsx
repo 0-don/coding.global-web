@@ -1,6 +1,9 @@
 import type { CreateQueryResult } from "@tanstack/solid-query";
 import type { JSX } from "solid-js";
 import { ErrorBoundary, Match, Suspense, Switch } from "solid-js";
+import { useLanguage } from "./provider/language-provider";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
 export interface QueryBoundaryProps<T = unknown> {
   query: CreateQueryResult<T, Error>;
@@ -11,6 +14,7 @@ export interface QueryBoundaryProps<T = unknown> {
 }
 
 export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
+  const { t } = useLanguage();
   return (
     <Suspense fallback={props.loadingFallback}>
       <ErrorBoundary
@@ -21,17 +25,17 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
               reset();
             })
           ) : (
-            <div>
-              <div class="error">{err.message}</div>
-              <button
+            <>
+              <Badge variant="destructive">{err.message}</Badge>
+              <Button
                 onClick={async () => {
                   await props.query.refetch();
                   reset();
                 }}
               >
-                retry
-              </button>
-            </div>
+                {t("MAIN.BUTTON.RETRY")}
+              </Button>
+            </>
           )
         }
       >
@@ -42,15 +46,21 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
                 props.query.refetch();
               })
             ) : (
-              <div>
-                <div class="error">{props.query.error?.message}</div>
-                <button onClick={() => props.query.refetch()}>retry</button>
-              </div>
+              <>
+                <Badge variant="destructive">
+                  {props.query.error?.message}
+                </Badge>
+                <Button onClick={() => props.query.refetch()}>
+                  {t("MAIN.BUTTON.RETRY")}
+                </Button>
+              </>
             )}
           </Match>
 
           <Match when={!props.query.isFetching && !props.query.data}>
-            {props.notFoundFallback || <div>not found</div>}
+            {props.notFoundFallback || (
+              <Badge>{t("MAIN.BUTTON.NOT_FOUND")}</Badge>
+            )}
           </Match>
 
           <Match when={props.query.data}>

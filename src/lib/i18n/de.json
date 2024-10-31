@@ -3,6 +3,10 @@
 		"TITLE": "Home"
 	},
 	"MAIN": {
+		"BUTTON": {
+			"NOT_FOUND": "Nicht gefunden",
+			"RETRY": "Wiederholung"
+		},
 		"ENUM": {
 			"DARK": "Dunkel",
 			"DE": "Deutsch",
@@ -14,8 +18,7 @@
 			"UNAUTHORIZED": "Nicht autorisiert"
 		},
 		"SUCCESS": {
-			"CONSOLE_CLEARED": "Konsole geleert",
-			"test": ""
+			"CONSOLE_CLEARED": "Konsole geleert"
 		},
 		"TOOLTIP": {
 			"CLEAR_CONSOLE": "Konsole löschen",

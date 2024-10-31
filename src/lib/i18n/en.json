@@ -3,6 +3,10 @@
 		"TITLE": "Home"
 	},
 	"MAIN": {
+		"BUTTON": {
+			"NOT_FOUND": "Not found",
+			"RETRY": "Retry"
+		},
 		"ENUM": {
 			"DARK": "Dark",
 			"DE": "German",
@@ -14,8 +18,7 @@
 			"UNAUTHORIZED": "Unauthorized"
 		},
 		"SUCCESS": {
-			"CONSOLE_CLEARED": "Console cleared",
-			"test": ""
+			"CONSOLE_CLEARED": "Console cleared"
 		},
 		"TOOLTIP": {
 			"CLEAR_CONSOLE": "Clear console",
