@@ -6,13 +6,17 @@
 			"DE": "Deutsch",
 			"EN": "Englisch",
 			"LIGHT": "Licht",
-			"SYSTEM": "System",
-			"test": ""
+			"SYSTEM": "System"
 		},
 		"ERROR": {
 			"UNAUTHORIZED": "Nicht autorisiert"
 		},
+		"SUCCESS": {
+			"CONSOLE_CLEARED": "Konsole geleert",
+			"test": ""
+		},
 		"TOOLTIP": {
+			"CLEAR_CONSOLE": "Konsole löschen",
 			"TOGGLE_LANGUAGE": "Sprache wechseln",
 			"TOGGLE_THEME": "Thema wechseln"
 		}
