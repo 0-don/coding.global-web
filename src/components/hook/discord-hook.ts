@@ -14,7 +14,6 @@ export const prefetchStaffMembers = query(async () => {
 export const DiscordHook = () => {
   const staffMembersQuery = createQuery(() => ({
     queryKey: [STAFF_MEMBERS_KEY],
-    experimental_prefetchInRender: true,
     queryFn: async () => prefetchStaffMembers(),
   }));
 
