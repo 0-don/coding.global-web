@@ -1,4 +1,3 @@
-import { RouteDefinition } from "@solidjs/router";
 import {
   AiFillBug,
   AiFillCode,
@@ -10,19 +9,16 @@ import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
-import {
-  DiscordHook,
-  prefetchStaffMembers,
-} from "~/components/hook/discord-hook";
+import { DiscordHook } from "~/components/hook/discord-hook";
 import { QueryBoundary } from "~/components/query-boundary";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
 import { MemberRole } from "../utils/types";
 
-export const route = {
-  preload: () => prefetchStaffMembers(),
-} satisfies RouteDefinition;
+// export const route = {
+//   preload: () => prefetchStaffMembers(),
+// } satisfies RouteDefinition;
 
 export default function Team() {
   const { staffMembersQuery } = DiscordHook();

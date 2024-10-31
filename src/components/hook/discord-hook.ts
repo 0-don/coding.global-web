@@ -13,8 +13,12 @@ export const prefetchStaffMembers = cache(async () => {
 
 export const DiscordHook = () => {
   const staffMembersQuery = createQuery(() => ({
+    deferStream: true,
     queryKey: [STAFF_MEMBERS_KEY],
-    queryFn: async () => await prefetchStaffMembers(),
+    queryFn: async () =>
+      (await fetch(serverEnv.STAFF_MEMERS_URL).then((res) =>
+        res.json(),
+      )) as Staff[],
   }));
 
   return { staffMembersQuery };
