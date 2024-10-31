@@ -1,5 +1,5 @@
 import { treaty } from "@elysiajs/eden";
-import { App } from "~/lib/elysia";
+import { App } from "../server/server";
 
 export const rpc = treaty<App>(
   typeof window === "undefined"
