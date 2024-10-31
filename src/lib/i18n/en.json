@@ -1,20 +1,20 @@
 {
-	"HI": "Hi ",
-	"MAIN": {
-		"ENUM": {
-			"DARK": "Dark",
-			"DE": "German",
-			"EN": "English",
-			"LIGHT": "Light",
-			"SYSTEM": "System",
-			"test": ""
-		},
-		"ERROR": {
-			"UNAUTHORIZED": "Unauthorized"
-		},
-		"TOOLTIP": {
-			"TOGGLE_LANGUAGE": "Toggle Language",
-			"TOGGLE_THEME": "Toggle Theme"
-		}
-	}
+  "HI": "Hi ",
+  "MAIN": {
+    "ENUM": {
+      "DARK": "Dark",
+      "DE": "German",
+      "EN": "English",
+      "LIGHT": "Light",
+      "SYSTEM": "System",
+      "test": ""
+    },
+    "ERROR": {
+      "UNAUTHORIZED": "Unauthorized"
+    },
+    "TOOLTIP": {
+      "TOGGLE_LANGUAGE": "Toggle Language",
+      "TOGGLE_THEME": "Toggle Theme"
+    }
+  }
 }

@@ -1,20 +1,20 @@
 {
-	"HI": "Hallo",
-	"MAIN": {
-		"ENUM": {
-			"DARK": "Dunkel",
-			"DE": "Deutsch",
-			"EN": "Englisch",
-			"LIGHT": "Licht",
-			"SYSTEM": "System",
-			"test": ""
-		},
-		"ERROR": {
-			"UNAUTHORIZED": "Nicht autorisiert"
-		},
-		"TOOLTIP": {
-			"TOGGLE_LANGUAGE": "Sprache wechseln",
-			"TOGGLE_THEME": "Thema wechseln"
-		}
-	}
+  "HI": "Hallo",
+  "MAIN": {
+    "ENUM": {
+      "DARK": "Dunkel",
+      "DE": "Deutsch",
+      "EN": "Englisch",
+      "LIGHT": "Licht",
+      "SYSTEM": "System",
+      "test": ""
+    },
+    "ERROR": {
+      "UNAUTHORIZED": "Nicht autorisiert"
+    },
+    "TOOLTIP": {
+      "TOGGLE_LANGUAGE": "Sprache wechseln",
+      "TOGGLE_THEME": "Thema wechseln"
+    }
+  }
 }

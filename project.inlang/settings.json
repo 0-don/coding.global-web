@@ -3,13 +3,10 @@
   "sourceLanguageTag": "en",
   "languageTags": ["en", "de"],
   "modules": [
-    "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-empty-pattern@latest/dist/index.js",
-    "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-missing-translation@latest/dist/index.js",
-    "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-without-source@latest/dist/index.js",
-    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@latest/dist/index.js",
-    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@latest/dist/index.js"
+    "https://cdn.jsdelivr.net/npm/@inlang/plugin-json@4/dist/index.js",
+    "https://cdn.jsdelivr.net/npm/@inlang/plugin-t-function-matcher@latest/dist/index.js"
   ],
-  "plugin.inlang.messageFormat": {
-    "pathPattern": "./src/lib/i18n{languageTag}.json"
+  "plugin.inlang.json": {
+    "pathPattern": "./src/lib/i18n/{languageTag}.json"
   }
 }
