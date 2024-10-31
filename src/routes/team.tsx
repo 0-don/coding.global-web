@@ -26,13 +26,12 @@ export default function Team() {
   return (
     <Layout container class="mt-10">
       <Header name="Team" />
-
-      <QueryBoundary
-        query={staffMembersQuery}
-        loadingFallback={<>loading...</>}
-      >
-        {(staffMembers) => (
-          <div class="mt-10 gap-2 md:grid md:grid-cols-6">
+      <div class="mt-10 gap-2 md:grid md:grid-cols-6">
+        <QueryBoundary
+          query={staffMembersQuery}
+          loadingFallback={<>loading...</>}
+        >
+          {(staffMembers) => (
             <For each={staffMembers}>
               {(m) => (
                 <Card class="">
@@ -78,9 +77,9 @@ export default function Team() {
                 </Card>
               )}
             </For>
-          </div>
-        )}
-      </QueryBoundary>
+          )}
+        </QueryBoundary>
+      </div>
     </Layout>
   );
 }
