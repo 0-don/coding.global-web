@@ -1,4 +1,8 @@
-import { resolveTemplate, translator } from "@solid-primitives/i18n";
+import {
+  NullableTranslator,
+  resolveTemplate,
+  translator,
+} from "@solid-primitives/i18n";
 import { isServer } from "@tanstack/solid-query";
 import {
   Accessor,
@@ -9,14 +13,14 @@ import {
   useContext,
 } from "solid-js";
 import { getCookie } from "vinxi/http";
-import { Locale, Dictionary, baseLocale, fetchDictionary } from "~/lib/i18n";
+import { Dictionary, Locale, baseLocale, fetchDictionary } from "~/lib/i18n";
 import { parseCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 
 export interface LanguageContextType {
   locale: Accessor<Locale>;
   setLocale: (locale: Locale) => void;
-  t: ReturnType<typeof translator<Dictionary>>;
+  t: NullableTranslator<Dictionary, string>;
 }
 
 export const LanguageContext = createContext<LanguageContextType>();

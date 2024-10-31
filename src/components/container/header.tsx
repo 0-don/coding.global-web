@@ -3,10 +3,10 @@ import { HiSolidHomeModern } from "solid-icons/hi";
 import { Component } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { useLanguage } from "../provider/language-provider";
-import { Dictionary } from "~/lib/i18n";
+import { DictionaryKey } from "~/lib/i18n";
 
 interface HeaderProps {
-  name: keyof Dictionary;
+  name: DictionaryKey;
 }
 
 export const Header: Component<HeaderProps> = (props) => {
@@ -21,7 +21,7 @@ export const Header: Component<HeaderProps> = (props) => {
         </Button>
       </A>
 
-      <h1 class="text-center text-3xl font-bold">{t(props.name)}</h1>
+      <h1 class="text-center text-3xl font-bold">{t(props.name!)!}</h1>
     </div>
   );
 };
