@@ -42,7 +42,7 @@ export default function LanguageToggle() {
         class="w-9 px-0"
       >
         {(localeFlags as any)[locale()] || "🌍"}
-        <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
+        <span class="sr-only">{t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <For each={clientEnv.LANGUAGES}>

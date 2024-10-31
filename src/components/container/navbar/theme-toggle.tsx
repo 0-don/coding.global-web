@@ -6,7 +6,6 @@ import { FiSun } from "solid-icons/fi";
 import { For } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { Dictionary } from "~/lib/i18n/de";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,14 +33,18 @@ export function ThemeToggle() {
       >
         <FiSun class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
         <BsMoonStars class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span class="sr-only">{t("TOGGLE_THEME")}</span>
+        <span class="sr-only">{t("MAIN.TOOLTIP.TOGGLE_THEME")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <For each={themeOptions}>
           {({ mode, Icon }) => (
             <DropdownMenuItem onSelect={() => setColorMode(mode)}>
               <Icon class="mr-2 size-4" />
-              <span>{t(mode.toUpperCase() as keyof Dictionary)}</span>
+              <span>
+                {t(
+                  `MAIN.ENUM.${mode.toUpperCase() as Uppercase<ConfigColorMode>}`,
+                )}
+              </span>
             </DropdownMenuItem>
           )}
         </For>

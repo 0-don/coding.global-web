@@ -1,15 +1,20 @@
 {
-	"DARK": "Dunkel",
-	"DE": "Deutsch",
-	"EN": "Englisch",
 	"HI": "Hallo",
-	"LIGHT": "Licht",
 	"MAIN": {
+		"ENUM": {
+			"DARK": "Dunkel",
+			"DE": "Deutsch",
+			"EN": "Englisch",
+			"LIGHT": "Licht",
+			"SYSTEM": "System",
+			"test": ""
+		},
 		"ERROR": {
 			"UNAUTHORIZED": "Nicht autorisiert"
+		},
+		"TOOLTIP": {
+			"TOGGLE_LANGUAGE": "Sprache wechseln",
+			"TOGGLE_THEME": "Thema wechseln"
 		}
-	},
-	"SYSTEM": "System",
-	"TOGGLE_LANGUAGE": "Sprache wechseln",
-	"TOGGLE_THEME": "Thema wechseln"
+	}
 }
