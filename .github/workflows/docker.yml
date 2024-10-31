@@ -24,7 +24,7 @@ jobs:
 
           echo VITE_HOST_URL=${{ secrets.VITE_HOST_URL }} >> .env
           echo VITE_AUTH_PATH=/api/auth >> .env
-          echo VITE_STAFF_MEMERS_URL=http://coding-global-bot:3000/api/693908458986143824/staff"
+          echo VITE_STAFF_MEMERS_URL=http://coding-global-bot:3000/api/693908458986143824/staff
 
           echo AUTH_URL=${{ secrets.VITE_HOST_URL }} >> .env
           echo AUTH_SECRET=${{ secrets.AUTH_SECRET }} >> .env
