@@ -15,6 +15,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
     defaultOptions: {
       queries: {
         retry: false,
+        refetchOnWindowFocus: false,
         staleTime: 5000,
       },
     },
