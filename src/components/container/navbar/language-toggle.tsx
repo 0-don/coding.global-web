@@ -41,7 +41,7 @@ export default function LanguageToggle() {
         size="sm"
         class="w-9 px-0"
       >
-        {(localeFlags as any)[locale()] || "🌍"}
+        {localeFlags[locale()] || "🌍"}
         <span class="sr-only">{t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -57,7 +57,9 @@ export default function LanguageToggle() {
               class="space-x-2"
             >
               <span>{localeFlags[loc]}</span>{" "}
-              <span>{t(loc.toUpperCase() as any)}</span>
+              <span>
+                {t(`MAIN.ENUM.${loc.toUpperCase() as Uppercase<Locale>}`)}
+              </span>
             </DropdownMenuItem>
           )}
         </For>
