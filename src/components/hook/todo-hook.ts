@@ -1,5 +1,5 @@
 import { Create } from "@sinclair/typebox/value";
-import { cache, query } from "@solidjs/router";
+import { query } from "@solidjs/router";
 import {
   createMutation,
   createQuery,
