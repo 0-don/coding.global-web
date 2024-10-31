@@ -8,8 +8,7 @@ const {
       minLength: 1,
       error: "VITE_HOST_URL client environment variable is not set!",
     }),
-    LANGUAGE_KEY: t.String({
-      minLength: 1,
+    LANGUAGE_KEY: t.Union([t.Literal("lang"), t.String()], {
       error: "LANGUAGE_KEY client environment variable is not set!",
     }),
     STAFF_MEMERS_URL: t.String({
@@ -24,7 +23,9 @@ const {
 });
 
 const clientEnvResult = clientSchema.safeParse({
-  HOST_URL: import.meta.env.VITE_HOST_URL ?? "http://localhost:3000",
+  HOST_URL:
+    import.meta.env.VITE_HOST_URL ??
+    `http://localhost:${import.meta.env.VITE_PORT ?? 3000}`,
   LANGUAGE_KEY: import.meta.env.VITE_LANGUAGE_KEY ?? "lang",
   STAFF_MEMERS_URL:
     import.meta.env.VITE_STAFF_MEMERS_URL ??
