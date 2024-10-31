@@ -1,5 +1,7 @@
 {
-	"HOME": "Home",
+	"HOME": {
+		"TITLE": "Home"
+	},
 	"MAIN": {
 		"ENUM": {
 			"DARK": "Dark",
@@ -20,5 +22,11 @@
 			"TOGGLE_LANGUAGE": "Toggle Language",
 			"TOGGLE_THEME": "Toggle Theme"
 		}
+	},
+	"TEAM": {
+		"TITLE": "Team"
+	},
+	"TODO": {
+		"TITLE": "Todo"
 	}
 }

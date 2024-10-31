@@ -1,3 +1,4 @@
+import { RouteDefinition } from "@solidjs/router";
 import {
   AiFillBug,
   AiFillCode,
@@ -18,7 +19,6 @@ import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
 import { MemberRole } from "../utils/types";
-import { RouteDefinition } from "@solidjs/router";
 
 export const route = {
   preload: () => prefetchStaffMembers(),
@@ -29,7 +29,7 @@ export default function Team() {
 
   return (
     <Layout container class="mt-10">
-      <Header name="Team" />
+      <Header name="TEAM.TITLE" />
       <div class="mt-10 gap-2 md:grid md:grid-cols-6">
         <QueryBoundary
           query={staffMembersQuery}

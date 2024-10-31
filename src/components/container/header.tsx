@@ -2,8 +2,8 @@ import { A } from "@solidjs/router";
 import { HiSolidHomeModern } from "solid-icons/hi";
 import { Component } from "solid-js";
 import { Button } from "~/components/ui/button";
-import { useLanguage } from "../provider/language-provider";
 import { DictionaryKey } from "~/lib/i18n";
+import { useLanguage } from "../provider/language-provider";
 
 interface HeaderProps {
   name: DictionaryKey;
@@ -17,7 +17,7 @@ export const Header: Component<HeaderProps> = (props) => {
       <A href="/">
         <Button>
           <HiSolidHomeModern />
-          <span>{t("HOME")}</span>
+          <span>{t("HOME.TITLE")}</span>
         </Button>
       </A>
 

@@ -1,8 +1,10 @@
 import { A } from "@solidjs/router";
 import { FaBrandsDiscord } from "solid-icons/fa";
+import { useLanguage } from "~/components/provider/language-provider";
 import { Layout } from "../components/container/layout";
 
 export default function Home() {
+  const { t } = useLanguage();
   return (
     <Layout>
       <div class="flex size-full flex-col items-center text-center">
