@@ -1,4 +1,4 @@
-import { cache } from "@solidjs/router";
+import { query } from "@solidjs/router";
 import {
   createMutation,
   createQuery,
@@ -9,7 +9,7 @@ import { rpc } from "~/lib/rpc";
 import { CommentInsertSimple } from "~/lib/schema/comment";
 import { COMMENTS_KEY } from "~/utils/cache/keys";
 
-const prefetchComments = cache(async () => {
+const prefetchComments = query(async () => {
   "use server";
   return (await rpc.api.comment.get()).data!;
 }, COMMENTS_KEY);

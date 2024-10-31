@@ -1,5 +1,5 @@
 import { Create } from "@sinclair/typebox/value";
-import { cache } from "@solidjs/router";
+import { cache, query } from "@solidjs/router";
 import {
   createMutation,
   createQuery,
@@ -10,7 +10,7 @@ import { rpc } from "~/lib/rpc";
 import { todoInsertSchema } from "~/lib/schema/todo";
 import { TODOS_KEY } from "~/utils/cache/keys";
 
-export const prefetchTodos = cache(async () => {
+export const prefetchTodos = query(async () => {
   "use server";
   return (await rpc.api.todo.get()).data!;
 }, TODOS_KEY);
