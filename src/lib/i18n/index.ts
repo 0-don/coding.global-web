@@ -1,4 +1,4 @@
-import { Flatten, flatten } from "@solid-primitives/i18n";
+import { type Flatten, flatten } from "@solid-primitives/i18n";
 import { clientEnv } from "~/utils/env/client";
 import type * as de from "./de.json";
 
