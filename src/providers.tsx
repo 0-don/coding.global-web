@@ -17,6 +17,7 @@ export const Providers: Component<ProvidersProps> = (props) => {
         retry: false,
         refetchOnWindowFocus: false,
         staleTime: Infinity,
+        gcTime: 0,
       },
     },
   });
