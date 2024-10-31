@@ -1,6 +1,6 @@
 import { getSession } from "@solid-mediakit/auth";
 import { Context, InvalidCookieSignature } from "elysia";
-import { msg } from "~/lib/i18n/de";
+import { msg } from "~/lib/i18n";
 import { authOptions } from "./auth-options";
 
 export const authUserGuard = async ({ request }: Context<any, any>) => {
@@ -14,7 +14,7 @@ export const authUserGuard = async ({ request }: Context<any, any>) => {
 export const authUserResolve = async ({ request }: Context<any>) => {
   const session = await getSession(request, authOptions);
 
-  if (!session) {
+  if (!session?.user) {
     throw new InvalidCookieSignature(msg("MAIN.ERROR.UNAUTHORIZED"));
   }
 
