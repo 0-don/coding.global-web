@@ -12,6 +12,7 @@ const clearConsole = query(() => {
 
 export function ConsoleToggle() {
   const { t } = useLanguage();
+
   return (
     <Button
       title={t("MAIN.TOOLTIP.CLEAR_CONSOLE")}

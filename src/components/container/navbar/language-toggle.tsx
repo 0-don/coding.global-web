@@ -2,7 +2,7 @@ import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { baseLocale, Locale } from "~/lib/i18n";
-import { parseCookie } from "~/utils/base";
+import { parseCookie, setLanguageCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,
@@ -10,12 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
-
-function setLanguageCookie(lang: Locale) {
-  const expiryDate = new Date();
-  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
-}
 
 const localeFlags = {
   en: "🇺🇸",
