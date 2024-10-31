@@ -2,7 +2,7 @@
 
 # Install dependencies only when needed
 # Stage 0
-FROM oven/bun:alpine AS deps
+FROM imbios/bun-node:latest-iron-alpine AS deps
 WORKDIR /app
 
 COPY package.json ./
@@ -12,7 +12,7 @@ RUN bun install
 
 # Rebuild the source code only when needed
 # Stage 1
-FROM oven/bun:alpine AS builder
+FROM imbios/bun-node:latest-iron-alpine AS builder
 WORKDIR /app
 
 COPY . .
@@ -41,7 +41,7 @@ RUN bun run build
 
 # Production image, copy only production files
 # Stage 2
-FROM oven/bun:alpine AS prod
+FROM imbios/bun-node:latest-iron-alpine AS prod
 
 WORKDIR /app
 
