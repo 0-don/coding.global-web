@@ -8,10 +8,10 @@ import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
+  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
+} from "~/components/ui/dropdown-menu";
 
 const themeOptions = [
   { mode: "light", Icon: FiSun },
