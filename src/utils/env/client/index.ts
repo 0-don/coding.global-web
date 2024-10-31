@@ -12,6 +12,10 @@ const {
       minLength: 1,
       error: "LANGUAGE_KEY client environment variable is not set!",
     }),
+    STAFF_MEMERS_URL: t.String({
+      minLength: 1,
+      error: "STAFF_MEMERS_URL client environment variable is not set!",
+    }),
     LANGUAGES: t.Array(t.Union([t.Literal("de"), t.Literal("en")]), {
       minLength: 3,
       error: "LANGUAGES client environment variable is not set!",
@@ -22,6 +26,9 @@ const {
 const clientEnvResult = clientSchema.safeParse({
   HOST_URL: import.meta.env.VITE_HOST_URL ?? "http://localhost:3000",
   LANGUAGE_KEY: import.meta.env.VITE_LANGUAGE_KEY ?? "lang",
+  STAFF_MEMERS_URL:
+    import.meta.env.VITE_STAFF_MEMERS_URL ??
+    "https://bot.coding.global/api/693908458986143824/staff",
   LANGUAGES: import.meta.env.VITE_LANGUAGES
     ? import.meta.env.VITE_LANGUAGES.split(",")
     : ["de", "en"],

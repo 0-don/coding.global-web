@@ -16,10 +16,6 @@ const {
       minLength: 1,
       error: "DATABASE_URL server environment variable is not set!",
     }),
-    STAFF_MEMERS_URL: t.String({
-      minLength: 1,
-      error: "STAFF_MEMERS_URL client environment variable is not set!",
-    }),
     DISCORD_CLIENT_ID: t.String({
       minLength: 1,
       error: "DISCORD_CLIENT_ID server environment variable is not set!",
@@ -46,16 +42,13 @@ const {
 });
 
 const serverEnvResult = serverSchema.safeParse({
-  NODE_ENV: process.env.NODE_ENV,
   DATABASE_URL: process.env.DATABASE_URL,
-  STAFF_MEMERS_URL:
-    import.meta.env.STAFF_MEMERS_URL ??
-    "https://bot.coding.global/api/693908458986143824/staff",
   DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   AUTH_SECRET: process.env.AUTH_SECRET,
   AUTH_TRUST_HOST: process.env.AUTH_TRUST_HOST,
   AUTH_URL: process.env.AUTH_URL,
+  NODE_ENV: process.env.NODE_ENV,
 });
 
 if (!serverEnvResult.data) {

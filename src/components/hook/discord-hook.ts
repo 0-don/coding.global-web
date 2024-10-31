@@ -1,12 +1,12 @@
 import { cache } from "@solidjs/router";
 import { createQuery } from "@tanstack/solid-query";
 import { STAFF_MEMBERS_KEY } from "~/utils/cache/keys";
-import { serverEnv } from "~/utils/env/server";
+import { clientEnv } from "~/utils/env/client";
 import { Staff } from "~/utils/types";
 
 export const prefetchStaffMembers = cache(async () => {
   "use server";
-  return (await fetch(serverEnv.STAFF_MEMERS_URL).then((res) =>
+  return (await fetch(clientEnv.STAFF_MEMERS_URL).then((res) =>
     res.json(),
   )) as Staff[];
 }, STAFF_MEMBERS_KEY);
@@ -16,7 +16,7 @@ export const DiscordHook = () => {
     deferStream: true,
     queryKey: [STAFF_MEMBERS_KEY],
     queryFn: async () =>
-      (await fetch(serverEnv.STAFF_MEMERS_URL).then((res) =>
+      (await fetch(clientEnv.STAFF_MEMERS_URL).then((res) =>
         res.json(),
       )) as Staff[],
   }));
