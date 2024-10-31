@@ -6,7 +6,7 @@ import { FiSun } from "solid-icons/fi";
 import { For } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { Dictionary } from "~/lib/i18n";
+import { Dictionary } from "~/lib/i18n/de";
 import {
   DropdownMenu,
   DropdownMenuContent,

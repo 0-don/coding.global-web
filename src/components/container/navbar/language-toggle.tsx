@@ -1,7 +1,7 @@
 import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { Dictionary, Locale, baseLocale } from "~/lib/i18n";
+import { baseLocale, Locale } from "~/lib/i18n";
 import { parseCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
@@ -41,7 +41,7 @@ export default function LanguageToggle() {
         size="sm"
         class="w-9 px-0"
       >
-        {localeFlags[locale()] || "🌍"}
+        {(localeFlags as any)[locale()] || "🌍"}
         <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -57,7 +57,7 @@ export default function LanguageToggle() {
               class="space-x-2"
             >
               <span>{localeFlags[loc]}</span>{" "}
-              <span>{t(loc.toUpperCase() as keyof Dictionary)}</span>
+              <span>{t(loc.toUpperCase() as any)}</span>
             </DropdownMenuItem>
           )}
         </For>

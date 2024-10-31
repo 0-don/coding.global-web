@@ -1,6 +1,6 @@
 import { getSession } from "@solid-mediakit/auth";
 import { Context, InvalidCookieSignature } from "elysia";
-import { msg } from "~/lib/i18n";
+import { msg } from "~/lib/i18n/de";
 import { authOptions } from "./auth-options";
 
 export const authUserGuard = async ({ request }: Context<any, any>) => {

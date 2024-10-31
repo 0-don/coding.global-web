@@ -1,15 +1,15 @@
 import { Flatten, flatten } from "@solid-primitives/i18n";
-import type { clientEnv } from "~/utils/env/client";
-import type * as de from "./de/index.ts";
+import { clientEnv } from "~/utils/env/client";
+import type * as de from "./de.json";
 
-export const baseLocale: Locale = "de";
-
-export type RawDictionary = (typeof de)["default"];
+export type RawDictionary = typeof de;
 export type Locale = (typeof clientEnv)["LANGUAGES"][number];
 export type Dictionary = Flatten<RawDictionary>;
 
+export const baseLocale: Locale = clientEnv.LANGUAGES[0];
+
 export async function fetchDictionary(locale: Locale): Promise<Dictionary> {
-  const dict: RawDictionary = (await import(`./${locale}/index.ts`)).default;
+  const dict: RawDictionary = await import(`./${locale}.json?import`);
   return flatten(dict);
 }
 
