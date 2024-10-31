@@ -16,10 +16,6 @@ import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
 import { MemberRole } from "../utils/types";
 
-// export const route = {
-//   preload: () => prefetchStaffMembers(),
-// } satisfies RouteDefinition;
-
 export default function Team() {
   const { staffMembersQuery } = DiscordHook();
 
