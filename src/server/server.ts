@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { commentRoute } from "~/server/comment/route";
-import { todoRoute } from "../server/todo/route";
+import { todoRoute } from "./todo/route";
 
 export const app = new Elysia({ prefix: "/api" })
   .use(todoRoute)
