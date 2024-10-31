@@ -16,7 +16,6 @@ export const Providers: Component<ProvidersProps> = (props) => {
       queries: {
         retry: false,
         staleTime: 5000,
-        experimental_prefetchInRender: true,
       },
     },
   });
