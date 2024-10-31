@@ -12,12 +12,12 @@
 	<preset_collections/>
 	<framework>generic-json</framework>
 	<filename>coding-global-web.babel</filename>
-	<source_root_dir>../../../</source_root_dir>
+	<source_root_dir>../</source_root_dir>
 	<folder_node>
 		<name/>
 		<children>
 			<package_node>
-				<name>coding-global-web</name>
+				<name>main</name>
 				<children>
 					<concept_node>
 						<name>HI</name>
@@ -204,14 +204,14 @@
 	</languages>
 	<translation_packages>
 		<translation_package>
-			<name>coding-global-web</name>
+			<name>main</name>
 			<translation_urls>
 				<translation_url>
-					<path>de.json</path>
+					<path>../src/lib/i18n/de.json</path>
 					<language>de-DE</language>
 				</translation_url>
 				<translation_url>
-					<path>en.json</path>
+					<path>../src/lib/i18n/en.json</path>
 					<language>en-US</language>
 				</translation_url>
 			</translation_urls>
