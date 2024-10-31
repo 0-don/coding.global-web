@@ -19,29 +19,38 @@ export default function Home() {
           </A>
           Website for the Coding Discord Server
         </p>
-        <A
-          class="underline"
-          href="https://disboard.org/server/693908458986143824"
-        >
-          Disboard
-        </A>
         <p class="mt-2 text-sm">
           <A href="https://github.com/0-don/coding.global-web">
             See the repository
           </A>
         </p>
-        <div class="mt-4 flex flex-wrap items-center space-x-2">
+        <div class="mt-4 flex flex-wrap items-center gap-2">
           <A
             href="https://discord.gg/coding"
+            target="_blank"
             class="w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black"
           >
-            <div class="flex items-center text-white">
+            <div class="flex items-center gap-1">
               <FaBrandsDiscord />
               <span>Discord</span>
             </div>
           </A>
+          <A
+            href="https://disboard.org/server/693908458986143824"
+            target="_blank"
+            class="w-36 rounded-md bg-discord px-2 py-1 text-2xl font-black"
+          >
+            <div class="flex items-center gap-1">
+              <img
+                src="/images/disboard.jpg"
+                alt="disboard"
+                class="size-5 rounded-full"
+              />
+              <span>Disboard</span>
+            </div>
+          </A>
         </div>
-        <div class="mt-2 flex space-x-2">
+        <div class="mt-2 flex flex-wrap justify-center gap-2">
           <A
             href="/team"
             class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
@@ -60,13 +69,14 @@ export default function Home() {
           >
             Chat
           </A>
+          <A
+            href="/todo"
+            class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
+          >
+            Todo
+          </A>
         </div>
-        <A
-          href="/todo"
-          class="w-32 rounded-md bg-discord py-1 text-2xl font-black text-white"
-        >
-          Todo
-        </A>
+
         <iframe
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
           width="350"
