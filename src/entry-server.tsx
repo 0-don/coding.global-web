@@ -42,7 +42,11 @@ export default createHandler(() => (
           <link rel="icon" href="/favicon.ico" />
           {assets}
         </head>
-        <body>
+        <body
+          style={{
+            "font-family": !import.meta.env.DEV ? "Raleway" : undefined,
+          }}
+        >
           <div id="app">{children}</div>
           {scripts}
         </body>

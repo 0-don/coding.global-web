@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Raleway";
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
