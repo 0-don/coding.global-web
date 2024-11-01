@@ -7,11 +7,21 @@ import {
 import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
 import { CommentInsertSimple } from "~/lib/schema/comment";
-import { COMMENTS_KEY } from "~/utils/cache/keys";
+import { COMMENTS_ADD_KEY, COMMENTS_KEY } from "~/utils/cache/keys";
 
-const prefetchComments = query(async () => {
+const serverFnComments = query(async () => {
   "use server";
   return (await rpc.api.comment.get()).data!;
+}, COMMENTS_KEY);
+
+const serverFnCommentAdd = query(async (args: CommentInsertSimple) => {
+  "use server";
+  return (await rpc.api.comment.post(args)).data!;
+}, COMMENTS_ADD_KEY);
+
+const serverFnCommentDelete = query(async (id: string) => {
+  "use server";
+  return (await rpc.api.comment({ id }).delete()).data!;
 }, COMMENTS_KEY);
 
 export const CommentHook = () => {
@@ -19,12 +29,11 @@ export const CommentHook = () => {
 
   const commentsQuery = createQuery(() => ({
     queryKey: [COMMENTS_KEY],
-    queryFn: async () => await prefetchComments(),
+    queryFn: async () => await serverFnComments(),
   }));
 
   const commentAdd = createMutation(() => ({
-    mutationFn: async (args: CommentInsertSimple) =>
-      (await rpc.api.comment.post(args)).data!,
+    mutationFn: async (args: CommentInsertSimple) => serverFnCommentAdd(args),
     onSuccess: (newComment) => {
       queryClient.setQueryData<typeof commentsQuery.data>(
         [COMMENTS_KEY],
@@ -40,8 +49,7 @@ export const CommentHook = () => {
   }));
 
   const commentDelete = createMutation(() => ({
-    mutationFn: async (id: string) =>
-      (await rpc.api.comment({ id }).delete()).data!,
+    mutationFn: async (id: string) => serverFnCommentDelete(id),
     onSuccess: (c) => {
       queryClient.setQueryData<typeof commentsQuery.data>(
         [COMMENTS_KEY],
