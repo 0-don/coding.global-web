@@ -8,6 +8,7 @@ import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
 import { CommentInsertSimple } from "~/lib/schema/comment";
 import { COMMENTS_ADD_KEY, COMMENTS_KEY } from "~/utils/cache/keys";
+import { setCookies } from "~/utils/server";
 
 const serverFnComments = query(async () => {
   "use server";
@@ -16,12 +17,12 @@ const serverFnComments = query(async () => {
 
 const serverFnCommentAdd = query(async (args: CommentInsertSimple) => {
   "use server";
-  return (await rpc.api.comment.post(args)).data!;
+  return (await rpc.api.comment.post({ ...args, ...setCookies() })).data!;
 }, COMMENTS_ADD_KEY);
 
 const serverFnCommentDelete = query(async (id: string) => {
   "use server";
-  return (await rpc.api.comment({ id }).delete()).data!;
+  return (await rpc.api.comment[id].delete(setCookies())).data!;
 }, COMMENTS_KEY);
 
 export const CommentHook = () => {

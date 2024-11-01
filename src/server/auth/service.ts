@@ -6,6 +6,8 @@ import { authOptions } from "./auth-options";
 export const authUserGuard = async ({ request }: Context<any, any>) => {
   const session = await getSession(request, authOptions);
 
+  console.log("session", session);
+
   if (!session?.user)
     throw new InvalidCookieSignature(msg("MAIN.ERROR.UNAUTHORIZED"));
 };
