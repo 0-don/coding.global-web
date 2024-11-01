@@ -6,6 +6,7 @@ import { Staff } from "~/utils/types";
 
 export const prefetchStaffMembers = query(async () => {
   "use server";
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return (await fetch(clientEnv.STAFF_MEMERS_URL).then((res) =>
     res.json(),
   )) as Staff[];
