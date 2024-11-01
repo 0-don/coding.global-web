@@ -28,7 +28,9 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
             })
           ) : (
             <>
-              <Badge variant="destructive">{err.message}</Badge>
+              <Badge variant="destructive" class="!block">
+                {err.message}
+              </Badge>
               <Button
                 onClick={async () => {
                   await props.query.refetch();

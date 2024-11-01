@@ -21,11 +21,13 @@ export const Layout: Component<LayoutProps> = (props) => {
         </Show>
         <ThemeToggle />
       </div>
-      <img
-        src="/images/banner.webp"
-        class="img-fade static h-[50vh] w-full object-cover object-top opacity-20 md:h-screen"
-      />
-      <div class="absolute inset-0">
+      <div class="fixed inset-0 -z-10">
+        <img
+          src="/images/banner.webp"
+          class="img-fade h-screen w-screen object-cover object-top opacity-20"
+        />
+      </div>
+      <div class="relative">
         <section
           class={`${props.container ? "container mx-auto" : ""} ${props.class}`}
         >

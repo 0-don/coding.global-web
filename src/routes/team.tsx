@@ -35,7 +35,7 @@ export default function Team() {
 
       <QueryBoundary query={staffMembersQuery}>
         {(staffMembers) => (
-          <div class="gap-2 md:grid md:grid-cols-6">
+          <div class="flex flex-wrap gap-2">
             <For each={staffMembers}>
               {(m) => (
                 <Card>
