@@ -31,7 +31,7 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
                 </p>
               </div>
               <div>
-                <p>{comment.content}</p>
+                <p>{comment?.content}</p>
                 <Show when={comment?.user?.id === auth.session()?.user?.me.id}>
                   <TbTrashXFilled
                     class="absolute right-0 top-0 hidden cursor-pointer hover:text-red-500 group-hover:block"
