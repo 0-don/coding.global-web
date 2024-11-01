@@ -4,6 +4,7 @@
 	},
 	"MAIN": {
 		"BUTTON": {
+			"LOADING": "Loading",
 			"NOT_FOUND": "Not found",
 			"RETRY": "Retry"
 		},

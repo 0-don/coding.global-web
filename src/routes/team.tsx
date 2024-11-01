@@ -14,7 +14,7 @@ import {
   DiscordHook,
   prefetchStaffMembers,
 } from "~/components/hook/discord-hook";
-import { QueryBoundary } from "~/components/query-boundary";
+import { QueryBoundary } from "~/components/hook/query-boundary";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";
