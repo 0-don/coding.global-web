@@ -42,7 +42,7 @@ export default function Team() {
                   <CardHeader>
                     <img
                       src={m.displayAvatarURL}
-                      class="w-full object-cover"
+                      class="max-h-48 w-full object-cover"
                       alt={m.username}
                     />
                     <CardDescription class="flex items-center space-x-1">
