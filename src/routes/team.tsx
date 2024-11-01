@@ -10,11 +10,11 @@ import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
+import { QueryBoundary } from "~/components/elements/query-boundary";
 import {
   DiscordHook,
   prefetchStaffMembers,
 } from "~/components/hook/discord-hook";
-import { QueryBoundary } from "~/components/hook/query-boundary";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { Header } from "../components/container/header";
 import { Layout } from "../components/container/layout";

@@ -1,10 +1,10 @@
 import type { CreateQueryResult } from "@tanstack/solid-query";
 import type { JSX } from "solid-js";
 import { ErrorBoundary, Match, Suspense, Switch } from "solid-js";
-import { Loading } from "../elements/loading";
 import { useLanguage } from "../provider/language-provider";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import { Loading } from "./loading";
 
 export interface QueryBoundaryProps<T = unknown> {
   query: CreateQueryResult<T, Error>;
