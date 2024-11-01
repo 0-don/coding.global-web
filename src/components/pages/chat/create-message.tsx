@@ -29,7 +29,7 @@ export default function CreateMessage(props: CreateMessageProps) {
     <form onSubmit={onSubmit} class={props.class}>
       <Show when={auth.session()}>
         <Grid class="gap-1">
-          <TextFieldRoot class="w-full max-w-xs" validationState="invalid">
+          <TextFieldRoot class="w-full" validationState="invalid">
             <TextFieldLabel class="sr-only" for="content">
               Comment
             </TextFieldLabel>

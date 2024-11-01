@@ -36,8 +36,7 @@ export const TodoHook = () => {
   }));
 
   const todoDelete = createMutation(() => ({
-    mutationFn: async (id: string) =>
-      (await rpc.api.todo({ id }).delete()).data!,
+    mutationFn: async (id: string) => (await rpc.api.todo[id].delete()).data!,
     onSuccess: (id) => {
       queryClient.setQueryData<typeof todosQuery.data>(
         [TODOS_KEY],

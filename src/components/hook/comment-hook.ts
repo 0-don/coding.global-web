@@ -10,17 +10,19 @@ import { CommentInsertSimple } from "~/lib/schema/comment";
 import { COMMENTS_ADD_KEY, COMMENTS_KEY } from "~/utils/cache/keys";
 import { setCookies } from "~/utils/server";
 
-const serverFnComments = query(async () => {
+export const serverFnComments = query(async () => {
   "use server";
   return (await rpc.api.comment.get()).data!;
 }, COMMENTS_KEY);
 
-const serverFnCommentAdd = query(async (args: CommentInsertSimple) => {
+export const serverFnCommentAdd = query(async (args: CommentInsertSimple) => {
   "use server";
+  const cookies = setCookies();
+  console.log(cookies);
   return (await rpc.api.comment.post({ ...args, ...setCookies() })).data!;
 }, COMMENTS_ADD_KEY);
 
-const serverFnCommentDelete = query(async (id: string) => {
+export const serverFnCommentDelete = query(async (id: string) => {
   "use server";
   return (await rpc.api.comment[id].delete(setCookies())).data!;
 }, COMMENTS_KEY);

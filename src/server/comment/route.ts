@@ -24,6 +24,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
   .post(
     "",
     async ({ body, request }) => {
+      console.log(request);
       const session = await getSession(request, authOptions);
       console.log("session", session);
       if (!session?.user?.name)
