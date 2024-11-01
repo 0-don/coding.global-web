@@ -10,7 +10,7 @@ import { rpc } from "~/lib/rpc";
 import { todoInsertSchema } from "~/lib/schema/todo";
 import { TODOS_KEY } from "~/utils/cache/keys";
 
-export const prefetchTodos = query(async () => {
+export const serverFnTodos = query(async () => {
   "use server";
   return (await rpc.api.todo.get()).data!;
 }, TODOS_KEY);
@@ -21,7 +21,7 @@ export const TodoHook = () => {
 
   const todosQuery = createQuery(() => ({
     queryKey: [TODOS_KEY],
-    queryFn: async () => await prefetchTodos(),
+    queryFn: async () => await serverFnTodos(),
   }));
 
   const todoAdd = createMutation(() => ({

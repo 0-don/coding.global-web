@@ -2,14 +2,14 @@ import { RouteDefinition } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
-import { prefetchTodos, TodoHook } from "~/components/hook/todo-hook";
+import { serverFnTodos, TodoHook } from "~/components/hook/todo-hook";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { TextField, TextFieldRoot } from "~/components/ui/textfield";
 import { todoSchemas } from "~/lib/schema/todo";
 
 export const route = {
-  preload: () => prefetchTodos(),
+  preload: () => serverFnTodos(),
 } satisfies RouteDefinition;
 
 export default function Demo() {
