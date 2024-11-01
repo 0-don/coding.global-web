@@ -1,7 +1,7 @@
 import type { CreateQueryResult } from "@tanstack/solid-query";
-import { TbFidgetSpinner } from "solid-icons/tb";
 import type { JSX } from "solid-js";
 import { ErrorBoundary, Match, Suspense, Switch } from "solid-js";
+import { Loading } from "../elements/loading";
 import { useLanguage } from "../provider/language-provider";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -18,16 +18,7 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
   const { t } = useLanguage();
 
   return (
-    <Suspense
-      fallback={
-        props.loadingFallback ?? (
-          <Badge>
-            <TbFidgetSpinner class="mr-1" />
-            {t("MAIN.BUTTON.LOADING")}
-          </Badge>
-        )
-      }
-    >
+    <Suspense fallback={props.loadingFallback ?? <Loading />}>
       <ErrorBoundary
         fallback={(err: Error, reset) =>
           props.errorFallback ? (
