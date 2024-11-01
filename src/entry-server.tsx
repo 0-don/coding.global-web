@@ -43,9 +43,7 @@ export default createHandler(() => (
           {assets}
         </head>
         <body
-          style={{
-            "font-family": !import.meta.env.DEV ? "Raleway" : undefined,
-          }}
+          style={import.meta.env.DEV ? undefined : { "font-family": "Raleway" }}
         >
           <div id="app">{children}</div>
           {scripts}

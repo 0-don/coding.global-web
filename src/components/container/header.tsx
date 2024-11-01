@@ -15,9 +15,8 @@ export const Header: Component<HeaderProps> = (props) => {
   return (
     <div class="grid grid-cols-3 content-center">
       <A href="/">
-        <Button>
+        <Button size="icon" variant="destructive">
           <HiSolidHomeModern />
-          <span>{t("HOME.TITLE")}</span>
         </Button>
       </A>
 
