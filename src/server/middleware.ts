@@ -3,5 +3,5 @@ import { createMiddleware } from "@solidjs/start/middleware";
 import { authOptions } from "./auth/auth-options";
 
 export default createMiddleware({
-  onRequest: [authMiddleware(["/"], authOptions)],
+  onRequest: [authMiddleware(true, authOptions)],
 });

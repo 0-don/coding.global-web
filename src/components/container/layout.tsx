@@ -1,6 +1,8 @@
-import { Component, JSX } from "solid-js";
-import LanguageToggle from "./navbar/language-toggle";
-import { ThemeToggle } from "./navbar/theme-toggle";
+import { Component, JSX, Show } from "solid-js";
+import { ConsoleToggle } from "../elements/toggle/console-toggle";
+import LanguageToggle from "../elements/toggle/language-toggle";
+import { LogoutToggle } from "../elements/toggle/logout.-toggle";
+import { ThemeToggle } from "../elements/toggle/theme-toggle";
 
 interface LayoutProps {
   class?: string;
@@ -11,19 +13,27 @@ interface LayoutProps {
 export const Layout: Component<LayoutProps> = (props) => {
   return (
     <>
-      <div class="absolute right-0 top-0 z-[9999]">
-        <ThemeToggle />
-      </div>
       <div class="absolute left-0 top-0 z-[9999]">
         <LanguageToggle />
       </div>
-      <img
-        src="/images/banner.webp"
-        class="img-fade static h-[50vh] w-full object-cover object-top opacity-20 md:h-screen"
-      />
-      <div class="absolute inset-0">
+      <div class="absolute right-0 top-0 z-[9999]">
+        <LogoutToggle />
+
+        <Show when={import.meta.env.DEV}>
+          <ConsoleToggle />
+        </Show>
+
+        <ThemeToggle />
+      </div>
+      <div class="fixed inset-0 -z-10">
+        <img
+          src="/images/banner.webp"
+          class="img-fade h-screen w-screen object-cover object-top opacity-20"
+        />
+      </div>
+      <div class="relative">
         <section
-          class={`${props.container ? "container mx-auto" : ""} ${props.class}`}
+          class={`${props.container ? "container mx-auto" : ""} min-h-96 ${props.class}`}
         >
           {props.children}
         </section>

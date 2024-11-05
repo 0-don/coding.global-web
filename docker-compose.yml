@@ -8,6 +8,8 @@ services:
         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
 
         - VITE_HOST_URL=${VITE_HOST_URL}
+        - VITE_BOT_URL=${VITE_BOT_URL}
+        - VITE_GUILD_ID=${VITE_GUILD_ID}
         - VITE_AUTH_PATH=${VITE_AUTH_PATH}
 
         - AUTH_SECRET=${AUTH_SECRET}

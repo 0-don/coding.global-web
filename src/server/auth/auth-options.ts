@@ -1,27 +1,49 @@
-import { JWT } from "@auth/core/jwt";
 import Discord, { DiscordProfile } from "@auth/core/providers/discord";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { DefaultSession, SolidAuthConfig } from "@solid-mediakit/auth";
-import "dotenv/config";
+import { SolidAuthConfig } from "@solid-mediakit/auth";
+import { error } from "console";
 import { eq } from "drizzle-orm";
+import sharp from "sharp";
 import { db } from "~/lib/db";
 import { serverEnv } from "~/utils/env/server";
-import { SessionUser } from "~/utils/types";
 import { users } from "../../lib/schema/auth";
 
-declare module "@auth/core/types" {
-  export interface Session {
-    user?: SessionUser;
-  }
-}
+const getImage = async (profile: DiscordProfile) => {
+  if (!profile.avatar) return null;
 
-const getImage = (profile: DiscordProfile) =>
-  `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${profile.avatar?.startsWith("a_") ? "gif" : "png"}`;
+  try {
+    const isGif = profile.avatar.startsWith("a_");
+    const format = isGif ? "gif" : "png";
+    const url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`;
+
+    const response = await fetch(url);
+    const imageBuffer = await response.arrayBuffer();
+
+    const processedBuffer = isGif
+      ? await sharp(Buffer.from(imageBuffer), { animated: true })
+          .resize(128, 128, {
+            fit: "cover",
+            position: "center",
+          })
+          .toBuffer()
+      : await sharp(Buffer.from(imageBuffer))
+          .resize(128, 128, {
+            fit: "cover",
+            position: "center",
+          })
+          .toBuffer();
+
+    return processedBuffer.toString("base64");
+  } catch (err) {
+    error("Error processing image:", err);
+    return null;
+  }
+};
 
 export const authOptions: SolidAuthConfig = {
+  session: { strategy: "database" },
   basePath: import.meta.env.VITE_AUTH_PATH,
   secret: serverEnv.AUTH_SECRET,
-  session: { strategy: "jwt" },
   debug: false,
   adapter: DrizzleAdapter(db),
   providers: [
@@ -29,8 +51,8 @@ export const authOptions: SolidAuthConfig = {
       clientId: serverEnv.DISCORD_CLIENT_ID,
       clientSecret: serverEnv.DISCORD_CLIENT_SECRET,
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify",
-      profile(profile) {
-        profile.image = getImage(profile);
+      async profile(profile) {
+        profile.image = await getImage(profile);
         return {
           id: profile.id,
           name: profile?.username || profile.global_name,
@@ -41,14 +63,14 @@ export const authOptions: SolidAuthConfig = {
     }),
   ],
   events: {
-    signIn({ user, profile }) {
+    async signIn({ user, profile }) {
       const p = profile as DiscordProfile;
 
       db.update(users)
         .set({
           name: p?.username,
           globalName: p?.global_name,
-          image: getImage(p),
+          image: await getImage(p),
           accentColor: p?.accent_color,
           banner: p?.banner,
           bannerColor: p?.banner_color,
@@ -59,12 +81,20 @@ export const authOptions: SolidAuthConfig = {
     },
   },
   callbacks: {
-    jwt({ token, user, profile }) {
-      if (profile && user) return { ...token, me: user, profile } as JWT;
-      return { ...token } as JWT;
-    },
-    session({ token, session }) {
-      return { ...session, user: { ...token } } as DefaultSession;
+    session({ user, session }) {
+      if (user) {
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            image: user.image,
+          },
+        };
+      }
+      return session;
     },
   },
 };

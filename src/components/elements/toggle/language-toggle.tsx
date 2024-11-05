@@ -1,8 +1,8 @@
 import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { Dictionary, Locale, baseLocale } from "~/lib/i18n";
-import { parseCookie } from "~/utils/base";
+import { baseLocale, Locale } from "~/lib/i18n";
+import { parseCookie, setLanguageCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,
@@ -10,12 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
-
-function setLanguageCookie(lang: Locale) {
-  const expiryDate = new Date();
-  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
-}
 
 const localeFlags = {
   en: "🇺🇸",
@@ -42,7 +36,7 @@ export default function LanguageToggle() {
         class="w-9 px-0"
       >
         {localeFlags[locale()] || "🌍"}
-        <span class="sr-only">{t("TOGGLE_LANGUAGE")}</span>
+        <span class="sr-only">{t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <For each={clientEnv.LANGUAGES}>
@@ -57,7 +51,9 @@ export default function LanguageToggle() {
               class="space-x-2"
             >
               <span>{localeFlags[loc]}</span>{" "}
-              <span>{t(loc.toUpperCase() as keyof Dictionary)}</span>
+              <span>
+                {t(`MAIN.ENUM.${loc.toUpperCase() as Uppercase<Locale>}`)}
+              </span>
             </DropdownMenuItem>
           )}
         </For>

@@ -1,5 +1,4 @@
 import type { AdapterAccountType } from "@auth/core/adapters";
-import { Type as t } from "@sinclair/typebox/type";
 import {
   integer,
   pgTable,
@@ -7,7 +6,6 @@ import {
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-typebox";
 
 export const users = pgTable("user", {
   id: text("id")
@@ -48,8 +46,24 @@ export const accounts = pgTable(
   }),
 );
 
-export const userSchema = createInsertSchema(users);
+export const sessions = pgTable("session", {
+  sessionToken: text("sessionToken").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
 
-export const userSelectSchema = t.Omit(userSchema, ["email"]);
-
-export type UserSelecSchema = typeof userSelectSchema.static;
+export const verificationTokens = pgTable(
+  "verificationToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    compositePk: primaryKey({
+      columns: [verificationToken.identifier, verificationToken.token],
+    }),
+  }),
+);
