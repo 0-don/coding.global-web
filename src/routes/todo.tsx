@@ -1,19 +1,20 @@
+import { RouteDefinition } from "@solidjs/router";
 import { createVirtualizer } from "@tanstack/solid-virtual";
 import { RiBusinessCalendarTodoFill } from "solid-icons/ri";
 import { TbTrashX } from "solid-icons/tb";
 import { createEffect, For, Show } from "solid-js";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
-import { TodoHook } from "~/components/hook/todo-hook";
+import { serverFnTodos, TodoHook } from "~/components/hook/todo-hook";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { TextField, TextFieldRoot } from "~/components/ui/textfield";
 import { todoSchemas } from "~/lib/schema/todo";
 
-// export const route = {
-//   preload: () => serverFnTodos({ cursor: "" }),
-// } satisfies RouteDefinition;
+export const route = {
+  preload: () => serverFnTodos({ cursor: null }),
+} satisfies RouteDefinition;
 
 export default function TodoPage() {
   const { locale } = useLanguage();
