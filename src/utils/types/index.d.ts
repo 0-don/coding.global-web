@@ -1,6 +1,3 @@
-import type { AdapterUser } from "@auth/core/adapters";
-import type { DiscordProfile } from "@auth/core/providers/discord";
-import type { User } from "@solid-mediakit/auth";
 import type { IconTypes } from "solid-icons";
 
 export interface Staff {
@@ -14,13 +11,24 @@ export interface Staff {
   memberRoles: string[];
 }
 
+export type Attachment = {
+  url: string;
+  width: number | null;
+  height: number | null;
+  contentType: string | null;
+};
+
+export type News = {
+  id: string;
+  content: string;
+  createdAt: string;
+  attachments: Attachment[];
+  user: Staff;
+};
+
 export interface MemberRole {
   role: string;
   Icon: IconTypes;
   color: string;
 }
 
-export interface SessionUser extends User {
-  me: User | AdapterUser;
-  profile: DiscordProfile;
-}

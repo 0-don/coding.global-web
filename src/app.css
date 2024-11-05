@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Exo 2 Variable", ui-sans-serif, system-ui, sans-serif,
+    "AppleColorEmoji", "SegoeUIEmoji", "SegoeUISymbol", "NotoColorEmoji";
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -72,5 +77,24 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes dots {
+    0%,
+    20% {
+      content: ".";
+    }
+    40% {
+      content: "..";
+    }
+    60%,
+    80% {
+      content: "...";
+    }
+    100% {
+      content: ".";
+    }
   }
 }

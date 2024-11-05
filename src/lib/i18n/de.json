@@ -1,0 +1,99 @@
+{
+	"CHAT": {
+		"COMMENT": "Kommentar",
+		"DISCORD_LOGIN": "Discord-Anmeldung",
+		"INFO": {
+			"COMMENT_DELETED": "Kommentar Gelöscht"
+		},
+		"SUCCESS": {
+			"COMMENT_ADD": "Kommentar erfolgreich hinzugefügt"
+		},
+		"TITLE": "Chat"
+	},
+	"HOME": {
+		"BY": "von",
+		"OFFICIAL": "Offizielle",
+		"OFFICIAL_CODING_DISCORD_WEBSITE": "Offizielle Coding Discord Website",
+		"SEE_REPOSITORY": "Siehe das Repository",
+		"TITLE": "Home",
+		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
+	},
+	"MAIN": {
+		"BUTTON": {
+			"BACK_TO_HOME": "Zurück nach Hause",
+			"DISBOARD": "Disboard",
+			"DISCORD": "Discord",
+			"LOADING": "Laden",
+			"NOT_FOUND": "Nicht gefunden",
+			"RETRY": "Wiederholung"
+		},
+		"ENUM": {
+			"DARK": "Dunkel",
+			"DE": "Deutsch",
+			"EN": "Englisch",
+			"LIGHT": "Licht",
+			"SYSTEM": "System"
+		},
+		"ERROR": {
+			"PAGE_NOT_FOUND": "Seite nicht gefunden",
+			"UNAUTHORIZED": "Nicht autorisiert"
+		},
+		"NAVIGATION": {
+			"CHAT": "Chat",
+			"NEWS": "Nachrichten",
+			"RULES": "Regeln",
+			"TEAM": "Team",
+			"TODO": "Aufgabe"
+		},
+		"SUCCESS": {
+			"CONSOLE_CLEARED": "Konsole geleert",
+			"LOGGED_OUT": "Erfolgreich ausgeloggt"
+		},
+		"TOOLTIP": {
+			"CLEAR_CONSOLE": "Konsole löschen",
+			"LOGOUT": "Abmeldung",
+			"TOGGLE_LANGUAGE": "Sprache wechseln",
+			"TOGGLE_THEME": "Thema wechseln"
+		}
+	},
+	"NEWS": {
+		"TITLE": "Nachrichten"
+	},
+	"RULES": {
+		"ADVERTISING": "Werbung",
+		"ADVERTISING_CONTENT1": "Jegliche Art von Werbung Dritter ist untersagt.",
+		"ASKING_QUESTIONS": "Fragen stellen",
+		"ASKING_QUESTIONS_CONTENT1": "Niemand ist verpflichtet, zu helfen oder eine Frage zu beantworten. Hilfe ist in der Regel kostenlos.",
+		"ASKING_QUESTIONS_CONTENT2": "Mitglieder mit der Rolle \"HILFESTELLER\" haben sich freiwillig gemeldet, um bei Fragen zu helfen.",
+		"ASKING_QUESTIONS_CONTENT3": "Das Pingen von Mitgliedern, um eine schnellere Antwort zu erwarten, ist nicht erlaubt.",
+		"ASKING_QUESTIONS_CONTENT4": "Stellen Sie keine Fragen wie \"Weiß jemand etwas über XY?\", sondern stellen Sie die Frage direkt, siehe auch ➔ <a href='https://dontasktoask.com/' class='text-blue-500 hover:underline'>https://dontasktoask.com/</a>.",
+		"ASKING_QUESTIONS_CONTENT5": "Beachten Sie den Thread \"How do I ask a good question?\" auf Stackoverflow ➔ <a href='https://stackoverflow.com/help/how-to-ask' class='text-blue-500 hover:underline'>https://stackoverflow.com/help/how-to-ask</a>.",
+		"DIRECT_MESSAGES": "Direktnachrichten",
+		"DIRECT_MESSAGES_CONTENT1": "Bitte sehen Sie davon ab, direkte Nachrichten an die Administratoren zu senden.",
+		"DISCORD_GUIDELINES": "Discord-Richtlinien",
+		"DISCORD_GUIDELINES_CONTENT1": "Die Discord-Community-Richtlinien gelten für Programmierung [DE/EN]; Benutzer können diese unter <a href='https://discord.com/guidelines' class='text-blue-500 hover:underline'>https://discord.com/guidelines</a> einsehen.",
+		"ENFORCEMENT": "Vollstreckung einer Maßnahme",
+		"ENFORCEMENT_CONTENT1": "Die Auslegung der Regeln liegt im Ermessen des jeweiligen Administrators.",
+		"LANGUAGE": "Sprache",
+		"LANGUAGE_CONTENT1": "Die Sprache unserer Gemeinschaft ist Deutsch und Englisch. Im Sprachkanal \"Öffentlich [DE]\" ist Deutsch die Hauptsprache. Benutzer können freiwillig Englisch sprechen. In dem Sprachkanal \"Öffentlich [EN]\" müssen die Benutzer jedoch Englisch sprechen.",
+		"MODERATORS": "Moderatoren",
+		"MODERATORS_CONTENT1": "Das Moderationsteam hat das Recht, angemessene Maßnahmen gegen einen Benutzer zu ergreifen, auch wenn eine bestimmte Regel nicht ausdrücklich verletzt wurde. Zu den Maßnahmen der Moderatoren können auch eskalierende Maßnahmen gehören, die ergriffen werden, wenn der Nutzer sich weigert, die getroffenen Entscheidungen zu befolgen.",
+		"PERSONAL_INFO": "Weitergabe von personenbezogenen Informationen",
+		"PERSONAL_INFO_CONTENT1": "Die Weitergabe von persönlichen Informationen anderer Personen ohne deren Zustimmung ist verboten und führt zu einer permanenten Sperre. Dazu gehören z. B. Vorname, Nachname, Adresse, Handynummer oder Bilder usw.",
+		"RECORDING": "Aufnahme",
+		"RECORDING_CONTENT1": "Die Aufnahme von Videos (Bildschirmfreigabe, Webcam) und Ton (Voice-Chat) ist in diesem Discord nicht gestattet.",
+		"TITLE": "Regeln"
+	},
+	"TEAM": {
+		"TITLE": "Team"
+	},
+	"TODO": {
+		"INFO": {
+			"TODO_DELETED": "Todo erfolgreich gelöscht"
+		},
+		"SUCCESS": {
+			"TODO_ADD": "Todo erfolgreich hinzugefügt"
+		},
+		"TITLE": "Todo"
+	}
+}

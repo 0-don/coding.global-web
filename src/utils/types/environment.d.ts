@@ -8,8 +8,10 @@ declare namespace NodeJS {
     POSTGRES_DB: string;
     DATABASE_URL: string;
 
-    VITE_AUTH_PATH: string;
+    VITE_BOT_URL: string;
     VITE_HOST_URL: string;
+    VITE_AUTH_PATH: string;
+    VITE_GUILD_ID: string;
 
     AUTH_URL: string;
     AUTH_SECRET: string;

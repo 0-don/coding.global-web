@@ -1,15 +1,12 @@
+import { authVite } from "@solid-mediakit/auth-plugin";
 import { defineConfig } from "@solidjs/start/config";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { resolve } from "node:path";
+import { SolidStartSiteMapPlugin } from "solid-start-sitemap";
 
 export default defineConfig({
-  ssr: true,
+  ssr: false,
   middleware: "./src/server/middleware.ts",
   server: {
-    preset: "bun",
     esbuild: {
       options: {
         target: "esnext",
@@ -17,11 +14,21 @@ export default defineConfig({
     },
   },
   vite: {
-    ssr: { external: ["drizzle-orm"] },
     resolve: {
-      alias: {
-        "@": resolve(__dirname, "./src"),
-      },
+      alias: { "@": resolve("./src") },
     },
+    plugins: [
+      authVite({
+        redirectTo: "/",
+        log: true,
+        authOpts: {
+          name: "authOptions",
+          dir: "~/server/auth-options",
+        },
+      }),
+      SolidStartSiteMapPlugin({
+        hostname: process.env.VITE_HOST_URL,
+      }),
+    ],
   },
 });

@@ -1,6 +1,7 @@
 import { Type as t } from "@sinclair/typebox/type";
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
+import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { createSelectSchema } from "drizzle-typebox";
+import { Elysia } from "elysia";
 import { users } from "./auth";
 
 export const comment = pgTable("comment", {
@@ -8,21 +9,24 @@ export const comment = pgTable("comment", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  content: text("content").notNull(),
+  content: varchar("content", { length: 4096 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
 
-const commentInsertSchema = createInsertSchema(comment, {
-  content: t.String({ minLength: 1, default: "" }),
+export const commentSelectSchema = createSelectSchema(comment, {
+  content: t.String({ minLength: 1, maxLength: 4096, default: "" }),
 });
+export type Comment = typeof commentSelectSchema.static;
 
-export const commentInsertSimpleSchema = t.Omit(commentInsertSchema, [
+export const commentInsertSchema = t.Omit(commentSelectSchema, [
   "id",
-  "createdAt",
   "userId",
+  "createdAt",
 ]);
-export type CommentInsertSimple = typeof commentInsertSimpleSchema.static;
+export const commentDeleteSchema = t.Pick(commentSelectSchema, ["id"]);
 
-export const commentSelectSchema = createSelectSchema(comment);
-
-export type CommentSelect = typeof commentSelectSchema.static;
+export const { models: commentSchemas } = new Elysia().model({
+  select: commentSelectSchema,
+  insert: commentInsertSchema,
+  delete: commentDeleteSchema,
+});

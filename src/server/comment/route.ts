@@ -1,73 +1,63 @@
-import { getSession } from "@solid-mediakit/auth";
 import { and, eq, getTableColumns } from "drizzle-orm";
-import Elysia, { InternalServerError, t } from "elysia";
+import Elysia, { t } from "elysia";
 import { db } from "~/lib/db";
+import { comment } from "~/lib/schema";
 import { users } from "~/lib/schema/auth";
-import {
-  comment,
-  commentInsertSimpleSchema,
-  commentSelectSchema,
-} from "../../lib/schema/comment";
-import { authOptions } from "../auth/auth-options";
+import { commentInsertSchema, commentSelectSchema } from "~/lib/schema/comment";
+import { pageable } from "~/lib/typebox/pageable";
+import { authUserGuard, authUserResolve } from "../auth/service";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
-  .get("", async () => {
-    const { email, ...user } = getTableColumns(users);
-    const comments = await db
-      .select({ ...getTableColumns(comment), user })
-      .from(comment)
-      .leftJoin(users, eq(comment.userId, users.id));
-
-    return comments;
-  })
-  .post(
+  .get(
     "",
-    async ({ body, request }) => {
-      const session = await getSession(request, authOptions);
-
-      if (!session?.user?.name)
-        throw new InternalServerError("You must be logged in to comment.");
-
-      const newComment = (
-        await db
-          .insert(comment)
-          .values({ ...body, userId: session.user.me.id! })
-          .returning()
-      ).at(0)!;
-
+    async ({ query }) => {
       const { email, ...user } = getTableColumns(users);
+      const comments = await db
+        .select({ ...getTableColumns(comment), user })
+        .from(comment)
+        .leftJoin(users, eq(comment.userId, users.id));
 
-      return (
-        await db
-          .select({ ...getTableColumns(comment), user })
-          .from(comment)
-          .leftJoin(users, eq(comment.userId, users.id))
-          .where(eq(comment.id, newComment.id))
-      ).at(0)!;
+      return comments;
     },
-    { body: commentInsertSimpleSchema },
+    // { query: t.Optional(pageable) },
   )
-  .delete(
-    "/:id",
-    async ({ params, request }) => {
-      const session = await getSession(request, authOptions);
+  .guard({ beforeHandle: [authUserGuard] }, (app) =>
+    app
+      .derive(authUserResolve)
+      .post(
+        "",
+        async ({ body, user }) => {
+          const newComment = (
+            await db
+              .insert(comment)
+              .values({ ...body, userId: user.id! })
+              .returning()
+          ).at(0)!;
 
-      if (!session?.user?.me?.id)
-        throw new InternalServerError(
-          "You must be logged in to delete a comment.",
-        );
+          const { email, ...userCols } = getTableColumns(users);
 
-      return (
-        await db
-          .delete(comment)
-          .where(
-            and(
-              eq(comment.id, params.id),
-              eq(comment.userId, session?.user?.me?.id),
-            ),
-          )
-          .returning()
-      ).at(0);
-    },
-    { params: t.Pick(commentSelectSchema, ["id"]) },
+          return (
+            await db
+              .select({ ...getTableColumns(comment), user: userCols })
+              .from(comment)
+              .leftJoin(users, eq(comment.userId, users.id))
+              .where(eq(comment.id, newComment.id))
+          ).at(0)!;
+        },
+        { body: commentInsertSchema },
+      )
+      .delete(
+        "/:id",
+        async ({ params, user }) => {
+          return (
+            await db
+              .delete(comment)
+              .where(
+                and(eq(comment.id, params.id), eq(comment.userId, user.id!)),
+              )
+              .returning()
+          ).at(0);
+        },
+        { params: t.Pick(commentSelectSchema, ["id"]) },
+      ),
   );

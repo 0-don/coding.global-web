@@ -16,7 +16,6 @@ const options: DrizzleConfig<typeof schema> = {
 
 export const db = drizzlePostgres(connection, options);
 
-(async () => {
-  await migrate(db, { migrationsFolder: resolve("db.migrations") });
-  log("Database migrated successfully");
-})();
+migrate(db, { migrationsFolder: resolve("db.migrations") })
+  .then(() => log("Database migrated successfully"))
+  .catch(() => process.exit(1));
