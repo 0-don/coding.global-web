@@ -12,11 +12,13 @@ import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
+import { MetaHead } from "~/components/elements/meta-head";
 import { QueryBoundary } from "~/components/elements/query-boundary";
 import {
   DiscordHook,
   serverFnStaffMembers,
 } from "~/components/hook/discord-hook";
+import { useLanguage } from "~/components/provider/language-provider";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
 import { MemberRole } from "~/utils/types";
@@ -26,69 +28,78 @@ export const route = {
 } satisfies RouteDefinition;
 
 export default function TeamPage() {
+  const { t } = useLanguage();
   const { staffMembersQuery } = DiscordHook();
 
   return (
-    <Layout container class="mt-10">
-      <Header name="TEAM.TITLE" className="mb-5" />
+    <>
+      <MetaHead
+        title={t("RULES.META.TITLE")!}
+        description={t("RULES.META.DESCRIPTION")!}
+        keywords={t("RULES.META.KEYWORDS")}
+      />
 
-      <QueryBoundary query={staffMembersQuery}>
-        {(staffMembers) => (
-          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
-            <For each={staffMembers}>
-              {(m) => (
-                <Card>
-                  <CardHeader>
-                    <img
-                      src={m.displayAvatarURL}
-                      class="max-h-48 w-full object-cover"
-                      alt={m.username}
-                    />
-                    <CardDescription class="flex items-center space-x-1">
-                      <AiOutlineUserAdd />
-                      <span>{m.username}</span>
-                    </CardDescription>
-                    <Show when={m.globalName}>
+      <Layout container class="mt-10">
+        <Header name="TEAM.TITLE" className="mb-5" />
+
+        <QueryBoundary query={staffMembersQuery}>
+          {(staffMembers) => (
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
+              <For each={staffMembers}>
+                {(m) => (
+                  <Card>
+                    <CardHeader>
+                      <img
+                        src={m.displayAvatarURL}
+                        class="max-h-48 w-full object-cover"
+                        alt={m.username}
+                      />
                       <CardDescription class="flex items-center space-x-1">
-                        <AiOutlineGlobal />
-                        <span class="font-bold">{m.globalName}</span>
+                        <AiOutlineUserAdd />
+                        <span>{m.username}</span>
                       </CardDescription>
-                    </Show>
+                      <Show when={m.globalName}>
+                        <CardDescription class="flex items-center space-x-1">
+                          <AiOutlineGlobal />
+                          <span class="font-bold">{m.globalName}</span>
+                        </CardDescription>
+                      </Show>
 
-                    <CardDescription class="flex flex-wrap gap-2">
-                      <For each={m.memberRoles}>
-                        {(staffRole) => {
-                          const role = STAFF_MEMBERS.find(
-                            (member) =>
-                              member.role.toLowerCase() ===
-                              staffRole.toLowerCase(),
-                          );
+                      <CardDescription class="flex flex-wrap gap-2">
+                        <For each={m.memberRoles}>
+                          {(staffRole) => {
+                            const role = STAFF_MEMBERS.find(
+                              (member) =>
+                                member.role.toLowerCase() ===
+                                staffRole.toLowerCase(),
+                            );
 
-                          if (!role) return <></>;
+                            if (!role) return <></>;
 
-                          return (
-                            <span
-                              class={cn(
-                                `flex items-center gap-1 text-xs`,
-                                role.color,
-                              )}
-                            >
-                              <role.Icon />
+                            return (
+                              <span
+                                class={cn(
+                                  `flex items-center gap-1 text-xs`,
+                                  role.color,
+                                )}
+                              >
+                                <role.Icon />
 
-                              {role.role}
-                            </span>
-                          );
-                        }}
-                      </For>
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              )}
-            </For>
-          </div>
-        )}
-      </QueryBoundary>
-    </Layout>
+                                {role.role}
+                              </span>
+                            );
+                          }}
+                        </For>
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                )}
+              </For>
+            </div>
+          )}
+        </QueryBoundary>
+      </Layout>
+    </>
   );
 }
 

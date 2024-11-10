@@ -14,12 +14,13 @@ export const route = {
 
 export default function ChatPage() {
   const { t } = useLanguage();
+
   return (
     <>
       <MetaHead
-        title={t("HOME.META.TITLE")!}
-        description={t("HOME.META.DESCRIPTION")!}
-        keywords={t("HOME.META.KEYWORDS")}
+        title={t("CHAT.META.TITLE")!}
+        description={t("CHAT.META.DESCRIPTION")!}
+        keywords={t("CHAT.META.KEYWORDS")}
       />
       <Layout container class="mt-10 h-[calc(100vh-5rem)]">
         <Card class="flex h-full flex-col bg-secondary/85 p-10">

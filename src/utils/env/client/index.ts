@@ -35,7 +35,7 @@ const clientEnvResult = clientSchema.safeParse({
   LANGUAGE_KEY: import.meta.env.VITE_LANGUAGE_KEY ?? "lang",
   LANGUAGES: import.meta.env.VITE_LANGUAGES
     ? import.meta.env.VITE_LANGUAGES.split(",")
-    : ["de", "en"],
+    : ["en", "de"],
 });
 
 if (!clientEnvResult.data) {

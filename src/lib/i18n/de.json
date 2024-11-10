@@ -5,6 +5,11 @@
 		"INFO": {
 			"COMMENT_DELETED": "Kommentar Gelöscht"
 		},
+		"META": {
+			"DESCRIPTION": "Verbinde dich in Echtzeit mit über 6.600 Entwicklern. Diskutiere über Programmierung, erhalte Hilfe und nimm an technischen Gesprächen in unserer aktiven Discord-Community teil.",
+			"KEYWORDS": "Programmierung Chat, Entwicklerdiskussion, Code-Hilfe, Tech-Community, Discord-Chat",
+			"TITLE": "Community-Chat - Programmierung [EN,GER]"
+		},
 		"SUCCESS": {
 			"COMMENT_ADD": "Kommentar erfolgreich hinzugefügt"
 		},
@@ -67,6 +72,11 @@
 		}
 	},
 	"NEWS": {
+		"META": {
+			"DESCRIPTION": "Bleiben Sie auf dem Laufenden über die neuesten Programmiernachrichten, Technologie-Updates und Community-Ankündigungen von unserem Coding-Discord-Server.",
+			"KEYWORDS": "Techniknachrichten, Programmierupdates, Codierungsnachrichten, Technologieupdates, Community-Ankündigungen",
+			"TITLE": "Technische Nachrichten & Updates - Programmierung [EN,GER]"
+		},
 		"TITLE": "Nachrichten"
 	},
 	"RULES": {
@@ -86,6 +96,11 @@
 		"ENFORCEMENT_CONTENT1": "Die Auslegung der Regeln liegt im Ermessen des jeweiligen Administrators.",
 		"LANGUAGE": "Sprache",
 		"LANGUAGE_CONTENT1": "Die Sprache unserer Gemeinschaft ist Deutsch und Englisch. Im Sprachkanal \"Öffentlich [DE]\" ist Deutsch die Hauptsprache. Benutzer können freiwillig Englisch sprechen. In dem Sprachkanal \"Öffentlich [EN]\" müssen die Benutzer jedoch Englisch sprechen.",
+		"META": {
+			"DESCRIPTION": "Richtlinien und Regeln für unsere Programmiergemeinschaft, um eine hilfreiche und respektvolle Umgebung für alle Mitglieder zu gewährleisten.",
+			"KEYWORDS": "Gemeinschaftsregeln, Richtlinien, Verhaltenskodex, Serverregeln",
+			"TITLE": "Gemeinschaftsrichtlinien - Programmierung [EN,GER]"
+		},
 		"MODERATORS": "Moderatoren",
 		"MODERATORS_CONTENT1": "Das Moderationsteam hat das Recht, angemessene Maßnahmen gegen einen Benutzer zu ergreifen, auch wenn eine bestimmte Regel nicht ausdrücklich verletzt wurde. Zu den Maßnahmen der Moderatoren können auch eskalierende Maßnahmen gehören, die ergriffen werden, wenn der Nutzer sich weigert, die getroffenen Entscheidungen zu befolgen.",
 		"PERSONAL_INFO": "Weitergabe von personenbezogenen Informationen",
