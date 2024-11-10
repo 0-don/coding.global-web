@@ -18,7 +18,11 @@ export const todoSelectSchema = createSelectSchema(todo, {
 export type Todo = typeof todoSelectSchema.static;
 export type TodoStatus = (typeof todoStatus.enumValues)[number];
 
-export const todoInsertSchema = t.Omit(todoSelectSchema, ["id", "createdAt"]);
+export const todoInsertSchema = t.Omit(todoSelectSchema, [
+  "id",
+  "status",
+  "createdAt",
+]);
 export const todoInsertSeedSchema = t.Omit(todoSelectSchema, ["id"]);
 export const todoDeleteSchema = t.Pick(todoSelectSchema, ["id"]);
 

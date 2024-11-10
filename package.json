@@ -8,7 +8,7 @@
     "prettier": "prettier --write .",
     "lint": "eslint . --format stylish",
     "drizzle": "npm run drop-db & dotenvx run -- drizzle-kit generate && dotenvx run -- drizzle-kit push",
-    "drop-db": "node ./db.migrations/reset-db.js",
+    "drop-db": "dotenvx run -- node ./db.migrations/reset-db.js",
     "openapi": "orval --config ./orval.config.ts"
   },
   "dependencies": {
