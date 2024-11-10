@@ -2,7 +2,9 @@ import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-typebox";
 import { Elysia, t } from "elysia";
 
-export const todoStatus = pgEnum("todoStatus", ["DONE", "ACTIVE", "PENDING"]);
+export const todoStatusEnum = ["DONE", "ACTIVE", "PENDING"] as const;
+
+export const todoStatus = pgEnum("todoStatus", todoStatusEnum);
 
 export const todo = pgTable("todo", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -16,7 +18,7 @@ export const todoSelectSchema = createSelectSchema(todo, {
 });
 
 export type Todo = typeof todoSelectSchema.static;
-export type TodoStatus = (typeof todoStatus.enumValues)[number];
+export type TodoStatus = (typeof todoStatusEnum)[number];
 
 export const todoInsertSchema = t.Omit(todoSelectSchema, [
   "id",
