@@ -62,7 +62,7 @@ export default function RulesPage() {
       />
 
       <Layout container class="mt-10 h-[calc(100vh-5rem)]">
-        <Card class="flex h-full flex-col bg-secondary/85 p-10">
+        <Card class="flex h-full flex-col bg-card/80 p-10">
           <Header name="RULES.TITLE" className="mb-5" />
           <div class="mt-5 flex-1 overflow-y-auto px-1">
             <div class="grid gap-4">

@@ -23,7 +23,7 @@ export default function ChatPage() {
         keywords={t("CHAT.META.KEYWORDS")}
       />
       <Layout container class="mt-10 h-[calc(100vh-5rem)]">
-        <Card class="flex h-full flex-col bg-secondary/85 p-10">
+        <Card class="flex h-full flex-col bg-card/80 p-10">
           <Header name="CHAT.TITLE" />
           <ChatMessages class="my-5 flex-1 overflow-y-auto" />
           <CreateMessage />
