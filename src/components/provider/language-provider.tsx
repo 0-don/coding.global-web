@@ -13,7 +13,7 @@ import {
   useContext,
 } from "solid-js";
 import { getCookie } from "vinxi/http";
-import { Dictionary, Locale, baseLocale, fetchDictionary } from "~/lib/i18n";
+import { Dictionary, Locale, fetchDictionary } from "~/lib/i18n";
 import { parseCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 
@@ -32,9 +32,9 @@ export function useLanguage() {
 function getServerLanguageCookie() {
   "use server";
   const cookieValue = getCookie(clientEnv.LANGUAGE_KEY);
-  const locale = cookieValue || baseLocale;
+  const locale = cookieValue || clientEnv.LANGUAGES[0];
   const expires = new Date();
-  expires.setDate(expires.getDate() + 30);
+  expires.setFullYear(expires.getFullYear() + 1);
 
   return [
     `${clientEnv.LANGUAGE_KEY}=${locale}`,
@@ -49,7 +49,8 @@ function getServerLanguageCookie() {
 export default function LanguageProvider(props: { children: JSX.Element }) {
   const cookie = isServer ? getServerLanguageCookie() : document.cookie;
   const detectedLocale =
-    (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locale) || baseLocale;
+    (parseCookie(cookie, clientEnv.LANGUAGE_KEY) as Locale) ||
+    clientEnv.LANGUAGES[0];
   const [locale, setLocale] = createSignal<Locale>(detectedLocale);
   const [dict] = createResource(locale, fetchDictionary);
 

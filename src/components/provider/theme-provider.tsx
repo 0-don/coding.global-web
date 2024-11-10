@@ -18,7 +18,7 @@ function getServerColorCookie() {
   if (!colorMode) return "";
 
   const expires = new Date();
-  expires.setDate(expires.getDate() + 30);
+  expires.setFullYear(expires.getFullYear() + 1);
 
   return [
     `${COLOR_MODE_STORAGE_KEY}=${colorMode}`,
