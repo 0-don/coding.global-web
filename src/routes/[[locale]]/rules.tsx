@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { createMemo, For } from "solid-js";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
+import { MetaHead } from "~/components/elements/meta-head";
 import { useLanguage } from "~/components/provider/language-provider";
 
 export default function RulesPage() {
@@ -53,32 +54,40 @@ export default function RulesPage() {
   ]);
 
   return (
-    <Layout container class="mt-10 h-[calc(100vh-5rem)]">
-      <Card class="flex h-full flex-col bg-secondary/85 p-10">
-        <Header name="RULES.TITLE" className="mb-5" />
-        <div class="mt-5 flex-1 overflow-y-auto px-1">
-          <div class="grid gap-4">
-            <For each={rules()}>
-              {(rule, index) => (
-                <Card class="p-6">
-                  <h2 class="mb-4 text-xl font-semibold">
-                    {`${index() + 1}. ${rule.title}`}
-                  </h2>
-                  <div class="space-y-2">
-                    <For each={rule.content}>
-                      {(content, contentIndex) => (
-                        <p
-                          innerHTML={`${index() + 1}.${contentIndex() + 1} ${content}`}
-                        />
-                      )}
-                    </For>
-                  </div>
-                </Card>
-              )}
-            </For>
+    <>
+      <MetaHead
+        title={t("RULES.META.TITLE")!}
+        description={t("RULES.META.DESCRIPTION")!}
+        keywords={t("RULES.META.KEYWORDS")}
+      />
+
+      <Layout container class="mt-10 h-[calc(100vh-5rem)]">
+        <Card class="flex h-full flex-col bg-secondary/85 p-10">
+          <Header name="RULES.TITLE" className="mb-5" />
+          <div class="mt-5 flex-1 overflow-y-auto px-1">
+            <div class="grid gap-4">
+              <For each={rules()}>
+                {(rule, index) => (
+                  <Card class="p-6">
+                    <h2 class="mb-4 text-xl font-semibold">
+                      {`${index() + 1}. ${rule.title}`}
+                    </h2>
+                    <div class="space-y-2">
+                      <For each={rule.content}>
+                        {(content, contentIndex) => (
+                          <p
+                            innerHTML={`${index() + 1}.${contentIndex() + 1} ${content}`}
+                          />
+                        )}
+                      </For>
+                    </div>
+                  </Card>
+                )}
+              </For>
+            </div>
           </div>
-        </div>
-      </Card>
-    </Layout>
+        </Card>
+      </Layout>
+    </>
   );
 }

@@ -5,6 +5,11 @@
 		"INFO": {
 			"COMMENT_DELETED": "Comment Deleted"
 		},
+		"META": {
+			"DESCRIPTION": "Connect with 6,600+ developers in real-time. Discuss programming, get help, and join tech conversations in our active Discord community.",
+			"KEYWORDS": "programming chat, developer discussion, code help, tech community, discord chat",
+			"TITLE": "Community Chat - Coding [EN,GER]"
+		},
 		"SUCCESS": {
 			"COMMENT_ADD": "Comment added successfully"
 		},
@@ -67,6 +72,11 @@
 		}
 	},
 	"NEWS": {
+		"META": {
+			"DESCRIPTION": "Stay updated with the latest programming news, technology updates, and community announcements from our coding Discord server.",
+			"KEYWORDS": "tech news, programming updates, coding news, technology updates, community announcements",
+			"TITLE": "Tech News & Updates - Coding [EN,GER]"
+		},
 		"TITLE": "News"
 	},
 	"RULES": {
@@ -86,6 +96,11 @@
 		"ENFORCEMENT_CONTENT1": "The interpretation of the rules is at the discretion of the respective administrator.",
 		"LANGUAGE": "Language",
 		"LANGUAGE_CONTENT1": "The language of our community is German and English. In the voice channel \"Public [DE]\" German is the primary language. Users can speak English voluntarily. However, users must speak English in the Voice Channel \"Public [EN]\".",
+		"META": {
+			"DESCRIPTION": "Guidelines and rules for our programming community to ensure a helpful and respectful environment for all members.",
+			"KEYWORDS": "community rules, guidelines, code of conduct, server rules",
+			"TITLE": "Community Guidelines - Coding [EN,GER]"
+		},
 		"MODERATORS": "Moderators",
 		"MODERATORS_CONTENT1": "The moderation team has the right to take appropriate actions against a user, even if a certain rule has not been explicitly violated. Moderator actions can include escalating actions taken when the user refuses to obey decisions made.",
 		"PERSONAL_INFO": "Dissemination of Personal Information",
