@@ -37,8 +37,8 @@ jobs:
       - name: Docker compose rename override file
         run: mv docker-compose-prod.yml docker-compose.yml
 
-      # - name: Reset DB
-      #   run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
+      - name: Reset DB
+        run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build
