@@ -1,8 +1,8 @@
 import { A } from "@solidjs/router";
 import { FaBrandsDiscord } from "solid-icons/fa";
 import { Layout } from "~/components/container/layout";
+import { MetaHead } from "~/components/meta-head";
 import { useLanguage } from "~/components/provider/language-provider";
-import { MetaHead } from "~/components/provider/meta-head";
 
 export default function HomePage() {
   const { t, locale } = useLanguage();
