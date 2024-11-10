@@ -1,3 +1,4 @@
+CREATE TYPE "public"."todoStatus" AS ENUM('DONE', 'ACTIVE', 'PENDING');--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS "session" (
 CREATE TABLE IF NOT EXISTS "todo" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"task" varchar(4096) NOT NULL,
+	"status" "todoStatus" DEFAULT 'PENDING' NOT NULL,
 	"createdAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint

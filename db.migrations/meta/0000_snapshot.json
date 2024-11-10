@@ -1,5 +1,5 @@
 {
-  "id": "f39046c8-34c2-4271-8338-1424aa0a5320",
+  "id": "282f74c6-67bc-490b-917f-cbaf53cd849b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -220,6 +220,14 @@
           "primaryKey": false,
           "notNull": true
         },
+        "status": {
+          "name": "status",
+          "type": "todoStatus",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -351,7 +359,17 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.todoStatus": {
+      "name": "todoStatus",
+      "schema": "public",
+      "values": [
+        "DONE",
+        "ACTIVE",
+        "PENDING"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
