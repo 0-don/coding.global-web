@@ -1,8 +1,8 @@
-import { For, onMount } from "solid-js";
+import { For } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { Locale } from "~/lib/i18n";
-import { parseCookie, setLanguageCookie } from "~/utils/base";
+import { setLanguageCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
   DropdownMenu,
@@ -18,13 +18,6 @@ const localeFlags = {
 
 export default function LanguageToggle() {
   const { t, setLocale, locale } = useLanguage();
-
-  onMount(() => {
-    const lang =
-      (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locale) ||
-      clientEnv.LANGUAGES[0];
-    setLocale(lang);
-  });
 
   return (
     <DropdownMenu>
