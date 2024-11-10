@@ -1,7 +1,7 @@
 import { A } from "@solidjs/router";
 import { FaBrandsDiscord } from "solid-icons/fa";
 import { Layout } from "~/components/container/layout";
-import { MetaHead } from "~/components/meta-head";
+import { MetaHead } from "~/components/elements/meta-head";
 import { useLanguage } from "~/components/provider/language-provider";
 
 export default function HomePage() {
