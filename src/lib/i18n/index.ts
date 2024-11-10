@@ -9,7 +9,6 @@ export type DictionaryKey = {
   [K in keyof Dictionary]: Dictionary[K] extends string ? K : never;
 }[keyof Dictionary];
 
-export const baseLocale: Locale = clientEnv.LANGUAGES[0];
 
 export async function fetchDictionary(locale: Locale): Promise<Dictionary> {
   const dict: RawDictionary = await import(`./${locale}.json?import`);

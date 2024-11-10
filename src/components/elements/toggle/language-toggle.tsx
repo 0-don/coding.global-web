@@ -1,7 +1,7 @@
 import { For, onMount } from "solid-js";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { baseLocale, Locale } from "~/lib/i18n";
+import { Locale } from "~/lib/i18n";
 import { parseCookie, setLanguageCookie } from "~/utils/base";
 import { clientEnv } from "~/utils/env/client";
 import {
@@ -22,9 +22,8 @@ export default function LanguageToggle() {
   onMount(() => {
     const lang =
       (parseCookie(document.cookie, clientEnv.LANGUAGE_KEY) as Locale) ||
-      baseLocale;
+      clientEnv.LANGUAGES[0];
     setLocale(lang);
-    setLanguageCookie(lang);
   });
 
   return (
