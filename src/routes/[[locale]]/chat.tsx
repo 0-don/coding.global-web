@@ -22,7 +22,7 @@ export default function ChatPage() {
         description={t("CHAT.META.DESCRIPTION")!}
         keywords={t("CHAT.META.KEYWORDS")}
       />
-      <Layout container class="mt-10 h-[calc(100vh-5rem)]">
+      <Layout container class="mt-5 h-[calc(100vh-2rem)]">
         <Card class="flex h-full flex-col bg-card/80 px-10 py-5">
           <Header name="CHAT.TITLE" />
           <ChatMessages class="my-5 flex-1 overflow-y-auto" />

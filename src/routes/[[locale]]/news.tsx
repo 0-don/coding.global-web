@@ -22,7 +22,7 @@ export default function NewsPage() {
         keywords={t("NEWS.META.KEYWORDS")}
       />
 
-      <Layout container class="mt-10 h-[calc(100vh-5rem)]">
+      <Layout container class="mt-5 h-[calc(100vh-2rem)]">
         <Card class="flex h-full flex-col bg-card/80 px-10 py-5">
           <Header name="NEWS.TITLE" />
           <div class="mt-5 flex-1 overflow-y-auto px-1">
