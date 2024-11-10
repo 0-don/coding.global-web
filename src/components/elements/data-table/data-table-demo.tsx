@@ -452,7 +452,7 @@ const DataTableDemo = () => {
   });
 
   return (
-    <div class="w-full space-y-2.5">
+    <div class="mt-5 w-full space-y-2.5">
       <div class="flex items-center justify-between gap-2">
         <TextFieldRoot>
           <TextField

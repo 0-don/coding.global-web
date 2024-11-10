@@ -3,6 +3,7 @@ import { ConsoleToggle } from "../elements/toggle/console-toggle";
 import LanguageToggle from "../elements/toggle/language-toggle";
 import { LogoutToggle } from "../elements/toggle/logout.-toggle";
 import { ThemeToggle } from "../elements/toggle/theme-toggle";
+import { cn } from "~/lib/utils";
 
 interface LayoutProps {
   class?: string;
@@ -33,7 +34,11 @@ export const Layout: Component<LayoutProps> = (props) => {
       </div>
       <div class="relative">
         <section
-          class={`${props.container ? "container mx-auto" : ""} min-h-96 ${props.class}`}
+          class={cn(
+            props.container && "container mx-auto",
+            "min-h-96",
+            props.class,
+          )}
         >
           {props.children}
         </section>
