@@ -32,7 +32,7 @@ export default function TodoPage() {
         keywords={t("TODO.META.KEYWORDS")}
       />
       <Layout container class="mt-10 h-[calc(100vh-5rem)]">
-        <Card class="flex h-full flex-col bg-secondary/85 p-10">
+        <Card class="flex h-full flex-col bg-card/80 p-10">
           <Header name="TODO.TITLE">
             <Button variant="outline" onClick={() => todoSeed.mutateAsync()}>
               <FaSolidSeedling class="mr-1" />
