@@ -35,8 +35,10 @@ export default function LanguageToggle() {
           {(loc) => (
             <DropdownMenuItem
               onSelect={() => {
-                setLanguageCookie(loc);
-                setLocale(loc);
+                setTimeout(() => {
+                  setLanguageCookie(loc);
+                  setLocale(loc);
+                }, 150);
               }}
               class="space-x-2"
             >
