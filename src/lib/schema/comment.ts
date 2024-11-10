@@ -16,7 +16,7 @@ export const comment = pgTable("comment", {
 export const commentSelectSchema = createSelectSchema(comment, {
   content: t.String({ minLength: 1, maxLength: 4096, default: "" }),
 });
-export type Comment = typeof commentSelectSchema.static;
+export type Comments = typeof commentSelectSchema.static;
 
 export const commentInsertSchema = t.Omit(commentSelectSchema, [
   "id",

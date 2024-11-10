@@ -1,6 +1,6 @@
 import { Static, t } from "elysia";
 
-const T = t
+const TString = t
   .Transform(t.String())
   .Decode((value) => {
     if (value === "null" || value === "undefined" || value === "") return null;
@@ -13,7 +13,8 @@ const T = t
   });
 
 export const pageable = t.Object({
-  cursor: t.Optional(t.Nullable(T)),
+  cursor: t.Optional(t.Nullable(TString)),
+  limit: t.Optional(t.Nullable(t.Numeric({ default: 30 }))),
 });
 
 export type Pageable = Static<typeof pageable>;

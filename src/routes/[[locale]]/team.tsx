@@ -10,15 +10,16 @@ import { CgSupport } from "solid-icons/cg";
 import { FiHelpCircle } from "solid-icons/fi";
 import { ImDiamonds } from "solid-icons/im";
 import { For, Show } from "solid-js";
+import { Header } from "~/components/container/header";
+import { Layout } from "~/components/container/layout";
 import { QueryBoundary } from "~/components/elements/query-boundary";
 import {
   DiscordHook,
   serverFnStaffMembers,
 } from "~/components/hook/discord-hook";
 import { Card, CardDescription, CardHeader } from "~/components/ui/card";
-import { Header } from "../components/container/header";
-import { Layout } from "../components/container/layout";
-import { MemberRole } from "../utils/types";
+import { cn } from "~/lib/utils";
+import { MemberRole } from "~/utils/types";
 
 export const route = {
   preload: () => serverFnStaffMembers(),
@@ -67,7 +68,10 @@ export default function TeamPage() {
 
                           return (
                             <span
-                              class={`flex items-center gap-1 text-xs ${role.color}`}
+                              class={cn(
+                                `flex items-center gap-1 text-xs`,
+                                role.color,
+                              )}
                             >
                               <role.Icon />
 

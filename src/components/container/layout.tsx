@@ -15,13 +15,13 @@ export const Layout: Component<LayoutProps> = (props) => {
     <>
       <div class="absolute left-0 top-0 z-[9999]">
         <LanguageToggle />
-      </div>
-      <div class="absolute right-0 top-0 z-[9999]">
-        <LogoutToggle />
 
         <Show when={import.meta.env.DEV}>
           <ConsoleToggle />
         </Show>
+      </div>
+      <div class="absolute right-0 top-0 z-[9999]">
+        <LogoutToggle />
 
         <ThemeToggle />
       </div>

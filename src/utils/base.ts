@@ -1,6 +1,14 @@
-import type { EdenFetchError } from "@elysiajs/eden/dist/errors";
 import type { Locale } from "~/lib/i18n";
 import { clientEnv } from "./env/client";
+
+export declare class EdenFetchError<
+  Status extends number = number,
+  Value = unknown,
+> extends Error {
+  status: Status;
+  value: Value;
+  constructor(status: Status, value: Value);
+}
 
 export const getBaseUrl = () => clientEnv.BOT_URL;
 
@@ -31,7 +39,6 @@ export function handleEden<T>(
   },
 ): T {
   if (response.error) {
-    console.log("error", response.error);
     response.error.status = response.status;
     response.error.value = (
       response.response as { statusText: string }

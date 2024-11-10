@@ -127,6 +127,56 @@
 									</translation>
 								</translations>
 							</concept_node>
+							<folder_node>
+								<name>META</name>
+								<children>
+									<concept_node>
+										<name>DESCRIPTION</name>
+										<description/>
+										<comment/>
+										<translations>
+											<translation>
+												<language>de-DE</language>
+												<approved>false</approved>
+											</translation>
+											<translation>
+												<language>en-US</language>
+												<approved>false</approved>
+											</translation>
+										</translations>
+									</concept_node>
+									<concept_node>
+										<name>KEYWORDS</name>
+										<description/>
+										<comment/>
+										<translations>
+											<translation>
+												<language>de-DE</language>
+												<approved>false</approved>
+											</translation>
+											<translation>
+												<language>en-US</language>
+												<approved>false</approved>
+											</translation>
+										</translations>
+									</concept_node>
+									<concept_node>
+										<name>TITLE</name>
+										<description/>
+										<comment/>
+										<translations>
+											<translation>
+												<language>de-DE</language>
+												<approved>false</approved>
+											</translation>
+											<translation>
+												<language>en-US</language>
+												<approved>false</approved>
+											</translation>
+										</translations>
+									</concept_node>
+								</children>
+							</folder_node>
 							<concept_node>
 								<name>OFFICIAL</name>
 								<description/>
@@ -1012,11 +1062,41 @@
 									</concept_node>
 								</children>
 							</folder_node>
+							<concept_node>
+								<name>SEED</name>
+								<description/>
+								<comment/>
+								<translations>
+									<translation>
+										<language>de-DE</language>
+										<approved>false</approved>
+									</translation>
+									<translation>
+										<language>en-US</language>
+										<approved>false</approved>
+									</translation>
+								</translations>
+							</concept_node>
 							<folder_node>
 								<name>SUCCESS</name>
 								<children>
 									<concept_node>
 										<name>TODO_ADD</name>
+										<description/>
+										<comment/>
+										<translations>
+											<translation>
+												<language>de-DE</language>
+												<approved>false</approved>
+											</translation>
+											<translation>
+												<language>en-US</language>
+												<approved>false</approved>
+											</translation>
+										</translations>
+									</concept_node>
+									<concept_node>
+										<name>TODO_SEED</name>
 										<description/>
 										<comment/>
 										<translations>

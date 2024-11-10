@@ -1,6 +1,6 @@
 // @refresh reload
 import "@fontsource-variable/exo-2";
-import { MetaProvider, Title } from "@solidjs/meta";
+import { MetaProvider } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import "./app.css";
@@ -11,7 +11,6 @@ export default function App() {
     <Router
       root={(props) => (
         <MetaProvider>
-          <Title>coding.global</Title>
           <Providers>{props.children}</Providers>
         </MetaProvider>
       )}

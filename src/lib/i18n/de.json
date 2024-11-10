@@ -12,6 +12,11 @@
 	},
 	"HOME": {
 		"BY": "von",
+		"META": {
+			"DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
+			"KEYWORDS": "Programmierung, Codierung, Softwareentwicklung, JavaScript, Python, Java, C++",
+			"TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
+		},
 		"OFFICIAL": "Offizielle",
 		"OFFICIAL_CODING_DISCORD_WEBSITE": "Offizielle Coding Discord Website",
 		"SEE_REPOSITORY": "Siehe das Repository",
@@ -91,8 +96,10 @@
 		"INFO": {
 			"TODO_DELETED": "Todo erfolgreich gelöscht"
 		},
+		"SEED": "Seed",
 		"SUCCESS": {
-			"TODO_ADD": "Todo erfolgreich hinzugefügt"
+			"TODO_ADD": "Todo erfolgreich hinzugefügt",
+			"TODO_SEED": "Todos wurden erfolgreich gesät"
 		},
 		"TITLE": "Todo"
 	}
