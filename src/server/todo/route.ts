@@ -8,6 +8,7 @@ import {
   todoInsertSchema,
   todoInsertSeedSchema,
   TodoStatus,
+  todoStatusEnum,
 } from "~/lib/schema/todo";
 import { pageable } from "~/lib/typebox/pageable";
 
@@ -54,9 +55,7 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
       { length: 500 },
       (_, i) => ({
         task: `Task ${i}`,
-        status: ["DONE", "ACTIVE", "PENDING"][
-          Math.floor(Math.random() * 3)
-        ] as TodoStatus,
+        status: todoStatusEnum[Math.floor(Math.random() * 3)] as TodoStatus,
         createdAt: getRandomDate(),
       }),
     );
