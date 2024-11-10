@@ -8,9 +8,9 @@ export default function (props: RouteSectionProps) {
   return (
     <>
       <MetaHead
-        title={t("HOME.META.TITLE")!}
-        description={t("HOME.META.DESCRIPTION")!}
-        keywords={t("HOME.META.KEYWORDS")}
+        title={t("MAIN.META.TITLE")!}
+        description={t("MAIN.META.DESCRIPTION")!}
+        keywords={t("MAIN.META.KEYWORDS")}
       />
 
       {props.children}
