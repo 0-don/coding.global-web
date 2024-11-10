@@ -7,7 +7,7 @@
     "start": "dotenvx run -- vinxi start",
     "prettier": "prettier --write .",
     "lint": "eslint . --format stylish",
-    "drizzle": "npm run drop-db & drizzle-kit generate && dotenvx run -- drizzle-kit push",
+    "drizzle": "npm run drop-db & drizzle-kit generate",
     "drop-db": "node ./db.migrations/reset-db.js",
     "openapi": "orval --config ./orval.config.ts"
   },
