@@ -13,9 +13,9 @@
 	"HOME": {
 		"BY": "von",
 		"META": {
-			"DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
-			"KEYWORDS": "Programmierung, Codierung, Softwareentwicklung, JavaScript, Python, Java, C++",
-			"TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
+			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe von erfahrenen Entwicklern, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen. Englisch- und Deutschsprachige sind willkommen!",
+			"KEYWORDS": "Codierung, Programmierung, Entwickler, Discord-Server, Programmiergemeinschaft, Code-Hilfe, Softwareentwicklung, Deutsch, Englisch",
+			"TITLE": "Coding [EN,GER] - Programmierung & Softwareentwicklung Gemeinschaft"
 		},
 		"OFFICIAL": "Offizielle",
 		"OFFICIAL_CODING_DISCORD_WEBSITE": "Offizielle Coding Discord Website",
@@ -42,6 +42,11 @@
 		"ERROR": {
 			"PAGE_NOT_FOUND": "Seite nicht gefunden",
 			"UNAUTHORIZED": "Nicht autorisiert"
+		},
+		"META": {
+			"DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
+			"KEYWORDS": "Programmierung, Codierung, Softwareentwicklung, JavaScript, Python, Java, C++",
+			"TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
 		},
 		"NAVIGATION": {
 			"CHAT": "Chat",
