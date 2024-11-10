@@ -67,9 +67,6 @@ export function MetaHead(props: MetaHeadProps) {
         />
       )}
 
-      {/* Viewport */}
-      <Meta name="viewport" content="width=device-width, initial-scale=1" />
-
       {/* Additional Meta Tags */}
       {props.children}
     </>
