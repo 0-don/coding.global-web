@@ -110,11 +110,21 @@
 		"TITLE": "Rules"
 	},
 	"TEAM": {
+		"META": {
+			"DESCRIPTION": "Meet our experienced moderators and administrators who help maintain and grow our programming community.",
+			"KEYWORDS": "moderators, admin team, community leaders, server staff",
+			"TITLE": "Our Team - Coding [EN,GER]"
+		},
 		"TITLE": "Team"
 	},
 	"TODO": {
 		"INFO": {
 			"TODO_DELETED": "Todo deleted successfully"
+		},
+		"META": {
+			"DESCRIPTION": "Check out planned improvements and upcoming features for our programming community.",
+			"KEYWORDS": "upcoming features, community updates, planned improvements, future developments",
+			"TITLE": "Upcoming Features - Coding [EN,GER]"
 		},
 		"SEED": "Seed",
 		"SUCCESS": {

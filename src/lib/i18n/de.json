@@ -110,11 +110,21 @@
 		"TITLE": "Regeln"
 	},
 	"TEAM": {
+		"META": {
+			"DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen, die helfen, unsere Programm-Community zu pflegen und zu erweitern.",
+			"KEYWORDS": "Moderatoren, Admin-Team, Community-Leiter, Server-Mitarbeiter",
+			"TITLE": "Unser Team - Programmierung [EN,GER]"
+		},
 		"TITLE": "Team"
 	},
 	"TODO": {
 		"INFO": {
 			"TODO_DELETED": "Todo erfolgreich gelöscht"
+		},
+		"META": {
+			"DESCRIPTION": "Überprüfen Sie die geplanten Verbesserungen und bevorstehenden Funktionen für unsere Programmiergemeinschaft.",
+			"KEYWORDS": "kommende Funktionen, Community-Updates, geplante Verbesserungen, zukünftige Entwicklungen",
+			"TITLE": "Bevorstehende Funktionen - Programmierung [EN,GER]"
 		},
 		"SEED": "Seed",
 		"SUCCESS": {
