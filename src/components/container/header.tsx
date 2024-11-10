@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { HiSolidHomeModern } from "solid-icons/hi";
-import { Component } from "solid-js";
+import { Component, JSX } from "solid-js";
 import { Button } from "~/components/ui/button";
 import { DictionaryKey } from "~/lib/i18n";
 import { cn } from "~/lib/utils";
@@ -9,6 +9,7 @@ import { useLanguage } from "../provider/language-provider";
 interface HeaderProps {
   className?: string;
   name: DictionaryKey;
+  children?: JSX.Element;
 }
 
 export const Header: Component<HeaderProps> = (props) => {
@@ -23,6 +24,8 @@ export const Header: Component<HeaderProps> = (props) => {
       </A>
 
       <h1 class="text-center text-3xl font-bold">{t(props.name)}</h1>
+
+      <div class="flex justify-end">{props.children}</div>
     </div>
   );
 };

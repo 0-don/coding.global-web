@@ -1,13 +1,19 @@
 import { A } from "@solidjs/router";
 import { FaBrandsDiscord } from "solid-icons/fa";
+import { Layout } from "~/components/container/layout";
 import { useLanguage } from "~/components/provider/language-provider";
-import { Layout } from "../components/container/layout";
+import { MetaHead } from "~/components/provider/meta-head";
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <Layout>
+      <MetaHead
+        title={t("HOME.META.TITLE")!}
+        description={t("HOME.META.DESCRIPTION")!}
+        keywords={t("HOME.META.KEYWORDS")}
+      />
       <div class="flex size-full flex-col items-center text-center">
         <A class="mt-auto" href="https://discord.gg/coding">
           <div class="mt-2 size-36">
@@ -54,21 +60,24 @@ export default function HomePage() {
           </A>
         </div>
         <div class="mt-2 flex flex-wrap justify-center gap-2 text-2xl font-black text-white">
-          <A href="/team" class="rounded-md bg-discord px-4 py-1">
+          <A href={`/${locale()}/team`} class="rounded-md bg-discord px-4 py-1">
             {t("MAIN.NAVIGATION.TEAM")}
           </A>
-          <A href="/rules" class="rounded-md bg-discord px-4 py-1">
+          <A
+            href={`/${locale()}/rules`}
+            class="rounded-md bg-discord px-4 py-1"
+          >
             {t("MAIN.NAVIGATION.RULES")}
           </A>
-          <A href="/news" class="rounded-md bg-discord px-4 py-1">
+          <A href={`/${locale()}/news`} class="rounded-md bg-discord px-4 py-1">
             {t("MAIN.NAVIGATION.NEWS")}
           </A>
         </div>
         <div class="mt-2 flex flex-wrap justify-center gap-2 text-2xl font-black text-white">
-          <A href="/chat" class="rounded-md bg-discord px-4 py-1">
+          <A href={`/${locale()}/chat`} class="rounded-md bg-discord px-4 py-1">
             {t("MAIN.NAVIGATION.CHAT")}
           </A>
-          <A href="/todo" class="rounded-md bg-discord px-4 py-1">
+          <A href={`/${locale()}/todo`} class="rounded-md bg-discord px-4 py-1">
             {t("MAIN.NAVIGATION.TODO")}
           </A>
         </div>

@@ -4,9 +4,10 @@ import { resolve } from "node:path";
 import { SolidStartSiteMapPlugin } from "solid-start-sitemap";
 
 export default defineConfig({
-  ssr: false,
+  ssr: true,
   middleware: "./src/server/middleware.ts",
   server: {
+    compatibilityDate: "2024-11-05",
     esbuild: {
       options: {
         target: "esnext",
@@ -28,6 +29,9 @@ export default defineConfig({
       }),
       SolidStartSiteMapPlugin({
         hostname: process.env.VITE_HOST_URL,
+        replaceRouteParams: {
+          ":locale?": ["de", "en"],
+        },
       }),
     ],
   },

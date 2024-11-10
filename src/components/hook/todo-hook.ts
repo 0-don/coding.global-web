@@ -6,14 +6,18 @@ import {
   InfiniteData,
   useQueryClient,
 } from "@tanstack/solid-query";
-import { onMount } from "solid-js";
 import { createStore } from "solid-js/store";
 import { toast } from "solid-sonner";
 import { rpc } from "~/lib/rpc";
 import { Todo, todoInsertSchema } from "~/lib/schema/todo";
 import { Pageable } from "~/lib/typebox/pageable";
 import { handleEden } from "~/utils/base";
-import { TODOS_DELETE_KEY, TODOS_KEY } from "~/utils/cache/keys";
+import {
+  TODOS_ADD_KEY,
+  TODOS_DELETE_KEY,
+  TODOS_KEY,
+  TODOS_SEED_KEY,
+} from "~/utils/cache/keys";
 import { handleError } from "~/utils/client";
 import { useLanguage } from "../provider/language-provider";
 
@@ -22,10 +26,23 @@ export const serverFnTodos = query(async ($query: Pageable = {}) => {
   return handleEden(await rpc.api.todo.get({ $query }));
 }, TODOS_KEY);
 
+export const serverFnTodoAdd = query(
+  async (todo: typeof todoInsertSchema.static) => {
+    "use server";
+    return handleEden(await rpc.api.todo.post(todo))!;
+  },
+  TODOS_ADD_KEY,
+);
+
 export const serverFnTodoDelete = query(async (id: string) => {
   "use server";
   return handleEden(await rpc.api.todo[id].delete());
 }, TODOS_DELETE_KEY);
+
+export const serverFnTodoSeed = query(async () => {
+  "use server";
+  return handleEden(await rpc.api.todo.seed.get());
+}, TODOS_SEED_KEY);
 
 export const TodoHook = () => {
   const { t } = useLanguage();
@@ -34,18 +51,7 @@ export const TodoHook = () => {
 
   const todosInfiniteQuery = createInfiniteQuery(() => ({
     queryKey: [TODOS_KEY],
-    queryFn: async ({ pageParam }) => {
-      const res = await rpc.api.todo.get({
-        $query: { cursor: pageParam },
-      });
-
-      if (res.error) {
-        handleError(res.error, t);
-        return [];
-      }
-
-      return res.data!;
-    },
+    queryFn: async ({ pageParam }) => serverFnTodos({ cursor: pageParam }),
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
       const lastItem = lastPage[lastPage.length - 1];
@@ -53,15 +59,10 @@ export const TodoHook = () => {
         ? new Date(lastItem.createdAt).toISOString()
         : null;
     },
-    enabled: false,
   }));
 
-  onMount(() => {
-    todosInfiniteQuery.refetch();
-  });
-
   const todoAdd = createMutation(() => ({
-    mutationFn: async () => handleEden(await rpc.api.todo.post(todo))!,
+    mutationFn: async () => serverFnTodoAdd(todo),
     onSuccess: (newTodo) => {
       setTodo(Create(todoInsertSchema));
       queryClient.setQueryData(
@@ -96,13 +97,27 @@ export const TodoHook = () => {
           // Remove any empty pages
           const filteredPages = newPages.filter((page) => page.length > 0);
 
-          return {
+          const result = {
             pages: filteredPages,
             pageParams: oldData.pageParams.slice(0, filteredPages.length),
           };
+
+          return result;
         },
       );
       toast.error(t("TODO.INFO.TODO_DELETED"));
+    },
+    onError: (e) => handleError(e, t),
+  }));
+
+  const todoSeed = createMutation(() => ({
+    mutationFn: async () => serverFnTodoSeed(),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [TODOS_KEY],
+      });
+      todosInfiniteQuery.refetch();
+      toast.success(t("TODO.SUCCESS.TODO_SEED"));
     },
     onError: (e) => handleError(e, t),
   }));
@@ -113,5 +128,6 @@ export const TodoHook = () => {
     todoDelete,
     todo,
     setTodo,
+    todoSeed,
   };
 };

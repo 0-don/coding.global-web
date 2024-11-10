@@ -12,6 +12,11 @@
 	},
 	"HOME": {
 		"BY": "by",
+		"META": {
+			"DESCRIPTION": "Join our international coding community for programming help and discussions. Features support for multiple languages including JavaScript, Python, Java, C++, and more or visit us on disboard https://disboard.org/server/693908458986143824",
+			"KEYWORDS": "programming, coding, software development, JavaScript, Python, Java, C++",
+			"TITLE": "Coding Community - Join Our Developer Network"
+		},
 		"OFFICIAL": "Official",
 		"OFFICIAL_CODING_DISCORD_WEBSITE": "Official Coding Discord Website",
 		"SEE_REPOSITORY": "See the repository",
@@ -91,8 +96,10 @@
 		"INFO": {
 			"TODO_DELETED": "Todo deleted successfully"
 		},
+		"SEED": "Seed",
 		"SUCCESS": {
-			"TODO_ADD": "Todo added successfully"
+			"TODO_ADD": "Todo added successfully",
+			"TODO_SEED": "Todos were seeded successfully"
 		},
 		"TITLE": "Todo"
 	}

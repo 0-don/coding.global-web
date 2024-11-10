@@ -32,10 +32,18 @@ export function useLanguage() {
 function getServerLanguageCookie() {
   "use server";
   const cookieValue = getCookie(clientEnv.LANGUAGE_KEY);
+  const locale = cookieValue || baseLocale;
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 30);
 
-  return cookieValue
-    ? `${clientEnv.LANGUAGE_KEY}=${cookieValue}`
-    : `${clientEnv.LANGUAGE_KEY}=${baseLocale}`;
+  return [
+    `${clientEnv.LANGUAGE_KEY}=${locale}`,
+    "path=/",
+    `expires=${expires.toUTCString()}`,
+    !import.meta.env.DEV && "secure",
+  ]
+    .filter(Boolean)
+    .join("; ");
 }
 
 export default function LanguageProvider(props: { children: JSX.Element }) {

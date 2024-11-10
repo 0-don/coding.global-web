@@ -6,7 +6,7 @@
     "strict": true,
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "jsxImportSource": "solid-js",
     "jsx": "preserve",
     "types": ["vite/client", "@solidjs/start/env"],

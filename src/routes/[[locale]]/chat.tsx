@@ -1,10 +1,10 @@
 import { RouteDefinition } from "@solidjs/router";
 import { Header } from "~/components/container/header";
+import { Layout } from "~/components/container/layout";
 import { serverFnComments } from "~/components/hook/chat-hook";
 import { ChatMessages } from "~/components/pages/chat/chat-messages";
 import CreateMessage from "~/components/pages/chat/create-message";
 import { Card } from "~/components/ui/card";
-import { Layout } from "../components/container/layout";
 
 export const route = {
   preload: () => serverFnComments(),

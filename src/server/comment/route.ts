@@ -1,4 +1,4 @@
-import { and, eq, getTableColumns } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import Elysia, { t } from "elysia";
 import { db } from "~/lib/db";
 import { comment } from "~/lib/schema";
@@ -12,14 +12,22 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
     "",
     async ({ query }) => {
       const { email, ...user } = getTableColumns(users);
+
       const comments = await db
         .select({ ...getTableColumns(comment), user })
         .from(comment)
-        .leftJoin(users, eq(comment.userId, users.id));
+        .leftJoin(users, eq(comment.userId, users.id))
+        .where(
+          query.cursor
+            ? gt(comment.createdAt, new Date(query.cursor))
+            : undefined,
+        )
+        .orderBy(desc(comment.createdAt))
+        .limit(query.limit || pageable.properties.limit.default);
 
-      return comments;
+      return comments.reverse();
     },
-    // { query: t.Optional(pageable) },
+    { query: t.Optional(pageable) },
   )
   .guard({ beforeHandle: [authUserGuard] }, (app) =>
     app

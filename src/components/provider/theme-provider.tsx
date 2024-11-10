@@ -12,15 +12,27 @@ interface ThemeProviderProps {
   children: JSX.Element;
 }
 
-function getServerCookies() {
+function getServerColorCookie() {
   "use server";
   const colorMode = getCookie(COLOR_MODE_STORAGE_KEY);
-  return colorMode ? `${COLOR_MODE_STORAGE_KEY}=${colorMode}` : "";
+  if (!colorMode) return "";
+
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 30);
+
+  return [
+    `${COLOR_MODE_STORAGE_KEY}=${colorMode}`,
+    "path=/",
+    `expires=${expires.toUTCString()}`,
+    !import.meta.env.DEV && "secure",
+  ]
+    .filter(Boolean)
+    .join("; ");
 }
 
 export const ThemeProvider: Component<ThemeProviderProps> = (props) => {
   const storageManager = cookieStorageManagerSSR(
-    isServer ? getServerCookies() : document.cookie,
+    isServer ? getServerColorCookie() : document.cookie,
   );
 
   return (
