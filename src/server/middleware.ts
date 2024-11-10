@@ -34,11 +34,12 @@ export default createMiddleware({
 
       // Only set cookie if we have a new locale that's different from current
       if (newLocale && newLocale !== currentLocale) {
-        console.log("Setting language cookie to", event.request.url, newLocale);
+        const expirationDate = new Date();
+        expirationDate.setFullYear(expirationDate.getFullYear() + 1);
         setCookie(clientEnv.LANGUAGE_KEY, newLocale, {
           path: "/",
           secure: process.env.NODE_ENV === "production",
-          maxAge: 60 * 60 * 24 * 30, // 30 days
+          expires: expirationDate,
         });
       }
     },

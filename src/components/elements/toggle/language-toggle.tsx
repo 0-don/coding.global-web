@@ -38,9 +38,9 @@ export default function LanguageToggle() {
                 setLanguageCookie(loc);
                 setLocale(loc);
               }}
-              class="space-x-2"
+              class="gap-2"
             >
-              <span>{localeFlags[loc]}</span>{" "}
+              <span>{localeFlags[loc]}</span>
               <span>
                 {t(`MAIN.ENUM.${loc.toUpperCase() as Uppercase<Locale>}`)}
               </span>

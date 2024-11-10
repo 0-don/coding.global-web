@@ -1,5 +1,5 @@
 import { RouteSectionProps } from "@solidjs/router";
-import { MetaHead } from "~/components/meta-head";
+import { MetaHead } from "~/components/elements/meta-head";
 import { useLanguage } from "~/components/provider/language-provider";
 
 export default function (props: RouteSectionProps) {
