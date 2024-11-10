@@ -2,10 +2,10 @@ import { createAsync, query, RouteDefinition } from "@solidjs/router";
 import { FaSolidSeedling } from "solid-icons/fa";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
-import DataTableDemo from "~/components/elements/data-table/data-table-demo";
 import { Task, tasks } from "~/components/elements/data-table/tasks";
 import { MetaHead } from "~/components/elements/meta-head";
 import { serverFnTodos, TodoHook } from "~/components/hook/todo-hook";
+import Todo from "~/components/pages/todo/todo";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
@@ -39,8 +39,8 @@ export default function TodoPage() {
               {t("TODO.SEED")}
             </Button>
           </Header>
-          <DataTableDemo />
-          {/* <Todo /> */}
+          {/* <DataTableDemo /> */}
+          <Todo />
         </Card>
       </Layout>
     </>
