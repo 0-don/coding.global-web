@@ -14,6 +14,7 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
   .get(
     "",
     async ({ query }) => {
+
       const result = await db
         .select()
         .from(todo)
@@ -21,7 +22,7 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
           query.cursor ? lt(todo.createdAt, new Date(query.cursor)) : undefined,
         )
         .orderBy(desc(todo.createdAt))
-        .limit(query.limit || pageable.properties.limit.default);
+        .limit(query.limit || pageable.properties.limit.anyOf[0].default);
 
       return result;
     },
