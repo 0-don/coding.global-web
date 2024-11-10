@@ -7,6 +7,7 @@ import {
   todoDeleteSchema,
   todoInsertSchema,
   todoInsertSeedSchema,
+  TodoStatus,
 } from "~/lib/schema/todo";
 import { pageable } from "~/lib/typebox/pageable";
 
@@ -14,7 +15,6 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
   .get(
     "",
     async ({ query }) => {
-
       const result = await db
         .select()
         .from(todo)
@@ -54,6 +54,9 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
       { length: 500 },
       (_, i) => ({
         task: `Task ${i}`,
+        status: ["DONE", "ACTIVE", "PENDING"][
+          Math.floor(Math.random() * 3)
+        ] as TodoStatus,
         createdAt: getRandomDate(),
       }),
     );
