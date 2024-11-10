@@ -19,7 +19,7 @@ export function parseCookie(cookie: string, key: string): string | undefined {
 export function setLanguageCookie(lang: Locale) {
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/`;
+  document.cookie = `${clientEnv.LANGUAGE_KEY}=${lang};expires=${expiryDate.toUTCString()};path=/${import.meta.env.DEV ? ";Secure" : ""}`;
 }
 
 export function handleEden<T>(
