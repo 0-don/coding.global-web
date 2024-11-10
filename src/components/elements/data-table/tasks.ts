@@ -22,5 +22,11 @@ export const tasks: Task[] = [
     status: "in-progress",
     label: "feature",
   },
-  // ...
+  {
+    id: "ptL0KpX_yRMI98JF1r6B3n",
+    code: "TASK-33",
+    title: "We need to bypass the redundant AI interface!",
+    status: "todo",
+    label: "bug",
+  },
 ];
