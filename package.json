@@ -12,7 +12,7 @@
     "openapi": "orval --config ./orval.config.ts"
   },
   "dependencies": {
-    "@auth/core": "^0.35.0",
+    "@auth/core": "^0.37.3",
     "@auth/drizzle-adapter": "^1.7.3",
     "@elysiajs/eden": "^1.1.3",
     "@fontsource-variable/exo-2": "^5.1.0",
@@ -60,7 +60,7 @@
     "eslint-plugin-tailwindcss": "^3.17.5",
     "orval": "^7.2.0",
     "postcss": "^8.4.47",
-    "prettier": "^^3.3.3",
+    "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "0.6.8",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"
