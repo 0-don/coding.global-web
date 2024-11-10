@@ -39,7 +39,7 @@ export default function TeamPage() {
         keywords={t("TEAM.META.KEYWORDS")}
       />
 
-      <Layout container class="mt-10">
+      <Layout container class="mt-5">
         <Header name="TEAM.TITLE" className="mb-5" />
 
         <QueryBoundary query={staffMembersQuery}>
