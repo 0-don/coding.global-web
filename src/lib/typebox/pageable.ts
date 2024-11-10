@@ -14,7 +14,7 @@ const TString = t
 
 export const pageable = t.Object({
   cursor: t.Optional(t.Nullable(TString)),
-  limit: t.Optional(t.Nullable(t.Numeric({ default: 30 }))),
+  limit: t.Optional(t.Nullable(t.Numeric({ default: 20 }))),
 });
 
 export type Pageable = Static<typeof pageable>;

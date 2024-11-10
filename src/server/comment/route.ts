@@ -23,7 +23,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
             : undefined,
         )
         .orderBy(desc(comment.createdAt))
-        .limit(query.limit || pageable.properties.limit.default);
+        .limit(query.limit || pageable.properties.limit.anyOf[0].default);
 
       return comments.reverse();
     },
