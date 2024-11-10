@@ -1,7 +1,10 @@
-import { RouteDefinition } from "@solidjs/router";
+import { createAsync, query, RouteDefinition } from "@solidjs/router";
 import { FaSolidSeedling } from "solid-icons/fa";
 import { Header } from "~/components/container/header";
 import { Layout } from "~/components/container/layout";
+import { columns } from "~/components/elements/data-table/columns";
+import { DataTable } from "~/components/elements/data-table/data-table";
+import { Task, tasks } from "~/components/elements/data-table/tasks";
 import { MetaHead } from "~/components/elements/meta-head";
 import { serverFnTodos, TodoHook } from "~/components/hook/todo-hook";
 import { useLanguage } from "~/components/provider/language-provider";
@@ -9,13 +12,19 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import Todo from "../../components/pages/todo/todo";
 
+const getData = query(async (): Promise<Task[]> => {
+  // Fetch data from your API here.
+  return tasks;
+}, "data");
+
 export const route = {
-  preload: () => serverFnTodos({ cursor: null }),
+  preload: () => [serverFnTodos({ cursor: null }), getData()],
 } satisfies RouteDefinition;
 
 export default function TodoPage() {
   const { t } = useLanguage();
   const { todoSeed } = TodoHook();
+  const data = createAsync(() => getData());
 
   return (
     <>
@@ -32,7 +41,8 @@ export default function TodoPage() {
               {t("TODO.SEED")}
             </Button>
           </Header>
-          <Todo />
+          <DataTable columns={columns} data={data} />
+          {/* <Todo /> */}
         </Card>
       </Layout>
     </>
