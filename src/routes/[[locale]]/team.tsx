@@ -34,9 +34,9 @@ export default function TeamPage() {
   return (
     <>
       <MetaHead
-        title={t("RULES.META.TITLE")!}
-        description={t("RULES.META.DESCRIPTION")!}
-        keywords={t("RULES.META.KEYWORDS")}
+        title={t("TEAM.META.TITLE")!}
+        description={t("TEAM.META.DESCRIPTION")!}
+        keywords={t("TEAM.META.KEYWORDS")}
       />
 
       <Layout container class="mt-10">
