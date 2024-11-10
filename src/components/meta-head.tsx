@@ -14,6 +14,9 @@ interface MetaHeadProps {
 }
 
 export function MetaHead(props: MetaHeadProps) {
+  // Default logo path
+  const defaultLogoPath = "/images/logo_512.gif";
+
   return (
     <>
       {/* Basic Meta Tags */}
@@ -21,30 +24,53 @@ export function MetaHead(props: MetaHeadProps) {
       <Meta name="description" content={props.description} />
       {props.keywords && <Meta name="keywords" content={props.keywords} />}
 
+      {/* Favicon */}
+      <Link rel="icon" href="/favicon.ico" />
+
+      {/* Logo/Image related meta tags */}
+      <Link
+        rel="image_src"
+        href={`${clientEnv.HOST_URL}${props.ogImage || defaultLogoPath}`}
+      />
+
       {/* Open Graph Tags */}
       <Meta property="og:title" content={props.ogTitle || props.title} />
       <Meta
         property="og:description"
         content={props.ogDescription || props.description}
       />
-      {props.ogImage && <Meta property="og:image" content={props.ogImage} />}
+      <Meta
+        property="og:image"
+        content={`${clientEnv.HOST_URL}${props.ogImage || defaultLogoPath}`}
+      />
+      <Meta property="og:image:type" content="image/gif" />
       <Meta property="og:type" content="website" />
+      <Meta property="og:url" content={clientEnv.HOST_URL} />
 
       {/* Twitter Card Tags */}
-      <Meta name="twitter:card" content="summary" />
+      <Meta name="twitter:card" content="summary_large_image" />
       <Meta name="twitter:title" content={props.ogTitle || props.title} />
       <Meta
         name="twitter:description"
         content={props.ogDescription || props.description}
       />
+      <Meta
+        name="twitter:image"
+        content={`${clientEnv.HOST_URL}${props.ogImage || defaultLogoPath}`}
+      />
 
       {/* Canonical URL */}
-      {props.canonical && <Link rel="canonical" href={clientEnv.HOST_URL} />}
+      {props.canonical && (
+        <Link
+          rel="canonical"
+          href={`${clientEnv.HOST_URL}${props.canonical}`}
+        />
+      )}
 
-      {/* Additional Meta Tags */}
+      {/* Viewport */}
       <Meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      {/* Allow passing additional meta tags */}
+      {/* Additional Meta Tags */}
       {props.children}
     </>
   );
