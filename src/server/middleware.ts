@@ -11,9 +11,15 @@ export default createMiddleware({
     authMiddleware(true, authOptions),
     (event) => {
       const url = new URL(event.request.url);
+
+      if (url.pathname.includes("/api")) return;
+
       const pathSegments = url.pathname.split("/").filter(Boolean);
       const potentialLocale = pathSegments[0] as Locale;
-      const currentLocale = getCookie(clientEnv.LANGUAGE_KEY) as Locale;
+      const currentLocale = getCookie(
+        event.nativeEvent,
+        clientEnv.LANGUAGE_KEY,
+      ) as Locale;
 
       let newLocale: Locale | undefined;
 
@@ -28,6 +34,7 @@ export default createMiddleware({
 
       // Only set cookie if we have a new locale that's different from current
       if (newLocale && newLocale !== currentLocale) {
+        console.log("Setting language cookie to", event.request.url, newLocale);
         setCookie(clientEnv.LANGUAGE_KEY, newLocale, {
           path: "/",
           secure: process.env.NODE_ENV === "production",
