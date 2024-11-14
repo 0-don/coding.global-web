@@ -18,7 +18,7 @@
     "@fontsource-variable/exo-2": "^5.1.0",
     "@fontsource/raleway": "^5.1.0",
     "@kobalte/core": "^0.13.7",
-    "@solid-mediakit/auth": "^3.1.0",
+    "@solid-mediakit/auth": "^3.1.1",
     "@solid-mediakit/auth-plugin": "^1.2.0",
     "@solid-primitives/i18n": "^2.1.1",
     "@solidjs/meta": "^0.29.4",
@@ -30,10 +30,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
-    "drizzle-kit": "^0.28.0",
-    "drizzle-orm": "^0.36.1",
+    "drizzle-kit": "^0.28.1",
+    "drizzle-orm": "^0.36.2",
     "drizzle-typebox": "0.1.1",
-    "elysia": "^1.1.24",
+    "elysia": "^1.1.25",
     "postgres": "^3.4.5",
     "sharp": "^0.33.5",
     "solid-icons": "^1.1.0",
@@ -45,7 +45,7 @@
     "vinxi": "^0.4.3"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.22.2",
+    "@dotenvx/dotenvx": "^1.23.0",
     "@tanstack/eslint-plugin-query": "^5.60.1",
     "@tanstack/solid-query-devtools": "^5.59.20",
     "@types/bun": "^1.1.13",
@@ -62,7 +62,7 @@
     "postcss": "^8.4.49",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "0.6.8",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3"
   }
 }
