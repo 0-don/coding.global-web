@@ -31,7 +31,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "drizzle-kit": "^0.28.1",
-    "drizzle-orm": "^0.36.2",
+    "drizzle-orm": "^0.36.3",
     "drizzle-typebox": "0.1.1",
     "elysia": "^1.1.25",
     "postgres": "^3.4.5",
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.23.0",
     "@tanstack/eslint-plugin-query": "^5.60.1",
-    "@tanstack/solid-query-devtools": "^5.59.20",
+    "@tanstack/solid-query-devtools": "^5.60.4",
     "@types/bun": "^1.1.13",
     "@typescript-eslint/eslint-plugin": "^8.14.0",
     "@typescript-eslint/parser": "^8.14.0",
