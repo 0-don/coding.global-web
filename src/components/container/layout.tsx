@@ -28,7 +28,7 @@ export const Layout: Component<LayoutProps> = (props) => {
       </div>
       <div class="fixed inset-0 -z-10">
         <img
-          src="/images/Banner Discord Coding_1.gif"
+          src="/images/Banner Discord Coding.gif"
           class="img-fade h-screen w-screen object-cover object-top opacity-20"
         />
       </div>
