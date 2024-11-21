@@ -1,9 +1,9 @@
 import { Component, JSX, Show } from "solid-js";
+import { cn } from "~/lib/utils";
 import { ConsoleToggle } from "../elements/toggle/console-toggle";
 import LanguageToggle from "../elements/toggle/language-toggle";
 import { LogoutToggle } from "../elements/toggle/logout.-toggle";
 import { ThemeToggle } from "../elements/toggle/theme-toggle";
-import { cn } from "~/lib/utils";
 
 interface LayoutProps {
   class?: string;
@@ -28,7 +28,7 @@ export const Layout: Component<LayoutProps> = (props) => {
       </div>
       <div class="fixed inset-0 -z-10">
         <img
-          src="/images/banner.webp"
+          src="/images/Banner Discord Coding_1.gif"
           class="img-fade h-screen w-screen object-cover object-top opacity-20"
         />
       </div>
