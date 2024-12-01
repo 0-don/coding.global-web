@@ -45,9 +45,9 @@
     "vinxi": "^0.4.3"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.25.1",
-    "@tanstack/eslint-plugin-query": "^5.61.4",
-    "@tanstack/solid-query-devtools": "^5.61.5",
+    "@dotenvx/dotenvx": "^1.26.0",
+    "@tanstack/eslint-plugin-query": "^5.61.6",
+    "@tanstack/solid-query-devtools": "^5.62.0",
     "@types/bun": "^1.1.14",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@typescript-eslint/parser": "^8.16.0",
