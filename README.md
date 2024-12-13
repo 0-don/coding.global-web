@@ -1,4 +1,4 @@
-# Coding Global Web!
+# Coding Global Web
 
 ## Project Description
 Coding Global Web is a web application built using SolidJS, Elysia, and Drizzle ORM. It provides a platform for users to interact, share information, and collaborate on various projects. The application includes features such as user authentication, real-time chat, and task management.
