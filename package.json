@@ -45,10 +45,10 @@
     "vinxi": "^0.5.1"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.32.0",
+    "@dotenvx/dotenvx": "^1.32.1",
     "@tanstack/eslint-plugin-query": "^5.62.16",
     "@tanstack/solid-query-devtools": "^5.62.16",
-    "@types/bun": "^1.1.15",
+    "@types/bun": "^1.1.16",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
     "autoprefixer": "^10.4.20",
@@ -58,11 +58,11 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-solid": "^0.14.5",
     "eslint-plugin-tailwindcss": "^3.17.5",
-    "orval": "^7.4.0",
+    "orval": "^7.4.1",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "0.6.9",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }
