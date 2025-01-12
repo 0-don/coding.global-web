@@ -47,7 +47,7 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.32.1",
     "@tanstack/eslint-plugin-query": "^5.62.16",
-    "@tanstack/solid-query-devtools": "^5.62.16",
+    "@tanstack/solid-query-devtools": "^5.64.0",
     "@types/bun": "^1.1.16",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
