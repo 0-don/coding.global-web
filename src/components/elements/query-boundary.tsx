@@ -28,7 +28,7 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
             })
           ) : (
             <>
-              <Badge variant="destructive" class="!block">
+              <Badge variant="destructive" class="block!">
                 {err.message}
               </Badge>
               <Button

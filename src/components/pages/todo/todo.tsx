@@ -59,7 +59,7 @@ export default function Todo() {
               </div>
               <Button
                 variant="destructive"
-                class="flex-shrink-0"
+                class="shrink-0"
                 size="icon"
                 disabled={todoDelete.isPending}
                 onClick={async () => {

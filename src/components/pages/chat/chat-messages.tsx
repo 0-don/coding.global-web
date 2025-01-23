@@ -64,7 +64,7 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
           {(comment) => {
             const username = comment.user?.name || comment.user?.globalName!;
             return (
-              <div class="group my-2 flex w-full space-x-2 rounded-md p-1 hover:bg-zinc-200 hover:dark:bg-stone-900/20">
+              <div class="group my-2 flex w-full space-x-2 rounded-md p-1 hover:bg-zinc-200 dark:hover:bg-stone-900/20">
                 <ImageRoot>
                   <Image
                     src={`data:image/*;base64,${comment.user?.image}`}
