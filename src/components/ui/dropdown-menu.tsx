@@ -48,7 +48,7 @@ export const DropdownMenuContent = <T extends ValidComponent = "div">(
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
         class={cn(
-          "min-w-8rem z-50 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-[1.5px] focus-visible:ring-ring data-[expanded]:animate-in data-[closed]:animate-out data-[closed]:fade-out-0 data-[expanded]:fade-in-0 data-[closed]:zoom-out-95 data-[expanded]:zoom-in-95",
+          "min-w-8rem z-50 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md transition-shadow focus-visible:outline-hidden focus-visible:ring-[1.5px] focus-visible:ring-ring data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:zoom-out-95 data-expanded:zoom-in-95",
           local.class,
         )}
         {...rest}
@@ -74,7 +74,7 @@ export const DropdownMenuItem = <T extends ValidComponent = "div">(
   return (
     <DropdownMenuPrimitive.Item
       class={cn(
-        "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
         local.inset && "pl-8",
         local.class,
       )}
@@ -174,7 +174,7 @@ export const DropdownMenuSubTrigger = <T extends ValidComponent = "div">(
   return (
     <DropdownMenuPrimitive.SubTrigger
       class={cn(
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[expanded]:bg-accent",
+        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-hidden focus:bg-accent data-expanded:bg-accent",
         local.class,
       )}
       {...rest}
@@ -217,7 +217,7 @@ export const DropdownMenuSubContent = <T extends ValidComponent = "div">(
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.SubContent
         class={cn(
-          "min-w-8rem z-50 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[expanded]:animate-in data-[closed]:animate-out data-[closed]:fade-out-0 data-[expanded]:fade-in-0 data-[closed]:zoom-out-95 data-[expanded]:zoom-in-95",
+          "min-w-8rem z-50 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:zoom-out-95 data-expanded:zoom-in-95",
           local.class,
         )}
         {...rest}
@@ -244,7 +244,7 @@ export const DropdownMenuCheckboxItem = <T extends ValidComponent = "div">(
   return (
     <DropdownMenuPrimitive.CheckboxItem
       class={cn(
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
         local.class,
       )}
       {...rest}
@@ -288,7 +288,7 @@ export const DropdownMenuRadioItem = <T extends ValidComponent = "div">(
   return (
     <DropdownMenuPrimitive.RadioItem
       class={cn(
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
         local.class,
       )}
       {...rest}

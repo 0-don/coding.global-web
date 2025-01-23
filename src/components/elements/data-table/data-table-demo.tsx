@@ -93,7 +93,7 @@ const TableColumnHeader = <TData, TValue>(
                       : "Not sorted. Click to sort ascending."
                 }
                 variant="ghost"
-                class="-ml-4 h-8 data-[expanded]:bg-accent"
+                class="-ml-4 h-8 data-expanded:bg-accent"
                 {...props}
               >
                 <span>{local.title}</span>
