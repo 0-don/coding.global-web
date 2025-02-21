@@ -45,7 +45,7 @@
     "vinxi": "^0.5.3"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.36.0",
+    "@dotenvx/dotenvx": "^1.37.0",
     "@tailwindcss/postcss": "^4.0.7",
     "@tanstack/eslint-plugin-query": "^5.66.1",
     "@tanstack/solid-query-devtools": "^5.66.4",
