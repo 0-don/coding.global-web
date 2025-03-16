@@ -45,7 +45,7 @@
     "vinxi": "^0.5.3"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.38.5",
+    "@dotenvx/dotenvx": "^1.39.0",
     "@tailwindcss/postcss": "^4.0.14",
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/solid-query-devtools": "^5.68.0",
@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@typescript-eslint/parser": "^8.26.1",
     "eslint": "^8.57.0",
-    "eslint-import-resolver-typescript": "^3.8.7",
+    "eslint-import-resolver-typescript": "^3.9.1",
     "eslint-plugin-drizzle": "^0.2.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-solid": "^0.14.5",
