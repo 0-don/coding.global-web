@@ -31,4 +31,3 @@ We welcome contributions from the community! To contribute to the project, follo
 - **SolidJS**: A declarative JavaScript library for building user interfaces
 - **Elysia**: A lightweight web framework for building fast and scalable applications
 - **Drizzle ORM**: A TypeScript ORM for SQL databases
-.
