@@ -34,9 +34,6 @@ jobs:
           echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> .env
           echo DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }} >> .env
 
-      - name: Docker compose rename override file
-        run: mv docker-compose-prod.yml docker-compose.yml
-
       - name: Reset DB
         run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
 
