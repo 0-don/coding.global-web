@@ -1,6 +1,7 @@
 import { defineConfig } from "@solidjs/start/config";
 import { resolve } from "node:path";
 import { solidStartSiteMapPlugin } from "solid-start-sitemap";
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   ssr: true,
@@ -10,6 +11,7 @@ export default defineConfig({
       alias: { "@": resolve("./src") },
     },
     plugins: [
+      tailwindcss(),
       solidStartSiteMapPlugin({
         hostname: process.env.VITE_HOST_URL,
         replaceRouteParams: {
