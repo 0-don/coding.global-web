@@ -1,6 +1,7 @@
+import { TypeCompiler } from "@sinclair/typebox/compiler";
+import { Type as t } from "@sinclair/typebox/type";
 import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-typebox";
-import { Elysia, t } from "elysia";
 
 export const todoStatusEnum = ["DONE", "ACTIVE", "PENDING"] as const;
 
@@ -28,3 +29,6 @@ export const todoInsertSchema = t.Omit(todoSelectSchema, [
 export const todoInsertSeedSchema = t.Omit(todoSelectSchema, ["id"]);
 export const todoDeleteSchema = t.Pick(todoSelectSchema, ["id"]);
 
+export const todoInsertChecker = TypeCompiler.Compile(todoInsertSchema);
+export const todoInsertSeedChecker = TypeCompiler.Compile(todoInsertSeedSchema);
+export const todoDeleteChecker = TypeCompiler.Compile(todoDeleteSchema);
