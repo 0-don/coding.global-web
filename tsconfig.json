@@ -15,5 +15,6 @@
       "~/*": ["./src/*"],
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", ".output", ".vinxi"]
 }

@@ -1,13 +1,13 @@
-import type { CreateQueryResult } from "@tanstack/solid-query";
 import type { JSX } from "solid-js";
 import { ErrorBoundary, Match, Suspense, Switch } from "solid-js";
 import { useLanguage } from "../provider/language-provider";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Loading } from "./loading";
+import { UseQueryResult } from "@tanstack/solid-query";
 
 export interface QueryBoundaryProps<T = unknown> {
-  query: CreateQueryResult<T, Error>;
+  query: UseQueryResult<T, Error>;
   loadingFallback?: JSX.Element;
   notFoundFallback?: JSX.Element;
   errorFallback?: (err: Error, retry: () => void) => JSX.Element;

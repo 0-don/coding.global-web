@@ -1,9 +1,9 @@
 import { Create } from "@sinclair/typebox/value";
 import { query } from "@solidjs/router";
 import {
-  createInfiniteQuery,
-  createMutation,
   InfiniteData,
+  useInfiniteQuery,
+  useMutation,
   useQueryClient,
 } from "@tanstack/solid-query";
 import { createStore } from "solid-js/store";
@@ -49,7 +49,7 @@ export const TodoHook = () => {
   const queryClient = useQueryClient();
   const [todo, setTodo] = createStore(Create(todoInsertSchema));
 
-  const todosInfiniteQuery = createInfiniteQuery(() => ({
+  const todosInfiniteQuery = useInfiniteQuery(() => ({
     queryKey: [TODOS_KEY],
     queryFn: async ({ pageParam }) => serverFnTodos({ cursor: pageParam }),
     initialPageParam: null as string | undefined | null,
@@ -61,7 +61,7 @@ export const TodoHook = () => {
     },
   }));
 
-  const todoAdd = createMutation(() => ({
+  const todoAdd = useMutation(() => ({
     mutationFn: async () => serverFnTodoAdd(todo),
     onSuccess: (newTodo) => {
       setTodo(Create(todoInsertSchema));
@@ -81,7 +81,7 @@ export const TodoHook = () => {
     onError: (e) => handleError(e, t),
   }));
 
-  const todoDelete = createMutation(() => ({
+  const todoDelete = useMutation(() => ({
     mutationFn: async (id: string) => serverFnTodoDelete(id),
     onSuccess: (id) => {
       queryClient.setQueryData(
@@ -110,7 +110,7 @@ export const TodoHook = () => {
     onError: (e) => handleError(e, t),
   }));
 
-  const todoSeed = createMutation(() => ({
+  const todoSeed = useMutation(() => ({
     mutationFn: async () => serverFnTodoSeed(),
     onSuccess: async () => {
       await queryClient.invalidateQueries({

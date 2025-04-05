@@ -8,7 +8,7 @@ import { TextField, TextFieldRoot } from "~/components/ui/textfield";
 import { todoSchemas } from "~/lib/schema/todo";
 
 export default function Todo() {
-  let parentRef: HTMLDivElement;
+  let parentRef: HTMLDivElement | undefined;
 
   const { locale } = useLanguage();
   const { todo, setTodo, todoAdd, todosInfiniteQuery, todoDelete, todoSeed } =
@@ -47,11 +47,11 @@ export default function Todo() {
       >
         <For each={flattenedTodos()}>
           {(todo) => (
-            <div class="flex w-full items-start justify-between gap-4 rounded-md p-2 transition-all hover:bg-foreground hover:text-secondary">
+            <div class="hover:bg-foreground hover:text-secondary flex w-full items-start justify-between gap-4 rounded-md p-2 transition-all">
               <div class="flex gap-4">
                 <RiBusinessCalendarTodoFill class="mt-px size-5" />
                 <div class="space-y-1">
-                  <p class="break-all text-sm font-medium">{todo.task}</p>
+                  <p class="text-sm font-medium break-all">{todo.task}</p>
                   <p class="text-sm">
                     {new Date(todo.createdAt!).toLocaleString(locale())}
                   </p>

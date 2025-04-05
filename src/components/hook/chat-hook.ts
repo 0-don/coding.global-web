@@ -1,8 +1,8 @@
 import { query } from "@solidjs/router";
 import {
-  createInfiniteQuery,
-  createMutation,
   InfiniteData,
+  useInfiniteQuery,
+  useMutation,
   useQueryClient,
 } from "@tanstack/solid-query";
 import { toast } from "solid-sonner";
@@ -43,7 +43,7 @@ export const ChatHook = () => {
   const { t } = useLanguage();
   const queryClient = useQueryClient();
 
-  const commentsInfiniteQuery = createInfiniteQuery(() => ({
+  const commentsInfiniteQuery = useInfiniteQuery(() => ({
     queryKey: [COMMENTS_KEY],
     queryFn: async ({ pageParam }) =>
       await serverFnComments({ cursor: pageParam, limit: 30 }),
@@ -56,7 +56,7 @@ export const ChatHook = () => {
     },
   }));
 
-  const commentAdd = createMutation(() => ({
+  const commentAdd = useMutation(() => ({
     mutationFn: async (args: typeof commentInsertSchema.static) =>
       serverFnCommentAdd(args),
     onSuccess: (newComment) => {
@@ -76,7 +76,7 @@ export const ChatHook = () => {
     onError: (e) => handleError(e, t),
   }));
 
-  const commentDelete = createMutation(() => ({
+  const commentDelete = useMutation(() => ({
     mutationFn: async (id: string) => serverFnCommentDelete(id),
     onSuccess: (c) => {
       queryClient.setQueryData<Comments[]>(
