@@ -5,7 +5,8 @@ import { TodoHook } from "~/components/hook/todo-hook";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
 import { TextField, TextFieldRoot } from "~/components/ui/textfield";
-import { todoSchemas } from "~/lib/schema/todo";
+import { todoInsertChecker } from "~/lib/schema/todo";
+import { safeParse } from "~/utils/base";
 
 export default function Todo() {
   let parentRef: HTMLDivElement | undefined;
@@ -34,7 +35,7 @@ export default function Todo() {
 
   const onSubmit = (e: SubmitEvent) => {
     e.preventDefault();
-    if (!todoAdd.isPending && todoSchemas.insert.safeParse(todo).success)
+    if (!todoAdd.isPending && safeParse(todoInsertChecker, todo).success)
       todoAdd.mutate();
   };
 
@@ -84,7 +85,7 @@ export default function Todo() {
         </TextFieldRoot>
         <Button
           disabled={
-            todoAdd.isPending || !todoSchemas.insert.safeParse(todo).success
+            todoAdd.isPending || !safeParse(todoInsertChecker, todo).success
           }
           onClick={() => todoAdd.mutate()}
         >
