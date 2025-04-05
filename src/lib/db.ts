@@ -11,7 +11,7 @@ const connection = postgres(serverEnv.DATABASE_URL, { onnotice: () => {} });
 
 const options: DrizzleConfig<typeof schema> = {
   schema,
-  logger: import.meta.env.DEV,
+  logger: !!import.meta.env.DEV,
 };
 
 export const db = drizzlePostgres(connection, options);

@@ -1,4 +1,4 @@
-import { Static, t } from "elysia";
+import { Static, Type as t } from "@sinclair/typebox";
 
 const TString = t
   .Transform(t.String())

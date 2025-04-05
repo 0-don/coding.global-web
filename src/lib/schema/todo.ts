@@ -28,8 +28,3 @@ export const todoInsertSchema = t.Omit(todoSelectSchema, [
 export const todoInsertSeedSchema = t.Omit(todoSelectSchema, ["id"]);
 export const todoDeleteSchema = t.Pick(todoSelectSchema, ["id"]);
 
-export const { models: todoSchemas } = new Elysia().model({
-  select: todoSelectSchema,
-  insert: todoInsertSchema,
-  delete: todoDeleteSchema,
-});

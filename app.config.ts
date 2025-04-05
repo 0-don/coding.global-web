@@ -1,7 +1,8 @@
 import { defineConfig } from "@solidjs/start/config";
+import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "node:path";
 import { solidStartSiteMapPlugin } from "solid-start-sitemap";
-import tailwindcss from '@tailwindcss/vite'
+import checker from "vite-plugin-checker";
 
 export default defineConfig({
   ssr: true,
@@ -11,6 +12,13 @@ export default defineConfig({
       alias: { "@": resolve("./src") },
     },
     plugins: [
+      // checker({
+      //   typescript: {
+      //     tsconfigPath: "./tsconfig.json",
+      //     buildMode: true,
+          
+      //   },
+      // }),
       tailwindcss(),
       solidStartSiteMapPlugin({
         hostname: process.env.VITE_HOST_URL,
