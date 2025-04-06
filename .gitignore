@@ -30,6 +30,6 @@ yarn.lock
 package-lock.json
 pnpm-lock.yaml
 yarn-error.log
-bun.lockb
+bun.lock*
 
 app.config.timestamp_*.js

@@ -1,12 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin 'tailwindcss-animate';
+
 @plugin '@kobalte/tailwindcss';
 
 @custom-variant dark (.dark &,[data-kb-theme="dark"] &);
 
 @layer base {
   :root {
+    --color-discord: #5865f2;
     --color-background: hsl(0 0% 100%);
     --color-foreground: hsl(240 10% 3.9%);
 
@@ -51,6 +52,7 @@
 
   .dark,
   [data-kb-theme="dark"] {
+    --color-discord: #5865f2;
     --color-background: hsl(240 10% 3.9%);
     --color-foreground: hsl(0 0% 98%);
 
