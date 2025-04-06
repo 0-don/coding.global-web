@@ -77,7 +77,7 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
                 <div class="relative w-full">
                   <div class="flex cursor-default items-center space-x-2">
                     <p class="font-bold">{comment.user?.name}</p>
-                    <p class="text-sm text-muted-foreground">
+                    <p class="text-muted-foreground text-sm">
                       {new Date(comment.createdAt!).toLocaleString(locale())}
                     </p>
                   </div>
@@ -85,7 +85,7 @@ export const ChatMessages: Component<ChatMessagesProps> = (props) => {
                     <p class="break-all">{comment?.content}</p>
                     <Show when={comment?.user?.id === auth.session()?.user?.id}>
                       <TbTrashXFilled
-                        class="absolute right-1 top-1 hidden cursor-pointer hover:text-red-500 group-hover:block"
+                        class="absolute top-1 right-1 hidden cursor-pointer group-hover:block hover:text-red-500"
                         onClick={() => commentDelete.mutateAsync(comment.id)}
                       />
                     </Show>

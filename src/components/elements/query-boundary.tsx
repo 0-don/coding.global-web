@@ -1,10 +1,10 @@
+import { UseQueryResult } from "@tanstack/solid-query";
 import type { JSX } from "solid-js";
 import { ErrorBoundary, Match, Suspense, Switch } from "solid-js";
 import { useLanguage } from "../provider/language-provider";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Loading } from "./loading";
-import { UseQueryResult } from "@tanstack/solid-query";
 
 export interface QueryBoundaryProps<T = unknown> {
   query: UseQueryResult<T, Error>;
@@ -28,7 +28,7 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
             })
           ) : (
             <>
-              <Badge variant="destructive" class="block!">
+              <Badge variant="error" class="block!">
                 {err.message}
               </Badge>
               <Button
@@ -51,9 +51,7 @@ export function QueryBoundary<T>(props: QueryBoundaryProps<T>) {
               })
             ) : (
               <>
-                <Badge variant="destructive">
-                  {props.query.error?.message}
-                </Badge>
+                <Badge variant="error">{props.query.error?.message}</Badge>
                 <Button onClick={() => props.query.refetch()}>
                   {t("MAIN.BUTTON.RETRY")}
                 </Button>

@@ -4,7 +4,7 @@ import { For } from "solid-js";
 import { TodoHook } from "~/components/hook/todo-hook";
 import { useLanguage } from "~/components/provider/language-provider";
 import { Button } from "~/components/ui/button";
-import { TextField, TextFieldRoot } from "~/components/ui/textfield";
+import { TextField, TextFieldInput } from "~/components/ui/text-field";
 import { todoInsertChecker } from "~/lib/schema/todo";
 import { safeParse } from "~/utils/base";
 
@@ -75,14 +75,14 @@ export default function Todo() {
       </div>
 
       <form onSubmit={onSubmit} class={"flex justify-center gap-4"}>
-        <TextFieldRoot class="w-full" validationState="invalid">
-          <TextField
+        <TextField class="w-full" validationState="invalid">
+          <TextFieldInput
             class="bg-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-zinc-700"
             type={"text"}
             value={todo.task}
             onInput={(e) => setTodo({ task: e.currentTarget.value })}
           />
-        </TextFieldRoot>
+        </TextField>
         <Button
           disabled={
             todoAdd.isPending || !safeParse(todoInsertChecker, todo).success
