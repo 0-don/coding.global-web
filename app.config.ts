@@ -1,5 +1,5 @@
 import { defineConfig } from "@solidjs/start/config";
-import tailwindcss from "@tailwindcss/vite";
+// import tailwindcss from "@tailwindcss/vite";
 import { solidStartSiteMapPlugin } from "solid-start-sitemap";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -16,7 +16,7 @@ export default defineConfig({
       //   },
       // }),
       tsconfigPaths(),
-      tailwindcss(),
+      // tailwindcss(),
       solidStartSiteMapPlugin({
         hostname: process.env.VITE_HOST_URL,
         replaceRouteParams: {

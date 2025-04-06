@@ -50,6 +50,7 @@
     "@tanstack/solid-query-devtools": "^5.71.10",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^4.3.1",
     "eslint-plugin-drizzle": "^0.2.3",
@@ -57,8 +58,10 @@
     "eslint-plugin-solid": "^0.14.5",
     "eslint-plugin-tailwindcss": "^3.18.0",
     "orval": "^7.8.0",
+    "postcss": "^8.4.49",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.8.3",
     "vite-plugin-checker": "^0.9.1",
     "vite-tsconfig-paths": "^5.1.4"
