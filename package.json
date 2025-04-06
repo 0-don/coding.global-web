@@ -27,6 +27,8 @@
     "@tanstack/solid-query": "5.71.10",
     "@tanstack/solid-table": "^8.21.2",
     "@tanstack/solid-virtual": "^3.13.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.41.0",
@@ -38,6 +40,8 @@
     "solid-js": "^1.9.5",
     "solid-sonner": "^0.2.8",
     "solid-start-sitemap": "^0.2.2",
+    "tailwind-merge": "^3.1.0",
+    "tailwindcss-animate": "^1.0.7",
     "vinxi": "^0.5.3"
   },
   "devDependencies": {
