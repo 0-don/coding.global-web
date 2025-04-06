@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --color-discord: #5865f2;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
@@ -50,6 +51,7 @@
 
   .dark,
   [data-kb-theme="dark"] {
+    --color-discord: #5865f2;
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -113,7 +115,7 @@
   }
 
   .step:before {
-    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
     @apply ml-[-50px] mt-[-4px];
     content: counter(step);
   }
