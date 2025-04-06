@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.39.1",
+    "@kobalte/tailwindcss": "^0.9.0",
     "@tailwindcss/vite": "^4.1.3",
     "@tanstack/eslint-plugin-query": "^5.71.5",
     "@tanstack/solid-query-devtools": "^5.71.10",
@@ -63,7 +64,9 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.3",
+    "tw-animate-css": "^1.2.5",
     "typescript": "^5.8.3",
-    "vite-plugin-checker": "^0.9.1"
+    "vite-plugin-checker": "^0.9.1",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
