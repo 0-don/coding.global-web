@@ -2,7 +2,10 @@ import { defineConfig } from "orval";
 
 export default defineConfig({
   app: {
-    input: { target: "https://bot.coding.global/swagger/json" },
+    input: {
+      target: "https://bot.coding.global/swagger/json",
+      validation: false,
+    },
     output: {
       target: "./src/lib/openapi.ts",
       client: "fetch",
