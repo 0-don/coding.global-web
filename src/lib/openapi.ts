@@ -1,58 +1,158 @@
 import { getBaseUrl } from "../utils/base";
-export type GetNews200ItemUserGlobalName = string | null;
-
-export type GetNews200ItemUserBannerUrl = string | null | unknown;
-
-export type GetNews200ItemUser = {
-  bannerUrl: GetNews200ItemUserBannerUrl;
-  displayAvatarURL: string;
-  displayHexColor?: string;
-  globalName: GetNews200ItemUserGlobalName;
+export interface User {
   id: string;
-  joinedAt: string;
-  memberRoles: string[];
   username: string;
+  /** @nullable */
+  globalName: string | null;
+  joinedAt: string;
+  displayAvatarURL: string;
+  /** @nullable */
+  bannerUrl: string | null;
+  displayHexColor?: string;
+  memberRoles: string[];
+}
+
+/**
+ * @nullable
+ */
+export type NewsAttachmentWidth = string | null | number | null | null;
+
+/**
+ * @nullable
+ */
+export type NewsAttachmentHeight = string | null | number | null | null;
+
+export interface NewsAttachment {
+  url: string;
+  /** @nullable */
+  width: NewsAttachmentWidth;
+  /** @nullable */
+  height: NewsAttachmentHeight;
+  /** @nullable */
+  contentType: string | null;
+}
+
+/**
+ * @nullable
+ */
+export type NewsAttachmentsItemWidth = string | null | number | null | null;
+
+/**
+ * @nullable
+ */
+export type NewsAttachmentsItemHeight = string | null | number | null | null;
+
+export type NewsAttachmentsItem = {
+  url: string;
+  /** @nullable */
+  width: NewsAttachmentsItemWidth;
+  /** @nullable */
+  height: NewsAttachmentsItemHeight;
+  /** @nullable */
+  contentType: string | null;
 };
 
-export type GetNews200Item = {
-  attachments: GetNews200ItemAttachmentsItem[];
+export type NewsUser = {
+  id: string;
+  username: string;
+  /** @nullable */
+  globalName: string | null;
+  joinedAt: string;
+  displayAvatarURL: string;
+  /** @nullable */
+  bannerUrl: string | null;
+  displayHexColor?: string;
+  memberRoles: string[];
+};
+
+export interface News {
+  id: string;
   content: string;
   createdAt: string;
+  attachments: NewsAttachmentsItem[];
+  user: NewsUser;
+}
+
+export type UsersItem = {
   id: string;
-  user: GetNews200ItemUser;
-};
-
-export type GetNews200ItemAttachmentsItemWidth = number | null;
-
-export type GetNews200ItemAttachmentsItemHeight = number | null;
-
-export type GetNews200ItemAttachmentsItemContentType = string | null;
-
-export type GetNews200ItemAttachmentsItem = {
-  contentType: GetNews200ItemAttachmentsItemContentType;
-  height: GetNews200ItemAttachmentsItemHeight;
-  url: string;
-  width: GetNews200ItemAttachmentsItemWidth;
-};
-
-export type GetStaff200ItemGlobalName = string | null;
-
-export type GetStaff200ItemBannerUrl = string | null | unknown;
-
-export type GetStaff200Item = {
-  bannerUrl: GetStaff200ItemBannerUrl;
-  displayAvatarURL: string;
-  displayHexColor?: string;
-  globalName: GetStaff200ItemGlobalName;
-  id: string;
-  joinedAt: string;
-  memberRoles: string[];
   username: string;
+  /** @nullable */
+  globalName: string | null;
+  joinedAt: string;
+  displayAvatarURL: string;
+  /** @nullable */
+  bannerUrl: string | null;
+  displayHexColor?: string;
+  memberRoles: string[];
 };
 
-export type verifyAllUsersResponse = {
-  data: string;
-  status: number;
+export type Users = UsersItem[];
+
+/**
+ * @nullable
+ */
+export type NewsListItemAttachmentsItemWidth =
+  | string
+  | null
+  | number
+  | null
+  | null;
+
+/**
+ * @nullable
+ */
+export type NewsListItemAttachmentsItemHeight =
+  | string
+  | null
+  | number
+  | null
+  | null;
+
+export type NewsListItemAttachmentsItem = {
+  url: string;
+  /** @nullable */
+  width: NewsListItemAttachmentsItemWidth;
+  /** @nullable */
+  height: NewsListItemAttachmentsItemHeight;
+  /** @nullable */
+  contentType: string | null;
+};
+
+export type NewsListItemUser = {
+  id: string;
+  username: string;
+  /** @nullable */
+  globalName: string | null;
+  joinedAt: string;
+  displayAvatarURL: string;
+  /** @nullable */
+  bannerUrl: string | null;
+  displayHexColor?: string;
+  memberRoles: string[];
+};
+
+export type NewsListItem = {
+  id: string;
+  content: string;
+  createdAt: string;
+  attachments: NewsListItemAttachmentsItem[];
+  user: NewsListItemUser;
+};
+
+export type NewsList = NewsListItem[];
+
+/**
+ * Initiates verification for all users in the specified guild.
+ */
+export type verifyAllUsersResponse200 = {
+  data: void;
+  status: 200;
+};
+
+export type verifyAllUsersResponseComposite = verifyAllUsersResponse200;
+
+export type verifyAllUsersResponse = verifyAllUsersResponseComposite & {
+  headers: Headers;
 };
 
 export const getVerifyAllUsersUrl = (guildId: string) => {
@@ -67,14 +167,29 @@ export const verifyAllUsers = async (
     ...options,
     method: "GET",
   });
-  const data = await res.json();
 
-  return { status: res.status, data };
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  const data: verifyAllUsersResponse["data"] = body ? JSON.parse(body) : {};
+
+  return {
+    data,
+    status: res.status,
+    headers: res.headers,
+  } as verifyAllUsersResponse;
 };
 
-export type getStaffResponse = {
-  data: GetStaff200Item[];
-  status: number;
+/**
+ * Retrieves a list of staff members for the specified guild.
+ */
+export type getStaffResponse200 = {
+  data: void;
+  status: 200;
+};
+
+export type getStaffResponseComposite = getStaffResponse200;
+
+export type getStaffResponse = getStaffResponseComposite & {
+  headers: Headers;
 };
 
 export const getGetStaffUrl = (guildId: string) => {
@@ -89,14 +204,25 @@ export const getStaff = async (
     ...options,
     method: "GET",
   });
-  const data = await res.json();
 
-  return { status: res.status, data };
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  const data: getStaffResponse["data"] = body ? JSON.parse(body) : {};
+
+  return { data, status: res.status, headers: res.headers } as getStaffResponse;
 };
 
-export type getNewsResponse = {
-  data: GetNews200Item[];
-  status: number;
+/**
+ * Retrieves a list of news messages from the guild’s news channel.
+ */
+export type getNewsResponse200 = {
+  data: void;
+  status: 200;
+};
+
+export type getNewsResponseComposite = getNewsResponse200;
+
+export type getNewsResponse = getNewsResponseComposite & {
+  headers: Headers;
 };
 
 export const getGetNewsUrl = (guildId: string) => {
@@ -111,7 +237,9 @@ export const getNews = async (
     ...options,
     method: "GET",
   });
-  const data = await res.json();
 
-  return { status: res.status, data };
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  const data: getNewsResponse["data"] = body ? JSON.parse(body) : {};
+
+  return { data, status: res.status, headers: res.headers } as getNewsResponse;
 };
