@@ -1,12 +1,11 @@
 "use client";
 
-import background from "@/media/banner.gif";
 import Image from "next/image";
 
 export default function Background() {
   return (
     <Image
-      src={background}
+      src={"/banner.gif"}
       alt="Coding Global Background"
       fill
       objectFit="cover"
