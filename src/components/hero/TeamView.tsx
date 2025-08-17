@@ -1,6 +1,6 @@
 "use client";
 
-import { rpc } from "@/app/api/[[...route]]/rpc";
+import { rpc } from "@/lib/rpc";
 import { useEffect, useState } from "react";
 
 type TeamMember = {
