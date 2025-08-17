@@ -1,7 +1,7 @@
-import Background from "@/components/Background";
+import Background from "@/components/background";
 import Footer from "@/components/footer";
-import Hero from "@/components/hero/Hero";
-import Navbar from "@/components/NavBar";
+import Hero from "@/components/hero/hero";
+import Navbar from "@/components/navbar";
 
 export default function Main() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSection } from "../context/SectionContext";
+import { useSection } from "../context/section-context";
 
 export default function Navbar() {
   const { section, setSection } = useSection();

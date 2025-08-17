@@ -1,10 +1,10 @@
 "use client";
 
-import { useSection } from "@/context/SectionContext";
-import HomeView from "./HomeView";
-import NewsView from "./NewsView";
-import RulesView from "./RulesView";
-import TeamView from "./TeamView";
+import { useSection } from "@/context/section-context";
+import HomeView from "./home-view";
+import NewsView from "./news-view";
+import RulesView from "./rules-view";
+import TeamView from "./team-view";
 
 export default function Hero() {
   const { section } = useSection();

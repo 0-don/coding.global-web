@@ -1,7 +1,6 @@
- 
 "use client";
 
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type Section = "home" | "news" | "rules" | "team";
 
@@ -24,6 +23,7 @@ export function SectionProvider({ children }: { children: ReactNode }) {
 
 export function useSection() {
   const context = useContext(SectionContext);
-  if (!context) throw new Error("useSection must be used within SectionProvider");
+  if (!context)
+    throw new Error("useSection must be used within SectionProvider");
   return context;
 }

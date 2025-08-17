@@ -1,6 +1,6 @@
 "use client";
 
-import JoinButton from "../JoinButton";
+import JoinButton from "../join-button";
 
 export default function HomeView() {
   return (
@@ -12,7 +12,7 @@ export default function HomeView() {
           <span className="w-3 h-3 bg-green-500 rounded-full"></span>
         </div>
         <div className="flex items-center space-x-1">
-          <span className="text-green-400">{'>'}</span>
+          <span className="text-green-400">{">"}</span>
           <span className="text-gray-300 ml-1">Welcome to</span>
           <span className="text-red-400 font-bold">Coding Global</span>
         </div>
@@ -20,7 +20,7 @@ export default function HomeView() {
           Waiting for u to join...
         </div>
       </div>
-    
+
       <JoinButton />
     </div>
   );
