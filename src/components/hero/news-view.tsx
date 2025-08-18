@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { rpc } from "@/lib/rpc";
 
 type NewsItem = {
@@ -25,21 +25,17 @@ export default function NewsView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchNews() {
+    const fetchNews = async () => {
       try {
         setLoading(true);
         const response = await rpc.api.news.get();
-
         let data: any[] = [];
 
-        if (Array.isArray(response.data)) {
-          data = response.data;
-        } else if (response.data && typeof response.data === "object") {
+        if (Array.isArray(response.data)) data = response.data;
+        else if (response.data && typeof response.data === "object") {
           data = Array.isArray(response.data.news)
             ? response.data.news
             : [response.data];
-        } else {
-          data = [];
         }
 
         const formattedNews = data
@@ -48,15 +44,11 @@ export default function NewsView() {
             id: item.id,
             content: item.content || "",
             createdAt: item.createdAt || new Date().toISOString(),
-            attachments: Array.isArray(item.attachments)
-              ? item.attachments
-              : [],
+            attachments: Array.isArray(item.attachments) ? item.attachments : [],
             user: {
-              globalName:
-                item.user.globalName || item.user.username || "Unknown",
+              globalName: item.user.globalName || item.user.username || "Unknown",
               username: item.user.username || "",
-              displayAvatarURL:
-                item.user.displayAvatarURL || "/default-avatar.png",
+              displayAvatarURL: item.user.displayAvatarURL || "/default-avatar.png",
             },
           }));
 
@@ -66,7 +58,7 @@ export default function NewsView() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchNews();
   }, []);
@@ -74,9 +66,7 @@ export default function NewsView() {
   const formatTimeAgo = (dateString: string) => {
     const now = new Date();
     const past = new Date(dateString);
-    const diffInMonths =
-      (now.getFullYear() - past.getFullYear()) * 12 +
-      (now.getMonth() - past.getMonth());
+    const diffInMonths = (now.getFullYear() - past.getFullYear()) * 12 + (now.getMonth() - past.getMonth());
 
     if (diffInMonths === 0) return "just now";
     if (diffInMonths === 1) return "a month ago";
@@ -85,101 +75,91 @@ export default function NewsView() {
     return `${Math.floor(diffInMonths / 12)} years ago`;
   };
 
-  const renderContent = (content: string) => {
-    return content
+  const renderContent = (content: string) =>
+    content
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(
-        /<#(\d+)>/g,
-        '<a href="#" class="text-blue-400 hover:underline">$&</a>'
-      )
-      .replace(
-        /<@(\d+)>/g,
-        '<a href="#" class="text-blue-400 hover:underline">$&</a>'
-      )
+      .replace(/<#(\d+)>/g, '<a href="#" class="text-blue-400 hover:underline">$&</a>')
+      .replace(/<@(\d+)>/g, '<a href="#" class="text-blue-400 hover:underline">$&</a>')
       .replace(/\n/g, "<br>");
-  };
+
+  const memoizedNews = useMemo(() => newsItems, [newsItems]);
 
   return (
-    <div className="min-h-screen w-full absolute top-30 left-0 z-10 text-white">
-      <div className="px-4 sm:px-6 pb-8">
-        <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {loading ? (
-            <p className="text-gray-400 col-span-full text-center py-4">
-              
-            </p>
-          ) : newsItems.length > 0 ? (
-            newsItems.map((news) => (
-              <div
-                key={news.id}
-                className="backdrop-blur-2xl border border-red-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col"
-              >
-                {news.attachments.length > 0 && (
-                  <div className="relative h-48 sm:h-56 overflow-hidden">
-                    <img
-                      src={news.attachments[0].url}
-                      alt="News attachment"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "/placeholder-image.jpg";
-                      }}
-                    />
+<div className="min-h-screen w-full lg:top-70 relative z-10 text-white px-4 sm:px-6 py-12">
+  {loading ? (
+    <p className="text-gray-400 text-center py-10">Loading...</p>
+  ) : memoizedNews.length === 0 ? (
+    <p className="text-gray-400 text-center py-10">No news available.</p>
+  ) : (
+    <div className="grid grid-cols-1 sm:grid-cols-1 lg:-m-40 lg:pb-0 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {memoizedNews.map((news) => (
+        <div
+          key={news.id}
+          className="flex flex-col backdrop-blur-2xl border border-red-900 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden min-h-[350px]"
+        >
+          {news.attachments.length > 0 && (
+            <div className="relative h-56 overflow-hidden">
+              <img
+                src={news.attachments[0].url}
+                alt="News attachment"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) =>
+                  ((e.target as HTMLImageElement).src = "/placeholder-image.jpg")
+                }
+              />
+            </div>
+          )}
+
+          <div className="p-6 flex flex-col flex-grow">
+            {news.attachments.length === 0 && (
+              <div className="flex items-center space-x-3 mb-4">
+                <img
+                  src={news.user.displayAvatarURL}
+                  alt={news.user.globalName}
+                  className="w-10 h-10 rounded-full"
+                  loading="lazy"
+                />
+                <div>
+                  <div className="font-semibold text-white text-base">
+                    {news.user.globalName}
                   </div>
-                )}
-
-                <div className="p-4 flex flex-col flex-grow">
-                  {news.attachments.length === 0 && (
-                    <div className="flex items-center space-x-2 mb-3">
-                      <img
-                        src={news.user.displayAvatarURL}
-                        alt={news.user.globalName}
-                        className="w-9 h-9 rounded-full"
-                      />
-                      <div>
-                        <div className="font-semibold text-white text-sm">
-                          {news.user.globalName}
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          {formatTimeAgo(news.createdAt)}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div
-                    className="text-sm text-gray-300 leading-relaxed flex-grow"
-                    dangerouslySetInnerHTML={{
-                      __html: renderContent(news.content),
-                    }}
-                  />
-
-                  {news.attachments.length > 0 && (
-                    <div className="flex items-center space-x-2 mt-4 pt-3 border-t border-gray-700">
-                      <img
-                        src={news.user.displayAvatarURL}
-                        alt={news.user.globalName}
-                        className="w-8 h-8 rounded-full"
-                      />
-                      <div>
-                        <div className="font-semibold text-white text-sm">
-                          {news.user.globalName}
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          {formatTimeAgo(news.createdAt)}
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  <div className="text-sm text-gray-400">
+                    {formatTimeAgo(news.createdAt)}
+                  </div>
                 </div>
               </div>
-            ))
-          ) : (
-            <p className="text-gray-400 col-span-full text-center py-4">
-              No news available.
-            </p>
-          )}
+            )}
+
+            <div
+              className="text-sm md:text-base text-gray-300 leading-relaxed flex-grow break-words"
+              dangerouslySetInnerHTML={{ __html: renderContent(news.content) }}
+            />
+
+            {news.attachments.length > 0 && (
+              <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-700">
+                <img
+                  src={news.user.displayAvatarURL}
+                  alt={news.user.globalName}
+                  className="w-9 h-9 rounded-full"
+                  loading="lazy"
+                />
+                <div>
+                  <div className="font-semibold text-white text-base">
+                    {news.user.globalName}
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    {formatTimeAgo(news.createdAt)}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
+  )}
+</div>
+
   );
 }
