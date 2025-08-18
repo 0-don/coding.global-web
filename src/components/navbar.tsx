@@ -7,7 +7,7 @@ export default function Navbar() {
   const { section, setSection } = useSection();
 
   return (
-    <div className="absolute top-8 left-0 right-0 flex items-center justify-center z-10">
+    <div className="fixed top-2 left-0 right-0 flex items-center justify-center z-20">
       <div className="flex items-center justify-between w-fit gap-7 max-w-6xl px-6 py-3 bg-black bg-opacity-70 backdrop-blur-sm rounded-full border border-red-500 shadow-lg">
         <button
           onClick={() =>

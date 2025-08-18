@@ -46,7 +46,7 @@ export default function TeamView() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full -left-0 absolute  z-10 bg-black text-white">
+    <div className="min-h-screen w-full -left-0 absolute top-30 z-10   text-white">
       {/* Header centrado */}
       <div className="p-6 flex justify-center"></div>
 
@@ -57,7 +57,7 @@ export default function TeamView() {
             teamMembers.map((member) => (
               <div
                 key={member.username}
-                className="bg-gray-900 border border-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="backdrop-blur-2xl border border-red-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
                 {/* Avatar */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">

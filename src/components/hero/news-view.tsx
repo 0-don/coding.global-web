@@ -100,7 +100,7 @@ export default function NewsView() {
   };
 
   return (
-    <div className="min-h-screen w-full absolute left-0 z-10 bg-black text-white">
+    <div className="min-h-screen w-full absolute top-30 left-0 z-10 text-white">
       <div className="px-4 sm:px-6 pb-8">
         <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {loading ? (
@@ -111,7 +111,7 @@ export default function NewsView() {
             newsItems.map((news) => (
               <div
                 key={news.id}
-                className="bg-black-900 border border-red-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col"
+                className="backdrop-blur-2xl border border-red-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col"
               >
                 {news.attachments.length > 0 && (
                   <div className="relative h-48 sm:h-56 overflow-hidden">
