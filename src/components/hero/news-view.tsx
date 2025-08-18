@@ -102,7 +102,7 @@ export default function NewsView() {
   return (
     <div className="min-h-screen w-full absolute top-30 left-0 z-10 text-white">
       <div className="px-4 sm:px-6 pb-8">
-        <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {loading ? (
             <p className="text-gray-400 col-span-full text-center py-4">
               
