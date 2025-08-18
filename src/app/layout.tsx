@@ -15,7 +15,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Coding Global [EN/GER]",
-  description: "Official Coding Global  Website",
+  description: "Official Coding Global Website for Programmers Worldwide",
+  keywords: [
+    "Coding Global",
+    "Discord Community",
+    "Programming",
+    "Developers",
+    "EN",
+    "GER",
+  ],
+  authors: [{ name: "Coding Global", url: "https://coding.global" }],
+  creator: "Coding Global",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/logo.png",
@@ -23,20 +33,29 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Coding Global [EN/GER]",
-    description: "Official Coding Global Website",
-    images: "/banner.gif",
+    description: "Official Coding Global Website for Programmers Worldwide",
     url: "https://coding.global",
     siteName: "Coding Global",
     type: "website",
+    images: [
+      {
+        url: "https://coding.global/banner.png",
+        width: 1200,
+        height: 630,
+        alt: "Coding Global Banner",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Coding Global [EN/GER]",
-    description: "Official Coding  Global Website",
-    images: "/favicon.ico",
+    description: "Official Coding Global Website for Programmers Worldwide",
     site: "@codingglobal",
+    creator: "@codingglobal",
+    images: ["https://coding.global/banner.png"],
   },
 };
+
 export default function RootLayout({
   children,
 }: {
