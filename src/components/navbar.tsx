@@ -20,6 +20,7 @@ export default function Navbar() {
         >
           Disboard
         </button>
+
         <button
           onClick={() => setSection("team")}
           className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
@@ -27,14 +28,13 @@ export default function Navbar() {
           Team
         </button>
 
-        <div className="relative">
+        <div className="relative hidden md:block cursor-pointer" onClick={() => setSection("home")}>
           <Image
             src={"/cgLogo.gif"}
             alt="Logo"
             width={60}
             height={60}
-            onClick={() => setSection("home")}
-            className="rounded-full border-2 border-red-500 cursor-pointer"
+            className="rounded-full border-2 border-red-500"
           />
         </div>
 
