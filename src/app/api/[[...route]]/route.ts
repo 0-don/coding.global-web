@@ -7,7 +7,7 @@ const app = new Elysia({ prefix: "/api" })
   .get("/test", () => "hello")
   .get("/team", async () => {
     try {
-      const response = await fetch(`https://bot.coding.global/api/693908458986143824/staff`);
+      const response = await fetch(`${API_URL}api/${SERVER}/staff`);
 
       if (!response.ok) {
         throw new Error(
@@ -24,7 +24,8 @@ const app = new Elysia({ prefix: "/api" })
   })
   .get("/news", async () => {
     try {
-            const response = await fetch(`https://bot.coding.global/api/693908458986143824/news`);
+                  const response = await fetch(`${API_URL}api/${SERVER}/news`);
+
 
 
       if (!response.ok) {

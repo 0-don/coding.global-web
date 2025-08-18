@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Coding Global [EN/GER]",
-    description: "Official Coding Global  Website",
+    description: "Official Coding Global Website",
     images: "/banner.gif",
     url: "https://coding.global",
     siteName: "Coding Global",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Coding Global [EN/GER]",
     description: "Official Coding  Global Website",
-    images: "/banner.gif",
+    images: "/favicon.ico",
     site: "@codingglobal",
   },
 };
