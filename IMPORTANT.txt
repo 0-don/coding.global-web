@@ -9,3 +9,4 @@ THINGS TO IMPROVE:
 - DESIGN
 - RESPONSIVE DESIGN
    and other details...
+- PERFORMANCE 
