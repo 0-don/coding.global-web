@@ -1,0 +1,11 @@
+THINGS TO BE FIXED:
+
+request in route.ts
+- Idk why but isnt reading ${} so i added the pure url to fetch the data
+https://bot.coding.global/api/693908458986143824/staff
+
+
+THINGS TO IMPROVE:
+- DESIGN
+- RESPONSIVE DESIGN
+   and other details...

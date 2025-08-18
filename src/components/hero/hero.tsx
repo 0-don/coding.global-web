@@ -9,12 +9,14 @@ import TeamView from "./team-view";
 export default function Hero() {
   const { section } = useSection();
 
-  return (
-    <div className="absolute top-1/2 left-1/2 w-full transform -translate-x-1/2 -translate-y-1/2 z-10 text-center px-6 max-w-3xl">
+return (
+  <div className="flex items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 text-center z-10">
+    <div className="w-full max-w-3xl">
       {section === "home" && <HomeView />}
       {section === "news" && <NewsView />}
       {section === "rules" && <RulesView />}
       {section === "team" && <TeamView />}
     </div>
-  );
-}
+  </div>
+)
+};

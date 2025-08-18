@@ -1,12 +1,13 @@
 import { Elysia } from "elysia";
 
-const API_URL = process.env.CODING_API_URL;
+const API_URL = process.env.API_URL;
 const SERVER = process.env.SERVER_ID;
 
 const app = new Elysia({ prefix: "/api" })
+  .get("/test", () => "hello")
   .get("/team", async () => {
     try {
-      const response = await fetch(`${API_URL}api/${SERVER}/staff`);
+      const response = await fetch(`https://bot.coding.global/api/693908458986143824/staff`);
 
       if (!response.ok) {
         throw new Error(
@@ -23,7 +24,8 @@ const app = new Elysia({ prefix: "/api" })
   })
   .get("/news", async () => {
     try {
-      const response = await fetch(`${API_URL}api/${SERVER}/news`);
+            const response = await fetch(`https://bot.coding.global/api/693908458986143824/news`);
+
 
       if (!response.ok) {
         throw new Error(
@@ -38,7 +40,7 @@ const app = new Elysia({ prefix: "/api" })
       return { error: "Unable to fetch data" };
     }
   });
-
+  
 export type App = typeof app;
 
 export const GET = app.handle;
