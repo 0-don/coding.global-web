@@ -1,8 +1,5 @@
 import { Elysia, InternalServerError } from "elysia";
 
-const API_URL = process.env.API_URL;
-const SERVER = process.env.SERVER_ID;
-
 const app = new Elysia({ prefix: "/api" })
   .get("/test", () => "hello")
   .get("/team", async () => {
