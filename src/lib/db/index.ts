@@ -1,6 +1,9 @@
 import { getTableColumns, sql } from "drizzle-orm";
 import { PgTable } from "drizzle-orm/pg-core";
 
+export { comment } from "./comment";
+export { todo, todoStatus } from "./todo";
+
 export function conflictUpdateAllExcept<
   T extends PgTable,
   E extends (keyof T["$inferInsert"])[],
@@ -18,6 +21,3 @@ export function conflictUpdateAllExcept<
     {},
   );
 }
-
-export { comment } from "./comment";
-export { todo, todoStatus } from "./todo";
