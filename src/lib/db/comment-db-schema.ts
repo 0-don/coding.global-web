@@ -2,7 +2,7 @@ import { Type as t } from "@sinclair/typebox/type";
 import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-typebox";
 import { Elysia } from "elysia";
-import { user } from "./auth-schema";
+import { user } from "./auth-db-schema";
 
 export const comment = pgTable("comment", {
   id: uuid("id").primaryKey().defaultRandom(),
