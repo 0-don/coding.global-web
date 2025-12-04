@@ -1,8 +1,9 @@
 import { getTableColumns, sql } from "drizzle-orm";
 import { PgTable } from "drizzle-orm/pg-core";
 
-export { comment } from "./comment";
-export { todo, todoStatus } from "./todo";
+export { account, session, user, verification } from "./auth-schema";
+export { comment } from "./comment-schema";
+export { todo, todoStatus } from "./todo-schema";
 
 export function conflictUpdateAllExcept<
   T extends PgTable,
