@@ -1,14 +1,14 @@
 import { Type as t } from "@sinclair/typebox/type";
-import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-typebox";
 import { Elysia } from "elysia";
-// import { users } from "./auth";
+import { user } from "./auth-schema";
 
 export const comment = pgTable("comment", {
   id: uuid("id").primaryKey().defaultRandom(),
-  // userId: text("userId")
-  //   .notNull()
-  //   .references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
   content: varchar("content", { length: 4096 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
 });
