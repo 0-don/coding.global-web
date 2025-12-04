@@ -1,6 +1,6 @@
 "use client";
 
-export default function RulesView() {
+export function RulesView() {
   const rules = [
     {
       title: "1. Discord guidelines",
@@ -36,7 +36,8 @@ export default function RulesView() {
     },
     {
       title: "7. Direct messages",
-      content: "Please refrain from sending direct messages to the administrators.",
+      content:
+        "Please refrain from sending direct messages to the administrators.",
     },
     {
       title: "8. Dissemination of personal information",
@@ -66,22 +67,22 @@ export default function RulesView() {
   ];
 
   return (
-    <div className="min-h-screen w-full absolute left-0 z-10 top-30 text-white">
-      <div className="px-4 sm:px-6 pb-8 max-w-5xl mx-auto">
+    <div className="absolute top-30 left-0 z-10 min-h-screen w-full text-white">
+      <div className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
         {/* <h1 className="text-3xl font-bold text-red-500 text-center py-6">
           📜 Community Guidelines
         </h1> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {rules.map((rule, idx) => (
             <div
               key={idx}
-              className="  border backdrop-blur-2xl border-red-800   rounded-xl p-5 shadow-md hover:shadow-lg transition duration-300"
+              className="rounded-xl border border-red-800 p-5 shadow-md backdrop-blur-2xl transition duration-300 hover:shadow-lg"
             >
-              <h2 className="text-lg font-semibold text-red-400 mb-2">
+              <h2 className="mb-2 text-lg font-semibold text-red-400">
                 {rule.title}
               </h2>
-              <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
+              <p className="text-sm leading-relaxed whitespace-pre-line text-gray-300">
                 {rule.content}
               </p>
             </div>

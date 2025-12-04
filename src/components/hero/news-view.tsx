@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
@@ -20,7 +22,7 @@ type NewsItem = {
   };
 };
 
-export default function NewsView() {
+export function NewsView() {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,8 +35,10 @@ export default function NewsView() {
 
         if (Array.isArray(response.data)) data = response.data;
         else if (response.data && typeof response.data === "object") {
+          // @ts-ignore
           data = Array.isArray(response.data.news)
-            ? response.data.news
+            ? // @ts-ignore
+              response.data.news
             : [response.data];
         }
 
@@ -97,24 +101,24 @@ export default function NewsView() {
   const memoizedNews = useMemo(() => newsItems, [newsItems]);
 
   return (
-    <div className="min-h-screen w-full lg:top-70 relative z-10 text-white px-4 sm:px-6 py-12">
+    <div className="relative z-10 min-h-screen w-full px-4 py-12 text-white sm:px-6 lg:top-70">
       {loading ? (
-        <p className="text-gray-400 text-center py-10">Loading...</p>
+        <p className="py-10 text-center text-gray-400">Loading...</p>
       ) : memoizedNews.length === 0 ? (
-        <p className="text-gray-400 text-center py-10">No news available.</p>
+        <p className="py-10 text-center text-gray-400">No news available.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:-m-40 lg:pb-0 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:-m-40 lg:grid-cols-3 lg:pb-0">
           {memoizedNews.map((news) => (
             <div
               key={news.id}
-              className="flex flex-col backdrop-blur-2xl border border-red-900 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden min-h-[350px]"
+              className="flex min-h-[350px] flex-col overflow-hidden rounded-2xl border border-red-900 shadow-lg backdrop-blur-2xl transition duration-300 hover:shadow-2xl"
             >
               {news.attachments.length > 0 && (
                 <div className="relative h-56 overflow-hidden">
                   <img
                     src={news.attachments[0].url}
                     alt="News attachment"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                     onError={(e) =>
                       ((e.target as HTMLImageElement).src =
@@ -124,17 +128,17 @@ export default function NewsView() {
                 </div>
               )}
 
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="flex flex-grow flex-col p-6">
                 {news.attachments.length === 0 && (
-                  <div className="flex items-center space-x-3 mb-4">
+                  <div className="mb-4 flex items-center space-x-3">
                     <img
                       src={news.user.displayAvatarURL}
                       alt={news.user.globalName}
-                      className="w-10 h-10 rounded-full"
+                      className="h-10 w-10 rounded-full"
                       loading="lazy"
                     />
                     <div>
-                      <div className="font-semibold text-white text-base">
+                      <div className="text-base font-semibold text-white">
                         {news.user.globalName}
                       </div>
                       <div className="text-sm text-gray-400">
@@ -145,22 +149,22 @@ export default function NewsView() {
                 )}
 
                 <div
-                  className="text-sm md:text-base text-gray-300 leading-relaxed flex-grow break-words"
+                  className="flex-grow text-sm leading-relaxed break-words text-gray-300 md:text-base"
                   dangerouslySetInnerHTML={{
                     __html: renderContent(news.content),
                   }}
                 />
 
                 {news.attachments.length > 0 && (
-                  <div className="flex items-center space-x-3 mt-6 pt-4 border-t border-gray-700">
+                  <div className="mt-6 flex items-center space-x-3 border-t border-gray-700 pt-4">
                     <img
                       src={news.user.displayAvatarURL}
                       alt={news.user.globalName}
-                      className="w-9 h-9 rounded-full"
+                      className="h-9 w-9 rounded-full"
                       loading="lazy"
                     />
                     <div>
-                      <div className="font-semibold text-white text-base">
+                      <div className="text-base font-semibold text-white">
                         {news.user.globalName}
                       </div>
                       <div className="text-sm text-gray-400">
