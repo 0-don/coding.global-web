@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
@@ -11,7 +13,7 @@ type TeamMember = {
   memberRoles: string[];
 };
 
-export default function TeamView() {
+export function TeamView() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
@@ -24,6 +26,7 @@ export default function TeamView() {
         if (Array.isArray(response.data)) {
           members = response.data;
         } else if (response.data && typeof response.data === "object") {
+          // @ts-ignore
           members = response.data.members || [];
         } else {
           console.warn("Formato inesperado de datos:", response.data);
@@ -46,34 +49,34 @@ export default function TeamView() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full -left-0 absolute top-30 z-10   text-white">
+    <div className="absolute top-30 left-0 z-10 min-h-screen w-full text-white">
       {/* Header centrado */}
-      <div className="p-6 flex justify-center"></div>
+      <div className="flex justify-center p-6"></div>
 
       {/* Grid de miembros */}
-      <div className="px-4 sm:px-6 pb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
+      <div className="px-4 pb-8 sm:px-6">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-1 sm:gap-6 md:grid-cols-1 lg:grid-cols-4">
           {teamMembers.length > 0 ? (
             teamMembers.map((member) => (
               <div
                 key={member.username}
-                className="backdrop-blur-2xl border border-red-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="overflow-hidden rounded-lg border border-red-700 shadow-lg backdrop-blur-2xl transition-shadow duration-300 hover:shadow-xl"
               >
                 {/* Avatar */}
-                <div className="relative h-48 sm:h-56 overflow-hidden">
+                <div className="relative h-48 overflow-hidden sm:h-56">
                   <img
                     src={member.displayAvatarURL}
                     alt={member.globalName}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
 
                 {/* Información */}
                 <div className="p-3 sm:p-4">
                   {/* Username */}
-                  <div className="flex items-center space-x-1 mb-2">
+                  <div className="mb-2 flex items-center space-x-1">
                     <svg
-                      className="w-4 h-4 text-gray-400"
+                      className="h-4 w-4 text-gray-400"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -88,29 +91,29 @@ export default function TeamView() {
                   {/* <div className="font-semibold text-white text-base sm:text-lg">{member.globalName}</div> */}
 
                   {/* Display Name */}
-                  <div className="text-sm text-gray-400 mt-1">
+                  <div className="mt-1 text-sm text-gray-400">
                     {member.display_name}
                   </div>
 
                   {/* Roles */}
                   <div className="mt-3 flex flex-wrap gap-1">
                     {member.memberRoles.includes("Owner") && (
-                      <span className="flex items-center text-xs px-2 py-1 text-purple-400">
+                      <span className="flex items-center px-2 py-1 text-xs text-purple-400">
                         <span className="mr-1">★</span> Owner
                       </span>
                     )}
                     {member.memberRoles.includes("Admin") && (
-                      <span className="flex items-center text-xs px-2 py-1 text-yellow-400">
+                      <span className="flex items-center px-2 py-1 text-xs text-yellow-400">
                         <span className="mr-1">○</span> Admin
                       </span>
                     )}
                     {member.memberRoles.includes("Techlead") && (
-                      <span className="flex items-center text-xs px-2 py-1 text-orange-400">
+                      <span className="flex items-center px-2 py-1 text-xs text-orange-400">
                         <span className="mr-1">⚙️</span> Techlead
                       </span>
                     )}
                     {member.memberRoles.includes("Booster") && (
-                      <span className="flex items-center text-xs px-2 py-1 text-pink-400">
+                      <span className="flex items-center px-2 py-1 text-xs text-pink-400">
                         <span className="mr-1">○</span> Booster
                       </span>
                     )}
@@ -119,7 +122,7 @@ export default function TeamView() {
               </div>
             ))
           ) : (
-            <p className="text-gray-400 col-span-full text-center py-4"></p>
+            <p className="col-span-full py-4 text-center text-gray-400"></p>
           )}
         </div>
       </div>
