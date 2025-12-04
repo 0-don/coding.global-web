@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useSection } from "../context/section-context";
 
-export default function Navbar() {
+export function Navbar() {
   const { section, setSection } = useSection();
 
   return (
@@ -13,7 +13,7 @@ export default function Navbar() {
           onClick={() =>
             window.open(
               "https://disboard.org/server/693908458986143824",
-              "_blank"
+              "_blank",
             )
           }
           className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
@@ -28,7 +28,10 @@ export default function Navbar() {
           Team
         </button>
 
-        <div className="relative hidden md:block cursor-pointer" onClick={() => setSection("home")}>
+        <div
+          className="relative hidden md:block cursor-pointer"
+          onClick={() => setSection("home")}
+        >
           <Image
             src={"/cgLogo.gif"}
             alt="Logo"

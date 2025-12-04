@@ -1,9 +1,12 @@
 "use client";
-export default function JoinButton() {
-  const openDiscord = async () => {
 
-      window.open("https://discord.com/invite/coding", "_blank", "noopener,noreferrer");
-   
+export function JoinButton() {
+  const openDiscord = async () => {
+    window.open(
+      "https://discord.com/invite/coding",
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   return (
