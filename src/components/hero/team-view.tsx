@@ -1,6 +1,6 @@
 "use client";
 
-import { rpc } from "@/lib/rpc";
+import { rpc } from "@/src/lib/rpc";
 import { useEffect, useState } from "react";
 
 type TeamMember = {
@@ -119,9 +119,7 @@ export default function TeamView() {
               </div>
             ))
           ) : (
-            <p className="text-gray-400 col-span-full text-center py-4">
-               
-            </p>
+            <p className="text-gray-400 col-span-full text-center py-4"></p>
           )}
         </div>
       </div>
