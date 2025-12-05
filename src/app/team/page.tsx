@@ -1,14 +1,14 @@
-import Background from "../../components/background";
-import { Footer } from "../../components/footer";
-import { Navbar } from "../../components/navbar";
-import { TeamView } from "../../components/hero/team-view";
+import Background from "../../components/layout/background";
+import { Footer } from "../../components/layout/footer";
+import { Navbar } from "../../components/layout/navbar";
+import { Team } from "../../components/pages/team";
 
 export default function TeamPage() {
   return (
     <div className="relative h-screen w-full ...">
       <Background />
       <Navbar />
-      <TeamView />
+      <Team />
       <Footer />
     </div>
   );

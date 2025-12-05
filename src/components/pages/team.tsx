@@ -13,14 +13,10 @@ type TeamMember = {
 };
 
 type ApiResponse = {
-  data:
-    | TeamMember[]
-    | { members?: TeamMember[] }
-    | null
-    | undefined;
+  data: TeamMember[] | { members?: TeamMember[] } | null | undefined;
 };
 
-export function TeamView() {
+export function Team() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {

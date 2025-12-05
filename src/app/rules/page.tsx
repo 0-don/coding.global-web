@@ -1,14 +1,14 @@
-import Background from "../../components/background";
-import { Footer } from "../../components/footer";
-import { Navbar } from "../../components/navbar";
-import { RulesView } from "../../components/hero/rules-view";
+import Background from "../../components/layout/background";
+import { Footer } from "../../components/layout/footer";
+import { Navbar } from "../../components/layout/navbar";
+import { Rules } from "../../components/pages/rules";
 
 export default function RulesPage() {
   return (
     <div className="relative h-screen w-full ...">
       <Background />
       <Navbar />
-      <RulesView />
+      <Rules />
       <Footer />
     </div>
   );

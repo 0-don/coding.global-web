@@ -47,7 +47,7 @@ type ApiResponse = {
     | undefined;
 };
 
-export function NewsView() {
+export function News() {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,8 +61,10 @@ export function NewsView() {
         if (Array.isArray(response.data)) {
           data = response.data;
         } else if (response.data && typeof response.data === "object") {
-          const newsData = response.data as { news?: RawNewsItem[] } | RawNewsItem;
-          if ('news' in newsData && Array.isArray(newsData.news)) {
+          const newsData = response.data as
+            | { news?: RawNewsItem[] }
+            | RawNewsItem;
+          if ("news" in newsData && Array.isArray(newsData.news)) {
             data = newsData.news;
           } else {
             data = [newsData as RawNewsItem];

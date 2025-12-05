@@ -1,6 +1,6 @@
 "use client";
 
-export function RulesView() {
+export function Rules() {
   const rules = [
     {
       title: "1. Discord guidelines",
