@@ -3,6 +3,7 @@
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type TeamMember = {
@@ -64,10 +65,12 @@ export function TeamView() {
               >
                 {/* Avatar */}
                 <div className="relative h-48 overflow-hidden sm:h-56">
-                  <img
+                  <Image
                     src={member.displayAvatarURL}
                     alt={member.globalName}
                     className="h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
 

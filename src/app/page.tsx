@@ -1,6 +1,6 @@
 import Background from "../components/background";
 import { Footer } from "../components/footer";
-import { Hero } from "../components/hero/hero";
+import { HomeView } from "../components/hero/home-view";
 import { Navbar } from "../components/navbar";
 
 export default function Main() {
@@ -8,7 +8,7 @@ export default function Main() {
     <div className="relative h-screen w-full ...">
       <Background />
       <Navbar />
-      <Hero />
+      <HomeView />
       <Footer />
     </div>
   );
