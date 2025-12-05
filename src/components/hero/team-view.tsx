@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
@@ -14,21 +12,28 @@ type TeamMember = {
   memberRoles: string[];
 };
 
+type ApiResponse = {
+  data:
+    | TeamMember[]
+    | { members?: TeamMember[] }
+    | null
+    | undefined;
+};
+
 export function TeamView() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   useEffect(() => {
     async function fetchTeam() {
       try {
-        const response = await rpc.api.team.get();
+        const response = (await rpc.api.team.get()) as ApiResponse;
 
-        let members: any[] = [];
+        let members: TeamMember[] = [];
 
         if (Array.isArray(response.data)) {
           members = response.data;
         } else if (response.data && typeof response.data === "object") {
-          // @ts-ignore
-          members = response.data.members || [];
+          members = (response.data as { members?: TeamMember[] }).members || [];
         } else {
           console.warn("Formato inesperado de datos:", response.data);
           members = [];
@@ -36,7 +41,7 @@ export function TeamView() {
 
         const membersWithRoles = members.map((member) => ({
           ...member,
-          roles: Array.isArray(member.roles) ? member.roles : [],
+          roles: Array.isArray(member.memberRoles) ? member.memberRoles : [],
         }));
 
         setTeamMembers(membersWithRoles);
