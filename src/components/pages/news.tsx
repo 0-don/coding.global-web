@@ -154,7 +154,7 @@ export function News() {
                 </div>
               )}
 
-              <div className="flex flex-grow flex-col p-6">
+              <div className="flex grow flex-col p-6">
                 {news.attachments.length === 0 && (
                   <div className="mb-4 flex items-center space-x-3">
                     <Image
@@ -176,7 +176,7 @@ export function News() {
                 )}
 
                 <div
-                  className="flex-grow text-sm leading-relaxed break-words text-gray-300 md:text-base"
+                  className="grow text-sm leading-relaxed wrap-break-word text-gray-300 md:text-base"
                   dangerouslySetInnerHTML={{
                     __html: renderContent(news.content),
                   }}
