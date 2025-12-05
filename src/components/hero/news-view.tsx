@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
@@ -23,6 +21,32 @@ type NewsItem = {
   };
 };
 
+type RawNewsItem = {
+  id: string;
+  content?: string;
+  createdAt?: string;
+  attachments?: Array<{
+    url: string;
+    width: number;
+    height: number;
+    contentType: string;
+  }>;
+  user?: {
+    globalName?: string;
+    username?: string;
+    displayAvatarURL?: string;
+  };
+};
+
+type ApiResponse = {
+  data:
+    | RawNewsItem[]
+    | { news?: RawNewsItem[] }
+    | RawNewsItem
+    | null
+    | undefined;
+};
+
 export function NewsView() {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,21 +55,23 @@ export function NewsView() {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        const response = await rpc.api.news.get();
-        let data: any[] = [];
+        const response = (await rpc.api.news.get()) as ApiResponse;
+        let data: RawNewsItem[] = [];
 
-        if (Array.isArray(response.data)) data = response.data;
-        else if (response.data && typeof response.data === "object") {
-          // @ts-ignore
-          data = Array.isArray(response.data.news)
-            ? // @ts-ignore
-              response.data.news
-            : [response.data];
+        if (Array.isArray(response.data)) {
+          data = response.data;
+        } else if (response.data && typeof response.data === "object") {
+          const newsData = response.data as { news?: RawNewsItem[] } | RawNewsItem;
+          if ('news' in newsData && Array.isArray(newsData.news)) {
+            data = newsData.news;
+          } else {
+            data = [newsData as RawNewsItem];
+          }
         }
 
         const formattedNews = data
-          .filter((item: any) => item.user)
-          .map((item: any) => ({
+          .filter((item) => item.user)
+          .map((item) => ({
             id: item.id,
             content: item.content || "",
             createdAt: item.createdAt || new Date().toISOString(),
@@ -54,10 +80,10 @@ export function NewsView() {
               : [],
             user: {
               globalName:
-                item.user.globalName || item.user.username || "Unknown",
-              username: item.user.username || "",
+                item.user?.globalName || item.user?.username || "Unknown",
+              username: item.user?.username || "",
               displayAvatarURL:
-                item.user.displayAvatarURL || "/default-avatar.png",
+                item.user?.displayAvatarURL || "/default-avatar.png",
             },
           }));
 
