@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SectionProvider } from "../context/section-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -48,9 +47,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
-        <SectionProvider>{props.children}</SectionProvider>
-      </body>
+      <body className={`antialiased`}>{props.children}</body>
     </html>
   );
 }

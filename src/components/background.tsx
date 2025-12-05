@@ -12,6 +12,7 @@ export default function Background() {
         className="object-cover w-full h-full select-none"
         quality={100}
         priority
+        unoptimized
       />
       <div className="absolute inset-0 bg-black/50" />
     </div>

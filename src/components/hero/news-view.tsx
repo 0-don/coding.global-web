@@ -3,6 +3,7 @@
 "use client";
 
 import { rpc } from "@/src/lib/rpc";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 type NewsItem = {
@@ -115,15 +116,12 @@ export function NewsView() {
             >
               {news.attachments.length > 0 && (
                 <div className="relative h-56 overflow-hidden">
-                  <img
+                  <Image
                     src={news.attachments[0].url}
                     alt="News attachment"
                     className="h-full w-full object-cover"
-                    loading="lazy"
-                    onError={(e) =>
-                      ((e.target as HTMLImageElement).src =
-                        "/placeholder-image.jpg")
-                    }
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
               )}
@@ -131,11 +129,12 @@ export function NewsView() {
               <div className="flex flex-grow flex-col p-6">
                 {news.attachments.length === 0 && (
                   <div className="mb-4 flex items-center space-x-3">
-                    <img
+                    <Image
                       src={news.user.displayAvatarURL}
                       alt={news.user.globalName}
                       className="h-10 w-10 rounded-full"
-                      loading="lazy"
+                      width={40}
+                      height={40}
                     />
                     <div>
                       <div className="text-base font-semibold text-white">
@@ -157,11 +156,12 @@ export function NewsView() {
 
                 {news.attachments.length > 0 && (
                   <div className="mt-6 flex items-center space-x-3 border-t border-gray-700 pt-4">
-                    <img
+                    <Image
                       src={news.user.displayAvatarURL}
                       alt={news.user.globalName}
                       className="h-9 w-9 rounded-full"
-                      loading="lazy"
+                      width={36}
+                      height={36}
                     />
                     <div>
                       <div className="text-base font-semibold text-white">
