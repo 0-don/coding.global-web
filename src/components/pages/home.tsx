@@ -1,8 +1,8 @@
 "use client";
 
-import { JoinButton } from "../join-button";
+import { JoinButton } from "../elements/join-button";
 
-export function HomeView() {
+export function Home() {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center px-4">
       <div className="w-full max-w-md text-center">
