@@ -2,9 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import posthog from "posthog-js";
 import { useEffect } from "react";
 import { LuRefreshCw, LuTriangleAlert } from "react-icons/lu";
 
@@ -13,17 +11,12 @@ type Props = {
   reset(): void;
 };
 
-export default function Error({ error, reset }: Props) {
+export default function Error(props: Props) {
   const t = useTranslations();
-  const router = useRouter();
 
   useEffect(() => {
-    useEffect(() => {
-      posthog.captureException(error);
-    }, [error]);
-
-    console.error(error);
-  }, [error]);
+    console.error(props.error);
+  }, [props.error]);
 
   return (
     <div className="bg-background flex min-h-screen items-center justify-center p-4">
@@ -47,11 +40,11 @@ export default function Error({ error, reset }: Props) {
                 {t("MAIN.ERROR.ERROR_DETAILS")}
               </summary>
               <pre className="bg-muted mt-2 rounded-md p-3 font-mono text-xs whitespace-pre-wrap">
-                {error.message}
+                {props.error.message}
               </pre>
-              {error.digest && (
+              {props.error.digest && (
                 <p className="text-muted-foreground mt-2 text-xs">
-                  {t("MAIN.ERROR.DIGEST")}: {error.digest}
+                  {t("MAIN.ERROR.DIGEST")}: {props.error.digest}
                 </p>
               )}
             </details>

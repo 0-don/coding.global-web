@@ -31,7 +31,8 @@
 	"MAIN": {
 		"ACTIONS": {
 			"GO_BACK": "Go Back",
-			"GO_HOME": "Go Home"
+			"GO_HOME": "Go Home",
+			"TRY_AGAIN": "Try Again"
 		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Back to Home",
@@ -49,9 +50,13 @@
 			"SYSTEM": "System"
 		},
 		"ERROR": {
+			"DIGEST": "Digest",
+			"ERROR_DETAILS": "Error Details",
 			"PAGE_NOT_FOUND": "Page Not Found",
 			"PAGE_NOT_FOUND_DESCRIPTION": "The page you're looking for doesn't exist or has been moved.",
-			"UNAUTHORIZED": "Unauthorized"
+			"SOMETHING_WENT_WRONG": "Something Went Wrong",
+			"UNAUTHORIZED": "Unauthorized",
+			"UNEXPECTED_ERROR_OCCURRED": "An unexpected error occurred. Please try again or return to the home page."
 		},
 		"MANIFEST": {
 			"DESCRIPTION": "Join our thriving coding community with 6,600+ members. Get help, share projects, and connect with programmers of all skill levels.",
