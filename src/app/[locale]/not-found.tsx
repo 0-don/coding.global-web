@@ -1,12 +1,13 @@
+import NotFound from "@/components/layout/not-found";
 import { getPageMetadata } from "@/lib/config/metadata";
+import { serverLocale } from "@/lib/utils/server";
 import { Metadata } from "next";
-import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import NotFound from "../../components/layout/not-found";
 
-export async function generateMetadata(): Promise<Metadata> {
-  // Get locale from cookies or headers as fallback for not-found pages
-  const locale = "en" as Locale; // Default locale for 404 pages
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
 
   return getPageMetadata({

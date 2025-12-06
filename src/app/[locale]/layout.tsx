@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { Providers } from "../../components/provider/providers";
-import "./globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Coding Global [EN/GER]",

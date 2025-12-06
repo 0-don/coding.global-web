@@ -1,9 +1,9 @@
 import { redirect } from "elysia";
 import { defineRouting } from "next-intl/routing";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { ComponentProps } from "react";
 import { LOCALES } from "../lib/config/constants";
+import { useRouter } from "./navigation";
 
 export type LinkHref = ComponentProps<typeof Link>["href"];
 export type RoutePush = Parameters<ReturnType<typeof useRouter>["push"]>[0];
