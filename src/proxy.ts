@@ -1,15 +1,19 @@
-import { NextResponse, type NextRequest } from "next/server";
+import createMiddleware from "next-intl/middleware";
+import { NextRequest } from "next/server";
+import { routing } from "./i18n/routing";
 import { SERVER_URL_KEY } from "./lib/config/constants";
 
-/**
- * Nextjs bypass to set the server URL in the request headers so it can be read while in server components.
- */
 export default async function proxy(request: NextRequest) {
-  const headers = new Headers(request.headers);
-  headers.set(SERVER_URL_KEY, request.url);
-  return NextResponse.next({ headers });
+  const response = createMiddleware(routing)(request);
+
+  response.headers.set(SERVER_URL_KEY, request.url);
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  // Match all pathnames except forja
+  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+  // - … the ones containing a dot (e.g. `favicon.ico`)
+  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

@@ -1,11 +1,19 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   output: process.env.STANDALONE ? "standalone" : undefined,
+  // trailingSlash: true,
+
   images: {
-    qualities: [75, 100],
+    qualities: [90, 75, 50, 25, 10],
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin({
+  experimental: {
+    createMessagesDeclaration: ["./public/i18n/de.json"],
+  },
+});
+
+export default withNextIntl(nextConfig);
