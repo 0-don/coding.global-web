@@ -2,6 +2,8 @@ import { Locale } from "next-intl";
 
 export const SERVER_URL_KEY = "x-url";
 
+export const LOCALE_COOKIE_KEY = "NEXT_LOCALE";
+
 export const LOCALES = [
   "en", // English
   "de", // German

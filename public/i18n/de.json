@@ -28,6 +28,13 @@
 		"TITLE": "Home",
 		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
 	},
+	"METADATA": {
+		"NOT_FOUND": {
+			"DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht. Kehren Sie zu unserer Programmier-Community-Startseite zurück, um Programmierressourcen und Diskussionen zu erkunden.",
+			"KEYWORDS": "404, Seite nicht gefunden, Fehler",
+			"TITLE": "{appName} - Seite nicht gefunden"
+		}
+	},
 	"MAIN": {
 		"ACTIONS": {
 			"GO_BACK": "Zurück",

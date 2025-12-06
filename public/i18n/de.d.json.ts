@@ -34,7 +34,8 @@ declare const messages: {
 	"MAIN": {
 		"ACTIONS": {
 			"GO_BACK": "Zurück",
-			"GO_HOME": "Zur Startseite"
+			"GO_HOME": "Zur Startseite",
+			"TRY_AGAIN": "Erneut versuchen"
 		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Zurück nach Hause",
@@ -52,9 +53,13 @@ declare const messages: {
 			"SYSTEM": "System"
 		},
 		"ERROR": {
+			"DIGEST": "Digest",
+			"ERROR_DETAILS": "Fehlerdetails",
 			"PAGE_NOT_FOUND": "Seite nicht gefunden",
 			"PAGE_NOT_FOUND_DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
-			"UNAUTHORIZED": "Nicht autorisiert"
+			"SOMETHING_WENT_WRONG": "Etwas ist schiefgelaufen",
+			"UNAUTHORIZED": "Nicht autorisiert",
+			"UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kehren Sie zur Startseite zurück."
 		},
 		"MANIFEST": {
 			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen.",

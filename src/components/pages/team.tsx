@@ -1,6 +1,6 @@
 "use client";
 
-import { rpc } from "@/src/lib/rpc";
+import { rpc } from "@/lib/rpc";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
