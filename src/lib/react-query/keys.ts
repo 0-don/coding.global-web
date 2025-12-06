@@ -1,9 +1,24 @@
-import type { GetUserPayoutsParams } from "@/openapi";
-
 export const queryKeys = {
   // User
   me: () => ["me"],
-  currentBalance: () => ["current-balance"],
+  staffMembers: () => ["staff-members"],
   walletBalances: () => ["wallet-balances"],
-  userPayouts: (params?: GetUserPayoutsParams) => ["user-payouts", params],
+
+  // News
+  news: () => ["news"],
+  staff: () => ["staff"],
+
+  // Console
+  console: () => ["console"],
+
+  // Todos
+  todos: () => ["todos"],
+  todosAdd: () => ["todos-add"],
+  todosDelete: () => ["todos-delete"],
+  todosSeed: () => ["todos-seed"],
+
+  // Comments
+  comments: () => ["comments"],
+  commentsAdd: () => ["comments-add"],
+  commentsDelete: () => ["comments-delete"],
 };

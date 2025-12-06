@@ -1,11 +1,15 @@
+import { PAGEABLE_LIMIT } from "@/lib/config/constants";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/auth-db-schema";
+import {
+  comment,
+  commentInsertSchema,
+  commentSelectSchema,
+} from "@/lib/db/comment-db-schema";
+import { pageable } from "@/lib/typebox/pageable";
 import { and, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import Elysia, { t } from "elysia";
-import { db } from "~/lib/db";
-import { comment } from "~/lib/schema";
-import { users } from "~/lib/schema/auth";
-import { commentInsertSchema, commentSelectSchema } from "~/lib/schema/comment";
-import { pageable } from "~/lib/typebox/pageable";
-import { authUserGuard, authUserResolve } from "../auth/service";
+import { authUserGuard, authUserResolve } from "../auth/guard";
 
 export const commentRoute = new Elysia({ prefix: "/comment" })
   .get(
@@ -14,16 +18,16 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
       const { email, ...user } = getTableColumns(users);
 
       const comments = await db
-        .select({ ...getTableColumns(comment), user })
+        .select({ ...getTableColumns(comment), usr: user })
         .from(comment)
-        .leftJoin(users, eq(comment.userId, users.id))
+        .leftJoin(users, eq(comment.userId, user.id))
         .where(
           query.cursor
             ? gt(comment.createdAt, new Date(query.cursor))
             : undefined,
         )
         .orderBy(desc(comment.createdAt))
-        .limit(query.limit || pageable.properties.limit.anyOf[0].default);
+        .limit(query.limit || PAGEABLE_LIMIT);
 
       return comments.reverse();
     },

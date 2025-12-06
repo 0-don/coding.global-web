@@ -1,16 +1,17 @@
-import dayjs from "dayjs";
-import { desc, eq, lt } from "drizzle-orm";
-import { Elysia } from "elysia";
-import { db } from "~/lib/db";
-import { todo } from "~/lib/schema";
+import { PAGEABLE_LIMIT } from "@/lib/config/constants";
+import { db } from "@/lib/db";
 import {
+  todo,
   todoDeleteSchema,
   todoInsertSchema,
   todoInsertSeedSchema,
   TodoStatus,
   todoStatusEnum,
-} from "~/lib/schema/todo";
-import { pageable } from "~/lib/typebox/pageable";
+} from "@/lib/db/todo-db-schema";
+import { pageable } from "@/lib/typebox/pageable";
+import dayjs from "dayjs";
+import { desc, eq, lt } from "drizzle-orm";
+import { Elysia } from "elysia";
 
 export const todoRoute = new Elysia({ prefix: "/todo" })
   .get(
@@ -23,7 +24,7 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
           query.cursor ? lt(todo.createdAt, new Date(query.cursor)) : undefined,
         )
         .orderBy(desc(todo.createdAt))
-        .limit(query.limit || pageable.properties.limit.anyOf[0].default);
+        .limit(query.limit || PAGEABLE_LIMIT);
 
       return result;
     },
@@ -45,10 +46,9 @@ export const todoRoute = new Elysia({ prefix: "/todo" })
     await db.delete(todo).execute();
 
     const getRandomDate = () => {
-      // Random date between 1 year ago and now
       const start = dayjs().subtract(1, "year").valueOf();
       const end = dayjs().valueOf();
-      return new Date(start + Math.random() * (end - start));
+      return dayjs(start + Math.random() * (end - start)).toDate();
     };
 
     const todos: (typeof todoInsertSeedSchema.static)[] = Array.from(

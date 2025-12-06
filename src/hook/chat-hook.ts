@@ -1,4 +1,6 @@
 import { commentInsertSchema, Comments } from "@/lib/db/comment-db-schema";
+import { queryKeys } from "@/lib/react-query/keys";
+import { handleError } from "@/lib/utils/client";
 import {
   InfiniteData,
   useInfiniteQuery,
@@ -8,12 +10,9 @@ import {
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
-import { COMMENTS_KEY } from "~/utils/cache/keys";
-import { handleError } from "~/utils/client";
-
 export function useCommentsInfiniteQuery() {
   return useInfiniteQuery({
-    queryKey: [COMMENTS_KEY],
+    queryKey: queryKeys.comments(),
     queryFn: async ({ pageParam }) => [] as Comments[],
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
@@ -34,7 +33,7 @@ export function useCommentAddMutation() {
       ({}) as Comments,
     onSuccess: (newComment) => {
       queryClient.setQueryData(
-        [COMMENTS_KEY],
+        queryKeys.comments(),
         (
           oldData: InfiniteData<Comments[]> | undefined,
         ): InfiniteData<Comments[]> | undefined => {
@@ -57,10 +56,10 @@ export function useCommentDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => serverFnCommentDelete(id),
+    mutationFn: async (id: string) => ({}) as Comments,
     onSuccess: (c) => {
       queryClient.setQueryData<Comments[]>(
-        [COMMENTS_KEY],
+        queryKeys.comments(),
         (oldQueryData = []) =>
           oldQueryData.filter((comment) => comment.id !== c?.id),
       );
