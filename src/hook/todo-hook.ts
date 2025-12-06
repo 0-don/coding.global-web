@@ -1,57 +1,19 @@
-import { Create } from "@sinclair/typebox/value";
-import { query } from "@solidjs/router";
+import { Todo, todoInsertSchema } from "@/lib/db/todo-db-schema";
+import { queryKeys } from "@/lib/react-query/keys";
+import { handleError } from "@/lib/utils/client";
 import {
   InfiniteData,
   useInfiniteQuery,
   useMutation,
   useQueryClient,
-} from "@tanstack/solid-query";
-import { createStore } from "solid-js/store";
-import { toast } from "solid-sonner";
-import { rpc } from "~/lib/rpc";
-import { Todo, todoInsertSchema } from "~/lib/schema/todo";
-import { Pageable } from "~/lib/typebox/pageable";
-import { handleEden } from "~/utils/base";
-import {
-  TODOS_ADD_KEY,
-  TODOS_DELETE_KEY,
-  TODOS_KEY,
-  TODOS_SEED_KEY,
-} from "~/utils/cache/keys";
-import { handleError } from "~/utils/client";
-import { useLanguage } from "../provider/language-provider";
+} from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
-export const serverFnTodos = query(async ($query: Pageable = {}) => {
-  "use server";
-  return handleEden(await rpc.api.todo.get({ $query }));
-}, TODOS_KEY);
-
-export const serverFnTodoAdd = query(
-  async (todo: typeof todoInsertSchema.static) => {
-    "use server";
-    return handleEden(await rpc.api.todo.post(todo))!;
-  },
-  TODOS_ADD_KEY,
-);
-
-export const serverFnTodoDelete = query(async (id: string) => {
-  "use server";
-  return handleEden(await rpc.api.todo[id].delete());
-}, TODOS_DELETE_KEY);
-
-export const serverFnTodoSeed = query(async () => {
-  "use server";
-  return handleEden(await rpc.api.todo.seed.get());
-}, TODOS_SEED_KEY);
-
-export const TodoHook = () => {
-  const { t } = useLanguage();
-  const queryClient = useQueryClient();
-  const [todo, setTodo] = createStore(Create(todoInsertSchema));
-
-  const todosInfiniteQuery = useInfiniteQuery(() => ({
-    queryKey: [TODOS_KEY],
-    queryFn: async ({ pageParam }) => serverFnTodos({ cursor: pageParam }),
+export function useTodosInfiniteQuery() {
+  return useInfiniteQuery({
+    queryKey: queryKeys.todos(),
+    queryFn: async ({ pageParam }) => [] as Todo[],
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
       const lastItem = lastPage[lastPage.length - 1];
@@ -59,17 +21,21 @@ export const TodoHook = () => {
         ? new Date(lastItem.createdAt).toISOString()
         : null;
     },
-  }));
+  });
+}
 
-  const todoAdd = useMutation(() => ({
-    mutationFn: async () => serverFnTodoAdd(todo),
+export function useTodoAddMutation() {
+  const t = useTranslations();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (args: typeof todoInsertSchema.static) => ({}) as Todo,
     onSuccess: (newTodo) => {
-      setTodo(Create(todoInsertSchema));
       queryClient.setQueryData(
-        [TODOS_KEY],
-        (oldData: InfiniteData<Todo[]>): InfiniteData<Todo[]> => {
+        queryKeys.todos(),
+        (
+          oldData: InfiniteData<Todo[]> | undefined,
+        ): InfiniteData<Todo[]> | undefined => {
           if (!oldData?.pages) return oldData;
-
           return {
             pages: [[newTodo], ...oldData.pages],
             pageParams: [new Date().toISOString(), ...oldData.pageParams],
@@ -79,55 +45,48 @@ export const TodoHook = () => {
       toast.success(t("TODO.SUCCESS.TODO_ADD"));
     },
     onError: (e) => handleError(e, t),
-  }));
+  });
+}
 
-  const todoDelete = useMutation(() => ({
-    mutationFn: async (id: string) => serverFnTodoDelete(id),
+export function useTodoDeleteMutation() {
+  const t = useTranslations();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => ({}) as string,
     onSuccess: (id) => {
       queryClient.setQueryData(
-        [TODOS_KEY],
-        (oldData: InfiniteData<Todo[]>): InfiniteData<Todo[]> => {
+        queryKeys.todos(),
+        (
+          oldData: InfiniteData<Todo[]> | undefined,
+        ): InfiniteData<Todo[]> | undefined => {
           if (!oldData?.pages) return oldData;
-
-          // Filter out the deleted todo from all pages
           const newPages = oldData.pages.map((page) =>
             page.filter((todo) => todo.id !== id),
           );
-
-          // Remove any empty pages
           const filteredPages = newPages.filter((page) => page.length > 0);
-
-          const result = {
+          return {
             pages: filteredPages,
             pageParams: oldData.pageParams.slice(0, filteredPages.length),
           };
-
-          return result;
         },
       );
       toast.error(t("TODO.INFO.TODO_DELETED"));
     },
     onError: (e) => handleError(e, t),
-  }));
+  });
+}
 
-  const todoSeed = useMutation(() => ({
-    mutationFn: async () => serverFnTodoSeed(),
+export function useTodoSeedMutation() {
+  const t = useTranslations();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => ({}),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [TODOS_KEY],
+        queryKey: queryKeys.todos(),
       });
-      todosInfiniteQuery.refetch();
       toast.success(t("TODO.SUCCESS.TODO_SEED"));
     },
     onError: (e) => handleError(e, t),
-  }));
-
-  return {
-    todosInfiniteQuery,
-    todoAdd,
-    todoDelete,
-    todo,
-    setTodo,
-    todoSeed,
-  };
-};
+  });
+}

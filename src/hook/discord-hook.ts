@@ -1,29 +1,22 @@
-import { query } from "@solidjs/router";
-import { useQuery } from "@tanstack/solid-query";
-import { getNews, getStaff } from "~/lib/openapi";
-import { NEWS_KEY, STAFF_MEMBERS_KEY } from "~/utils/cache/keys";
-import { clientEnv } from "~/utils/env/client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { handleElysia } from "@/lib/utils/base";
+import { getApiByGuildIdNews, getApiByGuildIdStaff } from "@/openapi";
+import { useQuery } from "@tanstack/react-query";
 
-export const serverFnStaffMembers = query(async () => {
-  "use server";
-  return (await getStaff(clientEnv.GUILD_ID)).data;
-}, STAFF_MEMBERS_KEY);
+export function useStaffQuery() {
+  return useQuery({
+    queryKey: queryKeys.staff(),
+    queryFn: async () =>
+      handleElysia(
+        await getApiByGuildIdStaff(process.env.NEXT_PUBLIC_GUILD_ID),
+      ),
+  });
+}
 
-export const serverFnNews = query(async () => {
-  "use server";
-  return (await getNews(clientEnv.GUILD_ID)).data;
-}, NEWS_KEY);
-
-export const DiscordHook = () => {
-  const staffMembersQuery = useQuery(() => ({
-    queryKey: [STAFF_MEMBERS_KEY],
-    queryFn: async () => serverFnStaffMembers(),
-  }));
-
-  const newsQuery = useQuery(() => ({
-    queryKey: [NEWS_KEY],
-    queryFn: async () => serverFnNews(),
-  }));
-
-  return { staffMembersQuery, newsQuery };
-};
+export function useNewsQuery() {
+  return useQuery({
+    queryKey: queryKeys.news(),
+    queryFn: async () =>
+      handleElysia(await getApiByGuildIdNews(process.env.NEXT_PUBLIC_GUILD_ID)),
+  });
+}

@@ -20,24 +20,13 @@ export declare class EdenFetchError<
  * @returns The response data of type T
  * @throws EdenFetchError if the response contains an error
  */
-export function handleEden<T, E = unknown>(
-  response: (
-    | {
-        data: T;
-        error: null;
-      }
-    | {
-        data: null;
-        error: EdenFetchError<number, E>;
-      }
-  ) & {
-    status: number;
-    response: Record<number, unknown>;
-    headers: Record<string, string>;
-  },
-): T {
-  if (response.error) throw response.error;
-  return response.data;
+export function handleElysia<T extends { data: unknown; status: number }>(
+  response: T,
+): T extends { status: 200 } ? T["data"] : never {
+  if (response.status === 200) {
+    return response.data as T extends { status: 200 } ? T["data"] : never;
+  }
+  throw response;
 }
 
 /**
