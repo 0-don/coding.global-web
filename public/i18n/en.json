@@ -29,6 +29,10 @@
 		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website for the Coding DIscord Server"
 	},
 	"MAIN": {
+		"ACTIONS": {
+			"GO_BACK": "Go Back",
+			"GO_HOME": "Go Home"
+		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Back to Home",
 			"DISBOARD": "Disboard",
@@ -46,7 +50,13 @@
 		},
 		"ERROR": {
 			"PAGE_NOT_FOUND": "Page Not Found",
+			"PAGE_NOT_FOUND_DESCRIPTION": "The page you're looking for doesn't exist or has been moved.",
 			"UNAUTHORIZED": "Unauthorized"
+		},
+		"MANIFEST": {
+			"DESCRIPTION": "Join our thriving coding community with 6,600+ members. Get help, share projects, and connect with programmers of all skill levels.",
+			"SHORT_NAME": "Coding",
+			"TITLE": "{appName} - Programming Community"
 		},
 		"META": {
 			"DESCRIPTION": "Join our international coding community for programming help and discussions. Features support for multiple languages including JavaScript, Python, Java, C++, and more or visit us on disboard https://disboard.org/server/693908458986143824",
