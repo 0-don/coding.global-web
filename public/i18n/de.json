@@ -29,6 +29,10 @@
 		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
 	},
 	"MAIN": {
+		"ACTIONS": {
+			"GO_BACK": "Zurück",
+			"GO_HOME": "Zur Startseite"
+		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Zurück nach Hause",
 			"DISBOARD": "Disboard",
@@ -46,7 +50,13 @@
 		},
 		"ERROR": {
 			"PAGE_NOT_FOUND": "Seite nicht gefunden",
+			"PAGE_NOT_FOUND_DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
 			"UNAUTHORIZED": "Nicht autorisiert"
+		},
+		"MANIFEST": {
+			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen.",
+			"SHORT_NAME": "Coding",
+			"TITLE": "{appName} - Programmiergemeinschaft"
 		},
 		"META": {
 			"DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
