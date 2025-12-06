@@ -1,6 +1,10 @@
+import { commentRoute } from "@/server/comment/route";
+import { todoRoute } from "@/server/todo/route";
 import { Elysia, InternalServerError } from "elysia";
 
-const app = new Elysia({ prefix: "/api" })
+export const app = new Elysia({ prefix: "/api" })
+  .use(todoRoute)
+  .use(commentRoute)
   .get("/test", () => "hello")
   .get("/team", async () => {
     try {
