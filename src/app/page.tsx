@@ -1,15 +1,7 @@
-import Background from "../components/layout/background";
-import { Footer } from "../components/layout/footer";
-import { Navbar } from "../components/layout/navbar";
-import { Home } from "../components/pages/home";
+import { redirect } from "next/navigation";
+import { LOCALES } from "../lib/config/constants";
 
-export default function Main() {
-  return (
-    <div className="relative h-screen w-full ...">
-      <Background />
-      <Navbar />
-      <Home />
-      <Footer />
-    </div>
-  );
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect(`/${LOCALES[0]}`);
 }
