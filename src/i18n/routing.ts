@@ -1,9 +1,7 @@
-import { redirect } from "elysia";
 import { defineRouting } from "next-intl/routing";
-import Link from "next/link";
 import { ComponentProps } from "react";
 import { LOCALES } from "../lib/config/constants";
-import { useRouter } from "./navigation";
+import { Link, redirect, useRouter } from "./navigation";
 
 export type LinkHref = ComponentProps<typeof Link>["href"];
 export type RoutePush = Parameters<ReturnType<typeof useRouter>["push"]>[0];
@@ -13,11 +11,14 @@ export type ValidRoutes = LinkHref | RoutePush | Redirect;
 
 export const pathnames = {
   "/": "/",
-  "/auth/login": {
-    de: "/auth/anmelden",
+  "/news": {
+    de: "/nachrichten",
   },
-  "/auth/register": {
-    de: "/auth/registrieren",
+  "/rules": {
+    de: "/regeln",
+  },
+  "/team": {
+    de: "/team",
   },
 } as const;
 
