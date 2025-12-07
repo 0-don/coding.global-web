@@ -2,7 +2,7 @@ import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  output: process.env.STANDALONE ? "standalone" : undefined,
+  output:"standalone" ,
   // trailingSlash: true,
 
   images: {
