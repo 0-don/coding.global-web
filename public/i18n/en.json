@@ -28,18 +28,6 @@
 		"TITLE": "Home",
 		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website for the Coding DIscord Server"
 	},
-	"METADATA": {
-		"ROOT": {
-			"DESCRIPTION": "Official Coding Global Website for Programmers Worldwide. Join 6,600+ developers in our international community for coding help, discussions, and tech networking.",
-			"KEYWORDS": "Coding Global, Discord Community, Programming, Developers, EN, GER, coding community, developer network",
-			"TITLE": "Coding Global [EN/GER]"
-		},
-		"NOT_FOUND": {
-			"DESCRIPTION": "The page you're looking for doesn't exist. Return to our coding community homepage to explore programming resources and discussions.",
-			"KEYWORDS": "404, page not found, error",
-			"TITLE": "{appName} - Page Not Found"
-		}
-	},
 	"MAIN": {
 		"ACTIONS": {
 			"GO_BACK": "Go Back",
@@ -102,6 +90,18 @@
 			"LOGOUT": "Logout",
 			"TOGGLE_LANGUAGE": "Toggle Language",
 			"TOGGLE_THEME": "Toggle Theme"
+		}
+	},
+	"METADATA": {
+		"NOT_FOUND": {
+			"DESCRIPTION": "The page you're looking for doesn't exist. Return to our coding community homepage to explore programming resources and discussions.",
+			"KEYWORDS": "404, page not found, error",
+			"TITLE": "{appName} - Page Not Found"
+		},
+		"ROOT": {
+			"DESCRIPTION": "Official Coding Global Website for Programmers Worldwide. Join 6,600+ developers in our international community for coding help, discussions, and tech networking.",
+			"KEYWORDS": "Coding Global, Discord Community, Programming, Developers, EN, GER, coding community, developer network",
+			"TITLE": "Coding Global [EN/GER]"
 		}
 	},
 	"NEWS": {
