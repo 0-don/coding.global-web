@@ -29,6 +29,11 @@
 		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
 	},
 	"METADATA": {
+		"ROOT": {
+			"DESCRIPTION": "Offizielle Coding Global Website für Programmierer weltweit. Treten Sie 6.600+ Entwicklern in unserer internationalen Community bei für Coding-Hilfe, Diskussionen und Tech-Networking.",
+			"KEYWORDS": "Coding Global, Discord Community, Programmierung, Entwickler, EN, GER, Coding-Community, Entwicklernetzwerk",
+			"TITLE": "Coding Global [EN/GER]"
+		},
 		"NOT_FOUND": {
 			"DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht. Kehren Sie zu unserer Programmier-Community-Startseite zurück, um Programmierressourcen und Diskussionen zu erkunden.",
 			"KEYWORDS": "404, Seite nicht gefunden, Fehler",
