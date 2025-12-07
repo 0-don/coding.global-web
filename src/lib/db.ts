@@ -9,4 +9,4 @@ export const db = drizzle(connection);
 
 migrate(db, { migrationsFolder: resolve("drizzle") })
   .then(() => log("Database migrated successfully"))
-  .catch(() => process.exit(1));
+  .catch((e) => console.error("Database migration failed", e));
