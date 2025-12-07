@@ -22,9 +22,9 @@ export declare class EdenFetchError<
  */
 export function handleElysia<T extends { data: unknown; status: number }>(
   response: T,
-): T extends { status: 200 } ? T["data"] : never {
-  if (response.status === 200) {
-    return response.data as T extends { status: 200 } ? T["data"] : never;
+): T["data"] {
+  if (response.status >= 200 && response.status < 300) {
+    return response.data as T["data"];
   }
   throw response;
 }

@@ -1,8 +1,7 @@
 "use client";
 
-import { rpc } from "@/lib/rpc";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type TeamMember = {
   displayAvatarURL: string;
@@ -19,36 +18,36 @@ type ApiResponse = {
 export function Team() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
-  useEffect(() => {
-    async function fetchTeam() {
-      try {
-        const response = (await rpc.api.team.get()) as ApiResponse;
+  // useEffect(() => {
+  //   async function fetchTeam() {
+  //     try {
+  //       const response = (await rpc.api.team.get()) as ApiResponse;
 
-        let members: TeamMember[] = [];
+  //       let members: TeamMember[] = [];
 
-        if (Array.isArray(response.data)) {
-          members = response.data;
-        } else if (response.data && typeof response.data === "object") {
-          members = (response.data as { members?: TeamMember[] }).members || [];
-        } else {
-          console.warn("Formato inesperado de datos:", response.data);
-          members = [];
-        }
+  //       if (Array.isArray(response.data)) {
+  //         members = response.data;
+  //       } else if (response.data && typeof response.data === "object") {
+  //         members = (response.data as { members?: TeamMember[] }).members || [];
+  //       } else {
+  //         console.warn("Formato inesperado de datos:", response.data);
+  //         members = [];
+  //       }
 
-        const membersWithRoles = members.map((member) => ({
-          ...member,
-          roles: Array.isArray(member.memberRoles) ? member.memberRoles : [],
-        }));
+  //       const membersWithRoles = members.map((member) => ({
+  //         ...member,
+  //         roles: Array.isArray(member.memberRoles) ? member.memberRoles : [],
+  //       }));
 
-        setTeamMembers(membersWithRoles);
-      } catch (err) {
-        console.error("Error fetching team:", err);
-        setTeamMembers([]);
-      }
-    }
+  //       setTeamMembers(membersWithRoles);
+  //     } catch (err) {
+  //       console.error("Error fetching team:", err);
+  //       setTeamMembers([]);
+  //     }
+  //   }
 
-    fetchTeam();
-  }, []);
+  //   fetchTeam();
+  // }, []);
 
   return (
     <div className="absolute top-30 left-0 z-10 min-h-screen w-full text-white">

@@ -1,13 +1,11 @@
-import type { TypeCompiler } from "@sinclair/typebox/compiler";
+import type { TranslationKey } from "@/lib/config/constants";
 import type { ValueError } from "@sinclair/typebox/errors";
 import {
   DefaultErrorFunction,
   SetErrorFunction,
 } from "@sinclair/typebox/errors";
-import type { Static, TSchema } from "@sinclair/typebox/type";
 import type { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import type { TranslationKey } from "@/lib/config/constants";
 
 SetErrorFunction((error) => {
   if (typeof error.schema.error === "string") return error.schema.error;

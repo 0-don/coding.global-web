@@ -1,5 +1,8 @@
+import { PAGEABLE_LIMIT } from "@/lib/config/constants";
 import { commentInsertSchema, Comments } from "@/lib/db/comment-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { handleError } from "@/lib/utils/client";
 import {
   InfiniteData,
@@ -13,7 +16,14 @@ import { toast } from "sonner";
 export function useCommentsInfiniteQuery() {
   return useInfiniteQuery({
     queryKey: queryKeys.comments(),
-    queryFn: async ({ pageParam }) => [] as Comments[],
+    queryFn: async ({ pageParam }) => {
+      const response = await rpc.api.comment.get({
+        $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
+      });
+
+      if (response.error) throw response.error;
+      return response.data || [];
+    },
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
       const lastItem = lastPage[lastPage.length - 1];
@@ -30,7 +40,7 @@ export function useCommentAddMutation() {
 
   return useMutation({
     mutationFn: async (args: typeof commentInsertSchema.static) =>
-      ({}) as Comments,
+      handleElysia(await rpc.api.comment.post(args))!,
     onSuccess: (newComment) => {
       queryClient.setQueryData(
         queryKeys.comments(),
@@ -38,7 +48,6 @@ export function useCommentAddMutation() {
           oldData: InfiniteData<Comments[]> | undefined,
         ): InfiniteData<Comments[]> | undefined => {
           if (!oldData?.pages) return oldData;
-
           return {
             pages: [...oldData.pages, [newComment]],
             pageParams: [new Date().toISOString(), ...oldData.pageParams],
@@ -56,7 +65,8 @@ export function useCommentDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => ({}) as Comments,
+    mutationFn: async (id: string) =>
+      handleElysia(await rpc.api.comment[id].delete()),
     onSuccess: (c) => {
       queryClient.setQueryData<Comments[]>(
         queryKeys.comments(),
