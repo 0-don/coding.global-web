@@ -2,6 +2,7 @@ import { PAGEABLE_LIMIT } from "@/lib/config/constants";
 import { Todo, todoInsertSchema } from "@/lib/db/todo-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { handleError } from "@/lib/utils/client";
 import {
   InfiniteData,
@@ -15,14 +16,12 @@ import { toast } from "sonner";
 export function useTodosInfiniteQuery() {
   return useInfiniteQuery({
     queryKey: queryKeys.todos(),
-    queryFn: async ({ pageParam }) => {
-      const response = await rpc.api.todo.get({
-        $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
-      });
-
-      if (response.error) throw response.error;
-      return response.data || [];
-    },
+    queryFn: async ({ pageParam }) =>
+      handleElysia(
+        await rpc.api.todo.get({
+          $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
+        }),
+      )!,
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
       const lastItem = lastPage[lastPage.length - 1];
@@ -38,11 +37,7 @@ export function useTodoAddMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (args: typeof todoInsertSchema.static) => {
-      const response = await rpc.api.todo.post(args);
-      if (response.error) throw response.error;
-      return response.data!;
-    },
+    mutationFn: async (args: typeof todoInsertSchema.static) => handleElysia(await rpc.api.todo.post(args))!,
     onSuccess: (newTodo) => {
       queryClient.setQueryData(
         queryKeys.todos(),

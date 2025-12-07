@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TranslationKey } from "@/lib/config/constants";
+import type { TypeCompiler } from "@sinclair/typebox/compiler";
 import type { ValueError } from "@sinclair/typebox/errors";
 import {
   DefaultErrorFunction,
   SetErrorFunction,
 } from "@sinclair/typebox/errors";
-import type { useTranslations } from "next-intl";
+import type { Static, TSchema } from "@sinclair/typebox/type";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 SetErrorFunction((error) => {
@@ -52,7 +55,7 @@ export function handleError(
     let title = "";
     try {
       title = t
-        ? t(`MAIN.ERROR.${err.title}` as TranslationKey, err.params)
+        ? t(`MAIN.ERROR.${err.title}` as TranslationKey, err.params as any)
         : err.title;
     } catch (e) {
       title = err.title;
@@ -61,7 +64,7 @@ export function handleError(
     let description = "";
     try {
       description = t
-        ? t(err.description as TranslationKey, err.params)
+        ? t(err.description as TranslationKey, err.params as any)
         : err.description || ""!;
     } catch (e) {
       description = err.description || "";
@@ -74,4 +77,37 @@ export function handleError(
 
     if (process.env.NODE_ENV === "production") console.clear();
   }
+}
+
+/**
+ * Safe parsing utility for TypeBox schemas that returns a discriminated union result
+ * rather than throwing errors. Similar to Zod's safeParse pattern.
+ *
+ * @param checker A compiled TypeBox schema checker
+ * @param value The value to validate
+ * @returns An object with either:
+ * - {success: true, data: validatedValue} if validation succeeds
+ * - {success: false, errors: [{message: string}]} if validation fails
+ */
+export function safeParse<T extends TSchema>(
+  checker: ReturnType<typeof TypeCompiler.Compile<T>>,
+  value: Partial<Static<T>>,
+):
+  | { success: true; data: Static<T> }
+  | { success: false; errors: { message: string }[] } {
+  const isValid = checker.Check(value);
+
+  if (isValid) {
+    return {
+      success: true,
+      data: value as Static<T>,
+    };
+  }
+
+  return {
+    success: false,
+    errors: Array.from(checker.Errors(value)).map((error) => ({
+      message: error.message,
+    })),
+  };
 }
