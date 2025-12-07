@@ -44,6 +44,12 @@ declare const messages: {
 			"GO_HOME": "Go Home",
 			"TRY_AGAIN": "Try Again"
 		},
+		"AUTH": {
+			"LOGIN": "Login",
+			"LOGIN_WITH_DISCORD": "Login with Discord",
+			"LOGOUT": "Logout",
+			"WELCOME": "Welcome, {name}"
+		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Back to Home",
 			"DISBOARD": "Disboard",
