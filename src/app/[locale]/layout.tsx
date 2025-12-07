@@ -1,54 +1,27 @@
 import { routing } from "@/i18n/routing";
-import type { Metadata } from "next";
+import { getPageMetadata } from "@/lib/config/metadata";
+import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { Toaster } from "sonner";
 import { Providers } from "../../components/provider/providers";
 import "../globals.css";
 
-export const metadata: Metadata = {
-  title: "Coding Global [EN/GER]",
-  description: "Official Coding Global Website for Programmers Worldwide",
-  keywords: [
-    "Coding Global",
-    "Discord Community",
-    "Programming",
-    "Developers",
-    "EN",
-    "GER",
-  ],
-  authors: [{ name: "Coding Global", url: "https://coding.global" }],
-  creator: "Coding Global",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
-  },
-  openGraph: {
-    title: "Coding Global [EN/GER]",
-    description: "Official Coding Global Website for Programmers Worldwide",
-    url: "https://coding.global",
-    siteName: "Coding Global",
-    type: "website",
-    images: [
-      {
-        url: "https://coding.global/banner.png",
-        width: 1200,
-        height: 630,
-        alt: "Coding Global Banner",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Coding Global [EN/GER]",
-    description: "Official Coding Global Website for Programmers Worldwide",
-    site: "@codingglobal",
-    creator: "@codingglobal",
-    images: ["https://coding.global/banner.png"],
-  },
-};
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = await serverLocale(props);
+  const t = await getTranslations({ locale });
+
+  return getPageMetadata({
+    locale,
+    title: t("METADATA.ROOT.TITLE"),
+    description: t("METADATA.ROOT.DESCRIPTION"),
+    keywords: t("METADATA.ROOT.KEYWORDS"),
+  });
+}
 
 type Props = {
   children: React.ReactNode;
