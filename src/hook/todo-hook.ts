@@ -1,5 +1,7 @@
+import { PAGEABLE_LIMIT } from "@/lib/config/constants";
 import { Todo, todoInsertSchema } from "@/lib/db/todo-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
 import { handleError } from "@/lib/utils/client";
 import {
   InfiniteData,
@@ -13,7 +15,14 @@ import { toast } from "sonner";
 export function useTodosInfiniteQuery() {
   return useInfiniteQuery({
     queryKey: queryKeys.todos(),
-    queryFn: async ({ pageParam }) => [] as Todo[],
+    queryFn: async ({ pageParam }) => {
+      const response = await rpc.api.todo.get({
+        $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
+      });
+
+      if (response.error) throw response.error;
+      return response.data || [];
+    },
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
       const lastItem = lastPage[lastPage.length - 1];
@@ -27,8 +36,13 @@ export function useTodosInfiniteQuery() {
 export function useTodoAddMutation() {
   const t = useTranslations();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (args: typeof todoInsertSchema.static) => ({}) as Todo,
+    mutationFn: async (args: typeof todoInsertSchema.static) => {
+      const response = await rpc.api.todo.post(args);
+      if (response.error) throw response.error;
+      return response.data!;
+    },
     onSuccess: (newTodo) => {
       queryClient.setQueryData(
         queryKeys.todos(),
@@ -37,7 +51,7 @@ export function useTodoAddMutation() {
         ): InfiniteData<Todo[]> | undefined => {
           if (!oldData?.pages) return oldData;
           return {
-            pages: [[newTodo], ...oldData.pages],
+            pages: [[newTodo as Todo], ...oldData.pages],
             pageParams: [new Date().toISOString(), ...oldData.pageParams],
           };
         },
@@ -51,8 +65,13 @@ export function useTodoAddMutation() {
 export function useTodoDeleteMutation() {
   const t = useTranslations();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (id: string) => ({}) as string,
+    mutationFn: async (id: string) => {
+      const response = await rpc.api.todo[id].delete();
+      if (response.error) throw response.error;
+      return response.data!;
+    },
     onSuccess: (id) => {
       queryClient.setQueryData(
         queryKeys.todos(),
@@ -79,12 +98,15 @@ export function useTodoDeleteMutation() {
 export function useTodoSeedMutation() {
   const t = useTranslations();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async () => ({}),
+    mutationFn: async () => {
+      const response = await rpc.api.todo.seed.get();
+      if (response.error) throw response.error;
+      return response.data;
+    },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: queryKeys.todos(),
-      });
+      await queryClient.invalidateQueries({ queryKey: queryKeys.todos() });
       toast.success(t("TODO.SUCCESS.TODO_SEED"));
     },
     onError: (e) => handleError(e, t),

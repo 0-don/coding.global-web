@@ -1,8 +1,7 @@
 "use client";
 
-import { rpc } from "@/lib/rpc";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type NewsItem = {
   id: string;
@@ -50,55 +49,6 @@ type ApiResponse = {
 export function News() {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        setLoading(true);
-        const response = (await rpc.api.news.get()) as ApiResponse;
-        let data: RawNewsItem[] = [];
-
-        if (Array.isArray(response.data)) {
-          data = response.data;
-        } else if (response.data && typeof response.data === "object") {
-          const newsData = response.data as
-            | { news?: RawNewsItem[] }
-            | RawNewsItem;
-          if ("news" in newsData && Array.isArray(newsData.news)) {
-            data = newsData.news;
-          } else {
-            data = [newsData as RawNewsItem];
-          }
-        }
-
-        const formattedNews = data
-          .filter((item) => item.user)
-          .map((item) => ({
-            id: item.id,
-            content: item.content || "",
-            createdAt: item.createdAt || new Date().toISOString(),
-            attachments: Array.isArray(item.attachments)
-              ? item.attachments
-              : [],
-            user: {
-              globalName:
-                item.user?.globalName || item.user?.username || "Unknown",
-              username: item.user?.username || "",
-              displayAvatarURL:
-                item.user?.displayAvatarURL || "/default-avatar.png",
-            },
-          }));
-
-        setNewsItems(formattedNews);
-      } catch (err) {
-        console.error("Error fetching news:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNews();
-  }, []);
 
   const formatTimeAgo = (dateString: string) => {
     const now = new Date();
