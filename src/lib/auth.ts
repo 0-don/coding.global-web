@@ -9,8 +9,8 @@ export const auth = betterAuth({
   plugins: [nextCookies()],
   socialProviders: {
     discord: {
-      clientId: process.env.DISCORD_CLIENT_ID as string,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     },
   },
 });
