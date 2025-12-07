@@ -41,6 +41,12 @@
 			"GO_HOME": "Zur Startseite",
 			"TRY_AGAIN": "Erneut versuchen"
 		},
+		"AUTH": {
+			"LOGIN": "Anmelden",
+			"LOGIN_WITH_DISCORD": "Mit Discord anmelden",
+			"LOGOUT": "Abmelden",
+			"WELCOME": "Willkommen, {name}"
+		},
 		"BUTTON": {
 			"BACK_TO_HOME": "Zurück nach Hause",
 			"DISBOARD": "Disboard",
