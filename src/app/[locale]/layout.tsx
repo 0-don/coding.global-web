@@ -1,8 +1,11 @@
 import { routing } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import { authClient } from "@/lib/auth-client";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { Toaster } from "sonner";
@@ -30,8 +33,23 @@ type Props = {
 
 export default function RootLayout(props: Props) {
   const { locale } = use(props.params);
+  const header = use(headers());
 
   if (!hasLocale(routing.locales, locale)) notFound();
+
+  const session = use(auth.api.getSession({ headers: header }));
+
+  console.log("Session in layout:", session);
+
+  // Set the session atom directly on the server!
+  if (session) {
+    authClient.$store.atoms.$sessionSignal?.set({
+      data: session,
+      isPending: false,
+      error: null,
+      isRefetching: false,
+    });
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning>
