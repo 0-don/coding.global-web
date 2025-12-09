@@ -7,8 +7,8 @@ import { ReactNode } from "react";
 
 export async function SessionProvider(props: { children: ReactNode }) {
   const queryClient = getQueryClient();
-
   const header = await headers();
+
   await queryClient.prefetchQuery({
     queryKey: queryKeys.session(),
     queryFn: async () => auth.api.getSession({ headers: header }),
