@@ -6,5 +6,6 @@ export function useSessionHook() {
   return useQuery({
     queryKey: queryKeys.session(),
     queryFn: async () => (await authClient.getSession()).data,
+    enabled: false,
   });
 }
