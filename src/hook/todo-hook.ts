@@ -1,5 +1,5 @@
 import { PAGEABLE_LIMIT } from "@/lib/config/constants";
-import { Todo, todoInsertSchema } from "@/lib/db/todo-db-schema";
+import { Todo, todoInsertSchema } from "@/lib/db-schema/todo-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
@@ -37,7 +37,8 @@ export function useTodoAddMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (args: typeof todoInsertSchema.static) => handleElysia(await rpc.api.todo.post(args))!,
+    mutationFn: async (args: typeof todoInsertSchema.static) =>
+      handleElysia(await rpc.api.todo.post(args))!,
     onSuccess: (newTodo) => {
       queryClient.setQueryData(
         queryKeys.todos(),

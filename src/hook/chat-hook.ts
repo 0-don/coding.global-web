@@ -1,5 +1,8 @@
 import { PAGEABLE_LIMIT } from "@/lib/config/constants";
-import { commentInsertSchema, Comments } from "@/lib/db/comment-db-schema";
+import {
+  commentInsertSchema,
+  Comments,
+} from "@/lib/db-schema/comment-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
