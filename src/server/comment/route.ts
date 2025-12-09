@@ -1,11 +1,11 @@
 import { PAGEABLE_LIMIT } from "@/lib/config/constants";
 import { db } from "@/lib/db";
-import { users } from "@/lib/db/auth-db-schema";
+import { users } from "@/lib/db-schema/auth-db-schema";
 import {
   comment,
   commentInsertSchema,
   commentSelectSchema,
-} from "@/lib/db/comment-db-schema";
+} from "@/lib/db-schema/comment-db-schema";
 import { pageable } from "@/lib/typebox/pageable";
 import { and, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import Elysia, { t } from "elysia";

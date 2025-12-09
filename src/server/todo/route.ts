@@ -7,7 +7,7 @@ import {
   todoInsertSeedSchema,
   TodoStatus,
   todoStatusEnum,
-} from "@/lib/db/todo-db-schema";
+} from "@/lib/db-schema/todo-db-schema";
 import { pageable } from "@/lib/typebox/pageable";
 import dayjs from "dayjs";
 import { desc, eq, lt } from "drizzle-orm";
