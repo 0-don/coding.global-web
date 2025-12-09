@@ -1,6 +1,5 @@
 import { routing } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
-import { authClient } from "@/lib/auth-client";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
@@ -39,23 +38,11 @@ export default function RootLayout(props: Props) {
 
   const session = use(auth.api.getSession({ headers: header }));
 
-  console.log("Session in layout:", session);
-
-  // Set the session atom directly on the server!
-  if (session) {
-    authClient.$store.atoms.$sessionSignal?.set({
-      data: session,
-      isPending: false,
-      error: null,
-      isRefetching: false,
-    });
-  }
-
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`flex min-h-full flex-col antialiased`}>
         <Toaster />
-        <Providers>{props.children}</Providers>
+        <Providers session={session}>{props.children}</Providers>
       </body>
     </html>
   );
