@@ -1,5 +1,4 @@
 import { routing } from "@/i18n/routing";
-import { auth } from "@/lib/auth";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
@@ -32,17 +31,14 @@ type Props = {
 
 export default function RootLayout(props: Props) {
   const { locale } = use(props.params);
-  const header = use(headers());
 
   if (!hasLocale(routing.locales, locale)) notFound();
-
-  const session = use(auth.api.getSession({ headers: header }));
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`flex min-h-full flex-col antialiased`}>
         <Toaster />
-        <Providers session={session}>{props.children}</Providers>
+        <Providers>{props.children}</Providers>
       </body>
     </html>
   );

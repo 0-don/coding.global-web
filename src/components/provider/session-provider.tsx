@@ -1,27 +1,22 @@
-"use client";
+import { auth } from "@/lib/auth";
+import getQueryClient from "@/lib/react-query/client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { headers } from "next/headers";
+import { ReactNode } from "react";
 
-import { authClient, Session } from "@/lib/auth-client";
-import { ReactNode, useLayoutEffect, useRef } from "react";
+export async function SessionProvider(props: { children: ReactNode }) {
+  const queryClient = getQueryClient();
 
-export function SessionProvider(props: {
-  children: ReactNode;
-  session: Session | null;
-}) {
-  const initialized = useRef(false);
+  const header = await headers();
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.session(),
+    queryFn: async () => auth.api.getSession({ headers: header }),
+  });
 
-  useLayoutEffect(() => {
-    // Only hydrate if we have server session and haven't initialized yet
-    if (props.session && !initialized.current) {
-      console.log("Hydrating session", props.session);
-      authClient.$store.atoms.$sessionSignal?.set({
-        data: props.session,
-        isPending: false,
-        error: null,
-        isRefetching: false,
-      });
-      initialized.current = true;
-    }
-  }, [props.session]);
-
-  return <>{props.children}</>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {props.children}
+    </HydrationBoundary>
+  );
 }

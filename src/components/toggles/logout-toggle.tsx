@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -10,7 +11,7 @@ import { toast } from "sonner";
 export function LogoutToggle() {
   const t = useTranslations();
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  const { data: session } = useSessionHook();
 
   if (!session) return null;
 
