@@ -5,7 +5,7 @@ import { resolve } from "path";
 import postgres from "postgres";
 
 export const db = drizzle(
-  postgres(process.env.DATABASE_URL!, { onnotice: () => {} }),
+  postgres(process.env.DATABASE_URL, { onnotice: () => {} }),
 );
 
 migrate(db, { migrationsFolder: resolve("drizzle") })
