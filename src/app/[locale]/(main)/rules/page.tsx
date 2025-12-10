@@ -1,7 +1,3 @@
-import { LayoutWrapper } from "@/components/container/layout-wrapper";
-import Background from "@/components/layout/background";
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
 import { Rules } from "@/components/pages/rules";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
@@ -22,12 +18,5 @@ export async function generateMetadata(props: {
 }
 
 export default function RulesPage() {
-  return (
-    <LayoutWrapper container={false}>
-      <Background />
-      <Navbar />
-      <Rules />
-      <Footer />
-    </LayoutWrapper>
-  );
+  return <Rules />;
 }
