@@ -10,8 +10,8 @@ export function Navbar() {
   const t = useTranslations();
 
   return (
-    <div className="fixed top-3 left-0 right-0 flex items-center justify-center z-20">
-      <div className="flex items-center justify-between w-fit gap-7 max-w-6xl px-6 py-3 bg-black bg-opacity-70 backdrop-blur-sm rounded-full border border-red-500 shadow-lg">
+    <div className="fixed top-3 right-0 left-0 z-20 flex items-center justify-center">
+      <div className="bg-opacity-70 flex w-fit max-w-6xl items-center justify-between gap-7 rounded-full border border-red-500 bg-black px-6 py-3 shadow-lg backdrop-blur-sm">
         <button
           onClick={() =>
             window.open(
@@ -19,19 +19,19 @@ export function Navbar() {
               "_blank",
             )
           }
-          className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
+          className="rounded-full px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black"
         >
           {t("MAIN.BUTTON.DISBOARD")}
         </button>
 
         <Link
           href="/team"
-          className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
+          className="rounded-full px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black"
         >
           {t("MAIN.NAVIGATION.TEAM")}
         </Link>
 
-        <Link href="/" className="relative hidden md:block cursor-pointer">
+        <Link href="/" className="relative hidden cursor-pointer md:block">
           <Image
             src={"/cgLogo.gif"}
             alt="Logo"
@@ -44,13 +44,13 @@ export function Navbar() {
 
         <Link
           href="/news"
-          className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
+          className="rounded-full px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black"
         >
           {t("MAIN.NAVIGATION.NEWS")}
         </Link>
         <Link
           href="/rules"
-          className="text-white font-semibold hover:bg-red-500 hover:text-black py-2 px-4 rounded-full transition-all duration-200"
+          className="rounded-full px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black"
         >
           {t("MAIN.NAVIGATION.RULES")}
         </Link>

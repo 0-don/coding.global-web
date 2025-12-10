@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier -w .",
     "openapi": "orval --config ./orval.config.ts",
     "drizzle": "drizzle-kit generate",
     "reset": "node drizzle/reset-db.ts"

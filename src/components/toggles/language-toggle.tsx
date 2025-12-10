@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { LANGUAGES } from "@/lib/config/constants";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,7 +19,9 @@ export function LanguageToggle() {
   const t = useTranslations();
   const [isPending, startTransition] = useTransition();
 
-  const currentLanguage = LANGUAGES.find((lang) => lang.code.toLowerCase() === locale);
+  const currentLanguage = LANGUAGES.find(
+    (lang) => lang.code.toLowerCase() === locale,
+  );
 
   function onLanguageChange(newLocale: string) {
     startTransition(() => {
@@ -35,7 +42,7 @@ export function LanguageToggle() {
           <span className="text-lg">{currentLanguage?.flag}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-black/90 border-red-500">
+      <DropdownMenuContent align="end" className="border-red-500 bg-black/90">
         {LANGUAGES.map((lang) => (
           <DropdownMenuItem
             key={lang.code}

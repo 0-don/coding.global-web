@@ -5,7 +5,7 @@ import postgres from "postgres";
 // Connect to 'postgres' database instead of your app database
 const connectionString = process.env.DATABASE_URL.replace(
   /\/[^/]+$/,
-  "/postgres"
+  "/postgres",
 );
 const sql = postgres(connectionString, { onnotice: () => {} });
 
@@ -31,5 +31,4 @@ try {
   error("Error resetting database:", err);
 } finally {
   await sql.end();
-  
 }

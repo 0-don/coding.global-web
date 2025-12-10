@@ -1,6 +1,6 @@
 export const queryKeys = {
   session: () => ["session"],
-  
+
   // User
   staffMembers: () => ["staff-members"],
   walletBalances: () => ["wallet-balances"],
