@@ -1,161 +1,74 @@
 "use client";
 
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useNewsQuery } from "@/hook/bot-hook";
+import type { GetApiByGuildIdNews200Item } from "@/openapi";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useMemo, useState } from "react";
 
-type NewsItem = {
-  id: string;
-  content: string;
-  createdAt: string;
-  attachments: Array<{
-    url: string;
-    width: number;
-    height: number;
-    contentType: string;
-  }>;
-  user: {
-    globalName: string;
-    username: string;
-    displayAvatarURL: string;
-  };
-};
-
-type RawNewsItem = {
-  id: string;
-  content?: string;
-  createdAt?: string;
-  attachments?: Array<{
-    url: string;
-    width: number;
-    height: number;
-    contentType: string;
-  }>;
-  user?: {
-    globalName?: string;
-    username?: string;
-    displayAvatarURL?: string;
-  };
-};
-
-type ApiResponse = {
-  data:
-    | RawNewsItem[]
-    | { news?: RawNewsItem[] }
-    | RawNewsItem
-    | null
-    | undefined;
-};
+dayjs.extend(relativeTime);
 
 export function News() {
-  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const t = useTranslations();
+  const newsQuery = useNewsQuery();
 
-  const formatTimeAgo = (dateString: string) => {
-    const now = new Date();
-    const past = new Date(dateString);
-    const diffInMonths =
-      (now.getFullYear() - past.getFullYear()) * 12 +
-      (now.getMonth() - past.getMonth());
+  const newsData = Array.isArray(newsQuery.data) ? newsQuery.data : [];
 
-    if (diffInMonths === 0) return "just now";
-    if (diffInMonths === 1) return "a month ago";
-    if (diffInMonths < 12) return `${diffInMonths} months ago`;
-    if (diffInMonths === 12) return "a year ago";
-    return `${Math.floor(diffInMonths / 12)} years ago`;
-  };
-
-  const renderContent = (content: string) =>
-    content
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(
-        /<#(\d+)>/g,
-        '<a href="#" class="text-blue-400 hover:underline">$&</a>',
-      )
-      .replace(
-        /<@(\d+)>/g,
-        '<a href="#" class="text-blue-400 hover:underline">$&</a>',
-      )
-      .replace(/\n/g, "<br>");
-
-  const memoizedNews = useMemo(() => newsItems, [newsItems]);
+  console.log("News data:", newsData);
 
   return (
-    <div className="relative z-10 min-h-screen w-full px-4 py-12 text-white sm:px-6 lg:top-70">
-      {loading ? (
-        <p className="py-10 text-center text-gray-400">Loading...</p>
-      ) : memoizedNews.length === 0 ? (
-        <p className="py-10 text-center text-gray-400">No news available.</p>
-      ) : (
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:-m-40 lg:grid-cols-3 lg:pb-0">
-          {memoizedNews.map((news) => (
-            <div
-              key={news.id}
-              className="flex min-h-[350px] flex-col overflow-hidden rounded-2xl border border-red-900 shadow-lg backdrop-blur-2xl transition duration-300 hover:shadow-2xl"
-            >
-              {news.attachments.length > 0 && (
-                <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={news.attachments[0].url}
-                    alt="News attachment"
-                    className="h-full w-full object-cover"
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-              )}
-
-              <div className="flex grow flex-col p-6">
-                {news.attachments.length === 0 && (
-                  <div className="mb-4 flex items-center space-x-3">
-                    <Image
-                      src={news.user.displayAvatarURL}
-                      alt={news.user.globalName}
-                      className="h-10 w-10 rounded-full"
-                      width={40}
-                      height={40}
-                    />
-                    <div>
-                      <div className="text-base font-semibold text-white">
-                        {news.user.globalName}
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        {formatTimeAgo(news.createdAt)}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <div
-                  className="grow text-sm leading-relaxed wrap-break-word text-gray-300 md:text-base"
-                  dangerouslySetInnerHTML={{
-                    __html: renderContent(news.content),
-                  }}
-                />
-
-                {news.attachments.length > 0 && (
-                  <div className="mt-6 flex items-center space-x-3 border-t border-gray-700 pt-4">
-                    <Image
-                      src={news.user.displayAvatarURL}
-                      alt={news.user.globalName}
-                      className="h-9 w-9 rounded-full"
-                      width={36}
-                      height={36}
-                    />
-                    <div>
-                      <div className="text-base font-semibold text-white">
-                        {news.user.globalName}
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        {formatTimeAgo(news.createdAt)}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+    <div className="container mx-auto mt-5 h-[calc(100vh-2rem)]">
+      <Card className="bg-card/80 flex h-full flex-col px-10 py-5">
+        <div className="mb-5">
+          <h1 className="text-3xl font-bold">{t("NEWS.TITLE")}</h1>
         </div>
-      )}
+        <div className="mt-5 flex-1 overflow-y-auto px-1">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {newsData.map((news: GetApiByGuildIdNews200Item) => (
+              <Card key={news.id} className="overflow-hidden">
+                {news.attachments.length > 0 && (
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={news.attachments[0].url}
+                      alt={news.content}
+                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <CardHeader className="flex items-start gap-4">
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={news.user.displayAvatarURL}
+                      alt={news.user.username}
+                      className="h-8 w-8 rounded-full"
+                      width={32}
+                      height={32}
+                    />
+                    <div>
+                      <h3 className="text-sm font-semibold">
+                        {news.user.globalName || news.user.username}
+                      </h3>
+                      <p className="text-muted-foreground text-xs">
+                        {dayjs(news.createdAt).fromNow()}
+                      </p>
+                    </div>
+                  </div>
+                </CardHeader>
+                {news.content && (
+                  <CardContent>
+                    <p className="text-sm">{news.content}</p>
+                  </CardContent>
+                )}
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
