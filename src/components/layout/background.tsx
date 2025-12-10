@@ -4,12 +4,12 @@ import Image from "next/image";
 
 export default function Background() {
   return (
-    <div className="fixed inset-0 -z-10 w-full h-full">
+    <div className="fixed inset-0 -z-10 h-full w-full">
       <Image
         src="/banner.gif"
         alt="Coding Global Background"
         fill
-        className="object-cover w-full h-full select-none"
+        className="h-full w-full object-cover select-none"
         quality={100}
         priority
         unoptimized

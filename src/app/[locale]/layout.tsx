@@ -3,7 +3,6 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { Toaster } from "sonner";
