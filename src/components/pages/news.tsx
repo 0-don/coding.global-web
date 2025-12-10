@@ -16,7 +16,6 @@ export function News() {
 
   const newsData = Array.isArray(newsQuery.data) ? newsQuery.data : [];
 
-  console.log("News data:", newsData);
 
   return (
     <div className="container mx-auto mt-5 h-[calc(100vh-2rem)]">

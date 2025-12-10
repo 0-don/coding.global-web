@@ -1,6 +1,11 @@
 import { News } from "@/components/pages/news";
 import { getPageMetadata } from "@/lib/config/metadata";
+import getQueryClient from "@/lib/react-query/client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {
@@ -17,6 +22,17 @@ export async function generateMetadata(props: {
   });
 }
 
-export default function NewsPage() {
-  return <News />;
+export default async function NewsPage() {
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.news(),
+    queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <News />
+    </HydrationBoundary>
+  );
 }
