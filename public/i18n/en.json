@@ -48,6 +48,9 @@
       "NOT_FOUND": "Not found",
       "RETRY": "Retry"
     },
+    "FOOTER": {
+      "GET_REPOSITORY": "Get the repository"
+    },
     "ENUM": {
       "DARK": "Dark",
       "DE": "German",

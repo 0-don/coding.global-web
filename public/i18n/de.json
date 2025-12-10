@@ -48,6 +48,9 @@
       "NOT_FOUND": "Nicht gefunden",
       "RETRY": "Wiederholung"
     },
+    "FOOTER": {
+      "GET_REPOSITORY": "Repository abrufen"
+    },
     "ENUM": {
       "DARK": "Dunkel",
       "DE": "Deutsch",
