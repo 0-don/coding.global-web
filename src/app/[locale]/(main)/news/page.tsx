@@ -1,7 +1,3 @@
-import { LayoutWrapper } from "@/components/container/layout-wrapper";
-import Background from "@/components/layout/background";
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
 import { News } from "@/components/pages/news";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
@@ -22,12 +18,5 @@ export async function generateMetadata(props: {
 }
 
 export default function NewsPage() {
-  return (
-    <LayoutWrapper container={false}>
-      <Background />
-      <Navbar />
-      <News />
-      <Footer />
-    </LayoutWrapper>
-  );
+  return <News />;
 }
