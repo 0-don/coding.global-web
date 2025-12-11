@@ -55,7 +55,7 @@ export default function Navbar() {
               const isActive = isActiveLink(pathname, item.href);
               return (
                 <NavigationMenuItem key={item.name}>
-                  <Link href={item.href} legacyBehavior passHref>
+                  <Link href={item.href}>
                     <NavigationMenuLink
                       className={cn(
                         navigationMenuTriggerStyle(),
