@@ -64,6 +64,9 @@
 			"UNAUTHORIZED": "Unauthorized",
 			"UNEXPECTED_ERROR_OCCURRED": "An unexpected error occurred. Please try again or return to the home page."
 		},
+		"FOOTER": {
+			"GET_REPOSITORY": "Get repository"
+		},
 		"MANIFEST": {
 			"DESCRIPTION": "Join our thriving coding community with 6,600+ members. Get help, share projects, and connect with programmers of all skill levels.",
 			"SHORT_NAME": "Coding",

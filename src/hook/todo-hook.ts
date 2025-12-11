@@ -19,7 +19,7 @@ export function useTodosInfiniteQuery() {
     queryFn: async ({ pageParam }) =>
       handleElysia(
         await rpc.api.todo.get({
-          $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
+          query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
         }),
       )!,
     initialPageParam: null as string | undefined | null,
@@ -64,7 +64,7 @@ export function useTodoDeleteMutation() {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      const response = await rpc.api.todo[id].delete();
+      const response = await rpc.api.todo({ id }).delete();
       if (response.error) throw response.error;
       return response.data!;
     },

@@ -21,7 +21,7 @@ export function useCommentsInfiniteQuery() {
     queryKey: queryKeys.comments(),
     queryFn: async ({ pageParam }) => {
       const response = await rpc.api.comment.get({
-        $query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
+        query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
       });
 
       if (response.error) throw response.error;
@@ -69,7 +69,7 @@ export function useCommentDeleteMutation() {
 
   return useMutation({
     mutationFn: async (id: string) =>
-      handleElysia(await rpc.api.comment[id].delete()),
+      handleElysia(await rpc.api.comment({ id }).delete()),
     onSuccess: (c) => {
       queryClient.setQueryData<Comments[]>(
         queryKeys.comments(),
