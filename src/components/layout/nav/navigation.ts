@@ -32,7 +32,6 @@ export type NavigationItem = {
   href: ValidRoutes;
   icon: IconType;
   hidden?: boolean;
-  size?: "small" | "medium" | "large";
 };
 
 export const navigation = (authenticated?: boolean): NavigationItem[] => [
@@ -48,21 +47,18 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
     description: "MAIN.NAVIGATION.NEWS_DESCRIPTION",
     href: "/news",
     icon: HiOutlineArrowsRightLeft,
-    size: "large",
   },
   {
     name: "MAIN.NAVIGATION.RULES",
     description: "MAIN.NAVIGATION.RULES_DESCRIPTION",
     href: "/rules",
     icon: HiOutlineInformationCircle,
-    size: "medium",
   },
   {
     name: "MAIN.NAVIGATION.TEAM",
     description: "MAIN.NAVIGATION.TEAM_DESCRIPTION",
     href: "/team",
     icon: HiOutlineCalculator,
-    size: "small",
   },
 ];
 

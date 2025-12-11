@@ -64,25 +64,6 @@
 			"UNAUTHORIZED": "Nicht autorisiert",
 			"UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kehren Sie zur Startseite zurück."
 		},
-		"FOOTER": {
-			"COMPANY_INFO": {
-				"CONSULTATION": "Für Beratung",
-				"EMAIL": "E-Mail: <link>{email}</link>",
-				"TITLE": "Firmeninfo"
-			},
-			"COPYRIGHT": "© {year} {appName}. Alle Rechte vorbehalten.",
-			"GET_REPOSITORY": "Repository abrufen",
-			"LEGAL": {
-				"TITLE": "Rechtliches"
-			},
-			"NAVIGATION": {
-				"TITLE": "Navigation"
-			},
-			"SLOGAN": "Ihre vertrauenswürdige Plattform für Kryptowährungs-Börsendienste",
-			"SOCIAL": {
-				"TWITTER": "Folge uns auf Twitter"
-			}
-		},
 		"MANIFEST": {
 			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen.",
 			"SHORT_NAME": "Coding",
@@ -94,38 +75,18 @@
 			"TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
 		},
 		"NAVIGATION": {
-			"CALCULATE_YOUR_SAVINGS": "Berechne deine Ersparnisse",
-			"CALCULATE_YOUR_SAVINGS_DESCRIPTION": "Berechne, wie viel du mit unseren Dienstleistungen sparen kannst",
-			"CHAT": "Chat",
-			"CONNECT_EXCHANGE": "Börse verbinden",
-			"CONNECT_EXCHANGE_DESCRIPTION": "Verbinde dein Börsenkonto sicher",
-			"DASHBOARD": "Dashboard",
-			"DASHBOARD_DESCRIPTION": "Zeige dein Konto-Dashboard und Statistiken an",
-			"EXCHANGES": "Börsen",
-			"EXCHANGES_DESCRIPTION": "Durchsuche und verwalte unterstützte Börsen",
 			"HOME": "Startseite",
 			"HOME_DESCRIPTION": "Zeige dein Konto-Dashboard und Statistiken an",
-			"HOW_IT_WORKS": "So funktioniert's",
-			"HOW_IT_WORKS_DESCRIPTION": "Erfahre, wie unsere Plattform funktioniert",
-			"IMPRESSUM": "Impressum",
-			"IMPRESSUM_DESCRIPTION": "Rechtliche Informationen und Firmendetails",
 			"LOGIN": "Anmelden",
 			"LOGOUT": "Abmelden",
 			"NEWS": "Nachrichten",
 			"NEWS_DESCRIPTION": "Bleiben Sie auf dem Laufenden mit den neuesten Programmiernachrichten und Community-Ankündigungen",
 			"OPEN_MENU": "Menü öffnen",
-			"PRIVACY_POLICY": "Datenschutzerklärung",
-			"PRIVACY_POLICY_DESCRIPTION": "Lies unsere Datenschutzerklärung",
 			"REGISTER": "Registrieren",
 			"RULES": "Regeln",
 			"RULES_DESCRIPTION": "Gemeinschaftsrichtlinien und Regeln für eine respektvolle Umgebung",
-			"SERVICES": "Dienstleistungen",
-			"SETTINGS": "Einstellungen",
 			"TEAM": "Team",
-			"TEAM_DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen",
-			"TERMS_CONDITIONS": "AGB",
-			"TERMS_CONDITIONS_DESCRIPTION": "Lies unsere Allgemeinen Geschäftsbedingungen",
-			"TODO": "Aufgabe"
+			"TEAM_DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen"
 		},
 		"SUCCESS": {
 			"CONSOLE_CLEARED": "Konsole geleert",

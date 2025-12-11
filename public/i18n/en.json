@@ -64,25 +64,6 @@
 			"UNAUTHORIZED": "Unauthorized",
 			"UNEXPECTED_ERROR_OCCURRED": "An unexpected error occurred. Please try again or return to the home page."
 		},
-		"FOOTER": {
-			"COMPANY_INFO": {
-				"CONSULTATION": "",
-				"EMAIL": "",
-				"TITLE": ""
-			},
-			"COPYRIGHT": "",
-			"GET_REPOSITORY": "Get the repository",
-			"LEGAL": {
-				"TITLE": ""
-			},
-			"NAVIGATION": {
-				"TITLE": ""
-			},
-			"SLOGAN": "",
-			"SOCIAL": {
-				"TWITTER": ""
-			}
-		},
 		"MANIFEST": {
 			"DESCRIPTION": "Join our thriving coding community with 6,600+ members. Get help, share projects, and connect with programmers of all skill levels.",
 			"SHORT_NAME": "Coding",
@@ -94,38 +75,18 @@
 			"TITLE": "Coding Community - Join Our Developer Network"
 		},
 		"NAVIGATION": {
-			"CALCULATE_YOUR_SAVINGS": "",
-			"CALCULATE_YOUR_SAVINGS_DESCRIPTION": "",
-			"CHAT": "Chat",
-			"CONNECT_EXCHANGE": "",
-			"CONNECT_EXCHANGE_DESCRIPTION": "",
-			"DASHBOARD": "",
-			"DASHBOARD_DESCRIPTION": "",
-			"EXCHANGES": "",
-			"EXCHANGES_DESCRIPTION": "",
 			"HOME": "Home",
 			"HOME_DESCRIPTION": "View your account dashboard and statistics",
-			"HOW_IT_WORKS": "",
-			"HOW_IT_WORKS_DESCRIPTION": "",
-			"IMPRESSUM": "",
-			"IMPRESSUM_DESCRIPTION": "",
 			"LOGIN": "Login",
-			"LOGOUT": "",
+			"LOGOUT": "Logout",
 			"NEWS": "News",
 			"NEWS_DESCRIPTION": "Stay updated with latest programming news and community announcements",
-			"OPEN_MENU": "",
-			"PRIVACY_POLICY": "",
-			"PRIVACY_POLICY_DESCRIPTION": "",
+			"OPEN_MENU": "Open Menu",
 			"REGISTER": "Register",
 			"RULES": "Rules",
 			"RULES_DESCRIPTION": "Community guidelines and rules for a respectful environment",
-			"SERVICES": "",
-			"SETTINGS": "",
 			"TEAM": "Team",
-			"TEAM_DESCRIPTION": "Meet our experienced moderators and administrators",
-			"TERMS_CONDITIONS": "",
-			"TERMS_CONDITIONS_DESCRIPTION": "",
-			"TODO": "Todo"
+			"TEAM_DESCRIPTION": "Meet our experienced moderators and administrators"
 		},
 		"SUCCESS": {
 			"CONSOLE_CLEARED": "Console cleared",
