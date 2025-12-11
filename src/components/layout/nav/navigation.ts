@@ -1,4 +1,4 @@
-import { ValidRoutes } from "@/i18n/routing";
+import { LinkHref, ValidRoutes } from "@/i18n/routing";
 import { TranslationKey } from "@/lib/config/constants";
 import {
   HiOutlineArrowsRightLeft,
@@ -29,7 +29,7 @@ export const isActiveLink = (pathname: string, href: ValidRoutes) => {
 export type NavigationItem = {
   name: TranslationKey;
   description: TranslationKey;
-  href: ValidRoutes;
+  href: LinkHref;
   icon: IconType;
   hidden?: boolean;
 };

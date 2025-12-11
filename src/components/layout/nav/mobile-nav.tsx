@@ -16,13 +16,13 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaDiscord } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
 import { isActiveLink, navigation } from "./navigation";
-import { useTranslations } from "next-intl";
 
 export function MobileNav() {
   const t = useTranslations();
@@ -105,7 +105,6 @@ export function MobileNav() {
             )}
           </div>
 
-          {/* Language and Theme toggles */}
           <div className="flex items-center gap-2 border-t px-4 pt-4">
             <LanguageToggle />
             <ThemeToggle />
