@@ -14,6 +14,7 @@ export const LogoImage = (
       {...props}
       src={"/images/cgLogo.gif"}
       alt={appName}
+      unoptimized
       className="h-auto w-auto"
     />
   );
