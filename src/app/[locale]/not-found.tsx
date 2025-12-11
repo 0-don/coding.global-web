@@ -12,9 +12,7 @@ export async function generateMetadata(props: {
 
   return getPageMetadata({
     locale,
-    title: t("METADATA.NOT_FOUND.TITLE", {
-      appName: process.env.NEXT_PUBLIC_APP_NAME,
-    }),
+    title: t("METADATA.NOT_FOUND.TITLE"),
     description: t("METADATA.NOT_FOUND.DESCRIPTION"),
     keywords: t("METADATA.NOT_FOUND.KEYWORDS"),
     robots: false,

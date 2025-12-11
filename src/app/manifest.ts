@@ -10,9 +10,7 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   });
 
   return {
-    name: t("MAIN.MANIFEST.TITLE", {
-      appName: process.env.NEXT_PUBLIC_APP_NAME,
-    }),
+    name: t("MAIN.MANIFEST.TITLE"),
     short_name: t("MAIN.MANIFEST.SHORT_NAME"),
     description: t("MAIN.MANIFEST.DESCRIPTION"),
     start_url: "/",

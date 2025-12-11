@@ -51,26 +51,25 @@ export default function Navbar() {
         </Link>
         <NavigationMenu>
           <NavigationMenuList className="flex-wrap gap-1">
-            {navigation(!!session?.data?.user.id)
-              .filter((item) => !item.hidden)
-              .map((item) => {
-                const isActive = isActiveLink(pathname, item.href);
-                return (
-                  <NavigationMenuItem key={item.name}>
-                    <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black focus:ring-0",
-                          isActive && "bg-red-500 text-black",
-                        )}
-                      >
-                        {/* {t(item.name)} */}
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                );
-              })}
+            {navigation(!!session?.data?.user.id).map((item) => {
+              const isActive = isActiveLink(pathname, item.href);
+              return (
+                <NavigationMenuItem key={item.name}>
+                  <Link href={item.href} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black focus:ring-0",
+                        isActive && "bg-red-500 text-black",
+                      )}
+                    >
+                      {/* @ts-expect-error - Dynamic translation key */}
+                      {t(item.name)}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              );
+            })}
           </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center gap-2">
