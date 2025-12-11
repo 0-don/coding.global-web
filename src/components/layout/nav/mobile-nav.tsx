@@ -45,7 +45,7 @@ export function MobileNav() {
           <span className="sr-only">{t("MAIN.NAVIGATION.OPEN_MENU")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="z-9999 w-[300px] sm:w-[400px]">
+      <SheetContent side="left" className="z-9999 w-75 sm:w-100">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <LogoImage />
@@ -77,7 +77,7 @@ export function MobileNav() {
                         )}
                       />
                     )}
-                    {/* {t(item.name)} */}
+                    {t(item.name)}
                   </Link>
                 );
               })}
