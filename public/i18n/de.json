@@ -1,172 +1,215 @@
 {
-  "CHAT": {
-    "COMMENT": "Kommentar",
-    "DISCORD_LOGIN": "Discord-Anmeldung",
-    "INFO": {
-      "COMMENT_DELETED": "Kommentar Gelöscht"
-    },
-    "META": {
-      "DESCRIPTION": "Verbinde dich in Echtzeit mit über 6.600 Entwicklern. Diskutiere über Programmierung, erhalte Hilfe und nimm an technischen Gesprächen in unserer aktiven Discord-Community teil.",
-      "KEYWORDS": "Programmierung Chat, Entwicklerdiskussion, Code-Hilfe, Tech-Community, Discord-Chat",
-      "TITLE": "Community-Chat - Programmierung [EN,GER]"
-    },
-    "SUCCESS": {
-      "COMMENT_ADD": "Kommentar erfolgreich hinzugefügt"
-    },
-    "TITLE": "Chat"
-  },
-  "HOME": {
-    "BY": "von",
-    "META": {
-      "DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe von erfahrenen Entwicklern, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen. Englisch- und Deutschsprachige sind willkommen!",
-      "KEYWORDS": "Codierung, Programmierung, Entwickler, Discord-Server, Programmiergemeinschaft, Code-Hilfe, Softwareentwicklung, Deutsch, Englisch",
-      "TITLE": "Coding [EN,GER] - Programmierung & Softwareentwicklung Gemeinschaft"
-    },
-    "OFFICIAL": "Offizielle",
-    "OFFICIAL_CODING_DISCORD_WEBSITE": "Offizielle Coding Discord Website",
-    "SEE_REPOSITORY": "Siehe das Repository",
-    "TITLE": "Home",
-    "WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
-  },
-  "MAIN": {
-    "ACTIONS": {
-      "GO_BACK": "Zurück",
-      "GO_HOME": "Zur Startseite",
-      "TRY_AGAIN": "Erneut versuchen"
-    },
-    "AUTH": {
-      "LOGIN": "Anmelden",
-      "LOGIN_WITH_DISCORD": "Mit Discord anmelden",
-      "LOGOUT": "Abmelden",
-      "WELCOME": "Willkommen, {name}"
-    },
-    "BUTTON": {
-      "BACK_TO_HOME": "Zurück nach Hause",
-      "DISBOARD": "Disboard",
-      "DISCORD": "Discord",
-      "LOADING": "Laden",
-      "NOT_FOUND": "Nicht gefunden",
-      "RETRY": "Wiederholung"
-    },
-    "FOOTER": {
-      "GET_REPOSITORY": "Repository abrufen"
-    },
-    "ENUM": {
-      "DARK": "Dunkel",
-      "DE": "Deutsch",
-      "EN": "Englisch",
-      "LIGHT": "Licht",
-      "SYSTEM": "System"
-    },
-    "ERROR": {
-      "DIGEST": "Digest",
-      "ERROR_DETAILS": "Fehlerdetails",
-      "PAGE_NOT_FOUND": "Seite nicht gefunden",
-      "PAGE_NOT_FOUND_DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
-      "SOMETHING_WENT_WRONG": "Etwas ist schiefgelaufen",
-      "UNAUTHORIZED": "Nicht autorisiert",
-      "UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kehren Sie zur Startseite zurück."
-    },
-    "MANIFEST": {
-      "DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen.",
-      "SHORT_NAME": "Coding",
-      "TITLE": "{appName} - Programmiergemeinschaft"
-    },
-    "META": {
-      "DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
-      "KEYWORDS": "Programmierung, Codierung, Softwareentwicklung, JavaScript, Python, Java, C++",
-      "TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
-    },
-    "NAVIGATION": {
-      "CHAT": "Chat",
-      "NEWS": "Nachrichten",
-      "RULES": "Regeln",
-      "TEAM": "Team",
-      "TODO": "Aufgabe"
-    },
-    "SUCCESS": {
-      "CONSOLE_CLEARED": "Konsole geleert",
-      "LOGGED_OUT": "Erfolgreich ausgeloggt"
-    },
-    "TOOLTIP": {
-      "CLEAR_CONSOLE": "Konsole löschen",
-      "LOGOUT": "Abmeldung",
-      "TOGGLE_LANGUAGE": "Sprache wechseln",
-      "TOGGLE_THEME": "Thema wechseln"
-    }
-  },
-  "METADATA": {
-    "NOT_FOUND": {
-      "DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht. Kehren Sie zu unserer Programmier-Community-Startseite zurück, um Programmierressourcen und Diskussionen zu erkunden.",
-      "KEYWORDS": "404, Seite nicht gefunden, Fehler",
-      "TITLE": "{appName} - Seite nicht gefunden"
-    },
-    "ROOT": {
-      "DESCRIPTION": "Offizielle Coding Global Website für Programmierer weltweit. Treten Sie 6.600+ Entwicklern in unserer internationalen Community bei für Coding-Hilfe, Diskussionen und Tech-Networking.",
-      "KEYWORDS": "Coding Global, Discord Community, Programmierung, Entwickler, EN, GER, Coding-Community, Entwicklernetzwerk",
-      "TITLE": "Coding Global [EN/GER]"
-    }
-  },
-  "NEWS": {
-    "META": {
-      "DESCRIPTION": "Bleiben Sie auf dem Laufenden über die neuesten Programmiernachrichten, Technologie-Updates und Community-Ankündigungen von unserem Coding-Discord-Server.",
-      "KEYWORDS": "Techniknachrichten, Programmierupdates, Codierungsnachrichten, Technologieupdates, Community-Ankündigungen",
-      "TITLE": "Technische Nachrichten & Updates - Programmierung [EN,GER]"
-    },
-    "TITLE": "Nachrichten"
-  },
-  "RULES": {
-    "ADVERTISING": "Werbung",
-    "ADVERTISING_CONTENT1": "Jegliche Art von Werbung Dritter ist untersagt.",
-    "ASKING_QUESTIONS": "Fragen stellen",
-    "ASKING_QUESTIONS_CONTENT1": "Niemand ist verpflichtet, zu helfen oder eine Frage zu beantworten. Hilfe ist in der Regel kostenlos.",
-    "ASKING_QUESTIONS_CONTENT2": "Mitglieder mit der Rolle \"HILFESTELLER\" haben sich freiwillig gemeldet, um bei Fragen zu helfen.",
-    "ASKING_QUESTIONS_CONTENT3": "Das Pingen von Mitgliedern, um eine schnellere Antwort zu erwarten, ist nicht erlaubt.",
-    "ASKING_QUESTIONS_CONTENT4": "Stellen Sie keine Fragen wie \"Weiß jemand etwas über XY?\", sondern stellen Sie die Frage direkt, siehe auch ➔ <a href='https://dontasktoask.com/' class='text-blue-500 hover:underline'>https://dontasktoask.com/</a>.",
-    "ASKING_QUESTIONS_CONTENT5": "Beachten Sie den Thread \"How do I ask a good question?\" auf Stackoverflow ➔ <a href='https://stackoverflow.com/help/how-to-ask' class='text-blue-500 hover:underline'>https://stackoverflow.com/help/how-to-ask</a>.",
-    "DIRECT_MESSAGES": "Direktnachrichten",
-    "DIRECT_MESSAGES_CONTENT1": "Bitte sehen Sie davon ab, direkte Nachrichten an die Administratoren zu senden.",
-    "DISCORD_GUIDELINES": "Discord-Richtlinien",
-    "DISCORD_GUIDELINES_CONTENT1": "Die Discord-Community-Richtlinien gelten für Programmierung [DE/EN]; Benutzer können diese unter <a href='https://discord.com/guidelines' class='text-blue-500 hover:underline'>https://discord.com/guidelines</a> einsehen.",
-    "ENFORCEMENT": "Vollstreckung einer Maßnahme",
-    "ENFORCEMENT_CONTENT1": "Die Auslegung der Regeln liegt im Ermessen des jeweiligen Administrators.",
-    "LANGUAGE": "Sprache",
-    "LANGUAGE_CONTENT1": "Die Sprache unserer Gemeinschaft ist Deutsch und Englisch. Im Sprachkanal \"Öffentlich [DE]\" ist Deutsch die Hauptsprache. Benutzer können freiwillig Englisch sprechen. In dem Sprachkanal \"Öffentlich [EN]\" müssen die Benutzer jedoch Englisch sprechen.",
-    "META": {
-      "DESCRIPTION": "Richtlinien und Regeln für unsere Programmiergemeinschaft, um eine hilfreiche und respektvolle Umgebung für alle Mitglieder zu gewährleisten.",
-      "KEYWORDS": "Gemeinschaftsregeln, Richtlinien, Verhaltenskodex, Serverregeln",
-      "TITLE": "Gemeinschaftsrichtlinien - Programmierung [EN,GER]"
-    },
-    "MODERATORS": "Moderatoren",
-    "MODERATORS_CONTENT1": "Das Moderationsteam hat das Recht, angemessene Maßnahmen gegen einen Benutzer zu ergreifen, auch wenn eine bestimmte Regel nicht ausdrücklich verletzt wurde. Zu den Maßnahmen der Moderatoren können auch eskalierende Maßnahmen gehören, die ergriffen werden, wenn der Nutzer sich weigert, die getroffenen Entscheidungen zu befolgen.",
-    "PERSONAL_INFO": "Weitergabe von personenbezogenen Informationen",
-    "PERSONAL_INFO_CONTENT1": "Die Weitergabe von persönlichen Informationen anderer Personen ohne deren Zustimmung ist verboten und führt zu einer permanenten Sperre. Dazu gehören z. B. Vorname, Nachname, Adresse, Handynummer oder Bilder usw.",
-    "RECORDING": "Aufnahme",
-    "RECORDING_CONTENT1": "Die Aufnahme von Videos (Bildschirmfreigabe, Webcam) und Ton (Voice-Chat) ist in diesem Discord nicht gestattet.",
-    "TITLE": "Regeln"
-  },
-  "TEAM": {
-    "META": {
-      "DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen, die helfen, unsere Programm-Community zu pflegen und zu erweitern.",
-      "KEYWORDS": "Moderatoren, Admin-Team, Community-Leiter, Server-Mitarbeiter",
-      "TITLE": "Unser Team - Programmierung [EN,GER]"
-    },
-    "TITLE": "Team"
-  },
-  "TODO": {
-    "INFO": {
-      "TODO_DELETED": "Todo erfolgreich gelöscht"
-    },
-    "META": {
-      "DESCRIPTION": "Überprüfen Sie die geplanten Verbesserungen und bevorstehenden Funktionen für unsere Programmiergemeinschaft.",
-      "KEYWORDS": "kommende Funktionen, Community-Updates, geplante Verbesserungen, zukünftige Entwicklungen",
-      "TITLE": "Bevorstehende Funktionen - Programmierung [EN,GER]"
-    },
-    "SEED": "Seed",
-    "SUCCESS": {
-      "TODO_ADD": "Todo erfolgreich hinzugefügt",
-      "TODO_SEED": "Todos wurden erfolgreich gesät"
-    },
-    "TITLE": "Todo"
-  }
+	"CHAT": {
+		"COMMENT": "Kommentar",
+		"DISCORD_LOGIN": "Discord-Anmeldung",
+		"INFO": {
+			"COMMENT_DELETED": "Kommentar Gelöscht"
+		},
+		"META": {
+			"DESCRIPTION": "Verbinde dich in Echtzeit mit über 6.600 Entwicklern. Diskutiere über Programmierung, erhalte Hilfe und nimm an technischen Gesprächen in unserer aktiven Discord-Community teil.",
+			"KEYWORDS": "Programmierung Chat, Entwicklerdiskussion, Code-Hilfe, Tech-Community, Discord-Chat",
+			"TITLE": "Community-Chat - Programmierung [EN,GER]"
+		},
+		"SUCCESS": {
+			"COMMENT_ADD": "Kommentar erfolgreich hinzugefügt"
+		},
+		"TITLE": "Chat"
+	},
+	"HOME": {
+		"BY": "von",
+		"META": {
+			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe von erfahrenen Entwicklern, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen. Englisch- und Deutschsprachige sind willkommen!",
+			"KEYWORDS": "Codierung, Programmierung, Entwickler, Discord-Server, Programmiergemeinschaft, Code-Hilfe, Softwareentwicklung, Deutsch, Englisch",
+			"TITLE": "Coding [EN,GER] - Programmierung & Softwareentwicklung Gemeinschaft"
+		},
+		"OFFICIAL": "Offizielle",
+		"OFFICIAL_CODING_DISCORD_WEBSITE": "Offizielle Coding Discord Website",
+		"SEE_REPOSITORY": "Siehe das Repository",
+		"TITLE": "Home",
+		"WEBSITE_FOR_THE_CODING_DISCORD_SERVER": "Website für den Coding DIscord Server"
+	},
+	"MAIN": {
+		"ACTIONS": {
+			"GO_BACK": "Zurück",
+			"GO_HOME": "Zur Startseite",
+			"TRY_AGAIN": "Erneut versuchen"
+		},
+		"AUTH": {
+			"LOGIN": "Anmelden",
+			"LOGIN_WITH_DISCORD": "Mit Discord anmelden",
+			"LOGOUT": "Abmelden",
+			"WELCOME": "Willkommen, {name}"
+		},
+		"BUTTON": {
+			"BACK_TO_HOME": "Zurück nach Hause",
+			"DISBOARD": "Disboard",
+			"DISCORD": "Discord",
+			"LOADING": "Laden",
+			"NOT_FOUND": "Nicht gefunden",
+			"RETRY": "Wiederholung"
+		},
+		"ENUM": {
+			"DARK": "Dunkel",
+			"DE": "Deutsch",
+			"EN": "Englisch",
+			"LIGHT": "Licht",
+			"SYSTEM": "System"
+		},
+		"ERROR": {
+			"DIGEST": "Digest",
+			"ERROR_DETAILS": "Fehlerdetails",
+			"PAGE_NOT_FOUND": "Seite nicht gefunden",
+			"PAGE_NOT_FOUND_DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
+			"SOMETHING_WENT_WRONG": "Etwas ist schiefgelaufen",
+			"UNAUTHORIZED": "Nicht autorisiert",
+			"UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut oder kehren Sie zur Startseite zurück."
+		},
+		"FOOTER": {
+			"COMPANY_INFO": {
+				"CONSULTATION": "Für Beratung",
+				"EMAIL": "E-Mail: <link>{email}</link>",
+				"TITLE": "Firmeninfo"
+			},
+			"COPYRIGHT": "© {year} {appName}. Alle Rechte vorbehalten.",
+			"GET_REPOSITORY": "Repository abrufen",
+			"LEGAL": {
+				"TITLE": "Rechtliches"
+			},
+			"NAVIGATION": {
+				"TITLE": "Navigation"
+			},
+			"SLOGAN": "Ihre vertrauenswürdige Plattform für Kryptowährungs-Börsendienste",
+			"SOCIAL": {
+				"TWITTER": "Folge uns auf Twitter"
+			}
+		},
+		"MANIFEST": {
+			"DESCRIPTION": "Treten Sie unserer florierenden Programmiergemeinschaft mit über 6.600 Mitgliedern bei. Erhalten Sie Hilfe, teilen Sie Projekte und vernetzen Sie sich mit Programmierern aller Fähigkeitsstufen.",
+			"SHORT_NAME": "Coding",
+			"TITLE": "{appName} - Programmiergemeinschaft"
+		},
+		"META": {
+			"DESCRIPTION": "Tritt unserer internationalen Programmiergemeinschaft bei, um Hilfe und Diskussionen zum Programmieren zu erhalten. Unterstützt werden mehrere Sprachen, darunter JavaScript, Python, Java, C++ und mehr oder besuche uns auf disboard https://disboard.org/server/693908458986143824",
+			"KEYWORDS": "Programmierung, Codierung, Softwareentwicklung, JavaScript, Python, Java, C++",
+			"TITLE": "Coding-Community - Treten Sie unserem Entwicklernetzwerk bei"
+		},
+		"NAVIGATION": {
+			"CALCULATE_YOUR_SAVINGS": "Berechne deine Ersparnisse",
+			"CALCULATE_YOUR_SAVINGS_DESCRIPTION": "Berechne, wie viel du mit unseren Dienstleistungen sparen kannst",
+			"CHAT": "Chat",
+			"CONNECT_EXCHANGE": "Börse verbinden",
+			"CONNECT_EXCHANGE_DESCRIPTION": "Verbinde dein Börsenkonto sicher",
+			"DASHBOARD": "Dashboard",
+			"DASHBOARD_DESCRIPTION": "Zeige dein Konto-Dashboard und Statistiken an",
+			"EXCHANGES": "Börsen",
+			"EXCHANGES_DESCRIPTION": "Durchsuche und verwalte unterstützte Börsen",
+			"HOME": "Startseite",
+			"HOME_DESCRIPTION": "Zeige dein Konto-Dashboard und Statistiken an",
+			"HOW_IT_WORKS": "So funktioniert's",
+			"HOW_IT_WORKS_DESCRIPTION": "Erfahre, wie unsere Plattform funktioniert",
+			"IMPRESSUM": "Impressum",
+			"IMPRESSUM_DESCRIPTION": "Rechtliche Informationen und Firmendetails",
+			"LOGIN": "Anmelden",
+			"LOGOUT": "Abmelden",
+			"NEWS": "Nachrichten",
+			"NEWS_DESCRIPTION": "Bleiben Sie auf dem Laufenden mit den neuesten Programmiernachrichten und Community-Ankündigungen",
+			"OPEN_MENU": "Menü öffnen",
+			"PRIVACY_POLICY": "Datenschutzerklärung",
+			"PRIVACY_POLICY_DESCRIPTION": "Lies unsere Datenschutzerklärung",
+			"REGISTER": "Registrieren",
+			"RULES": "Regeln",
+			"RULES_DESCRIPTION": "Gemeinschaftsrichtlinien und Regeln für eine respektvolle Umgebung",
+			"SERVICES": "Dienstleistungen",
+			"SETTINGS": "Einstellungen",
+			"TEAM": "Team",
+			"TEAM_DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen",
+			"TERMS_CONDITIONS": "AGB",
+			"TERMS_CONDITIONS_DESCRIPTION": "Lies unsere Allgemeinen Geschäftsbedingungen",
+			"TODO": "Aufgabe"
+		},
+		"SUCCESS": {
+			"CONSOLE_CLEARED": "Konsole geleert",
+			"LOGGED_OUT": "Erfolgreich ausgeloggt"
+		},
+		"TOOLTIP": {
+			"CLEAR_CONSOLE": "Konsole löschen",
+			"LOGOUT": "Abmeldung",
+			"TOGGLE_LANGUAGE": "Sprache wechseln",
+			"TOGGLE_THEME": "Thema wechseln"
+		}
+	},
+	"METADATA": {
+		"NOT_FOUND": {
+			"DESCRIPTION": "Die Seite, die Sie suchen, existiert nicht. Kehren Sie zu unserer Programmier-Community-Startseite zurück, um Programmierressourcen und Diskussionen zu erkunden.",
+			"KEYWORDS": "404, Seite nicht gefunden, Fehler",
+			"TITLE": "{appName} - Seite nicht gefunden"
+		},
+		"ROOT": {
+			"DESCRIPTION": "Offizielle Coding Global Website für Programmierer weltweit. Treten Sie 6.600+ Entwicklern in unserer internationalen Community bei für Coding-Hilfe, Diskussionen und Tech-Networking.",
+			"KEYWORDS": "Coding Global, Discord Community, Programmierung, Entwickler, EN, GER, Coding-Community, Entwicklernetzwerk",
+			"TITLE": "Coding Global [EN/GER]"
+		}
+	},
+	"NEWS": {
+		"META": {
+			"DESCRIPTION": "Bleiben Sie auf dem Laufenden über die neuesten Programmiernachrichten, Technologie-Updates und Community-Ankündigungen von unserem Coding-Discord-Server.",
+			"KEYWORDS": "Techniknachrichten, Programmierupdates, Codierungsnachrichten, Technologieupdates, Community-Ankündigungen",
+			"TITLE": "Technische Nachrichten & Updates - Programmierung [EN,GER]"
+		},
+		"TITLE": "Nachrichten"
+	},
+	"RULES": {
+		"ADVERTISING": "Werbung",
+		"ADVERTISING_CONTENT1": "Jegliche Art von Werbung Dritter ist untersagt.",
+		"ASKING_QUESTIONS": "Fragen stellen",
+		"ASKING_QUESTIONS_CONTENT1": "Niemand ist verpflichtet, zu helfen oder eine Frage zu beantworten. Hilfe ist in der Regel kostenlos.",
+		"ASKING_QUESTIONS_CONTENT2": "Mitglieder mit der Rolle \"HILFESTELLER\" haben sich freiwillig gemeldet, um bei Fragen zu helfen.",
+		"ASKING_QUESTIONS_CONTENT3": "Das Pingen von Mitgliedern, um eine schnellere Antwort zu erwarten, ist nicht erlaubt.",
+		"ASKING_QUESTIONS_CONTENT4": "Stellen Sie keine Fragen wie \"Weiß jemand etwas über XY?\", sondern stellen Sie die Frage direkt, siehe auch ➔ <a href='https://dontasktoask.com/' class='text-blue-500 hover:underline'>https://dontasktoask.com/</a>.",
+		"ASKING_QUESTIONS_CONTENT5": "Beachten Sie den Thread \"How do I ask a good question?\" auf Stackoverflow ➔ <a href='https://stackoverflow.com/help/how-to-ask' class='text-blue-500 hover:underline'>https://stackoverflow.com/help/how-to-ask</a>.",
+		"DIRECT_MESSAGES": "Direktnachrichten",
+		"DIRECT_MESSAGES_CONTENT1": "Bitte sehen Sie davon ab, direkte Nachrichten an die Administratoren zu senden.",
+		"DISCORD_GUIDELINES": "Discord-Richtlinien",
+		"DISCORD_GUIDELINES_CONTENT1": "Die Discord-Community-Richtlinien gelten für Programmierung [DE/EN]; Benutzer können diese unter <a href='https://discord.com/guidelines' class='text-blue-500 hover:underline'>https://discord.com/guidelines</a> einsehen.",
+		"ENFORCEMENT": "Vollstreckung einer Maßnahme",
+		"ENFORCEMENT_CONTENT1": "Die Auslegung der Regeln liegt im Ermessen des jeweiligen Administrators.",
+		"LANGUAGE": "Sprache",
+		"LANGUAGE_CONTENT1": "Die Sprache unserer Gemeinschaft ist Deutsch und Englisch. Im Sprachkanal \"Öffentlich [DE]\" ist Deutsch die Hauptsprache. Benutzer können freiwillig Englisch sprechen. In dem Sprachkanal \"Öffentlich [EN]\" müssen die Benutzer jedoch Englisch sprechen.",
+		"META": {
+			"DESCRIPTION": "Richtlinien und Regeln für unsere Programmiergemeinschaft, um eine hilfreiche und respektvolle Umgebung für alle Mitglieder zu gewährleisten.",
+			"KEYWORDS": "Gemeinschaftsregeln, Richtlinien, Verhaltenskodex, Serverregeln",
+			"TITLE": "Gemeinschaftsrichtlinien - Programmierung [EN,GER]"
+		},
+		"MODERATORS": "Moderatoren",
+		"MODERATORS_CONTENT1": "Das Moderationsteam hat das Recht, angemessene Maßnahmen gegen einen Benutzer zu ergreifen, auch wenn eine bestimmte Regel nicht ausdrücklich verletzt wurde. Zu den Maßnahmen der Moderatoren können auch eskalierende Maßnahmen gehören, die ergriffen werden, wenn der Nutzer sich weigert, die getroffenen Entscheidungen zu befolgen.",
+		"PERSONAL_INFO": "Weitergabe von personenbezogenen Informationen",
+		"PERSONAL_INFO_CONTENT1": "Die Weitergabe von persönlichen Informationen anderer Personen ohne deren Zustimmung ist verboten und führt zu einer permanenten Sperre. Dazu gehören z. B. Vorname, Nachname, Adresse, Handynummer oder Bilder usw.",
+		"RECORDING": "Aufnahme",
+		"RECORDING_CONTENT1": "Die Aufnahme von Videos (Bildschirmfreigabe, Webcam) und Ton (Voice-Chat) ist in diesem Discord nicht gestattet.",
+		"TITLE": "Regeln"
+	},
+	"TEAM": {
+		"META": {
+			"DESCRIPTION": "Lernen Sie unsere erfahrenen Moderatoren und Administratoren kennen, die helfen, unsere Programm-Community zu pflegen und zu erweitern.",
+			"KEYWORDS": "Moderatoren, Admin-Team, Community-Leiter, Server-Mitarbeiter",
+			"TITLE": "Unser Team - Programmierung [EN,GER]"
+		},
+		"TITLE": "Team"
+	},
+	"TODO": {
+		"INFO": {
+			"TODO_DELETED": "Todo erfolgreich gelöscht"
+		},
+		"META": {
+			"DESCRIPTION": "Überprüfen Sie die geplanten Verbesserungen und bevorstehenden Funktionen für unsere Programmiergemeinschaft.",
+			"KEYWORDS": "kommende Funktionen, Community-Updates, geplante Verbesserungen, zukünftige Entwicklungen",
+			"TITLE": "Bevorstehende Funktionen - Programmierung [EN,GER]"
+		},
+		"SEED": "Seed",
+		"SUCCESS": {
+			"TODO_ADD": "Todo erfolgreich hinzugefügt",
+			"TODO_SEED": "Todos wurden erfolgreich gesät"
+		},
+		"TITLE": "Todo"
+	}
 }
