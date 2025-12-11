@@ -33,3 +33,22 @@ export type TranslationKey = Parameters<
 >[0];
 
 export const msg = (key: TranslationKey) => key;
+
+// // Helper type for the recursive part
+// type TranslationKeyHelper<T> = T extends object
+//   ?
+//       | (keyof T & string)
+//       | {
+//           [K in keyof T & string]: K extends string
+//             ? `${K}.${TranslationKeyHelper<T[K]>}`
+//             : never;
+//         }[keyof T & string]
+//   : never;
+
+// export type TranslationKey =
+//   | (keyof typeof deTranslations & string)
+//   | {
+//       [K in keyof typeof deTranslations & string]: K extends string
+//         ? `${K}.${TranslationKeyHelper<(typeof deTranslations)[K]>}`
+//         : never;
+//     }[keyof typeof deTranslations & string];
