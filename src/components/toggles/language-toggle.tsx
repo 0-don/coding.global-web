@@ -50,7 +50,6 @@ export function LanguageToggle() {
             className="hover:bg-red-500 hover:text-black"
           >
             <span className="mr-2 text-lg">{lang.flag}</span>
-            {/* @ts-expect-error - Dynamic translation key */}
             {t(`MAIN.ENUM.${lang.code}`)}
           </DropdownMenuItem>
         ))}

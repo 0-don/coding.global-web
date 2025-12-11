@@ -27,6 +27,8 @@
 		},
 		"ENUM": {
 			"DARK": "Dunkel",
+			"DE": "Deutsch",
+			"EN": "Englisch",
 			"LIGHT": "Hell",
 			"SYSTEM": "System"
 		},
@@ -57,6 +59,11 @@
 			"RULES_DESCRIPTION": "Community-Regeln und Richtlinien",
 			"TEAM": "Team",
 			"TEAM_DESCRIPTION": "Lernen Sie unser Team kennen"
+		},
+		"SIDEBAR": {
+			"USER": {
+				"SETTINGS": "Einstellungen"
+			}
 		},
 		"SUCCESS": {
 			"CONSOLE_CLEARED": "Konsole gelöscht",
