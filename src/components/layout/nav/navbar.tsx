@@ -63,7 +63,6 @@ export default function Navbar() {
                         isActive && "bg-red-500 text-black",
                       )}
                     >
-                      {/* @ts-expect-error - Dynamic translation key */}
                       {t(item.name)}
                     </NavigationMenuLink>
                   </Link>

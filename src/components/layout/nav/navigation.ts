@@ -1,5 +1,5 @@
 import { LinkHref, ValidRoutes } from "@/i18n/routing";
-import { TranslationKey } from "@/lib/config/constants";
+import type { TranslationKey } from "@/lib/config/constants";
 import {
   HiOutlineArrowsRightLeft,
   HiOutlineCalculator,
