@@ -1,26 +1,28 @@
 import { getApiByGuildIdNews, getApiByGuildIdStaff } from "@/openapi";
-import Elysia, { InternalServerError } from "elysia";
+import Elysia from "elysia";
 
 export const botRoute = new Elysia({ prefix: "/bot" })
-  .get("/staff", async () => {
+  .get("/staff", async ({ status }) => {
     try {
-      const { data, status } = await getApiByGuildIdStaff(
+      const response = await getApiByGuildIdStaff(
         process.env.NEXT_PUBLIC_GUILD_ID,
       );
-      if (status !== 200) throw data;
-      return data;
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
     } catch (error) {
-      return new InternalServerError(error as string);
+      return status("Internal Server Error", error as Error);
     }
   })
-  .get("/news", async () => {
+  .get("/news", async ({ status }) => {
     try {
-      const { data, status } = await getApiByGuildIdNews(
+      const response = await getApiByGuildIdNews(
         process.env.NEXT_PUBLIC_GUILD_ID,
       );
-      if (status !== 200) throw data;
-      return data;
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
     } catch (error) {
-      return new InternalServerError(error as string);
+      return status("Internal Server Error", error as Error);
     }
   });

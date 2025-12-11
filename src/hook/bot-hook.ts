@@ -14,6 +14,5 @@ export function useNewsQuery() {
   return useQuery({
     queryKey: queryKeys.news(),
     queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
-    enabled: false,
   });
 }

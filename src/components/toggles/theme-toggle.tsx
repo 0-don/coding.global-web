@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { AiOutlineLaptop } from "react-icons/ai";
 import { BsMoonStars } from "react-icons/bs";
 import { FiSun } from "react-icons/fi";
@@ -16,6 +17,12 @@ import { FiSun } from "react-icons/fi";
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const t = useTranslations();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   return (
     <DropdownMenu>
@@ -26,8 +33,12 @@ export function ThemeToggle() {
           className="size-9 border border-red-500 bg-black/70 text-white hover:bg-red-500 hover:text-black"
           title={t("MAIN.TOOLTIP.TOGGLE_THEME")}
         >
-          {theme === "dark" ? (
-            <BsMoonStars className="size-5" />
+          {mounted ? (
+            theme === "dark" ? (
+              <BsMoonStars className="size-5" />
+            ) : (
+              <FiSun className="size-5" />
+            )
           ) : (
             <FiSun className="size-5" />
           )}
