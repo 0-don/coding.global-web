@@ -22,91 +22,11 @@
 					<folder_node>
 						<name>CHAT</name>
 						<children>
-							<concept_node>
-								<name>COMMENT</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>DISCORD_LOGIN</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 							<folder_node>
 								<name>INFO</name>
 								<children>
 									<concept_node>
 										<name>COMMENT_DELETED</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-								</children>
-							</folder_node>
-							<folder_node>
-								<name>META</name>
-								<children>
-									<concept_node>
-										<name>DESCRIPTION</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>KEYWORDS</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>TITLE</name>
 										<description/>
 										<comment/>
 										<translations>
@@ -142,41 +62,11 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>TITLE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 						</children>
 					</folder_node>
 					<folder_node>
 						<name>HOME</name>
 						<children>
-							<concept_node>
-								<name>BY</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 							<folder_node>
 								<name>META</name>
 								<children>
@@ -227,81 +117,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>OFFICIAL</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>OFFICIAL_CODING_DISCORD_WEBSITE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>SEE_REPOSITORY</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>TITLE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>WEBSITE_FOR_THE_CODING_DISCORD_SERVER</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 						</children>
 					</folder_node>
 					<folder_node>
@@ -361,21 +176,6 @@
 								<name>AUTH</name>
 								<children>
 									<concept_node>
-										<name>LOGIN</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
 										<name>LOGIN_WITH_DISCORD</name>
 										<description/>
 										<comment/>
@@ -423,135 +223,10 @@
 								</children>
 							</folder_node>
 							<folder_node>
-								<name>BUTTON</name>
-								<children>
-									<concept_node>
-										<name>BACK_TO_HOME</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>DISBOARD</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>DISCORD</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>LOADING</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>NOT_FOUND</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>RETRY</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-								</children>
-							</folder_node>
-							<folder_node>
 								<name>ENUM</name>
 								<children>
 									<concept_node>
 										<name>DARK</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>DE</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>EN</name>
 										<description/>
 										<comment/>
 										<translations>
@@ -778,56 +453,6 @@
 								</children>
 							</folder_node>
 							<folder_node>
-								<name>META</name>
-								<children>
-									<concept_node>
-										<name>DESCRIPTION</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>KEYWORDS</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>TITLE</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-								</children>
-							</folder_node>
-							<folder_node>
 								<name>NAVIGATION</name>
 								<children>
 									<concept_node>
@@ -847,36 +472,6 @@
 									</concept_node>
 									<concept_node>
 										<name>HOME_DESCRIPTION</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>LOGIN</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>LOGOUT</name>
 										<description/>
 										<comment/>
 										<translations>
@@ -922,21 +517,6 @@
 									</concept_node>
 									<concept_node>
 										<name>OPEN_MENU</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>REGISTER</name>
 										<description/>
 										<comment/>
 										<translations>
@@ -1292,246 +872,6 @@
 					<folder_node>
 						<name>RULES</name>
 						<children>
-							<concept_node>
-								<name>ADVERTISING</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ADVERTISING_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS_CONTENT2</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS_CONTENT3</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS_CONTENT4</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ASKING_QUESTIONS_CONTENT5</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>DIRECT_MESSAGES</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>DIRECT_MESSAGES_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>DISCORD_GUIDELINES</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>DISCORD_GUIDELINES_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ENFORCEMENT</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>ENFORCEMENT_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>LANGUAGE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>LANGUAGE_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 							<folder_node>
 								<name>META</name>
 								<children>
@@ -1582,111 +922,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>MODERATORS</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>MODERATORS_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>PERSONAL_INFO</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>PERSONAL_INFO_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>RECORDING</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>RECORDING_CONTENT1</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
-							<concept_node>
-								<name>TITLE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 						</children>
 					</folder_node>
 					<folder_node>
@@ -1742,21 +977,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>TITLE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 						</children>
 					</folder_node>
 					<folder_node>
@@ -1782,71 +1002,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<folder_node>
-								<name>META</name>
-								<children>
-									<concept_node>
-										<name>DESCRIPTION</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>KEYWORDS</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-									<concept_node>
-										<name>TITLE</name>
-										<description/>
-										<comment/>
-										<translations>
-											<translation>
-												<language>de-DE</language>
-												<approved>false</approved>
-											</translation>
-											<translation>
-												<language>en-US</language>
-												<approved>false</approved>
-											</translation>
-										</translations>
-									</concept_node>
-								</children>
-							</folder_node>
-							<concept_node>
-								<name>SEED</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 							<folder_node>
 								<name>SUCCESS</name>
 								<children>
@@ -1882,21 +1037,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>TITLE</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>de-DE</language>
-										<approved>false</approved>
-									</translation>
-									<translation>
-										<language>en-US</language>
-										<approved>false</approved>
-									</translation>
-								</translations>
-							</concept_node>
 						</children>
 					</folder_node>
 				</children>
