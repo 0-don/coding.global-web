@@ -77,7 +77,7 @@ export function MobileNav() {
                         )}
                       />
                     )}
-                    {t(item.name)}
+                    {/* {t(item.name)} */}
                   </Link>
                 );
               })}
