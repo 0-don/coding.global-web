@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LANGUAGES } from "@/lib/config/constants";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { LANGUAGES } from "@/lib/config/constants";
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 
