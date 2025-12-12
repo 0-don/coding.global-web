@@ -36,6 +36,7 @@ export default function Navbar() {
   return (
     <header className="border-border bg-background/80 sticky top-0 left-0 z-9999 w-full border-b backdrop-blur-md">
       <div className="container mx-auto flex h-12 items-center justify-between px-4 md:px-6">
+        {/* Mobile layout - logo left, menu right */}
         <Link href="/" className="flex items-center gap-1 md:hidden">
           <LogoImage />
           <CompanyName className="text-xl font-bold" />
@@ -43,11 +44,15 @@ export default function Navbar() {
         <div className="ml-auto flex items-center md:hidden">
           <MobileNav />
         </div>
+
+        {/* Logo - center on mobile, left on desktop */}
         <Link href="/" className="hidden items-center gap-2 sm:flex md:mr-6">
           <LogoImage />
           <CompanyName className="text-xl font-bold" />
         </Link>
-        <NavigationMenu>
+
+        {/* Desktop Navigation */}
+        <NavigationMenu className="hidden md:flex">
           <NavigationMenuList className="flex-wrap gap-1">
             {navigation(!!session?.data?.user.id).map((item) => {
               const isActive = isActiveLink(pathname, item.href);
@@ -58,7 +63,7 @@ export default function Navbar() {
                       href={item.href}
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-primary focus:ring-0",
+                        "hover:bg-primary rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 focus:ring-0",
                         isActive && "bg-primary",
                       )}
                     >
@@ -75,7 +80,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               <Button
                 onClick={handleLogin}
-                className="gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
+                className="hidden gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4] md:flex"
               >
                 <FaDiscord className="size-5" />
                 {t("MAIN.AUTH.LOGIN_WITH_DISCORD")}
@@ -90,7 +95,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 rounded-full p-0 hover:bg-primary"
+                className="hover:bg-primary h-8 w-8 rounded-full p-0"
               >
                 <UserAvatar className="h-8 w-8" />
               </Button>

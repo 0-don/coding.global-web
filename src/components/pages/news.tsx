@@ -16,9 +16,8 @@ export function News() {
 
   const newsData = Array.isArray(newsQuery.data) ? newsQuery.data : [];
 
-
   return (
-    <div className="container mx-auto mt-5 h-[calc(100vh-2rem)]">
+    <div className="container mx-auto mt-5">
       <Card className="bg-card/80 flex h-full flex-col px-10 py-5">
         <div className="mb-5">
           <h1 className="text-3xl font-bold">{t("NEWS.TITLE")}</h1>

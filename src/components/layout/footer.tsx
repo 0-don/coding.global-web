@@ -7,7 +7,7 @@ export function Footer() {
   const t = useTranslations();
 
   return (
-    <footer className="fixed right-0 bottom-0 left-0 z-10 flex items-center justify-center gap-5 py-4 text-center">
+    <footer className="left-0 z-10 flex items-center justify-center gap-5 py-4 text-center">
       <code className="text-sm text-gray-400">
         {process.env.NEXT_PUBLIC_APP_NAME} {new Date().getFullYear()} &copy;{" "}
         <Link
