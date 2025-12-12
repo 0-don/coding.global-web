@@ -63,6 +63,48 @@ export type GetApiByGuildIdNews422 = {
   expected?: string;
 };
 
+export type GetApiByGuildIdWidget200ChannelsItem = {
+  id: string;
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
+
+export type GetApiByGuildIdWidget200MembersItem = {
+  id: string;
+  username: string;
+  discriminator: string;
+  avatar: string;
+  status: string;
+  activity: GetApiByGuildIdWidget200MembersItemActivity;
+};
+
+export type GetApiByGuildIdWidget200Icon = string | null;
+
+export type GetApiByGuildIdWidget200Banner = string | null;
+
+export type GetApiByGuildIdWidget200 = {
+  id: string;
+  name: string;
+  channels: GetApiByGuildIdWidget200ChannelsItem[];
+  members: GetApiByGuildIdWidget200MembersItem[];
+  presenceCount: number;
+  memberCount: number;
+  icon: GetApiByGuildIdWidget200Icon;
+  banner: GetApiByGuildIdWidget200Banner;
+};
+
+export type GetApiByGuildIdWidget422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
 export type getApiByGuildIdStaffResponse200 = {
   data: GetApiByGuildIdStaff200Item[];
   status: 200;
@@ -143,16 +185,28 @@ export const getApiByGuildIdNews = async (
   );
 };
 
-export type getApiByGuildIdWidgetResponseDefault = {
-  data: unknown;
-  status: number;
+export type getApiByGuildIdWidgetResponse200 = {
+  data: GetApiByGuildIdWidget200;
+  status: 200;
 };
+
+export type getApiByGuildIdWidgetResponse422 = {
+  data: GetApiByGuildIdWidget422;
+  status: 422;
+};
+
+export type getApiByGuildIdWidgetResponseSuccess =
+  getApiByGuildIdWidgetResponse200 & {
+    headers: Headers;
+  };
 export type getApiByGuildIdWidgetResponseError =
-  getApiByGuildIdWidgetResponseDefault & {
+  getApiByGuildIdWidgetResponse422 & {
     headers: Headers;
   };
 
-export type getApiByGuildIdWidgetResponse = getApiByGuildIdWidgetResponseError;
+export type getApiByGuildIdWidgetResponse =
+  | getApiByGuildIdWidgetResponseSuccess
+  | getApiByGuildIdWidgetResponseError;
 
 export const getGetApiByGuildIdWidgetUrl = (guildId: string) => {
   return `/api/${guildId}/widget`;
