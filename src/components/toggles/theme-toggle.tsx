@@ -44,25 +44,16 @@ export function ThemeToggle() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="border-primary bg-black/90">
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className="hover:bg-primary hover:text-primary-foreground"
-        >
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
           <FiSun className="mr-2 size-4" />
           {t("MAIN.ENUM.LIGHT")}
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className="hover:bg-primary hover:text-primary-foreground"
-        >
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
           <BsMoonStars className="mr-2 size-4" />
           {t("MAIN.ENUM.DARK")}
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("system")}
-          className="hover:bg-primary hover:text-primary-foreground"
-        >
+        <DropdownMenuItem onClick={() => setTheme("system")}>
           <AiOutlineLaptop className="mr-2 size-4" />
           {t("MAIN.ENUM.SYSTEM")}
         </DropdownMenuItem>
