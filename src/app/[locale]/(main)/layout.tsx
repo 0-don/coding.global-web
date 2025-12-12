@@ -9,11 +9,11 @@ interface MainLayoutProps {
 
 export default function MainLayout(props: MainLayoutProps) {
   return (
-    <div className={cn("relative min-h-screen w-full")}>
+    <main className={cn("relative min-h-screen w-full")}>
       <Background />
       <Navbar />
-      {props.children}
+      <div>{props.children}</div>
       <Footer />
-    </div>
+    </main>
   );
 }
