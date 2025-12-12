@@ -34,7 +34,7 @@ export default function RootLayout(props: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className="h-full" suppressHydrationWarning>
       <body className={`flex min-h-full flex-col antialiased`}>
         <Toaster />
         <Providers>{props.children}</Providers>
