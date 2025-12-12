@@ -101,6 +101,54 @@
 			"DESCRIPTION": "Community-Richtlinien und Regeln für Coding Global",
 			"KEYWORDS": "regeln, richtlinien, community-standards, verhaltenskodex",
 			"TITLE": "Regeln - Coding Global"
+		},
+		"RULE_1": {
+			"TITLE": "1. Discord-Richtlinien",
+			"CONTENT": "Die Discord-Community-Richtlinien gelten für Programming [DE / EN]; Benutzer können diese unter https://discord.com/guidelines einsehen."
+		},
+		"RULE_2": {
+			"TITLE": "2. Sprache",
+			"CONTENT": "Die Sprache unserer Community ist Deutsch und Englisch. Im Voice-Channel \"Public [DE]\" ist Deutsch die Hauptsprache. Benutzer können freiwillig Englisch sprechen. Im Voice-Channel \"Public [EN]\" müssen Benutzer jedoch Englisch sprechen."
+		},
+		"RULE_3": {
+			"TITLE": "3. Fragen stellen",
+			"CONTENT": "3.1 Niemand ist verpflichtet zu helfen oder eine Frage zu beantworten. Hilfe ist grundsätzlich kostenlos.  \n3.2 Mitglieder mit der Rolle \"HELPER\" haben sich freiwillig bereit erklärt, bei Fragen zu helfen.  \n3.3 Das Anpingen von Mitgliedern, um eine schnellere Antwort zu erwarten, ist nicht erlaubt.  \n3.4 Stellen Sie keine Fragen wie \"Kennt sich jemand mit XY aus?\", sondern stellen Sie die Frage direkt, siehe auch ➔ https://dontasktoask.com/.  \n3.5 Beachten Sie den Thread \"Wie stelle ich eine gute Frage?\" auf Stackoverflow ➔ https://stackoverflow.com/help/how-to-ask."
+		},
+		"RULE_4": {
+			"TITLE": "4. Aufnahmen",
+			"CONTENT": "Das Aufzeichnen von Videos (Bildschirmfreigabe, Webcam) und Ton (Voice-Chat) ist auf diesem Discord nicht gestattet."
+		},
+		"RULE_5": {
+			"TITLE": "5. Werbung",
+			"CONTENT": "Jegliche Art von Drittwerbung ist verboten."
+		},
+		"RULE_6": {
+			"TITLE": "6. Moderatoren",
+			"CONTENT": "Das Moderationsteam hat das Recht, angemessene Maßnahmen gegen einen Benutzer zu ergreifen, auch wenn eine bestimmte Regel nicht ausdrücklich verletzt wurde."
+		},
+		"RULE_7": {
+			"TITLE": "7. Direktnachrichten",
+			"CONTENT": "Bitte unterlassen Sie es, Direktnachrichten an die Administratoren zu senden."
+		},
+		"RULE_8": {
+			"TITLE": "8. Weitergabe persönlicher Informationen",
+			"CONTENT": "Die Weitergabe persönlicher Informationen anderer Personen jeglicher Art ohne deren Zustimmung ist verboten und führt zu einem permanenten Bann."
+		},
+		"RULE_9": {
+			"TITLE": "9. Durchsetzung einer Maßnahme",
+			"CONTENT": "Die Auslegung der Regeln liegt im Ermessen des jeweiligen Administrators."
+		},
+		"RULE_10": {
+			"TITLE": "10. KI-Nutzung / Spam / Stellenangebote",
+			"CONTENT": "Die Verwendung von KI zur Erstellung von Stellenangeboten oder anderen Spam-Inhalten ist nicht gestattet. Benutzer, die dabei erwischt werden, werden eingesperrt, stummgeschaltet oder gebannt."
+		},
+		"RULE_11": {
+			"TITLE": "11. Gefälschte Fähigkeiten / Code-Stacks",
+			"CONTENT": "Das falsche Behaupten von Fähigkeiten oder Erfahrungen zum Zweck des Betrugs oder der Erlangung von Jobs ist verboten. Benutzer müssen in der Lage sein, ihre Fähigkeiten zu beweisen."
+		},
+		"RULE_12": {
+			"TITLE": "12. Keine DM",
+			"CONTENT": "Keine Direktnachrichten ohne vorherige Genehmigung. Wenn Sie jemand meldet, können Sie stummgeschaltet oder eingeschränkt werden."
 		}
 	},
 	"TEAM": {

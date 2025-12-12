@@ -1,7 +1,7 @@
-import { LayoutWrapper } from "@/components/container/layout-wrapper";
 import Background from "@/components/layout/background";
 import { Footer } from "@/components/layout/footer";
 import Navbar from "@/components/layout/nav/navbar";
+import { cn } from "@/lib/utils";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,11 +9,11 @@ interface MainLayoutProps {
 
 export default function MainLayout(props: MainLayoutProps) {
   return (
-    <LayoutWrapper container={false}>
+    <div className={cn("relative min-h-screen w-full")}>
       <Background />
       <Navbar />
       {props.children}
       <Footer />
-    </LayoutWrapper>
+    </div>
   );
 }
