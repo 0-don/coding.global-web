@@ -1,18 +1,29 @@
+// src/app/[locale]/layout.tsx
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { JetBrains_Mono } from "next/font/google";
+import { Fira_Code, Roboto_Serif, Source_Code_Pro } from "next/font/google";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { Toaster } from "sonner";
 import { Providers } from "../../components/provider/providers";
 import "../globals.css";
 
-const jetbrainsMono = JetBrains_Mono({
+const sourceCodePro = Source_Code_Pro({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const robotoSerif = Roboto_Serif({
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export async function generateMetadata(props: {
@@ -42,7 +53,7 @@ export default function RootLayout(props: Props) {
   return (
     <html lang={locale} className="h-full" suppressHydrationWarning>
       <body
-        className={`${jetbrainsMono.variable} flex min-h-full flex-col antialiased`}
+        className={`${sourceCodePro.variable} ${robotoSerif.variable} ${firaCode.variable} flex min-h-full flex-col antialiased`}
       >
         <Toaster />
         <Providers>{props.children}</Providers>
