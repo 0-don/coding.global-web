@@ -2,6 +2,7 @@
 
 import { CompanyName, LogoImage } from "@/components/elements/utils/images";
 import { LanguageToggle } from "@/components/toggles/language-toggle";
+import { ThemeToggle } from "@/components/toggles/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -88,6 +89,7 @@ export default function Navbar() {
             </div>
           )}
 
+          <ThemeToggle />
           <LanguageToggle />
 
           {session?.data?.user.id && (

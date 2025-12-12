@@ -58,28 +58,26 @@ export function Rules() {
   ];
 
   return (
-    <div className="absolute top-30 left-0 z-10 min-h-screen w-full">
-      <div className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
-        <div className="flex items-center justify-center gap-2 py-6">
-          <FaQuestionCircle className="text-3xl" />
-          <h1 className="text-3xl font-bold">{t("RULES.HEADING")}</h1>
-        </div>
+    <div className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
+      <div className="flex items-center justify-center gap-2 py-6">
+        <FaQuestionCircle className="text-3xl" />
+        <h1 className="text-3xl font-bold">{t("RULES.HEADING")}</h1>
+      </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {rules.map((rule) => (
-            <div
-              key={rule.title}
-              className="border-primary rounded-xl border p-5 shadow-md backdrop-blur-2xl transition duration-300 hover:shadow-lg"
-            >
-              <h2 className="text-primary mb-2 text-lg font-semibold">
-                {rule.title}
-              </h2>
-              <p className="text-sm leading-relaxed whitespace-pre-line text-gray-300">
-                {rule.content}
-              </p>
-            </div>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {rules.map((rule) => (
+          <div
+            key={rule.title}
+            className="border-primary rounded-xl border p-5 shadow-md backdrop-blur-2xl transition duration-300 hover:shadow-lg"
+          >
+            <h2 className="text-primary mb-2 text-lg font-semibold">
+              {rule.title}
+            </h2>
+            <p className="text-sm leading-relaxed whitespace-pre-line text-gray-300">
+              {rule.content}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
