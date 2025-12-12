@@ -7,8 +7,8 @@ export function Footer() {
   const t = useTranslations();
 
   return (
-    <footer className="left-0 z-10 flex items-center justify-center gap-5 py-4 text-center">
-      <code className="text-sm text-gray-400">
+    <footer className="z-10 flex items-center justify-center gap-5 py-4 text-center">
+      <code className="text-muted-foreground text-sm">
         {process.env.NEXT_PUBLIC_APP_NAME} {new Date().getFullYear()} &copy;{" "}
         <Link
           href="https://github.com/0-don"
@@ -18,10 +18,10 @@ export function Footer() {
           0-don
         </Link>
       </code>
-      <p className="text-sm text-gray-400">|</p>
+      <p className="text-muted-foreground text-sm">|</p>
       <Link
         href="https://github.com/0-don/coding.global-web"
-        className="text-sm text-gray-400"
+        className="text-muted-foreground text-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
