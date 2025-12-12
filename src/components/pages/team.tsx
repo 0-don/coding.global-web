@@ -61,7 +61,7 @@ export function Team() {
             teamMembers.map((member) => (
               <div
                 key={member.username}
-                className="overflow-hidden rounded-lg border border-red-700 shadow-lg backdrop-blur-2xl transition-shadow duration-300 hover:shadow-xl"
+                className="overflow-hidden rounded-lg border border-primary shadow-lg backdrop-blur-2xl transition-shadow duration-300 hover:shadow-xl"
               >
                 {/* Avatar */}
                 <div className="relative h-48 overflow-hidden sm:h-56">

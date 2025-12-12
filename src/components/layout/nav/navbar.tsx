@@ -58,8 +58,8 @@ export default function Navbar() {
                       href={item.href}
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 focus:ring-0",
-                        isActive && "bg-red-500",
+                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-primary focus:ring-0",
+                        isActive && "bg-primary",
                       )}
                     >
                       {t(item.name)}
@@ -90,7 +90,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 rounded-full p-0 hover:bg-red-500"
+                className="h-8 w-8 rounded-full p-0 hover:bg-primary"
               >
                 <UserAvatar className="h-8 w-8" />
               </Button>

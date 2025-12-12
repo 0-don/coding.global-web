@@ -19,10 +19,10 @@ export function UserDisplay() {
       .toUpperCase() || "U";
 
   return (
-    <div className="flex items-center gap-3 rounded-full border border-red-500 bg-black/70 px-4 py-2 backdrop-blur-sm">
-      <Avatar className="size-8 border border-red-500">
+    <div className="flex items-center gap-3 rounded-full border border-primary bg-black/70 px-4 py-2 backdrop-blur-sm">
+      <Avatar className="size-8 border border-primary">
         <AvatarImage src={user.image || ""} alt={user.name || "User"} />
-        <AvatarFallback className="bg-red-500 text-xs text-black">
+        <AvatarFallback className="bg-primary text-xs text-primary-foreground">
           {initials}
         </AvatarFallback>
       </Avatar>
