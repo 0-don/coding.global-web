@@ -36,7 +36,6 @@ export default function Navbar() {
   return (
     <header className="border-border bg-background/80 sticky top-0 left-0 z-9999 w-full border-b backdrop-blur-md">
       <div className="container mx-auto flex h-12 items-center justify-between px-4 md:px-6">
-        {/* Mobile layout - logo left, menu right */}
         <Link href="/" className="flex items-center gap-1 md:hidden">
           <LogoImage />
           <CompanyName className="text-xl font-bold" />
@@ -44,7 +43,6 @@ export default function Navbar() {
         <div className="ml-auto flex items-center md:hidden">
           <MobileNav />
         </div>
-        {/* Logo - center on mobile, left on desktop */}
         <Link href="/" className="hidden items-center gap-2 sm:flex md:mr-6">
           <LogoImage />
           <CompanyName className="text-xl font-bold" />
@@ -55,8 +53,9 @@ export default function Navbar() {
               const isActive = isActiveLink(pathname, item.href);
               return (
                 <NavigationMenuItem key={item.name}>
-                  <Link href={item.href}>
-                    <NavigationMenuLink
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href={item.href}
                       className={cn(
                         navigationMenuTriggerStyle(),
                         "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black focus:ring-0",
@@ -64,8 +63,8 @@ export default function Navbar() {
                       )}
                     >
                       {t(item.name)}
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               );
             })}
