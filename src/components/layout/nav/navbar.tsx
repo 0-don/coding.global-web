@@ -58,8 +58,8 @@ export default function Navbar() {
                       href={item.href}
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 hover:text-black focus:ring-0",
-                        isActive && "bg-red-500 text-black",
+                        "rounded-full bg-transparent px-4 py-2 font-semibold text-white transition-all duration-200 hover:bg-red-500 focus:ring-0",
+                        isActive && "bg-red-500",
                       )}
                     >
                       {t(item.name)}
