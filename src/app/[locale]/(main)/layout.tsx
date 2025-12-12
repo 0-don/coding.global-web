@@ -11,7 +11,18 @@ export default function MainLayout(props: MainLayoutProps) {
     <>
       <Background />
       <Navbar />
-      <main className="flex-1">{props.children}</main>
+
+      <main className="flex-1">
+        {props.children}
+        {/* <iframe
+          src="https://discord.com/widget?id=693908458986143824&theme=dark"
+          width="350"
+          height="500"
+          allowtransparency="true"
+          frameborder="0"
+          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        ></iframe> */}
+      </main>
       <Footer />
     </>
   );

@@ -6,16 +6,6 @@
  * OpenAPI spec version: 0.0.0
  */
 import { customFetch } from "./lib/custom-fetch";
-export type GetApiByGuildIdVerifyAllUsers422 = {
-  type: "validation";
-  on: string;
-  summary?: string;
-  message?: string;
-  found?: unknown;
-  property?: string;
-  expected?: string;
-};
-
 export type GetApiByGuildIdStaff200Item = {
   id: string;
   username: string;
@@ -71,46 +61,6 @@ export type GetApiByGuildIdNews422 = {
   found?: unknown;
   property?: string;
   expected?: string;
-};
-
-export type getApiByGuildIdVerifyAllUsersResponse200 = {
-  data: string;
-  status: 200;
-};
-
-export type getApiByGuildIdVerifyAllUsersResponse422 = {
-  data: GetApiByGuildIdVerifyAllUsers422;
-  status: 422;
-};
-
-export type getApiByGuildIdVerifyAllUsersResponseSuccess =
-  getApiByGuildIdVerifyAllUsersResponse200 & {
-    headers: Headers;
-  };
-export type getApiByGuildIdVerifyAllUsersResponseError =
-  getApiByGuildIdVerifyAllUsersResponse422 & {
-    headers: Headers;
-  };
-
-export type getApiByGuildIdVerifyAllUsersResponse =
-  | getApiByGuildIdVerifyAllUsersResponseSuccess
-  | getApiByGuildIdVerifyAllUsersResponseError;
-
-export const getGetApiByGuildIdVerifyAllUsersUrl = (guildId: string) => {
-  return `/api/${guildId}/verify-all-users`;
-};
-
-export const getApiByGuildIdVerifyAllUsers = async (
-  guildId: string,
-  options?: RequestInit,
-): Promise<getApiByGuildIdVerifyAllUsersResponse> => {
-  return customFetch<getApiByGuildIdVerifyAllUsersResponse>(
-    getGetApiByGuildIdVerifyAllUsersUrl(guildId),
-    {
-      ...options,
-      method: "GET",
-    },
-  );
 };
 
 export type getApiByGuildIdStaffResponse200 = {
@@ -186,6 +136,34 @@ export const getApiByGuildIdNews = async (
 ): Promise<getApiByGuildIdNewsResponse> => {
   return customFetch<getApiByGuildIdNewsResponse>(
     getGetApiByGuildIdNewsUrl(guildId),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export type getApiByGuildIdWidgetResponseDefault = {
+  data: unknown;
+  status: number;
+};
+export type getApiByGuildIdWidgetResponseError =
+  getApiByGuildIdWidgetResponseDefault & {
+    headers: Headers;
+  };
+
+export type getApiByGuildIdWidgetResponse = getApiByGuildIdWidgetResponseError;
+
+export const getGetApiByGuildIdWidgetUrl = (guildId: string) => {
+  return `/api/${guildId}/widget`;
+};
+
+export const getApiByGuildIdWidget = async (
+  guildId: string,
+  options?: RequestInit,
+): Promise<getApiByGuildIdWidgetResponse> => {
+  return customFetch<getApiByGuildIdWidgetResponse>(
+    getGetApiByGuildIdWidgetUrl(guildId),
     {
       ...options,
       method: "GET",
