@@ -30,7 +30,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="size-9 border border-primary bg-black/70 text-white hover:bg-primary hover:text-primary-foreground"
+          className="size-9"
           title={t("MAIN.TOOLTIP.TOGGLE_THEME")}
         >
           {mounted ? (
