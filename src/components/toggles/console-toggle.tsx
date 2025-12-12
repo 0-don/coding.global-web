@@ -20,7 +20,7 @@ export function ConsoleToggle() {
       variant="ghost"
       size="icon"
       onClick={clearConsole}
-      className="size-9 border border-red-500 bg-black/70 text-white hover:bg-red-500 hover:text-black"
+      className="size-9 border border-primary bg-black/70 text-white hover:bg-primary hover:text-primary-foreground"
       title={t("MAIN.TOOLTIP.CLEAR_CONSOLE")}
     >
       <SiGooglesearchconsole className="size-5" />

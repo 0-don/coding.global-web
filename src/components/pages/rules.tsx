@@ -77,9 +77,9 @@ export function Rules() {
           {rules.map((rule, idx) => (
             <div
               key={idx}
-              className="rounded-xl border border-red-800 p-5 shadow-md backdrop-blur-2xl transition duration-300 hover:shadow-lg"
+              className="rounded-xl border border-primary p-5 shadow-md backdrop-blur-2xl transition duration-300 hover:shadow-lg"
             >
-              <h2 className="mb-2 text-lg font-semibold text-red-400">
+              <h2 className="mb-2 text-lg font-semibold text-primary">
                 {rule.title}
               </h2>
               <p className="text-sm leading-relaxed whitespace-pre-line text-gray-300">

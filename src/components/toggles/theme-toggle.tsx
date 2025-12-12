@@ -30,7 +30,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="size-9 border border-red-500 bg-black/70 text-white hover:bg-red-500 hover:text-black"
+          className="size-9 border border-primary bg-black/70 text-white hover:bg-primary hover:text-primary-foreground"
           title={t("MAIN.TOOLTIP.TOGGLE_THEME")}
         >
           {mounted ? (
@@ -44,24 +44,24 @@ export function ThemeToggle() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="border-red-500 bg-black/90">
+      <DropdownMenuContent align="end" className="border-primary bg-black/90">
         <DropdownMenuItem
           onClick={() => setTheme("light")}
-          className="hover:bg-red-500 hover:text-black"
+          className="hover:bg-primary hover:text-primary-foreground"
         >
           <FiSun className="mr-2 size-4" />
           {t("MAIN.ENUM.LIGHT")}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
-          className="hover:bg-red-500 hover:text-black"
+          className="hover:bg-primary hover:text-primary-foreground"
         >
           <BsMoonStars className="mr-2 size-4" />
           {t("MAIN.ENUM.DARK")}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("system")}
-          className="hover:bg-red-500 hover:text-black"
+          className="hover:bg-primary hover:text-primary-foreground"
         >
           <AiOutlineLaptop className="mr-2 size-4" />
           {t("MAIN.ENUM.SYSTEM")}
