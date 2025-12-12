@@ -35,7 +35,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="border-border bg-background/80 sticky top-0 left-0 z-9999 w-full border-b backdrop-blur-md">
+    <header className="bg-background/80 sticky top-0 left-0 z-9999 w-full backdrop-blur-md">
       <div className="container mx-auto flex h-12 items-center justify-between px-4 md:px-6">
         {/* Mobile layout - logo left, menu right */}
         <Link href="/" className="flex items-center gap-1 md:hidden">
