@@ -1,17 +1,13 @@
 "use client";
 
+import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useTeamQuery } from "@/hook/bot-hook";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { IconType } from "react-icons";
 import { FaBug, FaCode, FaCrown, FaGlobe, FaUserPlus } from "react-icons/fa";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
-import { IconType } from "react-icons";
-import { cn } from "@/lib/utils";
 
 type MemberRole = {
   role: string;
@@ -55,24 +51,6 @@ const STAFF_ROLES: MemberRole[] = [
 export function Team() {
   const teamQuery = useTeamQuery();
 
-  if (teamQuery.isPending) {
-    return (
-      <div className="container mx-auto mt-5">
-        <div className="text-center text-muted-foreground">Loading team members...</div>
-      </div>
-    );
-  }
-
-  if (teamQuery.isError) {
-    return (
-      <div className="container mx-auto mt-5">
-        <div className="text-center text-destructive">
-          Error loading team members: {teamQuery.error.message}
-        </div>
-      </div>
-    );
-  }
-
   const staffMembers = teamQuery.data ?? [];
 
   return (
@@ -80,7 +58,7 @@ export function Team() {
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
         {staffMembers.map((member) => (
           <Card key={member.id}>
-            <CardHeader className="p-0 gap-0">
+            <CardHeader className="gap-0 p-0">
               <div className="relative h-48 w-full overflow-hidden rounded-t-xl">
                 <Image
                   src={member.displayAvatarURL}
@@ -91,7 +69,7 @@ export function Team() {
                 />
               </div>
 
-              <div className="p-6 space-y-2">
+              <div className="space-y-2 p-6">
                 <CardDescription className="flex items-center space-x-1">
                   <FaUserPlus className="h-3.5 w-3.5" />
                   <span>{member.username}</span>
@@ -107,7 +85,7 @@ export function Team() {
                 <CardDescription className="flex flex-wrap gap-2 pt-2">
                   {member.memberRoles.map((staffRole) => {
                     const role = STAFF_ROLES.find(
-                      (r) => r.role.toLowerCase() === staffRole.toLowerCase()
+                      (r) => r.role.toLowerCase() === staffRole.toLowerCase(),
                     );
 
                     if (!role) return null;
@@ -115,7 +93,10 @@ export function Team() {
                     return (
                       <span
                         key={staffRole}
-                        className={cn("flex items-center gap-1 text-xs", role.color)}
+                        className={cn(
+                          "flex items-center gap-1 text-xs",
+                          role.color,
+                        )}
                       >
                         <role.Icon />
                         {role.role}
