@@ -14,5 +14,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Create env file
+        run: |
+          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} > .env
+          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+          echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
+          echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+
+          echo NEXT_PUBLIC_APP_NAME=${{ secrets.NEXT_PUBLIC_APP_NAME }} >> .env
+          echo NEXT_PUBLIC_URL=${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }} >> .env
+          echo NEXT_PUBLIC_BOT_URL=${{ secrets.DEEPL }} >> .env
+          echo NEXT_PUBLIC_GUILD_ID=${{ secrets.NEXT_PUBLIC_GUILD_ID }} >> .env
+
+          echo BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }} >> .env
+          echo BETTER_AUTH_URL=${{ secrets.BETTER_AUTH_URL }} >> .env
+
+          echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> .env
+          echo DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }} >> .env
+
       - name: Docker run
         run: docker compose up -d --force-recreate --build

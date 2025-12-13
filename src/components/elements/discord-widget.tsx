@@ -2,19 +2,22 @@
 
 import { useDiscordWidget } from "@/hook/widget-hook";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface DiscordWidgetProps {
   guildId: string;
   className?: string;
   theme?: "dark" | "light";
+  botUrl?: string;
 }
 
 export function DiscordWidget({
   guildId,
   className,
   theme = "dark",
+  botUrl,
 }: DiscordWidgetProps) {
-  const { widget, isLoading, error } = useDiscordWidget(guildId);
+  const { widget, isLoading, error } = useDiscordWidget(guildId, botUrl);
 
   if (isLoading) {
     return (
@@ -64,27 +67,38 @@ export function DiscordWidget({
             : "border-gray-200 text-black",
         )}
       >
-        <h3 className="font-semibold">{widget.name}</h3>
-        <div className="mt-1 flex items-center gap-2 text-sm">
-          <div className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-green-500"></span>
-            <span
-              className={cn(
-                "text-xs",
-                theme === "dark" ? "text-gray-400" : "text-gray-600",
-              )}
-            >
-              {widget.presence_count} Online
-            </span>
+        <div className="flex items-center gap-3">
+          {widget.icon && (
+            <img
+              src={widget.icon}
+              alt={widget.name}
+              className="h-12 w-12 rounded-full"
+            />
+          )}
+          <div>
+            <h3 className="font-semibold">{widget.name}</h3>
+            <div className="mt-1 flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-1">
+                <span className="h-2 w-2 rounded-full bg-green-500"></span>
+                <span
+                  className={cn(
+                    "text-xs",
+                    theme === "dark" ? "text-gray-400" : "text-gray-600",
+                  )}
+                >
+                  {widget.presenceCount} Online
+                </span>
+              </div>
+              <span
+                className={cn(
+                  "text-xs",
+                  theme === "dark" ? "text-gray-400" : "text-gray-600",
+                )}
+              >
+                {widget.memberCount} Members
+              </span>
+            </div>
           </div>
-          <span
-            className={cn(
-              "text-xs",
-              theme === "dark" ? "text-gray-400" : "text-gray-600",
-            )}
-          >
-            {widget.members.length} Members
-          </span>
         </div>
       </div>
 
@@ -126,7 +140,7 @@ export function DiscordWidget({
 
       {/* Members List */}
       {widget.members.length > 0 && (
-        <div className="max-h-64 overflow-y-auto p-3">
+        <div className="max-h-96 overflow-y-auto p-3">
           <h4
             className={cn(
               "mb-2 text-xs font-semibold uppercase",
@@ -135,23 +149,20 @@ export function DiscordWidget({
           >
             Members — {widget.members.length}
           </h4>
-          <div className="space-y-1">
+          <div className="space-y-2">
             {widget.members.map((member) => (
               <div
                 key={member.id}
                 className={cn(
-                  "flex items-center gap-2 rounded px-2 py-1",
+                  "flex items-start gap-2 rounded px-2 py-2 transition-colors",
                   theme === "dark"
                     ? "text-white hover:bg-[#3f4147]"
                     : "text-black hover:bg-gray-100",
                 )}
               >
-                <div className="relative">
+                <div className="relative shrink-0">
                   <img
-                    src={
-                      member.avatar_url ||
-                      `https://cdn.discordapp.com/embed/avatars/${parseInt(member.discriminator) % 5}.png`
-                    }
+                    src={member.avatar}
                     alt={member.username}
                     className="h-8 w-8 rounded-full"
                   />
@@ -169,31 +180,49 @@ export function DiscordWidget({
                     )}
                   ></span>
                 </div>
-                <span className="text-sm">{member.username}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-sm font-medium truncate">
+                      {member.username}
+                    </span>
+                    {member.statusRoles.length > 0 && (
+                      <div className="flex gap-1 flex-wrap">
+                        {member.statusRoles
+                          .sort((a, b) => b.position - a.position)
+                          .map((role, idx) => (
+                            <Badge
+                              key={`${member.id}-${role.name}-${idx}`}
+                              variant="secondary"
+                              className={cn(
+                                "h-4 px-1.5 text-[10px] font-medium",
+                                theme === "dark"
+                                  ? "bg-[#5865f2] text-white hover:bg-[#4752c4]"
+                                  : "bg-[#5865f2] text-white hover:bg-[#4752c4]",
+                              )}
+                            >
+                              {role.name}
+                            </Badge>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                  {member.activity && (
+                    <p
+                      className={cn(
+                        "mt-0.5 text-xs truncate",
+                        theme === "dark" ? "text-gray-400" : "text-gray-600",
+                      )}
+                    >
+                      Playing {member.activity}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Join Server Button */}
-      {widget.instant_invite && (
-        <div className="border-t border-[#3f4147] p-4">
-          <a
-            href={widget.instant_invite}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "block w-full rounded px-4 py-2 text-center text-sm font-semibold transition-colors",
-              theme === "dark"
-                ? "bg-[#5865f2] text-white hover:bg-[#4752c4]"
-                : "bg-[#5865f2] text-white hover:bg-[#4752c4]",
-            )}
-          >
-            Join Server
-          </a>
-        </div>
-      )}
     </div>
   );
 }

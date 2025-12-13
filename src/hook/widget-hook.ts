@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 
+interface StatusRole {
+  name: string;
+  position: number;
+}
+
 interface DiscordMember {
   id: string;
   username: string;
   discriminator: string;
-  avatar: string | null;
+  avatar: string;
   status: "online" | "idle" | "dnd" | "offline";
-  avatar_url: string;
+  activity: string | null;
+  statusRoles: StatusRole[];
+  highestRolePosition: number;
 }
 
 interface DiscordChannel {
@@ -18,13 +25,15 @@ interface DiscordChannel {
 interface DiscordWidgetData {
   id: string;
   name: string;
-  instant_invite: string | null;
   channels: DiscordChannel[];
   members: DiscordMember[];
-  presence_count: number;
+  presenceCount: number;
+  memberCount: number;
+  icon: string | null;
+  banner: string | null;
 }
 
-export function useDiscordWidget(guildId: string) {
+export function useDiscordWidget(guildId: string, botUrl?: string) {
   const [widget, setWidget] = useState<DiscordWidgetData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -33,8 +42,9 @@ export function useDiscordWidget(guildId: string) {
     const fetchWidget = async () => {
       try {
         setIsLoading(true);
+        const apiUrl = botUrl || process.env.NEXT_PUBLIC_BOT_URL || "https://bot.coding.global";
         const response = await fetch(
-          `https://discord.com/api/guilds/${guildId}/widget.json`,
+          `${apiUrl}/api/${guildId}/widget`,
         );
 
         if (!response.ok) {
@@ -60,7 +70,7 @@ export function useDiscordWidget(guildId: string) {
     const interval = setInterval(fetchWidget, 30000);
 
     return () => clearInterval(interval);
-  }, [guildId]);
+  }, [guildId, botUrl]);
 
   return { widget, isLoading, error };
 }
