@@ -157,6 +157,7 @@
 		}
 	},
 	"TEAM": {
+		"HEADING": "Unser Team",
 		"META": {
 			"DESCRIPTION": "Lernen Sie das Team hinter Coding Global kennen",
 			"KEYWORDS": "team, mitarbeiter, entwickler, administratoren, moderatoren",
