@@ -12,7 +12,11 @@
 			"DESCRIPTION": "Willkommen bei Coding Global - Ihre erstklassige Anlaufstelle für Coding-Ressourcen, Community und Lernen",
 			"KEYWORDS": "programmieren, entwicklung, community, lernen, tutorials",
 			"TITLE": "Startseite - Coding Global"
-		}
+		},
+		"WELCOME_TO": "Willkommen bei",
+		"WEBSITE": "Website",
+		"WAITING_MESSAGE": "Wir warten darauf, dass du beitrittst...",
+		"JOIN_BUTTON": "Beitreten"
 	},
 	"MAIN": {
 		"ACTIONS": {
@@ -167,5 +171,17 @@
 			"TODO_ADD": "Todo erfolgreich hinzugefügt",
 			"TODO_SEED": "Todos erfolgreich initialisiert"
 		}
+	},
+	"DISCORD_WIDGET": {
+		"ONLINE": "Online",
+		"MEMBERS": "Mitglieder",
+		"MEMBERS_HEADER": "Mitglieder — {count}",
+		"STATUS": {
+			"ONLINE": "Online",
+			"IDLE": "Abwesend",
+			"DND": "Nicht stören",
+			"OFFLINE": "Offline"
+		},
+		"PLAYING": "Spielt {activity}"
 	}
 }

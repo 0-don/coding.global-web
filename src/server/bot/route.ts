@@ -18,7 +18,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       return status("Internal Server Error", error as Error);
     }
   })
-  .get("/staff", async ({ status }) => {
+  .get("/team", async ({ status }) => {
     try {
       const response = await getApiByGuildIdStaff(
         process.env.NEXT_PUBLIC_GUILD_ID,
