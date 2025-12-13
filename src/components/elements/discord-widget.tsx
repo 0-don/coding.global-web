@@ -1,23 +1,19 @@
 "use client";
 
-import { useDiscordWidget } from "@/hook/widget-hook";
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { useDiscordWidget } from "@/hook/bot-hook";
+import { cn } from "@/lib/utils";
 
 interface DiscordWidgetProps {
-  guildId: string;
   className?: string;
   theme?: "dark" | "light";
-  botUrl?: string;
 }
 
 export function DiscordWidget({
-  guildId,
   className,
   theme = "dark",
-  botUrl,
 }: DiscordWidgetProps) {
-  const { widget, isLoading, error } = useDiscordWidget(guildId, botUrl);
+  const { data: widget, isLoading, error } = useDiscordWidget();
 
   if (isLoading) {
     return (
@@ -43,8 +39,8 @@ export function DiscordWidget({
         )}
       >
         <div className="text-sm opacity-60">
-          Unable to load Discord widget. Make sure the widget is enabled in
-          your server settings.
+          Unable to load Discord widget. Make sure the widget is enabled in your
+          server settings.
         </div>
       </div>
     );
@@ -168,7 +164,7 @@ export function DiscordWidget({
                   />
                   <span
                     className={cn(
-                      "absolute bottom-0 right-0 h-3 w-3 rounded-full border-2",
+                      "absolute right-0 bottom-0 h-3 w-3 rounded-full border-2",
                       theme === "dark" ? "border-[#2b2d31]" : "border-white",
                       member.status === "online"
                         ? "bg-green-500"
@@ -181,12 +177,12 @@ export function DiscordWidget({
                   ></span>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-medium truncate">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="truncate text-sm font-medium">
                       {member.username}
                     </span>
                     {member.statusRoles.length > 0 && (
-                      <div className="flex gap-1 flex-wrap">
+                      <div className="flex flex-wrap gap-1">
                         {member.statusRoles
                           .sort((a, b) => b.position - a.position)
                           .map((role, idx) => (
@@ -209,7 +205,7 @@ export function DiscordWidget({
                   {member.activity && (
                     <p
                       className={cn(
-                        "mt-0.5 text-xs truncate",
+                        "mt-0.5 truncate text-xs",
                         theme === "dark" ? "text-gray-400" : "text-gray-600",
                       )}
                     >
@@ -222,7 +218,6 @@ export function DiscordWidget({
           </div>
         </div>
       )}
-
     </div>
   );
 }

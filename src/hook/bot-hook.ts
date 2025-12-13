@@ -16,3 +16,10 @@ export function useNewsQuery() {
     queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
   });
 }
+
+export function useDiscordWidget() {
+  return useQuery({
+    queryKey: queryKeys.discordWidget(),
+    queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
+  });
+}
