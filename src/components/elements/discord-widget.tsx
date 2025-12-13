@@ -3,48 +3,15 @@
 import { Badge } from "@/components/ui/badge";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 interface DiscordWidgetProps {
   className?: string;
-  theme?: "dark" | "light";
 }
 
-export function DiscordWidget({
-  className,
-  theme = "dark",
-}: DiscordWidgetProps) {
-  const { data: widget, isLoading, error } = useDiscordWidget();
-
-  if (isLoading) {
-    return (
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-lg p-8",
-          theme === "dark" ? "bg-[#2b2d31] text-white" : "bg-white text-black",
-          className,
-        )}
-      >
-        <div className="text-sm opacity-60">Loading Discord widget...</div>
-      </div>
-    );
-  }
-
-  if (error || !widget) {
-    return (
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-lg p-8",
-          theme === "dark" ? "bg-[#2b2d31] text-white" : "bg-white text-black",
-          className,
-        )}
-      >
-        <div className="text-sm opacity-60">
-          Unable to load Discord widget. Make sure the widget is enabled in your
-          server settings.
-        </div>
-      </div>
-    );
-  }
+export function DiscordWidget({ className }: DiscordWidgetProps) {
+  const { data: widget } = useDiscordWidget();
+  const { theme } = useTheme();
 
   return (
     <div
@@ -64,7 +31,7 @@ export function DiscordWidget({
         )}
       >
         <div className="flex items-center gap-3">
-          {widget.icon && (
+          {widget?.icon && (
             <img
               src={widget.icon}
               alt={widget.name}
@@ -72,7 +39,7 @@ export function DiscordWidget({
             />
           )}
           <div>
-            <h3 className="font-semibold">{widget.name}</h3>
+            <h3 className="font-semibold">{widget?.name}</h3>
             <div className="mt-1 flex items-center gap-2 text-sm">
               <div className="flex items-center gap-1">
                 <span className="h-2 w-2 rounded-full bg-green-500"></span>
@@ -82,7 +49,7 @@ export function DiscordWidget({
                     theme === "dark" ? "text-gray-400" : "text-gray-600",
                   )}
                 >
-                  {widget.presenceCount} Online
+                  {widget?.presenceCount} Online
                 </span>
               </div>
               <span
@@ -91,7 +58,7 @@ export function DiscordWidget({
                   theme === "dark" ? "text-gray-400" : "text-gray-600",
                 )}
               >
-                {widget.memberCount} Members
+                {widget?.memberCount} Members
               </span>
             </div>
           </div>
@@ -99,7 +66,7 @@ export function DiscordWidget({
       </div>
 
       {/* Members List */}
-      {widget.members.length > 0 && (
+      {(widget?.members.length || 0) > 0 && (
         <div className="max-h-96 overflow-y-auto p-3">
           <h4
             className={cn(
@@ -107,10 +74,10 @@ export function DiscordWidget({
               theme === "dark" ? "text-gray-400" : "text-gray-600",
             )}
           >
-            Members — {widget.members.length}
+            Members — {widget?.members.length}
           </h4>
           <div className="space-y-2">
-            {widget.members.map((member) => (
+            {widget?.members.map((member) => (
               <div
                 key={member.id}
                 className={cn(
