@@ -71,6 +71,11 @@ export type GetApiByGuildIdWidget200ChannelsItem = {
 
 export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
 
+export type GetApiByGuildIdWidget200MembersItemStatusRolesItem = {
+  name: string;
+  position: number;
+};
+
 export type GetApiByGuildIdWidget200MembersItem = {
   id: string;
   username: string;
@@ -78,6 +83,8 @@ export type GetApiByGuildIdWidget200MembersItem = {
   avatar: string;
   status: string;
   activity: GetApiByGuildIdWidget200MembersItemActivity;
+  statusRoles: GetApiByGuildIdWidget200MembersItemStatusRolesItem[];
+  highestRolePosition: number;
 };
 
 export type GetApiByGuildIdWidget200Icon = string | null;

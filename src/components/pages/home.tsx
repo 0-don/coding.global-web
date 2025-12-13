@@ -40,6 +40,7 @@ export function Home() {
       <div className="hidden w-full max-w-sm lg:block">
         <DiscordWidget
           guildId={process.env.NEXT_PUBLIC_GUILD_ID || "693908458986143824"}
+          botUrl={process.env.NEXT_PUBLIC_BOT_URL}
           theme="dark"
           className="w-full"
         />
