@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { DiscordWidget } from "@/components/elements/discord-widget";
+import Link from "next/link";
 
 export function Home() {
   return (
@@ -38,12 +38,7 @@ export function Home() {
 
       {/* Discord Widget */}
       <div className="hidden w-full max-w-sm lg:block">
-        <DiscordWidget
-          guildId={process.env.NEXT_PUBLIC_GUILD_ID || "693908458986143824"}
-          botUrl={process.env.NEXT_PUBLIC_BOT_URL}
-          theme="dark"
-          className="w-full"
-        />
+        <DiscordWidget className="w-full" />
       </div>
     </div>
   );
