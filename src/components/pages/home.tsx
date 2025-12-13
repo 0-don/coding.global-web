@@ -11,7 +11,7 @@ export function Home() {
   return (
     <div className="container mx-auto mt-10 flex h-full items-center gap-10 px-4 md:px-6">
       <div className="flex-1">
-        <Card className="border-primary text-primary mb-6 bg-black/70 font-mono text-sm">
+        <Card className="border-primary text-primary mb-6 font-mono text-sm">
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-2">
               <span className="bg-primary h-3 w-3 rounded-full"></span>
@@ -40,9 +40,7 @@ export function Home() {
             size="lg"
             className="border-primary hover:bg-primary hover:text-primary-foreground rounded-full border-2 px-8 py-3 font-bold shadow-lg transition-all duration-300 hover:scale-105"
           >
-            <Link href={getDiscordInviteLink()}>
-              {t("HOME.JOIN_BUTTON")}
-            </Link>
+            <Link href={getDiscordInviteLink()}>{t("HOME.JOIN_BUTTON")}</Link>
           </Button>
         </div>
       </div>
