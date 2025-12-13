@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { DiscordWidget } from "@/components/elements/discord-widget";
 
 export function Home() {
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center px-4">
+    <div className="fixed inset-0 z-10 flex items-center justify-center gap-8 px-4">
       <div className="w-full max-w-md text-center">
         <div className="bg-opacity-70 border-primary text-primary mb-6 rounded-lg border bg-black p-4 font-mono text-sm shadow-lg">
           <div className="mb-2 flex items-center space-x-2">
@@ -33,6 +34,15 @@ export function Home() {
             Join
           </Link>
         </div>
+      </div>
+
+      {/* Discord Widget */}
+      <div className="hidden w-full max-w-sm lg:block">
+        <DiscordWidget
+          guildId={process.env.NEXT_PUBLIC_GUILD_ID || "693908458986143824"}
+          theme="dark"
+          className="w-full"
+        />
       </div>
     </div>
   );
