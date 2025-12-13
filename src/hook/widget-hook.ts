@@ -43,6 +43,7 @@ export function useDiscordWidget(guildId: string, botUrl?: string) {
       try {
         setIsLoading(true);
         const apiUrl = botUrl || process.env.NEXT_PUBLIC_BOT_URL || "https://bot.coding.global";
+        console.log("Fetching Discord widget from:", `${apiUrl}/api/${guildId}/widget`);
         const response = await fetch(
           `${apiUrl}/api/${guildId}/widget`,
         );
