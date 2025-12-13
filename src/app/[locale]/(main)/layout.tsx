@@ -18,10 +18,9 @@ export default function MainLayout(props: MainLayoutProps) {
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
           width="350"
           height="500"
-          allowtransparency="true"
-          frameborder="0"
+          frameBorder="0"
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-        ></iframe> */}
+        /> */}
       </main>
       <Footer />
     </>
