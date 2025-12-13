@@ -6,7 +6,7 @@ export const queryKeys = {
 
   // News
   news: () => ["news"],
-  staff: () => ["staff"],
+  team: () => ["team"],
 
   // Console
   console: () => ["console"],

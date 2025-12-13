@@ -3,10 +3,10 @@ import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { useQuery } from "@tanstack/react-query";
 
-export function useStaffQuery() {
+export function useTeamQuery() {
   return useQuery({
-    queryKey: queryKeys.staff(),
-    queryFn: async () => handleElysia(await rpc.api.bot.staff.get()),
+    queryKey: queryKeys.team(),
+    queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
   });
 }
 

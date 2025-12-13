@@ -1,7 +1,11 @@
 import { DiscordWidget } from "@/components/elements/discord-widget";
+import { getDiscordInviteLink } from "@/lib/utils/base";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export function Home() {
+  const t = useTranslations();
+
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center gap-8 px-4">
       <div className="w-full max-w-md text-center">
@@ -14,24 +18,24 @@ export function Home() {
 
           <div className="flex flex-wrap items-center justify-center space-x-1">
             <span className="text-green-400">{">"}</span>
-            <span className="ml-1 text-gray-300">Welcome to</span>
+            <span className="ml-1 text-gray-300">{t("HOME.WELCOME_TO")}</span>
             <span className="text-primary font-bold">
-              Coding Global Website
+              {process.env.NEXT_PUBLIC_APP_NAME} {t("HOME.WEBSITE")}
             </span>
           </div>
 
           <div className="mt-2 animate-pulse text-xs text-gray-400">
-            Waiting for u to join...
+            {t("HOME.WAITING_MESSAGE")}
           </div>
         </div>
         {/* Join Button */}
 
         <div className="z-10 flex items-center justify-center">
           <Link
-            href="https://discord.com/invite/coding"
+            href={getDiscordInviteLink()}
             className="focus:ring-opacity-50 border-primary hover:bg-primary hover:text-primary-foreground focus:ring-primary transform rounded-full border-2 bg-transparent px-8 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 focus:ring-2 focus:outline-none"
           >
-            Join
+            {t("HOME.JOIN_BUTTON")}
           </Link>
         </div>
       </div>

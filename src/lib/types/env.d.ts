@@ -8,6 +8,7 @@ declare namespace NodeJS {
 
     NEXT_PUBLIC_URL: string;
     NEXT_PUBLIC_APP_NAME: string;
+    NEXT_PUBLIC_INVITE_CODE: string;
     NEXT_PUBLIC_BOT_URL: string;
     NEXT_PUBLIC_GUILD_ID: string;
 

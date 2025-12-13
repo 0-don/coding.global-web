@@ -1,133 +1,132 @@
 "use client";
 
+import { useTeamQuery } from "@/hook/bot-hook";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 import Image from "next/image";
-import { useState } from "react";
+import { FaBug, FaCode, FaCrown, FaGlobe, FaUserPlus } from "react-icons/fa";
+import { HiMiniSparkles } from "react-icons/hi2";
+import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
+import { IconType } from "react-icons";
+import { cn } from "@/lib/utils";
 
-type TeamMember = {
-  displayAvatarURL: string;
-  username: string;
-  globalName: string;
-  display_name: string;
-  memberRoles: string[];
+type MemberRole = {
+  role: string;
+  color: string;
+  Icon: IconType;
 };
 
-type ApiResponse = {
-  data: TeamMember[] | { members?: TeamMember[] } | null | undefined;
-};
+const STAFF_ROLES: MemberRole[] = [
+  {
+    role: "Owner",
+    color: "text-red-500",
+    Icon: FaCrown,
+  },
+  {
+    role: "Moderator",
+    color: "text-green-500",
+    Icon: FaBug,
+  },
+  {
+    role: "Admin",
+    color: "text-yellow-500",
+    Icon: FaCode,
+  },
+  {
+    role: "Helper",
+    color: "text-blue-500",
+    Icon: MdHelpCenter,
+  },
+  {
+    role: "Techlead",
+    color: "text-orange-500",
+    Icon: MdSupportAgent,
+  },
+  {
+    role: "Booster",
+    color: "text-pink-600",
+    Icon: HiMiniSparkles,
+  },
+];
 
 export function Team() {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const teamQuery = useTeamQuery();
 
-  // useEffect(() => {
-  //   async function fetchTeam() {
-  //     try {
-  //       const response = (await rpc.api.team.get()) as ApiResponse;
+  if (teamQuery.isPending) {
+    return (
+      <div className="container mx-auto mt-5">
+        <div className="text-center text-muted-foreground">Loading team members...</div>
+      </div>
+    );
+  }
 
-  //       let members: TeamMember[] = [];
+  if (teamQuery.isError) {
+    return (
+      <div className="container mx-auto mt-5">
+        <div className="text-center text-destructive">
+          Error loading team members: {teamQuery.error.message}
+        </div>
+      </div>
+    );
+  }
 
-  //       if (Array.isArray(response.data)) {
-  //         members = response.data;
-  //       } else if (response.data && typeof response.data === "object") {
-  //         members = (response.data as { members?: TeamMember[] }).members || [];
-  //       } else {
-  //         console.warn("Formato inesperado de datos:", response.data);
-  //         members = [];
-  //       }
-
-  //       const membersWithRoles = members.map((member) => ({
-  //         ...member,
-  //         roles: Array.isArray(member.memberRoles) ? member.memberRoles : [],
-  //       }));
-
-  //       setTeamMembers(membersWithRoles);
-  //     } catch (err) {
-  //       console.error("Error fetching team:", err);
-  //       setTeamMembers([]);
-  //     }
-  //   }
-
-  //   fetchTeam();
-  // }, []);
+  const staffMembers = teamQuery.data ?? [];
 
   return (
-    <div className="absolute top-30 left-0 z-10 min-h-screen w-full text-white">
-      {/* Header centrado */}
-      <div className="flex justify-center p-6"></div>
-
-      {/* Grid de miembros */}
-      <div className="px-4 pb-8 sm:px-6">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-1 sm:gap-6 md:grid-cols-1 lg:grid-cols-4">
-          {teamMembers.length > 0 ? (
-            teamMembers.map((member) => (
-              <div
-                key={member.username}
-                className="overflow-hidden rounded-lg border border-primary shadow-lg backdrop-blur-2xl transition-shadow duration-300 hover:shadow-xl"
-              >
-                {/* Avatar */}
-                <div className="relative h-48 overflow-hidden sm:h-56">
-                  <Image
-                    src={member.displayAvatarURL}
-                    alt={member.globalName}
-                    className="h-full w-full object-cover"
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-
-                {/* Información */}
-                <div className="p-3 sm:p-4">
-                  {/* Username */}
-                  <div className="mb-2 flex items-center space-x-1">
-                    <svg
-                      className="h-4 w-4 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
-                    </svg>
-                    <span className="text-sm text-gray-400">
-                      {member.username}
-                    </span>
-                  </div>
-
-                  {/* Global Name */}
-                  {/* <div className="font-semibold text-white text-base sm:text-lg">{member.globalName}</div> */}
-
-                  {/* Display Name */}
-                  <div className="mt-1 text-sm text-gray-400">
-                    {member.display_name}
-                  </div>
-
-                  {/* Roles */}
-                  <div className="mt-3 flex flex-wrap gap-1">
-                    {member.memberRoles.includes("Owner") && (
-                      <span className="flex items-center px-2 py-1 text-xs text-purple-400">
-                        <span className="mr-1">★</span> Owner
-                      </span>
-                    )}
-                    {member.memberRoles.includes("Admin") && (
-                      <span className="flex items-center px-2 py-1 text-xs text-yellow-400">
-                        <span className="mr-1">○</span> Admin
-                      </span>
-                    )}
-                    {member.memberRoles.includes("Techlead") && (
-                      <span className="flex items-center px-2 py-1 text-xs text-orange-400">
-                        <span className="mr-1">⚙️</span> Techlead
-                      </span>
-                    )}
-                    {member.memberRoles.includes("Booster") && (
-                      <span className="flex items-center px-2 py-1 text-xs text-pink-400">
-                        <span className="mr-1">○</span> Booster
-                      </span>
-                    )}
-                  </div>
-                </div>
+    <div className="container mx-auto mt-5">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
+        {staffMembers.map((member) => (
+          <Card key={member.id}>
+            <CardHeader className="p-0 gap-0">
+              <div className="relative h-48 w-full overflow-hidden rounded-t-xl">
+                <Image
+                  src={member.displayAvatarURL}
+                  alt={member.username}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, (max-width: 1536px) 20vw, 14vw"
+                />
               </div>
-            ))
-          ) : (
-            <p className="col-span-full py-4 text-center text-gray-400"></p>
-          )}
-        </div>
+
+              <div className="p-6 space-y-2">
+                <CardDescription className="flex items-center space-x-1">
+                  <FaUserPlus className="h-3.5 w-3.5" />
+                  <span>{member.username}</span>
+                </CardDescription>
+
+                {member.globalName && (
+                  <CardDescription className="flex items-center space-x-1">
+                    <FaGlobe className="h-3.5 w-3.5" />
+                    <span className="font-bold">{member.globalName}</span>
+                  </CardDescription>
+                )}
+
+                <CardDescription className="flex flex-wrap gap-2 pt-2">
+                  {member.memberRoles.map((staffRole) => {
+                    const role = STAFF_ROLES.find(
+                      (r) => r.role.toLowerCase() === staffRole.toLowerCase()
+                    );
+
+                    if (!role) return null;
+
+                    return (
+                      <span
+                        key={staffRole}
+                        className={cn("flex items-center gap-1 text-xs", role.color)}
+                      >
+                        <role.Icon />
+                        {role.role}
+                      </span>
+                    );
+                  })}
+                </CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
+        ))}
       </div>
     </div>
   );
