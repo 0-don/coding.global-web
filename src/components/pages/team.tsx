@@ -3,11 +3,13 @@
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useTeamQuery } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { IconType } from "react-icons";
 import { FaBug, FaCode, FaCrown, FaGlobe, FaUserPlus } from "react-icons/fa";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
+import { RiTeamFill } from "react-icons/ri";
 
 type MemberRole = {
   role: string;
@@ -49,12 +51,18 @@ const STAFF_ROLES: MemberRole[] = [
 ];
 
 export function Team() {
+  const t = useTranslations();
   const teamQuery = useTeamQuery();
 
   const staffMembers = teamQuery.data ?? [];
 
   return (
-    <div className="container mx-auto mt-5">
+    <div className="container mx-auto px-4 md:px-6">
+      <div className="flex items-center justify-center gap-2 py-6">
+        <RiTeamFill className="text-3xl" />
+        <h1 className="text-3xl font-bold">{t("TEAM.HEADING")}</h1>
+      </div>
+
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
         {staffMembers.map((member) => (
           <Card key={member.id}>

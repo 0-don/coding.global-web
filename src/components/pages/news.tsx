@@ -24,7 +24,7 @@ export function News() {
         <h1 className="text-3xl font-bold">{t("NEWS.TITLE")}</h1>
       </div>
 
-      <div className="mt-5 flex-1 overflow-y-auto px-1">
+      <div className="flex-1 overflow-y-auto px-1">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {newsData.map((news: GetApiByGuildIdNews200Item) => (
             <Card key={news.id} className="overflow-hidden">
