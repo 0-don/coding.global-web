@@ -1,9 +1,8 @@
 export const queryKeys = {
   session: () => ["session"],
 
-  // User
-  staffMembers: () => ["staff-members"],
-  walletBalances: () => ["wallet-balances"],
+  // Widget
+  discordWidget: () => ["discord-widget"],
 
   // News
   news: () => ["news"],
