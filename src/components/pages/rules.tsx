@@ -58,7 +58,7 @@ export function Rules() {
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-8 sm:px-6">
+    <div className="container mx-auto px-4 md:px-6">
       <div className="flex items-center justify-center gap-2 py-6">
         <FaQuestionCircle className="text-3xl" />
         <h1 className="text-3xl font-bold">{t("RULES.HEADING")}</h1>
