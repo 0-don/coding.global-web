@@ -7,8 +7,8 @@ export function Home() {
   const t = useTranslations();
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center gap-8 px-4">
-      <div className="w-full max-w-md text-center">
+    <div className="container mx-auto mt-10 flex h-full items-center gap-10 px-4 md:px-6">
+      <div className="flex-1">
         <div className="bg-opacity-70 border-primary text-primary mb-6 rounded-lg border bg-black p-4 font-mono text-sm shadow-lg">
           <div className="mb-2 flex items-center space-x-2">
             <span className="bg-primary h-3 w-3 rounded-full"></span>
@@ -27,9 +27,9 @@ export function Home() {
           <div className="mt-2 animate-pulse text-xs text-gray-400">
             {t("HOME.WAITING_MESSAGE")}
           </div>
-        </div>
-        {/* Join Button */}
 
+          {/* Join Button */}
+        </div>
         <div className="z-10 flex items-center justify-center">
           <Link
             href={getDiscordInviteLink()}
@@ -41,9 +41,8 @@ export function Home() {
       </div>
 
       {/* Discord Widget */}
-      <div className="hidden w-full max-w-sm lg:block">
-        <DiscordWidget className="w-full" />
-      </div>
+
+      <DiscordWidget className="flex-1" />
     </div>
   );
 }
