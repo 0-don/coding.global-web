@@ -98,42 +98,6 @@ export function DiscordWidget({
         </div>
       </div>
 
-      {/* Voice Channels */}
-      {widget.channels.length > 0 && (
-        <div className="border-b border-[#3f4147] p-3">
-          <h4
-            className={cn(
-              "mb-2 text-xs font-semibold uppercase",
-              theme === "dark" ? "text-gray-400" : "text-gray-600",
-            )}
-          >
-            Voice Channels
-          </h4>
-          <div className="space-y-1">
-            {widget.channels.map((channel) => (
-              <div
-                key={channel.id}
-                className={cn(
-                  "flex items-center gap-2 rounded px-2 py-1 text-sm",
-                  theme === "dark"
-                    ? "text-gray-300 hover:bg-[#3f4147]"
-                    : "text-gray-700 hover:bg-gray-100",
-                )}
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 3a9 9 0 00-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0114 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 00-9-9z" />
-                </svg>
-                <span>{channel.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Members List */}
       {widget.members.length > 0 && (
         <div className="max-h-96 overflow-y-auto p-3">
