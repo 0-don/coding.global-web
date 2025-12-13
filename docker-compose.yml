@@ -23,7 +23,7 @@ services:
     networks:
       - proxy
     ports:
-      - 5437:5432
+      - 5438:5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
