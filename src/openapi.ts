@@ -63,12 +63,6 @@ export type GetApiByGuildIdNews422 = {
   expected?: string;
 };
 
-export type GetApiByGuildIdWidget200ChannelsItem = {
-  id: string;
-  name: string;
-  position: number;
-};
-
 export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
 
 export type GetApiByGuildIdWidget200MembersItemStatusRolesItem = {
@@ -94,7 +88,6 @@ export type GetApiByGuildIdWidget200Banner = string | null;
 export type GetApiByGuildIdWidget200 = {
   id: string;
   name: string;
-  channels: GetApiByGuildIdWidget200ChannelsItem[];
   members: GetApiByGuildIdWidget200MembersItem[];
   presenceCount: number;
   memberCount: number;
