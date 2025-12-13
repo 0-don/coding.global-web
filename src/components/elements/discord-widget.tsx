@@ -47,7 +47,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
             <AvatarFallback>{widget.name?.[0] || "D"}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <h3 className="w-36 truncate">{widget.name}</h3>
+            <h3 className="w-38 truncate">{widget.name}</h3>
             <div className="mt-2 flex items-center gap-3 text-sm">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-green-500" />
