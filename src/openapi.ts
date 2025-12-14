@@ -73,6 +73,7 @@ export type GetApiByGuildIdWidget200MembersItemStatusRolesItem = {
 export type GetApiByGuildIdWidget200MembersItem = {
   id: string;
   username: string;
+  displayName: string;
   discriminator: string;
   avatar: string;
   status: string;

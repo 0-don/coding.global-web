@@ -41,7 +41,6 @@ export function Home() {
       </div>
 
       {/* Discord Widget */}
-
       <DiscordWidget className="flex-1" />
     </div>
   );

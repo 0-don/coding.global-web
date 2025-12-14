@@ -82,8 +82,11 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                 >
                   <div className="relative">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={member.avatar} alt={member.username} />
-                      <AvatarFallback>{member.username[0]}</AvatarFallback>
+                      <AvatarImage
+                        src={member.avatar}
+                        alt={member.displayName}
+                      />
+                      <AvatarFallback>{member.displayName[0]}</AvatarFallback>
                     </Avatar>
                     <span
                       className={cn(
@@ -98,7 +101,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
                       <span className="truncate text-sm font-medium">
-                        {member.username}
+                        {member.displayName}
                       </span>
                       {member.statusRoles.length > 0 && (
                         <div className="flex flex-wrap gap-1">
