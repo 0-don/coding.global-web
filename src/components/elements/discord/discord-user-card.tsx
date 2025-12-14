@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
-import { useTranslations } from "next-intl";
 import dayjs from "dayjs";
+import { useTranslations } from "next-intl";
 import {
   LevelRole,
   MemberStatus,
@@ -13,7 +13,7 @@ import {
   StaffRole,
   StatusIndicator,
   StatusRole,
-} from "./utils/enums";
+} from "../utils/enums";
 
 export type DiscordUser = GetApiByGuildIdWidget200MembersItem;
 
@@ -36,10 +36,10 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
       {/* Banner */}
       <div className="h-24 w-full bg-cover bg-center" style={bannerStyle} />
 
-      <CardHeader className="pb-3 -mt-12">
+      <CardHeader className="-mt-12 pb-3">
         <div className="flex items-start gap-3">
           <div className="relative">
-            <Avatar className="border-card border-4 h-20 w-20">
+            <Avatar className="border-card h-20 w-20 border-4">
               <AvatarImage
                 src={props.user.displayAvatarURL}
                 alt={props.user.displayName}
@@ -52,7 +52,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
             </Avatar>
             <StatusIndicator
               status={props.user.status as MemberStatus}
-              className="border-4 -right-1 -bottom-1 h-5 w-5"
+              className="-right-1 -bottom-1 h-5 w-5 border-4"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
             <h4 className="mb-2 text-xs font-semibold uppercase">
               {t("DISCORD_WIDGET.USER_CARD.ROLES")}
             </h4>
-            <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1.5">
+            <div className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
               {props.user.roles.map((role, index) => (
                 <RoleBadgeIcon
                   key={`${props.user.id}-role-${index}`}
