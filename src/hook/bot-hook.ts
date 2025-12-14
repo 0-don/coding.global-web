@@ -7,6 +7,7 @@ export function useTeamQuery() {
   return useQuery({
     queryKey: queryKeys.team(),
     queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
+    enabled: false,
   });
 }
 
@@ -14,6 +15,7 @@ export function useNewsQuery() {
   return useQuery({
     queryKey: queryKeys.news(),
     queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
+    enabled: false,
   });
 }
 
@@ -21,5 +23,6 @@ export function useDiscordWidget() {
   return useQuery({
     queryKey: queryKeys.discordWidget(),
     queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
+    enabled: false,
   });
 }

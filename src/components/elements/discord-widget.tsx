@@ -19,11 +19,9 @@ interface DiscordWidgetProps {
 
 export function DiscordWidget({ className }: DiscordWidgetProps) {
   const { data: widget } = useDiscordWidget();
-  const t = useTranslations("DISCORD_WIDGET");
+  const t = useTranslations();
 
-  if (!widget) {
-    return null;
-  }
+  if (!widget) return null;
 
   return (
     <Card className={cn("overflow-hidden", className)}>
@@ -42,12 +40,12 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-green-500" />
                 <span className="text-muted-foreground text-xs">
-                  {widget.presenceCount} {t("ONLINE")}
+                  {widget.presenceCount} {t("DISCORD_WIDGET.ONLINE")}
                 </span>
               </div>
               <Separator orientation="vertical" className="h-3" />
               <span className="text-muted-foreground text-xs">
-                {widget.memberCount} {t("MEMBERS")}
+                {widget.memberCount} {t("DISCORD_WIDGET.MEMBERS")}
               </span>
             </div>
           </div>
@@ -57,7 +55,9 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
       {widget.members.length > 0 && (
         <CardContent className="max-h-96 overflow-y-auto p-3">
           <h4 className="text-muted-foreground mb-2 text-xs font-semibold uppercase">
-            {t("MEMBERS_HEADER", { count: widget.members.length })}
+            {t("DISCORD_WIDGET.MEMBERS_HEADER", {
+              count: widget.members.length,
+            })}
           </h4>
           <div className="space-y-1">
             {widget.members.map((member) => {
@@ -76,7 +76,9 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                         src={member.avatar}
                         alt={member.displayName}
                       />
-                      <AvatarFallback>{member.displayName[0]}</AvatarFallback>
+                      <AvatarFallback>
+                        {member.displayName?.[0] || "?"}
+                      </AvatarFallback>
                     </Avatar>
                     <StatusIndicator status={member.status as MemberStatus} />
                   </div>
@@ -95,7 +97,9 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                     </div>
                     {member.activity && (
                       <p className="text-muted-foreground mt-0.5 truncate text-xs">
-                        {t("PLAYING", { activity: member.activity })}
+                        {t("DISCORD_WIDGET.PLAYING", {
+                          activity: member.activity,
+                        })}
                       </p>
                     )}
                   </div>
