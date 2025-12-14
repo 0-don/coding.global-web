@@ -183,6 +183,12 @@
 			"DND": "Do Not Disturb",
 			"OFFLINE": "Offline"
 		},
-		"PLAYING": "Playing {activity}"
+		"PLAYING": "Playing {activity}",
+		"USER_CARD": {
+			"MEMBER_SINCE": "Member Since",
+			"CREATED_AT": "Account Created",
+			"ROLES": "Roles",
+			"ACTIVITY": "Activity"
+		}
 	}
 }
