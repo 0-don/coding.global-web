@@ -1,13 +1,17 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { MemberStatus, StatusIndicator } from "./utils/enums";
+import {
+  MemberStatus,
+  RoleBadgeIcon,
+  StaffRole,
+  StatusIndicator,
+} from "./utils/enums";
 
 interface DiscordWidgetProps {
   className?: string;
@@ -83,12 +87,9 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                       </span>
                       {member.statusRoles.length > 0 && (
                         <div className="flex flex-wrap gap-1">
-                          <Badge
-                            variant="secondary"
-                            className="h-4 bg-[#5865f2] px-1.5 text-[10px] font-medium text-white hover:bg-[#4752c4]"
-                          >
-                            {statusRoles?.name}
-                          </Badge>
+                          <RoleBadgeIcon
+                            role={statusRoles?.name as StaffRole}
+                          />
                         </div>
                       )}
                     </div>
