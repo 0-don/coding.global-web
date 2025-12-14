@@ -1,14 +1,26 @@
-import { Badge, badgeVariants } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { type VariantProps } from "class-variance-authority";
 import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
-import { FaBug, FaCode, FaCrown, FaLock, FaMicrophone, FaUserCheck, FaGraduationCap, FaBriefcase, FaUserTie, FaChartLine, FaRocket } from "react-icons/fa";
+import {
+  FaBriefcase,
+  FaBug,
+  FaChartLine,
+  FaCode,
+  FaCrown,
+  FaGraduationCap,
+  FaLock,
+  FaMicrophone,
+  FaRocket,
+  FaUserCheck,
+  FaUsers,
+  FaUserTie,
+} from "react-icons/fa";
+import { GiMusicalNotes } from "react-icons/gi";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
-import { TbCodeDots, TbCopy } from "react-icons/tb";
 import { RiScissorsCutFill } from "react-icons/ri";
-import { GiMusicalNotes } from "react-icons/gi";
+import { TbCodeDots, TbCopy } from "react-icons/tb";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -20,6 +32,7 @@ export enum StaffRole {
 }
 
 export enum StatusRole {
+  MEMBER = "Member",
   VERIFIED = "Verified",
   VOICEONLY = "VoiceOnly",
   JAIL = "Jail",
@@ -44,7 +57,7 @@ export enum MemberStatus {
   OFFLINE = "offline",
 }
 
-export type MemberRole = {
+export type StaffRoleData = {
   role: StaffRole;
   color: string;
   Icon: IconType;
@@ -63,7 +76,7 @@ export type LevelRoleData = {
   level: number;
 };
 
-export const STAFF_ROLES: MemberRole[] = [
+export const STAFF_ROLES: StaffRoleData[] = [
   {
     role: StaffRole.OWNER,
     color: "text-red-500",
@@ -97,6 +110,11 @@ export const STAFF_ROLES: MemberRole[] = [
 ];
 
 export const STATUS_ROLES: StatusRoleData[] = [
+  {
+    role: StatusRole.MEMBER,
+    color: "text-blue-500",
+    Icon: FaUsers,
+  },
   {
     role: StatusRole.VERIFIED,
     color: "text-green-500",
@@ -177,7 +195,9 @@ export const StaffRoleIcon = (props: {
   showText?: boolean;
   textClassName?: string;
 }) => {
-  const roleData = STAFF_ROLES.find((r) => r.role === props.role);
+  const roleData = STAFF_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   const IconComponent = roleData?.Icon || TbCodeDots;
 
   return (
@@ -195,13 +215,9 @@ export const StaffRoleBadgeIcon = (props: {
   className?: string;
   iconOnly?: boolean;
 }) => {
-  const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
-    ? "outline"
-    : "destructive";
-
   return (
     <Badge
-      variant={variant}
+      variant="outline"
       title={props.role}
       className={cn(
         props.className,
@@ -220,7 +236,9 @@ export const StatusRoleIcon = (props: {
   showText?: boolean;
   textClassName?: string;
 }) => {
-  const roleData = STATUS_ROLES.find((r) => r.role === props.role);
+  const roleData = STATUS_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   const IconComponent = roleData?.Icon || FaUserCheck;
 
   return (
@@ -238,13 +256,9 @@ export const StatusRoleBadgeIcon = (props: {
   className?: string;
   iconOnly?: boolean;
 }) => {
-  const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
-    ? "outline"
-    : "destructive";
-
   return (
     <Badge
-      variant={variant}
+      variant="outline"
       title={props.role}
       className={cn(
         props.className,
@@ -263,7 +277,9 @@ export const LevelRoleIcon = (props: {
   showText?: boolean;
   textClassName?: string;
 }) => {
-  const roleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  const roleData = LEVEL_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   const IconComponent = roleData?.Icon || TbCodeDots;
 
   return (
@@ -281,14 +297,13 @@ export const LevelRoleBadgeIcon = (props: {
   className?: string;
   iconOnly?: boolean;
 }) => {
-  const roleData = LEVEL_ROLES.find((r) => r.role === props.role);
-  const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
-    ? "outline"
-    : "destructive";
+  const roleData = LEVEL_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
 
   return (
     <Badge
-      variant={variant}
+      variant="outline"
       title={`${props.role} (Level ${roleData?.level})`}
       className={cn(
         props.className,
@@ -309,21 +324,48 @@ export const RoleIcon = (props: {
   textClassName?: string;
 }) => {
   // Check if it's a StaffRole
-  const staffRoleData = STAFF_ROLES.find((r) => r.role === props.role);
+  const staffRoleData = STAFF_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (staffRoleData) {
-    return <StaffRoleIcon role={props.role as StaffRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+    return (
+      <StaffRoleIcon
+        role={props.role as StaffRole}
+        className={props.className}
+        showText={props.showText}
+        textClassName={props.textClassName}
+      />
+    );
   }
 
   // Check if it's a StatusRole
-  const statusRoleData = STATUS_ROLES.find((r) => r.role === props.role);
+  const statusRoleData = STATUS_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (statusRoleData) {
-    return <StatusRoleIcon role={props.role as StatusRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+    return (
+      <StatusRoleIcon
+        role={props.role as StatusRole}
+        className={props.className}
+        showText={props.showText}
+        textClassName={props.textClassName}
+      />
+    );
   }
 
   // Check if it's a LevelRole
-  const levelRoleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  const levelRoleData = LEVEL_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (levelRoleData) {
-    return <LevelRoleIcon role={props.role as LevelRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+    return (
+      <LevelRoleIcon
+        role={props.role as LevelRole}
+        className={props.className}
+        showText={props.showText}
+        textClassName={props.textClassName}
+      />
+    );
   }
 
   // Default fallback
@@ -344,29 +386,51 @@ export const RoleBadgeIcon = (props: {
   iconOnly?: boolean;
 }) => {
   // Check if it's a StaffRole
-  const staffRoleData = STAFF_ROLES.find((r) => r.role === props.role);
+  const staffRoleData = STAFF_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (staffRoleData) {
-    return <StaffRoleBadgeIcon role={props.role as StaffRole} className={props.className} iconOnly={props.iconOnly} />;
+    return (
+      <StaffRoleBadgeIcon
+        role={props.role as StaffRole}
+        className={props.className}
+        iconOnly={props.iconOnly}
+      />
+    );
   }
 
   // Check if it's a StatusRole
-  const statusRoleData = STATUS_ROLES.find((r) => r.role === props.role);
+  const statusRoleData = STATUS_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (statusRoleData) {
-    return <StatusRoleBadgeIcon role={props.role as StatusRole} className={props.className} iconOnly={props.iconOnly} />;
+    return (
+      <StatusRoleBadgeIcon
+        role={props.role as StatusRole}
+        className={props.className}
+        iconOnly={props.iconOnly}
+      />
+    );
   }
 
   // Check if it's a LevelRole
-  const levelRoleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  const levelRoleData = LEVEL_ROLES.find(
+    (r) => r.role.toLowerCase() === props.role.toLowerCase(),
+  );
   if (levelRoleData) {
-    return <LevelRoleBadgeIcon role={props.role as LevelRole} className={props.className} iconOnly={props.iconOnly} />;
+    return (
+      <LevelRoleBadgeIcon
+        role={props.role as LevelRole}
+        className={props.className}
+        iconOnly={props.iconOnly}
+      />
+    );
   }
 
   // Default fallback
-  const variant: VariantProps<typeof badgeVariants>["variant"] = "destructive";
-
   return (
     <Badge
-      variant={variant}
+      variant="outline"
       title={props.role}
       className={cn(
         props.className,
