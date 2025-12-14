@@ -1,6 +1,7 @@
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { type VariantProps } from "class-variance-authority";
+import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
 import { FaBug, FaCode, FaCrown } from "react-icons/fa";
 import { HiMiniSparkles } from "react-icons/hi2";
@@ -13,6 +14,13 @@ export enum StaffRole {
   HELPER = "Helper",
   TECHLEAD = "Techlead",
   BOOSTER = "Booster",
+}
+
+export enum MemberStatus {
+  ONLINE = "online",
+  IDLE = "idle",
+  DND = "dnd",
+  OFFLINE = "offline",
 }
 
 export type MemberRole = {
@@ -61,7 +69,6 @@ export const RoleIcon = (props: {
   textClassName?: string;
 }) => {
   const roleData = STAFF_ROLES.find((r) => r.role === props.role)!;
-
   const IconComponent = roleData.Icon;
 
   return (
@@ -95,5 +102,32 @@ export const RoleBadgeIcon = (props: {
       <RoleIcon role={props.role} />
       {!props.iconOnly && props.role}
     </Badge>
+  );
+};
+
+export const StatusIndicator = (props: {
+  status: MemberStatus;
+  className?: string;
+}) => {
+  const t = useTranslations("DISCORD_WIDGET");
+
+  const STATUS_COLORS: Record<MemberStatus, string> = {
+    [MemberStatus.ONLINE]: "bg-green-500",
+    [MemberStatus.IDLE]: "bg-yellow-500",
+    [MemberStatus.DND]: "bg-red-500",
+    [MemberStatus.OFFLINE]: "bg-muted-foreground",
+  };
+
+  return (
+    <span
+      className={cn(
+        "border-card absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2",
+        STATUS_COLORS[props.status] || STATUS_COLORS[MemberStatus.OFFLINE],
+        props.className,
+      )}
+      aria-label={t(
+        `STATUS.${props.status.toUpperCase() as Uppercase<MemberStatus>}`,
+      )}
+    />
   );
 };

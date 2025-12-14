@@ -7,29 +7,15 @@ import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { MemberStatus, StatusIndicator } from "./utils/enums";
 
 interface DiscordWidgetProps {
   className?: string;
 }
 
-const STATUS_COLORS = {
-  online: "bg-green-500",
-  idle: "bg-yellow-500",
-  dnd: "bg-red-500",
-  offline: "bg-muted-foreground",
-} as const;
-
 export function DiscordWidget({ className }: DiscordWidgetProps) {
   const { data: widget } = useDiscordWidget();
   const t = useTranslations("DISCORD_WIDGET");
-
-  const getStatusLabel = (status: string) => {
-    const statusKey = status.toUpperCase();
-    if (statusKey === "ONLINE") return t("STATUS.ONLINE");
-    if (statusKey === "IDLE") return t("STATUS.IDLE");
-    if (statusKey === "DND") return t("STATUS.DND");
-    return t("STATUS.OFFLINE");
-  };
 
   if (!widget) {
     return null;
@@ -88,15 +74,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                       />
                       <AvatarFallback>{member.displayName[0]}</AvatarFallback>
                     </Avatar>
-                    <span
-                      className={cn(
-                        "border-card absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2",
-                        STATUS_COLORS[
-                          member.status as keyof typeof STATUS_COLORS
-                        ] || STATUS_COLORS.offline,
-                      )}
-                      aria-label={getStatusLabel(member.status)}
-                    />
+                    <StatusIndicator status={member.status as MemberStatus} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
