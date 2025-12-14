@@ -49,12 +49,16 @@ export function Team() {
                 )}
 
                 <CardDescription className="flex flex-wrap gap-2 pt-2">
-                  {member.memberRoles.map((staffRole) => (
-                    <RoleBadgeIcon
-                      key={staffRole}
-                      role={staffRole as StaffRole}
-                    />
-                  ))}
+                  {member.memberRoles
+                    .filter((role) =>
+                      Object.values(StaffRole).includes(role as StaffRole),
+                    )
+                    .map((staffRole) => (
+                      <RoleBadgeIcon
+                        key={staffRole}
+                        role={staffRole as StaffRole}
+                      />
+                    ))}
                 </CardDescription>
               </div>
             </CardHeader>
