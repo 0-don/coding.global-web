@@ -12,8 +12,6 @@ export type GetApiByGuildIdStaff200ItemJoinedAt = string | null;
 
 export type GetApiByGuildIdStaff200ItemBannerUrl = string | null;
 
-export type GetApiByGuildIdStaff200ItemBanner = string | null;
-
 export type GetApiByGuildIdStaff200ItemRolesItem = {
   name: string;
   position: number;
@@ -29,9 +27,7 @@ export type GetApiByGuildIdStaff200Item = {
   joinedAt: GetApiByGuildIdStaff200ItemJoinedAt;
   createdAt: string;
   displayAvatarURL: string;
-  avatar: string;
   bannerUrl: GetApiByGuildIdStaff200ItemBannerUrl;
-  banner: GetApiByGuildIdStaff200ItemBanner;
   displayHexColor: string;
   roles: GetApiByGuildIdStaff200ItemRolesItem[];
   highestRolePosition: number;
@@ -62,8 +58,6 @@ export type GetApiByGuildIdNews200ItemUserAnyOfJoinedAt = string | null;
 
 export type GetApiByGuildIdNews200ItemUserAnyOfBannerUrl = string | null;
 
-export type GetApiByGuildIdNews200ItemUserAnyOfBanner = string | null;
-
 export type GetApiByGuildIdNews200ItemUserAnyOfRolesItem = {
   name: string;
   position: number;
@@ -79,9 +73,7 @@ export type GetApiByGuildIdNews200ItemUserAnyOf = {
   joinedAt: GetApiByGuildIdNews200ItemUserAnyOfJoinedAt;
   createdAt: string;
   displayAvatarURL: string;
-  avatar: string;
   bannerUrl: GetApiByGuildIdNews200ItemUserAnyOfBannerUrl;
-  banner: GetApiByGuildIdNews200ItemUserAnyOfBanner;
   displayHexColor: string;
   roles: GetApiByGuildIdNews200ItemUserAnyOfRolesItem[];
   highestRolePosition: number;
@@ -116,8 +108,6 @@ export type GetApiByGuildIdWidget200MembersItemJoinedAt = string | null;
 
 export type GetApiByGuildIdWidget200MembersItemBannerUrl = string | null;
 
-export type GetApiByGuildIdWidget200MembersItemBanner = string | null;
-
 export type GetApiByGuildIdWidget200MembersItemRolesItem = {
   name: string;
   position: number;
@@ -133,9 +123,7 @@ export type GetApiByGuildIdWidget200MembersItem = {
   joinedAt: GetApiByGuildIdWidget200MembersItemJoinedAt;
   createdAt: string;
   displayAvatarURL: string;
-  avatar: string;
   bannerUrl: GetApiByGuildIdWidget200MembersItemBannerUrl;
-  banner: GetApiByGuildIdWidget200MembersItemBanner;
   displayHexColor: string;
   roles: GetApiByGuildIdWidget200MembersItemRolesItem[];
   highestRolePosition: number;
@@ -143,9 +131,9 @@ export type GetApiByGuildIdWidget200MembersItem = {
   activity: GetApiByGuildIdWidget200MembersItemActivity;
 };
 
-export type GetApiByGuildIdWidget200Icon = string | null;
+export type GetApiByGuildIdWidget200IconURL = string | null;
 
-export type GetApiByGuildIdWidget200Banner = string | null;
+export type GetApiByGuildIdWidget200BannerURL = string | null;
 
 export type GetApiByGuildIdWidget200 = {
   id: string;
@@ -153,8 +141,8 @@ export type GetApiByGuildIdWidget200 = {
   members: GetApiByGuildIdWidget200MembersItem[];
   presenceCount: number;
   memberCount: number;
-  icon: GetApiByGuildIdWidget200Icon;
-  banner: GetApiByGuildIdWidget200Banner;
+  iconURL: GetApiByGuildIdWidget200IconURL;
+  bannerURL: GetApiByGuildIdWidget200BannerURL;
 };
 
 export type GetApiByGuildIdWidget422 = {

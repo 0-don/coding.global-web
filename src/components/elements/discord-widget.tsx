@@ -30,7 +30,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
             <AvatarImage
-              src={widget.icon || "/images/avatar.svg"}
+              src={widget.iconURL || "/images/avatar.svg"}
               alt={widget.name}
             />
             <AvatarFallback>{widget.name?.[0] || "D"}</AvatarFallback>
@@ -70,7 +70,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                     <div className="relative">
                       <Avatar className="h-8 w-8">
                         <AvatarImage
-                          src={member.avatar}
+                          src={member.displayAvatarURL}
                           alt={member.displayName}
                         />
                         <AvatarFallback>

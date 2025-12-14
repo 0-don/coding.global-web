@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import { useTranslations } from "next-intl";
+import dayjs from "dayjs";
 import {
   LevelRole,
   MemberStatus,
@@ -19,7 +20,6 @@ export type DiscordUser = GetApiByGuildIdWidget200MembersItem;
 interface DiscordUserCardProps {
   user: DiscordUser;
   className?: string;
-  compact?: boolean;
 }
 
 export function DiscordUserCard(props: DiscordUserCardProps) {
@@ -27,28 +27,21 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
 
   const bannerStyle = props.user.bannerUrl
     ? { backgroundImage: `url(${props.user.bannerUrl})` }
-    : props.user.banner
-      ? { backgroundColor: `#${props.user.banner}` }
+    : props.user.bannerUrl
+      ? { backgroundColor: `#${props.user.bannerUrl}` }
       : { backgroundColor: props.user.displayHexColor || "#5865F2" };
 
   return (
     <Card className={cn("w-80 overflow-hidden", props.className)}>
       {/* Banner */}
-      {!props.compact && (
-        <div className="h-24 w-full bg-cover bg-center" style={bannerStyle} />
-      )}
+      <div className="h-24 w-full bg-cover bg-center" style={bannerStyle} />
 
-      <CardHeader className={cn("pb-3", !props.compact && "-mt-12")}>
+      <CardHeader className="pb-3 -mt-12">
         <div className="flex items-start gap-3">
           <div className="relative">
-            <Avatar
-              className={cn(
-                "border-card border-4",
-                props.compact ? "h-12 w-12" : "h-20 w-20",
-              )}
-            >
+            <Avatar className="border-card border-4 h-20 w-20">
               <AvatarImage
-                src={props.user.avatar}
+                src={props.user.displayAvatarURL}
                 alt={props.user.displayName}
               />
               <AvatarFallback>
@@ -59,44 +52,24 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
             </Avatar>
             <StatusIndicator
               status={props.user.status as MemberStatus}
-              className={cn(
-                "border-4",
-                props.compact
-                  ? "-right-1 -bottom-1 h-4 w-4"
-                  : "-right-1 -bottom-1 h-5 w-5",
-              )}
+              className="border-4 -right-1 -bottom-1 h-5 w-5"
             />
           </div>
-
-          {props.compact && (
-            <div className="min-w-0 flex-1">
-              <h3 className="truncate text-lg font-semibold">
-                {props.user.displayName}
-              </h3>
-              {props.user.username && (
-                <p className="text-muted-foreground truncate text-sm">
-                  @{props.user.username}
-                </p>
-              )}
-            </div>
-          )}
         </div>
       </CardHeader>
 
       <CardContent className="space-y-3 pb-4">
         {/* User Info */}
-        {!props.compact && (
-          <div>
-            <h3 className="truncate text-xl font-bold">
-              {props.user.displayName}
-            </h3>
-            {props.user.username && (
-              <p className="text-muted-foreground truncate text-sm">
-                @{props.user.username}
-              </p>
-            )}
-          </div>
-        )}
+        <div>
+          <h3 className="truncate text-xl font-bold">
+            {props.user.displayName}
+          </h3>
+          {props.user.username && (
+            <p className="text-muted-foreground truncate text-sm">
+              @{props.user.username}
+            </p>
+          )}
+        </div>
 
         {/* Member Since */}
         {props.user.joinedAt && (
@@ -105,13 +78,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
               {t("DISCORD_WIDGET.USER_CARD.MEMBER_SINCE")}
             </h4>
             <div className="flex items-center gap-2 text-sm">
-              <span>
-                {new Date(props.user.joinedAt).toLocaleDateString(undefined, {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
+              <span>{dayjs(props.user.joinedAt).format("MMMM D, YYYY")}</span>
             </div>
           </div>
         )}
@@ -123,13 +90,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
               {t("DISCORD_WIDGET.USER_CARD.CREATED_AT")}
             </h4>
             <div className="flex items-center gap-2 text-sm">
-              <span>
-                {new Date(props.user.createdAt).toLocaleDateString(undefined, {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
+              <span>{dayjs(props.user.createdAt).format("MMMM D, YYYY")}</span>
             </div>
           </div>
         )}
@@ -140,7 +101,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
             <h4 className="mb-2 text-xs font-semibold uppercase">
               {t("DISCORD_WIDGET.USER_CARD.ROLES")}
             </h4>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1.5">
               {props.user.roles.map((role, index) => (
                 <RoleBadgeIcon
                   key={`${props.user.id}-role-${index}`}
