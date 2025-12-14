@@ -70,55 +70,56 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
             {t("MEMBERS_HEADER", { count: widget.members.length })}
           </h4>
           <div className="space-y-1">
-            {widget.members.map((member) => (
-              <div
-                key={member.id}
-                className="hover:bg-accent flex items-start gap-2 rounded-md px-2 py-2 transition-colors"
-              >
-                <div className="relative">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={member.avatar} alt={member.username} />
-                    <AvatarFallback>{member.username[0]}</AvatarFallback>
-                  </Avatar>
-                  <span
-                    className={cn(
-                      "border-card absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2",
-                      STATUS_COLORS[
-                        member.status as keyof typeof STATUS_COLORS
-                      ] || STATUS_COLORS.offline,
-                    )}
-                    aria-label={getStatusLabel(member.status)}
-                  />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="truncate text-sm font-medium">
-                      {member.username}
-                    </span>
-                    {member.statusRoles.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {member.statusRoles
-                          .sort((a, b) => b.position - a.position)
-                          .map((role, idx) => (
-                            <Badge
-                              key={`${member.id}-${role.name}-${idx}`}
-                              variant="secondary"
-                              className="h-4 bg-[#5865f2] px-1.5 text-[10px] font-medium text-white hover:bg-[#4752c4]"
-                            >
-                              {role.name}
-                            </Badge>
-                          ))}
-                      </div>
+            {widget.members.map((member) => {
+              const statusRoles = member.statusRoles
+                .sort((a, b) => b.position - a.position)
+                .at(0);
+
+              return (
+                <div
+                  key={member.id}
+                  className="hover:bg-accent/20 flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors"
+                >
+                  <div className="relative">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={member.avatar} alt={member.username} />
+                      <AvatarFallback>{member.username[0]}</AvatarFallback>
+                    </Avatar>
+                    <span
+                      className={cn(
+                        "border-card absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2",
+                        STATUS_COLORS[
+                          member.status as keyof typeof STATUS_COLORS
+                        ] || STATUS_COLORS.offline,
+                      )}
+                      aria-label={getStatusLabel(member.status)}
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="truncate text-sm font-medium">
+                        {member.username}
+                      </span>
+                      {member.statusRoles.length > 0 && (
+                        <div className="flex flex-wrap gap-1">
+                          <Badge
+                            variant="secondary"
+                            className="h-4 bg-[#5865f2] px-1.5 text-[10px] font-medium text-white hover:bg-[#4752c4]"
+                          >
+                            {statusRoles?.name}
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
+                    {member.activity && (
+                      <p className="text-muted-foreground mt-0.5 truncate text-xs">
+                        {t("PLAYING", { activity: member.activity })}
+                      </p>
                     )}
                   </div>
-                  {member.activity && (
-                    <p className="text-muted-foreground mt-0.5 truncate text-xs">
-                      {t("PLAYING", { activity: member.activity })}
-                    </p>
-                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       )}

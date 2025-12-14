@@ -5,50 +5,9 @@ import { useTeamQuery } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { IconType } from "react-icons";
-import { FaBug, FaCode, FaCrown, FaGlobe, FaUserPlus } from "react-icons/fa";
-import { HiMiniSparkles } from "react-icons/hi2";
-import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
+import { FaGlobe, FaUserPlus } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
-
-type MemberRole = {
-  role: string;
-  color: string;
-  Icon: IconType;
-};
-
-const STAFF_ROLES: MemberRole[] = [
-  {
-    role: "Owner",
-    color: "text-red-500",
-    Icon: FaCrown,
-  },
-  {
-    role: "Moderator",
-    color: "text-green-500",
-    Icon: FaBug,
-  },
-  {
-    role: "Admin",
-    color: "text-yellow-500",
-    Icon: FaCode,
-  },
-  {
-    role: "Helper",
-    color: "text-blue-500",
-    Icon: MdHelpCenter,
-  },
-  {
-    role: "Techlead",
-    color: "text-orange-500",
-    Icon: MdSupportAgent,
-  },
-  {
-    role: "Booster",
-    color: "text-pink-600",
-    Icon: HiMiniSparkles,
-  },
-];
+import { STAFF_ROLES } from "../elements/utils/enums";
 
 export function Team() {
   const t = useTranslations();
