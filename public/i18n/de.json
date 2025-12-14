@@ -183,6 +183,12 @@
 			"DND": "Nicht stören",
 			"OFFLINE": "Offline"
 		},
-		"PLAYING": "Spielt {activity}"
+		"PLAYING": "Spielt {activity}",
+		"USER_CARD": {
+			"MEMBER_SINCE": "Mitglied seit",
+			"CREATED_AT": "Konto erstellt",
+			"ROLES": "Rollen",
+			"ACTIVITY": "Aktivität"
+		}
 	}
 }
