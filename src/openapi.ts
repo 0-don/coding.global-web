@@ -63,6 +63,8 @@ export type GetApiByGuildIdNews422 = {
   expected?: string;
 };
 
+export type GetApiByGuildIdWidget200MembersItemBanner = string | null | unknown;
+
 export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
 
 export type GetApiByGuildIdWidget200MembersItemStatusRolesItem = {
@@ -74,8 +76,8 @@ export type GetApiByGuildIdWidget200MembersItem = {
   id: string;
   username: string;
   displayName: string;
-  discriminator: string;
   avatar: string;
+  banner: GetApiByGuildIdWidget200MembersItemBanner;
   status: string;
   activity: GetApiByGuildIdWidget200MembersItemActivity;
   statusRoles: GetApiByGuildIdWidget200MembersItemStatusRolesItem[];

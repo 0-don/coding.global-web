@@ -6,6 +6,7 @@ import { IconType } from "react-icons";
 import { FaBug, FaCode, FaCrown } from "react-icons/fa";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
+import { TbCodeDots } from "react-icons/tb";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -68,12 +69,12 @@ export const RoleIcon = (props: {
   showText?: boolean;
   textClassName?: string;
 }) => {
-  const roleData = STAFF_ROLES.find((r) => r.role === props.role)!;
-  const IconComponent = roleData.Icon;
+  const roleData = STAFF_ROLES.find((r) => r.role === props.role);
+  const IconComponent = roleData?.Icon || TbCodeDots;
 
   return (
     <>
-      <IconComponent className={cn(roleData.color, props.className)} />
+      <IconComponent className={cn(roleData?.color, props.className)} />
       {props.showText && (
         <p className={cn(props.textClassName)}>{props.role}</p>
       )}
@@ -87,7 +88,7 @@ export const RoleBadgeIcon = (props: {
   iconOnly?: boolean;
 }) => {
   const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
-    ? "default"
+    ? "outline"
     : "destructive";
 
   return (
