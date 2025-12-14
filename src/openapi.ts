@@ -6,15 +6,37 @@
  * OpenAPI spec version: 0.0.0
  */
 import { customFetch } from "./lib/custom-fetch";
+export type GetApiByGuildIdStaff200ItemGlobalName = string | null;
+
+export type GetApiByGuildIdStaff200ItemJoinedAt = string | null;
+
+export type GetApiByGuildIdStaff200ItemBannerUrl = string | null;
+
+export type GetApiByGuildIdStaff200ItemBanner = string | null;
+
+export type GetApiByGuildIdStaff200ItemRolesItem = {
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdStaff200ItemActivity = string | null;
+
 export type GetApiByGuildIdStaff200Item = {
   id: string;
   username: string;
-  globalName: string;
-  joinedAt: string;
+  globalName: GetApiByGuildIdStaff200ItemGlobalName;
+  displayName: string;
+  joinedAt: GetApiByGuildIdStaff200ItemJoinedAt;
+  createdAt: string;
   displayAvatarURL: string;
-  bannerUrl: string;
+  avatar: string;
+  bannerUrl: GetApiByGuildIdStaff200ItemBannerUrl;
+  banner: GetApiByGuildIdStaff200ItemBanner;
   displayHexColor: string;
-  memberRoles: string[];
+  roles: GetApiByGuildIdStaff200ItemRolesItem[];
+  highestRolePosition: number;
+  status: string;
+  activity: GetApiByGuildIdStaff200ItemActivity;
 };
 
 export type GetApiByGuildIdStaff422 = {
@@ -34,16 +56,41 @@ export type GetApiByGuildIdNews200ItemAttachmentsItem = {
   contentType: string;
 };
 
-export type GetApiByGuildIdNews200ItemUser = {
+export type GetApiByGuildIdNews200ItemUserAnyOfGlobalName = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOfJoinedAt = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOfBannerUrl = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOfBanner = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOfRolesItem = {
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdNews200ItemUserAnyOfActivity = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOf = {
   id: string;
   username: string;
-  globalName: string;
-  joinedAt: string;
+  globalName: GetApiByGuildIdNews200ItemUserAnyOfGlobalName;
+  displayName: string;
+  joinedAt: GetApiByGuildIdNews200ItemUserAnyOfJoinedAt;
+  createdAt: string;
   displayAvatarURL: string;
-  bannerUrl: string;
-  memberRoles: string[];
+  avatar: string;
+  bannerUrl: GetApiByGuildIdNews200ItemUserAnyOfBannerUrl;
+  banner: GetApiByGuildIdNews200ItemUserAnyOfBanner;
   displayHexColor: string;
+  roles: GetApiByGuildIdNews200ItemUserAnyOfRolesItem[];
+  highestRolePosition: number;
+  status: string;
+  activity: GetApiByGuildIdNews200ItemUserAnyOfActivity;
 };
+
+export type GetApiByGuildIdNews200ItemUser =
+  GetApiByGuildIdNews200ItemUserAnyOf | null;
 
 export type GetApiByGuildIdNews200Item = {
   id: string;
@@ -63,25 +110,37 @@ export type GetApiByGuildIdNews422 = {
   expected?: string;
 };
 
-export type GetApiByGuildIdWidget200MembersItemBanner = string | null | unknown;
+export type GetApiByGuildIdWidget200MembersItemGlobalName = string | null;
 
-export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
+export type GetApiByGuildIdWidget200MembersItemJoinedAt = string | null;
 
-export type GetApiByGuildIdWidget200MembersItemStatusRolesItem = {
+export type GetApiByGuildIdWidget200MembersItemBannerUrl = string | null;
+
+export type GetApiByGuildIdWidget200MembersItemBanner = string | null;
+
+export type GetApiByGuildIdWidget200MembersItemRolesItem = {
   name: string;
   position: number;
 };
 
+export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
+
 export type GetApiByGuildIdWidget200MembersItem = {
   id: string;
   username: string;
+  globalName: GetApiByGuildIdWidget200MembersItemGlobalName;
   displayName: string;
+  joinedAt: GetApiByGuildIdWidget200MembersItemJoinedAt;
+  createdAt: string;
+  displayAvatarURL: string;
   avatar: string;
+  bannerUrl: GetApiByGuildIdWidget200MembersItemBannerUrl;
   banner: GetApiByGuildIdWidget200MembersItemBanner;
+  displayHexColor: string;
+  roles: GetApiByGuildIdWidget200MembersItemRolesItem[];
+  highestRolePosition: number;
   status: string;
   activity: GetApiByGuildIdWidget200MembersItemActivity;
-  statusRoles: GetApiByGuildIdWidget200MembersItemStatusRolesItem[];
-  highestRolePosition: number;
 };
 
 export type GetApiByGuildIdWidget200Icon = string | null;

@@ -61,9 +61,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
           </h4>
           <div className="space-y-1">
             {widget.members.map((member) => {
-              const statusRoles = member.statusRoles
-                .sort((a, b) => b.position - a.position)
-                .at(0);
+              const statusRoles = member.roles.at(0);
 
               return (
                 <div
@@ -87,7 +85,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                       <span className="truncate text-sm font-medium">
                         {member.displayName}
                       </span>
-                      {member.statusRoles.length > 0 && (
+                      {member.roles?.length > 0 && (
                         <div className="flex flex-wrap gap-1">
                           <RoleBadgeIcon
                             role={statusRoles?.name as StaffRole}
