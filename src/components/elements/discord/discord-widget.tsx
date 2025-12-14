@@ -6,26 +6,26 @@ import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { DiscordUserPopover } from "./discord-user-popover";
 import {
   MemberStatus,
   RoleBadgeIcon,
   StaffRole,
   StatusIndicator,
-} from "./utils/enums";
+} from "../utils/enums";
+import { DiscordUserPopover } from "./discord-user-popover";
 
 interface DiscordWidgetProps {
   className?: string;
 }
 
-export function DiscordWidget({ className }: DiscordWidgetProps) {
-  const { data: widget } = useDiscordWidget();
+export function DiscordWidget(props: DiscordWidgetProps) {
   const t = useTranslations();
+  const { data: widget } = useDiscordWidget();
 
   if (!widget) return null;
 
   return (
-    <Card className={cn("overflow-hidden", className)}>
+    <Card className={cn("overflow-hidden", props.className)}>
       <CardHeader className="border-b">
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
@@ -74,9 +74,7 @@ export function DiscordWidget({ className }: DiscordWidgetProps) {
                           alt={member.displayName}
                         />
                         <AvatarFallback>
-                          {member.displayName
-                            ? member.displayName.charAt(0).toUpperCase()
-                            : "?"}
+                          {member?.displayName?.charAt(0)?.toUpperCase() || "?"}
                         </AvatarFallback>
                       </Avatar>
                       <StatusIndicator status={member.status as MemberStatus} />

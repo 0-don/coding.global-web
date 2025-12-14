@@ -23,7 +23,6 @@ export function useDiscordWidget() {
   return useQuery({
     queryKey: queryKeys.discordWidget(),
     queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
-    staleTime: 60000, // Cache for 1 minute
-    refetchInterval: 60000, // Refetch every minute
+    enabled: false,
   });
 }
