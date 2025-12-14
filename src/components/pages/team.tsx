@@ -2,12 +2,11 @@
 
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useTeamQuery } from "@/hook/bot-hook";
-import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FaGlobe, FaUserPlus } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
-import { STAFF_ROLES } from "../elements/utils/enums";
+import { RoleBadgeIcon, StaffRole } from "../elements/utils/enums";
 
 export function Team() {
   const t = useTranslations();
@@ -50,26 +49,12 @@ export function Team() {
                 )}
 
                 <CardDescription className="flex flex-wrap gap-2 pt-2">
-                  {member.memberRoles.map((staffRole) => {
-                    const role = STAFF_ROLES.find(
-                      (r) => r.role.toLowerCase() === staffRole.toLowerCase(),
-                    );
-
-                    if (!role) return null;
-
-                    return (
-                      <span
-                        key={staffRole}
-                        className={cn(
-                          "flex items-center gap-1 text-xs",
-                          role.color,
-                        )}
-                      >
-                        <role.Icon />
-                        {role.role}
-                      </span>
-                    );
-                  })}
+                  {member.memberRoles.map((staffRole) => (
+                    <RoleBadgeIcon
+                      key={staffRole}
+                      role={staffRole as StaffRole}
+                    />
+                  ))}
                 </CardDescription>
               </div>
             </CardHeader>
