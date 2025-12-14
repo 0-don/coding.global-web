@@ -3,10 +3,12 @@ import { cn } from "@/lib/utils";
 import { type VariantProps } from "class-variance-authority";
 import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
-import { FaBug, FaCode, FaCrown } from "react-icons/fa";
+import { FaBug, FaCode, FaCrown, FaLock, FaMicrophone, FaUserCheck, FaGraduationCap, FaBriefcase, FaUserTie, FaChartLine, FaRocket } from "react-icons/fa";
 import { HiMiniSparkles } from "react-icons/hi2";
 import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
-import { TbCodeDots } from "react-icons/tb";
+import { TbCodeDots, TbCopy } from "react-icons/tb";
+import { RiScissorsCutFill } from "react-icons/ri";
+import { GiMusicalNotes } from "react-icons/gi";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -15,6 +17,24 @@ export enum StaffRole {
   HELPER = "Helper",
   TECHLEAD = "Techlead",
   BOOSTER = "Booster",
+}
+
+export enum StatusRole {
+  VERIFIED = "Verified",
+  VOICEONLY = "VoiceOnly",
+  JAIL = "Jail",
+}
+
+export enum LevelRole {
+  COPY_PASTER = "Copy Paster!",
+  SCRIPT_KIDDIE = "Script Kiddie!",
+  VIBE_CODER = "Vibe Coder!",
+  INTERN = "Intern!",
+  JUNIOR_DEV = "Junior Dev!",
+  MID_DEV = "Mid Dev!",
+  SENIOR_DEV = "Senior Dev!",
+  LEAD_DEV = "Lead Dev!",
+  TECH_LEAD = "Tech Lead!",
 }
 
 export enum MemberStatus {
@@ -28,6 +48,19 @@ export type MemberRole = {
   role: StaffRole;
   color: string;
   Icon: IconType;
+};
+
+export type StatusRoleData = {
+  role: StatusRole;
+  color: string;
+  Icon: IconType;
+};
+
+export type LevelRoleData = {
+  role: LevelRole;
+  color: string;
+  Icon: IconType;
+  level: number;
 };
 
 export const STAFF_ROLES: MemberRole[] = [
@@ -63,7 +96,82 @@ export const STAFF_ROLES: MemberRole[] = [
   },
 ];
 
-export const RoleIcon = (props: {
+export const STATUS_ROLES: StatusRoleData[] = [
+  {
+    role: StatusRole.VERIFIED,
+    color: "text-green-500",
+    Icon: FaUserCheck,
+  },
+  {
+    role: StatusRole.VOICEONLY,
+    color: "text-purple-500",
+    Icon: FaMicrophone,
+  },
+  {
+    role: StatusRole.JAIL,
+    color: "text-red-500",
+    Icon: FaLock,
+  },
+];
+
+export const LEVEL_ROLES: LevelRoleData[] = [
+  {
+    role: LevelRole.COPY_PASTER,
+    color: "text-gray-400",
+    Icon: TbCopy,
+    level: 1,
+  },
+  {
+    role: LevelRole.SCRIPT_KIDDIE,
+    color: "text-slate-400",
+    Icon: RiScissorsCutFill,
+    level: 2,
+  },
+  {
+    role: LevelRole.VIBE_CODER,
+    color: "text-purple-400",
+    Icon: GiMusicalNotes,
+    level: 3,
+  },
+  {
+    role: LevelRole.INTERN,
+    color: "text-blue-400",
+    Icon: FaGraduationCap,
+    level: 4,
+  },
+  {
+    role: LevelRole.JUNIOR_DEV,
+    color: "text-cyan-400",
+    Icon: FaCode,
+    level: 5,
+  },
+  {
+    role: LevelRole.MID_DEV,
+    color: "text-green-400",
+    Icon: FaBriefcase,
+    level: 6,
+  },
+  {
+    role: LevelRole.SENIOR_DEV,
+    color: "text-yellow-400",
+    Icon: FaUserTie,
+    level: 7,
+  },
+  {
+    role: LevelRole.LEAD_DEV,
+    color: "text-orange-400",
+    Icon: FaChartLine,
+    level: 8,
+  },
+  {
+    role: LevelRole.TECH_LEAD,
+    color: "text-red-400",
+    Icon: FaRocket,
+    level: 9,
+  },
+];
+
+export const StaffRoleIcon = (props: {
   role: StaffRole;
   className?: string;
   showText?: boolean;
@@ -82,7 +190,7 @@ export const RoleIcon = (props: {
   );
 };
 
-export const RoleBadgeIcon = (props: {
+export const StaffRoleBadgeIcon = (props: {
   role: StaffRole;
   className?: string;
   iconOnly?: boolean;
@@ -100,7 +208,172 @@ export const RoleBadgeIcon = (props: {
         "flex items-center justify-center gap-1 truncate",
       )}
     >
-      <RoleIcon role={props.role} />
+      <StaffRoleIcon role={props.role} />
+      {!props.iconOnly && props.role}
+    </Badge>
+  );
+};
+
+export const StatusRoleIcon = (props: {
+  role: StatusRole;
+  className?: string;
+  showText?: boolean;
+  textClassName?: string;
+}) => {
+  const roleData = STATUS_ROLES.find((r) => r.role === props.role);
+  const IconComponent = roleData?.Icon || FaUserCheck;
+
+  return (
+    <>
+      <IconComponent className={cn(roleData?.color, props.className)} />
+      {props.showText && (
+        <p className={cn(props.textClassName)}>{props.role}</p>
+      )}
+    </>
+  );
+};
+
+export const StatusRoleBadgeIcon = (props: {
+  role: StatusRole;
+  className?: string;
+  iconOnly?: boolean;
+}) => {
+  const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
+    ? "outline"
+    : "destructive";
+
+  return (
+    <Badge
+      variant={variant}
+      title={props.role}
+      className={cn(
+        props.className,
+        "flex items-center justify-center gap-1 truncate",
+      )}
+    >
+      <StatusRoleIcon role={props.role} />
+      {!props.iconOnly && props.role}
+    </Badge>
+  );
+};
+
+export const LevelRoleIcon = (props: {
+  role: LevelRole;
+  className?: string;
+  showText?: boolean;
+  textClassName?: string;
+}) => {
+  const roleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  const IconComponent = roleData?.Icon || TbCodeDots;
+
+  return (
+    <>
+      <IconComponent className={cn(roleData?.color, props.className)} />
+      {props.showText && (
+        <p className={cn(props.textClassName)}>{props.role}</p>
+      )}
+    </>
+  );
+};
+
+export const LevelRoleBadgeIcon = (props: {
+  role: LevelRole;
+  className?: string;
+  iconOnly?: boolean;
+}) => {
+  const roleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  const variant: VariantProps<typeof badgeVariants>["variant"] = props.role
+    ? "outline"
+    : "destructive";
+
+  return (
+    <Badge
+      variant={variant}
+      title={`${props.role} (Level ${roleData?.level})`}
+      className={cn(
+        props.className,
+        "flex items-center justify-center gap-1 truncate",
+      )}
+    >
+      <LevelRoleIcon role={props.role} />
+      {!props.iconOnly && props.role}
+    </Badge>
+  );
+};
+
+// Overlapping RoleIcon component that handles any role type
+export const RoleIcon = (props: {
+  role: StaffRole | StatusRole | LevelRole;
+  className?: string;
+  showText?: boolean;
+  textClassName?: string;
+}) => {
+  // Check if it's a StaffRole
+  const staffRoleData = STAFF_ROLES.find((r) => r.role === props.role);
+  if (staffRoleData) {
+    return <StaffRoleIcon role={props.role as StaffRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+  }
+
+  // Check if it's a StatusRole
+  const statusRoleData = STATUS_ROLES.find((r) => r.role === props.role);
+  if (statusRoleData) {
+    return <StatusRoleIcon role={props.role as StatusRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+  }
+
+  // Check if it's a LevelRole
+  const levelRoleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  if (levelRoleData) {
+    return <LevelRoleIcon role={props.role as LevelRole} className={props.className} showText={props.showText} textClassName={props.textClassName} />;
+  }
+
+  // Default fallback
+  return (
+    <>
+      <TbCodeDots className={cn("text-gray-500", props.className)} />
+      {props.showText && (
+        <p className={cn(props.textClassName)}>{props.role}</p>
+      )}
+    </>
+  );
+};
+
+// Overlapping RoleBadgeIcon component that handles any role type
+export const RoleBadgeIcon = (props: {
+  role: StaffRole | StatusRole | LevelRole;
+  className?: string;
+  iconOnly?: boolean;
+}) => {
+  // Check if it's a StaffRole
+  const staffRoleData = STAFF_ROLES.find((r) => r.role === props.role);
+  if (staffRoleData) {
+    return <StaffRoleBadgeIcon role={props.role as StaffRole} className={props.className} iconOnly={props.iconOnly} />;
+  }
+
+  // Check if it's a StatusRole
+  const statusRoleData = STATUS_ROLES.find((r) => r.role === props.role);
+  if (statusRoleData) {
+    return <StatusRoleBadgeIcon role={props.role as StatusRole} className={props.className} iconOnly={props.iconOnly} />;
+  }
+
+  // Check if it's a LevelRole
+  const levelRoleData = LEVEL_ROLES.find((r) => r.role === props.role);
+  if (levelRoleData) {
+    return <LevelRoleBadgeIcon role={props.role as LevelRole} className={props.className} iconOnly={props.iconOnly} />;
+  }
+
+  // Default fallback
+  const variant: VariantProps<typeof badgeVariants>["variant"] = "destructive";
+
+  return (
+    <Badge
+      variant={variant}
+      title={props.role}
+      className={cn(
+        props.className,
+        "flex items-center justify-center gap-1 truncate",
+      )}
+    >
+      <TbCodeDots className="text-gray-500" />
       {!props.iconOnly && props.role}
     </Badge>
   );
