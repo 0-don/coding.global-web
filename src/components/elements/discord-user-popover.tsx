@@ -11,7 +11,6 @@ import { DiscordUser, DiscordUserCard } from "./discord-user-card";
 interface DiscordUserPopoverProps {
   user: DiscordUser;
   children: ReactNode;
-  compact?: boolean;
   side?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
   sideOffset?: number;
@@ -22,7 +21,6 @@ interface DiscordUserPopoverProps {
 export function DiscordUserPopover({
   user,
   children,
-  compact = false,
   side = "right",
   align = "start",
   sideOffset = 8,
@@ -38,7 +36,7 @@ export function DiscordUserPopover({
         sideOffset={sideOffset}
         className="w-auto p-0"
       >
-        <DiscordUserCard user={user} compact={compact} />
+        <DiscordUserCard user={user} />
       </HoverCardContent>
     </HoverCard>
   );
