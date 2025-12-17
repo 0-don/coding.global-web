@@ -30,6 +30,7 @@ export function Team() {
                   src={member.displayAvatarURL}
                   alt={member.username}
                   fill
+                  unoptimized
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, (max-width: 1536px) 20vw, 14vw"
                 />
