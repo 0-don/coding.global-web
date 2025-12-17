@@ -33,7 +33,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
               src={widget.iconURL || "/images/avatar.svg"}
               alt={widget.name}
             />
-            <AvatarFallback>{widget.name?.[0] || "D"}</AvatarFallback>
+            <AvatarFallback>{widget.name?.at(0)?.toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
             <h3 className="w-38 truncate">{widget.name}</h3>
@@ -73,7 +73,9 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                           src={member.displayAvatarURL}
                           alt={member.username}
                         />
-                        <AvatarFallback>{member.username}</AvatarFallback>
+                        <AvatarFallback>
+                          {member.username.charAt(0).toUpperCase()}
+                        </AvatarFallback>
                       </Avatar>
                       <StatusIndicator status={member.status as MemberStatus} />
                     </div>
