@@ -36,7 +36,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
       {/* Banner */}
       <div className="h-24 w-full bg-cover bg-center" style={bannerStyle} />
 
-      <CardHeader className="-mt-12 pb-3">
+      <CardHeader className="-mt-12">
         <div className="flex items-start gap-3">
           <div className="relative">
             <Avatar className="border-card h-20 w-20 border-4">
@@ -56,7 +56,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3 pb-4">
+      <CardContent className="-mt-6 space-y-3 pb-4">
         {/* User Info */}
         <div>
           <h3 className="truncate text-xl font-bold">
@@ -69,29 +69,33 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
           )}
         </div>
 
-        {/* Member Since */}
-        {props.user.joinedAt && (
-          <div className="border-t pt-3">
-            <h4 className="mb-1 text-xs font-semibold uppercase">
-              {t("DISCORD_WIDGET.USER_CARD.MEMBER_SINCE")}
-            </h4>
-            <div className="flex items-center gap-2 text-sm">
-              <span>{dayjs(props.user.joinedAt).format("MMMM D, YYYY")}</span>
+        <div className="flex border-t pt-3">
+          {/* Created At */}
+          {props.user.createdAt && (
+            <div className="w-full">
+              <h4 className="mb-1 text-xs font-semibold uppercase">
+                {t("DISCORD_WIDGET.USER_CARD.CREATED_AT")}
+              </h4>
+              <div className="flex items-center gap-2 text-xs">
+                <span>
+                  {dayjs(props.user.createdAt).format("MMMM D, YYYY")}
+                </span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Created At */}
-        {props.user.createdAt && (
-          <div className="border-t pt-3">
-            <h4 className="mb-1 text-xs font-semibold uppercase">
-              {t("DISCORD_WIDGET.USER_CARD.CREATED_AT")}
-            </h4>
-            <div className="flex items-center gap-2 text-sm">
-              <span>{dayjs(props.user.createdAt).format("MMMM D, YYYY")}</span>
+          {/* Member Since */}
+          {props.user.joinedAt && (
+            <div className="w-full">
+              <h4 className="mb-1 text-xs font-semibold uppercase">
+                {t("DISCORD_WIDGET.USER_CARD.MEMBER_SINCE")}
+              </h4>
+              <div className="flex items-center gap-2 text-xs">
+                <span>{dayjs(props.user.joinedAt).format("MMMM D, YYYY")}</span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Roles */}
         {props.user.roles && props.user.roles.length > 0 && (
