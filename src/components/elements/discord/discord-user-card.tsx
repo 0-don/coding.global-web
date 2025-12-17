@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import {
   LevelRole,
   MemberStatus,
@@ -30,6 +31,24 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
     : props.user.bannerUrl
       ? { backgroundColor: `#${props.user.bannerUrl}` }
       : { backgroundColor: props.user.displayHexColor || "#5865F2" };
+
+  const copyUsername = async () => {
+    try {
+      await navigator.clipboard.writeText(props.user.username!);
+      toast.success(t("DISCORD_WIDGET.USER_CARD.USERNAME_COPIED"));
+    } catch (err) {
+      toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
+    }
+  };
+
+  const copyUserId = async () => {
+    try {
+      await navigator.clipboard.writeText(props.user.id!);
+      toast.success(t("DISCORD_WIDGET.USER_CARD.USER_ID_COPIED"));
+    } catch (err) {
+      toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
+    }
+  };
 
   return (
     <Card className={cn("w-80 overflow-hidden pt-0", props.className)}>
@@ -58,15 +77,30 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
 
       <CardContent className="-mt-6 space-y-3 pb-4">
         {/* User Info */}
-        <div>
-          <h3 className="truncate text-xl font-bold">
-            {props.user.displayName}
-          </h3>
-          {props.user.username && (
-            <p className="text-muted-foreground truncate text-sm">
-              @{props.user.username}
-            </p>
-          )}
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <h3 className="truncate text-xl font-bold">
+              {props.user.displayName}
+            </h3>
+          </div>
+
+          <div className="flex justify-between">
+            <button
+              onClick={copyUsername}
+              className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-sm transition-colors"
+              type="button"
+            >
+              {props.user.username}
+            </button>
+
+            <button
+              onClick={copyUserId}
+              className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-xs transition-colors"
+              type="button"
+            >
+              {props.user.id}
+            </button>
+          </div>
         </div>
 
         <div className="flex border-t pt-3">
