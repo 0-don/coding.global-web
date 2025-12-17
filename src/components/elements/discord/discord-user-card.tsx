@@ -45,9 +45,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
                 alt={props.user.username}
               />
               <AvatarFallback>
-                {props.user.displayName
-                  ? props.user.displayName.charAt(0).toUpperCase()
-                  : "?"}
+                {props.user.username.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <StatusIndicator
