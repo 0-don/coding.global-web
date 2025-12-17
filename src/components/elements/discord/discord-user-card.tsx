@@ -42,7 +42,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
             <Avatar className="border-card h-20 w-20 border-4">
               <AvatarImage
                 src={props.user.displayAvatarURL}
-                alt={props.user.displayName}
+                alt={props.user.displayName!}
               />
               <AvatarFallback>
                 {props.user.displayName

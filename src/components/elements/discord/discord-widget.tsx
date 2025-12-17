@@ -71,7 +71,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                       <Avatar className="h-8 w-8">
                         <AvatarImage
                           src={member.displayAvatarURL}
-                          alt={member.displayName}
+                          alt={member.displayName!}
                         />
                         <AvatarFallback>
                           {member?.displayName?.charAt(0)?.toUpperCase() || "?"}
