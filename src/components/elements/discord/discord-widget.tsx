@@ -26,7 +26,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
 
   return (
     <Card className={cn("overflow-hidden", props.className)}>
-      <CardHeader className="border-b">
+      <CardHeader className="border-b pb-0">
         <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
             <AvatarImage
