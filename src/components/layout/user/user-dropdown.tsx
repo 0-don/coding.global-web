@@ -67,7 +67,7 @@ export function UserDropdown({
           <div className="flex flex-col gap-2 px-1 py-1.5 text-left text-sm">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={""} alt={name || ""} />
+                <AvatarImage src={""} alt={name} />
                 <AvatarFallback className="rounded-lg">
                   {firstEmailChar}
                 </AvatarFallback>

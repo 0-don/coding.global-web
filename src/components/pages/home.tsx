@@ -1,11 +1,9 @@
 import { DiscordWidget } from "@/components/elements/discord/discord-widget";
-import { DiscordWidgetSkeleton } from "@/components/elements/discord/discord-widget-skeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export function Home() {
   const t = useTranslations();
@@ -43,9 +41,7 @@ export function Home() {
       </div>
 
       {/* Discord Widget */}
-      <Suspense fallback={<DiscordWidgetSkeleton className="flex-1" />}>
-        <DiscordWidget className="flex-1" />
-      </Suspense>
+      <DiscordWidget className="flex-1" />
     </div>
   );
 }
