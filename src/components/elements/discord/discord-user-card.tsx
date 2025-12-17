@@ -32,7 +32,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
       : { backgroundColor: props.user.displayHexColor || "#5865F2" };
 
   return (
-    <Card className={cn("w-80 overflow-hidden", props.className)}>
+    <Card className={cn("w-80 overflow-hidden pt-0", props.className)}>
       {/* Banner */}
       <div className="h-24 w-full bg-cover bg-center" style={bannerStyle} />
 
