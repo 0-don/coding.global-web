@@ -73,9 +73,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                           src={member.displayAvatarURL}
                           alt={member.username}
                         />
-                        <AvatarFallback>
-                          {member?.displayName?.charAt(0)?.toUpperCase() || "?"}
-                        </AvatarFallback>
+                        <AvatarFallback>{member.username}</AvatarFallback>
                       </Avatar>
                       <StatusIndicator status={member.status as MemberStatus} />
                     </div>
