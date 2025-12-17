@@ -188,7 +188,10 @@
 			"MEMBER_SINCE": "Mitglied seit",
 			"CREATED_AT": "Konto erstellt",
 			"ROLES": "Rollen",
-			"ACTIVITY": "Aktivität"
+			"ACTIVITY": "Aktivität",
+			"USERNAME_COPIED": "Benutzername in die Zwischenablage kopiert!",
+			"USER_ID_COPIED": "Benutzer-ID in die Zwischenablage kopiert!",
+			"COPY_FAILED": "Kopieren in die Zwischenablage fehlgeschlagen"
 		}
 	}
 }
