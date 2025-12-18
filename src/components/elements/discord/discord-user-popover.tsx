@@ -28,8 +28,10 @@ export function DiscordUserPopover({
   closeDelay = 200,
 }: DiscordUserPopoverProps) {
   return (
-    <HoverCard openDelay={openDelay} closeDelay={closeDelay}>
-      <HoverCardTrigger asChild>{children}</HoverCardTrigger>
+    <HoverCard>
+      <HoverCardTrigger delay={openDelay} closeDelay={closeDelay}>
+        {children}
+      </HoverCardTrigger>
       <HoverCardContent
         side={side}
         align={align}

@@ -59,7 +59,7 @@ export default function Navbar() {
               const isActive = isActiveLink(pathname, item.href);
               return (
                 <NavigationMenuItem key={item.name}>
-                  <NavigationMenuLink asChild>
+                  <NavigationMenuLink>
                     <Link
                       href={item.href}
                       className={cn(
