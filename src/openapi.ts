@@ -23,9 +23,11 @@ export type GetApiByGuildIdStaff200ItemRolesItem = {
 
 export type GetApiByGuildIdStaff200ItemActivity = string | null;
 
-export type GetApiByGuildIdStaff200ItemPresenceUpdatedAt = unknown | null;
+export type GetApiByGuildIdStaff200ItemPresenceUpdatedAt = string | null;
 
-export type GetApiByGuildIdStaff200ItemJoinedAt = unknown | null;
+export type GetApiByGuildIdStaff200ItemJoinedAt = string | null;
+
+export type GetApiByGuildIdStaff200ItemUpdatedAt = string | null;
 
 export type GetApiByGuildIdStaff200Item = {
   id: string;
@@ -43,8 +45,8 @@ export type GetApiByGuildIdStaff200Item = {
   activity: GetApiByGuildIdStaff200ItemActivity;
   presenceUpdatedAt: GetApiByGuildIdStaff200ItemPresenceUpdatedAt;
   joinedAt: GetApiByGuildIdStaff200ItemJoinedAt;
-  createdAt: unknown;
-  updatedAt: unknown;
+  createdAt: string;
+  updatedAt: GetApiByGuildIdStaff200ItemUpdatedAt;
 };
 
 export type GetApiByGuildIdStaff422 = {
@@ -82,10 +84,12 @@ export type GetApiByGuildIdNews200ItemUserAnyOfRolesItem = {
 export type GetApiByGuildIdNews200ItemUserAnyOfActivity = string | null;
 
 export type GetApiByGuildIdNews200ItemUserAnyOfPresenceUpdatedAt =
-  | unknown
+  | string
   | null;
 
-export type GetApiByGuildIdNews200ItemUserAnyOfJoinedAt = unknown | null;
+export type GetApiByGuildIdNews200ItemUserAnyOfJoinedAt = string | null;
+
+export type GetApiByGuildIdNews200ItemUserAnyOfUpdatedAt = string | null;
 
 export type GetApiByGuildIdNews200ItemUserAnyOf = {
   id: string;
@@ -103,8 +107,8 @@ export type GetApiByGuildIdNews200ItemUserAnyOf = {
   activity: GetApiByGuildIdNews200ItemUserAnyOfActivity;
   presenceUpdatedAt: GetApiByGuildIdNews200ItemUserAnyOfPresenceUpdatedAt;
   joinedAt: GetApiByGuildIdNews200ItemUserAnyOfJoinedAt;
-  createdAt: unknown;
-  updatedAt: unknown;
+  createdAt: string;
+  updatedAt: GetApiByGuildIdNews200ItemUserAnyOfUpdatedAt;
 };
 
 export type GetApiByGuildIdNews200ItemUser =
@@ -146,10 +150,12 @@ export type GetApiByGuildIdWidget200MembersItemRolesItem = {
 export type GetApiByGuildIdWidget200MembersItemActivity = string | null;
 
 export type GetApiByGuildIdWidget200MembersItemPresenceUpdatedAt =
-  | unknown
+  | string
   | null;
 
-export type GetApiByGuildIdWidget200MembersItemJoinedAt = unknown | null;
+export type GetApiByGuildIdWidget200MembersItemJoinedAt = string | null;
+
+export type GetApiByGuildIdWidget200MembersItemUpdatedAt = string | null;
 
 export type GetApiByGuildIdWidget200MembersItem = {
   id: string;
@@ -167,8 +173,8 @@ export type GetApiByGuildIdWidget200MembersItem = {
   activity: GetApiByGuildIdWidget200MembersItemActivity;
   presenceUpdatedAt: GetApiByGuildIdWidget200MembersItemPresenceUpdatedAt;
   joinedAt: GetApiByGuildIdWidget200MembersItemJoinedAt;
-  createdAt: unknown;
-  updatedAt: unknown;
+  createdAt: string;
+  updatedAt: GetApiByGuildIdWidget200MembersItemUpdatedAt;
 };
 
 export type GetApiByGuildIdWidget200IconURL = string | null;
@@ -237,11 +243,15 @@ export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity =
   | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt =
-  | unknown
+  | string
   | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt =
-  | unknown
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt =
+  | string
   | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf = {
@@ -260,8 +270,8 @@ export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf = {
   activity: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity;
   presenceUpdatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt;
   joinedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt;
-  createdAt: unknown;
-  updatedAt: unknown;
+  createdAt: string;
+  updatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt;
 };
 
 export type GetApiByGuildIdBoardByBoardType200ItemAuthor =
@@ -347,10 +357,13 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfA
   string | null;
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfPresenceUpdatedAt =
-  unknown | null;
+  string | null;
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfJoinedAt =
-  unknown | null;
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfUpdatedAt =
+  string | null;
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOf =
   {
@@ -369,8 +382,8 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOf 
     activity: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfActivity;
     presenceUpdatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfPresenceUpdatedAt;
     joinedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfJoinedAt;
-    createdAt: unknown;
-    updatedAt: unknown;
+    createdAt: string;
+    updatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfUpdatedAt;
   };
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthor =
