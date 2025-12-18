@@ -5,7 +5,6 @@ export default defineConfig({
     input: {
       // target: "https://bot.coding.global/openapi/json",
       target: "http://localhost:4000/openapi/json",
-      validation: false,
     },
     output: {
       target: "./src/openapi.ts",
