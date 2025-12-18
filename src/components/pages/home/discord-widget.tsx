@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { DiscordUser } from "./discord-user";
+import { DiscordUser } from "../../elements/discord/discord-user";
 
 interface DiscordWidgetProps {
   className?: string;
