@@ -45,37 +45,39 @@ export function ShowcaseList() {
                 </div>
               )}
               <CardHeader className="pt-3">
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  {thread.archived && (
-                    <Badge
-                      variant="secondary"
-                      className="gap-1"
-                      title={
-                        thread.archivedAt
-                          ? dayjs(thread.archivedAt).format(
-                              "MMMM D, YYYY [at] h:mm A",
-                            )
-                          : undefined
-                      }
-                    >
-                      <Archive className="h-3 w-3" />
-                      {thread.archivedAt
-                        ? t("SHOWCASE.ARCHIVED_AT", {
-                            date: dayjs(thread.archivedAt).fromNow(),
-                          })
-                        : t("SHOWCASE.ARCHIVED")}
-                    </Badge>
-                  )}
-                  {thread.locked && (
-                    <Badge variant="outline" className="gap-1">
-                      <Lock className="h-3 w-3" />
-                      {t("SHOWCASE.LOCKED")}
-                    </Badge>
-                  )}
+                <div className="mb-2 flex">
+                  <h3 className="line-clamp-2 flex-1 text-xl font-semibold">
+                    {thread.name}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {thread.archived && (
+                      <Badge
+                        variant="secondary"
+                        className="gap-1"
+                        title={
+                          thread.archivedAt
+                            ? dayjs(thread.archivedAt).format(
+                                "MMMM D, YYYY [at] h:mm A",
+                              )
+                            : undefined
+                        }
+                      >
+                        <Archive className="h-3 w-3" />
+                        {thread.archivedAt
+                          ? t("SHOWCASE.ARCHIVED_AT", {
+                              date: dayjs(thread.archivedAt).fromNow(),
+                            })
+                          : t("SHOWCASE.ARCHIVED")}
+                      </Badge>
+                    )}
+                    {thread.locked && (
+                      <Badge variant="outline" className="gap-1">
+                        <Lock className="h-3 w-3" />
+                        {t("SHOWCASE.LOCKED")}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-                <h3 className="line-clamp-2 text-xl font-semibold">
-                  {thread.name}
-                </h3>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {thread.tags.map((tag) => (
                     <Badge key={tag.id}>
@@ -85,17 +87,19 @@ export function ShowcaseList() {
                 </div>
               </CardHeader>
               <CardContent>
-                {thread.author && (
-                  <div className="mb-3 flex items-center gap-2">
-                    <DiscordUser user={thread.author} />
-                  </div>
-                )}
                 {thread.content && (
                   <DiscordMarkdown
                     content={thread.content}
                     className="text-muted-foreground mb-3 line-clamp-3 text-sm"
                   />
                 )}
+
+                {thread.author && (
+                  <div className="mb-3 flex items-center gap-2">
+                    <DiscordUser user={thread.author} />
+                  </div>
+                )}
+
                 <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-sm">
                   <div className="flex items-center gap-2">
                     <MessageCircle className="h-4 w-4" />
