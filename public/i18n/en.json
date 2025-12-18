@@ -171,7 +171,13 @@
       "THREADS": "No showcase threads yet",
       "MESSAGES": "No messages found"
     },
-    "MESSAGES_COUNT": "{count} messages"
+    "MESSAGES_COUNT": "{count} messages",
+    "MEMBERS_COUNT": "{count} members",
+    "ARCHIVED": "Archived",
+    "ARCHIVED_AT": "Archived {date}",
+    "LOCKED": "Locked",
+    "SLOWMODE": "{seconds}s slowmode",
+    "CREATED": "Created {date}"
   },
   "TEAM": {
     "HEADING": "Our Team",

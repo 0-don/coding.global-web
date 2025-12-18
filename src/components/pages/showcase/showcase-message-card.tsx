@@ -27,7 +27,7 @@ export function ShowcaseMessageCard({
           <div className="flex-1">
             <div className="flex items-center gap-2">
               {message.author && <DiscordUser user={message.author} />}
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-xs" suppressHydrationWarning>
                 {dayjs(message.createdAt).fromNow()}
               </span>
             </div>
