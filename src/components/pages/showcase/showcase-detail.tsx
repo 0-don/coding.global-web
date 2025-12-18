@@ -1,6 +1,6 @@
 "use client";
 
-import { ShowcaseMessageCard } from "@/components/elements/showcase/showcase-message-card";
+import { ShowcaseMessageCard } from "@/components/pages/showcase/showcase-message-card";
 import { useShowcaseThreadMessagesInfiniteQuery } from "@/hook/showcase-hook";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useTranslations } from "next-intl";

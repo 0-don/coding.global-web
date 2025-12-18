@@ -1,4 +1,4 @@
-import { Home } from "@/components/pages/home";
+import { Home } from "@/components/pages/home/home";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
