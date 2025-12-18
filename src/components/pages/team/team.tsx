@@ -1,12 +1,12 @@
 "use client";
 
+import { StaffRole, RoleBadgeIcon } from "@/components/elements/utils/enums";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useTeamQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FaGlobe, FaUserPlus } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
-import { RoleBadgeIcon, StaffRole } from "../elements/utils/enums";
 
 export function Team() {
   const t = useTranslations();
