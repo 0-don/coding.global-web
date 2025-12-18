@@ -33,7 +33,7 @@ export function ShowcaseList() {
               params: { id: thread.id },
             }}
           >
-            <Card className="h-full cursor-pointer gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg">
+            <Card className="flex h-full cursor-pointer flex-col gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg">
               {thread.imageUrl && (
                 <div className="relative aspect-video w-full overflow-hidden">
                   <Image
@@ -78,15 +78,17 @@ export function ShowcaseList() {
                     )}
                   </div>
                 </div>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {thread.tags.map((tag) => (
-                    <Badge key={tag.id}>
-                      {tag.name} {tag.emoji.name}
-                    </Badge>
-                  ))}
-                </div>
+                {thread.tags.length > 0 && (
+                  <div className="mt-1 flex flex-wrap gap-2">
+                    {thread.tags.map((tag) => (
+                      <Badge key={tag.id}>
+                        {tag.name} {tag.emoji.name}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </CardHeader>
-              <CardContent>
+              <CardContent className="mt-auto pt-0">
                 {thread.content && (
                   <DiscordMarkdown
                     content={thread.content}
