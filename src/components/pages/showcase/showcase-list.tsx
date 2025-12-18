@@ -1,5 +1,6 @@
 "use client";
 
+import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -15,7 +16,7 @@ dayjs.extend(relativeTime);
 
 export function ShowcaseList() {
   const t = useTranslations();
-  const { data: threads } = useShowcaseThreadsQuery();
+  const showcaseThreadsQuery = useShowcaseThreadsQuery();
 
   return (
     <div className="container mx-auto px-4 md:px-6">
@@ -23,13 +24,13 @@ export function ShowcaseList() {
         <h1 className="text-3xl font-bold">{t("SHOWCASE.HEADING")}</h1>
       </div>
 
-      {threads?.length === 0 ? (
+      {showcaseThreadsQuery.data?.length === 0 ? (
         <div className="py-12 text-center">
           <p className="text-muted-foreground">{t("SHOWCASE.EMPTY.THREADS")}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {threads?.map((thread) => (
+          {showcaseThreadsQuery.data?.map((thread) => (
             <Link
               key={thread.id}
               href={{
@@ -69,9 +70,10 @@ export function ShowcaseList() {
                     </div>
                   )}
                   {thread.previewText && (
-                    <p className="text-muted-foreground mb-3 line-clamp-3 text-sm">
-                      {thread.previewText}
-                    </p>
+                    <DiscordMarkdown
+                      content={thread.previewText}
+                      className="text-muted-foreground mb-3 line-clamp-3 text-sm"
+                    />
                   )}
                   <div className="text-muted-foreground flex items-center gap-2 text-sm">
                     <MessageCircle className="h-4 w-4" />
