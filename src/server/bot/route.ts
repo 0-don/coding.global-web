@@ -57,12 +57,13 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       return status("Internal Server Error", error as Error);
     }
   })
-  .get("/showcase/:threadId", async ({ params, status }) => {
+  .get("/showcase/:threadId", async ({ params, query, status }) => {
     try {
       const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
         process.env.NEXT_PUBLIC_GUILD_ID!,
         "showcase",
         params.threadId,
+        { before: query.before },
       );
       if (response.status !== 200)
         return status("Unprocessable Content", response.data);

@@ -28,10 +28,11 @@ export default async function ShowcaseDetailPage(props: {
   const params = await props.params;
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: queryKeys.showcaseThreadMessages(params.id),
     queryFn: async () =>
       handleElysia(await rpc.api.bot.showcase({ threadId: params.id }).get()),
+    initialPageParam: undefined,
   });
 
   return (
