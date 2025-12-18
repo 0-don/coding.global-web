@@ -27,7 +27,7 @@ export function Team() {
             <CardHeader className="gap-0 p-0">
               <div className="relative h-48 w-full overflow-hidden rounded-t-xl">
                 <Image
-                  src={member.displayAvatarURL}
+                  src={member.avatarUrl}
                   alt={member.username}
                   fill
                   unoptimized

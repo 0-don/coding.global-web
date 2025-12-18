@@ -43,7 +43,7 @@ export function News() {
               <CardHeader className="flex items-start gap-4">
                 <div className="flex items-center gap-3">
                   <Image
-                    src={news.user?.displayAvatarURL || "/images/avatar.svg"}
+                    src={news.user!.avatarUrl}
                     alt={news.user?.username || "User avatar"}
                     className="h-8 w-8 rounded-full"
                     width={32}

@@ -68,7 +68,7 @@ export function ShowcaseList() {
                     <div className="mb-3 flex items-center gap-2">
                       <DiscordUserPopover user={thread.author}>
                         <Avatar className="h-8 w-8">
-                          <AvatarImage src={thread.author.displayAvatarURL} />
+                          <AvatarImage src={thread.author.avatarUrl} />
                           <AvatarFallback>
                             {thread.author.username?.at(0)?.toUpperCase()}
                           </AvatarFallback>
