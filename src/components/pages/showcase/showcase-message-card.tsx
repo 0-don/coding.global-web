@@ -38,17 +38,17 @@ export function ShowcaseMessageCard({
             <div className="flex items-center gap-2">
               {message.author && (
                 <DiscordUserPopover user={message.author}>
-                  <span className="font-semibold cursor-pointer hover:underline">
+                  <span className="cursor-pointer font-semibold hover:underline">
                     {message.author.displayName}
                   </span>
                 </DiscordUserPopover>
               )}
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {dayjs(message.createdAt).fromNow()}
               </span>
             </div>
 
-            <p className="text-sm whitespace-pre-wrap mt-1">
+            <p className="mt-1 text-sm whitespace-pre-wrap">
               {message.content}
             </p>
 
@@ -91,7 +91,9 @@ export function ShowcaseMessageCard({
                       borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
                     }}
                   >
-                    {embed.title && <p className="font-semibold">{embed.title}</p>}
+                    {embed.title && (
+                      <p className="font-semibold">{embed.title}</p>
+                    )}
                     {embed.description && (
                       <p className="text-sm">{embed.description}</p>
                     )}
