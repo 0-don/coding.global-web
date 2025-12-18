@@ -26,24 +26,26 @@ export function ThemeToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-9"
-          title={t("MAIN.TOOLTIP.TOGGLE_THEME")}
-        >
-          {mounted ? (
-            theme === "dark" ? (
-              <BsMoonStars className="size-5" />
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-9"
+            title={t("MAIN.TOOLTIP.TOGGLE_THEME")}
+          >
+            {mounted ? (
+              theme === "dark" ? (
+                <BsMoonStars className="size-5" />
+              ) : (
+                <FiSun className="size-5" />
+              )
             ) : (
               <FiSun className="size-5" />
-            )
-          ) : (
-            <FiSun className="size-5" />
-          )}
-        </Button>
-      </DropdownMenuTrigger>
+            )}
+          </Button>
+        }
+      />
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           <FiSun className="mr-2 size-4" />

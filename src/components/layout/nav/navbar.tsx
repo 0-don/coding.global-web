@@ -59,17 +59,19 @@ export default function Navbar() {
               const isActive = isActiveLink(pathname, item.href);
               return (
                 <NavigationMenuItem key={item.name}>
-                  <NavigationMenuLink>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        isActive && "bg-primary",
-                      )}
-                    >
-                      {t(item.name)}
-                    </Link>
-                  </NavigationMenuLink>
+                  <NavigationMenuLink
+                    render={
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          isActive && "bg-primary",
+                        )}
+                      >
+                        {t(item.name)}
+                      </Link>
+                    }
+                  />
                 </NavigationMenuItem>
               );
             })}

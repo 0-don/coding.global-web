@@ -70,7 +70,7 @@ export function ShowcaseList() {
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={thread.author.displayAvatarURL} />
                           <AvatarFallback>
-                            {thread.author.displayName?.charAt(0).toUpperCase()}
+                            {thread.author.username?.at(0)?.toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
                       </DiscordUserPopover>
