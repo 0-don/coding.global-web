@@ -6,13 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import {
-  MemberStatus,
-  RoleBadgeIcon,
-  StaffRole,
-  StatusIndicator,
-} from "../utils/enums";
-import { DiscordUserPopover } from "./discord-user-popover";
+import { DiscordUser } from "./discord-user";
 
 interface DiscordWidgetProps {
   className?: string;
@@ -77,51 +71,9 @@ export function DiscordWidget(props: DiscordWidgetProps) {
             })}
           </h4>
           <div className="space-y-1">
-            {widget.members.map((member) => {
-              const statusRoles = member.roles.at(0);
-
-              return (
-                <DiscordUserPopover key={member.id} user={member}>
-                  <div className="hover:bg-accent/20 flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors">
-                    <div className="relative">
-                      <Avatar className="h-8 w-8">
-                        <AvatarImage
-                          src={member.avatarUrl}
-                          alt={member.username}
-                        />
-                        <AvatarFallback>
-                          {member.username.charAt(0).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <StatusIndicator status={member.status as MemberStatus} />
-                    </div>
-
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="truncate text-sm font-medium">
-                          {member.displayName}
-                        </span>
-                        {member.roles?.length > 0 && (
-                          <div className="flex flex-wrap gap-1">
-                            <RoleBadgeIcon
-                              role={statusRoles?.name as StaffRole}
-                            />
-                          </div>
-                        )}
-                      </div>
-
-                      {member.activity && (
-                        <p className="text-muted-foreground mt-0.5 truncate text-xs">
-                          {t("DISCORD_WIDGET.PLAYING", {
-                            activity: member.activity,
-                          })}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </DiscordUserPopover>
-              );
-            })}
+            {widget.members.map((member) => (
+              <DiscordUser key={member.id} user={member} />
+            ))}
           </div>
         </CardContent>
       )}
