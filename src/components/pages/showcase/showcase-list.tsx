@@ -8,14 +8,7 @@ import { useShowcaseThreadsQuery } from "@/hook/showcase-hook";
 import { Link } from "@/i18n/navigation";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import {
-  Archive,
-  Calendar,
-  Clock,
-  Lock,
-  MessageCircle,
-  Users,
-} from "lucide-react";
+import { Archive, Calendar, Lock, MessageCircle, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -79,14 +72,6 @@ export function ShowcaseList() {
                       {t("SHOWCASE.LOCKED")}
                     </Badge>
                   )}
-                  {thread.rateLimitPerUser && thread.rateLimitPerUser > 0 && (
-                    <Badge variant="outline" className="gap-1">
-                      <Clock className="h-3 w-3" />
-                      {t("SHOWCASE.SLOWMODE", {
-                        seconds: thread.rateLimitPerUser,
-                      })}
-                    </Badge>
-                  )}
                 </div>
                 <h3 className="line-clamp-2 text-xl font-semibold">
                   {thread.name}
@@ -133,7 +118,9 @@ export function ShowcaseList() {
                   {thread.createdAt && (
                     <div
                       className="flex items-center gap-2"
-                      title={dayjs(thread.createdAt).format()}
+                      title={dayjs(thread.createdAt).format(
+                        "MMMM D, YYYY [at] h:mm A",
+                      )}
                     >
                       <Calendar className="h-4 w-4" />
                       <span>{dayjs(thread.createdAt).fromNow()}</span>
