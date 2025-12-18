@@ -1,8 +1,9 @@
 "use client";
 
+import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useNewsQuery } from "@/hook/bot-hook";
-import type { GetApiByGuildIdNews200Item } from "@/openapi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslations } from "next-intl";
@@ -15,8 +16,6 @@ export function News() {
   const t = useTranslations();
   const newsQuery = useNewsQuery();
 
-  const newsData = newsQuery.data || [];
-
   return (
     <div className="container mx-auto px-4 md:px-6">
       <div className="flex items-center justify-center gap-2 py-6">
@@ -26,7 +25,7 @@ export function News() {
 
       <div className="flex-1 overflow-y-auto px-1">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {newsData.map((news: GetApiByGuildIdNews200Item) => (
+          {(newsQuery.data || []).map((news) => (
             <Card key={news.id} className="overflow-hidden">
               {news.attachments.length > 0 && (
                 <div className="relative h-48 overflow-hidden">
@@ -42,26 +41,12 @@ export function News() {
               )}
               <CardHeader className="flex items-start gap-4">
                 <div className="flex items-center gap-3">
-                  <Image
-                    src={news.user!.avatarUrl}
-                    alt={news.user?.username || "User avatar"}
-                    className="h-8 w-8 rounded-full"
-                    width={32}
-                    height={32}
-                  />
-                  <div>
-                    <h3 className="text-sm font-semibold">
-                      {news.user?.globalName || news.user?.username}
-                    </h3>
-                    <p className="text-muted-foreground text-xs">
-                      {dayjs(news.createdAt).fromNow()}
-                    </p>
-                  </div>
+                  <DiscordUser user={news.user!} />
                 </div>
               </CardHeader>
               {news.content && (
                 <CardContent>
-                  <p className="text-sm">{news.content}</p>
+                  <DiscordMarkdown content={news.content} className="text-sm" />
                 </CardContent>
               )}
             </Card>
