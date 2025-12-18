@@ -7,7 +7,9 @@ interface DiscordWidgetSkeletonProps {
   className?: string;
 }
 
-export function DiscordWidgetSkeleton({ className }: DiscordWidgetSkeletonProps) {
+export function DiscordWidgetSkeleton({
+  className,
+}: DiscordWidgetSkeletonProps) {
   return (
     <Card className={cn("overflow-hidden", className)}>
       <CardHeader className="border-b">
@@ -31,7 +33,10 @@ export function DiscordWidgetSkeleton({ className }: DiscordWidgetSkeletonProps)
         <Skeleton className="mb-2 h-4 w-24" />
         <div className="space-y-1">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="flex items-start gap-2 rounded-md px-2 py-2">
+            <div
+              key={i}
+              className="flex items-start gap-2 rounded-md px-2 py-2"
+            >
               <Skeleton className="h-8 w-8 rounded-full" />
               <div className="min-w-0 flex-1 space-y-1">
                 <Skeleton className="h-4 w-24" />

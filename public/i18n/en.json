@@ -1,214 +1,214 @@
 {
-	"CHAT": {
-		"INFO": {
-			"COMMENT_DELETED": "Comment deleted"
-		},
-		"SUCCESS": {
-			"COMMENT_ADD": "Comment added successfully"
-		}
-	},
-	"HOME": {
-		"META": {
-			"DESCRIPTION": "Welcome to Coding Global - Your premier destination for coding resources, community, and learning",
-			"KEYWORDS": "coding, programming, development, community, learning, tutorials",
-			"TITLE": "Home - Coding Global"
-		},
-		"WELCOME_TO": "Welcome to",
-		"WEBSITE": "Website",
-		"WAITING_MESSAGE": "Waiting for u to join...",
-		"JOIN_BUTTON": "Join"
-	},
-	"MAIN": {
-		"ACTIONS": {
-			"GO_BACK": "Go Back",
-			"GO_HOME": "Go Home",
-			"TRY_AGAIN": "Try Again"
-		},
-		"AUTH": {
-			"LOGIN_WITH_DISCORD": "Login with Discord",
-			"LOGOUT": "Logout",
-			"WELCOME": "Welcome, {name}"
-		},
-		"ENUM": {
-			"DARK": "Dark",
-			"DE": "German",
-			"EN": "English",
-			"LIGHT": "Light",
-			"SYSTEM": "System"
-		},
-		"ERROR": {
-			"DIGEST": "Digest",
-			"ERROR_DETAILS": "Error Details",
-			"PAGE_NOT_FOUND": "404 - Page Not Found",
-			"PAGE_NOT_FOUND_DESCRIPTION": "Sorry, the page you are looking for does not exist or has been moved.",
-			"SOMETHING_WENT_WRONG": "Something went wrong!",
-			"UNAUTHORIZED": "Unauthorized access",
-			"UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
-		},
-		"FOOTER": {
-			"GET_REPOSITORY": "Get Repository"
-		},
-		"MANIFEST": {
-			"DESCRIPTION": "Your premier destination for coding resources and community",
-			"SHORT_NAME": "Coding",
-			"TITLE": "Coding Global"
-		},
-		"NAVIGATION": {
-			"HOME": "Home",
-			"HOME_DESCRIPTION": "Return to the homepage",
-			"NEWS": "News",
-			"NEWS_DESCRIPTION": "Latest news and updates",
-			"OPEN_MENU": "Open menu",
-			"RULES": "Rules",
-			"RULES_DESCRIPTION": "Community rules and guidelines",
-			"SHOWCASE": "Showcase",
-			"SHOWCASE_DESCRIPTION": "Community project showcase",
-			"TEAM": "Team",
-			"TEAM_DESCRIPTION": "Meet our team"
-		},
-		"SIDEBAR": {
-			"USER": {
-				"SETTINGS": "Settings"
-			}
-		},
-		"SUCCESS": {
-			"CONSOLE_CLEARED": "Console cleared",
-			"LOGGED_OUT": "Successfully logged out"
-		},
-		"TOOLTIP": {
-			"CLEAR_CONSOLE": "Clear console",
-			"LOGOUT": "Logout",
-			"TOGGLE_LANGUAGE": "Toggle language",
-			"TOGGLE_THEME": "Toggle theme"
-		}
-	},
-	"METADATA": {
-		"NOT_FOUND": {
-			"DESCRIPTION": "The page you are looking for could not be found",
-			"KEYWORDS": "404, not found, error",
-			"TITLE": "Page Not Found - Coding Global"
-		},
-		"ROOT": {
-			"DESCRIPTION": "Welcome to Coding Global - Your premier destination for coding resources, community, and learning",
-			"KEYWORDS": "coding, programming, development, community, learning, resources",
-			"TITLE": "Coding Global"
-		}
-	},
-	"NEWS": {
-		"META": {
-			"DESCRIPTION": "Stay updated with the latest news and announcements from Coding Global",
-			"KEYWORDS": "news, updates, announcements, coding news, programming updates",
-			"TITLE": "News - Coding Global"
-		},
-		"TITLE": "Latest News"
-	},
-	"RULES": {
-		"HEADING": "Community Guidelines",
-		"META": {
-			"DESCRIPTION": "Community guidelines and rules for Coding Global",
-			"KEYWORDS": "rules, guidelines, community standards, code of conduct",
-			"TITLE": "Rules - Coding Global"
-		},
-		"RULE_1": {
-			"TITLE": "1. Discord guidelines",
-			"CONTENT": "The Discord Community Guidelines apply to Programming [DE / EN]; users can view these at https://discord.com/guidelines."
-		},
-		"RULE_2": {
-			"TITLE": "2. Language",
-			"CONTENT": "The language of our community is German and English. In the voice channel, \"Public [DE]\" German is the primary language. Users can speak English voluntarily. However, users must speak English in the Voice Channel \"Public [EN]\"."
-		},
-		"RULE_3": {
-			"TITLE": "3. Asking questions",
-			"CONTENT": "3.1 Nobody is obliged to help or answer a question. Help is generally free of charge.  \n3.2 Members with the role of \"HELPER\" have volunteered to help with questions.  \n3.3 Pinging members to expect a faster response is not allowed.  \n3.4 Don't ask questions like \"Does anyone know about XY?\" ask the question directly, see also ➔ https://dontasktoask.com/.  \n3.5 Note the thread \"How do I ask a good question?\" on Stackoverflow ➔ https://stackoverflow.com/help/how-to-ask."
-		},
-		"RULE_4": {
-			"TITLE": "4. Recording",
-			"CONTENT": "The recording of videos (screen sharing, webcam) and sound (voice chat) is not permitted on this Discord."
-		},
-		"RULE_5": {
-			"TITLE": "5. Advertising",
-			"CONTENT": "Any kind of third-party advertising is prohibited."
-		},
-		"RULE_6": {
-			"TITLE": "6. Moderators",
-			"CONTENT": "The moderation team has the right to take appropriate actions against a user, even if a certain rule has not been explicitly violated."
-		},
-		"RULE_7": {
-			"TITLE": "7. Direct messages",
-			"CONTENT": "Please refrain from sending direct messages to the administrators."
-		},
-		"RULE_8": {
-			"TITLE": "8. Dissemination of personal information",
-			"CONTENT": "Dissemination of other people's personal information of any kind without their consent is prohibited and will result in a permanent ban."
-		},
-		"RULE_9": {
-			"TITLE": "9. Enforcement of a measure",
-			"CONTENT": "The interpretation of the rules is at the discretion of the respective administrator."
-		},
-		"RULE_10": {
-			"TITLE": "10. AI Use / Spam / Job listings",
-			"CONTENT": "The use of AI to make job listings or other spam content is not permitted. Users found doing so will be jailed, muted, or banned."
-		},
-		"RULE_11": {
-			"TITLE": "11. Fake Skills / Code Stacks",
-			"CONTENT": "Falsely claiming to have skills or experience for the purpose of scamming or obtaining jobs is prohibited. Users must be able to prove their skills."
-		},
-		"RULE_12": {
-			"TITLE": "12. No DM",
-			"CONTENT": "No direct messages without previous authorization. If someone reports you, you may be muted or restricted."
-		}
-	},
-	"SHOWCASE": {
-		"TITLE": "Showcase",
-		"HEADING": "Community Showcase",
-		"REPLIES": "Replies",
-		"META": {
-			"TITLE": "Showcase - Coding Global",
-			"DESCRIPTION": "Explore amazing projects from our community",
-			"KEYWORDS": "showcase, projects, community, coding"
-		},
-		"EMPTY": {
-			"THREADS": "No showcase threads yet",
-			"MESSAGES": "No messages found"
-		},
-		"MESSAGES_COUNT": "{count} messages"
-	},
-	"TEAM": {
-		"HEADING": "Our Team",
-		"META": {
-			"DESCRIPTION": "Meet the team behind Coding Global",
-			"KEYWORDS": "team, staff, developers, administrators, moderators",
-			"TITLE": "Team - Coding Global"
-		}
-	},
-	"TODO": {
-		"INFO": {
-			"TODO_DELETED": "Todo deleted"
-		},
-		"SUCCESS": {
-			"TODO_ADD": "Todo added successfully",
-			"TODO_SEED": "Todos seeded successfully"
-		}
-	},
-	"DISCORD_WIDGET": {
-		"ONLINE": "Online",
-		"MEMBERS": "Members",
-		"MEMBERS_HEADER": "Members — {count}",
-		"STATUS": {
-			"ONLINE": "Online",
-			"IDLE": "Idle",
-			"DND": "Do Not Disturb",
-			"OFFLINE": "Offline"
-		},
-		"PLAYING": "Playing {activity}",
-		"USER_CARD": {
-			"MEMBER_SINCE": "Member Since",
-			"CREATED_AT": "Account Created",
-			"ROLES": "Roles",
-			"ACTIVITY": "Activity",
-			"USERNAME_COPIED": "Username copied to clipboard!",
-			"USER_ID_COPIED": "User ID copied to clipboard!",
-			"COPY_FAILED": "Failed to copy to clipboard"
-		}
-	}
+  "CHAT": {
+    "INFO": {
+      "COMMENT_DELETED": "Comment deleted"
+    },
+    "SUCCESS": {
+      "COMMENT_ADD": "Comment added successfully"
+    }
+  },
+  "HOME": {
+    "META": {
+      "DESCRIPTION": "Welcome to Coding Global - Your premier destination for coding resources, community, and learning",
+      "KEYWORDS": "coding, programming, development, community, learning, tutorials",
+      "TITLE": "Home - Coding Global"
+    },
+    "WELCOME_TO": "Welcome to",
+    "WEBSITE": "Website",
+    "WAITING_MESSAGE": "Waiting for u to join...",
+    "JOIN_BUTTON": "Join"
+  },
+  "MAIN": {
+    "ACTIONS": {
+      "GO_BACK": "Go Back",
+      "GO_HOME": "Go Home",
+      "TRY_AGAIN": "Try Again"
+    },
+    "AUTH": {
+      "LOGIN_WITH_DISCORD": "Login with Discord",
+      "LOGOUT": "Logout",
+      "WELCOME": "Welcome, {name}"
+    },
+    "ENUM": {
+      "DARK": "Dark",
+      "DE": "German",
+      "EN": "English",
+      "LIGHT": "Light",
+      "SYSTEM": "System"
+    },
+    "ERROR": {
+      "DIGEST": "Digest",
+      "ERROR_DETAILS": "Error Details",
+      "PAGE_NOT_FOUND": "404 - Page Not Found",
+      "PAGE_NOT_FOUND_DESCRIPTION": "Sorry, the page you are looking for does not exist or has been moved.",
+      "SOMETHING_WENT_WRONG": "Something went wrong!",
+      "UNAUTHORIZED": "Unauthorized access",
+      "UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
+    },
+    "FOOTER": {
+      "GET_REPOSITORY": "Get Repository"
+    },
+    "MANIFEST": {
+      "DESCRIPTION": "Your premier destination for coding resources and community",
+      "SHORT_NAME": "Coding",
+      "TITLE": "Coding Global"
+    },
+    "NAVIGATION": {
+      "HOME": "Home",
+      "HOME_DESCRIPTION": "Return to the homepage",
+      "NEWS": "News",
+      "NEWS_DESCRIPTION": "Latest news and updates",
+      "OPEN_MENU": "Open menu",
+      "RULES": "Rules",
+      "RULES_DESCRIPTION": "Community rules and guidelines",
+      "SHOWCASE": "Showcase",
+      "SHOWCASE_DESCRIPTION": "Community project showcase",
+      "TEAM": "Team",
+      "TEAM_DESCRIPTION": "Meet our team"
+    },
+    "SIDEBAR": {
+      "USER": {
+        "SETTINGS": "Settings"
+      }
+    },
+    "SUCCESS": {
+      "CONSOLE_CLEARED": "Console cleared",
+      "LOGGED_OUT": "Successfully logged out"
+    },
+    "TOOLTIP": {
+      "CLEAR_CONSOLE": "Clear console",
+      "LOGOUT": "Logout",
+      "TOGGLE_LANGUAGE": "Toggle language",
+      "TOGGLE_THEME": "Toggle theme"
+    }
+  },
+  "METADATA": {
+    "NOT_FOUND": {
+      "DESCRIPTION": "The page you are looking for could not be found",
+      "KEYWORDS": "404, not found, error",
+      "TITLE": "Page Not Found - Coding Global"
+    },
+    "ROOT": {
+      "DESCRIPTION": "Welcome to Coding Global - Your premier destination for coding resources, community, and learning",
+      "KEYWORDS": "coding, programming, development, community, learning, resources",
+      "TITLE": "Coding Global"
+    }
+  },
+  "NEWS": {
+    "META": {
+      "DESCRIPTION": "Stay updated with the latest news and announcements from Coding Global",
+      "KEYWORDS": "news, updates, announcements, coding news, programming updates",
+      "TITLE": "News - Coding Global"
+    },
+    "TITLE": "Latest News"
+  },
+  "RULES": {
+    "HEADING": "Community Guidelines",
+    "META": {
+      "DESCRIPTION": "Community guidelines and rules for Coding Global",
+      "KEYWORDS": "rules, guidelines, community standards, code of conduct",
+      "TITLE": "Rules - Coding Global"
+    },
+    "RULE_1": {
+      "TITLE": "1. Discord guidelines",
+      "CONTENT": "The Discord Community Guidelines apply to Programming [DE / EN]; users can view these at https://discord.com/guidelines."
+    },
+    "RULE_2": {
+      "TITLE": "2. Language",
+      "CONTENT": "The language of our community is German and English. In the voice channel, \"Public [DE]\" German is the primary language. Users can speak English voluntarily. However, users must speak English in the Voice Channel \"Public [EN]\"."
+    },
+    "RULE_3": {
+      "TITLE": "3. Asking questions",
+      "CONTENT": "3.1 Nobody is obliged to help or answer a question. Help is generally free of charge.  \n3.2 Members with the role of \"HELPER\" have volunteered to help with questions.  \n3.3 Pinging members to expect a faster response is not allowed.  \n3.4 Don't ask questions like \"Does anyone know about XY?\" ask the question directly, see also ➔ https://dontasktoask.com/.  \n3.5 Note the thread \"How do I ask a good question?\" on Stackoverflow ➔ https://stackoverflow.com/help/how-to-ask."
+    },
+    "RULE_4": {
+      "TITLE": "4. Recording",
+      "CONTENT": "The recording of videos (screen sharing, webcam) and sound (voice chat) is not permitted on this Discord."
+    },
+    "RULE_5": {
+      "TITLE": "5. Advertising",
+      "CONTENT": "Any kind of third-party advertising is prohibited."
+    },
+    "RULE_6": {
+      "TITLE": "6. Moderators",
+      "CONTENT": "The moderation team has the right to take appropriate actions against a user, even if a certain rule has not been explicitly violated."
+    },
+    "RULE_7": {
+      "TITLE": "7. Direct messages",
+      "CONTENT": "Please refrain from sending direct messages to the administrators."
+    },
+    "RULE_8": {
+      "TITLE": "8. Dissemination of personal information",
+      "CONTENT": "Dissemination of other people's personal information of any kind without their consent is prohibited and will result in a permanent ban."
+    },
+    "RULE_9": {
+      "TITLE": "9. Enforcement of a measure",
+      "CONTENT": "The interpretation of the rules is at the discretion of the respective administrator."
+    },
+    "RULE_10": {
+      "TITLE": "10. AI Use / Spam / Job listings",
+      "CONTENT": "The use of AI to make job listings or other spam content is not permitted. Users found doing so will be jailed, muted, or banned."
+    },
+    "RULE_11": {
+      "TITLE": "11. Fake Skills / Code Stacks",
+      "CONTENT": "Falsely claiming to have skills or experience for the purpose of scamming or obtaining jobs is prohibited. Users must be able to prove their skills."
+    },
+    "RULE_12": {
+      "TITLE": "12. No DM",
+      "CONTENT": "No direct messages without previous authorization. If someone reports you, you may be muted or restricted."
+    }
+  },
+  "SHOWCASE": {
+    "TITLE": "Showcase",
+    "HEADING": "Community Showcase",
+    "REPLIES": "Replies",
+    "META": {
+      "TITLE": "Showcase - Coding Global",
+      "DESCRIPTION": "Explore amazing projects from our community",
+      "KEYWORDS": "showcase, projects, community, coding"
+    },
+    "EMPTY": {
+      "THREADS": "No showcase threads yet",
+      "MESSAGES": "No messages found"
+    },
+    "MESSAGES_COUNT": "{count} messages"
+  },
+  "TEAM": {
+    "HEADING": "Our Team",
+    "META": {
+      "DESCRIPTION": "Meet the team behind Coding Global",
+      "KEYWORDS": "team, staff, developers, administrators, moderators",
+      "TITLE": "Team - Coding Global"
+    }
+  },
+  "TODO": {
+    "INFO": {
+      "TODO_DELETED": "Todo deleted"
+    },
+    "SUCCESS": {
+      "TODO_ADD": "Todo added successfully",
+      "TODO_SEED": "Todos seeded successfully"
+    }
+  },
+  "DISCORD_WIDGET": {
+    "ONLINE": "Online",
+    "MEMBERS": "Members",
+    "MEMBERS_HEADER": "Members — {count}",
+    "STATUS": {
+      "ONLINE": "Online",
+      "IDLE": "Idle",
+      "DND": "Do Not Disturb",
+      "OFFLINE": "Offline"
+    },
+    "PLAYING": "Playing {activity}",
+    "USER_CARD": {
+      "MEMBER_SINCE": "Member Since",
+      "CREATED_AT": "Account Created",
+      "ROLES": "Roles",
+      "ACTIVITY": "Activity",
+      "USERNAME_COPIED": "Username copied to clipboard!",
+      "USER_ID_COPIED": "User ID copied to clipboard!",
+      "COPY_FAILED": "Failed to copy to clipboard"
+    }
+  }
 }

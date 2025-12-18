@@ -14,7 +14,7 @@ export default function Background() {
         priority
         unoptimized
       />
-      <div className="absolute inset-0 dark:bg-black/90 bg-white/90" />
+      <div className="absolute inset-0 bg-white/90 dark:bg-black/90" />
     </div>
   );
 }
