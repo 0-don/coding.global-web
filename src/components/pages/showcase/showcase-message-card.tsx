@@ -1,9 +1,8 @@
 "use client";
 
-import type { GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem } from "@/openapi";
-import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Card, CardContent } from "@/components/ui/card";
+import type { GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem } from "@/openapi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
@@ -23,26 +22,11 @@ export function ShowcaseMessageCard({
     <Card className={isOriginalPost ? "border-primary" : ""}>
       <CardContent className="p-4">
         <div className="flex gap-3">
-          {message.author && (
-            <DiscordUserPopover user={message.author}>
-              <Avatar className="h-10 w-10 cursor-pointer">
-                <AvatarImage src={message.author.avatarUrl} />
-                <AvatarFallback>
-                  {message.author.displayName?.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-            </DiscordUserPopover>
-          )}
+          {message.author && <DiscordUser user={message.author} />}
 
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              {message.author && (
-                <DiscordUserPopover user={message.author}>
-                  <span className="cursor-pointer font-semibold hover:underline">
-                    {message.author.displayName}
-                  </span>
-                </DiscordUserPopover>
-              )}
+              {message.author && <DiscordUser user={message.author} />}
               <span className="text-muted-foreground text-xs">
                 {dayjs(message.createdAt).fromNow()}
               </span>

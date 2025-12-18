@@ -1,7 +1,6 @@
 "use client";
 
-import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useShowcaseThreadsQuery } from "@/hook/showcase-hook";
@@ -66,24 +65,7 @@ export function ShowcaseList() {
                 <CardContent>
                   {thread.author && (
                     <div className="mb-3 flex items-center gap-2">
-                      <DiscordUserPopover user={thread.author}>
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage src={thread.author.avatarUrl} />
-                          <AvatarFallback>
-                            {thread.author.username?.at(0)?.toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                      </DiscordUserPopover>
-                      <div className="min-w-0 flex-1">
-                        <DiscordUserPopover user={thread.author}>
-                          <p className="cursor-pointer truncate text-sm font-medium hover:underline">
-                            {thread.author.displayName}
-                          </p>
-                        </DiscordUserPopover>
-                        <p className="text-muted-foreground text-xs">
-                          {dayjs(String(thread.createdAt)).fromNow()}
-                        </p>
-                      </div>
+                      <DiscordUser user={thread.author} />
                     </div>
                   )}
                   {thread.previewText && (
