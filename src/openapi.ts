@@ -47,7 +47,7 @@ export type GetApiByGuildIdStaff200Item = {
   globalName: GetApiByGuildIdStaff200ItemGlobalName;
   nickname: GetApiByGuildIdStaff200ItemNickname;
   displayName: GetApiByGuildIdStaff200ItemDisplayName;
-  displayAvatarURL: string;
+  avatarUrl: string;
   bannerUrl: GetApiByGuildIdStaff200ItemBannerUrl;
   accentColor: GetApiByGuildIdStaff200ItemAccentColor;
   displayHexColor: string;
@@ -126,7 +126,7 @@ export type GetApiByGuildIdNews200ItemUserAnyOf = {
   globalName: GetApiByGuildIdNews200ItemUserAnyOfGlobalName;
   nickname: GetApiByGuildIdNews200ItemUserAnyOfNickname;
   displayName: GetApiByGuildIdNews200ItemUserAnyOfDisplayName;
-  displayAvatarURL: string;
+  avatarUrl: string;
   bannerUrl: GetApiByGuildIdNews200ItemUserAnyOfBannerUrl;
   accentColor: GetApiByGuildIdNews200ItemUserAnyOfAccentColor;
   displayHexColor: string;
@@ -209,7 +209,7 @@ export type GetApiByGuildIdWidget200MembersItem = {
   globalName: GetApiByGuildIdWidget200MembersItemGlobalName;
   nickname: GetApiByGuildIdWidget200MembersItemNickname;
   displayName: GetApiByGuildIdWidget200MembersItemDisplayName;
-  displayAvatarURL: string;
+  avatarUrl: string;
   bannerUrl: GetApiByGuildIdWidget200MembersItemBannerUrl;
   accentColor: GetApiByGuildIdWidget200MembersItemAccentColor;
   displayHexColor: string;
@@ -330,7 +330,7 @@ export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf = {
   globalName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGlobalName;
   nickname: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfNickname;
   displayName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDisplayName;
-  displayAvatarURL: string;
+  avatarUrl: string;
   bannerUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfBannerUrl;
   accentColor: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAccentColor;
   displayHexColor: string;
@@ -462,7 +462,7 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOf 
     globalName: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfGlobalName;
     nickname: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfNickname;
     displayName: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfDisplayName;
-    displayAvatarURL: string;
+    avatarUrl: string;
     bannerUrl: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfBannerUrl;
     accentColor: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItemAuthorAnyOfAccentColor;
     displayHexColor: string;

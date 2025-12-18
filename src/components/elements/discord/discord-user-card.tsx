@@ -60,7 +60,7 @@ export function DiscordUserCard(props: DiscordUserCardProps) {
           <div className="relative">
             <Avatar className="border-card h-20 w-20 border-4">
               <AvatarImage
-                src={props.user.displayAvatarURL}
+                src={props.user.avatarUrl}
                 alt={props.user.username}
               />
               <AvatarFallback>

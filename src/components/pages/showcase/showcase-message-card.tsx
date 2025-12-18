@@ -26,7 +26,7 @@ export function ShowcaseMessageCard({
           {message.author && (
             <DiscordUserPopover user={message.author}>
               <Avatar className="h-10 w-10 cursor-pointer">
-                <AvatarImage src={message.author.displayAvatarURL} />
+                <AvatarImage src={message.author.avatarUrl} />
                 <AvatarFallback>
                   {message.author.displayName?.charAt(0).toUpperCase()}
                 </AvatarFallback>

@@ -86,7 +86,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                     <div className="relative">
                       <Avatar className="h-8 w-8">
                         <AvatarImage
-                          src={member.displayAvatarURL}
+                          src={member.avatarUrl}
                           alt={member.username}
                         />
                         <AvatarFallback>
