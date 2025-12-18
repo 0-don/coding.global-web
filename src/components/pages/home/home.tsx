@@ -34,7 +34,7 @@ export function Home() {
         </Card>
 
         <div className="z-10 flex items-center justify-center">
-          <Button asChild variant="outline" size="lg">
+          <Button variant="outline" size="lg">
             <Link href={getDiscordInviteLink()}>{t("HOME.JOIN_BUTTON")}</Link>
           </Button>
         </div>

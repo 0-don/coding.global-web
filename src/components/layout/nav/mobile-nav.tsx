@@ -39,11 +39,13 @@ export function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <LuMenu className="text-3xl" />
-          <span className="sr-only">{t("MAIN.NAVIGATION.OPEN_MENU")}</span>
-        </Button>
+      <SheetTrigger
+        render={
+          <button className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md transition-all md:hidden" />
+        }
+      >
+        <LuMenu className="text-3xl" />
+        <span className="sr-only">{t("MAIN.NAVIGATION.OPEN_MENU")}</span>
       </SheetTrigger>
       <SheetContent side="left" className="z-9999 w-75 sm:w-100">
         <SheetHeader>

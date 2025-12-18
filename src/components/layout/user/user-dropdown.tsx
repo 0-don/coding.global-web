@@ -54,7 +54,7 @@ export function UserDropdown({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild className={className}>
+      <DropdownMenuTrigger className={className}>
         {children}
       </DropdownMenuTrigger>
       <DropdownMenuContent
