@@ -28,7 +28,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
     <Card className={cn("overflow-hidden pt-0", props.className)}>
       <CardHeader className="relative border-b py-0">
         {/* Banner with diagonal fade */}
-        <div className="absolute top-0 right-0 h-full w-1/2 overflow-hidden">
+        <div className="absolute top-0 right-0 h-full w-2/3 overflow-hidden">
           <div
             className="h-full w-full bg-cover bg-center"
             style={{
