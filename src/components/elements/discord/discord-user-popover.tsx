@@ -5,12 +5,12 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { ReactNode } from "react";
 import { DiscordUser, DiscordUserCard } from "./discord-user-card";
+import { ReactElement } from "react";
 
 interface DiscordUserPopoverProps {
   user: DiscordUser;
-  children: ReactNode;
+  children: ReactElement;
   side?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
   sideOffset?: number;
@@ -29,9 +29,11 @@ export function DiscordUserPopover({
 }: DiscordUserPopoverProps) {
   return (
     <HoverCard>
-      <HoverCardTrigger delay={openDelay} closeDelay={closeDelay}>
-        {children}
-      </HoverCardTrigger>
+      <HoverCardTrigger
+        delay={openDelay}
+        closeDelay={closeDelay}
+        render={children}
+      />
       <HoverCardContent
         side={side}
         align={align}

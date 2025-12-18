@@ -31,16 +31,18 @@ export function LanguageToggle() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button
-          variant="ghost"
-          size="icon"
-          title={t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}
-          disabled={isPending}
-        >
-          <span className="text-lg">{currentLanguage?.flag}</span>
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="icon"
+            title={t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}
+            disabled={isPending}
+          >
+            <span className="text-lg">{currentLanguage?.flag}</span>
+          </Button>
+        }
+      />
       <DropdownMenuContent align="end">
         {LANGUAGES.map((lang) => (
           <DropdownMenuItem
