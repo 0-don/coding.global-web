@@ -81,11 +81,8 @@ export function DiscordWidget(props: DiscordWidgetProps) {
               const statusRoles = member.roles.at(0);
 
               return (
-                <div
-                  key={member.id}
-                  className="hover:bg-accent/20 flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors"
-                >
-                  <DiscordUserPopover user={member}>
+                <DiscordUserPopover key={member.id} user={member}>
+                  <div className="hover:bg-accent/20 flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors">
                     <div className="relative">
                       <Avatar className="h-8 w-8">
                         <AvatarImage
@@ -98,9 +95,8 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                       </Avatar>
                       <StatusIndicator status={member.status as MemberStatus} />
                     </div>
-                  </DiscordUserPopover>
-                  <div className="min-w-0 flex-1">
-                    <DiscordUserPopover user={member}>
+
+                    <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-1.5">
                         <span className="truncate text-sm font-medium">
                           {member.displayName}
@@ -113,16 +109,17 @@ export function DiscordWidget(props: DiscordWidgetProps) {
                           </div>
                         )}
                       </div>
-                    </DiscordUserPopover>
-                    {member.activity && (
-                      <p className="text-muted-foreground mt-0.5 truncate text-xs">
-                        {t("DISCORD_WIDGET.PLAYING", {
-                          activity: member.activity,
-                        })}
-                      </p>
-                    )}
+
+                      {member.activity && (
+                        <p className="text-muted-foreground mt-0.5 truncate text-xs">
+                          {t("DISCORD_WIDGET.PLAYING", {
+                            activity: member.activity,
+                          })}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </DiscordUserPopover>
               );
             })}
           </div>
