@@ -9,7 +9,7 @@ export function Home() {
   const t = useTranslations();
 
   return (
-    <div className="container mx-auto mt-10 flex h-full items-center gap-10 px-4 md:px-6">
+    <div className="ga-5 container mx-auto mt-10 flex h-full flex-col items-center gap-10 px-4 md:flex-row md:px-6">
       <div className="flex-1">
         <Card className="border-primary mb-6 font-mono text-sm">
           <CardContent className="space-y-4">
