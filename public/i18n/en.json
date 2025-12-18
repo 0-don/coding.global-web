@@ -61,6 +61,8 @@
 			"OPEN_MENU": "Open menu",
 			"RULES": "Rules",
 			"RULES_DESCRIPTION": "Community rules and guidelines",
+			"SHOWCASE": "Showcase",
+			"SHOWCASE_DESCRIPTION": "Community project showcase",
 			"TEAM": "Team",
 			"TEAM_DESCRIPTION": "Meet our team"
 		},
@@ -155,6 +157,21 @@
 			"TITLE": "12. No DM",
 			"CONTENT": "No direct messages without previous authorization. If someone reports you, you may be muted or restricted."
 		}
+	},
+	"SHOWCASE": {
+		"TITLE": "Showcase",
+		"HEADING": "Community Showcase",
+		"REPLIES": "Replies",
+		"META": {
+			"TITLE": "Showcase - Coding Global",
+			"DESCRIPTION": "Explore amazing projects from our community",
+			"KEYWORDS": "showcase, projects, community, coding"
+		},
+		"EMPTY": {
+			"THREADS": "No showcase threads yet",
+			"MESSAGES": "No messages found"
+		},
+		"MESSAGES_COUNT": "{count} messages"
 	},
 	"TEAM": {
 		"HEADING": "Our Team",

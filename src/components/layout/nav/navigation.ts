@@ -5,6 +5,7 @@ import {
   HiOutlineCalculator,
   HiOutlineChartBarSquare,
   HiOutlineInformationCircle,
+  HiOutlineSparkles,
 } from "react-icons/hi2";
 import { IconType } from "react-icons/lib";
 
@@ -53,6 +54,12 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
     description: "MAIN.NAVIGATION.RULES_DESCRIPTION",
     href: "/rules",
     icon: HiOutlineInformationCircle,
+  },
+  {
+    name: "MAIN.NAVIGATION.SHOWCASE",
+    description: "MAIN.NAVIGATION.SHOWCASE_DESCRIPTION",
+    href: "/showcase",
+    icon: HiOutlineSparkles,
   },
   {
     name: "MAIN.NAVIGATION.TEAM",

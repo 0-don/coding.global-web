@@ -21,4 +21,11 @@ export const queryKeys = {
   comments: () => ["comments"],
   commentsAdd: () => ["comments-add"],
   commentsDelete: () => ["comments-delete"],
+
+  // Showcase
+  showcaseThreads: () => ["showcase-threads"],
+  showcaseThreadMessages: (threadId: string) => [
+    "showcase-thread-messages",
+    threadId,
+  ],
 };

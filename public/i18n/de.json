@@ -61,6 +61,8 @@
 			"OPEN_MENU": "Menü öffnen",
 			"RULES": "Regeln",
 			"RULES_DESCRIPTION": "Community-Regeln und Richtlinien",
+			"SHOWCASE": "Showcase",
+			"SHOWCASE_DESCRIPTION": "Community-Projekt-Showcase",
 			"TEAM": "Team",
 			"TEAM_DESCRIPTION": "Lernen Sie unser Team kennen"
 		},
@@ -155,6 +157,21 @@
 			"TITLE": "12. Keine DM",
 			"CONTENT": "Keine Direktnachrichten ohne vorherige Genehmigung. Wenn Sie jemand meldet, können Sie stummgeschaltet oder eingeschränkt werden."
 		}
+	},
+	"SHOWCASE": {
+		"TITLE": "Showcase",
+		"HEADING": "Community-Showcase",
+		"REPLIES": "Antworten",
+		"META": {
+			"TITLE": "Showcase - Coding Global",
+			"DESCRIPTION": "Entdecken Sie erstaunliche Projekte aus unserer Community",
+			"KEYWORDS": "showcase, projekte, community, programmierung"
+		},
+		"EMPTY": {
+			"THREADS": "Noch keine Showcase-Threads",
+			"MESSAGES": "Keine Nachrichten gefunden"
+		},
+		"MESSAGES_COUNT": "{count} Nachrichten"
 	},
 	"TEAM": {
 		"HEADING": "Unser Team",
