@@ -1,6 +1,6 @@
 "use client";
 
-import type { GetApiByGuildIdBoardByBoardTypeByThreadId200Item } from "@/openapi";
+import type { GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem } from "@/openapi";
 import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +11,7 @@ import Image from "next/image";
 dayjs.extend(relativeTime);
 
 interface ShowcaseMessageCardProps {
-  message: GetApiByGuildIdBoardByBoardTypeByThreadId200Item;
+  message: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem;
   isOriginalPost?: boolean;
 }
 

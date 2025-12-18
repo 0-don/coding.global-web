@@ -301,6 +301,176 @@ export type GetApiByGuildIdWidget422 = {
   expected?: string;
 };
 
+export type GetApiByGuildIdBoardByBoardType200ItemBoardType =
+  (typeof GetApiByGuildIdBoardByBoardType200ItemBoardType)[keyof typeof GetApiByGuildIdBoardByBoardType200ItemBoardType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetApiByGuildIdBoardByBoardType200ItemBoardType = {
+  "job-board": "job-board",
+  "dev-board": "dev-board",
+  showcase: "showcase",
+} as const;
+
+export type GetApiByGuildIdBoardByBoardType200ItemMessageCount = number | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGlobalName =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDiscriminator =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfNickname =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDisplayName =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAvatarUrl =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildAvatarUrl =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfBannerUrl =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAccentColor =
+  | number
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAvatarDecorationUrl =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfFlags =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfRolesItem = {
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPremiumSince =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCommunicationDisabledUntil =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildFlags =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildUpdatedAt =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf = {
+  id: string;
+  username: string;
+  globalName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGlobalName;
+  discriminator: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDiscriminator;
+  nickname: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfNickname;
+  displayName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDisplayName;
+  bot: boolean;
+  system: boolean;
+  displayAvatarURL: string;
+  avatarUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAvatarUrl;
+  guildAvatarUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildAvatarUrl;
+  bannerUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfBannerUrl;
+  accentColor: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAccentColor;
+  avatarDecorationUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAvatarDecorationUrl;
+  displayHexColor: string;
+  flags: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfFlags;
+  roles: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfRolesItem[];
+  highestRolePosition: number;
+  status: string;
+  activity: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity;
+  presenceUpdatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt;
+  pending: boolean;
+  premiumSince: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPremiumSince;
+  communicationDisabledUntil: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCommunicationDisabledUntil;
+  guildFlags: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildFlags;
+  joinedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt;
+  createdAt: string;
+  updatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt;
+  guildUpdatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGuildUpdatedAt;
+};
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthor =
+  GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemLocked = boolean | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemCreatedAt = string | unknown;
+
+export type GetApiByGuildIdBoardByBoardType200ItemTagsItemEmojiId =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemTagsItemEmojiName =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemTagsItemEmoji = {
+  id: GetApiByGuildIdBoardByBoardType200ItemTagsItemEmojiId;
+  name: GetApiByGuildIdBoardByBoardType200ItemTagsItemEmojiName;
+};
+
+export type GetApiByGuildIdBoardByBoardType200ItemTagsItem = {
+  id: string;
+  name: string;
+  emoji: GetApiByGuildIdBoardByBoardType200ItemTagsItemEmoji;
+};
+
+export type GetApiByGuildIdBoardByBoardType200ItemPreviewImage = string | null;
+
+export type GetApiByGuildIdBoardByBoardType200Item = {
+  id: string;
+  name: string;
+  boardType: GetApiByGuildIdBoardByBoardType200ItemBoardType;
+  messageCount: GetApiByGuildIdBoardByBoardType200ItemMessageCount;
+  author: GetApiByGuildIdBoardByBoardType200ItemAuthor;
+  archived: boolean;
+  locked: GetApiByGuildIdBoardByBoardType200ItemLocked;
+  createdAt: GetApiByGuildIdBoardByBoardType200ItemCreatedAt;
+  tags: GetApiByGuildIdBoardByBoardType200ItemTagsItem[];
+  previewImage: GetApiByGuildIdBoardByBoardType200ItemPreviewImage;
+};
+
+export type GetApiByGuildIdBoardByBoardType422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
 export type GetApiByGuildIdBoardByBoardTypeByThreadIdParams = {
   before?: string;
 };
@@ -581,17 +751,28 @@ export const getApiByGuildIdWidget = async (
   );
 };
 
-export type getApiByGuildIdBoardByBoardTypeResponseDefault = {
-  data: unknown;
-  status: number;
+export type getApiByGuildIdBoardByBoardTypeResponse200 = {
+  data: GetApiByGuildIdBoardByBoardType200Item[];
+  status: 200;
 };
+
+export type getApiByGuildIdBoardByBoardTypeResponse422 = {
+  data: GetApiByGuildIdBoardByBoardType422;
+  status: 422;
+};
+
+export type getApiByGuildIdBoardByBoardTypeResponseSuccess =
+  getApiByGuildIdBoardByBoardTypeResponse200 & {
+    headers: Headers;
+  };
 export type getApiByGuildIdBoardByBoardTypeResponseError =
-  getApiByGuildIdBoardByBoardTypeResponseDefault & {
+  getApiByGuildIdBoardByBoardTypeResponse422 & {
     headers: Headers;
   };
 
 export type getApiByGuildIdBoardByBoardTypeResponse =
-  getApiByGuildIdBoardByBoardTypeResponseError;
+  | getApiByGuildIdBoardByBoardTypeResponseSuccess
+  | getApiByGuildIdBoardByBoardTypeResponseError;
 
 export const getGetApiByGuildIdBoardByBoardTypeUrl = (
   guildId: string,

@@ -1,7 +1,7 @@
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export function useShowcaseThreadsQuery() {
   return useQuery({
@@ -11,11 +11,20 @@ export function useShowcaseThreadsQuery() {
   });
 }
 
-export function useShowcaseThreadMessagesQuery(threadId: string) {
-  return useQuery({
+export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
+  return useInfiniteQuery({
     queryKey: queryKeys.showcaseThreadMessages(threadId),
-    queryFn: async () =>
-      handleElysia(await rpc.api.bot.showcase({ threadId }).get()),
+    queryFn: async ({ pageParam }) =>
+      handleElysia(
+        await rpc.api.bot.showcase({ threadId }).get({
+          query: { before: pageParam },
+        }),
+      ),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage) return undefined;
+      return lastPage.hasMore ? lastPage.nextCursor : undefined;
+    },
     enabled: false,
   });
 }
