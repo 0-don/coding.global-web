@@ -20,7 +20,7 @@ export function ShowcaseList() {
 
   return (
     <div className="container mx-auto px-4 md:px-6">
-      <div className="flex items-center justify-center gap-2 py-6">
+      <div className="flex items-center justify-center gap-2 p-6">
         <h1 className="text-3xl font-bold">{t("SHOWCASE.HEADING")}</h1>
       </div>
 
@@ -38,7 +38,7 @@ export function ShowcaseList() {
                 params: { id: thread.id },
               }}
             >
-              <Card className="h-full cursor-pointer overflow-hidden transition-shadow hover:shadow-lg">
+              <Card className="h-full cursor-pointer gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg">
                 {thread.previewImage && (
                   <div className="relative aspect-video w-full overflow-hidden">
                     <Image
@@ -49,7 +49,7 @@ export function ShowcaseList() {
                     />
                   </div>
                 )}
-                <CardHeader>
+                <CardHeader className="pt-3">
                   <h3 className="line-clamp-2 text-xl font-semibold">
                     {thread.name}
                   </h3>
