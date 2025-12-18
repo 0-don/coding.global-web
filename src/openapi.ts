@@ -448,6 +448,8 @@ export type GetApiByGuildIdBoardByBoardType200ItemTagsItem = {
 
 export type GetApiByGuildIdBoardByBoardType200ItemPreviewImage = string | null;
 
+export type GetApiByGuildIdBoardByBoardType200ItemPreviewText = string | null;
+
 export type GetApiByGuildIdBoardByBoardType200Item = {
   id: string;
   name: string;
@@ -459,6 +461,7 @@ export type GetApiByGuildIdBoardByBoardType200Item = {
   createdAt: GetApiByGuildIdBoardByBoardType200ItemCreatedAt;
   tags: GetApiByGuildIdBoardByBoardType200ItemTagsItem[];
   previewImage: GetApiByGuildIdBoardByBoardType200ItemPreviewImage;
+  previewText: GetApiByGuildIdBoardByBoardType200ItemPreviewText;
 };
 
 export type GetApiByGuildIdBoardByBoardType422 = {
