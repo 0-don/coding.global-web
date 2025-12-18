@@ -5,8 +5,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { DiscordUser, DiscordUserCard } from "./discord-user-card";
 import { ReactElement } from "react";
+import { DiscordUser, DiscordUserCard } from "./discord-user-card";
 
 interface DiscordUserPopoverProps {
   user: DiscordUser;
@@ -16,23 +16,17 @@ interface DiscordUserPopoverProps {
   sideOffset?: number;
 }
 
-export function DiscordUserPopover({
-  user,
-  children,
-  side = "right",
-  align = "start",
-  sideOffset = 8,
-}: DiscordUserPopoverProps) {
+export function DiscordUserPopover(props: DiscordUserPopoverProps) {
   return (
     <Popover>
-      <PopoverTrigger render={children} />
+      <PopoverTrigger render={props.children} nativeButton={false} />
       <PopoverContent
-        side={side}
-        align={align}
-        sideOffset={sideOffset}
+        side={props.side}
+        align={props.align}
+        sideOffset={props.sideOffset}
         className="w-auto p-0"
       >
-        <DiscordUserCard user={user} />
+        <DiscordUserCard user={props.user} />
       </PopoverContent>
     </Popover>
   );
