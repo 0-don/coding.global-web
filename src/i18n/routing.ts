@@ -17,6 +17,12 @@ export const pathnames = {
   "/rules": {
     de: "/regeln",
   },
+  "/showcase": {
+    de: "/showcase",
+  },
+  "/showcase/[id]": {
+    de: "/showcase/[id]",
+  },
   "/team": {
     de: "/team",
   },
