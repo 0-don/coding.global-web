@@ -55,7 +55,7 @@ export function DiscordUser(props: DiscordUserProps) {
     <Popover>
       <PopoverTrigger
         render={
-          <div className="hover:bg-accent/20 flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors">
+          <div className="flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 transition-colors">
             <div className="relative">
               <Avatar className="h-8 w-8">
                 <AvatarImage
