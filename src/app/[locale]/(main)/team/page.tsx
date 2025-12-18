@@ -1,11 +1,14 @@
-import { Team } from "@/components/pages/team";
+import { Team } from "@/components/pages/team/team";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import {
+  HydrationBoundary,
+  dehydrate,
+} from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { LANGUAGES } from "@/lib/config/constants";
-import { useLocale, useTranslations } from "next-intl";
+import { Locale, useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 
 export function LanguageToggle() {
@@ -23,9 +23,9 @@ export function LanguageToggle() {
     (lang) => lang.code.toLowerCase() === locale,
   );
 
-  function onLanguageChange(newLocale: string) {
+  function onLanguageChange(newLocale: Locale) {
     startTransition(() => {
-      router.replace(pathname, { locale: newLocale as "en" | "de" });
+      router.replace(pathname as "/", { locale: newLocale });
     });
   }
 
@@ -45,7 +45,7 @@ export function LanguageToggle() {
         {LANGUAGES.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => onLanguageChange(lang.code.toLowerCase())}
+            onClick={() => onLanguageChange(lang.code.toLowerCase() as Locale)}
           >
             <span className="mr-2 text-lg">{lang.flag}</span>
             {t(`MAIN.ENUM.${lang.code}`)}
