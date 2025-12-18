@@ -25,9 +25,25 @@ export function DiscordWidget(props: DiscordWidgetProps) {
   if (!widget) return null;
 
   return (
-    <Card className={cn("overflow-hidden", props.className)}>
-      <CardHeader className="border-b pb-0">
-        <div className="flex items-center gap-3">
+    <Card className={cn("overflow-hidden pt-0", props.className)}>
+      <CardHeader className="relative border-b py-0">
+        {/* Banner with diagonal fade */}
+        <div className="absolute top-0 right-0 h-full w-1/2 overflow-hidden">
+          <div
+            className="h-full w-full bg-cover bg-center"
+            style={{
+              backgroundImage: widget.bannerURL
+                ? `url(${widget.bannerURL})`
+                : "none",
+              maskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 mt-5 flex items-center gap-3">
           <Avatar className="h-12 w-12">
             <AvatarImage
               src={widget.iconURL || "/images/avatar.svg"}
