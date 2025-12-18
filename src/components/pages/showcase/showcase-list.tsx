@@ -11,6 +11,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Archive, Calendar, Lock, MessageCircle, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { HiOutlineTrophy } from "react-icons/hi2";
 
 dayjs.extend(relativeTime);
 
@@ -18,22 +19,27 @@ export function ShowcaseList() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
 
+  console.log(showcaseThreadsQuery.data?.length);
+
   return (
     <div className="container mx-auto px-4 md:px-6">
       <div className="flex items-center justify-center gap-2 p-6">
+        <HiOutlineTrophy className="text-3xl" />
         <h1 className="text-3xl font-bold">{t("SHOWCASE.HEADING")}</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {showcaseThreadsQuery.data?.map((thread) => (
-          <Link
+          <Card
             key={thread.id}
-            href={{
-              pathname: "/showcase/[id]",
-              params: { id: thread.id },
-            }}
+            className="flex h-full cursor-pointer flex-col gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg"
           >
-            <Card className="flex h-full cursor-pointer flex-col gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg">
+            <Link
+              href={{
+                pathname: "/showcase/[id]",
+                params: { id: thread.id },
+              }}
+            >
               {thread.imageUrl && (
                 <div className="relative aspect-video w-full overflow-hidden">
                   <Image
@@ -97,7 +103,13 @@ export function ShowcaseList() {
                 )}
 
                 {thread.author && (
-                  <div className="mb-3 flex items-center gap-2">
+                  <div
+                    className="mb-3 flex items-center gap-2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
                     <DiscordUser user={thread.author} />
                   </div>
                 )}
@@ -134,8 +146,8 @@ export function ShowcaseList() {
                   )}
                 </div>
               </CardContent>
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         ))}
       </div>
     </div>

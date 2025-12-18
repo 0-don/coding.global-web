@@ -1,4 +1,4 @@
-// src/app/[locale]/layout.tsx
+import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
@@ -7,7 +7,6 @@ import { getTranslations } from "next-intl/server";
 import { Fira_Code, Roboto_Serif, Source_Code_Pro } from "next/font/google";
 import { notFound } from "next/navigation";
 import { use } from "react";
-import { Toaster } from "sonner";
 import { Providers } from "../../components/provider/providers";
 import "../globals.css";
 
