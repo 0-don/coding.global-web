@@ -30,13 +30,14 @@ export function ShowcaseList() {
         {showcaseThreadsQuery.data?.map((thread) => (
           <Card
             key={thread.id}
-            className="flex h-full cursor-pointer flex-col gap-2 overflow-hidden pt-0 transition-shadow hover:shadow-lg"
+            className="overflow-hidden pt-0 transition-shadow hover:shadow-lg"
           >
             <Link
               href={{
                 pathname: "/showcase/[id]",
                 params: { id: thread.id },
               }}
+              className="flex h-full cursor-pointer flex-col"
             >
               {thread.imageUrl && (
                 <div className="relative aspect-video w-full overflow-hidden">
@@ -48,7 +49,7 @@ export function ShowcaseList() {
                   />
                 </div>
               )}
-              <CardHeader className="pt-3">
+              <CardHeader className="pt-5">
                 <div className="mb-2 flex">
                   <h3 className="line-clamp-2 flex-1 text-xl font-semibold">
                     {thread.name}
