@@ -119,7 +119,6 @@ export function ShowcaseList() {
 
                 <div className="flex items-center">
                   <div
-                    className="mb-3"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -130,21 +129,21 @@ export function ShowcaseList() {
 
                   <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-1 text-sm">
                     <div className="flex items-center gap-2">
-                      <MessageCircle className="h-4 w-4" />
                       <span>
                         {t("SHOWCASE.MESSAGES_COUNT", {
                           count: thread.messageCount || 0,
                         })}
                       </span>
+                      <MessageCircle className="h-4 w-4" />
                     </div>
                     {thread.memberCount != null && thread.memberCount > 0 && (
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4" />
                         <span>
                           {t("SHOWCASE.MEMBERS_COUNT", {
                             count: thread.memberCount,
                           })}
                         </span>
+                        <Users className="h-4 w-4" />
                       </div>
                     )}
                     {thread.createdAt && (
@@ -154,8 +153,8 @@ export function ShowcaseList() {
                           "MMMM D, YYYY [at] h:mm A",
                         )}
                       >
-                        <Calendar className="h-4 w-4" />
                         <span>{dayjs(thread.createdAt).fromNow()}</span>
+                        <Calendar className="h-4 w-4" />
                       </div>
                     )}
                   </div>
