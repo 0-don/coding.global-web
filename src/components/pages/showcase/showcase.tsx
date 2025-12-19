@@ -4,7 +4,7 @@ import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown"
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useShowcaseThreadsQuery } from "@/hook/showcase-hook";
+import { useShowcaseThreadsQuery } from "@/hook/bot-hook";
 import { Link } from "@/i18n/navigation";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
