@@ -60,10 +60,12 @@ export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
           query: { before: pageParam },
         }),
       ),
+
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => {
       if (!lastPage) return undefined;
       return lastPage.hasMore ? lastPage.nextCursor : undefined;
     },
+    
   });
 }
