@@ -26,6 +26,10 @@ export function ShowcaseList() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
 
+  console.log(
+    showcaseThreadsQuery.data?.find((thread) => thread.author == null),
+  );
+
   return (
     <div className="container mx-auto px-4 md:px-6">
       <div className="flex items-center justify-center gap-2 p-6">
@@ -52,6 +56,7 @@ export function ShowcaseList() {
                     src={thread.imageUrl}
                     alt={thread.name}
                     fill
+                    unoptimized
                     className="object-cover"
                   />
                 ) : (
@@ -95,7 +100,7 @@ export function ShowcaseList() {
                   </div>
                 </div>
                 {thread.tags.length > 0 && (
-                  <div className="mt-1 flex flex-wrap gap-2">
+                  <div className="mb-1 flex flex-wrap gap-2">
                     {thread.tags.map((tag) => (
                       <Badge key={tag.id}>
                         {tag.name} {tag.emoji.name}
@@ -112,48 +117,48 @@ export function ShowcaseList() {
                   />
                 )}
 
-                {thread.author && (
+                <div className="flex items-center">
                   <div
-                    className="mb-3 flex justify-end"
+                    className="mb-3"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                     }}
                   >
-                    <DiscordUser user={thread.author} />
+                    <DiscordUser user={thread.author!} />
                   </div>
-                )}
 
-                <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4" />
-                    <span>
-                      {t("SHOWCASE.MESSAGES_COUNT", {
-                        count: thread.messageCount || 0,
-                      })}
-                    </span>
-                  </div>
-                  {thread.memberCount != null && thread.memberCount > 0 && (
+                  <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-1 text-sm">
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4" />
+                      <MessageCircle className="h-4 w-4" />
                       <span>
-                        {t("SHOWCASE.MEMBERS_COUNT", {
-                          count: thread.memberCount,
+                        {t("SHOWCASE.MESSAGES_COUNT", {
+                          count: thread.messageCount || 0,
                         })}
                       </span>
                     </div>
-                  )}
-                  {thread.createdAt && (
-                    <div
-                      className="flex items-center gap-2"
-                      title={dayjs(thread.createdAt).format(
-                        "MMMM D, YYYY [at] h:mm A",
-                      )}
-                    >
-                      <Calendar className="h-4 w-4" />
-                      <span>{dayjs(thread.createdAt).fromNow()}</span>
-                    </div>
-                  )}
+                    {thread.memberCount != null && thread.memberCount > 0 && (
+                      <div className="flex items-center gap-2">
+                        <Users className="h-4 w-4" />
+                        <span>
+                          {t("SHOWCASE.MEMBERS_COUNT", {
+                            count: thread.memberCount,
+                          })}
+                        </span>
+                      </div>
+                    )}
+                    {thread.createdAt && (
+                      <div
+                        className="flex items-center gap-2"
+                        title={dayjs(thread.createdAt).format(
+                          "MMMM D, YYYY [at] h:mm A",
+                        )}
+                      >
+                        <Calendar className="h-4 w-4" />
+                        <span>{dayjs(thread.createdAt).fromNow()}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Link>

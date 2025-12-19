@@ -496,93 +496,88 @@ export const GetApiByGuildIdBoardByBoardType200ItemBoardType = {
 
 export type GetApiByGuildIdBoardByBoardType200ItemParentId = string | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGlobalName =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorGlobalName =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfNickname =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorNickname =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDisplayName =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorDisplayName =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfBannerUrl =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorBannerUrl =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAccentColor =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorAccentColor =
   | number
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfFlags =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorFlags = string | null;
+
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorCollectibles =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCollectibles =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorPrimaryGuild =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPrimaryGuild =
-  | string
-  | null;
-
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfRolesItem = {
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorRolesItem = {
   name: string;
   position: number;
 };
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorActivity =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorPresenceUpdatedAt =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPremiumSince =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorPremiumSince =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCommunicationDisabledUntil =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorCommunicationDisabledUntil =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorJoinedAt =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt =
+export type GetApiByGuildIdBoardByBoardType200ItemAuthorUpdatedAt =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf = {
+export type GetApiByGuildIdBoardByBoardType200ItemAuthor = {
   id: string;
   username: string;
-  globalName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfGlobalName;
-  nickname: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfNickname;
-  displayName: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfDisplayName;
+  globalName: GetApiByGuildIdBoardByBoardType200ItemAuthorGlobalName;
+  nickname: GetApiByGuildIdBoardByBoardType200ItemAuthorNickname;
+  displayName: GetApiByGuildIdBoardByBoardType200ItemAuthorDisplayName;
   avatarUrl: string;
-  bannerUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfBannerUrl;
-  accentColor: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfAccentColor;
+  bannerUrl: GetApiByGuildIdBoardByBoardType200ItemAuthorBannerUrl;
+  accentColor: GetApiByGuildIdBoardByBoardType200ItemAuthorAccentColor;
   displayHexColor: string;
-  flags: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfFlags;
-  collectibles: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCollectibles;
-  primaryGuild: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPrimaryGuild;
-  roles: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfRolesItem[];
+  flags: GetApiByGuildIdBoardByBoardType200ItemAuthorFlags;
+  collectibles: GetApiByGuildIdBoardByBoardType200ItemAuthorCollectibles;
+  primaryGuild: GetApiByGuildIdBoardByBoardType200ItemAuthorPrimaryGuild;
+  roles: GetApiByGuildIdBoardByBoardType200ItemAuthorRolesItem[];
   highestRolePosition: number;
   status: string;
-  activity: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfActivity;
-  presenceUpdatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPresenceUpdatedAt;
-  premiumSince: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfPremiumSince;
-  communicationDisabledUntil: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfCommunicationDisabledUntil;
-  joinedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfJoinedAt;
+  activity: GetApiByGuildIdBoardByBoardType200ItemAuthorActivity;
+  presenceUpdatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorPresenceUpdatedAt;
+  premiumSince: GetApiByGuildIdBoardByBoardType200ItemAuthorPremiumSince;
+  communicationDisabledUntil: GetApiByGuildIdBoardByBoardType200ItemAuthorCommunicationDisabledUntil;
+  joinedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorJoinedAt;
   createdAt: string;
-  updatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOfUpdatedAt;
+  updatedAt: GetApiByGuildIdBoardByBoardType200ItemAuthorUpdatedAt;
 };
-
-export type GetApiByGuildIdBoardByBoardType200ItemAuthor =
-  GetApiByGuildIdBoardByBoardType200ItemAuthorAnyOf | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemCreatedAt = string | null;
 
@@ -681,82 +676,85 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadParentId =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfGlobalName =
-  string | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfNickname =
-  string | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfDisplayName =
-  string | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfBannerUrl =
-  string | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfAccentColor =
-  number | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfFlags =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorGlobalName =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfCollectibles =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorNickname =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorDisplayName =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPrimaryGuild =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorBannerUrl =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAccentColor =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorFlags =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorCollectibles =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfRolesItem =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPrimaryGuild =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorRolesItem =
   {
     name: string;
     position: number;
   };
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfActivity =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorActivity =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPresenceUpdatedAt =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPresenceUpdatedAt =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPremiumSince =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPremiumSince =
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorCommunicationDisabledUntil =
   string | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfCommunicationDisabledUntil =
-  string | null;
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorJoinedAt =
+  | string
+  | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfJoinedAt =
-  string | null;
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorUpdatedAt =
+  | string
+  | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfUpdatedAt =
-  string | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOf = {
+export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthor = {
   id: string;
   username: string;
-  globalName: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfGlobalName;
-  nickname: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfNickname;
-  displayName: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfDisplayName;
+  globalName: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorGlobalName;
+  nickname: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorNickname;
+  displayName: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorDisplayName;
   avatarUrl: string;
-  bannerUrl: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfBannerUrl;
-  accentColor: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfAccentColor;
+  bannerUrl: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorBannerUrl;
+  accentColor: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAccentColor;
   displayHexColor: string;
-  flags: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfFlags;
-  collectibles: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfCollectibles;
-  primaryGuild: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPrimaryGuild;
-  roles: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfRolesItem[];
+  flags: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorFlags;
+  collectibles: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorCollectibles;
+  primaryGuild: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPrimaryGuild;
+  roles: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorRolesItem[];
   highestRolePosition: number;
   status: string;
-  activity: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfActivity;
-  presenceUpdatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPresenceUpdatedAt;
-  premiumSince: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfPremiumSince;
-  communicationDisabledUntil: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfCommunicationDisabledUntil;
-  joinedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfJoinedAt;
+  activity: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorActivity;
+  presenceUpdatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPresenceUpdatedAt;
+  premiumSince: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorPremiumSince;
+  communicationDisabledUntil: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorCommunicationDisabledUntil;
+  joinedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorJoinedAt;
   createdAt: string;
-  updatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOfUpdatedAt;
+  updatedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorUpdatedAt;
 };
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthor =
-  GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAuthorAnyOf | null;
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadCreatedAt =
   | string

@@ -22,6 +22,7 @@ import {
 } from "../utils/enums";
 
 interface DiscordUserProps {
+  className?: string;
   user: GetApiByGuildIdWidget200MembersItem;
 }
 
@@ -55,7 +56,12 @@ export function DiscordUser(props: DiscordUserProps) {
     <Popover>
       <PopoverTrigger
         render={
-          <div className="flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors">
+          <div
+            className={cn(
+              "flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
+              props.className,
+            )}
+          >
             <div className="relative">
               <Avatar className="h-8 w-8">
                 <AvatarImage
@@ -74,21 +80,21 @@ export function DiscordUser(props: DiscordUserProps) {
                 <span className="truncate text-sm font-medium">
                   {props.user.displayName}
                 </span>
-                {props.user.roles?.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    <RoleBadgeIcon
-                      role={props.user.roles?.[0]?.name as StaffRole}
-                    />
-                  </div>
+                {props.user.activity && (
+                  <p className="text-muted-foregroundtruncate text-xs">
+                    {t("DISCORD_WIDGET.PLAYING", {
+                      activity: props.user.activity,
+                    })}
+                  </p>
                 )}
               </div>
 
-              {props.user.activity && (
-                <p className="text-muted-foreground mt-0.5 truncate text-xs">
-                  {t("DISCORD_WIDGET.PLAYING", {
-                    activity: props.user.activity,
-                  })}
-                </p>
+              {props.user.roles?.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1 text-xs">
+                  <RoleBadgeIcon
+                    role={props.user.roles?.[0]?.name as StaffRole}
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -192,7 +198,7 @@ export function DiscordUser(props: DiscordUserProps) {
                 <div className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
                   {props.user.roles.map((role, index) => (
                     <RoleBadgeIcon
-                      key={`${props.user.id}-role-${index}`}
+                      key={role.name}
                       role={role.name as StaffRole | StatusRole | LevelRole}
                     />
                   ))}
