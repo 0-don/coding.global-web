@@ -38,7 +38,7 @@ export function useShowcaseThreadsQuery() {
     //       "showcase",
     //     )
     //   ).data as GetApiByGuildIdBoardByBoardType200Item[],
-    enabled: true,
+    enabled: false,
   });
 }
 
@@ -66,6 +66,5 @@ export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
       if (!lastPage) return undefined;
       return lastPage.hasMore ? lastPage.nextCursor : undefined;
     },
-    
   });
 }
