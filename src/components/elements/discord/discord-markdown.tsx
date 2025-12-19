@@ -1,20 +1,34 @@
 "use client";
 
 import { toHTML } from "@odiffey/discord-markdown";
-import { useMemo } from "react";
+import { useSyncExternalStore } from "react";
 
 interface DiscordMarkdownProps {
   content: string;
   className?: string;
 }
 
+const subscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export function DiscordMarkdown(props: DiscordMarkdownProps) {
-  const html = useMemo(() => {
-    return toHTML(props.content, {
-      escapeHTML: true,
-      discordOnly: false,
-    });
-  }, [props.content]);
+  const isClient = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
+
+  if (!props.content) return null;
+
+  if (!isClient) {
+    return <span className={props.className}>{props.content}</span>;
+  }
+
+  const html = toHTML(props.content, {
+    escapeHTML: true,
+    discordOnly: false,
+  });
 
   return (
     <span

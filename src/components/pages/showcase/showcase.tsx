@@ -26,10 +26,6 @@ export function ShowcaseList() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
 
-  console.log(
-    showcaseThreadsQuery.data?.find((thread) => thread.author == null),
-  );
-
   return (
     <div className="container mx-auto px-4 md:px-6">
       <div className="flex items-center justify-center gap-2 p-6">
@@ -41,7 +37,7 @@ export function ShowcaseList() {
         {showcaseThreadsQuery.data?.map((thread) => (
           <Card
             key={thread.id}
-            className="overflow-hidden pt-0 transition-shadow hover:shadow-lg"
+            className="overflow-hidden pt-0 transition-shadow hover:shadow-lg group"
           >
             <Link
               href={{
@@ -67,7 +63,7 @@ export function ShowcaseList() {
               </div>
               <CardHeader className="pt-5">
                 <div className="mb-2 flex">
-                  <h3 className="line-clamp-2 flex-1 text-xl font-semibold">
+                  <h3 className="line-clamp-2 flex-1 text-xl font-semibold group-hover:underline">
                     {thread.name}
                   </h3>
                   <div className="flex flex-wrap items-center gap-2">
@@ -110,12 +106,10 @@ export function ShowcaseList() {
                 )}
               </CardHeader>
               <CardContent className="mt-auto pt-0">
-                {thread.content && (
-                  <DiscordMarkdown
-                    content={thread.content}
-                    className="text-muted-foreground mb-3 line-clamp-3 text-sm"
-                  />
-                )}
+                <DiscordMarkdown
+                  content={thread.content!}
+                  className="text-muted-foreground mb-3 line-clamp-3 text-sm"
+                />
 
                 <div className="flex items-center">
                   <div
