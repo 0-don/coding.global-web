@@ -1,5 +1,6 @@
 "use client";
 
+import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Card, CardContent } from "@/components/ui/card";
 import type { GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem } from "@/openapi";
@@ -27,13 +28,13 @@ export function ShowcaseMessageCard({
           <div className="flex-1">
             <div className="flex items-center gap-2">
               {message.author && <DiscordUser user={message.author} />}
-              <span className="text-muted-foreground text-xs" suppressHydrationWarning>
+              <span className="text-muted-foreground text-xs">
                 {dayjs(message.createdAt).fromNow()}
               </span>
             </div>
 
             <p className="mt-1 text-sm whitespace-pre-wrap">
-              {message.content}
+              <DiscordMarkdown content={message.content} />
             </p>
 
             {/* Attachments */}
