@@ -1,4 +1,4 @@
-import { ShowcaseList } from "@/components/pages/showcase/showcase-list";
+import { ShowcaseList } from "@/components/pages/showcase/showcase";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
