@@ -23,11 +23,13 @@ import {
 
 interface DiscordUserProps {
   className?: string;
-  user: GetApiByGuildIdWidget200MembersItem;
+  user?: GetApiByGuildIdWidget200MembersItem;
 }
 
 export function DiscordUser(props: DiscordUserProps) {
   const t = useTranslations();
+
+  if (!props.user) return null;
 
   const bannerStyle = props.user.bannerUrl
     ? { backgroundImage: `url(${props.user.bannerUrl})` }
@@ -52,13 +54,14 @@ export function DiscordUser(props: DiscordUserProps) {
       toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
     }
   };
+
   return (
     <Popover>
       <PopoverTrigger
         render={
           <div
             className={cn(
-              "flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors group",
+              "group flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
               props.className,
             )}
           >

@@ -37,7 +37,7 @@ export function ShowcaseList() {
         {showcaseThreadsQuery.data?.map((thread) => (
           <Card
             key={thread.id}
-            className="overflow-hidden pt-0 transition-shadow hover:shadow-lg group"
+            className="group overflow-hidden pt-0 transition-shadow hover:shadow-lg"
           >
             <Link
               href={{

@@ -1,10 +1,21 @@
+/* eslint-disable react-hooks/incompatible-library */
+// coding.global-web/src/components/pages/showcase/showcase-detail.tsx
 "use client";
 
-import { ShowcaseMessageCard } from "@/components/pages/showcase/showcase-message-card";
+import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
+import { Card, CardContent } from "@/components/ui/card";
 import { useShowcaseThreadMessagesInfiniteQuery } from "@/hook/showcase-hook";
+import { Link } from "@/i18n/navigation";
+import { LinkHref } from "@/i18n/routing";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
+
+dayjs.extend(relativeTime);
 
 interface ShowcaseDetailProps {
   threadId: string;
@@ -20,7 +31,6 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
 
   const parentRef = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: allMessages.length,
     getScrollElement: () => parentRef.current,
@@ -30,7 +40,6 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
 
   const virtualItems = virtualizer.getVirtualItems();
 
-  // Infinite scroll logic
   useEffect(() => {
     const lastItem = virtualItems[virtualItems.length - 1];
 
@@ -75,7 +84,89 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
     <div className="container mx-auto px-4 py-6 md:px-6">
       {/* Original Post */}
       <div className="mb-6">
-        <ShowcaseMessageCard message={firstMessage} isOriginalPost />
+        <Card className="border-primary">
+          <CardContent className="p-4">
+            <div className="flex gap-3">
+              {firstMessage.author && (
+                <DiscordUser user={firstMessage.author} />
+              )}
+
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  {firstMessage.author && (
+                    <DiscordUser user={firstMessage.author} />
+                  )}
+                  <span className="text-muted-foreground text-xs">
+                    {dayjs(firstMessage.createdAt).fromNow()}
+                  </span>
+                </div>
+
+                <p className="mt-1 text-sm whitespace-pre-wrap">
+                  <DiscordMarkdown content={firstMessage.content} />
+                </p>
+
+                {firstMessage.attachments &&
+                  firstMessage.attachments.length > 0 && (
+                    <div className="mt-2 grid gap-2">
+                      {firstMessage.attachments.map((att) =>
+                        att.contentType?.startsWith("image/") ? (
+                          <Image
+                            key={att.url}
+                            src={att.url}
+                            alt={att.name}
+                            width={400}
+                            height={300}
+                            className="rounded"
+                          />
+                        ) : (
+                          <Link
+                            key={att.url}
+                            href={att.url as LinkHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-blue-500 hover:underline"
+                          >
+                            {att.name}
+                          </Link>
+                        ),
+                      )}
+                    </div>
+                  )}
+
+                {firstMessage.embeds && firstMessage.embeds.length > 0 && (
+                  <div className="mt-2 space-y-2">
+                    {firstMessage.embeds.map((embed, idx) => (
+                      <div
+                        key={idx}
+                        className="border-l-4 pl-3"
+                        style={{
+                          borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
+                        }}
+                      >
+                        {embed.title && (
+                          <p className="font-semibold">{embed.title}</p>
+                        )}
+                        {embed.description && (
+                          <p className="text-sm">{embed.description}</p>
+                        )}
+                        {embed.url && (
+                          <Link
+                            href={embed.url as LinkHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-blue-500 hover:underline"
+                          >
+                            {embed.url}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Replies */}
@@ -107,7 +198,93 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
                     }}
                   >
                     <div className="pb-4">
-                      <ShowcaseMessageCard message={message} />
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex gap-3">
+                            {message.author && (
+                              <DiscordUser user={message.author} />
+                            )}
+
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                {message.author && (
+                                  <DiscordUser user={message.author} />
+                                )}
+                                <span className="text-muted-foreground text-xs">
+                                  {dayjs(message.createdAt).fromNow()}
+                                </span>
+                              </div>
+
+                              <p className="mt-1 text-sm whitespace-pre-wrap">
+                                <DiscordMarkdown content={message.content} />
+                              </p>
+
+                              {message.attachments &&
+                                message.attachments.length > 0 && (
+                                  <div className="mt-2 grid gap-2">
+                                    {message.attachments.map((att) =>
+                                      att.contentType?.startsWith("image/") ? (
+                                        <Image
+                                          key={att.url}
+                                          src={att.url}
+                                          alt={att.name}
+                                          width={400}
+                                          height={300}
+                                          className="rounded"
+                                        />
+                                      ) : (
+                                        <Link
+                                          key={att.url}
+                                          href={att.url as LinkHref}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-sm text-blue-500 hover:underline"
+                                        >
+                                          {att.name}
+                                        </Link>
+                                      ),
+                                    )}
+                                  </div>
+                                )}
+
+                              {message.embeds && message.embeds.length > 0 && (
+                                <div className="mt-2 space-y-2">
+                                  {message.embeds.map((embed, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="border-l-4 pl-3"
+                                      style={{
+                                        borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
+                                      }}
+                                    >
+                                      {embed.title && (
+                                        <p className="font-semibold">
+                                          {embed.title}
+                                        </p>
+                                      )}
+                                      {embed.description && (
+                                        <p className="text-sm">
+                                          {embed.description}
+                                        </p>
+                                      )}
+                                      {embed.url && (
+                                        <Link
+                                          href={embed.url as LinkHref}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-xs text-blue-500 hover:underline"
+                                        >
+                                          {embed.url}
+                                        </Link>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
                 );
