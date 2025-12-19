@@ -28,12 +28,21 @@ export default async function ShowcaseDetailPage(props: {
   const params = await props.params;
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: queryKeys.showcaseThreadMessages(params.id),
-    queryFn: async () =>
-      handleElysia(await rpc.api.bot.showcase({ threadId: params.id }).get()),
-    initialPageParam: undefined,
-  });
+  await Promise.all([
+    await queryClient.prefetchQuery({
+      queryKey: queryKeys.showcaseThread(params.id),
+      queryFn: async () =>
+        handleElysia(await rpc.api.bot.showcase({ threadId: params.id }).get()),
+    }),
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: queryKeys.showcaseThreadMessages(params.id),
+      queryFn: async () =>
+        handleElysia(
+          await rpc.api.bot.showcase({ threadId: params.id }).messages.get(),
+        ),
+      initialPageParam: undefined,
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
