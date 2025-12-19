@@ -58,7 +58,7 @@ export function DiscordUser(props: DiscordUserProps) {
         render={
           <div
             className={cn(
-              "flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
+              "flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors group",
               props.className,
             )}
           >
