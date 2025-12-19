@@ -8,7 +8,14 @@ import { useShowcaseThreadsQuery } from "@/hook/showcase-hook";
 import { Link } from "@/i18n/navigation";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Archive, Calendar, Lock, MessageCircle, Users } from "lucide-react";
+import {
+  Archive,
+  Calendar,
+  ImageIcon,
+  Lock,
+  MessageCircle,
+  Users,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { HiOutlineTrophy } from "react-icons/hi2";
@@ -39,16 +46,20 @@ export function ShowcaseList() {
               }}
               className="flex h-full cursor-pointer flex-col"
             >
-              {thread.imageUrl && (
-                <div className="relative aspect-video w-full overflow-hidden">
+              <div className="bg-muted relative aspect-video w-full overflow-hidden">
+                {thread.imageUrl ? (
                   <Image
                     src={thread.imageUrl}
                     alt={thread.name}
                     fill
                     className="object-cover"
                   />
-                </div>
-              )}
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <ImageIcon className="text-muted-foreground h-16 w-16" />
+                  </div>
+                )}
+              </div>
               <CardHeader className="pt-5">
                 <div className="mb-2 flex">
                   <h3 className="line-clamp-2 flex-1 text-xl font-semibold">
@@ -103,7 +114,7 @@ export function ShowcaseList() {
 
                 {thread.author && (
                   <div
-                    className="mb-3 flex items-center gap-2"
+                    className="mb-3 flex justify-end"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
