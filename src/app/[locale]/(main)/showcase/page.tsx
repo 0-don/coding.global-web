@@ -25,10 +25,10 @@ export async function generateMetadata(props: {
 export default async function ShowcasePage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.showcaseThreads(),
-    queryFn: async () => handleElysia(await rpc.api.bot.showcase.get()),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: queryKeys.showcaseThreads(),
+  //   queryFn: async () => handleElysia(await rpc.api.bot.showcase.get()),
+  // });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
