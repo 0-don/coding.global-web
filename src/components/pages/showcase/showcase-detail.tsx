@@ -1,11 +1,12 @@
-/* eslint-disable react-hooks/incompatible-library */
-// coding.global-web/src/components/pages/showcase/showcase-detail.tsx
 "use client";
 
 import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Card, CardContent } from "@/components/ui/card";
-import { useShowcaseThreadMessagesInfiniteQuery } from "@/hook/showcase-hook";
+import {
+  useShowcaseThreadMessagesInfiniteQuery,
+  useShowcaseThreadQuery,
+} from "@/hook/bot-hook";
 import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
 import { useVirtualizer } from "@tanstack/react-virtual";
@@ -23,16 +24,20 @@ interface ShowcaseDetailProps {
 
 export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
   const t = useTranslations();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useShowcaseThreadMessagesInfiniteQuery(threadId);
-
-  const allMessages =
-    data?.pages.flatMap((page) => (page ? page.messages : [])) ?? [];
-
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const showcaseThread = useShowcaseThreadQuery(threadId);
+  const showcaseThreadMessages =
+    useShowcaseThreadMessagesInfiniteQuery(threadId);
+
+  const messages =
+    showcaseThreadMessages.data?.pages.flatMap(
+      (page) => page?.messages ?? [],
+    ) ?? [];
+
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
-    count: allMessages.length,
+    count: messages.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 200,
     overscan: 5,
@@ -46,21 +51,21 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
     if (!lastItem) return;
 
     if (
-      lastItem.index >= allMessages.length - 1 &&
-      hasNextPage &&
-      !isFetchingNextPage
+      lastItem.index >= messages.length - 1 &&
+      showcaseThreadMessages.hasNextPage &&
+      !showcaseThreadMessages.isFetchingNextPage
     ) {
-      fetchNextPage();
+      showcaseThreadMessages.fetchNextPage();
     }
   }, [
-    hasNextPage,
-    fetchNextPage,
-    allMessages.length,
-    isFetchingNextPage,
+    showcaseThreadMessages.hasNextPage,
+    showcaseThreadMessages.fetchNextPage,
+    messages.length,
+    showcaseThreadMessages.isFetchingNextPage,
     virtualItems,
   ]);
 
-  if (isLoading) {
+  if (showcaseThread.isLoading || showcaseThreadMessages.isLoading) {
     return (
       <div className="container mx-auto px-4 py-6 md:px-6">
         <p className="text-muted-foreground text-center">Loading...</p>
@@ -68,7 +73,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
     );
   }
 
-  if (!allMessages || allMessages.length === 0) {
+  if (!showcaseThread.data) {
     return (
       <div className="container mx-auto px-4 py-6 md:px-6">
         <p className="text-muted-foreground text-center">
@@ -78,7 +83,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
     );
   }
 
-  const [firstMessage, ...replies] = allMessages;
+  const thread = showcaseThread.data;
 
   return (
     <div className="container mx-auto px-4 py-6 md:px-6">
@@ -87,80 +92,31 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
         <Card className="border-primary">
           <CardContent className="p-4">
             <div className="flex gap-3">
-              {firstMessage.author && (
-                <DiscordUser user={firstMessage.author} />
-              )}
+              {thread.author && <DiscordUser user={thread.author} />}
 
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  {firstMessage.author && (
-                    <DiscordUser user={firstMessage.author} />
-                  )}
+                  {thread.author && <DiscordUser user={thread.author} />}
                   <span className="text-muted-foreground text-xs">
-                    {dayjs(firstMessage.createdAt).fromNow()}
+                    {dayjs(thread.createdAt).fromNow()}
                   </span>
                 </div>
 
-                <p className="mt-1 text-sm whitespace-pre-wrap">
-                  <DiscordMarkdown content={firstMessage.content} />
-                </p>
+                {thread.content && (
+                  <p className="mt-1 text-sm whitespace-pre-wrap">
+                    <DiscordMarkdown content={thread.content} />
+                  </p>
+                )}
 
-                {firstMessage.attachments &&
-                  firstMessage.attachments.length > 0 && (
-                    <div className="mt-2 grid gap-2">
-                      {firstMessage.attachments.map((att) =>
-                        att.contentType?.startsWith("image/") ? (
-                          <Image
-                            key={att.url}
-                            src={att.url}
-                            alt={att.name}
-                            width={400}
-                            height={300}
-                            className="rounded"
-                          />
-                        ) : (
-                          <Link
-                            key={att.url}
-                            href={att.url as LinkHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm text-blue-500 hover:underline"
-                          >
-                            {att.name}
-                          </Link>
-                        ),
-                      )}
-                    </div>
-                  )}
-
-                {firstMessage.embeds && firstMessage.embeds.length > 0 && (
-                  <div className="mt-2 space-y-2">
-                    {firstMessage.embeds.map((embed, idx) => (
-                      <div
-                        key={idx}
-                        className="border-l-4 pl-3"
-                        style={{
-                          borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
-                        }}
-                      >
-                        {embed.title && (
-                          <p className="font-semibold">{embed.title}</p>
-                        )}
-                        {embed.description && (
-                          <p className="text-sm">{embed.description}</p>
-                        )}
-                        {embed.url && (
-                          <Link
-                            href={embed.url as LinkHref}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-blue-500 hover:underline"
-                          >
-                            {embed.url}
-                          </Link>
-                        )}
-                      </div>
-                    ))}
+                {thread.imageUrl && (
+                  <div className="mt-2 grid gap-2">
+                    <Image
+                      src={thread.imageUrl}
+                      alt={thread.name}
+                      width={400}
+                      height={300}
+                      className="rounded"
+                    />
                   </div>
                 )}
               </div>
@@ -170,10 +126,10 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
       </div>
 
       {/* Replies */}
-      {replies.length > 0 && (
+      {messages.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">
-            {t("SHOWCASE.REPLIES")} ({replies.length})
+            {t("SHOWCASE.REPLIES")} ({messages.length})
           </h2>
 
           <div ref={parentRef} className="h-[calc(100vh-400px)] overflow-auto">
@@ -185,7 +141,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
               }}
             >
               {virtualizer.getVirtualItems().map((virtualItem) => {
-                const message = replies[virtualItem.index];
+                const message = messages[virtualItem.index];
                 return (
                   <div
                     key={message.id}
@@ -291,7 +247,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
               })}
             </div>
 
-            {isFetchingNextPage && (
+            {showcaseThreadMessages.isFetchingNextPage && (
               <div className="flex justify-center py-4">
                 <p className="text-muted-foreground text-sm">
                   Loading more messages...

@@ -24,6 +24,7 @@ export const queryKeys = {
 
   // Showcase
   showcaseThreads: () => ["showcase-threads"],
+  showcaseThread: (threadId: string) => ["showcase-thread", threadId],
   showcaseThreadMessages: (threadId: string) => [
     "showcase-thread-messages",
     threadId,

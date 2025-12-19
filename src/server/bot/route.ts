@@ -1,11 +1,12 @@
 import {
   getApiByGuildIdBoardByBoardType,
   getApiByGuildIdBoardByBoardTypeByThreadId,
+  getApiByGuildIdBoardByBoardTypeByThreadIdMessages,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
   getApiByGuildIdWidget,
 } from "@/openapi";
-import Elysia from "elysia";
+import { Elysia, t } from "elysia";
 
 export const botRoute = new Elysia({ prefix: "/bot" })
   .get("/widget", async ({ status }) => {
@@ -57,13 +58,12 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       return status("Internal Server Error", error as Error);
     }
   })
-  .get("/showcase/:threadId", async ({ params, query, status }) => {
+  .get("/showcase/:threadId", async ({ params, status }) => {
     try {
       const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
         process.env.NEXT_PUBLIC_GUILD_ID!,
         "showcase",
         params.threadId,
-        { before: query.before },
       );
       if (response.status !== 200)
         return status("Unprocessable Content", response.data);
@@ -71,4 +71,24 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     } catch (error) {
       return status("Internal Server Error", error as Error);
     }
-  });
+  })
+  .get(
+    "/showcase/:threadId/messages",
+    async ({ params, query, status }) => {
+      try {
+        const response =
+          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
+            process.env.NEXT_PUBLIC_GUILD_ID!,
+            "showcase",
+            params.threadId,
+            { before: query.before },
+          );
+        if (response.status !== 200)
+          return status("Unprocessable Content", response.data);
+        return response.data;
+      } catch (error) {
+        return status("Internal Server Error", error as Error);
+      }
+    },
+    { query: t.Object({ before: t.Optional(t.String()) }) },
+  );
