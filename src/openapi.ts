@@ -604,16 +604,6 @@ export type GetApiByGuildIdBoardByBoardType200ItemContent = string | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemImageUrl = string | null;
 
-export type GetApiByGuildIdBoardByBoardType200ItemMessageCount = number | null;
-
-export type GetApiByGuildIdBoardByBoardType200ItemTotalMessageSent =
-  | number
-  | null;
-
-export type GetApiByGuildIdBoardByBoardType200ItemMemberCount = number | null;
-
-export type GetApiByGuildIdBoardByBoardType200ItemLocked = boolean | null;
-
 export type GetApiByGuildIdBoardByBoardType200ItemArchivedAt = string | null;
 
 export type GetApiByGuildIdBoardByBoardType200ItemAutoArchiveDuration =
@@ -636,10 +626,10 @@ export type GetApiByGuildIdBoardByBoardType200Item = {
   tags: GetApiByGuildIdBoardByBoardType200ItemTagsItem[];
   content: GetApiByGuildIdBoardByBoardType200ItemContent;
   imageUrl: GetApiByGuildIdBoardByBoardType200ItemImageUrl;
-  messageCount: GetApiByGuildIdBoardByBoardType200ItemMessageCount;
-  totalMessageSent: GetApiByGuildIdBoardByBoardType200ItemTotalMessageSent;
-  memberCount: GetApiByGuildIdBoardByBoardType200ItemMemberCount;
-  locked: GetApiByGuildIdBoardByBoardType200ItemLocked;
+  messageCount: number;
+  totalMessageSent: number;
+  memberCount: number;
+  locked: boolean;
   archived: boolean;
   archivedAt: GetApiByGuildIdBoardByBoardType200ItemArchivedAt;
   autoArchiveDuration: GetApiByGuildIdBoardByBoardType200ItemAutoArchiveDuration;
@@ -786,22 +776,6 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadImageUrl =
   | string
   | null;
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadMessageCount =
-  | number
-  | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadTotalMessageSent =
-  | number
-  | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadMemberCount =
-  | number
-  | null;
-
-export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadLocked =
-  | boolean
-  | null;
-
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadArchivedAt =
   | string
   | null;
@@ -827,10 +801,10 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200Thread = {
   tags: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadTagsItem[];
   content: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadContent;
   imageUrl: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadImageUrl;
-  messageCount: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadMessageCount;
-  totalMessageSent: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadTotalMessageSent;
-  memberCount: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadMemberCount;
-  locked: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadLocked;
+  messageCount: number;
+  totalMessageSent: number;
+  memberCount: number;
+  locked: boolean;
   archived: boolean;
   archivedAt: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadArchivedAt;
   autoArchiveDuration: GetApiByGuildIdBoardByBoardTypeByThreadId200ThreadAutoArchiveDuration;

@@ -124,39 +124,37 @@ export function ShowcaseList() {
                       e.stopPropagation();
                     }}
                   >
-                    <DiscordUser user={thread.author!} />
+                    <DiscordUser user={thread.author} />
                   </div>
 
-                  <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-1 text-sm">
-                    <div className="flex items-center gap-2">
+                  <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-0.5 text-xs">
+                    <div className="hover:text-foreground flex items-center gap-2">
                       <span>
                         {t("SHOWCASE.MESSAGES_COUNT", {
-                          count: thread.messageCount || 0,
+                          count: thread.messageCount,
                         })}
                       </span>
                       <MessageCircle className="h-4 w-4" />
                     </div>
-                    {thread.memberCount != null && thread.memberCount > 0 && (
-                      <div className="flex items-center gap-2">
-                        <span>
-                          {t("SHOWCASE.MEMBERS_COUNT", {
-                            count: thread.memberCount,
-                          })}
-                        </span>
-                        <Users className="h-4 w-4" />
-                      </div>
-                    )}
-                    {thread.createdAt && (
-                      <div
-                        className="flex items-center gap-2"
-                        title={dayjs(thread.createdAt).format(
-                          "MMMM D, YYYY [at] h:mm A",
-                        )}
-                      >
-                        <span>{dayjs(thread.createdAt).fromNow()}</span>
-                        <Calendar className="h-4 w-4" />
-                      </div>
-                    )}
+
+                    <div className="hover:text-foreground flex items-center gap-2">
+                      <span>
+                        {t("SHOWCASE.MEMBERS_COUNT", {
+                          count: thread.memberCount,
+                        })}
+                      </span>
+                      <Users className="h-4 w-4" />
+                    </div>
+
+                    <div
+                      className="hover:text-foreground flex items-center gap-2"
+                      title={dayjs(thread.createdAt).format(
+                        "MMMM D, YYYY [at] h:mm A",
+                      )}
+                    >
+                      <span>{dayjs(thread.createdAt).fromNow()}</span>
+                      <Calendar className="h-4 w-4" />
+                    </div>
                   </div>
                 </div>
               </CardContent>
