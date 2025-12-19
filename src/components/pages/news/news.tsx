@@ -41,7 +41,7 @@ export function News() {
               )}
               <CardHeader className="flex items-start gap-4">
                 <div className="flex items-center gap-3">
-                  <DiscordUser user={news.user!} />
+                  <DiscordUser user={news.author} />
                 </div>
               </CardHeader>
               {news.content && (
