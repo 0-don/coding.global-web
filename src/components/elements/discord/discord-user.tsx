@@ -39,7 +39,7 @@ export function DiscordUser(props: DiscordUserProps) {
 
   const copyUsername = async () => {
     try {
-      await navigator.clipboard.writeText(props.user.username!);
+      await navigator.clipboard.writeText(props.user!.username);
       toast.success(t("DISCORD_WIDGET.USER_CARD.USERNAME_COPIED"));
     } catch (err) {
       toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
@@ -48,7 +48,7 @@ export function DiscordUser(props: DiscordUserProps) {
 
   const copyUserId = async () => {
     try {
-      await navigator.clipboard.writeText(props.user.id!);
+      await navigator.clipboard.writeText(props.user!.id);
       toast.success(t("DISCORD_WIDGET.USER_CARD.USER_ID_COPIED"));
     } catch (err) {
       toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
