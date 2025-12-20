@@ -42,39 +42,44 @@ type ThreadCardProps = BaseContentCardProps & {
 
 type ContentCardProps = MessageCardProps | ThreadCardProps;
 
+function getImageData(props: ContentCardProps) {
+  if (props.type === "message") {
+    return {
+      url: props.data.attachments[0]?.url,
+      alt: props.data.content,
+      unoptimized: false,
+      sizes:
+        "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" as const,
+      loading: "lazy" as const,
+    };
+  }
+
+  return {
+    url: props.data.imageUrl,
+    alt: props.data.name,
+    unoptimized: true,
+    sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" as const,
+    loading: "lazy" as const,
+  };
+}
+
 export function ContentCard(props: ContentCardProps) {
   const t = useTranslations();
   const { type, data, className } = props;
+  const imageData = getImageData(props);
 
-  const isMessage = type === "message";
-  const isThread = type === "thread";
-
-  // Image setup
-  const imageUrl = isMessage
-    ? data.attachments[0]?.url
-    : (data as GetApiByGuildIdBoardByBoardType200Item).imageUrl;
-  const imageAlt = isMessage
-    ? data.content
-    : (data as GetApiByGuildIdBoardByBoardType200Item).name;
-
-  // Content
   const cardContent = (
     <>
-      {/* Image */}
       <div className="bg-muted relative aspect-video w-full overflow-hidden">
-        {imageUrl ? (
+        {imageData.url ? (
           <Image
-            src={imageUrl}
-            alt={imageAlt}
+            src={imageData.url}
+            alt={imageData.alt}
             fill
-            unoptimized={isThread}
+            unoptimized={imageData.unoptimized}
             className="object-cover"
-            sizes={
-              isMessage
-                ? "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                : undefined
-            }
-            loading={isMessage ? "lazy" : undefined}
+            sizes={imageData.sizes}
+            loading={imageData.loading}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
@@ -83,41 +88,35 @@ export function ContentCard(props: ContentCardProps) {
         )}
       </div>
 
-      {/* Header */}
       <CardHeader className="group pt-5">
-        {isThread ? (
+        {type === "thread" ? (
           <>
             <div className="mb-2 flex">
               <h3 className="line-clamp-2 flex-1 text-xl font-semibold group-hover:underline">
-                {(data as GetApiByGuildIdBoardByBoardType200Item).name}
+                {data.name}
               </h3>
               <div className="flex flex-wrap items-center gap-2">
-                {(data as GetApiByGuildIdBoardByBoardType200Item).archived && (
+                {data.archived && (
                   <Badge
                     variant="secondary"
                     className="gap-1"
                     title={
-                      (data as GetApiByGuildIdBoardByBoardType200Item)
-                        .archivedAt
-                        ? dayjs(
-                            (data as GetApiByGuildIdBoardByBoardType200Item)
-                              .archivedAt!,
-                          ).format("MMMM D, YYYY [at] h:mm A")
+                      data.archivedAt
+                        ? dayjs(data.archivedAt).format(
+                            "MMMM D, YYYY [at] h:mm A",
+                          )
                         : undefined
                     }
                   >
                     <Archive className="h-3 w-3" />
-                    {(data as GetApiByGuildIdBoardByBoardType200Item).archivedAt
+                    {data.archivedAt
                       ? t("SHOWCASE.ARCHIVED_AT", {
-                          date: dayjs(
-                            (data as GetApiByGuildIdBoardByBoardType200Item)
-                              .archivedAt!,
-                          ).fromNow(),
+                          date: dayjs(data.archivedAt).fromNow(),
                         })
                       : t("SHOWCASE.ARCHIVED")}
                   </Badge>
                 )}
-                {(data as GetApiByGuildIdBoardByBoardType200Item).locked && (
+                {data.locked && (
                   <Badge variant="outline" className="gap-1">
                     <Lock className="h-3 w-3" />
                     {t("SHOWCASE.LOCKED")}
@@ -125,16 +124,13 @@ export function ContentCard(props: ContentCardProps) {
                 )}
               </div>
             </div>
-            {(data as GetApiByGuildIdBoardByBoardType200Item).tags.length >
-              0 && (
+            {data.tags.length > 0 && (
               <div className="mb-1 flex flex-wrap gap-2">
-                {(data as GetApiByGuildIdBoardByBoardType200Item).tags.map(
-                  (tag) => (
-                    <Badge key={tag.id}>
-                      {tag.name} {tag.emoji.name}
-                    </Badge>
-                  ),
-                )}
+                {data.tags.map((tag) => (
+                  <Badge key={tag.id}>
+                    {tag.name} {tag.emoji.name}
+                  </Badge>
+                ))}
               </div>
             )}
           </>
@@ -145,7 +141,6 @@ export function ContentCard(props: ContentCardProps) {
         )}
       </CardHeader>
 
-      {/* Content */}
       <CardContent className="mt-auto pt-0">
         {data.content && (
           <DiscordMarkdown
@@ -154,8 +149,7 @@ export function ContentCard(props: ContentCardProps) {
           />
         )}
 
-        {/* Footer metadata */}
-        {isThread ? (
+        {type === "thread" ? (
           <div className="flex items-center">
             <div
               onClick={(e) => {
@@ -169,20 +163,14 @@ export function ContentCard(props: ContentCardProps) {
             <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-0.5 text-xs">
               <div className="hover:text-foreground flex items-center gap-2">
                 <span>
-                  {t("SHOWCASE.MESSAGES_COUNT", {
-                    count: (data as GetApiByGuildIdBoardByBoardType200Item)
-                      .messageCount,
-                  })}
+                  {t("SHOWCASE.MESSAGES_COUNT", { count: data.messageCount })}
                 </span>
                 <MessageCircle className="h-4 w-4" />
               </div>
 
               <div className="hover:text-foreground flex items-center gap-2">
                 <span>
-                  {t("SHOWCASE.MEMBERS_COUNT", {
-                    count: (data as GetApiByGuildIdBoardByBoardType200Item)
-                      .memberCount,
-                  })}
+                  {t("SHOWCASE.MEMBERS_COUNT", { count: data.memberCount })}
                 </span>
                 <Users className="h-4 w-4" />
               </div>
@@ -206,20 +194,15 @@ export function ContentCard(props: ContentCardProps) {
               <span>{dayjs(data.createdAt).fromNow()}</span>
             </div>
 
-            {(data as GetApiByGuildIdNews200Item).reactions.length > 0 && (
+            {data.reactions.length > 0 && (
               <div className="hover:text-foreground flex items-center gap-1">
-                {(data as GetApiByGuildIdNews200Item).reactions
-                  .slice(0, 3)
-                  .map((reaction, idx) => (
-                    <span key={idx} className="text-base">
-                      {reaction.emoji.name}
-                    </span>
-                  ))}
+                {data.reactions.slice(0, 3).map((reaction, idx) => (
+                  <span key={idx} className="text-base">
+                    {reaction.emoji.name}
+                  </span>
+                ))}
                 <span className="ml-1">
-                  {(data as GetApiByGuildIdNews200Item).reactions.reduce(
-                    (sum, r) => sum + r.count,
-                    0,
-                  )}
+                  {data.reactions.reduce((sum, r) => sum + r.count, 0)}
                 </span>
               </div>
             )}
@@ -229,8 +212,7 @@ export function ContentCard(props: ContentCardProps) {
     </>
   );
 
-  // Wrapper with optional link
-  const href = isThread ? (props as ThreadCardProps).href : undefined;
+  const href = type === "thread" ? props.href : undefined;
 
   if (href) {
     return (
