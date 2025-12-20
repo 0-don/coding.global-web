@@ -61,7 +61,7 @@ export function DiscordUser(props: DiscordUserProps) {
         render={
           <div
             className={cn(
-              "group flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
+              "group/user flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
               props.className,
             )}
           >
@@ -80,11 +80,11 @@ export function DiscordUser(props: DiscordUserProps) {
 
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="truncate text-sm font-medium">
+                <span className="truncate text-sm font-medium group-hover/user:underline">
                   {props.user.displayName}
                 </span>
                 {props.user.activity && (
-                  <p className="text-muted-foregroundtruncate text-xs">
+                  <p className="text-muted-foreground truncate text-xs">
                     {t("DISCORD_WIDGET.PLAYING", {
                       activity: props.user.activity,
                     })}
@@ -138,9 +138,9 @@ export function DiscordUser(props: DiscordUserProps) {
             {/* User Info */}
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <h3 className="truncate text-xl font-bold">
+                <h5 className="truncate text-xl font-bold group-hover/user:underline">
                   {props.user.displayName}
-                </h3>
+                </h5>
               </div>
 
               <div className="flex justify-between">

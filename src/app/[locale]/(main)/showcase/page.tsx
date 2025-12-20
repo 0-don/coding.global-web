@@ -1,4 +1,4 @@
-import { ShowcaseList } from "@/components/pages/showcase/showcase";
+import { Showcase } from "@/components/pages/showcase/showcase";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -32,7 +32,7 @@ export default async function ShowcasePage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ShowcaseList />
+      <Showcase />
     </HydrationBoundary>
   );
 }
