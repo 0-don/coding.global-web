@@ -22,7 +22,7 @@ import { HiOutlineTrophy } from "react-icons/hi2";
 
 dayjs.extend(relativeTime);
 
-export function ShowcaseList() {
+export function Showcase() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
 
@@ -37,7 +37,7 @@ export function ShowcaseList() {
         {showcaseThreadsQuery.data?.map((thread) => (
           <Card
             key={thread.id}
-            className="group overflow-hidden pt-0 transition-shadow hover:shadow-lg"
+            className="overflow-hidden pt-0 transition-shadow hover:shadow-lg"
           >
             <Link
               href={{
@@ -61,7 +61,7 @@ export function ShowcaseList() {
                   </div>
                 )}
               </div>
-              <CardHeader className="pt-5">
+              <CardHeader className="group pt-5">
                 <div className="mb-2 flex">
                   <h3 className="line-clamp-2 flex-1 text-xl font-semibold group-hover:underline">
                     {thread.name}
