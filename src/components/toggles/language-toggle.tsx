@@ -48,6 +48,7 @@ export function LanguageToggle() {
           <DropdownMenuItem
             key={lang.code}
             onClick={() => onLanguageChange(lang.code.toLowerCase() as Locale)}
+            className={"cursor-pointer"}
           >
             <span className="mr-2 text-lg">{lang.flag}</span>
             {t(`MAIN.ENUM.${lang.code}`)}
