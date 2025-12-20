@@ -65,7 +65,8 @@ export default function Navbar() {
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          isActive && "bg-primary",
+                          "bg-transparent",
+                          isActive && "bg-primary text-primary-foreground",
                         )}
                       >
                         {t(item.name)}

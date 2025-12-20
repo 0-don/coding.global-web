@@ -47,15 +47,24 @@ export function ThemeToggle() {
         }
       />
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("light")}
+          className={"cursor-pointer"}
+        >
           <FiSun className="mr-2 size-4" />
           {t("MAIN.ENUM.LIGHT")}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("dark")}
+          className={"cursor-pointer"}
+        >
           <BsMoonStars className="mr-2 size-4" />
           {t("MAIN.ENUM.DARK")}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => setTheme("system")}
+          className={"cursor-pointer"}
+        >
           <AiOutlineLaptop className="mr-2 size-4" />
           {t("MAIN.ENUM.SYSTEM")}
         </DropdownMenuItem>
