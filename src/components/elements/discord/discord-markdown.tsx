@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { toHTML } from "@odiffey/discord-markdown";
 import { useSyncExternalStore } from "react";
 
@@ -22,7 +23,9 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   if (!props.content) return null;
 
   if (!isClient) {
-    return <span className={props.className}>{props.content}</span>;
+    return (
+      <span className={cn("markdown", props.className)}>{props.content}</span>
+    );
   }
 
   const html = toHTML(props.content, {
@@ -32,7 +35,7 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
 
   return (
     <span
-      className={props.className}
+      className={cn("markdown", props.className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
