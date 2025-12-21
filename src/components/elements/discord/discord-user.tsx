@@ -107,6 +107,9 @@ export function DiscordUser(props: DiscordUserProps) {
                       color: "#FF73FA",
                       filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
                     }}
+                    title={t("DISCORD_WIDGET.USER_CARD.NITRO_SINCE", {
+                      date: dayjs(props.user.premiumSince).format("MMMM D, YYYY"),
+                    })}
                   />
                 )}
                 {props.user.activity && (
@@ -174,6 +177,9 @@ export function DiscordUser(props: DiscordUserProps) {
                       color: "#FF73FA",
                       filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
                     }}
+                    title={t("DISCORD_WIDGET.USER_CARD.NITRO_SINCE", {
+                      date: dayjs(props.user.premiumSince).format("MMMM D, YYYY"),
+                    })}
                   />
                 )}
               </div>

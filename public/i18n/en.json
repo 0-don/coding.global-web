@@ -212,6 +212,7 @@
       "CREATED_AT": "Account Created",
       "ROLES": "Roles",
       "ACTIVITY": "Activity",
+      "NITRO_SINCE": "Nitro since {date}",
       "USERNAME_COPIED": "Username copied to clipboard!",
       "USER_ID_COPIED": "User ID copied to clipboard!",
       "COPY_FAILED": "Failed to copy to clipboard"
