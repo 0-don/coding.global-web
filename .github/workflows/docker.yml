@@ -22,15 +22,17 @@ jobs:
           echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
 
           echo NEXT_PUBLIC_APP_NAME=${{ secrets.NEXT_PUBLIC_APP_NAME }} >> .env
+          echo NEXT_PUBLIC_INVITE_CODE=${{ secrets.NEXT_PUBLIC_INVITE_CODE }} >> .env
           echo NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }} >> .env
-          echo NEXT_PUBLIC_BOT_URL=${{ secrets.NEXT_PUBLIC_BOT_URL }} >> .env
-          echo NEXT_PUBLIC_GUILD_ID=${{ secrets.NEXT_PUBLIC_GUILD_ID }} >> .env
 
           echo BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }} >> .env
-          echo BETTER_AUTH_URL=${{ secrets.NEXT_PUBLIC_URL }} >> .env
+          echo BETTER_AUTH_URL=${{ secrets.BETTER_AUTH_URL }} >> .env
 
           echo DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }} >> .env
           echo DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }} >> .env
+
+          echo NEXT_PUBLIC_BOT_URL=${{ secrets.NEXT_PUBLIC_BOT_URL }} >> .env
+          echo NEXT_PUBLIC_GUILD_ID=${{ secrets.NEXT_PUBLIC_GUILD_ID }} >> .env
 
       # - name: Reset DB
       #   run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
