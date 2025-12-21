@@ -91,7 +91,7 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
         </CardHeader>
 
         <CardContent className="pt-0">
-          <div className="flex gap-3">
+          <div className="flex items-start gap-3">
             {thread.author && <DiscordUser user={thread.author} />}
 
             <div className="flex-1">
