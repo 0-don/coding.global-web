@@ -102,7 +102,7 @@ export function DiscordUser(props: DiscordUserProps) {
                 </span>
                 {props.user.premiumSince && (
                   <IoDiamondSharp
-                    className="h-4 w-4 shrink-0"
+                    className="h-3 w-3 shrink-0"
                     style={{
                       color: "#FF73FA",
                       filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
