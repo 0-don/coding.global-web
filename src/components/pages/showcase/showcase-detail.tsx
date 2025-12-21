@@ -13,13 +13,7 @@ import { LinkHref } from "@/i18n/routing";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import {
-  Archive,
-  Calendar,
-  Lock,
-  MessageCircle,
-  Users,
-} from "lucide-react";
+import { Archive, Calendar, Lock, MessageCircle, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
@@ -47,8 +41,13 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
   const virtualizer = useVirtualizer({
     count: messages.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 200,
+    estimateSize: () => 150,
     overscan: 5,
+    measureElement:
+      typeof window !== "undefined" &&
+      navigator.userAgent.indexOf("Firefox") === -1
+        ? (element) => element.getBoundingClientRect().height
+        : undefined,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
@@ -205,7 +204,10 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
             {t("SHOWCASE.REPLIES")} ({messages.length})
           </h2>
 
-          <div ref={parentRef} className="h-[calc(100vh-400px)] overflow-auto">
+          <div
+            ref={parentRef}
+            className="bg-background/50 h-[calc(100vh-400px)] overflow-auto rounded-lg border"
+          >
             <div
               style={{
                 height: `${virtualizer.getTotalSize()}px`,
@@ -215,9 +217,18 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
             >
               {virtualizer.getVirtualItems().map((virtualItem) => {
                 const message = messages[virtualItem.index];
+                const prevMessage =
+                  virtualItem.index > 0
+                    ? messages[virtualItem.index - 1]
+                    : null;
+                const showAvatar =
+                  !prevMessage || prevMessage.author?.id !== message.author?.id;
+
                 return (
                   <div
                     key={message.id}
+                    data-index={virtualItem.index}
+                    ref={virtualizer.measureElement}
                     style={{
                       position: "absolute",
                       top: 0,
@@ -226,95 +237,104 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
                   >
-                    <div className="pb-4">
-                      <Card>
-                        <CardContent className="p-4">
-                          <div className="flex gap-3">
-                            {message.author && (
-                              <DiscordUser user={message.author} />
+                    <div
+                      className="hover:bg-accent/50 px-4 py-0.5 transition-colors"
+                      style={{
+                        marginTop: showAvatar ? "1rem" : "0",
+                      }}
+                    >
+                      <div className="flex gap-4">
+                        {/* Avatar column */}
+                        <div className="w-10 shrink-0">
+                          {showAvatar && message.author && (
+                            <DiscordUser user={message.author} />
+                          )}
+                        </div>
+
+                        {/* Message content */}
+                        <div className="min-w-0 flex-1">
+                          {showAvatar && (
+                            <div className="mb-1 flex items-baseline gap-2">
+                              <span className="text-sm font-semibold">
+                                {message.author?.displayName ||
+                                  message.author?.username}
+                              </span>
+                              <span className="text-muted-foreground text-xs">
+                                {dayjs(message.createdAt).format(
+                                  "MM/DD/YYYY h:mm A",
+                                )}
+                              </span>
+                            </div>
+                          )}
+
+                          <div className="text-sm wrap-break-word whitespace-pre-wrap">
+                            <DiscordMarkdown content={message.content} />
+                          </div>
+
+                          {message.attachments &&
+                            message.attachments.length > 0 && (
+                              <div className="mt-2 grid gap-2">
+                                {message.attachments.map((att) =>
+                                  att.contentType?.startsWith("image/") ? (
+                                    <Image
+                                      key={att.url}
+                                      src={att.url}
+                                      alt={att.name}
+                                      width={400}
+                                      height={300}
+                                      className="max-w-md rounded"
+                                    />
+                                  ) : (
+                                    <Link
+                                      key={att.url}
+                                      href={att.url as LinkHref}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-sm text-blue-500 hover:underline"
+                                    >
+                                      {att.name}
+                                    </Link>
+                                  ),
+                                )}
+                              </div>
                             )}
 
-                            <div className="flex-1">
-                              <div className="mb-2 flex items-center gap-2">
-                                <span className="font-semibold">
-                                  {message.author?.displayName ||
-                                    message.author?.username}
-                                </span>
-                                <span className="text-muted-foreground text-xs">
-                                  {dayjs(message.createdAt).fromNow()}
-                                </span>
-                              </div>
-
-                              <p className="text-sm whitespace-pre-wrap">
-                                <DiscordMarkdown content={message.content} />
-                              </p>
-
-                              {message.attachments &&
-                                message.attachments.length > 0 && (
-                                  <div className="mt-2 grid gap-2">
-                                    {message.attachments.map((att) =>
-                                      att.contentType?.startsWith("image/") ? (
-                                        <Image
-                                          key={att.url}
-                                          src={att.url}
-                                          alt={att.name}
-                                          width={400}
-                                          height={300}
-                                          className="rounded"
-                                        />
-                                      ) : (
-                                        <Link
-                                          key={att.url}
-                                          href={att.url as LinkHref}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-sm text-blue-500 hover:underline"
-                                        >
-                                          {att.name}
-                                        </Link>
-                                      ),
-                                    )}
-                                  </div>
-                                )}
-
-                              {message.embeds && message.embeds.length > 0 && (
-                                <div className="mt-2 space-y-2">
-                                  {message.embeds.map((embed, idx) => (
-                                    <div
-                                      key={idx}
-                                      className="border-l-4 pl-3"
-                                      style={{
-                                        borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
-                                      }}
+                          {message.embeds && message.embeds.length > 0 && (
+                            <div className="mt-2 space-y-2">
+                              {message.embeds.map((embed, idx) => (
+                                <div
+                                  key={idx}
+                                  className="bg-accent/30 max-w-lg rounded border-l-4 py-2 pl-3"
+                                  style={{
+                                    borderColor: `#${embed.color?.toString(16).padStart(6, "0")}`,
+                                  }}
+                                >
+                                  {embed.title && (
+                                    <p className="mb-1 text-sm font-semibold">
+                                      {embed.title}
+                                    </p>
+                                  )}
+                                  {embed.description && (
+                                    <p className="text-muted-foreground text-sm">
+                                      {embed.description}
+                                    </p>
+                                  )}
+                                  {embed.url && (
+                                    <Link
+                                      href={embed.url as LinkHref}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-xs text-blue-500 hover:underline"
                                     >
-                                      {embed.title && (
-                                        <p className="font-semibold">
-                                          {embed.title}
-                                        </p>
-                                      )}
-                                      {embed.description && (
-                                        <p className="text-sm">
-                                          {embed.description}
-                                        </p>
-                                      )}
-                                      {embed.url && (
-                                        <Link
-                                          href={embed.url as LinkHref}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-xs text-blue-500 hover:underline"
-                                        >
-                                          {embed.url}
-                                        </Link>
-                                      )}
-                                    </div>
-                                  ))}
+                                      {embed.url}
+                                    </Link>
+                                  )}
                                 </div>
-                              )}
+                              ))}
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
