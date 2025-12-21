@@ -18,7 +18,7 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
   return (
     <div className="mb-6">
       <Card className="border-primary">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
               <h1 className="mb-2 text-2xl font-bold">{thread.name}</h1>
@@ -91,26 +91,24 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
         </CardHeader>
 
         <CardContent className="pt-0">
-          <div className="flex items-start gap-3">
+          <div className="items-start gap-3">
             {thread.author && <DiscordUser user={thread.author} />}
 
             <div className="flex-1">
               {thread.content && (
-                <p className="mt-1 text-sm whitespace-pre-wrap">
+                <p className="text-sm whitespace-pre-wrap">
                   <DiscordMarkdown content={thread.content} />
                 </p>
               )}
 
               {thread.imageUrl && (
-                <div className="mt-3">
-                  <Image
-                    src={thread.imageUrl}
-                    alt={thread.name}
-                    width={800}
-                    height={600}
-                    className="rounded-lg"
-                  />
-                </div>
+                <Image
+                  src={thread.imageUrl}
+                  alt={thread.name}
+                  width={800}
+                  height={600}
+                  className="rounded-lg"
+                />
               )}
             </div>
           </div>
