@@ -274,28 +274,31 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
                           {message.attachments &&
                             message.attachments.length > 0 && (
                               <div className="mt-2 grid gap-2">
-                                {message.attachments.map((att) =>
-                                  att.contentType?.startsWith("image/") ? (
-                                    <Image
-                                      key={att.url}
-                                      src={att.url}
-                                      alt={att.name}
-                                      width={400}
-                                      height={300}
-                                      className="max-w-md rounded"
-                                    />
-                                  ) : (
-                                    <Link
-                                      key={att.url}
-                                      href={att.url as LinkHref}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-sm text-blue-500 hover:underline"
-                                    >
-                                      {att.name}
-                                    </Link>
-                                  ),
-                                )}
+                                {message.attachments.map((att) => (
+                                  <Link
+                                    key={att.url}
+                                    href={att.url as LinkHref}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={
+                                      att.contentType?.startsWith("image/")
+                                        ? "inline-block cursor-pointer"
+                                        : "text-primary hover:text-primary/80 text-sm hover:underline"
+                                    }
+                                  >
+                                    {att.contentType?.startsWith("image/") ? (
+                                      <Image
+                                        src={att.url}
+                                        alt={att.name}
+                                        width={400}
+                                        height={300}
+                                        className="max-w-md rounded"
+                                      />
+                                    ) : (
+                                      att.name
+                                    )}
+                                  </Link>
+                                ))}
                               </div>
                             )}
 
