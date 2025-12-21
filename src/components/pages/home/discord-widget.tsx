@@ -5,7 +5,9 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useDiscordWidget } from "@/hook/bot-hook";
 import { cn } from "@/lib/utils";
+import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { DiscordUser } from "../../elements/discord/discord-user";
 
 interface DiscordWidgetProps {
@@ -37,7 +39,11 @@ export function DiscordWidget(props: DiscordWidgetProps) {
           />
         </div>
 
-        <div className="relative z-10 mt-5 flex items-center gap-3">
+        <Link
+          href={getDiscordInviteLink()}
+          className="relative z-10 mt-5 flex items-center gap-3"
+          target="_blank"
+        >
           <Avatar className="h-12 w-12">
             <AvatarImage
               src={widget.iconURL || "/images/avatar.svg"}
@@ -46,7 +52,9 @@ export function DiscordWidget(props: DiscordWidgetProps) {
             <AvatarFallback>{widget.name?.at(0)?.toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <h3 className="w-38 truncate">{widget.name}</h3>
+            <h3 className="w-38 truncate" title={widget.name}>
+              {widget.name}
+            </h3>
             <div className="mt-2 flex items-center gap-3 text-sm">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-green-500" />
@@ -60,7 +68,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
               </span>
             </div>
           </div>
-        </div>
+        </Link>
       </CardHeader>
 
       {widget.members.length > 0 && (
