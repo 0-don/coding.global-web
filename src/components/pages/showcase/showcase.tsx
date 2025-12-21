@@ -21,7 +21,7 @@ export function Showcase() {
   return (
     <div className="container mx-auto px-4 md:px-6">
       {/* Header with Toggle */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 py-6">
         <div className="flex items-center gap-2">
           <HiOutlineTrophy className="text-3xl" />
           <h1 className="text-3xl font-bold">{t("SHOWCASE.HEADING")}</h1>
@@ -30,7 +30,7 @@ export function Showcase() {
       </div>
 
       {/* Search Input */}
-      <div className="px-6 pb-6">
+      <div className="pb-6">
         <Input
           type="text"
           placeholder="Search threads by name, content, author, or tags..."
