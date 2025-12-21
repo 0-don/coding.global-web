@@ -92,7 +92,7 @@ export function ContentCard(props: ContentCardProps) {
       <CardHeader className="group pt-5">
         {props.type === "thread" ? (
           <>
-            <div className="mb-2 flex">
+            <div className="mb-2 flex items-center gap-2">
               <h3 className="line-clamp-2 flex-1 text-xl font-semibold group-hover:underline">
                 {props.data.name}
               </h3>
@@ -146,10 +146,7 @@ export function ContentCard(props: ContentCardProps) {
         {props.data.content && (
           <DiscordMarkdown
             content={props.data.content}
-            className={cn(
-              "mb-3 line-clamp-3 text-sm",
-              props.contentClassName,
-            )}
+            className={cn("mb-3 line-clamp-3 text-sm", props.contentClassName)}
           />
         )}
 
