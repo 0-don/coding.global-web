@@ -55,6 +55,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
       <ThreadHeader thread={thread} />
       <ThreadReplies
         messages={messages}
+        parentThread={thread}
         hasNextPage={showcaseThreadMessages.hasNextPage}
         isFetchingNextPage={showcaseThreadMessages.isFetchingNextPage}
         fetchNextPage={showcaseThreadMessages.fetchNextPage}
