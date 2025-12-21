@@ -1,7 +1,7 @@
 "use client";
 
-import { ThreadHeader } from "@/components/elements/thread-header";
-import { ThreadReplies } from "@/components/elements/thread-replies";
+import { ThreadHeader } from "@/components/elements/thread/thread-header";
+import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
   useShowcaseThreadMessagesInfiniteQuery,
   useShowcaseThreadQuery,
