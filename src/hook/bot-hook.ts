@@ -57,7 +57,7 @@ export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
     queryFn: async ({ pageParam }) =>
       handleElysia(
         await rpc.api.bot.showcase({ threadId }).messages.get({
-          query: { before: pageParam },
+          query: { after: pageParam },
         }),
       ),
 

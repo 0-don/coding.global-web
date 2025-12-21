@@ -824,7 +824,7 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId422 = {
 };
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessagesParams = {
-  before?: string;
+  after?: string;
 };
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorGlobalName =
