@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
+import { IoDiamondSharp } from "react-icons/io5";
+import { RiVipDiamondFill } from "react-icons/ri";
 import { toast } from "sonner";
 import {
   LevelRole,
@@ -20,7 +22,6 @@ import {
   StatusIndicator,
   StatusRole,
 } from "../utils/enums";
-
 interface DiscordUserProps {
   className?: string;
   user?: GetApiByGuildIdWidget200MembersItem;
@@ -100,6 +101,15 @@ export function DiscordUser(props: DiscordUserProps) {
                 <span className="truncate text-sm font-medium group-hover/user:underline">
                   {props.user.displayName}
                 </span>
+                {props.user.premiumSince && (
+                  <IoDiamondSharp
+                    className="h-4 w-4 shrink-0"
+                    style={{
+                      color: "#FF73FA",
+                      filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
+                    }}
+                  />
+                )}
                 {props.user.activity && (
                   <p className="text-muted-foreground truncate text-xs">
                     {t("DISCORD_WIDGET.PLAYING", {
@@ -158,6 +168,15 @@ export function DiscordUser(props: DiscordUserProps) {
                 <h5 className="truncate text-xl font-bold group-hover/user:underline">
                   {props.user.displayName}
                 </h5>
+                {props.user.premiumSince && (
+                  <RiVipDiamondFill
+                    className="h-5 w-5 shrink-0"
+                    style={{
+                      color: "#FF73FA",
+                      filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
+                    }}
+                  />
+                )}
               </div>
 
               <div className="flex justify-between">
