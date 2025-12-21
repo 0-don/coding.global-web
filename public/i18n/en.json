@@ -177,7 +177,9 @@
     "ARCHIVED_AT": "Archived {date}",
     "LOCKED": "Locked",
     "SLOWMODE": "{seconds}s slowmode",
-    "CREATED": "Created {date}"
+    "CREATED": "Created {date}",
+    "LOADING": "Loading...",
+    "LOADING_MORE_MESSAGES": "Loading more messages..."
   },
   "TEAM": {
     "HEADING": "Our Team",

@@ -75,7 +75,9 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
   if (showcaseThread.isLoading || showcaseThreadMessages.isLoading) {
     return (
       <div className="container mx-auto px-4 py-6 md:px-6">
-        <p className="text-muted-foreground text-center">Loading...</p>
+        <p className="text-muted-foreground text-center">
+          {t("SHOWCASE.LOADING")}
+        </p>
       </div>
     );
   }
@@ -347,7 +349,7 @@ export function ShowcaseDetail({ threadId }: ShowcaseDetailProps) {
             {showcaseThreadMessages.isFetchingNextPage && (
               <div className="flex justify-center py-4">
                 <p className="text-muted-foreground text-sm">
-                  Loading more messages...
+                  {t("SHOWCASE.LOADING_MORE_MESSAGES")}
                 </p>
               </div>
             )}
