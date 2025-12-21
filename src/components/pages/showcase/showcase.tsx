@@ -26,6 +26,7 @@ export function Showcase() {
               pathname: "/showcase/[id]",
               params: { id: thread.id },
             }}
+            contentClassName="text-muted-foreground"
           />
         ))}
       </div>
