@@ -1,14 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useViewModeStore } from "@/lib/stores/view-mode-store";
+import { useViewModeStore } from "@/lib/stores/list-item-store";
 import { LayoutGrid, List } from "lucide-react";
 
 export function ViewModeToggle() {
   const { viewMode, setViewMode } = useViewModeStore();
 
   return (
-    <div className="flex items-center gap-1 rounded-md border border-border p-1">
+    <div className="border-border flex items-center gap-1 rounded-md border p-1">
       <Button
         variant={viewMode === "grid" ? "secondary" : "ghost"}
         size="icon-sm"
