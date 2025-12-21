@@ -2,17 +2,23 @@
 
 import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
+import { MessageReactions } from "@/components/elements/discord/message-reactions";
+import { MessageReplyReference } from "@/components/elements/discord/message-reply-reference";
 import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
-import { GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem } from "@/openapi";
+import {
+  GetApiByGuildIdBoardByBoardTypeByThreadId200,
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem,
+} from "@/openapi";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface ThreadRepliesProps {
   messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
+  parentThread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
@@ -20,12 +26,16 @@ interface ThreadRepliesProps {
 
 export function ThreadReplies({
   messages,
+  parentThread,
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
 }: ThreadRepliesProps) {
   const t = useTranslations();
   const parentRef = useRef<HTMLDivElement>(null);
+  const [highlightedMessageId, setHighlightedMessageId] = useState<
+    string | null
+  >(null);
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
@@ -36,6 +46,48 @@ export function ThreadReplies({
   });
 
   const virtualItems = virtualizer.getVirtualItems();
+
+  // Create message lookup map for O(1) reference resolution
+  const messageMap = useMemo(() => {
+    const map = new Map();
+
+    // Add parent thread to the map
+    map.set(parentThread.id, {
+      id: parentThread.id,
+      author: parentThread.author,
+      content: parentThread.content,
+      createdAt: parentThread.createdAt,
+      isParentThread: true,
+    });
+
+    // Add all reply messages to the map
+    messages.forEach((msg) => {
+      map.set(msg.id, {
+        id: msg.id,
+        author: msg.author,
+        content: msg.content,
+        createdAt: msg.createdAt,
+        isParentThread: false,
+      });
+    });
+
+    return map;
+  }, [messages, parentThread]);
+
+  const handleClickReference = (messageId: string, isParentThread: boolean) => {
+    if (isParentThread) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+      if (messageIndex !== -1) {
+        virtualizer.scrollToIndex(messageIndex, { align: "start" });
+        setHighlightedMessageId(messageId);
+        setTimeout(() => {
+          setHighlightedMessageId(null);
+        }, 2000);
+      }
+    }
+  };
 
   useEffect(() => {
     const lastItem = virtualItems[virtualItems.length - 1];
@@ -99,7 +151,11 @@ export function ThreadReplies({
                 }}
               >
                 <div
-                  className="hover:bg-accent/50 px-4 py-0.5 transition-colors"
+                  className={`px-4 py-0.5 transition-all duration-300 ${
+                    highlightedMessageId === message.id
+                      ? "bg-primary/20 ring-primary/50 shadow-lg ring-2"
+                      : "hover:bg-accent/50"
+                  }`}
                   style={{
                     marginTop: showAvatar ? "1rem" : "0",
                   }}
@@ -126,6 +182,17 @@ export function ThreadReplies({
                             )}
                           </span>
                         </div>
+                      )}
+
+                      {/* Reply reference */}
+                      {message.reference && (
+                        <MessageReplyReference
+                          reference={message.reference}
+                          referencedMessage={messageMap.get(
+                            message.reference.messageId || "",
+                          )}
+                          onClickReference={handleClickReference}
+                        />
                       )}
 
                       <div className="text-sm wrap-break-word whitespace-pre-wrap">
@@ -196,6 +263,11 @@ export function ThreadReplies({
                             </div>
                           ))}
                         </div>
+                      )}
+
+                      {/* Reactions */}
+                      {message.reactions && message.reactions.length > 0 && (
+                        <MessageReactions reactions={message.reactions} />
                       )}
                     </div>
                   </div>
