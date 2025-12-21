@@ -24,6 +24,7 @@ import {
 interface DiscordUserProps {
   className?: string;
   user?: GetApiByGuildIdWidget200MembersItem;
+  enableBanner?: boolean;
 }
 
 export function DiscordUser(props: DiscordUserProps) {
@@ -61,11 +62,27 @@ export function DiscordUser(props: DiscordUserProps) {
         render={
           <div
             className={cn(
-              "group/user flex cursor-pointer items-start gap-2 rounded-md py-2 transition-colors",
+              "group/user relative flex cursor-pointer items-start gap-2 overflow-hidden rounded-md py-2 transition-colors",
               props.className,
             )}
           >
-            <div className="relative">
+            {/* Banner on the right side with diagonal fade */}
+            {props.user.bannerUrl && props.enableBanner && (
+              <div className="absolute top-0 right-0 h-full w-1/2 overflow-hidden">
+                <div
+                  className="h-full w-full bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${props.user.bannerUrl})`,
+                    maskImage:
+                      "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+                    WebkitMaskImage:
+                      "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+                  }}
+                />
+              </div>
+            )}
+
+            <div className="relative z-10">
               <Avatar className="h-8 w-8">
                 <AvatarImage
                   src={props.user.avatarUrl}
@@ -78,7 +95,7 @@ export function DiscordUser(props: DiscordUserProps) {
               <StatusIndicator status={props.user.status as MemberStatus} />
             </div>
 
-            <div className="min-w-0 flex-1">
+            <div className="relative z-10 min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="truncate text-sm font-medium group-hover/user:underline">
                   {props.user.displayName}

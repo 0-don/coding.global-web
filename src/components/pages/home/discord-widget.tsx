@@ -64,7 +64,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
       </CardHeader>
 
       {widget.members.length > 0 && (
-        <CardContent className="max-h-96 overflow-y-auto p-3">
+        <CardContent className="max-h-96 overflow-y-auto p-3 pr-0">
           <h4 className="text-muted-foreground mb-2 text-xs font-semibold uppercase">
             {t("DISCORD_WIDGET.MEMBERS_HEADER", {
               count: widget.members.length,
@@ -72,7 +72,7 @@ export function DiscordWidget(props: DiscordWidgetProps) {
           </h4>
           <div className="space-y-1">
             {widget.members.map((member) => (
-              <DiscordUser key={member.id} user={member} />
+              <DiscordUser key={member.id} user={member} enableBanner />
             ))}
           </div>
         </CardContent>
