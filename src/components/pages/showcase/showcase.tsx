@@ -1,7 +1,7 @@
 "use client";
 
-import { ContentCard } from "@/components/elements/content-card";
-import { ContentListItem } from "@/components/elements/content-list-item";
+import { ContentListItem } from "@/components/elements/list-items/content-list-item";
+import { ContentCard } from "@/components/elements/list-items/content-card";
 import { ViewModeToggle } from "@/components/elements/view-mode-toggle";
 import { Separator } from "@/components/ui/separator";
 import { useShowcaseThreadsQuery } from "@/hook/bot-hook";
