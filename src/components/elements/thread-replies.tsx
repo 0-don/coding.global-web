@@ -33,11 +33,6 @@ export function ThreadReplies({
     getScrollElement: () => parentRef.current,
     estimateSize: () => 150,
     overscan: 5,
-    measureElement:
-      typeof window !== "undefined" &&
-      navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element.getBoundingClientRect().height
-        : undefined,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
