@@ -5,6 +5,7 @@ import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 import {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdNews200Item,
@@ -27,6 +28,7 @@ dayjs.extend(relativeTime);
 
 type BaseContentCardProps = {
   className?: string;
+  contentClassName?: string;
 };
 
 type MessageCardProps = BaseContentCardProps & {
@@ -65,7 +67,6 @@ function getImageData(props: ContentCardProps) {
 
 export function ContentCard(props: ContentCardProps) {
   const t = useTranslations();
-  const { type, data, className } = props;
   const imageData = getImageData(props);
 
   const cardContent = (
@@ -89,34 +90,34 @@ export function ContentCard(props: ContentCardProps) {
       </div>
 
       <CardHeader className="group pt-5">
-        {type === "thread" ? (
+        {props.type === "thread" ? (
           <>
             <div className="mb-2 flex">
               <h3 className="line-clamp-2 flex-1 text-xl font-semibold group-hover:underline">
-                {data.name}
+                {props.data.name}
               </h3>
               <div className="flex flex-wrap items-center gap-2">
-                {data.archived && (
+                {props.data.archived && (
                   <Badge
                     variant="secondary"
                     className="gap-1"
                     title={
-                      data.archivedAt
-                        ? dayjs(data.archivedAt).format(
+                      props.data.archivedAt
+                        ? dayjs(props.data.archivedAt).format(
                             "MMMM D, YYYY [at] h:mm A",
                           )
                         : undefined
                     }
                   >
                     <Archive className="h-3 w-3" />
-                    {data.archivedAt
+                    {props.data.archivedAt
                       ? t("SHOWCASE.ARCHIVED_AT", {
-                          date: dayjs(data.archivedAt).fromNow(),
+                          date: dayjs(props.data.archivedAt).fromNow(),
                         })
                       : t("SHOWCASE.ARCHIVED")}
                   </Badge>
                 )}
-                {data.locked && (
+                {props.data.locked && (
                   <Badge variant="outline" className="gap-1">
                     <Lock className="h-3 w-3" />
                     {t("SHOWCASE.LOCKED")}
@@ -124,9 +125,9 @@ export function ContentCard(props: ContentCardProps) {
                 )}
               </div>
             </div>
-            {data.tags.length > 0 && (
+            {props.data.tags.length > 0 && (
               <div className="mb-1 flex flex-wrap gap-2">
-                {data.tags.map((tag) => (
+                {props.data.tags.map((tag) => (
                   <Badge key={tag.id}>
                     {tag.name} {tag.emoji.name}
                   </Badge>
@@ -136,20 +137,23 @@ export function ContentCard(props: ContentCardProps) {
           </>
         ) : (
           <div className="flex items-center gap-3">
-            <DiscordUser user={data.author} />
+            <DiscordUser user={props.data.author} />
           </div>
         )}
       </CardHeader>
 
       <CardContent className="mt-auto pt-0">
-        {data.content && (
+        {props.data.content && (
           <DiscordMarkdown
-            content={data.content}
-            className="text-muted-foreground mb-3 line-clamp-3 text-sm"
+            content={props.data.content}
+            className={cn(
+              "mb-3 line-clamp-3 text-sm",
+              props.contentClassName,
+            )}
           />
         )}
 
-        {type === "thread" ? (
+        {props.type === "thread" ? (
           <div className="flex items-center">
             <div
               onClick={(e) => {
@@ -157,29 +161,35 @@ export function ContentCard(props: ContentCardProps) {
                 e.stopPropagation();
               }}
             >
-              <DiscordUser user={data.author} />
+              <DiscordUser user={props.data.author} />
             </div>
 
             <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-0.5 text-xs">
               <div className="hover:text-foreground flex items-center gap-2">
                 <span>
-                  {t("SHOWCASE.MESSAGES_COUNT", { count: data.messageCount })}
+                  {t("SHOWCASE.MESSAGES_COUNT", {
+                    count: props.data.messageCount,
+                  })}
                 </span>
                 <MessageCircle className="h-4 w-4" />
               </div>
 
               <div className="hover:text-foreground flex items-center gap-2">
                 <span>
-                  {t("SHOWCASE.MEMBERS_COUNT", { count: data.memberCount })}
+                  {t("SHOWCASE.MEMBERS_COUNT", {
+                    count: props.data.memberCount,
+                  })}
                 </span>
                 <Users className="h-4 w-4" />
               </div>
 
               <div
                 className="hover:text-foreground flex items-center gap-2"
-                title={dayjs(data.createdAt).format("MMMM D, YYYY [at] h:mm A")}
+                title={dayjs(props.data.createdAt).format(
+                  "MMMM D, YYYY [at] h:mm A",
+                )}
               >
-                <span>{dayjs(data.createdAt).fromNow()}</span>
+                <span>{dayjs(props.data.createdAt).fromNow()}</span>
                 <Calendar className="h-4 w-4" />
               </div>
             </div>
@@ -188,21 +198,23 @@ export function ContentCard(props: ContentCardProps) {
           <div className="text-muted-foreground flex items-center justify-between text-xs">
             <div
               className="hover:text-foreground flex items-center gap-2"
-              title={dayjs(data.createdAt).format("MMMM D, YYYY [at] h:mm A")}
+              title={dayjs(props.data.createdAt).format(
+                "MMMM D, YYYY [at] h:mm A",
+              )}
             >
               <Calendar className="h-4 w-4" />
-              <span>{dayjs(data.createdAt).fromNow()}</span>
+              <span>{dayjs(props.data.createdAt).fromNow()}</span>
             </div>
 
-            {data.reactions.length > 0 && (
+            {props.data.reactions.length > 0 && (
               <div className="hover:text-foreground flex items-center gap-1">
-                {data.reactions.slice(0, 3).map((reaction, idx) => (
+                {props.data.reactions.slice(0, 3).map((reaction, idx) => (
                   <span key={idx} className="text-base">
                     {reaction.emoji.name}
                   </span>
                 ))}
                 <span className="ml-1">
-                  {data.reactions.reduce((sum, r) => sum + r.count, 0)}
+                  {props.data.reactions.reduce((sum, r) => sum + r.count, 0)}
                 </span>
               </div>
             )}
@@ -212,12 +224,12 @@ export function ContentCard(props: ContentCardProps) {
     </>
   );
 
-  const href = type === "thread" ? props.href : undefined;
+  const href = props.type === "thread" ? props.href : undefined;
 
   if (href) {
     return (
       <Card
-        className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${className || ""}`}
+        className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
       >
         <Link href={href} className="flex h-full cursor-pointer flex-col">
           {cardContent}
@@ -228,7 +240,7 @@ export function ContentCard(props: ContentCardProps) {
 
   return (
     <Card
-      className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${className || ""}`}
+      className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
     >
       <div className="flex h-full flex-col">{cardContent}</div>
     </Card>
