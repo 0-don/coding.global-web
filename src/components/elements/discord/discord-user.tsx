@@ -12,7 +12,6 @@ import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import { IoDiamondSharp } from "react-icons/io5";
-import { RiVipDiamondFill } from "react-icons/ri";
 import { toast } from "sonner";
 import {
   LevelRole,
@@ -169,8 +168,8 @@ export function DiscordUser(props: DiscordUserProps) {
                   {props.user.displayName}
                 </h5>
                 {props.user.premiumSince && (
-                  <RiVipDiamondFill
-                    className="h-5 w-5 shrink-0"
+                  <IoDiamondSharp
+                    className="h-4 w-4 shrink-0"
                     style={{
                       color: "#FF73FA",
                       filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
