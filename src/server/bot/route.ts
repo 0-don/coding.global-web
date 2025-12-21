@@ -81,7 +81,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
             process.env.NEXT_PUBLIC_GUILD_ID!,
             "showcase",
             params.threadId,
-            { before: query.before },
+            { after: query.after },
           );
         if (response.status !== 200)
           return status("Unprocessable Content", response.data);
@@ -90,5 +90,5 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status("Internal Server Error", error as Error);
       }
     },
-    { query: t.Object({ before: t.Optional(t.String()) }) },
+    { query: t.Object({ after: t.Optional(t.String()) }) },
   );
