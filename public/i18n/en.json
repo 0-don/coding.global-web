@@ -180,7 +180,14 @@
     "SLOWMODE": "{seconds}s slowmode",
     "CREATED": "Created {date}",
     "LOADING": "Loading...",
-    "LOADING_MORE_MESSAGES": "Loading more messages..."
+    "LOADING_MORE_MESSAGES": "Loading more messages...",
+    "FILTER": {
+      "TAGS": "Tags",
+      "SELECTED": "selected",
+      "SEARCH_TAGS": "Search tags...",
+      "NO_TAGS_FOUND": "No tags found.",
+      "CLEAR_FILTERS": "Clear filters"
+    }
   },
   "TEAM": {
     "HEADING": "Our Team",

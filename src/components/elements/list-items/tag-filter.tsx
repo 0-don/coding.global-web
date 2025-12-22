@@ -20,6 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { useListItemsStore } from "@/lib/stores/list-item-store";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import { useTranslations } from "next-intl";
 import { RxCheck, RxPlusCircled } from "react-icons/rx";
 
 interface TagOption {
@@ -33,9 +34,9 @@ interface TagFilterProps {
 }
 
 export function TagFilter({ threads }: TagFilterProps) {
-  const { selectedTags, setSelectedTags } = useListItemsStore();
+  const listItemsStore = useListItemsStore();
+  const t = useTranslations();
 
-  // Get unique tags with counts
   const tagOptions: TagOption[] = threads.reduce((acc, thread) => {
     thread.tags.forEach((tag) => {
       const existing = acc.find((t) => t.id === tag.id);
@@ -48,57 +49,59 @@ export function TagFilter({ threads }: TagFilterProps) {
     return acc;
   }, [] as TagOption[]);
 
-  // Sort by count descending
   tagOptions.sort((a, b) => b.count - a.count);
 
-  const selectedSet = new Set(selectedTags);
+  const selectedSet = new Set(listItemsStore.selectedTags);
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-9 border-dashed">
-          <RxPlusCircled className="mr-2 h-4 w-4" />
-          Tags
-          {selectedTags.length > 0 && (
-            <>
-              <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
-                {selectedTags.length}
-              </Badge>
-              <div className="hidden space-x-1 lg:flex">
-                {selectedTags.length > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
-                    {selectedTags.length} selected
-                  </Badge>
-                ) : (
-                  tagOptions
-                    .filter((option) => selectedSet.has(option.id))
-                    .map((option) => (
-                      <Badge
-                        variant="secondary"
-                        key={option.id}
-                        className="rounded-sm px-1 font-normal"
-                      >
-                        {option.name}
-                      </Badge>
-                    ))
-                )}
-              </div>
-            </>
-          )}
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button variant="outline" size="sm" className="h-9 border-dashed">
+            <RxPlusCircled className="mr-2 h-4 w-4" />
+            {t("SHOWCASE.FILTER.TAGS")}
+            {listItemsStore.selectedTags.length > 0 && (
+              <>
+                <Separator orientation="vertical" className="mx-2 h-4" />
+                <Badge
+                  variant="secondary"
+                  className="rounded-sm px-1 font-normal lg:hidden"
+                >
+                  {listItemsStore.selectedTags.length}
+                </Badge>
+                <div className="hidden space-x-1 lg:flex">
+                  {listItemsStore.selectedTags.length > 2 ? (
+                    <Badge
+                      variant="secondary"
+                      className="rounded-sm px-1 font-normal"
+                    >
+                      {listItemsStore.selectedTags.length}{" "}
+                      {t("SHOWCASE.FILTER.SELECTED")}
+                    </Badge>
+                  ) : (
+                    tagOptions
+                      .filter((option) => selectedSet.has(option.id))
+                      .map((option) => (
+                        <Badge
+                          variant="secondary"
+                          key={option.id}
+                          className="rounded-sm px-1 font-normal"
+                        >
+                          {option.name}
+                        </Badge>
+                      ))
+                  )}
+                </div>
+              </>
+            )}
+          </Button>
+        }
+      ></PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder="Search tags..." />
+          <CommandInput placeholder={t("SHOWCASE.FILTER.SEARCH_TAGS")} />
           <CommandList>
-            <CommandEmpty>No tags found.</CommandEmpty>
+            <CommandEmpty>{t("SHOWCASE.FILTER.NO_TAGS_FOUND")}</CommandEmpty>
             <CommandGroup>
               {tagOptions.map((option) => {
                 const isSelected = selectedSet.has(option.id);
@@ -107,9 +110,11 @@ export function TagFilter({ threads }: TagFilterProps) {
                     key={option.id}
                     onSelect={() => {
                       const newSelectedTags = isSelected
-                        ? selectedTags.filter((id) => id !== option.id)
-                        : [...selectedTags, option.id];
-                      setSelectedTags(newSelectedTags);
+                        ? listItemsStore.selectedTags.filter(
+                            (id) => id !== option.id,
+                          )
+                        : [...listItemsStore.selectedTags, option.id];
+                      listItemsStore.setSelectedTags(newSelectedTags);
                     }}
                   >
                     <div
@@ -117,7 +122,7 @@ export function TagFilter({ threads }: TagFilterProps) {
                         "border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border",
                         isSelected
                           ? "bg-primary text-primary-foreground"
-                          : "opacity-50 [&_svg]:invisible"
+                          : "opacity-50 [&_svg]:invisible",
                       )}
                     >
                       <RxCheck className="h-4 w-4" />
@@ -130,15 +135,15 @@ export function TagFilter({ threads }: TagFilterProps) {
                 );
               })}
             </CommandGroup>
-            {selectedTags.length > 0 && (
+            {listItemsStore.selectedTags.length > 0 && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => setSelectedTags([])}
+                    onSelect={() => listItemsStore.setSelectedTags([])}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    {t("SHOWCASE.FILTER.CLEAR_FILTERS")}
                   </CommandItem>
                 </CommandGroup>
               </>
