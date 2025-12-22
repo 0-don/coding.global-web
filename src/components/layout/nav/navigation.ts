@@ -2,9 +2,12 @@ import { LinkHref, ValidRoutes } from "@/i18n/routing";
 import type { TranslationKey } from "@/lib/config/constants";
 import {
   HiOutlineArrowsRightLeft,
+  HiOutlineBriefcase,
   HiOutlineCalculator,
   HiOutlineChartBarSquare,
+  HiOutlineCodeBracket,
   HiOutlineInformationCircle,
+  HiOutlineShoppingBag,
   HiOutlineSparkles,
 } from "react-icons/hi2";
 import { IconType } from "react-icons/lib";
@@ -33,6 +36,7 @@ export type NavigationItem = {
   href: LinkHref;
   icon: IconType;
   hidden?: boolean;
+  submenu?: NavigationItem[];
 };
 
 export const navigation = (authenticated?: boolean): NavigationItem[] => [
@@ -60,6 +64,26 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
     description: "MAIN.NAVIGATION.SHOWCASE_DESCRIPTION",
     href: "/showcase",
     icon: HiOutlineSparkles,
+  },
+  {
+    name: "MAIN.NAVIGATION.MARKETPLACE",
+    description: "MAIN.NAVIGATION.MARKETPLACE_DESCRIPTION",
+    href: "/marketplace",
+    icon: HiOutlineShoppingBag,
+    submenu: [
+      {
+        name: "MAIN.NAVIGATION.MARKETPLACE_JOB_BOARD",
+        description: "MAIN.NAVIGATION.MARKETPLACE_JOB_BOARD_DESCRIPTION",
+        href: "/marketplace/job-board",
+        icon: HiOutlineBriefcase,
+      },
+      {
+        name: "MAIN.NAVIGATION.MARKETPLACE_DEV_BOARD",
+        description: "MAIN.NAVIGATION.MARKETPLACE_DEV_BOARD_DESCRIPTION",
+        href: "/marketplace/dev-board",
+        icon: HiOutlineCodeBracket,
+      },
+    ],
   },
   {
     name: "MAIN.NAVIGATION.TEAM",

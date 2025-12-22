@@ -91,4 +91,98 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       }
     },
     { query: t.Object({ after: t.Optional(t.String()) }) },
+  )
+  .get("/job-board", async ({ status }) => {
+    try {
+      const response = await getApiByGuildIdBoardByBoardType(
+        process.env.NEXT_PUBLIC_GUILD_ID!,
+        "job-board",
+      );
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
+    } catch (error) {
+      return status("Internal Server Error", error as Error);
+    }
+  })
+  .get("/job-board/:threadId", async ({ params, status }) => {
+    try {
+      const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
+        process.env.NEXT_PUBLIC_GUILD_ID!,
+        "job-board",
+        params.threadId,
+      );
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
+    } catch (error) {
+      return status("Internal Server Error", error as Error);
+    }
+  })
+  .get(
+    "/job-board/:threadId/messages",
+    async ({ params, query, status }) => {
+      try {
+        const response =
+          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
+            process.env.NEXT_PUBLIC_GUILD_ID!,
+            "job-board",
+            params.threadId,
+            { after: query.after },
+          );
+        if (response.status !== 200)
+          return status("Unprocessable Content", response.data);
+        return response.data;
+      } catch (error) {
+        return status("Internal Server Error", error as Error);
+      }
+    },
+    { query: t.Object({ after: t.Optional(t.String()) }) },
+  )
+  .get("/dev-board", async ({ status }) => {
+    try {
+      const response = await getApiByGuildIdBoardByBoardType(
+        process.env.NEXT_PUBLIC_GUILD_ID!,
+        "dev-board",
+      );
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
+    } catch (error) {
+      return status("Internal Server Error", error as Error);
+    }
+  })
+  .get("/dev-board/:threadId", async ({ params, status }) => {
+    try {
+      const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
+        process.env.NEXT_PUBLIC_GUILD_ID!,
+        "dev-board",
+        params.threadId,
+      );
+      if (response.status !== 200)
+        return status("Unprocessable Content", response.data);
+      return response.data;
+    } catch (error) {
+      return status("Internal Server Error", error as Error);
+    }
+  })
+  .get(
+    "/dev-board/:threadId/messages",
+    async ({ params, query, status }) => {
+      try {
+        const response =
+          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
+            process.env.NEXT_PUBLIC_GUILD_ID!,
+            "dev-board",
+            params.threadId,
+            { after: query.after },
+          );
+        if (response.status !== 200)
+          return status("Unprocessable Content", response.data);
+        return response.data;
+      } catch (error) {
+        return status("Internal Server Error", error as Error);
+      }
+    },
+    { query: t.Object({ after: t.Optional(t.String()) }) },
   );

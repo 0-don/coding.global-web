@@ -29,4 +29,20 @@ export const queryKeys = {
     "showcase-thread-messages",
     threadId,
   ],
+
+  // Job Board
+  jobBoardThreads: () => ["job-board-threads"],
+
+  // Dev Board
+  devBoardThreads: () => ["dev-board-threads"],
+
+  // Generic board keys (for detail pages)
+  boardThread: (boardType: string, threadId: string) => [
+    `${boardType}-thread`,
+    threadId,
+  ],
+  boardThreadMessages: (boardType: string, threadId: string) => [
+    `${boardType}-thread-messages`,
+    threadId,
+  ],
 };

@@ -68,3 +68,54 @@ export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
     },
   });
 }
+
+// Job Board
+export function useJobBoardThreadsQuery() {
+  return useQuery({
+    queryKey: queryKeys.jobBoardThreads(),
+    queryFn: async () => handleElysia(await rpc.api.bot["job-board"].get()),
+    enabled: false,
+  });
+}
+
+// Dev Board
+export function useDevBoardThreadsQuery() {
+  return useQuery({
+    queryKey: queryKeys.devBoardThreads(),
+    queryFn: async () => handleElysia(await rpc.api.bot["dev-board"].get()),
+    enabled: false,
+  });
+}
+
+// Generic board hooks
+export function useBoardThreadQuery(
+  boardType: "job-board" | "dev-board",
+  threadId: string,
+) {
+  return useQuery({
+    queryKey: queryKeys.boardThread(boardType, threadId),
+    queryFn: async () =>
+      handleElysia(await rpc.api.bot[boardType]({ threadId }).get()),
+    enabled: false,
+  });
+}
+
+export function useBoardThreadMessagesInfiniteQuery(
+  boardType: "job-board" | "dev-board",
+  threadId: string,
+) {
+  return useInfiniteQuery({
+    queryKey: queryKeys.boardThreadMessages(boardType, threadId),
+    queryFn: async ({ pageParam }) =>
+      handleElysia(
+        await rpc.api.bot[boardType]({ threadId }).messages.get({
+          query: { after: pageParam },
+        }),
+      ),
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage) return undefined;
+      return lastPage.hasMore ? lastPage.nextCursor : undefined;
+    },
+  });
+}
