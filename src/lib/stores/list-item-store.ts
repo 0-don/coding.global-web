@@ -7,10 +7,13 @@ export type ViewMode = "grid" | "list";
 interface ListItemsState {
   viewMode: ViewMode;
   searchQuery: string;
+  selectedTags: string[];
   setViewMode: (mode: ViewMode) => void;
   toggleViewMode: () => void;
   setSearchQuery: (query: string) => void;
   clearSearch: () => void;
+  setSelectedTags: (tags: string[]) => void;
+  clearFilters: () => void;
   filterItems: (
     items: GetApiByGuildIdBoardByBoardType200Item[]
   ) => GetApiByGuildIdBoardByBoardType200Item[];
@@ -21,6 +24,7 @@ export const useListItemsStore = create<ListItemsState>()(
     (set, get) => ({
       viewMode: "grid",
       searchQuery: "",
+      selectedTags: [],
       setViewMode: (mode) => set({ viewMode: mode }),
       toggleViewMode: () =>
         set({
@@ -28,21 +32,36 @@ export const useListItemsStore = create<ListItemsState>()(
         }),
       setSearchQuery: (query) => set({ searchQuery: query }),
       clearSearch: () => set({ searchQuery: "" }),
+      setSelectedTags: (tags) => set({ selectedTags: tags }),
+      clearFilters: () => set({ searchQuery: "", selectedTags: [] }),
       filterItems: (items) => {
-        const { searchQuery } = get();
-        if (!searchQuery.trim()) return items;
+        const { searchQuery, selectedTags } = get();
 
-        const query = searchQuery.toLowerCase();
-        return items.filter((item) => {
-          const nameMatch = item.name.toLowerCase().includes(query);
-          const contentMatch = item.content?.toLowerCase().includes(query);
-          const authorMatch = item.author.username.toLowerCase().includes(query);
-          const tagMatch = item.tags.some((tag) =>
-            tag.name.toLowerCase().includes(query)
+        let filtered = items;
+
+        // Filter by search query
+        if (searchQuery.trim()) {
+          const query = searchQuery.toLowerCase();
+          filtered = filtered.filter((item) => {
+            const nameMatch = item.name.toLowerCase().includes(query);
+            const contentMatch = item.content?.toLowerCase().includes(query);
+            const authorMatch = item.author.username.toLowerCase().includes(query);
+            const tagMatch = item.tags.some((tag) =>
+              tag.name.toLowerCase().includes(query)
+            );
+
+            return nameMatch || contentMatch || authorMatch || tagMatch;
+          });
+        }
+
+        // Filter by selected tags
+        if (selectedTags.length > 0) {
+          filtered = filtered.filter((item) =>
+            item.tags.some((tag) => selectedTags.includes(tag.id))
           );
+        }
 
-          return nameMatch || contentMatch || authorMatch || tagMatch;
-        });
+        return filtered;
       },
     }),
     {
