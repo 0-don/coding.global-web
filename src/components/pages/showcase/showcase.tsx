@@ -2,7 +2,7 @@
 
 import { ContentCard } from "@/components/elements/list-items/content-card";
 import { ContentListItem } from "@/components/elements/list-items/content-list-item";
-import { TagFilter } from "@/components/elements/tag-filter";
+import { TagFilter } from "@/components/elements/list-items/tag-filter";
 import { ViewModeToggle } from "@/components/elements/view-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,7 @@ export function Showcase() {
   const filteredThreads = listItemStore.filterItems(threads);
   const hasActiveFilters =
     listItemStore.searchQuery.trim() || listItemStore.selectedTags.length > 0;
-    
+
   return (
     <div className="container mx-auto px-4 md:px-6">
       {/* Header with Toggle */}
