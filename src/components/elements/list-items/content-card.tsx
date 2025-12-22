@@ -40,6 +40,8 @@ type ThreadCardProps = BaseContentCardProps & {
   type: "thread";
   data: GetApiByGuildIdBoardByBoardType200Item;
   href?: ComponentProps<typeof Link>["href"];
+  showBoardBadge?: boolean;
+  boardType?: "job-board" | "dev-board";
 };
 
 type ContentCardProps = MessageCardProps | ThreadCardProps;
@@ -97,6 +99,18 @@ export function ContentCard(props: ContentCardProps) {
                 {props.data.name}
               </h3>
               <div className="flex flex-wrap items-center gap-2">
+                {props.showBoardBadge && props.boardType && (
+                  <Badge
+                    variant={
+                      props.boardType === "job-board" ? "default" : "secondary"
+                    }
+                    className="shrink-0"
+                  >
+                    {props.boardType === "job-board"
+                      ? t("MARKETPLACE.BADGE.JOB")
+                      : t("MARKETPLACE.BADGE.DEV")}
+                  </Badge>
+                )}
                 {props.data.archived && (
                   <Badge
                     variant="secondary"

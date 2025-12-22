@@ -63,6 +63,14 @@
       "RULES_DESCRIPTION": "Community rules and guidelines",
       "SHOWCASE": "Showcase",
       "SHOWCASE_DESCRIPTION": "Community project showcase",
+      "MARKETPLACE": "Marketplace",
+      "MARKETPLACE_DESCRIPTION": "Browse jobs and developer services",
+      "MARKETPLACE_ALL": "All",
+      "MARKETPLACE_ALL_DESCRIPTION": "View all marketplace items",
+      "MARKETPLACE_JOB_BOARD": "Job Board",
+      "MARKETPLACE_JOB_BOARD_DESCRIPTION": "Browse available jobs",
+      "MARKETPLACE_DEV_BOARD": "Dev Board",
+      "MARKETPLACE_DEV_BOARD_DESCRIPTION": "Find developers for hire",
       "TEAM": "Team",
       "TEAM_DESCRIPTION": "Meet our team"
     },
@@ -201,6 +209,41 @@
       "DESCRIPTION": "Meet the team behind Coding Global",
       "KEYWORDS": "team, staff, developers, administrators, moderators",
       "TITLE": "Team - Coding Global"
+    }
+  },
+  "MARKETPLACE": {
+    "HEADING": "Marketplace",
+    "RESET": "Reset",
+    "LOADING": "Loading...",
+    "SEARCH_PLACEHOLDER": "Search by name, content, author, or tags...",
+    "META": {
+      "TITLE": "Marketplace - Coding Global",
+      "DESCRIPTION": "Browse jobs and developer services in our community marketplace",
+      "KEYWORDS": "marketplace, jobs, developers, freelance, hiring"
+    },
+    "BADGE": {
+      "JOB": "Job",
+      "DEV": "Dev"
+    },
+    "JOB_BOARD": {
+      "HEADING": "Job Board",
+      "META": {
+        "TITLE": "Job Board - Coding Global",
+        "DESCRIPTION": "Browse available job opportunities",
+        "KEYWORDS": "jobs, employment, hiring, opportunities"
+      }
+    },
+    "DEV_BOARD": {
+      "HEADING": "Developer Board",
+      "META": {
+        "TITLE": "Developer Board - Coding Global",
+        "DESCRIPTION": "Find talented developers for your projects",
+        "KEYWORDS": "developers, freelance, hire, services"
+      }
+    },
+    "EMPTY": {
+      "THREADS": "No marketplace items yet",
+      "MESSAGES": "No messages found"
     }
   },
   "TODO": {

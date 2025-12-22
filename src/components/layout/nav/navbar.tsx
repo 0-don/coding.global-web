@@ -6,9 +6,11 @@ import { ThemeToggle } from "@/components/toggles/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { useSessionHook } from "@/hook/session-hook";
@@ -57,6 +59,56 @@ export default function Navbar() {
           <NavigationMenuList className="flex-wrap gap-1">
             {navigation(!!session?.data?.user.id).map((item) => {
               const isActive = isActiveLink(pathname, item.href);
+
+              // If item has submenu, render as dropdown with clickable trigger
+              if (item.submenu) {
+                return (
+                  <NavigationMenuItem key={item.name}>
+                    <NavigationMenuTrigger asChild>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "bg-transparent",
+                          isActive && "bg-primary text-primary-foreground",
+                        )}
+                      >
+                        {t(item.name)}
+                      </Link>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[200px] gap-1 p-2">
+                        {item.submenu.map((subItem) => {
+                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          return (
+                            <li key={subItem.name}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={subItem.href}
+                                  className={cn(
+                                    "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                    isSubActive && "bg-primary/10 text-primary",
+                                  )}
+                                >
+                                  <div className="flex items-center gap-2">
+                                    {subItem.icon && (
+                                      <subItem.icon className="h-4 w-4" />
+                                    )}
+                                    <span className="text-sm font-medium">
+                                      {t(subItem.name)}
+                                    </span>
+                                  </div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                );
+              }
+
+              // Regular item without submenu
               return (
                 <NavigationMenuItem key={item.name}>
                   <NavigationMenuLink

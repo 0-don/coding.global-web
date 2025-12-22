@@ -61,6 +61,54 @@ export function MobileNav() {
               .filter((item) => !item.hidden)
               .map((item) => {
                 const isActive = isActiveLink(pathname, item.href);
+
+                // If item has submenu, render as expandable section with clickable parent
+                if (item.submenu) {
+                  return (
+                    <div key={item.name} className="space-y-1">
+                      <Link
+                        href={item.href as LinkHref}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
+                          isActive && "bg-primary/10 text-primary font-medium",
+                        )}
+                      >
+                        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+                        {t(item.name)}
+                      </Link>
+                      <div className="ml-6 space-y-1">
+                        {item.submenu.map((subItem) => {
+                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          return (
+                            <Link
+                              key={subItem.name}
+                              href={subItem.href as LinkHref}
+                              onClick={() => setOpen(false)}
+                              className={cn(
+                                "hover:bg-accent hover:text-accent-foreground flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                                isSubActive &&
+                                  "bg-primary/10 text-primary font-medium",
+                              )}
+                            >
+                              {subItem.icon && (
+                                <subItem.icon
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    isSubActive && "text-primary",
+                                  )}
+                                />
+                              )}
+                              {t(subItem.name)}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Regular item without submenu
                 return (
                   <Link
                     key={item.name}

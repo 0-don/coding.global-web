@@ -26,12 +26,16 @@ type ContentListItemProps = {
   data: GetApiByGuildIdBoardByBoardType200Item;
   href?: ComponentProps<typeof Link>["href"];
   className?: string;
+  showBoardBadge?: boolean;
+  boardType?: "job-board" | "dev-board";
 };
 
 export function ContentListItem({
   data,
   href,
   className,
+  showBoardBadge,
+  boardType,
 }: ContentListItemProps) {
   const t = useTranslations();
 
@@ -69,6 +73,16 @@ export function ContentListItem({
             {data.name}
           </h3>
           <div className="flex shrink-0 items-center gap-2">
+            {showBoardBadge && boardType && (
+              <Badge
+                variant={boardType === "job-board" ? "default" : "secondary"}
+                className="text-xs"
+              >
+                {boardType === "job-board"
+                  ? t("MARKETPLACE.BADGE.JOB")
+                  : t("MARKETPLACE.BADGE.DEV")}
+              </Badge>
+            )}
             {data.archived && (
               <Badge
                 variant="secondary"

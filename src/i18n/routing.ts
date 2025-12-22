@@ -23,6 +23,24 @@ export const pathnames = {
   "/showcase/[id]": {
     de: "/showcase/[id]",
   },
+  "/marketplace": {
+    de: "/marketplace",
+  },
+  "/marketplace/job-board": {
+    de: "/marketplace/job-board",
+  },
+  "/marketplace/dev-board": {
+    de: "/marketplace/dev-board",
+  },
+  "/marketplace/[id]": {
+    de: "/marketplace/[id]",
+  },
+  "/marketplace/job-board/[id]": {
+    de: "/marketplace/job-board/[id]",
+  },
+  "/marketplace/dev-board/[id]": {
+    de: "/marketplace/dev-board/[id]",
+  },
   "/team": {
     de: "/team",
   },
