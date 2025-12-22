@@ -16,19 +16,13 @@ import { RxCross2 } from "react-icons/rx";
 export function Showcase() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
-  const {
-    viewMode,
-    searchQuery,
-    setSearchQuery,
-    filterItems,
-    selectedTags,
-    clearFilters,
-  } = useListItemsStore();
+  const listItemStore = useListItemsStore();
 
   const threads = showcaseThreadsQuery.data || [];
-  const filteredThreads = filterItems(threads);
-  const hasActiveFilters = searchQuery.trim() || selectedTags.length > 0;
-
+  const filteredThreads = listItemStore.filterItems(threads);
+  const hasActiveFilters =
+    listItemStore.searchQuery.trim() || listItemStore.selectedTags.length > 0;
+    
   return (
     <div className="container mx-auto px-4 md:px-6">
       {/* Header with Toggle */}
@@ -46,7 +40,7 @@ export function Showcase() {
           {hasActiveFilters && (
             <Button
               variant="ghost"
-              onClick={clearFilters}
+              onClick={listItemStore.clearFilters}
               className="h-9 px-2 lg:px-3"
             >
               {t("SHOWCASE.RESET")}
@@ -63,13 +57,13 @@ export function Showcase() {
         <Input
           type="text"
           placeholder="Search threads by name, content, author, or tags..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={listItemStore.searchQuery}
+          onChange={(e) => listItemStore.setSearchQuery(e.target.value)}
         />
       </div>
 
       {/* Conditional Rendering */}
-      {viewMode === "grid" ? (
+      {listItemStore.viewMode === "grid" ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredThreads.map((thread) => (
             <ContentCard
