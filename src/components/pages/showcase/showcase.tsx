@@ -3,12 +3,12 @@
 import { ContentCard } from "@/components/elements/list-items/content-card";
 import { ContentListItem } from "@/components/elements/list-items/content-list-item";
 import { TagFilter } from "@/components/elements/list-items/tag-filter";
-import { ViewModeToggle } from "@/components/elements/view-mode-toggle";
+import { ViewModeToggle } from "@/components/elements/list-items/view-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useShowcaseThreadsQuery } from "@/hook/bot-hook";
-import { useListItemsStore } from "@/lib/stores/list-item-store";
+import { useListItemStore } from "@/lib/stores/list-item-store";
 import { useTranslations } from "next-intl";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
@@ -16,7 +16,7 @@ import { RxCross2 } from "react-icons/rx";
 export function Showcase() {
   const t = useTranslations();
   const showcaseThreadsQuery = useShowcaseThreadsQuery();
-  const listItemStore = useListItemsStore();
+  const listItemStore = useListItemStore();
 
   const threads = showcaseThreadsQuery.data || [];
   const filteredThreads = listItemStore.filterItems(threads);

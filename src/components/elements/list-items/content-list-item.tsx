@@ -38,7 +38,7 @@ export function ContentListItem({
   const content = (
     <div
       className={cn(
-        "group flex gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-muted/50",
+        "group border-border bg-card hover:bg-muted/50 flex gap-4 rounded-md border p-4 transition-colors",
         className,
       )}
     >

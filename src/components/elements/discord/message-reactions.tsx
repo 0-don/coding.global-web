@@ -18,10 +18,10 @@ export function MessageReactions({ reactions }: MessageReactionsProps) {
         return (
           <div
             key={idx}
-            className="inline-flex items-center gap-1 rounded-md border border-accent-foreground/10 bg-accent/40 px-1.5 py-0.5 text-xs transition-colors hover:bg-accent/60"
+            className="border-accent-foreground/10 bg-accent/40 hover:bg-accent/60 inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-xs transition-colors"
           >
             <span className="text-sm leading-none">{emoji}</span>
-            <span className="text-[11px] font-medium text-muted-foreground">
+            <span className="text-muted-foreground text-[11px] font-medium">
               {count}
             </span>
           </div>

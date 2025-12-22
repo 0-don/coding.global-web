@@ -1,10 +1,10 @@
+import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 
 export type ViewMode = "grid" | "list";
 
-interface ListItemsState {
+interface ListItemState {
   viewMode: ViewMode;
   searchQuery: string;
   selectedTags: string[];
@@ -15,11 +15,11 @@ interface ListItemsState {
   setSelectedTags: (tags: string[]) => void;
   clearFilters: () => void;
   filterItems: (
-    items: GetApiByGuildIdBoardByBoardType200Item[]
+    items: GetApiByGuildIdBoardByBoardType200Item[],
   ) => GetApiByGuildIdBoardByBoardType200Item[];
 }
 
-export const useListItemsStore = create<ListItemsState>()(
+export const useListItemStore = create<ListItemState>()(
   persist(
     (set, get) => ({
       viewMode: "grid",
@@ -45,9 +45,11 @@ export const useListItemsStore = create<ListItemsState>()(
           filtered = filtered.filter((item) => {
             const nameMatch = item.name.toLowerCase().includes(query);
             const contentMatch = item.content?.toLowerCase().includes(query);
-            const authorMatch = item.author.username.toLowerCase().includes(query);
+            const authorMatch = item.author.username
+              .toLowerCase()
+              .includes(query);
             const tagMatch = item.tags.some((tag) =>
-              tag.name.toLowerCase().includes(query)
+              tag.name.toLowerCase().includes(query),
             );
 
             return nameMatch || contentMatch || authorMatch || tagMatch;
@@ -57,7 +59,7 @@ export const useListItemsStore = create<ListItemsState>()(
         // Filter by selected tags
         if (selectedTags.length > 0) {
           filtered = filtered.filter((item) =>
-            item.tags.some((tag) => selectedTags.includes(tag.id))
+            item.tags.some((tag) => selectedTags.includes(tag.id)),
           );
         }
 
@@ -70,6 +72,3 @@ export const useListItemsStore = create<ListItemsState>()(
     },
   ),
 );
-
-// Keep the old export for backward compatibility
-export const useViewModeStore = useListItemsStore;
