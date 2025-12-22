@@ -1,30 +1,30 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useViewModeStore } from "@/lib/stores/list-item-store";
+import { useListItemStore } from "@/lib/stores/list-item-store";
 import { LayoutGrid, List } from "lucide-react";
 
 export function ViewModeToggle() {
-  const { viewMode, setViewMode } = useViewModeStore();
+  const listItemsStore = useListItemStore();
 
   return (
     <div className="border-border flex items-center gap-1 rounded-md border p-1">
       <Button
-        variant={viewMode === "grid" ? "secondary" : "ghost"}
+        variant={listItemsStore.viewMode === "grid" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => setViewMode("grid")}
+        onClick={() => listItemsStore.setViewMode("grid")}
         aria-label="Grid view"
-        aria-pressed={viewMode === "grid"}
+        aria-pressed={listItemsStore.viewMode === "grid"}
         title="Grid view"
       >
         <LayoutGrid />
       </Button>
       <Button
-        variant={viewMode === "list" ? "secondary" : "ghost"}
+        variant={listItemsStore.viewMode === "list" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => setViewMode("list")}
+        onClick={() => listItemsStore.setViewMode("list")}
         aria-label="List view"
-        aria-pressed={viewMode === "list"}
+        aria-pressed={listItemsStore.viewMode === "list"}
         title="List view"
       >
         <List />

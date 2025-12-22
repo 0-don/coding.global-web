@@ -187,6 +187,12 @@
       "SEARCH_TAGS": "Search tags...",
       "NO_TAGS_FOUND": "No tags found.",
       "CLEAR_FILTERS": "Clear filters"
+    },
+    "MESSAGE_REPLY": {
+      "MESSAGE_NOT_FOUND": "Message not found",
+      "UNKNOWN_USER": "Unknown User",
+      "ORIGINAL_POST": "Original Post",
+      "NO_CONTENT": "No content"
     }
   },
   "TEAM": {

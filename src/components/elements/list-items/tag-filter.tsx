@@ -17,7 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { useListItemsStore } from "@/lib/stores/list-item-store";
+import { useListItemStore } from "@/lib/stores/list-item-store";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 import { useTranslations } from "next-intl";
@@ -34,7 +34,7 @@ interface TagFilterProps {
 }
 
 export function TagFilter({ threads }: TagFilterProps) {
-  const listItemsStore = useListItemsStore();
+  const listItemsStore = useListItemStore();
   const t = useTranslations();
 
   const tagOptions: TagOption[] = threads.reduce((acc, thread) => {

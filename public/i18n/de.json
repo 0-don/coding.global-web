@@ -187,6 +187,12 @@
       "SEARCH_TAGS": "Tags suchen...",
       "NO_TAGS_FOUND": "Keine Tags gefunden.",
       "CLEAR_FILTERS": "Filter löschen"
+    },
+    "MESSAGE_REPLY": {
+      "MESSAGE_NOT_FOUND": "Nachricht nicht gefunden",
+      "UNKNOWN_USER": "Unbekannter Benutzer",
+      "ORIGINAL_POST": "Ursprünglicher Beitrag",
+      "NO_CONTENT": "Kein Inhalt"
     }
   },
   "TEAM": {
