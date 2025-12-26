@@ -65,6 +65,7 @@ export default function Navbar() {
                 return (
                   <NavigationMenuItem key={item.name}>
                     <NavigationMenuTrigger
+                      nativeButton={false}
                       render={
                         <Link
                           href={item.href}
@@ -76,7 +77,7 @@ export default function Navbar() {
                           {t(item.name)}
                         </Link>
                       }
-                    ></NavigationMenuTrigger>
+                    />
                     <NavigationMenuContent>
                       <ul className="grid w-50 gap-1 p-2">
                         {item.submenu.map((subItem) => {
