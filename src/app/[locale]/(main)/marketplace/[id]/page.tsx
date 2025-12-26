@@ -6,6 +6,10 @@ import { rpc } from "@/lib/rpc";
 import { MarketplaceBoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import {
+  detectThreadWithType,
+  getThreadPageMetadata,
+} from "@/lib/utils/thread-metadata";
 import { GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType } from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
@@ -13,8 +17,28 @@ import { getTranslations } from "next-intl/server";
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
+  const params = await props.params;
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
+  const result = await detectThreadWithType(params.id);
+
+  if (result?.thread) {
+    const { thread, boardType } = result;
+    const fallback =
+      boardType === "job-board"
+        ? {
+            title: t("MARKETPLACE.JOB_BOARD.META.TITLE"),
+            description: t("MARKETPLACE.JOB_BOARD.META.DESCRIPTION"),
+            keywords: t("MARKETPLACE.JOB_BOARD.META.KEYWORDS"),
+          }
+        : {
+            title: t("MARKETPLACE.DEV_BOARD.META.TITLE"),
+            description: t("MARKETPLACE.DEV_BOARD.META.DESCRIPTION"),
+            keywords: t("MARKETPLACE.DEV_BOARD.META.KEYWORDS"),
+          };
+
+    return getThreadPageMetadata(thread, locale, fallback);
+  }
 
   return getPageMetadata({
     locale,
@@ -27,16 +51,18 @@ export async function generateMetadata(props: {
 async function detectBoardType(
   threadId: string,
 ): Promise<MarketplaceBoardType | null> {
-  const result = await Promise.race([
+  const results = await Promise.all([
     rpc.api.bot[BoardType["job-board"]]({ threadId })
       .get()
-      .then((r) => (r.status === 200 ? BoardType["job-board"] : null)),
+      .then((r) => (r.status === 200 ? BoardType["job-board"] : null))
+      .catch(() => null),
     rpc.api.bot[BoardType["dev-board"]]({ threadId })
       .get()
-      .then((r) => (r.status === 200 ? BoardType["dev-board"] : null)),
-  ]).catch(() => null);
+      .then((r) => (r.status === 200 ? BoardType["dev-board"] : null))
+      .catch(() => null),
+  ]);
 
-  return result;
+  return results.find((r) => r !== null) || null;
 }
 
 export default async function MarketplaceDetailPage(props: {
@@ -70,7 +96,7 @@ export default async function MarketplaceDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <MarketplaceDetail threadId={params.id} boardType={boardType} />
+      <MarketplaceDetail threadId={params.id} boardType={boardType!} />
     </HydrationBoundary>
   );
 }

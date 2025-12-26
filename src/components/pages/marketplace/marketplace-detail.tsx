@@ -15,18 +15,15 @@ dayjs.extend(relativeTime);
 
 interface MarketplaceDetailProps {
   threadId: string;
-  boardType: MarketplaceBoardType | null;
+  boardType: MarketplaceBoardType;
 }
 
 export function MarketplaceDetail(props: MarketplaceDetailProps) {
   const t = useTranslations();
 
-  const boardThread = useBoardThreadQuery(
-    props.boardType ?? "job-board",
-    props.threadId,
-  );
+  const boardThread = useBoardThreadQuery(props.boardType, props.threadId);
   const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    props.boardType ?? "job-board",
+    props.boardType,
     props.threadId,
   );
 

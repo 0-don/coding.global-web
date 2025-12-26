@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { BoardType, useListItemStore } from "@/lib/stores/list-item-store";
 import {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
 } from "@/openapi";
+import { BoardType, useListItemStore } from "@/store/list-item-store";
 import { useTranslations } from "next-intl";
 import { ComponentProps } from "react";
 import { IconType } from "react-icons/lib";

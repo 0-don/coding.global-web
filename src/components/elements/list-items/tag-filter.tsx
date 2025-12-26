@@ -17,9 +17,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { BoardType, useListItemStore } from "@/lib/stores/list-item-store";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import { BoardType, useListItemStore } from "@/store/list-item-store";
 import { useTranslations } from "next-intl";
 import { RxCheck, RxPlusCircled } from "react-icons/rx";
 

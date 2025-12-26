@@ -1,10 +1,10 @@
 import { BoardDetail } from "@/components/pages/marketplace/board-detail";
-import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
 import type { GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200 } from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
@@ -12,11 +12,12 @@ import { getTranslations } from "next-intl/server";
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
+  const params = await props.params;
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
+  const thread = await getThread(params.id, "dev-board");
 
-  return getPageMetadata({
-    locale,
+  return getThreadPageMetadata(thread, locale, {
     title: t("MARKETPLACE.DEV_BOARD.META.TITLE"),
     description: t("MARKETPLACE.DEV_BOARD.META.DESCRIPTION"),
     keywords: t("MARKETPLACE.DEV_BOARD.META.KEYWORDS"),
