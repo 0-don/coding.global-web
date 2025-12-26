@@ -158,10 +158,20 @@ export function ContentCard(props: ContentCardProps) {
 
       <CardContent className="mt-auto pt-0">
         {props.data.content && (
-          <DiscordMarkdown
-            content={props.data.content}
-            className={cn("mb-3 line-clamp-3 text-sm", props.contentClassName)}
-          />
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <DiscordMarkdown
+              content={props.data.content}
+              className={cn(
+                "mb-3 line-clamp-3 text-sm",
+                props.contentClassName,
+              )}
+            />
+          </div>
         )}
 
         {props.type === "thread" ? (
