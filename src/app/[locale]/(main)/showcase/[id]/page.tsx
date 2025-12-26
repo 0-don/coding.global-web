@@ -1,21 +1,22 @@
 import { ShowcaseDetail } from "@/components/pages/showcase/showcase-detail";
-import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
+  const params = await props.params;
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
+  const thread = await getThread(params.id, "showcase");
 
-  return getPageMetadata({
-    locale,
+  return getThreadPageMetadata(thread, locale, {
     title: t("SHOWCASE.META.TITLE"),
     description: t("SHOWCASE.META.DESCRIPTION"),
     keywords: t("SHOWCASE.META.KEYWORDS"),

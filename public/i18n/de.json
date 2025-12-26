@@ -63,6 +63,14 @@
       "RULES_DESCRIPTION": "Community-Regeln und Richtlinien",
       "SHOWCASE": "Showcase",
       "SHOWCASE_DESCRIPTION": "Community-Projekt-Showcase",
+      "MARKETPLACE": "Marktplatz",
+      "MARKETPLACE_DESCRIPTION": "Jobs und Entwickler-Dienste durchsuchen",
+      "MARKETPLACE_ALL": "Alle",
+      "MARKETPLACE_ALL_DESCRIPTION": "Alle Marktplatz-Einträge anzeigen",
+      "MARKETPLACE_JOB_BOARD": "Jobbörse",
+      "MARKETPLACE_JOB_BOARD_DESCRIPTION": "Verfügbare Jobs durchsuchen",
+      "MARKETPLACE_DEV_BOARD": "Entwickler-Board",
+      "MARKETPLACE_DEV_BOARD_DESCRIPTION": "Entwickler zum Anheuern finden",
       "TEAM": "Team",
       "TEAM_DESCRIPTION": "Lernen Sie unser Team kennen"
     },
@@ -201,6 +209,41 @@
       "DESCRIPTION": "Lernen Sie das Team hinter Coding Global kennen",
       "KEYWORDS": "team, mitarbeiter, entwickler, administratoren, moderatoren",
       "TITLE": "Team - Coding Global"
+    }
+  },
+  "MARKETPLACE": {
+    "HEADING": "Marktplatz",
+    "RESET": "Zurücksetzen",
+    "LOADING": "Lädt...",
+    "SEARCH_PLACEHOLDER": "Nach Name, Inhalt, Autor oder Tags suchen...",
+    "META": {
+      "TITLE": "Marktplatz - Coding Global",
+      "DESCRIPTION": "Jobs und Entwickler-Dienste in unserem Community-Marktplatz durchsuchen",
+      "KEYWORDS": "marktplatz, jobs, entwickler, freelance, einstellen"
+    },
+    "BADGE": {
+      "JOB": "Job",
+      "DEV": "Entwickler"
+    },
+    "JOB_BOARD": {
+      "HEADING": "Jobbörse",
+      "META": {
+        "TITLE": "Jobbörse - Coding Global",
+        "DESCRIPTION": "Verfügbare Stellenangebote durchsuchen",
+        "KEYWORDS": "jobs, beschäftigung, einstellen, stellenangebote"
+      }
+    },
+    "DEV_BOARD": {
+      "HEADING": "Entwickler-Board",
+      "META": {
+        "TITLE": "Entwickler-Board - Coding Global",
+        "DESCRIPTION": "Talentierte Entwickler für Ihre Projekte finden",
+        "KEYWORDS": "entwickler, freelance, anheuern, dienstleistungen"
+      }
+    },
+    "EMPTY": {
+      "THREADS": "Noch keine Marktplatz-Einträge",
+      "MESSAGES": "Keine Nachrichten gefunden"
     }
   },
   "TODO": {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { BoardType, useListItemStore } from "@/lib/stores/list-item-store";
+import { BoardType, useListItemStore } from "@/store/list-item-store";
 import { LayoutGrid, List } from "lucide-react";
 
 interface ViewModeToggleProps {
