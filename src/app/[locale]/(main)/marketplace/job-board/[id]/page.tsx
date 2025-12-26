@@ -5,6 +5,7 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import type { GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200 } from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -40,15 +41,14 @@ export default async function JobBoardDetailPage(props: {
       queryKey: queryKeys.boardThreadMessages("job-board", params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
-          await rpc.api.bot["job-board"]({ threadId: params.id }).messages.get(
-            {
-              query: { after: pageParam },
-            },
-          ),
+          await rpc.api.bot["job-board"]({ threadId: params.id }).messages.get({
+            query: { after: pageParam },
+          }),
         ),
-      initialPageParam: undefined,
-      getNextPageParam: (lastPage) =>
-        lastPage?.hasMore ? lastPage.nextCursor : undefined,
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (
+        lastPage: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200 | null,
+      ) => (lastPage?.hasMore ? (lastPage.nextCursor ?? undefined) : undefined),
     }),
   ]);
 
