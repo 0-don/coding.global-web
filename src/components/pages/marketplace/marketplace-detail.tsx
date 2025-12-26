@@ -3,9 +3,10 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
-  useBoardThreadQuery,
   useBoardThreadMessagesInfiniteQuery,
+  useBoardThreadQuery,
 } from "@/hook/bot-hook";
+import { MarketplaceBoardType } from "@/lib/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslations } from "next-intl";
@@ -14,17 +15,26 @@ dayjs.extend(relativeTime);
 
 interface MarketplaceDetailProps {
   threadId: string;
-  boardType: "job-board" | "dev-board" | null;
+  boardType: MarketplaceBoardType | null;
 }
 
-export function MarketplaceDetail({
-  threadId,
-  boardType,
-}: MarketplaceDetailProps) {
+export function MarketplaceDetail(props: MarketplaceDetailProps) {
   const t = useTranslations();
 
-  // If boardType is null, we couldn't find the thread
-  if (!boardType) {
+  const boardThread = useBoardThreadQuery(
+    props.boardType ?? "job-board",
+    props.threadId,
+  );
+  const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
+    props.boardType ?? "job-board",
+    props.threadId,
+  );
+
+  const messages =
+    boardThreadMessages.data?.pages.flatMap((page) => page?.messages ?? []) ??
+    [];
+
+  if (!props.boardType) {
     return (
       <div className="container mx-auto px-4 py-6 md:px-6">
         <p className="text-muted-foreground text-center">
@@ -33,16 +43,6 @@ export function MarketplaceDetail({
       </div>
     );
   }
-
-  const boardThread = useBoardThreadQuery(boardType, threadId);
-  const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    boardType,
-    threadId,
-  );
-
-  const messages =
-    boardThreadMessages.data?.pages.flatMap((page) => page?.messages ?? []) ??
-    [];
 
   if (boardThread.isLoading || boardThreadMessages.isLoading) {
     return (
