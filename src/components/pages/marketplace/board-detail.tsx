@@ -3,9 +3,10 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
-  useBoardThreadQuery,
   useBoardThreadMessagesInfiniteQuery,
+  useBoardThreadQuery,
 } from "@/hook/bot-hook";
+import { MarketplaceBoardType } from "@/lib/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslations } from "next-intl";
@@ -14,16 +15,16 @@ dayjs.extend(relativeTime);
 
 interface BoardDetailProps {
   threadId: string;
-  boardType: "job-board" | "dev-board";
+  boardType: MarketplaceBoardType;
 }
 
-export function BoardDetail({ threadId, boardType }: BoardDetailProps) {
+export function BoardDetail(props: BoardDetailProps) {
   const t = useTranslations();
 
-  const boardThread = useBoardThreadQuery(boardType, threadId);
+  const boardThread = useBoardThreadQuery(props.boardType, props.threadId);
   const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    boardType,
-    threadId,
+    props.boardType,
+    props.threadId,
   );
 
   const messages =

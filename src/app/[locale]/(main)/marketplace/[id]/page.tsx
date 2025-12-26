@@ -3,19 +3,12 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { MarketplaceBoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
-import {
-  type GetApiByGuildIdBoardByBoardType200ItemBoardType,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
-} from "@/openapi";
+import { GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType } from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-
-type MarketplaceBoardType = Exclude<
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
-  "showcase"
->;
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;

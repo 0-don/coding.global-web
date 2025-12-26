@@ -1,11 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useListItemStore } from "@/lib/stores/list-item-store";
+import { BoardType, useListItemStore } from "@/lib/stores/list-item-store";
 import { LayoutGrid, List } from "lucide-react";
 
-export function ViewModeToggle() {
-  const listItemsStore = useListItemStore();
+interface ViewModeToggleProps {
+  boardType: BoardType;
+}
+
+export function ViewModeToggle({ boardType }: ViewModeToggleProps) {
+  const listItemsStore = useListItemStore(boardType);
 
   return (
     <div className="border-border flex items-center gap-1 rounded-md border p-1">

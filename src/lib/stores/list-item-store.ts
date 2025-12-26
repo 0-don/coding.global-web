@@ -1,9 +1,15 @@
-import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import type {
+  GetApiByGuildIdBoardByBoardType200Item,
+  GetApiByGuildIdBoardByBoardType200ItemBoardType,
+} from "@/openapi";
+import type { StoreApi, UseBoundStore } from "zustand";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type ViewMode = "grid" | "list";
-export type BoardType = "showcase" | "marketplace" | "job-board" | "dev-board";
+export type BoardType =
+  | GetApiByGuildIdBoardByBoardType200ItemBoardType
+  | "marketplace";
 
 interface ListItemState {
   viewMode: ViewMode;
@@ -20,11 +26,15 @@ interface ListItemState {
   ) => GetApiByGuildIdBoardByBoardType200Item[];
 }
 
-// Store instances cache
-const storeInstances = new Map<BoardType, ReturnType<typeof create<ListItemState>>>();
+const storeInstances = new Map<
+  BoardType,
+  UseBoundStore<StoreApi<ListItemState>>
+>();
 
-// Factory function to create or get store instance for a specific board type
-export const useListItemStore = (boardType: BoardType = "showcase") => {
+
+function getOrCreateStore(
+  boardType: BoardType,
+): UseBoundStore<StoreApi<ListItemState>> {
   if (!storeInstances.has(boardType)) {
     const store = create<ListItemState>()(
       persist(
@@ -51,7 +61,9 @@ export const useListItemStore = (boardType: BoardType = "showcase") => {
               const query = searchQuery.toLowerCase();
               filtered = filtered.filter((item) => {
                 const nameMatch = item.name.toLowerCase().includes(query);
-                const contentMatch = item.content?.toLowerCase().includes(query);
+                const contentMatch = item.content
+                  ?.toLowerCase()
+                  .includes(query);
                 const authorMatch = item.author.username
                   .toLowerCase()
                   .includes(query);
@@ -82,5 +94,11 @@ export const useListItemStore = (boardType: BoardType = "showcase") => {
     storeInstances.set(boardType, store);
   }
 
-  return storeInstances.get(boardType)!();
+  return storeInstances.get(boardType)!;
+}
+
+// Hook to use the store for a specific board type
+export const useListItemStore = (boardType: BoardType = "marketplace") => {
+  const store = getOrCreateStore(boardType);
+  return store();
 };
