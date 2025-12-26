@@ -5,8 +5,17 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import {
+  type GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
+} from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
+
+type MarketplaceBoardType = Exclude<
+  GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  "showcase"
+>;
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -22,79 +31,48 @@ export async function generateMetadata(props: {
   });
 }
 
+async function detectBoardType(
+  threadId: string,
+): Promise<MarketplaceBoardType | null> {
+  const result = await Promise.race([
+    rpc.api.bot[BoardType["job-board"]]({ threadId })
+      .get()
+      .then((r) => (r.status === 200 ? BoardType["job-board"] : null)),
+    rpc.api.bot[BoardType["dev-board"]]({ threadId })
+      .get()
+      .then((r) => (r.status === 200 ? BoardType["dev-board"] : null)),
+  ]).catch(() => null);
+
+  return result;
+}
+
 export default async function MarketplaceDetailPage(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
   const params = await props.params;
   const queryClient = getQueryClient();
+  const boardType = await detectBoardType(params.id);
 
-  // Strategy: Try to fetch from both boards and prefetch whichever succeeds
-  let boardType: "job-board" | "dev-board" | null = null;
-
-  try {
-    const jobBoardAttempt = await rpc.api.bot["job-board"]({
-      threadId: params.id,
-    }).get();
-
-    if (jobBoardAttempt.status === 200) {
-      boardType = "job-board";
-      await Promise.all([
-        queryClient.prefetchQuery({
-          queryKey: queryKeys.boardThread("job-board", params.id),
-          queryFn: async () => handleElysia(jobBoardAttempt),
-        }),
-        queryClient.prefetchInfiniteQuery({
-          queryKey: queryKeys.boardThreadMessages("job-board", params.id),
-          queryFn: async ({ pageParam }) =>
-            handleElysia(
-              await rpc.api.bot["job-board"]({
-                threadId: params.id,
-              }).messages.get({
-                query: { after: pageParam },
-              }),
-            ),
-          initialPageParam: undefined,
-          getNextPageParam: (lastPage) =>
-            lastPage?.hasMore ? lastPage.nextCursor : undefined,
-        }),
-      ]);
-    }
-  } catch (error) {
-    // Job board fetch failed, try dev board
-  }
-
-  if (!boardType) {
-    try {
-      const devBoardAttempt = await rpc.api.bot["dev-board"]({
-        threadId: params.id,
-      }).get();
-
-      if (devBoardAttempt.status === 200) {
-        boardType = "dev-board";
-        await Promise.all([
-          queryClient.prefetchQuery({
-            queryKey: queryKeys.boardThread("dev-board", params.id),
-            queryFn: async () => handleElysia(devBoardAttempt),
-          }),
-          queryClient.prefetchInfiniteQuery({
-            queryKey: queryKeys.boardThreadMessages("dev-board", params.id),
-            queryFn: async ({ pageParam }) =>
-              handleElysia(
-                await rpc.api.bot["dev-board"]({
-                  threadId: params.id,
-                }).messages.get({
-                  query: { after: pageParam },
-                }),
-              ),
-            initialPageParam: undefined,
-            getNextPageParam: (lastPage) =>
-              lastPage?.hasMore ? lastPage.nextCursor : undefined,
-          }),
-        ]);
-      }
-    } catch (error) {
-      // Dev board fetch also failed
-    }
+  if (boardType) {
+    await Promise.all([
+      queryClient.prefetchQuery({
+        queryKey: queryKeys.boardThread(boardType, params.id),
+        queryFn: async () =>
+          handleElysia(
+            await rpc.api.bot[boardType]({ threadId: params.id }).get(),
+          ),
+      }),
+      queryClient.prefetchInfiniteQuery({
+        queryKey: queryKeys.boardThreadMessages(boardType, params.id),
+        queryFn: async () =>
+          handleElysia(
+            await rpc.api.bot[boardType]({
+              threadId: params.id,
+            }).messages.get(),
+          ),
+        initialPageParam: undefined,
+      }),
+    ]);
   }
 
   return (

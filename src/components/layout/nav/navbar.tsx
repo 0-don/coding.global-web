@@ -64,41 +64,49 @@ export default function Navbar() {
               if (item.submenu) {
                 return (
                   <NavigationMenuItem key={item.name}>
-                    <NavigationMenuTrigger asChild>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "bg-transparent",
-                          isActive && "bg-primary text-primary-foreground",
-                        )}
-                      >
-                        {t(item.name)}
-                      </Link>
-                    </NavigationMenuTrigger>
+                    <NavigationMenuTrigger
+                      render={
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "bg-transparent",
+                            isActive && "bg-primary text-primary-foreground",
+                          )}
+                        >
+                          {t(item.name)}
+                        </Link>
+                      }
+                    ></NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[200px] gap-1 p-2">
+                      <ul className="grid w-50 gap-1 p-2">
                         {item.submenu.map((subItem) => {
-                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          const isSubActive = isActiveLink(
+                            pathname,
+                            subItem.href,
+                          );
                           return (
                             <li key={subItem.name}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={subItem.href}
-                                  className={cn(
-                                    "block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                    isSubActive && "bg-primary/10 text-primary",
-                                  )}
-                                >
-                                  <div className="flex items-center gap-2">
-                                    {subItem.icon && (
-                                      <subItem.icon className="h-4 w-4" />
+                              <NavigationMenuLink
+                                render={
+                                  <Link
+                                    href={subItem.href}
+                                    className={cn(
+                                      "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
+                                      isSubActive &&
+                                        "bg-primary/10 text-primary",
                                     )}
-                                    <span className="text-sm font-medium">
-                                      {t(subItem.name)}
-                                    </span>
-                                  </div>
-                                </Link>
-                              </NavigationMenuLink>
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      {subItem.icon && (
+                                        <subItem.icon className="h-4 w-4" />
+                                      )}
+                                      <span className="text-sm font-medium">
+                                        {t(subItem.name)}
+                                      </span>
+                                    </div>
+                                  </Link>
+                                }
+                              ></NavigationMenuLink>
                             </li>
                           );
                         })}
