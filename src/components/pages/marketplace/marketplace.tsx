@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardList } from "@/components/elements/board/board-list";
+import { BoardList } from "@/components/elements/boards/board-list";
 import {
   useDevBoardThreadsQuery,
   useJobBoardThreadsQuery,

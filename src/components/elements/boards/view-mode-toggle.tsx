@@ -1,7 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { BoardType, useListItemStore } from "@/store/list-item-store";
+import {
+  type BoardType,
+  createListItemAtoms,
+} from "@/store/list-item-store";
+import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
 
 interface ViewModeToggleProps {
@@ -9,26 +13,28 @@ interface ViewModeToggleProps {
 }
 
 export function ViewModeToggle({ boardType }: ViewModeToggleProps) {
-  const listItemsStore = useListItemStore(boardType);
+  const atoms = createListItemAtoms(boardType);
+  const viewMode = useAtomValue(atoms.viewModeAtom);
+  const setViewMode = useSetAtom(atoms.viewModeAtom);
 
   return (
     <div className="border-border flex items-center gap-1 rounded-md border p-1">
       <Button
-        variant={listItemsStore.viewMode === "grid" ? "secondary" : "ghost"}
+        variant={viewMode === "grid" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => listItemsStore.setViewMode("grid")}
+        onClick={() => setViewMode("grid")}
         aria-label="Grid view"
-        aria-pressed={listItemsStore.viewMode === "grid"}
+        aria-pressed={viewMode === "grid"}
         title="Grid view"
       >
         <LayoutGrid />
       </Button>
       <Button
-        variant={listItemsStore.viewMode === "list" ? "secondary" : "ghost"}
+        variant={viewMode === "list" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => listItemsStore.setViewMode("list")}
+        onClick={() => setViewMode("list")}
         aria-label="List view"
-        aria-pressed={listItemsStore.viewMode === "list"}
+        aria-pressed={viewMode === "list"}
         title="List view"
       >
         <List />

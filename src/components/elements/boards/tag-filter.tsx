@@ -19,7 +19,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
-import { BoardType, useListItemStore } from "@/store/list-item-store";
+import { type BoardType, createListItemAtoms } from "@/store/list-item-store";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
 import { RxCheck, RxPlusCircled } from "react-icons/rx";
 
@@ -35,7 +36,9 @@ interface TagFilterProps {
 }
 
 export function TagFilter({ threads, boardType }: TagFilterProps) {
-  const listItemsStore = useListItemStore(boardType);
+  const atoms = createListItemAtoms(boardType);
+  const selectedTags = useAtomValue(atoms.selectedTagsAtom);
+  const setSelectedTags = useSetAtom(atoms.selectedTagsAtom);
   const t = useTranslations();
 
   const tagOptions: TagOption[] = threads.reduce((acc, thread) => {
@@ -52,7 +55,7 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
 
   tagOptions.sort((a, b) => b.count - a.count);
 
-  const selectedSet = new Set(listItemsStore.selectedTags);
+  const selectedSet = new Set(selectedTags);
 
   return (
     <Popover>
@@ -61,23 +64,22 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
           <Button variant="outline" size="sm" className="h-9 border-dashed">
             <RxPlusCircled className="mr-2 h-4 w-4" />
             {t("SHOWCASE.FILTER.TAGS")}
-            {listItemsStore.selectedTags.length > 0 && (
+            {selectedTags.length > 0 && (
               <>
                 <Separator orientation="vertical" className="mx-2 h-4" />
                 <Badge
                   variant="secondary"
                   className="rounded-sm px-1 font-normal lg:hidden"
                 >
-                  {listItemsStore.selectedTags.length}
+                  {selectedTags.length}
                 </Badge>
                 <div className="hidden space-x-1 lg:flex">
-                  {listItemsStore.selectedTags.length > 2 ? (
+                  {selectedTags.length > 2 ? (
                     <Badge
                       variant="secondary"
                       className="rounded-sm px-1 font-normal"
                     >
-                      {listItemsStore.selectedTags.length}{" "}
-                      {t("SHOWCASE.FILTER.SELECTED")}
+                      {selectedTags.length} {t("SHOWCASE.FILTER.SELECTED")}
                     </Badge>
                   ) : (
                     tagOptions
@@ -111,11 +113,9 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
                     key={option.id}
                     onSelect={() => {
                       const newSelectedTags = isSelected
-                        ? listItemsStore.selectedTags.filter(
-                            (id) => id !== option.id,
-                          )
-                        : [...listItemsStore.selectedTags, option.id];
-                      listItemsStore.setSelectedTags(newSelectedTags);
+                        ? selectedTags.filter((id) => id !== option.id)
+                        : [...selectedTags, option.id];
+                      setSelectedTags(newSelectedTags);
                     }}
                   >
                     <div
@@ -136,12 +136,12 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
                 );
               })}
             </CommandGroup>
-            {listItemsStore.selectedTags.length > 0 && (
+            {selectedTags.length > 0 && (
               <>
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => listItemsStore.setSelectedTags([])}
+                    onSelect={() => setSelectedTags([])}
                     className="justify-center text-center"
                   >
                     {t("SHOWCASE.FILTER.CLEAR_FILTERS")}

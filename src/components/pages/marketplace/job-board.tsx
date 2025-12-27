@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardList } from "@/components/elements/board/board-list";
+import { BoardList } from "@/components/elements/boards/board-list";
 import { useJobBoardThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { HiOutlineBriefcase } from "react-icons/hi2";
