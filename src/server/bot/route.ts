@@ -51,7 +51,6 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         process.env.NEXT_PUBLIC_GUILD_ID!,
         "showcase",
       );
-      console.log(response);
       if (response.status !== 200)
         return status("Unprocessable Content", response.data);
       return response.data;
