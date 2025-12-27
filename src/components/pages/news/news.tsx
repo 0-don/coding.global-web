@@ -1,6 +1,6 @@
 "use client";
 
-import { ContentCard } from "@/components/elements/list-items/content-card";
+import { ContentCard } from "@/components/elements/boards/list-items/content-card";
 import { useNewsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { ImNewspaper } from "react-icons/im";

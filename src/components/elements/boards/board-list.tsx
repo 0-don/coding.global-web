@@ -1,9 +1,9 @@
 "use client";
 
-import { ContentCard } from "@/components/elements/list-items/content-card";
-import { ContentListItem } from "@/components/elements/list-items/content-list-item";
-import { TagFilter } from "@/components/elements/list-items/tag-filter";
-import { ViewModeToggle } from "@/components/elements/list-items/view-mode-toggle";
+import { ContentCard } from "@/components/elements/boards/list-items/content-card";
+import { ContentListItem } from "@/components/elements/boards/list-items/content-list-item";
+import { TagFilter } from "@/components/elements/boards/tag-filter";
+import { ViewModeToggle } from "@/components/elements/boards/view-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -12,10 +12,15 @@ import {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
 } from "@/openapi";
-import { BoardType, useListItemStore } from "@/store/list-item-store";
+import {
+  type BoardType,
+  createListItemAtoms,
+  filterItems,
+} from "@/store/list-item-store";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
-import { ComponentProps } from "react";
-import { IconType } from "react-icons/lib";
+import type { ComponentProps } from "react";
+import type { IconType } from "react-icons/lib";
 import { RxCross2 } from "react-icons/rx";
 
 export type BoardItemWithType = GetApiByGuildIdBoardByBoardType200Item & {
@@ -35,11 +40,15 @@ interface BoardListProps {
 
 export function BoardList(props: BoardListProps) {
   const t = useTranslations();
-  const listItemStore = useListItemStore(props.boardType);
+  const atoms = createListItemAtoms(props.boardType);
 
-  const filteredThreads = listItemStore.filterItems(props.threads);
+  const state = useAtomValue(atoms.baseAtom);
+  const setSearchQuery = useSetAtom(atoms.searchQueryAtom);
+  const clearFilters = useSetAtom(atoms.clearFiltersAtom);
+
+  const filteredThreads = filterItems(props.threads, state);
   const hasActiveFilters =
-    listItemStore.searchQuery.trim() || listItemStore.selectedTags.length > 0;
+    state.searchQuery.trim() || state.selectedTags.length > 0;
 
   return (
     <div className="container mx-auto px-4 md:px-6">
@@ -58,7 +67,7 @@ export function BoardList(props: BoardListProps) {
           {hasActiveFilters && (
             <Button
               variant="ghost"
-              onClick={listItemStore.clearFilters}
+              onClick={() => clearFilters()}
               className="h-9 px-2 lg:px-3"
             >
               {t("SHOWCASE.RESET")}
@@ -75,13 +84,13 @@ export function BoardList(props: BoardListProps) {
         <Input
           type="text"
           placeholder={t("MARKETPLACE.SEARCH_PLACEHOLDER")}
-          value={listItemStore.searchQuery}
-          onChange={(e) => listItemStore.setSearchQuery(e.target.value)}
+          value={state.searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
 
       {/* Conditional Rendering */}
-      {listItemStore.viewMode === "grid" ? (
+      {state.viewMode === "grid" ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredThreads.map((thread) => (
             <ContentCard

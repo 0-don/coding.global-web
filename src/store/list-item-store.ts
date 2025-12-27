@@ -2,103 +2,113 @@ import type {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
 } from "@/openapi";
-import type { StoreApi, UseBoundStore } from "zustand";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { atom } from "jotai";
+import { atomFamily } from "jotai-family";
+import { atomWithStorage } from "jotai/utils";
 
 export type ViewMode = "grid" | "list";
 export type BoardType =
   | GetApiByGuildIdBoardByBoardType200ItemBoardType
   | "marketplace";
 
-interface ListItemState {
+export interface ListItemState {
   viewMode: ViewMode;
   searchQuery: string;
   selectedTags: string[];
-  setViewMode: (mode: ViewMode) => void;
-  toggleViewMode: () => void;
-  setSearchQuery: (query: string) => void;
-  clearSearch: () => void;
-  setSelectedTags: (tags: string[]) => void;
-  clearFilters: () => void;
-  filterItems: (
-    items: GetApiByGuildIdBoardByBoardType200Item[],
-  ) => GetApiByGuildIdBoardByBoardType200Item[];
 }
 
-const storeInstances = new Map<
-  BoardType,
-  UseBoundStore<StoreApi<ListItemState>>
->();
+const initialState: ListItemState = {
+  viewMode: "grid",
+  searchQuery: "",
+  selectedTags: [],
+};
 
+// Atom family for per-board-type state with localStorage persistence
+export const listItemAtomFamily = atomFamily((boardType: BoardType) =>
+  atomWithStorage<ListItemState>(
+    `list-items-store-${boardType}`,
+    initialState,
+    undefined,
+    { getOnInit: true },
+  ),
+);
 
-function getOrCreateStore(
-  boardType: BoardType,
-): UseBoundStore<StoreApi<ListItemState>> {
-  if (!storeInstances.has(boardType)) {
-    const store = create<ListItemState>()(
-      persist(
-        (set, get) => ({
-          viewMode: "grid",
-          searchQuery: "",
-          selectedTags: [],
-          setViewMode: (mode) => set({ viewMode: mode }),
-          toggleViewMode: () =>
-            set({
-              viewMode: get().viewMode === "grid" ? "list" : "grid",
-            }),
-          setSearchQuery: (query) => set({ searchQuery: query }),
-          clearSearch: () => set({ searchQuery: "" }),
-          setSelectedTags: (tags) => set({ selectedTags: tags }),
-          clearFilters: () => set({ searchQuery: "", selectedTags: [] }),
-          filterItems: (items) => {
-            const { searchQuery, selectedTags } = get();
+// Derived atoms factory for individual properties
+export const createListItemAtoms = (boardType: BoardType) => {
+  const baseAtom = listItemAtomFamily(boardType);
 
-            let filtered = items;
+  return {
+    baseAtom,
+    viewModeAtom: atom(
+      (get) => get(baseAtom).viewMode,
+      (get, set, value: ViewMode) => {
+        set(baseAtom, { ...get(baseAtom), viewMode: value });
+      },
+    ),
+    searchQueryAtom: atom(
+      (get) => get(baseAtom).searchQuery,
+      (get, set, value: string) => {
+        set(baseAtom, { ...get(baseAtom), searchQuery: value });
+      },
+    ),
+    selectedTagsAtom: atom(
+      (get) => get(baseAtom).selectedTags,
+      (get, set, value: string[]) => {
+        set(baseAtom, { ...get(baseAtom), selectedTags: value });
+      },
+    ),
+    toggleViewModeAtom: atom(null, (get, set) => {
+      const current = get(baseAtom);
+      set(baseAtom, {
+        ...current,
+        viewMode: current.viewMode === "grid" ? "list" : "grid",
+      });
+    }),
+    clearSearchAtom: atom(null, (get, set) => {
+      set(baseAtom, { ...get(baseAtom), searchQuery: "" });
+    }),
+    clearFiltersAtom: atom(null, (get, set) => {
+      set(baseAtom, { ...get(baseAtom), searchQuery: "", selectedTags: [] });
+    }),
+    resetAtom: atom(null, (_get, set) => {
+      set(baseAtom, initialState);
+    }),
+  };
+};
 
-            // Filter by search query
-            if (searchQuery.trim()) {
-              const query = searchQuery.toLowerCase();
-              filtered = filtered.filter((item) => {
-                const nameMatch = item.name.toLowerCase().includes(query);
-                const contentMatch = item.content
-                  ?.toLowerCase()
-                  .includes(query);
-                const authorMatch = item.author.username
-                  .toLowerCase()
-                  .includes(query);
-                const tagMatch = item.tags.some((tag) =>
-                  tag.name.toLowerCase().includes(query),
-                );
+// Filter function (pure, not an atom - can be used anywhere)
+export const filterItems = (
+  items: GetApiByGuildIdBoardByBoardType200Item[],
+  state: ListItemState,
+): GetApiByGuildIdBoardByBoardType200Item[] => {
+  const { searchQuery, selectedTags } = state;
 
-                return nameMatch || contentMatch || authorMatch || tagMatch;
-              });
-            }
+  let filtered = items;
 
-            // Filter by selected tags
-            if (selectedTags.length > 0) {
-              filtered = filtered.filter((item) =>
-                item.tags.some((tag) => selectedTags.includes(tag.id)),
-              );
-            }
+  // Filter by search query
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase();
+    filtered = filtered.filter((item) => {
+      const nameMatch = item.name.toLowerCase().includes(query);
+      const contentMatch = item.content?.toLowerCase().includes(query);
+      const authorMatch = item.author.username.toLowerCase().includes(query);
+      const tagMatch = item.tags.some((tag) =>
+        tag.name.toLowerCase().includes(query),
+      );
 
-            return filtered;
-          },
-        }),
-        {
-          name: `list-items-store-${boardType}`,
-          storage: createJSONStorage(() => localStorage),
-        },
-      ),
-    );
-    storeInstances.set(boardType, store);
+      return nameMatch || contentMatch || authorMatch || tagMatch;
+    });
   }
 
-  return storeInstances.get(boardType)!;
-}
+  // Filter by selected tags
+  if (selectedTags.length > 0) {
+    filtered = filtered.filter((item) =>
+      item.tags.some((tag) => selectedTags.includes(tag.id)),
+    );
+  }
 
-// Hook to use the store for a specific board type
-export const useListItemStore = (boardType: BoardType = "marketplace") => {
-  const store = getOrCreateStore(boardType);
-  return store();
+  return filtered;
 };
+
+// Pre-created atoms for common board types
+export const marketplaceAtoms = createListItemAtoms("marketplace");
