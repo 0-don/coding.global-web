@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {
   type BoardType,
-  createListItemAtoms,
+  getListItemAtoms,
 } from "@/store/list-item-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
@@ -13,7 +13,7 @@ interface ViewModeToggleProps {
 }
 
 export function ViewModeToggle({ boardType }: ViewModeToggleProps) {
-  const atoms = createListItemAtoms(boardType);
+  const atoms = getListItemAtoms(boardType);
   const viewMode = useAtomValue(atoms.viewModeAtom);
   const setViewMode = useSetAtom(atoms.viewModeAtom);
 

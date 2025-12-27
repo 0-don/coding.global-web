@@ -1,3 +1,4 @@
+import { createJotaiCookieStorage } from "@/lib/utils/jotai-cookie-storage";
 import type {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
@@ -17,64 +18,72 @@ export interface ListItemState {
   selectedTags: string[];
 }
 
-const initialState: ListItemState = {
+export const INITIAL_LIST_ITEM_STORE: ListItemState = {
   viewMode: "grid",
   searchQuery: "",
   selectedTags: [],
 };
 
-// Atom family for per-board-type state with localStorage persistence
+export const getListItemStoreKey = (boardType: BoardType) =>
+  `list-items-store-${boardType}`;
+
+const listItemCookieStorage = createJotaiCookieStorage<ListItemState>();
+
+// Atom family for per-board-type state with cookie persistence
 export const listItemAtomFamily = atomFamily((boardType: BoardType) =>
   atomWithStorage<ListItemState>(
-    `list-items-store-${boardType}`,
-    initialState,
-    undefined,
-    { getOnInit: true },
+    getListItemStoreKey(boardType),
+    INITIAL_LIST_ITEM_STORE,
+    listItemCookieStorage,
   ),
 );
 
-// Derived atoms factory for individual properties
-export const createListItemAtoms = (boardType: BoardType) => {
+// Derived atom families
+const viewModeAtomFamily = atomFamily((boardType: BoardType) => {
   const baseAtom = listItemAtomFamily(boardType);
+  return atom(
+    (get) => get(baseAtom).viewMode,
+    (get, set, value: ViewMode) => {
+      set(baseAtom, { ...get(baseAtom), viewMode: value });
+    },
+  );
+});
 
-  return {
-    baseAtom,
-    viewModeAtom: atom(
-      (get) => get(baseAtom).viewMode,
-      (get, set, value: ViewMode) => {
-        set(baseAtom, { ...get(baseAtom), viewMode: value });
-      },
-    ),
-    searchQueryAtom: atom(
-      (get) => get(baseAtom).searchQuery,
-      (get, set, value: string) => {
-        set(baseAtom, { ...get(baseAtom), searchQuery: value });
-      },
-    ),
-    selectedTagsAtom: atom(
-      (get) => get(baseAtom).selectedTags,
-      (get, set, value: string[]) => {
-        set(baseAtom, { ...get(baseAtom), selectedTags: value });
-      },
-    ),
-    toggleViewModeAtom: atom(null, (get, set) => {
-      const current = get(baseAtom);
-      set(baseAtom, {
-        ...current,
-        viewMode: current.viewMode === "grid" ? "list" : "grid",
-      });
-    }),
-    clearSearchAtom: atom(null, (get, set) => {
-      set(baseAtom, { ...get(baseAtom), searchQuery: "" });
-    }),
-    clearFiltersAtom: atom(null, (get, set) => {
-      set(baseAtom, { ...get(baseAtom), searchQuery: "", selectedTags: [] });
-    }),
-    resetAtom: atom(null, (_get, set) => {
-      set(baseAtom, initialState);
-    }),
-  };
-};
+const searchQueryAtomFamily = atomFamily((boardType: BoardType) => {
+  const baseAtom = listItemAtomFamily(boardType);
+  return atom(
+    (get) => get(baseAtom).searchQuery,
+    (get, set, value: string) => {
+      set(baseAtom, { ...get(baseAtom), searchQuery: value });
+    },
+  );
+});
+
+const selectedTagsAtomFamily = atomFamily((boardType: BoardType) => {
+  const baseAtom = listItemAtomFamily(boardType);
+  return atom(
+    (get) => get(baseAtom).selectedTags,
+    (get, set, value: string[]) => {
+      set(baseAtom, { ...get(baseAtom), selectedTags: value });
+    },
+  );
+});
+
+const clearFiltersAtomFamily = atomFamily((boardType: BoardType) => {
+  const baseAtom = listItemAtomFamily(boardType);
+  return atom(null, (get, set) => {
+    set(baseAtom, { ...get(baseAtom), searchQuery: "", selectedTags: [] });
+  });
+});
+
+// Get atoms for a board type (returns cached atoms)
+export const getListItemAtoms = (boardType: BoardType) => ({
+  baseAtom: listItemAtomFamily(boardType),
+  viewModeAtom: viewModeAtomFamily(boardType),
+  searchQueryAtom: searchQueryAtomFamily(boardType),
+  selectedTagsAtom: selectedTagsAtomFamily(boardType),
+  clearFiltersAtom: clearFiltersAtomFamily(boardType),
+});
 
 // Filter function (pure, not an atom - can be used anywhere)
 export const filterItems = (
@@ -109,6 +118,3 @@ export const filterItems = (
 
   return filtered;
 };
-
-// Pre-created atoms for common board types
-export const marketplaceAtoms = createListItemAtoms("marketplace");
