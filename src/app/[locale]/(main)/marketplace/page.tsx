@@ -1,10 +1,11 @@
 import { Marketplace } from "@/components/pages/marketplace/marketplace";
+import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
-import { serverLocale } from "@/lib/utils/server";
+import { loadListItemStore, serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -25,7 +26,6 @@ export async function generateMetadata(props: {
 export default async function MarketplacePage() {
   const queryClient = getQueryClient();
 
-  // Prefetch BOTH job-board and dev-board data in parallel
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.jobBoardThreads(),
@@ -37,9 +37,13 @@ export default async function MarketplacePage() {
     }),
   ]);
 
+  const listItemStore = await loadListItemStore("marketplace");
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Marketplace />
+      <ListItemStoreProvider boardType="marketplace" data={listItemStore}>
+        <Marketplace />
+      </ListItemStoreProvider>
     </HydrationBoundary>
   );
 }

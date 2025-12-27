@@ -14,8 +14,8 @@ import {
 } from "@/openapi";
 import {
   type BoardType,
-  createListItemAtoms,
   filterItems,
+  getListItemAtoms,
 } from "@/store/list-item-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
@@ -40,7 +40,7 @@ interface BoardListProps {
 
 export function BoardList(props: BoardListProps) {
   const t = useTranslations();
-  const atoms = createListItemAtoms(props.boardType);
+  const atoms = getListItemAtoms(props.boardType);
 
   const state = useAtomValue(atoms.baseAtom);
   const setSearchQuery = useSetAtom(atoms.searchQueryAtom);
@@ -48,7 +48,7 @@ export function BoardList(props: BoardListProps) {
 
   const filteredThreads = filterItems(props.threads, state);
   const hasActiveFilters =
-    state.searchQuery.trim() || state.selectedTags.length > 0;
+    state.searchQuery?.trim() || (state.selectedTags?.length ?? 0) > 0;
 
   return (
     <div className="container mx-auto px-4 md:px-6">

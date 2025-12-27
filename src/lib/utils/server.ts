@@ -1,3 +1,9 @@
+import {
+  type BoardType,
+  getListItemStoreKey,
+  INITIAL_LIST_ITEM_STORE,
+  type ListItemState,
+} from "@/store/list-item-store";
 import type { Locale } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
@@ -24,3 +30,18 @@ export const serverLocale = async (props?: {
     (await safe(getLocale)) ||
     (await safe(async () => (await cookies()).get(LOCALE_COOKIE_KEY)?.value)) ||
     LOCALES[0]) as Locale;
+
+export const loadListItemStore = async (
+  boardType: BoardType,
+): Promise<ListItemState> => {
+  const cookieStore = await cookies();
+  const cookieValue = cookieStore.get(getListItemStoreKey(boardType))?.value;
+
+  if (!cookieValue) return INITIAL_LIST_ITEM_STORE;
+
+  try {
+    return { ...INITIAL_LIST_ITEM_STORE, ...JSON.parse(cookieValue) };
+  } catch {
+    return INITIAL_LIST_ITEM_STORE;
+  }
+};
