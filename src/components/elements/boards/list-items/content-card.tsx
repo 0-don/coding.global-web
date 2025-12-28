@@ -142,7 +142,7 @@ export function ContentCard(props: ContentCardProps) {
             {props.data.tags.length > 0 && (
               <div className="mb-1 flex flex-wrap gap-2">
                 {props.data.tags.map((tag) => (
-                  <Badge key={tag.id}>
+                  <Badge key={tag.id} variant={"outline"}>
                     {tag.name} {tag.emoji.name}
                   </Badge>
                 ))}
