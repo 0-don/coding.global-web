@@ -46,6 +46,7 @@ export function BoardList(props: BoardListProps) {
   const setSearchQuery = useSetAtom(atoms.searchQueryAtom);
   const clearFilters = useSetAtom(atoms.clearFiltersAtom);
 
+  console.log(state.searchQuery);
   const filteredThreads = filterItems(props.threads, state);
   const hasActiveFilters =
     state.searchQuery?.trim() || (state.selectedTags?.length ?? 0) > 0;

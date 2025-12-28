@@ -33,6 +33,8 @@ export default async function ShowcasePage() {
 
   const listItemStore = await loadListItemStore("showcase");
 
+  console.log(listItemStore);
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="showcase" data={listItemStore}>
