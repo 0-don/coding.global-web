@@ -114,7 +114,7 @@ export function ContentListItem({
         {data.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {data.tags.map((tag) => (
-              <Badge key={tag.id} className="text-xs">
+              <Badge key={tag.id} className="text-xs" variant={"outline"}>
                 {tag.name} {tag.emoji.name}
               </Badge>
             ))}
