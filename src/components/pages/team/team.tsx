@@ -1,6 +1,6 @@
 "use client";
 
-import { StaffRole, RoleBadgeIcon } from "@/components/elements/utils/enums";
+import { RoleBadgeIcon, StaffRole } from "@/components/elements/utils/enums";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import { useTeamQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
@@ -10,9 +10,7 @@ import { RiTeamFill } from "react-icons/ri";
 
 export function Team() {
   const t = useTranslations();
-  const teamQuery = useTeamQuery();
-
-  const staffMembers = teamQuery.data ?? [];
+  const { data: staffMembers } = useTeamQuery();
 
   return (
     <div className="container mx-auto px-4 md:px-6">
@@ -22,7 +20,7 @@ export function Team() {
       </div>
 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7">
-        {staffMembers.map((member) => (
+        {(staffMembers ?? []).map((member) => (
           <Card key={member.id}>
             <CardHeader className="gap-0 p-0">
               <div className="relative h-48 w-full overflow-hidden rounded-t-xl">

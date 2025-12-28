@@ -8,26 +8,23 @@ import {
 } from "@tanstack/react-query";
 
 export function useTeamQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.team(),
     queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
-    enabled: false,
   });
 }
 
 export function useNewsQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.news(),
     queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
-    enabled: false,
   });
 }
 
 export function useDiscordWidget() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.discordWidget(),
     queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
-    enabled: false,
   });
 }
 
@@ -67,19 +64,17 @@ export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
 
 // Job Board
 export function useJobBoardThreadsQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.jobBoardThreads(),
     queryFn: async () => handleElysia(await rpc.api.bot["job-board"].get()),
-    enabled: false,
   });
 }
 
 // Dev Board
 export function useDevBoardThreadsQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.devBoardThreads(),
     queryFn: async () => handleElysia(await rpc.api.bot["dev-board"].get()),
-    enabled: false,
   });
 }
 

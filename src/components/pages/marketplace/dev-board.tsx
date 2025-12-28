@@ -7,13 +7,11 @@ import { HiOutlineCodeBracket } from "react-icons/hi2";
 
 export function DevBoard() {
   const t = useTranslations();
-  const devBoardQuery = useDevBoardThreadsQuery();
-
-  const threads = devBoardQuery.data || [];
+  const { data: threads } = useDevBoardThreadsQuery();
 
   return (
     <BoardList
-      threads={threads}
+      threads={threads ?? []}
       title={t("MARKETPLACE.DEV_BOARD.HEADING")}
       icon={HiOutlineCodeBracket}
       showBoardBadge={false}

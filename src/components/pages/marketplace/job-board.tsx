@@ -7,13 +7,11 @@ import { HiOutlineBriefcase } from "react-icons/hi2";
 
 export function JobBoard() {
   const t = useTranslations();
-  const jobBoardQuery = useJobBoardThreadsQuery();
-
-  const threads = jobBoardQuery.data || [];
+  const { data: threads } = useJobBoardThreadsQuery();
 
   return (
     <BoardList
-      threads={threads}
+      threads={threads ?? []}
       title={t("MARKETPLACE.JOB_BOARD.HEADING")}
       icon={HiOutlineBriefcase}
       showBoardBadge={false}
