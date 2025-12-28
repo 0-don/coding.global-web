@@ -53,9 +53,9 @@ export default async function ShowcaseDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ThreadDetailSkeleton />}>
+      {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
         <ShowcaseDetail threadId={params.id} />
-      </Suspense>
+      {/* </Suspense> */}
     </HydrationBoundary>
   );
 }

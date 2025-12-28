@@ -53,9 +53,9 @@ export default async function JobBoardDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<ThreadDetailSkeleton />}>
+      {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
         <BoardDetail threadId={params.id} boardType="job-board" />
-      </Suspense>
+      {/* </Suspense> */}
     </HydrationBoundary>
   );
 }

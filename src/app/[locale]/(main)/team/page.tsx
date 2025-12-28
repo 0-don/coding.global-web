@@ -37,9 +37,9 @@ export default async function TeamPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<TeamSkeleton title={t("TEAM.HEADING")} />}>
+      {/* <Suspense fallback={<TeamSkeleton title={t("TEAM.HEADING")} />}> */}
         <Team />
-      </Suspense>
+      {/* </Suspense> */}
     </HydrationBoundary>
   );
 }
