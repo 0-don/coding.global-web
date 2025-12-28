@@ -53,7 +53,7 @@ export function ContentListItem({
             src={data.imageUrl}
             alt={data.name}
             fill
-            unoptimized
+            unoptimized={data.imageUrl.includes(".gif")}
             className="object-cover"
             sizes="128px"
             loading="lazy"

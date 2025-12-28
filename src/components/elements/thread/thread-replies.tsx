@@ -219,6 +219,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                                     width={400}
                                     height={300}
                                     className="max-w-md rounded"
+                                    unoptimized={att.url.includes(".gif")}
                                   />
                                 ) : (
                                   att.name
