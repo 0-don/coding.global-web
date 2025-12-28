@@ -1,11 +1,11 @@
 import { botRoute } from "@/server/bot/route";
-import { commentRoute } from "@/server/comment/route";
+import { chatRoute } from "@/server/chat/route";
 import { todoRoute } from "@/server/todo/route";
 import { Elysia } from "elysia";
 
 export const app = new Elysia({ prefix: "/api" })
   .use(todoRoute)
-  .use(commentRoute)
+  .use(chatRoute)
   .use(botRoute);
 
 export type App = typeof app;

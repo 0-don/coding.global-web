@@ -11,14 +11,14 @@ import { and, desc, eq, getTableColumns, gt } from "drizzle-orm";
 import Elysia, { t } from "elysia";
 import { authUserGuard, authUserResolve } from "../auth/guard";
 
-export const commentRoute = new Elysia({ prefix: "/comment" })
+export const chatRoute = new Elysia({ prefix: "/chat" })
   .get(
     "",
     async ({ query }) => {
       const { email, ...user } = getTableColumns(users);
 
       const comments = await db
-        .select({ ...getTableColumns(comment), usr: user })
+        .select({ ...getTableColumns(comment), user: user })
         .from(comment)
         .leftJoin(users, eq(comment.userId, user.id))
         .where(
@@ -44,7 +44,7 @@ export const commentRoute = new Elysia({ prefix: "/comment" })
               .insert(comment)
               .values({ ...body, userId: user.id! })
               .returning()
-          ).at(0)!;
+          ).at(0)!; 
 
           const { email, ...userCols } = getTableColumns(users);
 
