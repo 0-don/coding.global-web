@@ -15,10 +15,14 @@ import { Suspense } from "react";
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const params = await props.params;
-  const locale = await serverLocale(props);
-  const t = await getTranslations({ locale });
-  const result = await detectThreadWithType(params.id);
+  const [params, locale] = await Promise.all([
+    props.params,
+    serverLocale(props),
+  ]);
+  const [t, result] = await Promise.all([
+    getTranslations({ locale }),
+    detectThreadWithType(params.id),
+  ]);
 
   if (result?.thread) {
     const { thread, boardType } = result;

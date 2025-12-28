@@ -9,7 +9,6 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
-
   return getPageMetadata({
     locale,
     title: t("METADATA.NOT_FOUND.TITLE"),

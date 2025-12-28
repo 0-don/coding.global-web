@@ -13,11 +13,14 @@ import { Suspense } from "react";
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const params = await props.params;
-  const locale = await serverLocale(props);
-  const t = await getTranslations({ locale });
-  const thread = await getThread(params.id, "showcase");
-
+  const [params, locale] = await Promise.all([
+    props.params,
+    serverLocale(props),
+  ]);
+  const [t, thread] = await Promise.all([
+    getTranslations({ locale }),
+    getThread(params.id, "showcase"),
+  ]);
   return getThreadPageMetadata(thread, locale, {
     title: t("SHOWCASE.META.TITLE"),
     description: t("SHOWCASE.META.DESCRIPTION"),
