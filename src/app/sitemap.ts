@@ -1,18 +1,81 @@
 import { getPathname } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
+import { Pathname, pathnames, routing } from "@/i18n/routing";
+import {
+  getApiByGuildIdBoardByBoardType,
+  GetApiByGuildIdBoardByBoardType200ItemBoardType,
+} from "@/openapi";
+import { log } from "console";
 import { MetadataRoute } from "next";
 import { Locale } from "next-intl";
 
-export const dynamic = "force-static";
+export const revalidate = 3600;
 
-type Href = Parameters<typeof getPathname>[0]["href"];
-const host = new URL(process.env.NEXT_PUBLIC_URL!).origin;
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes = Object.keys(pathnames).filter(
+    (route) => !route.includes("["),
+  ) as (keyof typeof pathnames)[];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [];
+  const entries: MetadataRoute.Sitemap = [];
+
+  staticRoutes.forEach((route) => {
+    entries.push(...getEntries(route as Pathname));
+  });
+
+  const boardPromises = Object.values(
+    GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  ).map(async (boardType) => {
+    try {
+      const response = await getApiByGuildIdBoardByBoardType(
+        process.env.NEXT_PUBLIC_GUILD_ID,
+        boardType,
+      );
+
+      if (response.status !== 200) {
+        return [];
+      }
+
+      const threads = response.data;
+      const threadEntries: MetadataRoute.Sitemap = [];
+
+      threads.forEach((thread) => {
+        if (boardType === "showcase") {
+          threadEntries.push(
+            ...getEntries({
+              pathname: "/showcase/[id]",
+              params: { id: thread.id },
+            }),
+          );
+        } else {
+          // job-board and dev-board go under /marketplace
+          threadEntries.push(
+            ...getEntries({
+              pathname:
+                boardType === "job-board"
+                  ? "/marketplace/job-board/[id]"
+                  : "/marketplace/dev-board/[id]",
+              params: { id: thread.id },
+            }),
+          );
+        }
+      });
+
+      return threadEntries;
+    } catch (error) {
+      log(`Failed to fetch threads for ${boardType}:`, error);
+      return [];
+    }
+  });
+
+  const boardEntries = await Promise.all(boardPromises);
+  boardEntries.forEach((boardThreadEntries) => {
+    entries.push(...boardThreadEntries);
+  });
+
+  log("Generating sitemap with entries:", entries.length);
+  return entries;
 }
 
-function getEntries(href: Href): MetadataRoute.Sitemap {
+function getEntries(href: Pathname): MetadataRoute.Sitemap {
   return routing.locales.map((locale) => ({
     url: getUrl(href, locale),
     lastModified: new Date(),
@@ -24,9 +87,9 @@ function getEntries(href: Href): MetadataRoute.Sitemap {
   }));
 }
 
-function getUrl(href: Href, locale: Locale): string {
+function getUrl(href: Pathname, locale: Locale): string {
   const pathname = getPathname({ locale, href });
 
   // Add locale prefix for all locales in sitemap
-  return `${host}/${locale}${pathname}`;
+  return `${new URL(process.env.NEXT_PUBLIC_URL).origin}/${locale}${pathname}`;
 }
