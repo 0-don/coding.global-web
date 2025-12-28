@@ -104,8 +104,10 @@ export const filterItems = (
       const tagMatch = item.tags.some((tag) =>
         tag.name.toLowerCase().includes(query),
       );
+      const userIdMatch = item.author.id.toLowerCase().includes(query);
+      const threadIdMatch = item.id.toLowerCase().includes(query);
 
-      return nameMatch || contentMatch || authorMatch || tagMatch;
+      return nameMatch || contentMatch || authorMatch || tagMatch || userIdMatch || threadIdMatch;
     });
   }
 
