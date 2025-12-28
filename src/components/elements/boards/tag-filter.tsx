@@ -117,10 +117,11 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
                         : [...selectedTags, option.id];
                       setSelectedTags(newSelectedTags);
                     }}
+                    className="[&>svg]:hidden"
                   >
                     <div
                       className={cn(
-                        "border-primary mr-2 flex h-4 w-4 items-center justify-center rounded-sm border",
+                        "border-primary mr-2 flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible",
@@ -128,10 +129,10 @@ export function TagFilter({ threads, boardType }: TagFilterProps) {
                     >
                       <RxCheck className="h-4 w-4" />
                     </div>
-                    <span className="flex-1">{option.name}</span>
-                    <span className="ml-auto flex min-w-8 items-center justify-end font-mono text-xs">
-                      {option.count}
-                    </span>
+                    <div className="flex flex-1 items-center justify-between">
+                      <span className="truncate">{option.name}</span>
+                      <span className="font-mono text-xs">{option.count}</span>
+                    </div>
                   </CommandItem>
                 );
               })}
