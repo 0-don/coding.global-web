@@ -29,14 +29,15 @@ export async function generateMetadata(props: {
 export default async function JobBoardPage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.boardThreads("job-board"),
-    queryFn: async () =>
-      handleElysia(await rpc.api.bot.board({ boardType: "job-board" }).get()),
-  });
-
-  const listItemStore = await loadListItemStore("job-board");
-  const t = await getTranslations();
+  const [, listItemStore, t] = await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.boardThreads("job-board"),
+      queryFn: async () =>
+        handleElysia(await rpc.api.bot.board({ boardType: "job-board" }).get()),
+    }),
+    loadListItemStore("job-board"),
+    getTranslations(),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -27,12 +27,13 @@ export async function generateMetadata(props: {
 export default async function NewsPage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.news(),
-    queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
-  });
-
-  const t = await getTranslations();
+  const [, t] = await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.news(),
+      queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
+    }),
+    getTranslations(),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
