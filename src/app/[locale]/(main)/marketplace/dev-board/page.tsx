@@ -17,7 +17,6 @@ export async function generateMetadata(props: {
 }) {
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
-
   return getPageMetadata({
     locale,
     title: t("MARKETPLACE.DEV_BOARD.META.TITLE"),

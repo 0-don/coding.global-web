@@ -8,7 +8,6 @@ export async function generateMetadata(props: {
 }) {
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
-
   return getPageMetadata({
     locale,
     title: t("RULES.META.TITLE"),
