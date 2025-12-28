@@ -4,25 +4,25 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { Fira_Code, Roboto_Serif, Source_Code_Pro } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { Providers } from "../../components/provider/providers";
 import "../globals.css";
 
-const sourceCodePro = Source_Code_Pro({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const robotoSerif = Roboto_Serif({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-serif",
 });
 
-const firaCode = Fira_Code({
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  variable: "--font-mono",
 });
 
 export async function generateMetadata(props: {
@@ -50,9 +50,13 @@ export default function RootLayout(props: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html lang={locale} className="h-full" suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${jetbrainsMono.variable} h-full`}
+      suppressHydrationWarning
+    >
       <body
-        className={`${sourceCodePro.variable} ${robotoSerif.variable} ${firaCode.variable} flex min-h-full flex-col antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}
       >
         <Toaster />
         <Providers>{props.children}</Providers>
