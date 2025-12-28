@@ -1,12 +1,9 @@
+import { ThreadDetailSkeleton } from "@/components/elements/thread/thread-detail-skeleton";
 import { ShowcaseDetail } from "@/components/pages/showcase/showcase-detail";
-import getQueryClient from "@/lib/react-query/client";
-import { queryKeys } from "@/lib/react-query/keys";
-import { rpc } from "@/lib/rpc";
-import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
 import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -27,27 +24,10 @@ export default async function ShowcaseDetailPage(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
   const params = await props.params;
-  const queryClient = getQueryClient();
-
-  await Promise.all([
-    await queryClient.prefetchQuery({
-      queryKey: queryKeys.showcaseThread(params.id),
-      queryFn: async () =>
-        handleElysia(await rpc.api.bot.showcase({ threadId: params.id }).get()),
-    }),
-    await queryClient.prefetchInfiniteQuery({
-      queryKey: queryKeys.showcaseThreadMessages(params.id),
-      queryFn: async () =>
-        handleElysia(
-          await rpc.api.bot.showcase({ threadId: params.id }).messages.get(),
-        ),
-      initialPageParam: undefined,
-    }),
-  ]);
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
+    <Suspense fallback={<ThreadDetailSkeleton />}>
       <ShowcaseDetail threadId={params.id} />
-    </HydrationBoundary>
+    </Suspense>
   );
 }

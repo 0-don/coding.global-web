@@ -5,8 +5,13 @@ import {
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
   getApiByGuildIdWidget,
+  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
+
+const boardTypeSchema = t.UnionEnum(
+  Object.values(BoardType) as [BoardType, ...BoardType[]],
+);
 
 export const botRoute = new Elysia({ prefix: "/bot" })
   .get("/widget", async ({ status }) => {
@@ -45,45 +50,14 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       return status("Internal Server Error", error as Error);
     }
   })
-  .get("/showcase", async ({ status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardType(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "showcase",
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return status("Internal Server Error", error as Error);
-    }
-  })
-  .get("/showcase/:threadId", async ({ params, status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "showcase",
-        params.threadId,
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      return status("Internal Server Error", error as Error);
-    }
-  })
   .get(
-    "/showcase/:threadId/messages",
-    async ({ params, query, status }) => {
+    "/board/:boardType",
+    async ({ params, status }) => {
       try {
-        const response =
-          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
-            process.env.NEXT_PUBLIC_GUILD_ID!,
-            "showcase",
-            params.threadId,
-            { after: query.after },
-          );
+        const response = await getApiByGuildIdBoardByBoardType(
+          process.env.NEXT_PUBLIC_GUILD_ID!,
+          params.boardType,
+        );
         if (response.status !== 200)
           return status("Unprocessable Content", response.data);
         return response.data;
@@ -91,46 +65,17 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status("Internal Server Error", error as Error);
       }
     },
-    { query: t.Object({ after: t.Optional(t.String()) }) },
+    { params: t.Object({ boardType: boardTypeSchema }) },
   )
-  .get("/job-board", async ({ status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardType(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "job-board",
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      return status("Internal Server Error", error as Error);
-    }
-  })
-  .get("/job-board/:threadId", async ({ params, status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "job-board",
-        params.threadId,
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      return status("Internal Server Error", error as Error);
-    }
-  })
   .get(
-    "/job-board/:threadId/messages",
-    async ({ params, query, status }) => {
+    "/board/:boardType/:threadId",
+    async ({ params, status }) => {
       try {
-        const response =
-          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
-            process.env.NEXT_PUBLIC_GUILD_ID!,
-            "job-board",
-            params.threadId,
-            { after: query.after },
-          );
+        const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
+          process.env.NEXT_PUBLIC_GUILD_ID!,
+          params.boardType,
+          params.threadId,
+        );
         if (response.status !== 200)
           return status("Unprocessable Content", response.data);
         return response.data;
@@ -138,43 +83,16 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status("Internal Server Error", error as Error);
       }
     },
-    { query: t.Object({ after: t.Optional(t.String()) }) },
+    { params: t.Object({ boardType: boardTypeSchema, threadId: t.String() }) },
   )
-  .get("/dev-board", async ({ status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardType(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "dev-board",
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      return status("Internal Server Error", error as Error);
-    }
-  })
-  .get("/dev-board/:threadId", async ({ params, status }) => {
-    try {
-      const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
-        process.env.NEXT_PUBLIC_GUILD_ID!,
-        "dev-board",
-        params.threadId,
-      );
-      if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
-      return response.data;
-    } catch (error) {
-      return status("Internal Server Error", error as Error);
-    }
-  })
   .get(
-    "/dev-board/:threadId/messages",
+    "/board/:boardType/:threadId/messages",
     async ({ params, query, status }) => {
       try {
         const response =
           await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
             process.env.NEXT_PUBLIC_GUILD_ID!,
-            "dev-board",
+            params.boardType,
             params.threadId,
             { after: query.after },
           );
@@ -185,5 +103,8 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status("Internal Server Error", error as Error);
       }
     },
-    { query: t.Object({ after: t.Optional(t.String()) }) },
+    {
+      params: t.Object({ boardType: boardTypeSchema, threadId: t.String() }),
+      query: t.Object({ after: t.Optional(t.String()) }),
+    },
   );

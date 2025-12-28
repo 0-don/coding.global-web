@@ -18,7 +18,9 @@ export async function getThread(
   boardType: BoardType,
 ): Promise<GetApiByGuildIdBoardByBoardTypeByThreadId200 | null> {
   try {
-    const response = await rpc.api.bot[boardType]({ threadId }).get();
+    const response = await rpc.api.bot
+      .board({ boardType })({ threadId })
+      .get();
     if (response.status === 200) {
       return response.data;
     }
@@ -32,7 +34,8 @@ export async function detectThreadWithType(
   threadId: string,
 ): Promise<ThreadResult> {
   const results = await Promise.all([
-    rpc.api.bot[BoardType["job-board"]]({ threadId })
+    rpc.api.bot
+      .board({ boardType: "job-board" })({ threadId })
       .get()
       .then((r) =>
         r.status === 200 && r.data
@@ -40,7 +43,8 @@ export async function detectThreadWithType(
           : null,
       )
       .catch(() => null),
-    rpc.api.bot[BoardType["dev-board"]]({ threadId })
+    rpc.api.bot
+      .board({ boardType: "dev-board" })({ threadId })
       .get()
       .then((r) =>
         r.status === 200 && r.data

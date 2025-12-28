@@ -1,13 +1,13 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import { useJobBoardThreadsQuery } from "@/hook/bot-hook";
+import { useBoardThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 
 export function JobBoard() {
   const t = useTranslations();
-  const { data: threads } = useJobBoardThreadsQuery();
+  const { data: threads } = useBoardThreadsQuery("job-board");
 
   return (
     <BoardList
