@@ -100,6 +100,12 @@ export const filterItems = (
       const nameMatch = item.name.toLowerCase().includes(query);
       const contentMatch = item.content?.toLowerCase().includes(query);
       const authorMatch = item.author.username.toLowerCase().includes(query);
+      const authorDisplayNameMatch = item.author.displayName
+        ?.toLowerCase()
+        .includes(query);
+      const authorGlobalNameMatch = item.author.globalName
+        ?.toLowerCase()
+        .includes(query);
       const tagMatch = item.tags.some((tag) =>
         tag.name.toLowerCase().includes(query),
       );
@@ -110,6 +116,8 @@ export const filterItems = (
         nameMatch ||
         contentMatch ||
         authorMatch ||
+        authorDisplayNameMatch ||
+        authorGlobalNameMatch ||
         tagMatch ||
         userIdMatch ||
         threadIdMatch
