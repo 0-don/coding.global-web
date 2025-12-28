@@ -2,10 +2,10 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import {
-  getApiByGuildIdBoardByBoardType,
-  GetApiByGuildIdBoardByBoardType200Item,
-} from "@/openapi";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+  useInfiniteQuery,
+  useQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 
 export function useTeamQuery() {
   return useQuery({
@@ -32,17 +32,9 @@ export function useDiscordWidget() {
 }
 
 export function useShowcaseThreadsQuery() {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.showcaseThreads(),
-    // queryFn: async () => handleElysia(await rpc.api.bot.showcase.get()),
-    queryFn: async () =>
-      (
-        await getApiByGuildIdBoardByBoardType(
-          process.env.NEXT_PUBLIC_GUILD_ID!,
-          "showcase",
-        )
-      ).data as GetApiByGuildIdBoardByBoardType200Item[],
-    enabled: true,
+    queryFn: async () => handleElysia(await rpc.api.bot.showcase.get()),
   });
 }
 
