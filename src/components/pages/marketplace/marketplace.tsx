@@ -11,19 +11,19 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 
 export function Marketplace() {
   const t = useTranslations();
-  const jobBoardQuery = useJobBoardThreadsQuery();
-  const devBoardQuery = useDevBoardThreadsQuery();
+  const { data: jobThreads } = useJobBoardThreadsQuery();
+  const { data: devThreads } = useDevBoardThreadsQuery();
 
   const combinedThreads = useMemo(() => {
-    const jobThreads = jobBoardQuery.data || [];
-    const devThreads = devBoardQuery.data || [];
+    const jobs = jobThreads ?? [];
+    const devs = devThreads ?? [];
 
     // newest first
-    return [...jobThreads, ...devThreads].sort(
+    return [...jobs, ...devs].sort(
       (a, b) =>
         new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime(),
     );
-  }, [jobBoardQuery.data, devBoardQuery.data]);
+  }, [jobThreads, devThreads]);
 
   return (
     <BoardList
