@@ -7,13 +7,11 @@ import { HiOutlineTrophy } from "react-icons/hi2";
 
 export function Showcase() {
   const t = useTranslations();
-  const showcaseThreadsQuery = useShowcaseThreadsQuery();
-
-  const threads = showcaseThreadsQuery.data || [];
+  const { data: threads } = useShowcaseThreadsQuery();
 
   return (
     <BoardList
-      threads={threads}
+      threads={threads ?? []}
       title={t("SHOWCASE.HEADING")}
       icon={HiOutlineTrophy}
       showBoardBadge={false}
