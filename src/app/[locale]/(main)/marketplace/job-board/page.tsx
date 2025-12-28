@@ -42,16 +42,16 @@ export default async function JobBoardPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="job-board" data={listItemStore}>
-        <Suspense
+        {/* <Suspense
           fallback={
             <BoardListSkeleton
               title={t("MARKETPLACE.JOB_BOARD.HEADING")}
               icon={HiOutlineBriefcase}
             />
           }
-        >
+        > */}
           <JobBoard />
-        </Suspense>
+        {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

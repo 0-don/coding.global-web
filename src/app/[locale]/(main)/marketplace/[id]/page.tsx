@@ -76,8 +76,10 @@ export default async function MarketplaceDetailPage(props: {
   }
 
   return (
-    <Suspense fallback={<ThreadDetailSkeleton />}>
+    <>
+      {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
       <MarketplaceDetail threadId={params.id} boardType={boardType} />
-    </Suspense>
+      {/* </Suspense> */}
+    </>
   );
 }

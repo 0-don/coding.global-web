@@ -42,16 +42,16 @@ export default async function DevBoardPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="dev-board" data={listItemStore}>
-        <Suspense
+        {/* <Suspense
           fallback={
             <BoardListSkeleton
               title={t("MARKETPLACE.DEV_BOARD.HEADING")}
               icon={HiOutlineCodeBracket}
             />
           }
-        >
+        > */}
           <DevBoard />
-        </Suspense>
+        {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

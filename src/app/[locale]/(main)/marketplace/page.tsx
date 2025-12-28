@@ -29,16 +29,16 @@ export default async function MarketplacePage() {
 
   return (
     <ListItemStoreProvider boardType="marketplace" data={listItemStore}>
-      <Suspense
+      {/* <Suspense
         fallback={
           <BoardListSkeleton
             title={t("MARKETPLACE.HEADING")}
             icon={HiOutlineShoppingBag}
           />
         }
-      >
+      > */}
         <Marketplace />
-      </Suspense>
+      {/* </Suspense> */}
     </ListItemStoreProvider>
   );
 }
