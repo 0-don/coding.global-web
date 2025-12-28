@@ -2,7 +2,12 @@ import { BoardListSkeleton } from "@/components/elements/boards/board-list-skele
 import { Showcase } from "@/components/pages/showcase/showcase";
 import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
+import getQueryClient from "@/lib/react-query/client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { loadListItemStore, serverLocale } from "@/lib/utils/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { HiOutlineTrophy } from "react-icons/hi2";
@@ -22,21 +27,32 @@ export async function generateMetadata(props: {
 }
 
 export default async function ShowcasePage() {
-  const t = await getTranslations();
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: queryKeys.boardThreads("showcase"),
+    queryFn: async () =>
+      handleElysia(await rpc.api.bot.board({ boardType: "showcase" }).get()),
+  });
+
   const listItemStore = await loadListItemStore("showcase");
 
+  const t = await getTranslations();
+
   return (
-    <ListItemStoreProvider boardType="showcase" data={listItemStore}>
-      <Suspense
-        fallback={
-          <BoardListSkeleton
-            title={t("SHOWCASE.HEADING")}
-            icon={HiOutlineTrophy}
-          />
-        }
-      >
-        <Showcase />
-      </Suspense>
-    </ListItemStoreProvider>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ListItemStoreProvider boardType="showcase" data={listItemStore}>
+        <Suspense
+          fallback={
+            <BoardListSkeleton
+              title={t("SHOWCASE.HEADING")}
+              icon={HiOutlineTrophy}
+            />
+          }
+        >
+          <Showcase />
+        </Suspense>
+      </ListItemStoreProvider>
+    </HydrationBoundary>
   );
 }
