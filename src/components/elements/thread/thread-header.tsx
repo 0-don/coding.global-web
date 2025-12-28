@@ -12,7 +12,7 @@ interface ThreadHeaderProps {
   thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
 }
 
-export function ThreadHeader({ thread }: ThreadHeaderProps) {
+export function ThreadHeader(props: ThreadHeaderProps) {
   const t = useTranslations();
 
   return (
@@ -21,11 +21,11 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
         <CardHeader>
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h1 className="mb-2 text-2xl font-bold">{thread.name}</h1>
-              {thread.tags.length > 0 && (
+              <h1 className="mb-2 text-2xl font-bold">{props.thread.name}</h1>
+              {props.thread.tags.length > 0 && (
                 <div className="mb-3 flex flex-wrap gap-2">
-                  {thread.tags.map((tag) => (
-                    <Badge key={tag.id}>
+                  {props.thread.tags.map((tag) => (
+                    <Badge key={tag.id} variant={"outline"}>
                       {tag.name} {tag.emoji.name ?? ""}
                     </Badge>
                   ))}
@@ -33,27 +33,27 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
               )}
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              {thread.archived && (
+              {props.thread.archived && (
                 <Badge
                   variant="secondary"
                   className="gap-1"
                   title={
-                    thread.archivedAt
-                      ? dayjs(thread.archivedAt).format(
+                    props.thread.archivedAt
+                      ? dayjs(props.thread.archivedAt).format(
                           "MMMM D, YYYY [at] h:mm A",
                         )
                       : undefined
                   }
                 >
                   <Archive className="h-3 w-3" />
-                  {thread.archivedAt
+                  {props.thread.archivedAt
                     ? t("SHOWCASE.ARCHIVED_AT", {
-                        date: dayjs(thread.archivedAt).fromNow(),
+                        date: dayjs(props.thread.archivedAt).fromNow(),
                       })
                     : t("SHOWCASE.ARCHIVED")}
                 </Badge>
               )}
-              {thread.locked && (
+              {props.thread.locked && (
                 <Badge variant="outline" className="gap-1">
                   <Lock className="h-3 w-3" />
                   {t("SHOWCASE.LOCKED")}
@@ -67,44 +67,50 @@ export function ThreadHeader({ thread }: ThreadHeaderProps) {
             <div className="flex items-center gap-1.5">
               <MessageCircle className="h-4 w-4" />
               <span>
-                {t("SHOWCASE.MESSAGES_COUNT", { count: thread.messageCount })}
+                {t("SHOWCASE.MESSAGES_COUNT", {
+                  count: props.thread.messageCount,
+                })}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
               <Users className="h-4 w-4" />
               <span>
-                {t("SHOWCASE.MEMBERS_COUNT", { count: thread.memberCount })}
+                {t("SHOWCASE.MEMBERS_COUNT", {
+                  count: props.thread.memberCount,
+                })}
               </span>
             </div>
             <div
               className="flex items-center gap-1.5"
               title={
-                thread.createdAt
-                  ? dayjs(thread.createdAt).format("MMMM D, YYYY [at] h:mm A")
+                props.thread.createdAt
+                  ? dayjs(props.thread.createdAt).format(
+                      "MMMM D, YYYY [at] h:mm A",
+                    )
                   : undefined
               }
             >
               <Calendar className="h-4 w-4" />
-              <span>{dayjs(thread.createdAt).fromNow()}</span>
+              <span>{dayjs(props.thread.createdAt).fromNow()}</span>
             </div>
           </div>
         </CardHeader>
 
         <CardContent className="pt-0">
           <div className="items-start gap-3">
-            {thread.author && <DiscordUser user={thread.author} />}
+            {props.thread.author && <DiscordUser user={props.thread.author} />}
 
             <div className="flex-1">
-              {thread.content && (
+              {props.thread.content && (
                 <p className="text-sm whitespace-pre-wrap">
-                  <DiscordMarkdown content={thread.content} />
+                  <DiscordMarkdown content={props.thread.content} />
                 </p>
               )}
 
-              {thread.imageUrl && (
+              {props.thread.imageUrl && (
                 <Image
-                  src={thread.imageUrl}
-                  alt={thread.name}
+                  src={props.thread.imageUrl}
+                  alt={props.thread.name}
                   width={800}
                   height={600}
                   className="rounded-lg"

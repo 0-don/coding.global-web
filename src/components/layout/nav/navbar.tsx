@@ -15,10 +15,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useSessionHook } from "@/hook/session-hook";
 import { Link, usePathname } from "@/i18n/navigation";
+import type { LinkHref } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { ChevronDownIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { FaDiscord } from "react-icons/fa";
+import type { IconType } from "react-icons/lib";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
 import { MobileNav } from "./mobile-nav";
@@ -60,7 +63,7 @@ export default function Navbar() {
             {navigation(!!session?.data?.user.id).map((item) => {
               const isActive = isActiveLink(pathname, item.href);
 
-              // If item has submenu, render as dropdown with clickable trigger
+              // If item has submenu, render as dropdown
               if (item.submenu) {
                 return (
                   <NavigationMenuItem key={item.name}>
@@ -75,40 +78,29 @@ export default function Navbar() {
                           )}
                         >
                           {t(item.name)}
+                          <ChevronDownIcon
+                            className="relative top-px ml-1 size-3 transition duration-300 group-data-open/navigation-menu-trigger:rotate-180 group-data-popup-open/navigation-menu-trigger:rotate-180"
+                            aria-hidden="true"
+                          />
                         </Link>
                       }
                     />
                     <NavigationMenuContent>
-                      <ul className="grid w-50 gap-1 p-2">
+                      <ul className="grid gap-1">
                         {item.submenu.map((subItem) => {
                           const isSubActive = isActiveLink(
                             pathname,
                             subItem.href,
                           );
                           return (
-                            <li key={subItem.name}>
-                              <NavigationMenuLink
-                                render={
-                                  <Link
-                                    href={subItem.href}
-                                    className={cn(
-                                      "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block rounded-md p-3 leading-none no-underline transition-colors outline-none select-none",
-                                      isSubActive &&
-                                        "bg-primary/10 text-primary",
-                                    )}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      {subItem.icon && (
-                                        <subItem.icon className="h-4 w-4" />
-                                      )}
-                                      <span className="text-sm font-medium">
-                                        {t(subItem.name)}
-                                      </span>
-                                    </div>
-                                  </Link>
-                                }
-                              ></NavigationMenuLink>
-                            </li>
+                            <ListItem
+                              key={subItem.name}
+                              href={subItem.href}
+                              icon={subItem.icon}
+                              isActive={isSubActive}
+                            >
+                              {t(subItem.name)}
+                            </ListItem>
                           );
                         })}
                       </ul>
@@ -121,18 +113,12 @@ export default function Navbar() {
               return (
                 <NavigationMenuItem key={item.name}>
                   <NavigationMenuLink
-                    render={
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "bg-transparent",
-                          isActive && "bg-primary text-primary-foreground",
-                        )}
-                      >
-                        {t(item.name)}
-                      </Link>
-                    }
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent",
+                      isActive && "bg-primary text-primary-foreground",
+                    )}
+                    render={<Link href={item.href}>{t(item.name)}</Link>}
                   />
                 </NavigationMenuItem>
               );
@@ -169,5 +155,33 @@ export default function Navbar() {
         </div>
       </div>
     </header>
+  );
+}
+
+type ListItemProps = {
+  children: React.ReactNode;
+  href: LinkHref;
+  icon?: IconType;
+  isActive?: boolean;
+};
+
+function ListItem(props: ListItemProps) {
+  return (
+    <li>
+      <NavigationMenuLink
+        render={
+          <Link
+            href={props.href}
+            className={cn(
+              "flex items-center gap-2",
+              props.isActive && "bg-primary/10 text-primary",
+            )}
+          >
+            {props.icon && <props.icon className="size-4" />}
+            <span className="text-sm font-medium">{props.children}</span>
+          </Link>
+        }
+      />
+    </li>
   );
 }

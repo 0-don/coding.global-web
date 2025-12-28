@@ -13,12 +13,13 @@ import {
 } from "@/components/ui/sheet";
 import { useSessionHook } from "@/hook/session-hook";
 import { Link, usePathname } from "@/i18n/navigation";
-import { LinkHref } from "@/i18n/routing";
+import type { LinkHref } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaDiscord } from "react-icons/fa";
+import type { IconType } from "react-icons/lib";
 import { LuMenu } from "react-icons/lu";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
@@ -56,7 +57,7 @@ export function MobileNav() {
         </SheetHeader>
 
         <div className="flex flex-col gap-4">
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-col gap-1">
             {navigation(!!session?.data?.user.id)
               .filter((item) => !item.hidden)
               .map((item) => {
@@ -66,69 +67,48 @@ export function MobileNav() {
                 if (item.submenu) {
                   return (
                     <div key={item.name} className="space-y-1">
-                      <Link
-                        href={item.href as LinkHref}
+                      <ListItem
+                        href={item.href}
+                        icon={item.icon}
+                        isActive={isActive}
                         onClick={() => setOpen(false)}
-                        className={cn(
-                          "flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
-                          isActive && "bg-primary/10 text-primary font-medium",
-                        )}
                       >
-                        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
                         {t(item.name)}
-                      </Link>
-                      <div className="ml-6 space-y-1">
+                      </ListItem>
+                      <ul className="ml-6 space-y-1">
                         {item.submenu.map((subItem) => {
-                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          const isSubActive = isActiveLink(
+                            pathname,
+                            subItem.href,
+                          );
                           return (
-                            <Link
+                            <ListItem
                               key={subItem.name}
-                              href={subItem.href as LinkHref}
+                              href={subItem.href}
+                              icon={subItem.icon}
+                              isActive={isSubActive}
                               onClick={() => setOpen(false)}
-                              className={cn(
-                                "hover:bg-accent hover:text-accent-foreground flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                                isSubActive &&
-                                  "bg-primary/10 text-primary font-medium",
-                              )}
                             >
-                              {subItem.icon && (
-                                <subItem.icon
-                                  className={cn(
-                                    "mr-2 h-4 w-4",
-                                    isSubActive && "text-primary",
-                                  )}
-                                />
-                              )}
                               {t(subItem.name)}
-                            </Link>
+                            </ListItem>
                           );
                         })}
-                      </div>
+                      </ul>
                     </div>
                   );
                 }
 
                 // Regular item without submenu
                 return (
-                  <Link
+                  <ListItem
                     key={item.name}
-                    href={item.href as LinkHref}
+                    href={item.href}
+                    icon={item.icon}
+                    isActive={isActive}
                     onClick={() => setOpen(false)}
-                    className={cn(
-                      "hover:bg-accent hover:text-accent-foreground flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                      isActive && "bg-primary/10 text-primary font-medium",
-                    )}
                   >
-                    {item.icon && (
-                      <item.icon
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          isActive && "text-primary",
-                        )}
-                      />
-                    )}
                     {t(item.name)}
-                  </Link>
+                  </ListItem>
                 );
               })}
           </nav>
@@ -162,5 +142,31 @@ export function MobileNav() {
         </div>
       </SheetContent>
     </Sheet>
+  );
+}
+
+type ListItemProps = {
+  children: React.ReactNode;
+  href: LinkHref;
+  icon?: IconType;
+  isActive?: boolean;
+  onClick?: () => void;
+};
+
+function ListItem(props: ListItemProps) {
+  return (
+    <li className="list-none">
+      <Link
+        href={props.href}
+        onClick={props.onClick}
+        className={cn(
+          "hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+          props.isActive && "bg-primary/10 text-primary",
+        )}
+      >
+        {props.icon && <props.icon className="size-4" />}
+        <span>{props.children}</span>
+      </Link>
+    </li>
   );
 }
