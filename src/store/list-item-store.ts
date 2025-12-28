@@ -85,7 +85,6 @@ export const getListItemAtoms = (boardType: BoardType) => ({
   clearFiltersAtom: clearFiltersAtomFamily(boardType),
 });
 
-// Filter function (pure, not an atom - can be used anywhere)
 export const filterItems = (
   items: GetApiByGuildIdBoardByBoardType200Item[],
   state: ListItemState,
@@ -107,7 +106,14 @@ export const filterItems = (
       const userIdMatch = item.author.id.toLowerCase().includes(query);
       const threadIdMatch = item.id.toLowerCase().includes(query);
 
-      return nameMatch || contentMatch || authorMatch || tagMatch || userIdMatch || threadIdMatch;
+      return (
+        nameMatch ||
+        contentMatch ||
+        authorMatch ||
+        tagMatch ||
+        userIdMatch ||
+        threadIdMatch
+      );
     });
   }
 
