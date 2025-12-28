@@ -24,13 +24,7 @@ interface ThreadRepliesProps {
   fetchNextPage: () => void;
 }
 
-export function ThreadReplies({
-  messages,
-  parentThread,
-  hasNextPage,
-  isFetchingNextPage,
-  fetchNextPage,
-}: ThreadRepliesProps) {
+export function ThreadReplies(props: ThreadRepliesProps) {
   const t = useTranslations();
   const parentRef = useRef<HTMLDivElement>(null);
   const [highlightedMessageId, setHighlightedMessageId] = useState<
@@ -39,7 +33,7 @@ export function ThreadReplies({
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
-    count: messages.length,
+    count: props.messages.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 150,
     overscan: 5,
@@ -52,16 +46,16 @@ export function ThreadReplies({
     const map = new Map();
 
     // Add parent thread to the map
-    map.set(parentThread.id, {
-      id: parentThread.id,
-      author: parentThread.author,
-      content: parentThread.content,
-      createdAt: parentThread.createdAt,
+    map.set(props.parentThread.id, {
+      id: props.parentThread.id,
+      author: props.parentThread.author,
+      content: props.parentThread.content,
+      createdAt: props.parentThread.createdAt,
       isParentThread: true,
     });
 
     // Add all reply messages to the map
-    messages.forEach((msg) => {
+    props.messages.forEach((msg) => {
       map.set(msg.id, {
         id: msg.id,
         author: msg.author,
@@ -72,13 +66,15 @@ export function ThreadReplies({
     });
 
     return map;
-  }, [messages, parentThread]);
+  }, [props.messages, props.parentThread]);
 
   const handleClickReference = (messageId: string, isParentThread: boolean) => {
     if (isParentThread) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      const messageIndex = messages.findIndex((msg) => msg.id === messageId);
+      const messageIndex = props.messages.findIndex(
+        (msg) => msg.id === messageId,
+      );
       if (messageIndex !== -1) {
         virtualizer.scrollToIndex(messageIndex, { align: "start" });
         setHighlightedMessageId(messageId);
@@ -95,28 +91,28 @@ export function ThreadReplies({
     if (!lastItem) return;
 
     if (
-      lastItem.index >= messages.length - 1 &&
-      hasNextPage &&
-      !isFetchingNextPage
+      lastItem.index >= props.messages.length - 1 &&
+      props.hasNextPage &&
+      !props.isFetchingNextPage
     ) {
-      fetchNextPage();
+      props.fetchNextPage();
     }
   }, [
-    hasNextPage,
-    fetchNextPage,
-    messages.length,
-    isFetchingNextPage,
+    props.hasNextPage,
+    props.fetchNextPage,
+    props.messages.length,
+    props.isFetchingNextPage,
     virtualItems,
   ]);
 
-  if (messages.length === 0) {
+  if (props.messages.length === 0) {
     return null;
   }
 
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">
-        {t("SHOWCASE.REPLIES")} ({messages.length})
+        {t("SHOWCASE.REPLIES")} ({props.messages.length})
       </h2>
 
       <div
@@ -131,9 +127,11 @@ export function ThreadReplies({
           }}
         >
           {virtualizer.getVirtualItems().map((virtualItem) => {
-            const message = messages[virtualItem.index];
+            const message = props.messages[virtualItem.index];
             const prevMessage =
-              virtualItem.index > 0 ? messages[virtualItem.index - 1] : null;
+              virtualItem.index > 0
+                ? props.messages[virtualItem.index - 1]
+                : null;
             const showAvatar =
               !prevMessage || prevMessage.author?.id !== message.author?.id;
 
@@ -277,7 +275,7 @@ export function ThreadReplies({
           })}
         </div>
 
-        {isFetchingNextPage && (
+        {props.isFetchingNextPage && (
           <div className="flex justify-center py-4">
             <p className="text-muted-foreground text-sm">
               {t("SHOWCASE.LOADING_MORE_MESSAGES")}
