@@ -1,9 +1,8 @@
-import { queryKeys } from "@/lib/react-query/keys";
+import { BoardType, queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import {
-  useInfiniteQuery,
-  useQuery,
+  useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
@@ -28,80 +27,33 @@ export function useDiscordWidget() {
   });
 }
 
-export function useShowcaseThreadsQuery() {
+export function useBoardThreadsQuery(boardType: BoardType) {
   return useSuspenseQuery({
-    queryKey: queryKeys.showcaseThreads(),
-    queryFn: async () => handleElysia(await rpc.api.bot.showcase.get()),
-  });
-}
-
-export function useShowcaseThreadQuery(threadId: string) {
-  return useQuery({
-    queryKey: queryKeys.showcaseThread(threadId),
+    queryKey: queryKeys.boardThreads(boardType),
     queryFn: async () =>
-      handleElysia(await rpc.api.bot.showcase({ threadId }).get()),
-    enabled: false,
+      handleElysia(await rpc.api.bot.board({ boardType }).get()),
   });
 }
 
-export function useShowcaseThreadMessagesInfiniteQuery(threadId: string) {
-  return useInfiniteQuery({
-    queryKey: queryKeys.showcaseThreadMessages(threadId),
-    queryFn: async ({ pageParam }) =>
-      handleElysia(
-        await rpc.api.bot.showcase({ threadId }).messages.get({
-          query: { after: pageParam },
-        }),
-      ),
-
-    initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage) return undefined;
-      return lastPage.hasMore ? lastPage.nextCursor : undefined;
-    },
-  });
-}
-
-// Job Board
-export function useJobBoardThreadsQuery() {
+export function useBoardThreadQuery(boardType: BoardType, threadId: string) {
   return useSuspenseQuery({
-    queryKey: queryKeys.jobBoardThreads(),
-    queryFn: async () => handleElysia(await rpc.api.bot["job-board"].get()),
-  });
-}
-
-// Dev Board
-export function useDevBoardThreadsQuery() {
-  return useSuspenseQuery({
-    queryKey: queryKeys.devBoardThreads(),
-    queryFn: async () => handleElysia(await rpc.api.bot["dev-board"].get()),
-  });
-}
-
-// Generic board hooks
-export function useBoardThreadQuery(
-  boardType: "job-board" | "dev-board",
-  threadId: string,
-) {
-  return useQuery({
     queryKey: queryKeys.boardThread(boardType, threadId),
     queryFn: async () =>
-      handleElysia(await rpc.api.bot[boardType]({ threadId }).get()),
-    enabled: false,
+      handleElysia(await rpc.api.bot.board({ boardType })({ threadId }).get()),
   });
 }
 
 export function useBoardThreadMessagesInfiniteQuery(
-  boardType: "job-board" | "dev-board",
+  boardType: BoardType,
   threadId: string,
 ) {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryKey: queryKeys.boardThreadMessages(boardType, threadId),
     queryFn: async ({ pageParam }) =>
       handleElysia(
-        await rpc.api.bot[boardType]({ threadId }).messages.get({
-          query: { after: pageParam },
-        }),
+        await rpc.api.bot
+          .board({ boardType })({ threadId })
+          .messages.get({ query: { after: pageParam } }),
       ),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) => {

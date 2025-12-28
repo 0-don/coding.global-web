@@ -1,3 +1,7 @@
+import { GetApiByGuildIdBoardByBoardType200ItemBoardType } from "@/openapi";
+
+export type BoardType = GetApiByGuildIdBoardByBoardType200ItemBoardType;
+
 export const queryKeys = {
   session: () => ["session"],
 
@@ -22,27 +26,19 @@ export const queryKeys = {
   commentsAdd: () => ["comments-add"],
   commentsDelete: () => ["comments-delete"],
 
-  // Showcase
-  showcaseThreads: () => ["showcase-threads"],
-  showcaseThread: (threadId: string) => ["showcase-thread", threadId],
-  showcaseThreadMessages: (threadId: string) => [
-    "showcase-thread-messages",
+  // Boards (unified)
+  boardThreads: (boardType: BoardType) => ["board", boardType, "threads"],
+  boardThread: (boardType: BoardType, threadId: string) => [
+    "board",
+    boardType,
+    "thread",
     threadId,
   ],
-
-  // Job Board
-  jobBoardThreads: () => ["job-board-threads"],
-
-  // Dev Board
-  devBoardThreads: () => ["dev-board-threads"],
-
-  // Generic board keys (for detail pages)
-  boardThread: (boardType: string, threadId: string) => [
-    `${boardType}-thread`,
+  boardThreadMessages: (boardType: BoardType, threadId: string) => [
+    "board",
+    boardType,
+    "thread",
     threadId,
-  ],
-  boardThreadMessages: (boardType: string, threadId: string) => [
-    `${boardType}-thread-messages`,
-    threadId,
+    "messages",
   ],
 };

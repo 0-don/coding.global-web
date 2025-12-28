@@ -1,29 +1,23 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import {
-  useDevBoardThreadsQuery,
-  useJobBoardThreadsQuery,
-} from "@/hook/bot-hook";
+import { useBoardThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
 export function Marketplace() {
   const t = useTranslations();
-  const { data: jobThreads } = useJobBoardThreadsQuery();
-  const { data: devThreads } = useDevBoardThreadsQuery();
+  const { data: jobThreads } = useBoardThreadsQuery("job-board");
+  const { data: devThreads } = useBoardThreadsQuery("dev-board");
 
-  const combinedThreads = useMemo(() => {
-    const jobs = jobThreads ?? [];
-    const devs = devThreads ?? [];
+  const jobs = jobThreads ?? [];
+  const devs = devThreads ?? [];
 
-    // newest first
-    return [...jobs, ...devs].sort(
-      (a, b) =>
-        new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime(),
-    );
-  }, [jobThreads, devThreads]);
+  // newest first
+  const combinedThreads = [...jobs, ...devs].sort(
+    (a, b) =>
+      new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime(),
+  );
 
   return (
     <BoardList

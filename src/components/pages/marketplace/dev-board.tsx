@@ -1,13 +1,13 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import { useDevBoardThreadsQuery } from "@/hook/bot-hook";
+import { useBoardThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { HiOutlineCodeBracket } from "react-icons/hi2";
 
 export function DevBoard() {
   const t = useTranslations();
-  const { data: threads } = useDevBoardThreadsQuery();
+  const { data: threads } = useBoardThreadsQuery("dev-board");
 
   return (
     <BoardList
