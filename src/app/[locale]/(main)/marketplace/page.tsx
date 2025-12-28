@@ -22,8 +22,10 @@ export async function generateMetadata(props: {
 }
 
 export default async function MarketplacePage() {
-  const t = await getTranslations();
-  const listItemStore = await loadListItemStore("marketplace");
+  const [t, listItemStore] = await Promise.all([
+    getTranslations(),
+    loadListItemStore("marketplace"),
+  ]);
 
   return (
     <ListItemStoreProvider boardType="marketplace" data={listItemStore}>

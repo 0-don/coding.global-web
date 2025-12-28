@@ -29,15 +29,15 @@ export async function generateMetadata(props: {
 export default async function ShowcasePage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.boardThreads("showcase"),
-    queryFn: async () =>
-      handleElysia(await rpc.api.bot.board({ boardType: "showcase" }).get()),
-  });
-
-  const listItemStore = await loadListItemStore("showcase");
-
-  const t = await getTranslations();
+  const [, listItemStore, t] = await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.boardThreads("showcase"),
+      queryFn: async () =>
+        handleElysia(await rpc.api.bot.board({ boardType: "showcase" }).get()),
+    }),
+    loadListItemStore("showcase"),
+    getTranslations(),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

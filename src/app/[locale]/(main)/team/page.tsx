@@ -27,12 +27,13 @@ export async function generateMetadata(props: {
 export default async function TeamPage() {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.team(),
-    queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
-  });
-
-  const t = await getTranslations();
+  const [, t] = await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.team(),
+      queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
+    }),
+    getTranslations(),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
