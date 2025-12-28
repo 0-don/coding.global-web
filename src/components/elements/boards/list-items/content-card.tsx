@@ -51,7 +51,7 @@ function getImageData(props: ContentCardProps) {
     return {
       url: props.data.attachments[0]?.url,
       alt: props.data.content,
-      unoptimized: false,
+      unoptimized: props.data.attachments[0]?.url.includes(".gif"),
       sizes:
         "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" as const,
       loading: "lazy" as const,
@@ -61,7 +61,7 @@ function getImageData(props: ContentCardProps) {
   return {
     url: props.data.imageUrl,
     alt: props.data.name,
-    unoptimized: true,
+    unoptimized: props.data.imageUrl?.includes(".gif"),
     sizes: "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" as const,
     loading: "lazy" as const,
   };

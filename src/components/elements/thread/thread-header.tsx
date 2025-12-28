@@ -114,6 +114,7 @@ export function ThreadHeader(props: ThreadHeaderProps) {
                   width={800}
                   height={600}
                   className="rounded-lg"
+                  unoptimized={props.thread.imageUrl.includes(".gif")}
                 />
               )}
             </div>
