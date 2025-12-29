@@ -1,12 +1,14 @@
 import { AppSidebar } from "@/components/layout/app-sidebar";
-import { SiteHeader } from "@/components/layout/sidebar/sidebar-header";
-import { TOCPanel } from "@/components/layout/toc/toc-panel";
+import { SidebarHeader } from "@/components/layout/sidebar/sidebar-header";
 import { TOCProvider } from "@/components/layout/toc/toc-context";
+import { TOCPanel } from "@/components/layout/toc/toc-panel";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 interface SidebarLayoutProps {
   children: React.ReactNode;
 }
+
+// WAITING FOR FOOD
 
 export default function SidebarLayout(props: SidebarLayoutProps) {
   return (
@@ -21,12 +23,12 @@ export default function SidebarLayout(props: SidebarLayoutProps) {
       >
         <AppSidebar variant="inset" />
         <SidebarInset>
-          <SiteHeader />
+          <SidebarHeader />
           <div className="flex flex-1">
             <main className="@container/main flex flex-1 flex-col gap-2">
               {props.children}
             </main>
-            <TOCPanel className="mr-4 mt-4" />
+            <TOCPanel className="mt-4 mr-4" />
           </div>
         </SidebarInset>
       </SidebarProvider>
