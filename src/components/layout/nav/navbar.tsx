@@ -25,7 +25,27 @@ import type { IconType } from "react-icons/lib";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
 import { MobileNav } from "./mobile-nav";
-import { isActiveLink, navigation } from "./navigation";
+import { isActiveLink, navigation, NavigationItem } from "./navigation";
+import type { TranslationKey } from "@/lib/config/constants";
+
+function groupByCategory(items: NavigationItem[]) {
+  const groups: { category: TranslationKey | null; items: NavigationItem[] }[] = [];
+  const categoryMap = new Map<TranslationKey | null, NavigationItem[]>();
+
+  for (const item of items) {
+    const cat = item.category || null;
+    if (!categoryMap.has(cat)) {
+      categoryMap.set(cat, []);
+    }
+    categoryMap.get(cat)!.push(item);
+  }
+
+  for (const [category, categoryItems] of categoryMap) {
+    groups.push({ category, items: categoryItems });
+  }
+
+  return groups;
+}
 
 export default function Navbar() {
   const t = useTranslations();
@@ -87,22 +107,33 @@ export default function Navbar() {
                     />
                     <NavigationMenuContent>
                       <ul className="grid gap-1">
-                        {item.submenu.map((subItem) => {
-                          const isSubActive = isActiveLink(
-                            pathname,
-                            subItem.href,
-                          );
-                          return (
-                            <ListItem
-                              key={subItem.name}
-                              href={subItem.href}
-                              icon={subItem.icon}
-                              isActive={isSubActive}
-                            >
-                              {t(subItem.name)}
-                            </ListItem>
-                          );
-                        })}
+                        {groupByCategory(item.submenu).map((group) => (
+                          <li key={group.category || "default"}>
+                            {group.category && (
+                              <span className="text-muted-foreground px-3 py-1.5 text-xs font-semibold uppercase">
+                                {t(group.category)}
+                              </span>
+                            )}
+                            <ul className="grid gap-1">
+                              {group.items.map((subItem) => {
+                                const isSubActive = isActiveLink(
+                                  pathname,
+                                  subItem.href,
+                                );
+                                return (
+                                  <ListItem
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    icon={subItem.icon}
+                                    isActive={isSubActive}
+                                  >
+                                    {t(subItem.name)}
+                                  </ListItem>
+                                );
+                              })}
+                            </ul>
+                          </li>
+                        ))}
                       </ul>
                     </NavigationMenuContent>
                   </NavigationMenuItem>

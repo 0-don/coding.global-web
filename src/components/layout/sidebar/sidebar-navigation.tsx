@@ -17,6 +17,26 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import * as React from "react";
 import { isActiveLink, NavigationItem } from "../nav/navigation";
+import type { TranslationKey } from "@/lib/config/constants";
+
+function groupByCategory(items: NavigationItem[]) {
+  const groups: { category: TranslationKey | null; items: NavigationItem[] }[] = [];
+  const categoryMap = new Map<TranslationKey | null, NavigationItem[]>();
+
+  for (const item of items) {
+    const cat = item.category || null;
+    if (!categoryMap.has(cat)) {
+      categoryMap.set(cat, []);
+    }
+    categoryMap.get(cat)!.push(item);
+  }
+
+  for (const [category, categoryItems] of categoryMap) {
+    groups.push({ category, items: categoryItems });
+  }
+
+  return groups;
+}
 
 export function SidebarNavigation({
   title,
@@ -57,34 +77,43 @@ export function SidebarNavigation({
                 </SidebarMenuButton>
                 {hasSubmenu && (
                   <SidebarMenuSub>
-                    {item.submenu!.map((subItem) => {
-                      const isSubActive = isActiveLink(pathname, subItem.href);
-                      return (
-                        <SidebarMenuSubItem key={subItem.name}>
-                          <SidebarMenuSubButton
-                            isActive={isSubActive}
-                            className={cn(
-                              isSubActive &&
-                                "bg-primary/10 text-primary font-medium",
-                            )}
-                            render={
-                              <Link
-                                href={subItem.href as LinkHref}
-                                className="flex items-center gap-2"
-                              >
-                                <subItem.icon
-                                  className={cn(
-                                    "size-4",
-                                    isSubActive && "text-primary",
-                                  )}
-                                />
-                                <span>{t(subItem.name)}</span>
-                              </Link>
-                            }
-                          />
-                        </SidebarMenuSubItem>
-                      );
-                    })}
+                    {groupByCategory(item.submenu!).map((group) => (
+                      <React.Fragment key={group.category || "default"}>
+                        {group.category && (
+                          <li className="text-muted-foreground px-2 py-1.5 text-xs font-semibold uppercase">
+                            {t(group.category)}
+                          </li>
+                        )}
+                        {group.items.map((subItem) => {
+                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          return (
+                            <SidebarMenuSubItem key={subItem.name}>
+                              <SidebarMenuSubButton
+                                isActive={isSubActive}
+                                className={cn(
+                                  isSubActive &&
+                                    "bg-primary/10 text-primary font-medium",
+                                )}
+                                render={
+                                  <Link
+                                    href={subItem.href as LinkHref}
+                                    className="flex items-center gap-2"
+                                  >
+                                    <subItem.icon
+                                      className={cn(
+                                        "size-4",
+                                        isSubActive && "text-primary",
+                                      )}
+                                    />
+                                    <span>{t(subItem.name)}</span>
+                                  </Link>
+                                }
+                              />
+                            </SidebarMenuSubItem>
+                          );
+                        })}
+                      </React.Fragment>
+                    ))}
                   </SidebarMenuSub>
                 )}
               </SidebarMenuItem>

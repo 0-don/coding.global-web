@@ -75,7 +75,21 @@
       "MARKETPLACE_DEV_BOARD": "Dev Board",
       "MARKETPLACE_DEV_BOARD_DESCRIPTION": "Find developers for hire",
       "TEAM": "Team",
-      "TEAM_DESCRIPTION": "Meet our team"
+      "TEAM_DESCRIPTION": "Meet our team",
+      "COMMUNITY": "Community",
+      "COMMUNITY_DESCRIPTION": "Our community pages",
+      "RESOURCES": "Resources",
+      "RESOURCES_DESCRIPTION": "Learning resources and tools",
+      "RESOURCES_LANGUAGES": "Languages",
+      "RESOURCES_GENERAL": "General",
+      "RESOURCES_JAVASCRIPT": "JavaScript",
+      "RESOURCES_JAVASCRIPT_DESCRIPTION": "JavaScript resources and guides",
+      "RESOURCES_PYTHON": "Python",
+      "RESOURCES_PYTHON_DESCRIPTION": "Python resources and guides",
+      "RESOURCES_VIBE_CODING": "Vibe Coding",
+      "RESOURCES_VIBE_CODING_DESCRIPTION": "Tips for coding flow and productivity",
+      "RESOURCES_BEST_TOOLS": "Best Tools",
+      "RESOURCES_BEST_TOOLS_DESCRIPTION": "Recommended tools and software"
     },
     "SIDEBAR": {
       "MENU": {
