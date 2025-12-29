@@ -45,6 +45,21 @@ export const pathnames = {
   "/team": {
     de: "/team",
   },
+  "/resources": {
+    de: "/ressourcen",
+  },
+  "/resources/javascript": {
+    de: "/ressourcen/javascript",
+  },
+  "/resources/python": {
+    de: "/ressourcen/python",
+  },
+  "/resources/vibe-coding": {
+    de: "/ressourcen/vibe-coding",
+  },
+  "/resources/best-tools": {
+    de: "/ressourcen/beste-tools",
+  },
 } as const;
 
 export const routing = defineRouting({

@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/layout/app-sidebar";
+import { SidebarAnchorProvider } from "@/components/layout/sidebar/sidebar-anchor-context";
 import { SiteHeader } from "@/components/layout/sidebar/sidebar-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
@@ -8,7 +9,7 @@ interface SidebarLayoutProps {
 
 export default function SidebarLayout(props: SidebarLayoutProps) {
   return (
-    <>
+    <SidebarAnchorProvider>
       <SidebarProvider
         style={
           {
@@ -27,6 +28,6 @@ export default function SidebarLayout(props: SidebarLayoutProps) {
           </div>
         </SidebarInset>
       </SidebarProvider>
-    </>
+    </SidebarAnchorProvider>
   );
 }

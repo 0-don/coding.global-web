@@ -75,7 +75,21 @@
       "MARKETPLACE_DEV_BOARD": "Entwickler-Board",
       "MARKETPLACE_DEV_BOARD_DESCRIPTION": "Entwickler zum Anheuern finden",
       "TEAM": "Team",
-      "TEAM_DESCRIPTION": "Lernen Sie unser Team kennen"
+      "TEAM_DESCRIPTION": "Lernen Sie unser Team kennen",
+      "COMMUNITY": "Community",
+      "COMMUNITY_DESCRIPTION": "Unsere Community-Seiten",
+      "RESOURCES": "Ressourcen",
+      "RESOURCES_DESCRIPTION": "Lernressourcen und Werkzeuge",
+      "RESOURCES_LANGUAGES": "Sprachen",
+      "RESOURCES_GENERAL": "Allgemein",
+      "RESOURCES_JAVASCRIPT": "JavaScript",
+      "RESOURCES_JAVASCRIPT_DESCRIPTION": "JavaScript-Ressourcen und Anleitungen",
+      "RESOURCES_PYTHON": "Python",
+      "RESOURCES_PYTHON_DESCRIPTION": "Python-Ressourcen und Anleitungen",
+      "RESOURCES_VIBE_CODING": "Vibe Coding",
+      "RESOURCES_VIBE_CODING_DESCRIPTION": "Tipps für Flow und Produktivität beim Coden",
+      "RESOURCES_BEST_TOOLS": "Beste Tools",
+      "RESOURCES_BEST_TOOLS_DESCRIPTION": "Empfohlene Werkzeuge und Software"
     },
     "SIDEBAR": {
       "MENU": {
