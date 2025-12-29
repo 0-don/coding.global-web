@@ -49,7 +49,7 @@ export default async function JobBoardPage() {
             />
           }
         > */}
-          <JobBoard />
+        <JobBoard />
         {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>

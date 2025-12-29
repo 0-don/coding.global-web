@@ -6,21 +6,17 @@ import {
 } from "@/openapi";
 import { MarketplaceBoardType } from "@/lib/types";
 
-type ThreadResult =
-  | {
-      thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
-      boardType: MarketplaceBoardType;
-    }
-  | null;
+type ThreadResult = {
+  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
+  boardType: MarketplaceBoardType;
+} | null;
 
 export async function getThread(
   threadId: string,
   boardType: BoardType,
 ): Promise<GetApiByGuildIdBoardByBoardTypeByThreadId200 | null> {
   try {
-    const response = await rpc.api.bot
-      .board({ boardType })({ threadId })
-      .get();
+    const response = await rpc.api.bot.board({ boardType })({ threadId }).get();
     if (response.status === 200) {
       return response.data;
     }

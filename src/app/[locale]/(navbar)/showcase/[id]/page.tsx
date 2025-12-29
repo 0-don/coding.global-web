@@ -39,7 +39,9 @@ export default async function ShowcaseDetailPage(props: {
       queryKey: queryKeys.boardThread("showcase", params.id),
       queryFn: async () =>
         handleElysia(
-          await rpc.api.bot.board({ boardType: "showcase" })({ threadId: params.id }).get(),
+          await rpc.api.bot
+            .board({ boardType: "showcase" })({ threadId: params.id })
+            .get(),
         ),
     }),
     queryClient.prefetchInfiniteQuery({
@@ -57,7 +59,7 @@ export default async function ShowcaseDetailPage(props: {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
-        <ShowcaseDetail threadId={params.id} />
+      <ShowcaseDetail threadId={params.id} />
       {/* </Suspense> */}
     </HydrationBoundary>
   );

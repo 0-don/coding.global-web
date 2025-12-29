@@ -50,7 +50,7 @@ export default async function ShowcasePage() {
           //   />
           // }
         > */}
-          <Showcase />
+        <Showcase />
         {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>

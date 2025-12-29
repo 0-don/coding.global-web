@@ -44,7 +44,7 @@ export const chatRoute = new Elysia({ prefix: "/chat" })
               .insert(comment)
               .values({ ...body, userId: user.id! })
               .returning()
-          ).at(0)!; 
+          ).at(0)!;
 
           const { email, ...userCols } = getTableColumns(users);
 

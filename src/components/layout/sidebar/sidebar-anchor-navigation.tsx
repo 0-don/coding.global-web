@@ -64,7 +64,9 @@ export function SidebarAnchorNavigation({
                       handleClick(item.id);
                     }}
                   >
-                    {item.icon && <item.icon className={cn(isActive && "text-primary")} />}
+                    {item.icon && (
+                      <item.icon className={cn(isActive && "text-primary")} />
+                    )}
                     <span>{item.label}</span>
                   </a>
                 </SidebarMenuButton>
