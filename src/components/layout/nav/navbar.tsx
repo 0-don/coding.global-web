@@ -25,27 +25,7 @@ import type { IconType } from "react-icons/lib";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
 import { MobileNav } from "./mobile-nav";
-import { isActiveLink, navigation, NavigationItem } from "./navigation";
-import type { TranslationKey } from "@/lib/config/constants";
-
-function groupByCategory(items: NavigationItem[]) {
-  const groups: { category: TranslationKey | null; items: NavigationItem[] }[] = [];
-  const categoryMap = new Map<TranslationKey | null, NavigationItem[]>();
-
-  for (const item of items) {
-    const cat = item.category || null;
-    if (!categoryMap.has(cat)) {
-      categoryMap.set(cat, []);
-    }
-    categoryMap.get(cat)!.push(item);
-  }
-
-  for (const [category, categoryItems] of categoryMap) {
-    groups.push({ category, items: categoryItems });
-  }
-
-  return groups;
-}
+import { isActiveLink, navigation, groupByCategory } from "./navigation";
 
 export default function Navbar() {
   const t = useTranslations();

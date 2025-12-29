@@ -16,27 +16,7 @@ import { LinkHref } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import * as React from "react";
-import { isActiveLink, NavigationItem } from "../nav/navigation";
-import type { TranslationKey } from "@/lib/config/constants";
-
-function groupByCategory(items: NavigationItem[]) {
-  const groups: { category: TranslationKey | null; items: NavigationItem[] }[] = [];
-  const categoryMap = new Map<TranslationKey | null, NavigationItem[]>();
-
-  for (const item of items) {
-    const cat = item.category || null;
-    if (!categoryMap.has(cat)) {
-      categoryMap.set(cat, []);
-    }
-    categoryMap.get(cat)!.push(item);
-  }
-
-  for (const [category, categoryItems] of categoryMap) {
-    groups.push({ category, items: categoryItems });
-  }
-
-  return groups;
-}
+import { isActiveLink, NavigationItem, groupByCategory } from "../nav/navigation";
 
 export function SidebarNavigation({
   title,
