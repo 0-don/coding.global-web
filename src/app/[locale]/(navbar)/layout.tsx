@@ -1,5 +1,5 @@
 import Background from "@/components/layout/background";
-import { Footer } from "@/components/layout/footer";
+import { Footer } from "@/components/layout/nav/footer";
 import Navbar from "@/components/layout/nav/navbar";
 
 interface MainLayoutProps {
