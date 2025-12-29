@@ -8,15 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
+import { BoardType } from "@/lib/types";
 import {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
 } from "@/openapi";
-import {
-  type BoardType,
-  filterItems,
-  getListItemAtoms,
-} from "@/store/list-item-store";
+import { filterItems, getListItemAtoms } from "@/store/list-item-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
+import { BoardType } from "@/lib/types";
 import {
-  type BoardType,
   INITIAL_LIST_ITEM_STORE,
   type ListItemState,
   listItemAtomFamily,

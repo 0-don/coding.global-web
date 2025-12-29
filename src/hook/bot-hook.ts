@@ -1,5 +1,6 @@
-import { BoardType, queryKeys } from "@/lib/react-query/keys";
+import {  queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { BoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import {
   useSuspenseInfiniteQuery,

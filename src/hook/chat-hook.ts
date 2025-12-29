@@ -16,11 +16,11 @@ import {
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
-export function useCommentsInfiniteQuery() {
+export function useChatsInfiniteQuery() {
   return useInfiniteQuery({
-    queryKey: queryKeys.comments(),
+    queryKey: queryKeys.chats(),
     queryFn: async ({ pageParam }) => {
-      const response = await rpc.api.comment.get({
+      const response = await rpc.api.chat.get({
         query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
       });
 
@@ -37,16 +37,16 @@ export function useCommentsInfiniteQuery() {
   });
 }
 
-export function useCommentAddMutation() {
+export function useChatAddMutation() {
   const t = useTranslations();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (args: typeof commentInsertSchema.static) =>
-      handleElysia(await rpc.api.comment.post(args))!,
+      handleElysia(await rpc.api.chat.post(args))!,
     onSuccess: (newComment) => {
       queryClient.setQueryData(
-        queryKeys.comments(),
+        queryKeys.chats(),
         (
           oldData: InfiniteData<Comments[]> | undefined,
         ): InfiniteData<Comments[]> | undefined => {
@@ -63,16 +63,16 @@ export function useCommentAddMutation() {
   });
 }
 
-export function useCommentDeleteMutation() {
+export function useChatDeleteMutation() {
   const t = useTranslations();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (id: string) =>
-      handleElysia(await rpc.api.comment({ id }).delete()),
+      handleElysia(await rpc.api.chat({ id }).delete()),
     onSuccess: (c) => {
       queryClient.setQueryData<Comments[]>(
-        queryKeys.comments(),
+        queryKeys.chats(),
         (oldQueryData = []) =>
           oldQueryData.filter((comment) => comment.id !== c?.id),
       );

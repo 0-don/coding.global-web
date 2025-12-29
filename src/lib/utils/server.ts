@@ -1,5 +1,4 @@
 import {
-  type BoardType,
   getListItemStoreKey,
   INITIAL_LIST_ITEM_STORE,
   type ListItemState,
@@ -12,6 +11,7 @@ import {
   LOCALES,
   SERVER_URL_KEY,
 } from "../config/constants";
+import { BoardType } from "../types";
 
 export const serverUrl = async () => (await headers()).get(SERVER_URL_KEY);
 

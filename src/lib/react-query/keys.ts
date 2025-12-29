@@ -1,6 +1,4 @@
-import { GetApiByGuildIdBoardByBoardType200ItemBoardType } from "@/openapi";
-
-export type BoardType = GetApiByGuildIdBoardByBoardType200ItemBoardType;
+import { BoardType } from "../types";
 
 export const queryKeys = {
   session: () => ["session"],
@@ -22,7 +20,7 @@ export const queryKeys = {
   todosSeed: () => ["todos-seed"],
 
   // Comments
-  comments: () => ["comments"],
+  chats: () => ["comments"],
   commentsAdd: () => ["comments-add"],
   commentsDelete: () => ["comments-delete"],
 

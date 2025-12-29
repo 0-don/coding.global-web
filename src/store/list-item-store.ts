@@ -1,16 +1,11 @@
+import { BoardType } from "@/lib/types";
 import { createJotaiCookieStorage } from "@/lib/utils/jotai-cookie-storage";
-import type {
-  GetApiByGuildIdBoardByBoardType200Item,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
-} from "@/openapi";
+import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 import { atom } from "jotai";
 import { atomFamily } from "jotai-family";
 import { atomWithStorage } from "jotai/utils";
 
 export type ViewMode = "grid" | "list";
-export type BoardType =
-  | GetApiByGuildIdBoardByBoardType200ItemBoardType
-  | "marketplace";
 
 export interface ListItemState {
   viewMode: ViewMode;
