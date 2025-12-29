@@ -7,6 +7,9 @@
       "COMMENT_ADD": "Comment added successfully"
     }
   },
+  "DASHBOARD": {
+    "TITLE": "Dashboard"
+  },
   "HOME": {
     "META": {
       "DESCRIPTION": "Welcome to Coding Global - Your premier destination for coding resources, community, and learning",
@@ -75,6 +78,9 @@
       "TEAM_DESCRIPTION": "Meet our team"
     },
     "SIDEBAR": {
+      "MENU": {
+        "NAVIGATION": "Navigation"
+      },
       "USER": {
         "SETTINGS": "Settings"
       }
