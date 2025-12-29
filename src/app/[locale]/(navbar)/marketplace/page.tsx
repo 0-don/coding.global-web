@@ -36,7 +36,7 @@ export default async function MarketplacePage() {
           />
         }
       > */}
-        <Marketplace />
+      <Marketplace />
       {/* </Suspense> */}
     </ListItemStoreProvider>
   );

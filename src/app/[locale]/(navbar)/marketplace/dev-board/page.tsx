@@ -49,7 +49,7 @@ export default async function DevBoardPage() {
             />
           }
         > */}
-          <DevBoard />
+        <DevBoard />
         {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>

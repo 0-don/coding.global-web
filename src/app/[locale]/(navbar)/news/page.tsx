@@ -37,7 +37,7 @@ export default async function NewsPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       {/* <Suspense fallback={<NewsSkeleton title={t("NEWS.TITLE")} />}> */}
-        <News />
+      <News />
       {/* </Suspense> */}
     </HydrationBoundary>
   );

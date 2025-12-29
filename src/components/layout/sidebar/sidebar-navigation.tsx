@@ -16,7 +16,11 @@ import { LinkHref } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import * as React from "react";
-import { isActiveLink, NavigationItem, groupByCategory } from "../nav/navigation";
+import {
+  isActiveLink,
+  NavigationItem,
+  groupByCategory,
+} from "../nav/navigation";
 
 export function SidebarNavigation({
   title,
@@ -65,7 +69,10 @@ export function SidebarNavigation({
                           </li>
                         )}
                         {group.items.map((subItem) => {
-                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          const isSubActive = isActiveLink(
+                            pathname,
+                            subItem.href,
+                          );
                           return (
                             <SidebarMenuSubItem key={subItem.name}>
                               <SidebarMenuSubButton

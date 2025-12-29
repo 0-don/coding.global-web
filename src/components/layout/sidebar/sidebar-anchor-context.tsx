@@ -12,12 +12,19 @@ type SidebarAnchorContextType = {
   setActiveAnchorId: (id: string | undefined) => void;
 };
 
-const SidebarAnchorContext = React.createContext<SidebarAnchorContextType | null>(null);
+const SidebarAnchorContext =
+  React.createContext<SidebarAnchorContextType | null>(null);
 
-export function SidebarAnchorProvider({ children }: { children: React.ReactNode }) {
+export function SidebarAnchorProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [anchorItems, setAnchorItems] = React.useState<AnchorItem[]>([]);
   const [anchorTitle, setAnchorTitle] = React.useState<string>("On This Page");
-  const [activeAnchorId, setActiveAnchorId] = React.useState<string | undefined>(undefined);
+  const [activeAnchorId, setActiveAnchorId] = React.useState<
+    string | undefined
+  >(undefined);
 
   return (
     <SidebarAnchorContext.Provider
@@ -38,13 +45,16 @@ export function SidebarAnchorProvider({ children }: { children: React.ReactNode 
 export function useSidebarAnchor() {
   const context = React.useContext(SidebarAnchorContext);
   if (!context) {
-    throw new Error("useSidebarAnchor must be used within a SidebarAnchorProvider");
+    throw new Error(
+      "useSidebarAnchor must be used within a SidebarAnchorProvider",
+    );
   }
   return context;
 }
 
 export function useSetSidebarAnchors(items: AnchorItem[], title?: string) {
-  const { setAnchorItems, setAnchorTitle, setActiveAnchorId } = useSidebarAnchor();
+  const { setAnchorItems, setAnchorTitle, setActiveAnchorId } =
+    useSidebarAnchor();
 
   React.useEffect(() => {
     setAnchorItems(items);
@@ -61,7 +71,7 @@ export function useSetSidebarAnchors(items: AnchorItem[], title?: string) {
           }
         }
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     for (const item of items) {
