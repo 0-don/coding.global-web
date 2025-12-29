@@ -41,13 +41,15 @@ export function SidebarNavigation({
                   className={cn(
                     isActive && "bg-primary/10 text-primary font-medium",
                   )}
-                  render={
-                    <Link href={item.href as LinkHref}>
-                      <item.icon className={cn(isActive && "text-primary")} />
-                      <span>{t(item.name)}</span>
-                    </Link>
-                  }
-                />
+                >
+                  <Link
+                    href={item.href as LinkHref}
+                    className="flex items-center gap-2"
+                  >
+                    <item.icon className={cn(isActive && "text-primary")} />
+                    <span>{t(item.name)}</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             );
           })}
