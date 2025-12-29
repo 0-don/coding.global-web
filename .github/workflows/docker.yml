@@ -34,8 +34,8 @@ jobs:
           echo NEXT_PUBLIC_BOT_URL=${{ secrets.NEXT_PUBLIC_BOT_URL }} >> .env
           echo NEXT_PUBLIC_GUILD_ID=${{ secrets.NEXT_PUBLIC_GUILD_ID }} >> .env
 
-      # - name: Reset DB
-      #   run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
+      - name: Reset DB
+        run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build

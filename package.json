@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier -w .",
     "openapi": "orval --config ./orval.config.ts",
-    "drizzle": "drizzle-kit generate",
+    "drizzle": "dotenvx run -- drizzle-kit generate",
     "reset": "node drizzle/reset-db.ts"
   },
   "dependencies": {
