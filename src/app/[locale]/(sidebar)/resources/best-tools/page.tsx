@@ -1,25 +1,18 @@
 "use client";
 
-import { useSetSidebarAnchors } from "@/components/layout/sidebar/sidebar-anchor-context";
-import type { AnchorItem } from "@/components/layout/sidebar/sidebar-anchor-navigation";
-import {
-  HiOutlineCloud,
-  HiOutlineCodeBracket,
-  HiOutlineCommandLine,
-  HiOutlinePuzzlePiece,
-  HiOutlineWrenchScrewdriver,
-} from "react-icons/hi2";
+import { useSetTOC } from "@/components/layout/toc/toc-context";
+import type { TOCItemType } from "fumadocs-core/toc";
 
-const anchors: AnchorItem[] = [
-  { id: "editors", label: "Code Editors", icon: HiOutlineCodeBracket },
-  { id: "terminal", label: "Terminal Tools", icon: HiOutlineCommandLine },
-  { id: "cloud", label: "Cloud Services", icon: HiOutlineCloud },
-  { id: "extensions", label: "Extensions", icon: HiOutlinePuzzlePiece },
-  { id: "utilities", label: "Utilities", icon: HiOutlineWrenchScrewdriver },
+const toc: TOCItemType[] = [
+  { url: "#editors", title: "Code Editors", depth: 2 },
+  { url: "#terminal", title: "Terminal Tools", depth: 2 },
+  { url: "#cloud", title: "Cloud Services", depth: 2 },
+  { url: "#extensions", title: "Extensions", depth: 2 },
+  { url: "#utilities", title: "Utilities", depth: 2 },
 ];
 
 export default function BestToolsPage() {
-  useSetSidebarAnchors(anchors, "On This Page");
+  useSetTOC(toc, "On This Page");
 
   return (
     <div className="container mx-auto px-4 py-8">
