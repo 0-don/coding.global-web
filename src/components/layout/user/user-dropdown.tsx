@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -13,11 +14,11 @@ import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import { deleteCookie, getCookies } from "cookies-next/client";
 import { useTranslations } from "next-intl";
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 import { IoLogOut } from "react-icons/io5";
 
 interface UserDropdownProps {
-  children: ReactNode;
+  children: ReactElement;
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
   sideOffset?: number;
@@ -54,42 +55,42 @@ export function UserDropdown({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={className}>
-        {children}
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger className={className} render={children} />
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
         side={side}
         align={align}
         sideOffset={sideOffset}
       >
-        <DropdownMenuLabel className="p-0 font-normal">
-          <div className="flex flex-col gap-2 px-1 py-1.5 text-left text-sm">
-            <div className="flex items-center gap-2">
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={""} alt={name} />
-                <AvatarFallback className="rounded-lg">
-                  {firstEmailChar}
-                </AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {username}
-                </span>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="p-0 font-normal">
+            <div className="flex flex-col gap-2 px-1 py-1.5 text-left text-sm">
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={session.data.user.image!} alt={name} />
+                  <AvatarFallback className="rounded-lg">
+                    {firstEmailChar}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">{name}</span>
+                  <span className="text-muted-foreground truncate text-xs">
+                    {username}
+                  </span>
+                </div>
               </div>
+              {/* {me?.data?.data.roles && me.data.data.roles.length && (
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {me?.data?.data.roles.map((role) => (
+                    <Badge key={role} variant="secondary" className="text-xs">
+                      {role}
+                    </Badge>
+                  ))}
+                </div>
+              )} */}
             </div>
-            {/* {me?.data?.data.roles && me.data.data.roles.length && (
-              <div className="flex flex-wrap gap-1 pt-1">
-                {me?.data?.data.roles.map((role) => (
-                  <Badge key={role} variant="secondary" className="text-xs">
-                    {role}
-                  </Badge>
-                ))}
-              </div>
-            )} */}
-          </div>
-        </DropdownMenuLabel>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {/* <DropdownMenuGroup>
           <DropdownMenuItem>
@@ -98,7 +99,7 @@ export function UserDropdown({
           </DropdownMenuItem>
         </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
           <IoLogOut />
           {t("MAIN.AUTH.LOGOUT")}
         </DropdownMenuItem>
