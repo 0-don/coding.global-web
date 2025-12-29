@@ -1,29 +1,18 @@
 "use client";
 
-import { useSetSidebarAnchors } from "@/components/layout/sidebar/sidebar-anchor-context";
-import type { AnchorItem } from "@/components/layout/sidebar/sidebar-anchor-navigation";
-import {
-  HiOutlineBookOpen,
-  HiOutlineCodeBracket,
-  HiOutlineCpuChip,
-  HiOutlineLink,
-  HiOutlineRocketLaunch,
-} from "react-icons/hi2";
+import { useSetTOC } from "@/components/layout/toc/toc-context";
+import type { TOCItemType } from "fumadocs-core/toc";
 
-const anchors: AnchorItem[] = [
-  { id: "overview", label: "Overview", icon: HiOutlineBookOpen },
-  {
-    id: "getting-started",
-    label: "Getting Started",
-    icon: HiOutlineRocketLaunch,
-  },
-  { id: "data-science", label: "Data Science", icon: HiOutlineCpuChip },
-  { id: "examples", label: "Examples", icon: HiOutlineCodeBracket },
-  { id: "resources", label: "Resources", icon: HiOutlineLink },
+const toc: TOCItemType[] = [
+  { url: "#overview", title: "Overview", depth: 2 },
+  { url: "#getting-started", title: "Getting Started", depth: 2 },
+  { url: "#data-science", title: "Data Science", depth: 2 },
+  { url: "#examples", title: "Examples", depth: 2 },
+  { url: "#resources", title: "Resources", depth: 2 },
 ];
 
 export default function PythonPage() {
-  useSetSidebarAnchors(anchors, "On This Page");
+  useSetTOC(toc, "On This Page");
 
   return (
     <div className="container mx-auto px-4 py-8">

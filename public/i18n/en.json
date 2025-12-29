@@ -95,6 +95,12 @@
       "MENU": {
         "NAVIGATION": "Navigation"
       },
+      "SEARCH": {
+        "PLACEHOLDER": "Search...",
+        "LOADING": "Loading search index...",
+        "START_TYPING": "Start typing to search",
+        "NO_RESULTS": "No results found"
+      },
       "USER": {
         "SETTINGS": "Settings"
       }

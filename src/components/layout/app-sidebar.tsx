@@ -10,7 +10,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
 import { useSessionHook } from "@/hook/session-hook";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -18,13 +17,10 @@ import * as React from "react";
 import { CompanyName, LogoImage } from "../elements/utils/images";
 import { SidebarNavigation } from "./sidebar/sidebar-navigation";
 import { SidebarUser } from "./sidebar/sidebar-user";
-import { SidebarAnchorNavigation } from "./sidebar/sidebar-anchor-navigation";
-import { useSidebarAnchor } from "./sidebar/sidebar-anchor-context";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations();
   const session = useSessionHook();
-  const { anchorItems, anchorTitle, activeAnchorId } = useSidebarAnchor();
 
   const navMain = navigation(!!session?.data?.user.id).filter(
     (item) => !item.hidden,
@@ -47,18 +43,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="flex flex-col justify-between">
+      <SidebarContent>
         <SidebarNavigation
           title={t("MAIN.SIDEBAR.MENU.NAVIGATION")}
           items={navMain}
         />
-        {anchorItems.length > 0 && (
-          <SidebarAnchorNavigation
-            title={anchorTitle}
-            items={anchorItems}
-            activeId={activeAnchorId}
-          />
-        )}
       </SidebarContent>
       <SidebarFooter>
         <SidebarUser />

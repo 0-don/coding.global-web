@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/layout/app-sidebar";
-import { SidebarAnchorProvider } from "@/components/layout/sidebar/sidebar-anchor-context";
 import { SiteHeader } from "@/components/layout/sidebar/sidebar-header";
+import { TOCPanel } from "@/components/layout/toc/toc-panel";
+import { TOCProvider } from "@/components/layout/toc/toc-context";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 interface SidebarLayoutProps {
@@ -9,7 +10,7 @@ interface SidebarLayoutProps {
 
 export default function SidebarLayout(props: SidebarLayoutProps) {
   return (
-    <SidebarAnchorProvider>
+    <TOCProvider>
       <SidebarProvider
         style={
           {
@@ -21,13 +22,14 @@ export default function SidebarLayout(props: SidebarLayoutProps) {
         <AppSidebar variant="inset" />
         <SidebarInset>
           <SiteHeader />
-          <div className="flex flex-1 flex-col">
-            <div className="@container/main flex flex-1 flex-col gap-2">
+          <div className="flex flex-1">
+            <main className="@container/main flex flex-1 flex-col gap-2">
               {props.children}
-            </div>
+            </main>
+            <TOCPanel className="mr-4 mt-4" />
           </div>
         </SidebarInset>
       </SidebarProvider>
-    </SidebarAnchorProvider>
+    </TOCProvider>
   );
 }

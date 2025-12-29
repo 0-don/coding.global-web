@@ -1,29 +1,18 @@
 "use client";
 
-import { useSetSidebarAnchors } from "@/components/layout/sidebar/sidebar-anchor-context";
-import type { AnchorItem } from "@/components/layout/sidebar/sidebar-anchor-navigation";
-import {
-  HiOutlineBookOpen,
-  HiOutlineClock,
-  HiOutlineLightBulb,
-  HiOutlineMusicalNote,
-  HiOutlineSparkles,
-} from "react-icons/hi2";
+import { useSetTOC } from "@/components/layout/toc/toc-context";
+import type { TOCItemType } from "fumadocs-core/toc";
 
-const anchors: AnchorItem[] = [
-  {
-    id: "what-is-vibe-coding",
-    label: "What is Vibe Coding",
-    icon: HiOutlineBookOpen,
-  },
-  { id: "flow-state", label: "Flow State", icon: HiOutlineSparkles },
-  { id: "environment", label: "Environment", icon: HiOutlineMusicalNote },
-  { id: "time-management", label: "Time Management", icon: HiOutlineClock },
-  { id: "tips", label: "Tips & Tricks", icon: HiOutlineLightBulb },
+const toc: TOCItemType[] = [
+  { url: "#what-is-vibe-coding", title: "What is Vibe Coding", depth: 2 },
+  { url: "#flow-state", title: "Flow State", depth: 2 },
+  { url: "#environment", title: "Environment", depth: 2 },
+  { url: "#time-management", title: "Time Management", depth: 2 },
+  { url: "#tips", title: "Tips & Tricks", depth: 2 },
 ];
 
 export default function VibeCodingPage() {
-  useSetSidebarAnchors(anchors, "On This Page");
+  useSetTOC(toc, "On This Page");
 
   return (
     <div className="container mx-auto px-4 py-8">
