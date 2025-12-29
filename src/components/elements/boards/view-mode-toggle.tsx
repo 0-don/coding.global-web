@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  type BoardType,
-  getListItemAtoms,
-} from "@/store/list-item-store";
+import { BoardType } from "@/lib/types";
+import { getListItemAtoms } from "@/store/list-item-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
 
