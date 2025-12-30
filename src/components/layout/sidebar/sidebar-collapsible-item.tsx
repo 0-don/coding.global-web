@@ -18,11 +18,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import * as React from "react";
-import {
-  isActiveLink,
-  NavigationItem,
-  groupByCategory,
-} from "../nav/navigation";
+import { isActiveLink, NavigationItem } from "../nav/navigation";
 import { SidebarCategoryGroup } from "./sidebar-category-group";
 
 export function SidebarCollapsibleItem({
@@ -79,11 +75,11 @@ export function SidebarCollapsibleItem({
       {hasSubmenu && isExpanded && (
         <SidebarMenuSub>
           {hasCategories ? (
-            groupByCategory(item.submenu!).map((group) => (
+            item.submenu!.map((subItem) => (
               <SidebarCategoryGroup
-                key={group.category || "default"}
-                category={group.category}
-                items={group.items}
+                key={subItem.name}
+                category={subItem.name}
+                items={subItem.submenu || []}
               />
             ))
           ) : (

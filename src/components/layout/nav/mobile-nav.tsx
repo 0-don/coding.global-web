@@ -23,7 +23,7 @@ import type { IconType } from "react-icons/lib";
 import { LuMenu } from "react-icons/lu";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
-import { isActiveLink, navigation, groupByCategory } from "./navigation";
+import { isActiveLink, navigation } from "./navigation";
 
 export function MobileNav() {
   const t = useTranslations();
@@ -65,7 +65,6 @@ export function MobileNav() {
 
                 // If item has submenu, render as expandable section with clickable parent
                 if (item.submenu) {
-                  const groups = groupByCategory(item.submenu);
                   return (
                     <div key={item.name} className="space-y-1">
                       <ListItem
@@ -77,34 +76,50 @@ export function MobileNav() {
                         {t(item.name)}
                       </ListItem>
                       <div className="ml-6 space-y-2">
-                        {groups.map((group) => (
-                          <div key={group.category || "default"}>
-                            {group.category && (
-                              <span className="text-muted-foreground px-3 py-1 text-xs font-semibold uppercase">
-                                {t(group.category)}
-                              </span>
-                            )}
-                            <ul className="space-y-1">
-                              {group.items.map((subItem) => {
-                                const isSubActive = isActiveLink(
-                                  pathname,
-                                  subItem.href,
-                                );
-                                return (
-                                  <ListItem
-                                    key={subItem.name}
-                                    href={subItem.href}
-                                    icon={subItem.icon}
-                                    isActive={isSubActive}
-                                    onClick={() => setOpen(false)}
-                                  >
-                                    {t(subItem.name)}
-                                  </ListItem>
-                                );
-                              })}
-                            </ul>
-                          </div>
-                        ))}
+                        {item.submenu.map((subItem) => {
+                          // If subItem has its own submenu (nested), render as category group
+                          if (subItem.submenu && subItem.submenu.length > 0) {
+                            return (
+                              <div key={subItem.name}>
+                                <span className="text-muted-foreground px-3 py-1 text-xs font-semibold uppercase">
+                                  {t(subItem.name)}
+                                </span>
+                                <ul className="space-y-1">
+                                  {subItem.submenu.map((nestedItem) => {
+                                    const isNestedActive = isActiveLink(
+                                      pathname,
+                                      nestedItem.href,
+                                    );
+                                    return (
+                                      <ListItem
+                                        key={nestedItem.name}
+                                        href={nestedItem.href}
+                                        icon={nestedItem.icon}
+                                        isActive={isNestedActive}
+                                        onClick={() => setOpen(false)}
+                                      >
+                                        {t(nestedItem.name)}
+                                      </ListItem>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            );
+                          }
+                          // Regular submenu item without nesting
+                          const isSubActive = isActiveLink(pathname, subItem.href);
+                          return (
+                            <ListItem
+                              key={subItem.name}
+                              href={subItem.href}
+                              icon={subItem.icon}
+                              isActive={isSubActive}
+                              onClick={() => setOpen(false)}
+                            >
+                              {t(subItem.name)}
+                            </ListItem>
+                          );
+                        })}
                       </div>
                     </div>
                   );

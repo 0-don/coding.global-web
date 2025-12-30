@@ -115,7 +115,7 @@ function NavigationMenuPositioner({
         {...props}
       >
         <NavigationMenuPrimitive.Popup className="bg-popover text-popover-foreground ring-foreground/10 xs:w-(--popup-width) relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) rounded-lg shadow ring-1 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-ending-style:duration-150 data-starting-style:scale-90 data-starting-style:opacity-0">
-          <NavigationMenuPrimitive.Viewport className="relative size-full overflow-hidden" />
+          <NavigationMenuPrimitive.Viewport className="relative size-full overflow-visible" />
         </NavigationMenuPrimitive.Popup>
       </NavigationMenuPrimitive.Positioner>
     </NavigationMenuPrimitive.Portal>
