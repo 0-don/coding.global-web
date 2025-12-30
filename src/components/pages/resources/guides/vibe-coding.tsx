@@ -15,7 +15,7 @@ export function VibeCoding() {
   useSetTOC(toc, "On This Page");
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">Vibe Coding</h1>
 
       <section id="what-is-vibe-coding" className="mb-12 scroll-mt-20">
