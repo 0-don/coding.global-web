@@ -11,10 +11,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import type { LinkHref } from "@/i18n/routing";
 import type { TranslationKey } from "@/lib/config/constants";
 import { cn } from "@/lib/utils";
-import {
-  navigationExpansionAtom,
-  toggleExpansionAtom,
-} from "@/store/navigation-expansion-store";
+import { navigationAtom, toggleNavigationAtom } from "@/store/navigation-store";
 import { useAtom, useSetAtom } from "jotai";
 import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -22,21 +19,21 @@ import { Fragment, type ReactNode } from "react";
 import type { IconType } from "react-icons/lib";
 import { isActiveLink, NavigationItem } from "./navigation";
 
-export const RESOURCES_NAV_KEY = "MAIN.NAVIGATION.RESOURCES";
+export const RESOURCES_NAV_KEY: TranslationKey = "MAIN.NAVIGATION.RESOURCES";
 
-export function useNavigationExpansion(key: string) {
-  const [expansionState] = useAtom(navigationExpansionAtom);
-  const toggleExpansion = useSetAtom(toggleExpansionAtom);
+export function useNavigation(key: TranslationKey) {
+  const [navigationState] = useAtom(navigationAtom);
+  const toggleNavigation = useSetAtom(toggleNavigationAtom);
 
-  const isExpanded = expansionState[key] ?? false;
-  const toggle = () => toggleExpansion(key);
+  const isExpanded = navigationState[key] ?? false;
+  const toggle = () => toggleNavigation(key);
 
   return { isExpanded, toggle };
 }
 
 export function useNavigationItem(item: NavigationItem) {
   const pathname = usePathname();
-  const { isExpanded, toggle } = useNavigationExpansion(item.name);
+  const { isExpanded, toggle } = useNavigation(item.name);
 
   const isActive = isActiveLink(pathname, item.href);
   const hasSubmenu = item.submenu && item.submenu.length > 0;
@@ -273,7 +270,7 @@ export function CollapsibleNavItem(props: CollapsibleNavItemProps) {
 }
 
 type CategoryGroupProps = {
-  category: TranslationKey | null;
+  category: TranslationKey;
   items: NavigationItem[];
   onNavigate?: () => void;
 };
@@ -281,8 +278,7 @@ type CategoryGroupProps = {
 export function CategoryGroup(props: CategoryGroupProps) {
   const t = useTranslations();
   const pathname = usePathname();
-  const categoryKey = props.category || "uncategorized";
-  const { isExpanded, toggle } = useNavigationExpansion(categoryKey);
+  const { isExpanded, toggle } = useNavigation(props.category);
 
   if (!props.category) {
     return (
@@ -389,14 +385,13 @@ export function SidebarNavItem(props: {
 }
 
 export function SidebarCategoryGroup(props: {
-  category: TranslationKey | null;
+  category: TranslationKey;
   items: NavigationItem[];
   onNavigate?: () => void;
 }) {
   const t = useTranslations();
   const pathname = usePathname();
-  const categoryKey = props.category || "uncategorized";
-  const { isExpanded, toggle } = useNavigationExpansion(categoryKey);
+  const { isExpanded, toggle } = useNavigation(props.category);
 
   if (!props.category) {
     return (
