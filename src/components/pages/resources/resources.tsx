@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { HiOutlineBolt, HiOutlineWrenchScrewdriver } from "react-icons/hi2";
+import { HiOutlineBolt, HiOutlineShieldCheck } from "react-icons/hi2";
 import { SiJavascript, SiPython } from "react-icons/si";
 
 const resourceCategories = [
@@ -32,10 +32,10 @@ const resourceCategories = [
         icon: HiOutlineBolt,
       },
       {
-        name: "Best Tools",
-        description: "Recommended software",
-        href: "/resources/guides/best-tools" as const,
-        icon: HiOutlineWrenchScrewdriver,
+        name: "Cyber Security",
+        description: "Security best practices",
+        href: "/resources/guides/cyber-security" as const,
+        icon: HiOutlineShieldCheck,
       },
     ],
   },
@@ -43,7 +43,7 @@ const resourceCategories = [
 
 export function Resources() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="px-8 py-8">
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold">Resources</h1>
         <p className="text-muted-foreground">
