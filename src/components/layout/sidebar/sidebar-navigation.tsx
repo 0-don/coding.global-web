@@ -5,70 +5,45 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link, usePathname } from "@/i18n/navigation";
-import { LinkHref } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
 import * as React from "react";
-import { isActiveLink, NavigationItem } from "../nav/navigation";
-import { SidebarCollapsibleItem } from "./sidebar-collapsible-item";
+import {
+  NavigationItems,
+  SidebarCollapsibleItem,
+  SidebarNavItem,
+} from "../nav/base-navigation";
+import { NavigationItem } from "../nav/navigation";
 
-const RESOURCES_NAV_KEY = "MAIN.NAVIGATION.RESOURCES";
-
-export function SidebarNavigation({
-  title,
-  items,
-  ...props
-}: {
-  title: string;
-  items: NavigationItem[];
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  const t = useTranslations();
-  const pathname = usePathname();
-
+export function SidebarNavigation(
+  props: {
+    title: string;
+    items: NavigationItem[];
+  } & React.ComponentPropsWithoutRef<typeof SidebarGroup>
+) {
   return (
     <SidebarGroup {...props}>
-      <SidebarGroupLabel>{title}</SidebarGroupLabel>
+      <SidebarGroupLabel>{props.title}</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => {
-            const hasSubmenu = item.submenu && item.submenu.length > 0;
-
-            if (hasSubmenu) {
-              const hasCategories = item.name === RESOURCES_NAV_KEY;
-              return (
-                <SidebarCollapsibleItem
-                  key={item.name}
-                  item={item}
-                  hasCategories={hasCategories}
-                />
-              );
-            }
-
-            const isActive = isActiveLink(pathname, item.href);
-            return (
-              <SidebarMenuItem key={item.name}>
-                <SidebarMenuButton
-                  tooltip={t(item.name)}
-                  isActive={isActive}
-                  className={cn(
-                    isActive && "bg-primary/10 text-primary font-medium",
-                  )}
-                >
-                  <Link
-                    href={item.href as LinkHref}
-                    className="flex items-center gap-2"
-                  >
-                    <item.icon className={cn(isActive && "text-primary")} />
-                    <span>{t(item.name)}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-          })}
+          <NavigationItems
+            items={props.items}
+            renderItem={(itemProps) => (
+              <SidebarNavItem
+                key={itemProps.item.name}
+                item={itemProps.item}
+                isActive={itemProps.isActive}
+                onClick={itemProps.onClick}
+              />
+            )}
+            renderCollapsibleItem={(collapsibleProps) => (
+              <SidebarCollapsibleItem
+                key={collapsibleProps.item.name}
+                item={collapsibleProps.item}
+                hasCategories={collapsibleProps.hasCategories}
+                onNavigate={collapsibleProps.onNavigate}
+              />
+            )}
+          />
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

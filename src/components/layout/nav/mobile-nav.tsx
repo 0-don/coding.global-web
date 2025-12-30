@@ -13,13 +13,18 @@ import {
 } from "@/components/ui/sheet";
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaDiscord } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
-import { NavList } from "./nav-item";
+import {
+  CollapsibleNavItem,
+  NavigationItems,
+  NavItemFromData,
+} from "./base-navigation";
 import { navigation } from "./navigation";
 
 export function MobileNav() {
@@ -57,7 +62,28 @@ export function MobileNav() {
         </SheetHeader>
 
         <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
-          <NavList items={navItems} onNavigate={() => setOpen(false)} />
+          <nav className={cn("flex flex-col gap-1")}>
+            <NavigationItems
+              items={navItems}
+              onNavigate={() => setOpen(false)}
+              renderItem={(itemProps) => (
+                <NavItemFromData
+                  key={itemProps.item.name}
+                  item={itemProps.item}
+                  isActive={itemProps.isActive}
+                  onClick={itemProps.onClick}
+                />
+              )}
+              renderCollapsibleItem={(collapsibleProps) => (
+                <CollapsibleNavItem
+                  key={collapsibleProps.item.name}
+                  item={collapsibleProps.item}
+                  hasCategories={collapsibleProps.hasCategories}
+                  onNavigate={collapsibleProps.onNavigate}
+                />
+              )}
+            />
+          </nav>
 
           <div className="border-t px-4 pt-4">
             {session?.data?.user.id ? (

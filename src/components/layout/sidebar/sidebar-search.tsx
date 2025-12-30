@@ -12,20 +12,20 @@ import { LinkHref } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { Search, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function SidebarSearch() {
   const t = useTranslations();
   const { query, setQuery, results, isLoading, isIndexLoaded } = useSearch();
-  const [open, setOpen] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSelect = () => {
     setOpen(false);
     setQuery("");
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -37,7 +37,7 @@ export function SidebarSearch() {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open && inputRef.current) {
       inputRef.current.focus();
     }
@@ -50,7 +50,7 @@ export function SidebarSearch() {
           <Button
             variant="outline"
             size="sm"
-            className="text-muted-foreground relative w-full justify-start gap-2 pr-12 text-sm font-normal"
+            className="text-muted-foreground relative justify-start gap-2 pr-12 text-sm font-normal"
           >
             <Search className="size-4" />
             <span>{t("MAIN.SIDEBAR.SEARCH.PLACEHOLDER")}</span>

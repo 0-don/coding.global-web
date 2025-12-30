@@ -13,10 +13,9 @@ export function SidebarHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <div className="hidden w-64 md:block">
+      
           <SidebarSearch />
-        </div>
-
+    
         <div className="ml-auto flex items-center gap-2">
           <LanguageToggle />
           <ThemeToggle />
