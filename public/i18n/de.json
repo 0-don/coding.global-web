@@ -307,7 +307,8 @@
       "NITRO_SINCE": "Nitro seit {date}",
       "USERNAME_COPIED": "Benutzername in die Zwischenablage kopiert!",
       "USER_ID_COPIED": "Benutzer-ID in die Zwischenablage kopiert!",
-      "COPY_FAILED": "Kopieren in die Zwischenablage fehlgeschlagen"
+      "COPY_FAILED": "Kopieren in die Zwischenablage fehlgeschlagen",
+      "YOU": "Du"
     }
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Popover,
@@ -21,6 +22,7 @@ import {
   StatusIndicator,
   StatusRole,
 } from "../utils/enums";
+import { useSessionHook } from "@/hook/session-hook";
 interface DiscordUserProps {
   className?: string;
   user?: GetApiByGuildIdWidget200MembersItem;
@@ -29,8 +31,12 @@ interface DiscordUserProps {
 
 export function DiscordUser(props: DiscordUserProps) {
   const t = useTranslations();
+  const session = useSessionHook();
 
   if (!props.user) return null;
+
+  const isCurrentUser =
+    session.data?.user?.discordId === props.user.id;
 
   const bannerStyle = props.user.bannerUrl
     ? { backgroundImage: `url(${props.user.bannerUrl})` }
@@ -99,6 +105,11 @@ export function DiscordUser(props: DiscordUserProps) {
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="truncate text-sm font-medium group-hover/user:underline">
                   {props.user.displayName}
+                  {isCurrentUser && (
+                    <Badge className="ml-1.5 h-4 text-[10px]">
+                      {t("DISCORD_WIDGET.USER_CARD.YOU")}
+                    </Badge>
+                  )}
                 </span>
                 {props.user.premiumSince && (
                   <IoDiamondSharp
@@ -171,6 +182,11 @@ export function DiscordUser(props: DiscordUserProps) {
               <div className="flex items-center gap-2">
                 <h5 className="truncate text-xl font-bold group-hover/user:underline">
                   {props.user.displayName}
+                  {isCurrentUser && (
+                    <Badge className="ml-2">
+                      {t("DISCORD_WIDGET.USER_CARD.YOU")}
+                    </Badge>
+                  )}
                 </h5>
                 {props.user.premiumSince && (
                   <IoDiamondSharp

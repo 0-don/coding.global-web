@@ -18,6 +18,14 @@ export const auth = betterAuth({
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     },
   },
+  user: {
+    additionalFields: {
+      discordId: {
+        type: "string",
+        returned: true,
+      },
+    },
+  },
   databaseHooks: {
     account: {
       create: {
