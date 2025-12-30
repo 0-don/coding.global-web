@@ -145,6 +145,17 @@
   },
   "RULES": {
     "HEADING": "Community-Richtlinien",
+    "TERMINAL": {
+      "COMMAND": "cat",
+      "FILENAME": "community_rules.txt",
+      "LOADED": "{count} Regeln erfolgreich geladen..."
+    },
+    "CATEGORIES": {
+      "GENERAL": "Allgemein",
+      "BEHAVIOR": "Verhalten",
+      "AUTHORITY": "Autorität",
+      "CONTENT": "Inhalt"
+    },
     "META": {
       "DESCRIPTION": "Community-Richtlinien und Regeln für Coding Global",
       "KEYWORDS": "regeln, richtlinien, community-standards, verhaltenskodex",
