@@ -1,5 +1,5 @@
-import { Team } from "@/components/pages/team/team";
-import { TeamSkeleton } from "@/components/pages/team/team-skeleton";
+import { Team } from "@/components/pages/community/team/team";
+import { TeamSkeleton } from "@/components/pages/community/team/team-skeleton";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";

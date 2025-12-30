@@ -1,5 +1,5 @@
-import { News } from "@/components/pages/news/news";
-import { NewsSkeleton } from "@/components/pages/news/news-skeleton";
+import { News } from "@/components/pages/community/news/news";
+import { NewsSkeleton } from "@/components/pages/community/news/news-skeleton";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";

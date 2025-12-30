@@ -1,4 +1,4 @@
-import { Rules } from "@/components/pages/rules/rules";
+import { Rules } from "@/components/pages/community/rules/rules";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { getTranslations } from "next-intl/server";
