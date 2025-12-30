@@ -1,4 +1,6 @@
+import { DE, US } from "country-flag-icons/react/3x2";
 import type { Locale, useTranslations } from "next-intl";
+import type { FunctionComponent, SVGAttributes } from "react";
 
 export const SERVER_URL_KEY = "x-url";
 
@@ -11,13 +13,15 @@ export const LOCALES = [
   "de", // German
 ] as const;
 
+export type FlagComponent = FunctionComponent<SVGAttributes<SVGElement>>;
+
 export const LANGUAGES: {
   code: Uppercase<Locale>;
-  flag: string;
+  Flag: FlagComponent;
   ogLocale: string;
 }[] = [
-  { code: "EN", flag: "🇺🇸", ogLocale: "en-US" },
-  { code: "DE", flag: "🇩🇪", ogLocale: "de-DE" },
+  { code: "EN", Flag: US, ogLocale: "en-US" },
+  { code: "DE", Flag: DE, ogLocale: "de-DE" },
 ];
 
 export const ALTERNATE_LANGUAGES = LOCALES.reduce(

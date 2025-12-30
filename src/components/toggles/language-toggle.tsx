@@ -20,7 +20,7 @@ export function LanguageToggle() {
   const [isPending, startTransition] = useTransition();
 
   const currentLanguage = LANGUAGES.find(
-    (lang) => lang.code.toLowerCase() === locale,
+    (lang) => lang.code.toLowerCase() === locale.toLowerCase(),
   );
 
   function onLanguageChange(newLocale: Locale) {
@@ -39,7 +39,7 @@ export function LanguageToggle() {
             title={t("MAIN.TOOLTIP.TOGGLE_LANGUAGE")}
             disabled={isPending}
           >
-            <span className="text-lg">{currentLanguage?.flag}</span>
+            {currentLanguage && <currentLanguage.Flag className="h-5 w-7" />}
           </Button>
         }
       />
@@ -50,7 +50,7 @@ export function LanguageToggle() {
             onClick={() => onLanguageChange(lang.code.toLowerCase() as Locale)}
             className={"cursor-pointer"}
           >
-            <span className="mr-2 text-lg">{lang.flag}</span>
+            <lang.Flag className="mr-2 h-4 w-6" />
             {t(`MAIN.ENUM.${lang.code}`)}
           </DropdownMenuItem>
         ))}
