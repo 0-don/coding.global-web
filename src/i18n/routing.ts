@@ -12,17 +12,20 @@ export type ValidRoutes = LinkHref | RoutePush | Redirect;
 
 export const pathnames = {
   "/": "/",
-  "/news": {
-    de: "/nachrichten",
+  "/community/news": {
+    de: "/community/nachrichten",
   },
-  "/rules": {
-    de: "/regeln",
+  "/community/rules": {
+    de: "/community/regeln",
   },
-  "/showcase": {
-    de: "/showcase",
+  "/community/showcase": {
+    de: "/community/showcase",
   },
-  "/showcase/[id]": {
-    de: "/showcase/[id]",
+  "/community/showcase/[id]": {
+    de: "/community/showcase/[id]",
+  },
+  "/community/team": {
+    de: "/community/team",
   },
   "/marketplace": {
     de: "/marketplace",
@@ -42,23 +45,26 @@ export const pathnames = {
   "/marketplace/dev-board/[id]": {
     de: "/marketplace/dev-board/[id]",
   },
-  "/team": {
-    de: "/team",
-  },
   "/resources": {
     de: "/ressourcen",
   },
-  "/resources/javascript": {
-    de: "/ressourcen/javascript",
+  "/resources/languages/javascript": {
+    de: "/ressourcen/sprachen/javascript",
   },
-  "/resources/python": {
-    de: "/ressourcen/python",
+  "/resources/languages/python": {
+    de: "/ressourcen/sprachen/python",
   },
-  "/resources/vibe-coding": {
-    de: "/ressourcen/vibe-coding",
+  "/resources/guides/vibe-coding": {
+    de: "/ressourcen/anleitungen/vibe-coding",
   },
-  "/resources/best-tools": {
-    de: "/ressourcen/beste-tools",
+  "/resources/guides/devops": {
+    de: "/ressourcen/anleitungen/devops",
+  },
+  "/resources/guides/cyber-security": {
+    de: "/ressourcen/anleitungen/cyber-security",
+  },
+  "/resources/guides/best-tools": {
+    de: "/ressourcen/anleitungen/beste-tools",
   },
 } as const;
 

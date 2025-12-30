@@ -33,7 +33,6 @@ export function UserDropdown({
   className,
 }: UserDropdownProps) {
   const session = useSessionHook();
-  // console.log("UserDropdown session:", session);
   const t = useTranslations();
 
   if (!session?.data?.user.id) {
