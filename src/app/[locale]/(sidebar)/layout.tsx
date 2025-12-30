@@ -8,8 +8,6 @@ interface SidebarLayoutProps {
   children: React.ReactNode;
 }
 
-// WAITING FOR FOOD
-
 export default function SidebarLayout(props: SidebarLayoutProps) {
   return (
     <TOCProvider>

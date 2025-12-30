@@ -57,14 +57,8 @@ export const pathnames = {
   "/resources/guides/vibe-coding": {
     de: "/ressourcen/anleitungen/vibe-coding",
   },
-  "/resources/guides/devops": {
-    de: "/ressourcen/anleitungen/devops",
-  },
   "/resources/guides/cyber-security": {
     de: "/ressourcen/anleitungen/cyber-security",
-  },
-  "/resources/guides/best-tools": {
-    de: "/ressourcen/anleitungen/beste-tools",
   },
 } as const;
 

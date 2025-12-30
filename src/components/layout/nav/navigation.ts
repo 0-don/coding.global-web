@@ -1,25 +1,23 @@
 import { LinkHref, ValidRoutes } from "@/i18n/routing";
 import type { TranslationKey } from "@/lib/config/constants";
 import {
+  HiOutlineAcademicCap,
   HiOutlineArrowsRightLeft,
+  HiOutlineBolt,
+  HiOutlineBookOpen,
   HiOutlineBriefcase,
   HiOutlineChartBarSquare,
   HiOutlineCodeBracket,
+  HiOutlineCommandLine,
   HiOutlineInformationCircle,
+  HiOutlineShieldCheck,
   HiOutlineShoppingBag,
   HiOutlineSparkles,
   HiOutlineUserGroup,
-  HiOutlineBookOpen,
-  HiOutlineWrenchScrewdriver,
-  HiOutlineBolt,
   HiOutlineUsers,
-  HiOutlineCommandLine,
-  HiOutlineShieldCheck,
-  HiOutlineServerStack,
-  HiOutlineAcademicCap,
 } from "react-icons/hi2";
-import { SiJavascript, SiPython } from "react-icons/si";
 import { IconType } from "react-icons/lib";
+import { SiJavascript, SiPython } from "react-icons/si";
 
 export const isActiveLink = (pathname: string, href: ValidRoutes) => {
   if (typeof href !== "string") return false;
@@ -152,22 +150,10 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
             icon: HiOutlineBolt,
           },
           {
-            name: "MAIN.NAVIGATION.RESOURCES_DEVOPS",
-            description: "MAIN.NAVIGATION.RESOURCES_DEVOPS_DESCRIPTION",
-            href: "/resources/guides/devops",
-            icon: HiOutlineServerStack,
-          },
-          {
             name: "MAIN.NAVIGATION.RESOURCES_CYBER_SECURITY",
             description: "MAIN.NAVIGATION.RESOURCES_CYBER_SECURITY_DESCRIPTION",
             href: "/resources/guides/cyber-security",
             icon: HiOutlineShieldCheck,
-          },
-          {
-            name: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS",
-            description: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS_DESCRIPTION",
-            href: "/resources/guides/best-tools",
-            icon: HiOutlineWrenchScrewdriver,
           },
         ],
       },
