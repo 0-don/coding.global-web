@@ -10,13 +10,13 @@ const resourceCategories = [
       {
         name: "JavaScript",
         description: "Web development essentials",
-        href: "/resources/javascript" as const,
+        href: "/resources/languages/javascript" as const,
         icon: SiJavascript,
       },
       {
         name: "Python",
         description: "Data science & automation",
-        href: "/resources/python" as const,
+        href: "/resources/languages/python" as const,
         icon: SiPython,
       },
     ],
@@ -28,13 +28,13 @@ const resourceCategories = [
       {
         name: "Vibe Coding",
         description: "Flow state & productivity",
-        href: "/resources/vibe-coding" as const,
+        href: "/resources/guides/vibe-coding" as const,
         icon: HiOutlineBolt,
       },
       {
         name: "Best Tools",
         description: "Recommended software",
-        href: "/resources/best-tools" as const,
+        href: "/resources/guides/best-tools" as const,
         icon: HiOutlineWrenchScrewdriver,
       },
     ],

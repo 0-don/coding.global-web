@@ -12,24 +12,20 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useSessionHook } from "@/hook/session-hook";
-import { Link, usePathname } from "@/i18n/navigation";
-import type { LinkHref } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaDiscord } from "react-icons/fa";
-import type { IconType } from "react-icons/lib";
 import { LuMenu } from "react-icons/lu";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
-import { isActiveLink, navigation } from "./navigation";
+import { NavList } from "./nav-item";
+import { navigation } from "./navigation";
 
 export function MobileNav() {
   const t = useTranslations();
   const session = useSessionHook();
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   async function handleLogin() {
     await authClient.signIn.social({
@@ -37,6 +33,10 @@ export function MobileNav() {
       callbackURL: "/",
     });
   }
+
+  const navItems = navigation(!!session?.data?.user.id).filter(
+    (item) => !item.hidden,
+  );
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -48,7 +48,7 @@ export function MobileNav() {
         <LuMenu className="text-3xl" />
         <span className="sr-only">{t("MAIN.NAVIGATION.OPEN_MENU")}</span>
       </SheetTrigger>
-      <SheetContent side="left" className="z-9999 w-75 sm:w-100">
+      <SheetContent side="left" className="z-9999 flex w-75 flex-col sm:w-100">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <LogoImage />
@@ -56,89 +56,8 @@ export function MobileNav() {
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex flex-col gap-4">
-          <nav className="flex flex-col gap-1">
-            {navigation(!!session?.data?.user.id)
-              .filter((item) => !item.hidden)
-              .map((item) => {
-                const isActive = isActiveLink(pathname, item.href);
-
-                // If item has submenu, render as expandable section with clickable parent
-                if (item.submenu) {
-                  return (
-                    <div key={item.name} className="space-y-1">
-                      <ListItem
-                        href={item.href}
-                        icon={item.icon}
-                        isActive={isActive}
-                        onClick={() => setOpen(false)}
-                      >
-                        {t(item.name)}
-                      </ListItem>
-                      <div className="ml-6 space-y-2">
-                        {item.submenu.map((subItem) => {
-                          // If subItem has its own submenu (nested), render as category group
-                          if (subItem.submenu && subItem.submenu.length > 0) {
-                            return (
-                              <div key={subItem.name}>
-                                <span className="text-muted-foreground px-3 py-1 text-xs font-semibold uppercase">
-                                  {t(subItem.name)}
-                                </span>
-                                <ul className="space-y-1">
-                                  {subItem.submenu.map((nestedItem) => {
-                                    const isNestedActive = isActiveLink(
-                                      pathname,
-                                      nestedItem.href,
-                                    );
-                                    return (
-                                      <ListItem
-                                        key={nestedItem.name}
-                                        href={nestedItem.href}
-                                        icon={nestedItem.icon}
-                                        isActive={isNestedActive}
-                                        onClick={() => setOpen(false)}
-                                      >
-                                        {t(nestedItem.name)}
-                                      </ListItem>
-                                    );
-                                  })}
-                                </ul>
-                              </div>
-                            );
-                          }
-                          // Regular submenu item without nesting
-                          const isSubActive = isActiveLink(pathname, subItem.href);
-                          return (
-                            <ListItem
-                              key={subItem.name}
-                              href={subItem.href}
-                              icon={subItem.icon}
-                              isActive={isSubActive}
-                              onClick={() => setOpen(false)}
-                            >
-                              {t(subItem.name)}
-                            </ListItem>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                }
-
-                // Regular item without submenu
-                return (
-                  <ListItem
-                    key={item.name}
-                    href={item.href}
-                    icon={item.icon}
-                    isActive={isActive}
-                    onClick={() => setOpen(false)}
-                  >
-                    {t(item.name)}
-                  </ListItem>
-                );
-              })}
-          </nav>
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+          <NavList items={navItems} onNavigate={() => setOpen(false)} />
 
           <div className="border-t px-4 pt-4">
             {session?.data?.user.id ? (
@@ -169,31 +88,5 @@ export function MobileNav() {
         </div>
       </SheetContent>
     </Sheet>
-  );
-}
-
-type ListItemProps = {
-  children: React.ReactNode;
-  href: LinkHref;
-  icon?: IconType;
-  isActive?: boolean;
-  onClick?: () => void;
-};
-
-function ListItem(props: ListItemProps) {
-  return (
-    <li className="list-none">
-      <Link
-        href={props.href}
-        onClick={props.onClick}
-        className={cn(
-          "hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-          props.isActive && "bg-primary/10 text-primary",
-        )}
-      >
-        {props.icon && <props.icon className="size-4" />}
-        <span>{props.children}</span>
-      </Link>
-    </li>
   );
 }
