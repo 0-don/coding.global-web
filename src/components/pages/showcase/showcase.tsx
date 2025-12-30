@@ -17,7 +17,7 @@ export function Showcase() {
       showBoardBadge={false}
       boardType="showcase"
       getDetailHref={(thread) => ({
-        pathname: "/showcase/[id]",
+        pathname: "/community/showcase/[id]",
         params: { id: thread.id },
       })}
     />
