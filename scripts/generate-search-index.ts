@@ -1,5 +1,6 @@
 import { create, insert } from "@orama/orama";
 import { persist } from "@orama/plugin-data-persistence";
+import { error, log } from "console";
 import { writeFileSync } from "fs";
 import { join } from "path";
 
@@ -93,7 +94,7 @@ const searchablePages: SearchDocument[] = [
 ];
 
 async function generateSearchIndex() {
-  console.log("Generating search index...");
+  log("Generating search index...");
 
   const db = create({
     schema: {
@@ -113,8 +114,8 @@ async function generateSearchIndex() {
 
   writeFileSync(outputPath, JSON.stringify(serialized));
 
-  console.log(`Search index generated at ${outputPath}`);
-  console.log(`Indexed ${searchablePages.length} pages`);
+  log(`Search index generated at ${outputPath}`);
+  log(`Indexed ${searchablePages.length} pages`);
 }
 
-generateSearchIndex().catch(console.error);
+generateSearchIndex().catch(error);

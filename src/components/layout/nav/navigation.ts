@@ -13,6 +13,10 @@ import {
   HiOutlineWrenchScrewdriver,
   HiOutlineBolt,
   HiOutlineUsers,
+  HiOutlineCommandLine,
+  HiOutlineShieldCheck,
+  HiOutlineServerStack,
+  HiOutlineAcademicCap,
 } from "react-icons/hi2";
 import { SiJavascript, SiPython } from "react-icons/si";
 import { IconType } from "react-icons/lib";
@@ -80,31 +84,31 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
   {
     name: "MAIN.NAVIGATION.COMMUNITY",
     description: "MAIN.NAVIGATION.COMMUNITY_DESCRIPTION",
-    href: "/news",
+    href: "/community/news",
     icon: HiOutlineUserGroup,
     submenu: [
       {
         name: "MAIN.NAVIGATION.NEWS",
         description: "MAIN.NAVIGATION.NEWS_DESCRIPTION",
-        href: "/news",
+        href: "/community/news",
         icon: HiOutlineArrowsRightLeft,
       },
       {
         name: "MAIN.NAVIGATION.RULES",
         description: "MAIN.NAVIGATION.RULES_DESCRIPTION",
-        href: "/rules",
+        href: "/community/rules",
         icon: HiOutlineInformationCircle,
       },
       {
         name: "MAIN.NAVIGATION.SHOWCASE",
         description: "MAIN.NAVIGATION.SHOWCASE_DESCRIPTION",
-        href: "/showcase",
+        href: "/community/showcase",
         icon: HiOutlineSparkles,
       },
       {
         name: "MAIN.NAVIGATION.TEAM",
         description: "MAIN.NAVIGATION.TEAM_DESCRIPTION",
-        href: "/team",
+        href: "/community/team",
         icon: HiOutlineUsers,
       },
     ],
@@ -116,32 +120,56 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
     icon: HiOutlineBookOpen,
     submenu: [
       {
-        name: "MAIN.NAVIGATION.RESOURCES_JAVASCRIPT",
-        description: "MAIN.NAVIGATION.RESOURCES_JAVASCRIPT_DESCRIPTION",
-        href: "/resources/javascript",
-        icon: SiJavascript,
-        category: "MAIN.NAVIGATION.RESOURCES_LANGUAGES",
+        name: "MAIN.NAVIGATION.RESOURCES_LANGUAGES",
+        description: "MAIN.NAVIGATION.RESOURCES_LANGUAGES_DESCRIPTION",
+        href: "/resources",
+        icon: HiOutlineCommandLine,
+        submenu: [
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_JAVASCRIPT",
+            description: "MAIN.NAVIGATION.RESOURCES_JAVASCRIPT_DESCRIPTION",
+            href: "/resources/languages/javascript",
+            icon: SiJavascript,
+          },
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_PYTHON",
+            description: "MAIN.NAVIGATION.RESOURCES_PYTHON_DESCRIPTION",
+            href: "/resources/languages/python",
+            icon: SiPython,
+          },
+        ],
       },
       {
-        name: "MAIN.NAVIGATION.RESOURCES_PYTHON",
-        description: "MAIN.NAVIGATION.RESOURCES_PYTHON_DESCRIPTION",
-        href: "/resources/python",
-        icon: SiPython,
-        category: "MAIN.NAVIGATION.RESOURCES_LANGUAGES",
-      },
-      {
-        name: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING",
-        description: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING_DESCRIPTION",
-        href: "/resources/vibe-coding",
-        icon: HiOutlineBolt,
-        category: "MAIN.NAVIGATION.RESOURCES_GENERAL",
-      },
-      {
-        name: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS",
-        description: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS_DESCRIPTION",
-        href: "/resources/best-tools",
-        icon: HiOutlineWrenchScrewdriver,
-        category: "MAIN.NAVIGATION.RESOURCES_GENERAL",
+        name: "MAIN.NAVIGATION.RESOURCES_GUIDES",
+        description: "MAIN.NAVIGATION.RESOURCES_GUIDES_DESCRIPTION",
+        href: "/resources",
+        icon: HiOutlineAcademicCap,
+        submenu: [
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING",
+            description: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING_DESCRIPTION",
+            href: "/resources/guides/vibe-coding",
+            icon: HiOutlineBolt,
+          },
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_DEVOPS",
+            description: "MAIN.NAVIGATION.RESOURCES_DEVOPS_DESCRIPTION",
+            href: "/resources/guides/devops",
+            icon: HiOutlineServerStack,
+          },
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_CYBER_SECURITY",
+            description: "MAIN.NAVIGATION.RESOURCES_CYBER_SECURITY_DESCRIPTION",
+            href: "/resources/guides/cyber-security",
+            icon: HiOutlineShieldCheck,
+          },
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS",
+            description: "MAIN.NAVIGATION.RESOURCES_BEST_TOOLS_DESCRIPTION",
+            href: "/resources/guides/best-tools",
+            icon: HiOutlineWrenchScrewdriver,
+          },
+        ],
       },
     ],
   },

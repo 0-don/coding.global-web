@@ -1,11 +1,11 @@
 import {
+  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
   getApiByGuildIdBoardByBoardType,
   getApiByGuildIdBoardByBoardTypeByThreadId,
   getApiByGuildIdBoardByBoardTypeByThreadIdMessages,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
   getApiByGuildIdWidget,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
 
