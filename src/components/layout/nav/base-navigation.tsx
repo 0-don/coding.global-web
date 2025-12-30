@@ -16,87 +16,9 @@ import { useAtom, useSetAtom } from "jotai";
 import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Fragment, type ReactNode } from "react";
-import type { IconType } from "react-icons/lib";
 import { isActiveLink, NavigationItem } from "./navigation";
 
 export const RESOURCES_NAV_KEY: TranslationKey = "MAIN.NAVIGATION.RESOURCES";
-
-export function useNavigation(key: TranslationKey) {
-  const [navigationState] = useAtom(navigationAtom);
-  const toggleNavigation = useSetAtom(toggleNavigationAtom);
-
-  const isExpanded = navigationState[key] ?? false;
-  const toggle = () => toggleNavigation(key);
-
-  return { isExpanded, toggle };
-}
-
-export function useNavigationItem(item: NavigationItem) {
-  const pathname = usePathname();
-  const { isExpanded, toggle } = useNavigation(item.name);
-
-  const isActive = isActiveLink(pathname, item.href);
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
-
-  return { isActive, hasSubmenu, isExpanded, toggle };
-}
-
-type ExpandButtonProps = {
-  isExpanded: boolean;
-  onToggle: () => void;
-  className?: string;
-  iconSize?: string;
-};
-
-export function ExpandButton(props: ExpandButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={props.onToggle}
-      className={cn(
-        "flex items-center justify-center rounded-md transition-colors",
-        props.className,
-      )}
-      aria-label={props.isExpanded ? "Collapse submenu" : "Expand submenu"}
-    >
-      <ChevronRight
-        className={cn(
-          "transition-transform duration-200",
-          props.iconSize || "size-4",
-          props.isExpanded && "rotate-90",
-        )}
-      />
-    </button>
-  );
-}
-
-type CategoryHeaderProps = {
-  label: string;
-  isExpanded: boolean;
-  onToggle: () => void;
-  className?: string;
-};
-
-export function CategoryHeader(props: CategoryHeaderProps) {
-  return (
-    <button
-      type="button"
-      onClick={props.onToggle}
-      className={cn(
-        "text-muted-foreground hover:text-foreground flex items-center justify-between px-2 py-1.5 text-xs font-semibold uppercase transition-colors",
-        props.className,
-      )}
-    >
-      <span>{props.label}</span>
-      <ChevronRight
-        className={cn(
-          "size-3 transition-transform duration-200",
-          props.isExpanded && "rotate-90",
-        )}
-      />
-    </button>
-  );
-}
 
 type NavigationItemRenderProps = {
   item: NavigationItem;
@@ -153,38 +75,6 @@ export function NavigationItems(props: NavigationItemsProps) {
   );
 }
 
-type NavItemProps = {
-  children: React.ReactNode;
-  href: LinkHref;
-  icon?: IconType;
-  isActive?: boolean;
-  onClick?: () => void;
-  className?: string;
-};
-
-export function NavItem(props: NavItemProps) {
-  return (
-    <li className="list-none">
-      <Link
-        href={props.href}
-        onClick={props.onClick}
-        className={cn(
-          "hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
-          props.isActive && "bg-primary/10 text-primary",
-          props.className,
-        )}
-      >
-        {props.icon && (
-          <props.icon
-            className={cn("size-4", props.isActive && "text-primary")}
-          />
-        )}
-        <span>{props.children}</span>
-      </Link>
-    </li>
-  );
-}
-
 export function NavItemFromData(props: {
   item: NavigationItem;
   isActive: boolean;
@@ -192,14 +82,23 @@ export function NavItemFromData(props: {
 }) {
   const t = useTranslations();
   return (
-    <NavItem
-      href={props.item.href}
-      icon={props.item.icon}
-      isActive={props.isActive}
-      onClick={props.onClick}
-    >
-      {t(props.item.name)}
-    </NavItem>
+    <li className="list-none">
+      <Link
+        href={props.item.href}
+        onClick={props.onClick}
+        className={cn(
+          "hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+          props.isActive && "bg-primary/10 text-primary",
+        )}
+      >
+        {props.item.icon && (
+          <props.item.icon
+            className={cn("size-4", props.isActive && "text-primary")}
+          />
+        )}
+        <span>{t(props.item.name)}</span>
+      </Link>
+    </li>
   );
 }
 
@@ -213,9 +112,13 @@ type CollapsibleNavItemProps = {
 export function CollapsibleNavItem(props: CollapsibleNavItemProps) {
   const t = useTranslations();
   const pathname = usePathname();
-  const { isActive, hasSubmenu, isExpanded, toggle } = useNavigationItem(
-    props.item,
-  );
+  const [navigationState] = useAtom(navigationAtom);
+  const toggleNavigation = useSetAtom(toggleNavigationAtom);
+
+  const isActive = isActiveLink(pathname, props.item.href);
+  const hasSubmenu = props.item.submenu && props.item.submenu.length > 0;
+  const isExpanded = navigationState[props.item.name] ?? false;
+  const toggle = () => toggleNavigation(props.item.name);
 
   return (
     <li className={cn("list-none", props.className)}>
@@ -234,11 +137,22 @@ export function CollapsibleNavItem(props: CollapsibleNavItemProps) {
           <span>{t(props.item.name)}</span>
         </Link>
         {hasSubmenu && (
-          <ExpandButton
-            isExpanded={isExpanded}
-            onToggle={toggle}
-            className="hover:bg-accent size-8"
-          />
+          <button
+            type="button"
+            onClick={toggle}
+            className={cn(
+              "flex items-center justify-center rounded-md transition-colors",
+              "hover:bg-accent size-8",
+            )}
+            aria-label={isExpanded ? "Collapse submenu" : "Expand submenu"}
+          >
+            <ChevronRight
+              className={cn(
+                "size-4 transition-transform duration-200",
+                isExpanded && "rotate-90",
+              )}
+            />
+          </button>
         )}
       </div>
       {hasSubmenu && isExpanded && (
@@ -278,7 +192,11 @@ type CategoryGroupProps = {
 export function CategoryGroup(props: CategoryGroupProps) {
   const t = useTranslations();
   const pathname = usePathname();
-  const { isExpanded, toggle } = useNavigation(props.category);
+  const [navigationState] = useAtom(navigationAtom);
+  const toggleNavigation = useSetAtom(toggleNavigationAtom);
+
+  const isExpanded = navigationState[props.category] ?? false;
+  const toggle = () => toggleNavigation(props.category);
 
   if (!props.category) {
     return (
@@ -300,11 +218,19 @@ export function CategoryGroup(props: CategoryGroupProps) {
 
   return (
     <li className="flex flex-col">
-      <CategoryHeader
-        label={t(props.category)}
-        isExpanded={isExpanded}
-        onToggle={toggle}
-      />
+      <button
+        type="button"
+        onClick={toggle}
+        className="text-muted-foreground hover:text-foreground flex items-center justify-between px-2 py-1.5 text-xs font-semibold uppercase transition-colors"
+      >
+        <span>{t(props.category)}</span>
+        <ChevronRight
+          className={cn(
+            "size-3 transition-transform duration-200",
+            isExpanded && "rotate-90",
+          )}
+        />
+      </button>
       {isExpanded && (
         <ul className="flex flex-col gap-1 pl-2">
           {props.items.map((item) => {
@@ -321,37 +247,6 @@ export function CategoryGroup(props: CategoryGroupProps) {
         </ul>
       )}
     </li>
-  );
-}
-
-type NavListProps = {
-  items: NavigationItem[];
-  onNavigate?: () => void;
-  className?: string;
-};
-
-export function NavList(props: NavListProps) {
-  return (
-    <nav className={cn("flex flex-col gap-1", props.className)}>
-      <NavigationItems
-        items={props.items}
-        onNavigate={props.onNavigate}
-        renderItem={(itemProps) => (
-          <NavItemFromData
-            item={itemProps.item}
-            isActive={itemProps.isActive}
-            onClick={itemProps.onClick}
-          />
-        )}
-        renderCollapsibleItem={(collapsibleProps) => (
-          <CollapsibleNavItem
-            item={collapsibleProps.item}
-            hasCategories={collapsibleProps.hasCategories}
-            onNavigate={collapsibleProps.onNavigate}
-          />
-        )}
-      />
-    </nav>
   );
 }
 
@@ -391,7 +286,11 @@ export function SidebarCategoryGroup(props: {
 }) {
   const t = useTranslations();
   const pathname = usePathname();
-  const { isExpanded, toggle } = useNavigation(props.category);
+  const [navigationState] = useAtom(navigationAtom);
+  const toggleNavigation = useSetAtom(toggleNavigationAtom);
+
+  const isExpanded = navigationState[props.category] ?? false;
+  const toggle = () => toggleNavigation(props.category);
 
   if (!props.category) {
     return (
@@ -427,11 +326,19 @@ export function SidebarCategoryGroup(props: {
 
   return (
     <li className="flex flex-col">
-      <CategoryHeader
-        label={t(props.category)}
-        isExpanded={isExpanded}
-        onToggle={toggle}
-      />
+      <button
+        type="button"
+        onClick={toggle}
+        className="text-muted-foreground hover:text-foreground flex items-center justify-between px-2 py-1.5 text-xs font-semibold uppercase transition-colors"
+      >
+        <span>{t(props.category)}</span>
+        <ChevronRight
+          className={cn(
+            "size-3 transition-transform duration-200",
+            isExpanded && "rotate-90",
+          )}
+        />
+      </button>
       {isExpanded && (
         <ul className="flex flex-col gap-1 pl-2">
           {props.items.map((item) => {
@@ -472,9 +379,13 @@ export function SidebarCollapsibleItem(props: {
 }) {
   const t = useTranslations();
   const pathname = usePathname();
-  const { isActive, hasSubmenu, isExpanded, toggle } = useNavigationItem(
-    props.item,
-  );
+  const [navigationState] = useAtom(navigationAtom);
+  const toggleNavigation = useSetAtom(toggleNavigationAtom);
+
+  const isActive = isActiveLink(pathname, props.item.href);
+  const hasSubmenu = props.item.submenu && props.item.submenu.length > 0;
+  const isExpanded = navigationState[props.item.name] ?? false;
+  const toggle = () => toggleNavigation(props.item.name);
 
   return (
     <SidebarMenuItem>
@@ -499,11 +410,22 @@ export function SidebarCollapsibleItem(props: {
           </Link>
         </SidebarMenuButton>
         {hasSubmenu && (
-          <ExpandButton
-            isExpanded={isExpanded}
-            onToggle={toggle}
-            className="hover:bg-sidebar-accent size-8"
-          />
+          <button
+            type="button"
+            onClick={toggle}
+            className={cn(
+              "flex items-center justify-center rounded-md transition-colors",
+              "hover:bg-sidebar-accent size-8",
+            )}
+            aria-label={isExpanded ? "Collapse submenu" : "Expand submenu"}
+          >
+            <ChevronRight
+              className={cn(
+                "size-4 transition-transform duration-200",
+                isExpanded && "rotate-90",
+              )}
+            />
+          </button>
         )}
       </div>
       {hasSubmenu && isExpanded && (
