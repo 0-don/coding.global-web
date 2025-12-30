@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         if (boardType === "showcase") {
           threadEntries.push(
             ...getEntries({
-              pathname: "/showcase/[id]",
+              pathname: "/community/showcase/[id]",
               params: { id: thread.id },
             }),
           );
