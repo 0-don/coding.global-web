@@ -1,5 +1,4 @@
-import { BoardListSkeleton } from "@/components/elements/boards/board-list-skeleton";
-import { Showcase } from "@/components/pages/showcase/showcase";
+import { Showcase } from "@/components/pages/community/showcase/showcase";
 import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
@@ -9,8 +8,6 @@ import { handleElysia } from "@/lib/utils/base";
 import { loadListItemStore, serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import { HiOutlineTrophy } from "react-icons/hi2";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;

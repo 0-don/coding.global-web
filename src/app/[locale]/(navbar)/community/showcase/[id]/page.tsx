@@ -1,5 +1,4 @@
-import { ThreadDetailSkeleton } from "@/components/elements/thread/thread-detail-skeleton";
-import { ShowcaseDetail } from "@/components/pages/showcase/showcase-detail";
+import { ShowcaseDetail } from "@/components/pages/community/showcase/showcase-detail";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
@@ -8,7 +7,6 @@ import { serverLocale } from "@/lib/utils/server";
 import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
