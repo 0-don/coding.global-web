@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
 import {
   FaBriefcase,
-  FaBug,
   FaChartLine,
   FaCode,
   FaCrown,
@@ -16,11 +15,12 @@ import {
   FaUsers,
   FaUserTie,
 } from "react-icons/fa";
+import { FaGem } from "react-icons/fa6";
 import { GiMusicalNotes } from "react-icons/gi";
-import { HiMiniSparkles } from "react-icons/hi2";
-import { MdHelpCenter, MdSupportAgent } from "react-icons/md";
+import { IoMdMail } from "react-icons/io";
+import { MdOutlineDiamond, MdShield } from "react-icons/md";
 import { RiScissorsCutFill } from "react-icons/ri";
-import { TbCodeDots, TbCopy } from "react-icons/tb";
+import { TbCircleFilled, TbCodeDots, TbCopy } from "react-icons/tb";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -79,45 +79,45 @@ export type LevelRoleData = {
 export const STAFF_ROLES: StaffRoleData[] = [
   {
     role: StaffRole.OWNER,
-    color: "text-red-500",
+    color: "text-red-400",
     Icon: FaCrown,
   },
   {
     role: StaffRole.MODERATOR,
-    color: "text-green-500",
-    Icon: FaBug,
+    color: "text-amber-500",
+    Icon: MdShield,
   },
   {
     role: StaffRole.ADMIN,
-    color: "text-yellow-500",
-    Icon: FaCode,
+    color: "text-red-500",
+    Icon: TbCircleFilled,
   },
   {
     role: StaffRole.HELPER,
-    color: "text-blue-500",
-    Icon: MdHelpCenter,
+    color: "text-cyan-400",
+    Icon: IoMdMail,
   },
   {
     role: StaffRole.TECHLEAD,
-    color: "text-orange-500",
-    Icon: MdSupportAgent,
+    color: "text-cyan-500",
+    Icon: MdOutlineDiamond,
   },
   {
     role: StaffRole.BOOSTER,
-    color: "text-pink-600",
-    Icon: HiMiniSparkles,
+    color: "text-pink-500",
+    Icon: FaGem,
   },
 ];
 
 export const STATUS_ROLES: StatusRoleData[] = [
   {
     role: StatusRole.MEMBER,
-    color: "text-blue-500",
+    color: "text-green-500",
     Icon: FaUsers,
   },
   {
     role: StatusRole.VERIFIED,
-    color: "text-green-500",
+    color: "text-gray-400",
     Icon: FaUserCheck,
   },
   {
@@ -127,7 +127,7 @@ export const STATUS_ROLES: StatusRoleData[] = [
   },
   {
     role: StatusRole.JAIL,
-    color: "text-red-500",
+    color: "text-yellow-400",
     Icon: FaLock,
   },
 ];
@@ -135,55 +135,55 @@ export const STATUS_ROLES: StatusRoleData[] = [
 export const LEVEL_ROLES: LevelRoleData[] = [
   {
     role: LevelRole.COPY_PASTER,
-    color: "text-gray-400",
+    color: "text-cyan-500",
     Icon: TbCopy,
     level: 1,
   },
   {
     role: LevelRole.SCRIPT_KIDDIE,
-    color: "text-slate-400",
+    color: "text-cyan-500",
     Icon: RiScissorsCutFill,
     level: 2,
   },
   {
     role: LevelRole.VIBE_CODER,
-    color: "text-purple-400",
+    color: "text-cyan-500",
     Icon: GiMusicalNotes,
     level: 3,
   },
   {
     role: LevelRole.INTERN,
-    color: "text-blue-400",
+    color: "text-cyan-500",
     Icon: FaGraduationCap,
     level: 4,
   },
   {
     role: LevelRole.JUNIOR_DEV,
-    color: "text-cyan-400",
+    color: "text-cyan-500",
     Icon: FaCode,
     level: 5,
   },
   {
     role: LevelRole.MID_DEV,
-    color: "text-green-400",
+    color: "text-cyan-500",
     Icon: FaBriefcase,
     level: 6,
   },
   {
     role: LevelRole.SENIOR_DEV,
-    color: "text-yellow-400",
+    color: "text-cyan-500",
     Icon: FaUserTie,
     level: 7,
   },
   {
     role: LevelRole.LEAD_DEV,
-    color: "text-orange-400",
+    color: "text-cyan-500",
     Icon: FaChartLine,
     level: 8,
   },
   {
     role: LevelRole.TECH_LEAD,
-    color: "text-red-400",
+    color: "text-cyan-500",
     Icon: FaRocket,
     level: 9,
   },
