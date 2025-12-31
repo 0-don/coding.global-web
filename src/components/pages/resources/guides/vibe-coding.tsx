@@ -1,14 +1,56 @@
 "use client";
 
 import { useSetTOC } from "@/components/layout/toc/toc-context";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type { TOCItemType } from "fumadocs-core/toc";
+import { ExternalLink } from "lucide-react";
+import { Tweet } from "react-tweet";
 
 const toc: TOCItemType[] = [
-  { url: "#what-is-vibe-coding", title: "What is Vibe Coding", depth: 2 },
-  { url: "#flow-state", title: "Flow State", depth: 2 },
-  { url: "#environment", title: "Environment", depth: 2 },
-  { url: "#time-management", title: "Time Management", depth: 2 },
-  { url: "#tips", title: "Tips & Tricks", depth: 2 },
+  { url: "#what-is-vibe-coding", title: "What is Vibe Coding?", depth: 2 },
+  { url: "#ai-editors", title: "AI Editors", depth: 2 },
+  { url: "#ai-clis", title: "AI CLIs", depth: 2 },
+];
+
+const aiEditors = [
+  {
+    title: "Cursor",
+    description: "AI-first code editor built on VSCode",
+    url: "https://cursor.com/",
+  },
+  {
+    title: "Windsurf",
+    description: "AI-powered IDE by Codeium",
+    url: "https://codeium.com/windsurf",
+  },
+  {
+    title: "Antigravity",
+    description: "AI coding environment",
+    url: "https://antigravity.dev/",
+  },
+];
+
+const aiCLIs = [
+  {
+    title: "Claude Code",
+    description: "Anthropic's agentic coding CLI",
+    url: "https://docs.anthropic.com/en/docs/claude-code",
+  },
+  {
+    title: "OpenAI Codex CLI",
+    description: "OpenAI's terminal coding assistant",
+    url: "https://github.com/openai/codex",
+  },
+  {
+    title: "Gemini CLI",
+    description: "Google's AI coding assistant for terminal",
+    url: "https://github.com/google-gemini/gemini-cli",
+  },
 ];
 
 export function VibeCoding() {
@@ -20,49 +62,82 @@ export function VibeCoding() {
 
       <section id="what-is-vibe-coding" className="mb-12 scroll-mt-20">
         <h2 className="mb-4 text-2xl font-semibold">What is Vibe Coding?</h2>
+        <p className="text-muted-foreground mb-4">
+          Vibe coding is a new approach to programming where you describe what
+          you want in natural language and let AI build it for you. Instead of
+          writing every line of code yourself, you guide the AI with prompts and
+          let it handle the implementation.
+        </p>
+        <p className="text-muted-foreground mb-4">
+          The term was coined by Andrej Karpathy in this tweet:
+        </p>
+        <div className="mb-4 flex justify-center">
+          <Tweet id="1886192184808149383" />
+        </div>
         <p className="text-muted-foreground">
-          Vibe coding is about creating the perfect atmosphere and mindset for
-          productive programming sessions. It combines environment design,
-          music, and mental techniques to help you enter and maintain a flow
-          state while coding.
+          To vibe code effectively, you need the right tools. Here are the best
+          AI-powered editors and CLIs available today.
         </p>
       </section>
 
-      <section id="flow-state" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Achieving Flow State</h2>
-        <p className="text-muted-foreground">
-          The flow state is when you&apos;re fully immersed in your work, losing
-          track of time while producing your best code. Learn techniques to
-          trigger this state more consistently and maintain it longer.
+      <section id="ai-editors" className="mb-12 scroll-mt-20">
+        <h2 className="mb-4 text-2xl font-semibold">AI Editors</h2>
+        <p className="text-muted-foreground mb-6">
+          These editors have AI deeply integrated into the coding experience,
+          allowing you to chat with AI, generate code, and get intelligent
+          completions.
         </p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {aiEditors.map((editor) => (
+            <a
+              key={editor.url}
+              href={editor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <Card className="hover:bg-muted/50 h-full transition-colors">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    {editor.title}
+                    <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </CardTitle>
+                  <CardDescription>{editor.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
+        </div>
       </section>
 
-      <section id="environment" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">
-          Optimizing Your Environment
-        </h2>
-        <p className="text-muted-foreground">
-          Your physical and digital environment plays a crucial role in
-          productivity. Explore recommendations for lighting, music playlists,
-          desk setups, and editor themes that enhance your coding sessions.
+      <section id="ai-clis" className="mb-12 scroll-mt-20">
+        <h2 className="mb-4 text-2xl font-semibold">AI CLIs</h2>
+        <p className="text-muted-foreground mb-6">
+          Command-line tools that let you vibe code directly from your terminal.
+          These are great for quick tasks, automation, and working in any editor
+          you prefer.
         </p>
-      </section>
-
-      <section id="time-management" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Time Management</h2>
-        <p className="text-muted-foreground">
-          Learn about techniques like Pomodoro, time blocking, and deep work
-          sessions. Discover how to balance focused coding time with breaks for
-          optimal long-term productivity.
-        </p>
-      </section>
-
-      <section id="tips" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Tips & Tricks</h2>
-        <p className="text-muted-foreground">
-          Community-curated tips for maintaining motivation, dealing with
-          burnout, and making coding sessions more enjoyable and sustainable.
-        </p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {aiCLIs.map((cli) => (
+            <a
+              key={cli.url}
+              href={cli.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <Card className="hover:bg-muted/50 h-full transition-colors">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    {cli.title}
+                    <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </CardTitle>
+                  <CardDescription>{cli.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
+        </div>
       </section>
     </div>
   );
