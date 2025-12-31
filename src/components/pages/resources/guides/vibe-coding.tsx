@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { TweetCard } from "@/components/ui/tweet-card";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
-import { Tweet } from "react-tweet";
 import { ResourceFooter } from "../resource-footer";
 
 const toc: TOCItemType[] = [
@@ -32,7 +32,7 @@ const aiEditors = [
   {
     title: "Antigravity",
     description: "AI coding environment",
-    url: "https://antigravity.dev/",
+    url: "https://antigravity.google/",
   },
 ];
 
@@ -40,7 +40,7 @@ const aiCLIs = [
   {
     title: "Claude Code",
     description: "Anthropic's agentic coding CLI",
-    url: "https://docs.anthropic.com/en/docs/claude-code",
+    url: "https://github.com/anthropics/claude-code",
   },
   {
     title: "OpenAI Codex CLI",
@@ -73,7 +73,7 @@ export function VibeCoding() {
           The term was coined by Andrej Karpathy in this tweet:
         </p>
         <div className="mb-4 flex justify-center">
-          <Tweet id="1886192184808149383" />
+          <TweetCard id="1886192184808149383" />
         </div>
         <p className="text-muted-foreground">
           To vibe code effectively, you need the right tools. Here are the best
