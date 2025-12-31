@@ -10,6 +10,7 @@ import {
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
 import { Tweet } from "react-tweet";
+import { ResourceFooter } from "../resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#what-is-vibe-coding", title: "What is Vibe Coding?", depth: 2 },
@@ -139,6 +140,8 @@ export function VibeCoding() {
           ))}
         </div>
       </section>
+
+      <ResourceFooter />
     </div>
   );
 }
