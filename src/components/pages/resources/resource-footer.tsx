@@ -7,7 +7,7 @@ export function ResourceFooter() {
       <p className="text-muted-foreground text-sm">
         Want to add a new resource or edit an existing one? Visit our{" "}
         <a
-          href="https://github.com/coding-global"
+          href="https://github.com/0-don/coding.global-web"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:underline"
