@@ -21,6 +21,7 @@ export function TOCPanel({ className }: { className?: string }) {
     <aside
       className={cn(
         "sticky top-[calc(var(--header-height)+0.5rem)] hidden h-fit max-h-[calc(100vh-var(--header-height)-1rem)] w-56 shrink-0 overflow-hidden lg:block",
+        "animate-in fade-in duration-150",
         className,
       )}
     >
