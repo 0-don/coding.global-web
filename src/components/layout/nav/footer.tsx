@@ -1,10 +1,9 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { use } from "react";
 
 export function Footer() {
-  const t = useTranslations();
+  const t = use(getTranslations());
 
   return (
     <footer className="flex items-center justify-center gap-5 py-4 text-center">
