@@ -3,9 +3,10 @@
 import { cn } from "@/lib/utils";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { AnchorProvider, ScrollProvider, TOCItem } from "fumadocs-core/toc";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
 import * as React from "react";
+import { useEffect } from "react";
 import { MainLayout } from "../main-layout";
 
 // Types & Atom
@@ -86,6 +87,11 @@ interface TOCLayoutProps {
 
 export function TOCLayout(props: TOCLayoutProps) {
   useHydrateAtoms([[tocAtom, props.toc]]);
+  const setToc = useSetAtom(tocAtom);
+
+  useEffect(() => {
+    setToc(props.toc);
+  }, [props.toc, setToc]);
 
   return (
     <>

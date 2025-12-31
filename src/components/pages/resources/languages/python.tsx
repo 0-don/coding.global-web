@@ -35,6 +35,15 @@ export function Python() {
             className="text-primary hover:underline"
           >
             FreeCodeCamp&apos;s Scientific Computing with Python
+          </a>{" "}
+          or{" "}
+          <a
+            href="https://www.codecademy.com/catalog/language/python"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Codecademy&apos;s Python courses
           </a>
           .
         </p>

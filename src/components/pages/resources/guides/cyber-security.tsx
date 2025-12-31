@@ -14,10 +14,6 @@ import { ResourceFooter } from "../../../layout/resources/resource-footer";
 const toc: TOCItemType[] = [
   { url: "#introduction", title: "Introduction", depth: 2 },
   { url: "#learning-platforms", title: "Learning Platforms", depth: 2 },
-  { url: "#web-security", title: "Web Security", depth: 2 },
-  { url: "#network-security", title: "Network Security", depth: 2 },
-  { url: "#secure-coding", title: "Secure Coding", depth: 2 },
-  { url: "#tools", title: "Security Tools", depth: 2 },
 ];
 
 const learningPlatforms = [
