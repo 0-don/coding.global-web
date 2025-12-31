@@ -1,4 +1,4 @@
-import Background from "@/components/layout/background";
+import Background from "@/components/layout/nav/background";
 import { Footer } from "@/components/layout/nav/footer";
 import Navbar from "@/components/layout/nav/navbar";
 

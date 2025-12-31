@@ -1,8 +1,8 @@
 "use client";
 
-import { useSetTOC } from "@/components/layout/toc/toc-context";
+import { createTOC } from "@/components/layout/resources/toc";
 import type { TOCItemType } from "fumadocs-core/toc";
-import { ResourceFooter } from "../resource-footer";
+import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#introduction", title: "Introduction", depth: 2 },
@@ -12,9 +12,9 @@ const toc: TOCItemType[] = [
   { url: "#tools", title: "Security Tools", depth: 2 },
 ];
 
-export function CyberSecurity() {
-  useSetTOC(toc, "On This Page");
+export const cyberSecurityTOC = createTOC(toc);
 
+export function CyberSecurity() {
   return (
     <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">Cyber Security</h1>

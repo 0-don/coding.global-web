@@ -1,5 +1,13 @@
-import { Python } from "@/components/pages/resources/languages/python";
+import { TOCLayout } from "@/components/layout/resources/toc";
+import {
+  Python,
+  pythonTOC,
+} from "@/components/pages/resources/languages/python";
 
 export default function PythonPage() {
-  return <Python />;
+  return (
+    <TOCLayout toc={pythonTOC}>
+      <Python />
+    </TOCLayout>
+  );
 }
