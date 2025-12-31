@@ -1,7 +1,5 @@
-"use client"
-
 import { enrichTweet, type EnrichedTweet } from "react-tweet"
-import { useTweet } from "react-tweet"
+import { type Tweet } from "react-tweet/api"
 
 import { cn } from "@/lib/utils"
 
@@ -224,22 +222,12 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
 }
 
 export const TweetCard = ({
-  id,
+  tweet,
   className,
 }: {
-  id: string
+  tweet: Tweet
   className?: string
 }) => {
-  const { data: tweet, isLoading, error } = useTweet(id)
-
-  if (isLoading) {
-    return <TweetSkeleton className={className} />
-  }
-
-  if (error || !tweet) {
-    return <TweetNotFound className={className} />
-  }
-
   const enrichedTweet = enrichTweet(tweet)
 
   return (

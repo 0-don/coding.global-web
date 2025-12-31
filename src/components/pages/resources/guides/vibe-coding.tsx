@@ -10,6 +10,7 @@ import {
 import { TweetCard } from "@/components/ui/tweet-card";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
+import type { Tweet } from "react-tweet/api";
 import { ResourceFooter } from "../resource-footer";
 
 const toc: TOCItemType[] = [
@@ -54,7 +55,11 @@ const aiCLIs = [
   },
 ];
 
-export function VibeCoding() {
+interface VibeCodingProps {
+  tweet: Tweet | undefined;
+}
+
+export function VibeCoding(props: VibeCodingProps) {
   useSetTOC(toc, "On This Page");
 
   return (
@@ -73,7 +78,7 @@ export function VibeCoding() {
           The term was coined by Andrej Karpathy in this tweet:
         </p>
         <div className="mb-4 flex justify-center">
-          <TweetCard id="1886192184808149383" />
+          {props.tweet && <TweetCard tweet={props.tweet} />}
         </div>
         <p className="text-muted-foreground">
           To vibe code effectively, you need the right tools. Here are the best
