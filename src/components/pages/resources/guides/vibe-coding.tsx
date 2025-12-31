@@ -15,6 +15,8 @@ import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#what-is-vibe-coding", title: "What is Vibe Coding?", depth: 2 },
+  { url: "#choosing-the-best-model", title: "Choosing the Best Model", depth: 2 },
+  { url: "#my-setup", title: "My Setup", depth: 2 },
   { url: "#ai-editors", title: "AI Editors", depth: 2 },
   { url: "#ai-clis", title: "AI CLIs", depth: 2 },
 ];
@@ -83,6 +85,59 @@ export function VibeCoding(props: VibeCodingProps) {
         <p className="text-muted-foreground">
           To vibe code effectively, you need the right tools. Here are the best
           AI-powered editors and CLIs available today.
+        </p>
+      </section>
+
+      <section id="choosing-the-best-model" className="mb-12 scroll-mt-20">
+        <h2 className="mb-4 text-2xl font-semibold">Choosing the Best Model</h2>
+        <p className="text-muted-foreground mb-4">
+          The AI model you use matters just as much as the tool. You can find
+          the latest rankings of AI models for web development on the{" "}
+          <a
+            href="https://lmarena.ai/leaderboard/webdev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-4 hover:no-underline"
+          >
+            LM Arena Web Development Leaderboard
+          </a>
+          .
+        </p>
+        <p className="text-muted-foreground">
+          That said, Claude models by Anthropic consistently rank at the top for
+          coding tasks. If you want the best results for vibe coding, Claude is
+          usually the way to go.
+        </p>
+      </section>
+
+      <section id="my-setup" className="mb-12 scroll-mt-20">
+        <h2 className="mb-4 text-2xl font-semibold">My Setup</h2>
+        <p className="text-muted-foreground mb-4">
+          I personally use the{" "}
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=anthropics.claude-code"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-4 hover:no-underline"
+          >
+            Claude Code VSCode Extension
+          </a>{" "}
+          for my vibe coding workflow. It integrates Claude directly into VSCode
+          with agentic capabilities.
+        </p>
+        <p className="text-muted-foreground">
+          To help gather context for AI assistants, I also built the{" "}
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=0-don.code-collector"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline underline-offset-4 hover:no-underline"
+          >
+            Code Collector
+          </a>{" "}
+          extension. It automatically collects files based on import
+          dependencies, making it easy to provide your codebase context to any
+          AI assistant.
         </p>
       </section>
 
