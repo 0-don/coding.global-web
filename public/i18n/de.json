@@ -28,6 +28,7 @@
       "TRY_AGAIN": "Erneut versuchen"
     },
     "AUTH": {
+      "JOIN_DISCORD_SERVER": "Discord Server beitreten",
       "LOGIN_WITH_DISCORD": "Mit Discord anmelden",
       "LOGOUT": "Abmelden",
       "WELCOME": "Willkommen, {name}"

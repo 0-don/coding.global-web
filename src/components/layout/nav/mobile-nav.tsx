@@ -94,7 +94,7 @@ export function MobileNav() {
               className="mb-2 flex items-center gap-2 rounded-md border border-[#5865F2] px-3 py-2 text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
             >
               <FaDiscord className="size-5" />
-              Join Discord Server
+              {t("MAIN.AUTH.JOIN_DISCORD_SERVER")}
             </a>
             {session?.data?.user.id ? (
               <div className="flex items-center gap-3">
