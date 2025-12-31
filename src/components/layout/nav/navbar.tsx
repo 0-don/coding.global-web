@@ -178,7 +178,7 @@ export default function Navbar() {
             className="inline-flex size-9 items-center justify-center rounded-md border border-[#5865F2] text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
           >
             <FaDiscord className="size-5" />
-            <span className="sr-only">Join Discord Server</span>
+            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
           </Link>
           {!isLoggedIn && (
             <Button
