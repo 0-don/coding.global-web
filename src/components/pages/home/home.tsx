@@ -8,10 +8,10 @@ import { WelcomeWidget } from "./welcome-widget";
 export function Home() {
   return (
     <div className="container mx-auto mt-10 flex h-full flex-col items-center gap-10 px-4 md:flex-row md:px-6">
-      <WelcomeWidget className="flex-1" />
+      <WelcomeWidget className="w-full md:flex-1" />
 
-      <Suspense fallback={<DiscordWidgetSkeleton className="flex-1" />}>
-        <DiscordWidget className="flex-1" />
+      <Suspense fallback={<DiscordWidgetSkeleton className="w-full md:flex-1" />}>
+        <DiscordWidget className="w-full md:flex-1" />
       </Suspense>
     </div>
   );

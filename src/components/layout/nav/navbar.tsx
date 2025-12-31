@@ -175,7 +175,7 @@ export default function Navbar() {
             href={getDiscordInviteLink() as LinkHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex size-9 items-center justify-center rounded-md border border-[#5865F2] text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
+            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
           >
             <FaDiscord className="size-5" />
             <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
