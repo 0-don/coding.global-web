@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
+import { ResourceFooter } from "../resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#why-javascript", title: "Why JavaScript?", depth: 2 },
@@ -340,6 +341,8 @@ export function Javascript() {
           </div>
         </div>
       </section>
+
+      <ResourceFooter />
     </div>
   );
 }

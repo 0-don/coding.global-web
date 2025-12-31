@@ -2,6 +2,7 @@
 
 import { useSetTOC } from "@/components/layout/toc/toc-context";
 import type { TOCItemType } from "fumadocs-core/toc";
+import { ResourceFooter } from "../resource-footer";
 
 const toc: TOCItemType[] = [];
 
@@ -38,6 +39,8 @@ export function Python() {
           .
         </p>
       </section>
+
+      <ResourceFooter />
     </div>
   );
 }
