@@ -1,15 +1,56 @@
 "use client";
 
 import { createTOC } from "@/components/layout/resources/toc";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type { TOCItemType } from "fumadocs-core/toc";
+import { ExternalLink } from "lucide-react";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#introduction", title: "Introduction", depth: 2 },
+  { url: "#learning-platforms", title: "Learning Platforms", depth: 2 },
   { url: "#web-security", title: "Web Security", depth: 2 },
   { url: "#network-security", title: "Network Security", depth: 2 },
   { url: "#secure-coding", title: "Secure Coding", depth: 2 },
   { url: "#tools", title: "Security Tools", depth: 2 },
+];
+
+const learningPlatforms = [
+  {
+    title: "TryHackMe",
+    description:
+      "Free online platform for learning cyber security with hands-on exercises and labs",
+    url: "https://tryhackme.com/",
+  },
+  {
+    title: "Hack The Box",
+    description:
+      "Cyber mastery platform with beginner-friendly modules and real-world challenges",
+    url: "https://hackthebox.com/",
+  },
+  {
+    title: "picoCTF",
+    description:
+      "Free computer security education program by Carnegie Mellon University",
+    url: "https://www.picoctf.org/",
+  },
+  {
+    title: "Root Me",
+    description:
+      "Platform for practicing hacking skills with challenges and virtual environments",
+    url: "https://www.root-me.org/",
+  },
+  {
+    title: "Cisco Networking Academy",
+    description:
+      "Learn cybersecurity, networking, and Python from Cisco's official training program",
+    url: "https://netacad.com/",
+  },
 ];
 
 export const cyberSecurityTOC = createTOC(toc);
@@ -21,47 +62,50 @@ export function CyberSecurity() {
 
       <section id="introduction" className="mb-12 scroll-mt-20">
         <h2 className="mb-4 text-2xl font-semibold">Introduction</h2>
+        <p className="text-muted-foreground mb-4">
+          Let&apos;s be honest - most of us got into cyber security because we
+          wanted to be hackers. We imagined ourselves breaking into systems,
+          bypassing firewalls, and doing cool stuff like in the movies. Then
+          reality hit: turns out hacking is mostly just... coding. A lot of
+          coding.
+        </p>
         <p className="text-muted-foreground">
-          Cyber security is the practice of protecting systems, networks, and
-          programs from digital attacks. Learn the fundamentals of keeping your
-          applications and data safe from threats.
+          But that&apos;s actually the good news. The skills you learn in cyber
+          security - understanding systems, networks, and how software works -
+          make you a better developer overall. Whether you end up in pentesting,
+          security engineering, or just writing more secure code, it all starts
+          with the fundamentals.
         </p>
       </section>
 
-      <section id="web-security" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Web Security</h2>
-        <p className="text-muted-foreground">
-          Understand common web vulnerabilities like XSS, CSRF, SQL injection,
-          and how to prevent them. Explore the OWASP Top 10 and web application
-          security best practices.
+      <section id="learning-platforms" className="mb-12 scroll-mt-20">
+        <h2 className="mb-4 text-2xl font-semibold">Learning Platforms</h2>
+        <p className="text-muted-foreground mb-6">
+          The best way to learn cyber security is by doing. These platforms
+          offer hands-on challenges, CTFs, and virtual labs where you can
+          practice legally and safely.
         </p>
-      </section>
-
-      <section id="network-security" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Network Security</h2>
-        <p className="text-muted-foreground">
-          Learn about firewalls, VPNs, intrusion detection systems, and network
-          segmentation. Understand how to secure network infrastructure and
-          protect against attacks.
-        </p>
-      </section>
-
-      <section id="secure-coding" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Secure Coding</h2>
-        <p className="text-muted-foreground">
-          Write code that is resistant to attacks. Learn about input validation,
-          authentication best practices, encryption, and secure development
-          lifecycle (SDL).
-        </p>
-      </section>
-
-      <section id="tools" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Security Tools</h2>
-        <p className="text-muted-foreground">
-          Discover tools for vulnerability scanning, penetration testing, and
-          security monitoring. From Burp Suite to SAST/DAST tools, learn what
-          professionals use.
-        </p>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {learningPlatforms.map((platform) => (
+            <a
+              key={platform.url}
+              href={platform.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <Card className="hover:bg-muted/50 h-full transition-colors">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    {platform.title}
+                    <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
+                  </CardTitle>
+                  <CardDescription>{platform.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </a>
+          ))}
+        </div>
       </section>
 
       <ResourceFooter />
