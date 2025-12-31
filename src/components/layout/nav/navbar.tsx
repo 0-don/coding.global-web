@@ -36,18 +36,38 @@ export default function Navbar() {
   return (
     <header className="bg-background/80 sticky top-0 left-0 z-9999 w-full backdrop-blur-md">
       <div className="container mx-auto flex h-12 items-center justify-between px-4 lg:px-6">
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <MobileNav />
+          <Link
+            href={getDiscordInviteLink() as LinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
+          >
+            <FaDiscord className="size-5" />
+            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
+          </Link>
         </div>
         <Link href="/" className="flex items-center gap-1 lg:hidden">
           <LogoImage />
           <CompanyName className="hidden text-xl font-bold lg:block" />
         </Link>
 
-        <Link href="/" className="hidden items-center gap-2 lg:mr-6 lg:flex">
-          <LogoImage />
-          <CompanyName className="hidden text-xl font-bold lg:block" />
-        </Link>
+        <div className="hidden items-center gap-2 lg:mr-6 lg:flex">
+          <Link href="/" className="flex items-center gap-2">
+            <LogoImage />
+            <CompanyName className="text-xl font-bold" />
+          </Link>
+          <Link
+            href={getDiscordInviteLink() as LinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
+          >
+            <FaDiscord className="size-5" />
+            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
+          </Link>
+        </div>
 
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="flex-wrap gap-1">
@@ -171,15 +191,6 @@ export default function Navbar() {
         </NavigationMenu>
 
         <div className="flex items-center gap-2">
-          <Link
-            href={getDiscordInviteLink() as LinkHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
-          >
-            <FaDiscord className="size-5" />
-            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
-          </Link>
           {!isLoggedIn && (
             <Button
               onClick={() =>
