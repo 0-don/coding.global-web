@@ -1,6 +1,6 @@
 "use client";
 
-import { useSetTOC } from "@/components/layout/toc/toc-context";
+import { createTOC } from "@/components/layout/resources/toc";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
-import { ResourceFooter } from "../resource-footer";
+import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#why-javascript", title: "Why JavaScript?", depth: 2 },
@@ -21,6 +21,8 @@ const toc: TOCItemType[] = [
   { url: "#shadcn-blocks", title: "Component Libraries", depth: 3 },
   { url: "#shadcn-utils", title: "Tools & Utilities", depth: 3 },
 ];
+
+export const javascriptTOC = createTOC(toc);
 
 const speedrunResources = [
   {
@@ -66,7 +68,6 @@ const speedrunResources = [
     step: 7,
   },
 ];
-
 
 const reactResources = [
   {
@@ -153,8 +154,6 @@ const shadcnUtils = [
 ];
 
 export function Javascript() {
-  useSetTOC(toc, "On This Page");
-
   return (
     <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">

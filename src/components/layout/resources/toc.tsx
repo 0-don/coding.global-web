@@ -1,16 +1,37 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  AnchorProvider,
-  ScrollProvider,
-  TOCItem,
-} from "fumadocs-core/toc";
+import type { TOCItemType } from "fumadocs-core/toc";
+import { AnchorProvider, ScrollProvider, TOCItem } from "fumadocs-core/toc";
+import { atom, useAtom } from "jotai";
+import { useHydrateAtoms } from "jotai/utils";
 import * as React from "react";
-import { useTOC } from "./toc-context";
+import { MainLayout } from "../main-layout";
 
-export function TOCPanel({ className }: { className?: string }) {
-  const { items, title } = useTOC();
+// Types & Atom
+export type TOCState = {
+  items: TOCItemType[];
+  title: string;
+};
+
+const INITIAL_TOC_STATE: TOCState = {
+  items: [],
+  title: "On This Page",
+};
+
+const tocAtom = atom<TOCState>(INITIAL_TOC_STATE);
+
+// Helper to create TOCState for pages
+export function createTOC(
+  items: TOCItemType[],
+  title: string = "On This Page",
+): TOCState {
+  return { items, title };
+}
+
+// Panel Component
+function TOCPanel({ className }: { className?: string }) {
+  const [{ items, title }] = useAtom(tocAtom);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   if (items.length === 0) {
@@ -55,5 +76,21 @@ export function TOCPanel({ className }: { className?: string }) {
         </div>
       </AnchorProvider>
     </aside>
+  );
+}
+
+interface TOCLayoutProps {
+  children: React.ReactNode;
+  toc: TOCState;
+}
+
+export function TOCLayout(props: TOCLayoutProps) {
+  useHydrateAtoms([[tocAtom, props.toc]]);
+
+  return (
+    <>
+      <MainLayout>{props.children}</MainLayout>
+      <TOCPanel className="mt-4 mr-4" />
+    </>
   );
 }

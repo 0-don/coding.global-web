@@ -14,9 +14,9 @@ import { useSessionHook } from "@/hook/session-hook";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import * as React from "react";
-import { CompanyName, LogoImage } from "../elements/utils/images";
-import { SidebarNavigation } from "./sidebar/sidebar-navigation";
-import { SidebarUser } from "./sidebar/sidebar-user";
+import { CompanyName, LogoImage } from "../../elements/utils/images";
+import { SidebarNavigation } from "./sidebar-navigation";
+import { SidebarUser } from "./sidebar-user";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const t = useTranslations();

@@ -1,14 +1,14 @@
 "use client";
 
-import { useSetTOC } from "@/components/layout/toc/toc-context";
+import { createTOC } from "@/components/layout/resources/toc";
 import type { TOCItemType } from "fumadocs-core/toc";
-import { ResourceFooter } from "../resource-footer";
+import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [];
 
-export function Python() {
-  useSetTOC(toc, "On This Page");
+export const pythonTOC = createTOC(toc);
 
+export function Python() {
   return (
     <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">Python</h1>

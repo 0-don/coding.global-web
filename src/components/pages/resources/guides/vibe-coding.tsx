@@ -1,6 +1,6 @@
 "use client";
 
-import { useSetTOC } from "@/components/layout/toc/toc-context";
+import { createTOC } from "@/components/layout/resources/toc";
 import {
   Card,
   CardDescription,
@@ -11,13 +11,15 @@ import { TweetCard } from "@/components/ui/tweet-card";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
 import type { Tweet } from "react-tweet/api";
-import { ResourceFooter } from "../resource-footer";
+import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
   { url: "#what-is-vibe-coding", title: "What is Vibe Coding?", depth: 2 },
   { url: "#ai-editors", title: "AI Editors", depth: 2 },
   { url: "#ai-clis", title: "AI CLIs", depth: 2 },
 ];
+
+export const vibeCodingTOC = createTOC(toc);
 
 const aiEditors = [
   {
@@ -60,8 +62,6 @@ interface VibeCodingProps {
 }
 
 export function VibeCoding(props: VibeCodingProps) {
-  useSetTOC(toc, "On This Page");
-
   return (
     <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">Vibe Coding</h1>
