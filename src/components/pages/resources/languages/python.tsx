@@ -3,61 +3,32 @@
 import { useSetTOC } from "@/components/layout/toc/toc-context";
 import type { TOCItemType } from "fumadocs-core/toc";
 
-const toc: TOCItemType[] = [
-  { url: "#overview", title: "Overview", depth: 2 },
-  { url: "#getting-started", title: "Getting Started", depth: 2 },
-  { url: "#data-science", title: "Data Science", depth: 2 },
-  { url: "#examples", title: "Examples", depth: 2 },
-  { url: "#resources", title: "Resources", depth: 2 },
-];
+const toc: TOCItemType[] = [];
 
 export function Python() {
   useSetTOC(toc, "On This Page");
 
   return (
     <div className="px-8 py-8">
-      <h1 className="mb-8 text-3xl font-bold">Python Resources</h1>
+      <h1 className="mb-8 text-3xl font-bold">Python</h1>
 
-      <section id="overview" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Overview</h2>
-        <p className="text-muted-foreground">
-          Python is a powerful, beginner-friendly programming language known for
-          its readability and versatility. It excels in data science, web
-          development, automation, and AI/ML.
+      <section className="mb-12">
+        <p className="text-muted-foreground mb-4">
+          Python is mostly useless for web development. If you want to become a
+          full-stack developer, JavaScript is a much better choice since it
+          works on both frontend and backend.
         </p>
-      </section>
-
-      <section id="getting-started" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Getting Started</h2>
         <p className="text-muted-foreground">
-          Begin with Python basics: variables, data types, functions, and
-          control structures. Learn about virtual environments, pip package
-          management, and Python best practices.
-        </p>
-      </section>
-
-      <section id="data-science" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Data Science</h2>
-        <p className="text-muted-foreground">
-          Explore Python&apos;s data science ecosystem including NumPy, Pandas,
-          Matplotlib, and machine learning libraries like scikit-learn and
-          TensorFlow.
-        </p>
-      </section>
-
-      <section id="examples" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Examples</h2>
-        <p className="text-muted-foreground">
-          Practical code examples covering file handling, web scraping, API
-          development with Flask/FastAPI, and data analysis projects.
-        </p>
-      </section>
-
-      <section id="resources" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Resources</h2>
-        <p className="text-muted-foreground">
-          Official documentation, community tutorials, and recommended courses
-          for advancing your Python skills.
+          But if you really want to learn Python, check out{" "}
+          <a
+            href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            FreeCodeCamp&apos;s Scientific Computing with Python
+          </a>
+          .
         </p>
       </section>
     </div>
