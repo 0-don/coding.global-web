@@ -12,9 +12,17 @@ type TOCContextType = {
 
 const TOCContext = React.createContext<TOCContextType | null>(null);
 
-export function TOCProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = React.useState<TOCItemType[]>([]);
-  const [title, setTitle] = React.useState<string>("On This Page");
+export function TOCProvider({
+  children,
+  initialItems = [],
+  initialTitle = "On This Page",
+}: {
+  children: React.ReactNode;
+  initialItems?: TOCItemType[];
+  initialTitle?: string;
+}) {
+  const [items, setItems] = React.useState<TOCItemType[]>(initialItems);
+  const [title, setTitle] = React.useState<string>(initialTitle);
 
   return (
     <TOCContext.Provider
@@ -41,7 +49,7 @@ export function useTOC() {
 export function useSetTOC(items: TOCItemType[], title?: string) {
   const { setItems, setTitle } = useTOC();
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setItems(items);
     if (title) {
       setTitle(title);

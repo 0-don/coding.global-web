@@ -1,11 +1,9 @@
-import { BoardListSkeleton } from "@/components/elements/boards/board-list-skeleton";
 import { Marketplace } from "@/components/pages/marketplace/marketplace";
 import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
-import { loadListItemStore, serverLocale } from "@/lib/utils/server";
+import { getCookieValue, serverLocale } from "@/lib/utils/server";
+import { getListItemStoreKey, ListItemState } from "@/store/list-item-store";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -23,7 +21,7 @@ export async function generateMetadata(props: {
 export default async function MarketplacePage() {
   const [t, listItemStore] = await Promise.all([
     getTranslations(),
-    loadListItemStore("marketplace"),
+    getCookieValue<ListItemState>(getListItemStoreKey("marketplace")),
   ]);
 
   return (

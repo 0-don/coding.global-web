@@ -1,6 +1,7 @@
-import { Suspense } from "react"
-import { enrichTweet, type EnrichedTweet, type TweetProps } from "react-tweet"
-import { getTweet, type Tweet } from "react-tweet/api"
+"use client"
+
+import { enrichTweet, type EnrichedTweet } from "react-tweet"
+import { useTweet } from "react-tweet"
 
 import { cn } from "@/lib/utils"
 
@@ -222,60 +223,35 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
   )
 }
 
-export const MagicTweet = ({
-  tweet,
+export const TweetCard = ({
+  id,
   className,
-  ...props
 }: {
-  tweet: Tweet
+  id: string
   className?: string
 }) => {
+  const { data: tweet, isLoading, error } = useTweet(id)
+
+  if (isLoading) {
+    return <TweetSkeleton className={className} />
+  }
+
+  if (error || !tweet) {
+    return <TweetNotFound className={className} />
+  }
+
   const enrichedTweet = enrichTweet(tweet)
+
   return (
     <div
       className={cn(
         "relative flex h-fit w-full max-w-lg flex-col gap-4 overflow-hidden rounded-xl border p-5",
         className
       )}
-      {...props}
     >
       <TweetHeader tweet={enrichedTweet} />
       <TweetBody tweet={enrichedTweet} />
       <TweetMedia tweet={enrichedTweet} />
     </div>
-  )
-}
-
-/**
- * TweetCard (Server Side Only)
- */
-export const TweetCard = async ({
-  id,
-  components,
-  fallback = <TweetSkeleton />,
-  onError,
-  ...props
-}: TweetProps & {
-  className?: string
-}) => {
-  const tweet = id
-    ? await getTweet(id).catch((err) => {
-        if (onError) {
-          onError(err)
-        } else {
-          console.error(err)
-        }
-      })
-    : undefined
-
-  if (!tweet) {
-    const NotFound = components?.TweetNotFound || TweetNotFound
-    return <NotFound {...props} />
-  }
-
-  return (
-    <Suspense fallback={fallback}>
-      <MagicTweet tweet={tweet} {...props} />
-    </Suspense>
   )
 }
