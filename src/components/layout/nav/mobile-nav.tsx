@@ -14,6 +14,7 @@ import {
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaDiscord } from "react-icons/fa";
@@ -47,7 +48,7 @@ export function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={
-          <button className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md transition-all md:hidden" />
+          <button className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md transition-all lg:hidden" />
         }
       >
         <LuMenu className="text-3xl" />
@@ -86,6 +87,15 @@ export function MobileNav() {
           </nav>
 
           <div className="border-t px-4 pt-4">
+            <a
+              href={getDiscordInviteLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-2 flex items-center gap-2 rounded-md border border-[#5865F2] px-3 py-2 text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
+            >
+              <FaDiscord className="size-5" />
+              Join Discord Server
+            </a>
             {session?.data?.user.id ? (
               <div className="flex items-center gap-3">
                 <UserDropdown side="bottom" align="start">
@@ -95,15 +105,13 @@ export function MobileNav() {
                 </UserDropdown>
               </div>
             ) : (
-              <div className="flex flex-col gap-2">
-                <Button
-                  onClick={handleLogin}
-                  className="gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
-                >
-                  <FaDiscord className="size-5" />
-                  {t("MAIN.AUTH.LOGIN_WITH_DISCORD")}
-                </Button>
-              </div>
+              <Button
+                onClick={handleLogin}
+                className="w-full gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
+              >
+                <FaDiscord className="size-5" />
+                {t("MAIN.AUTH.LOGIN_WITH_DISCORD")}
+              </Button>
             )}
           </div>
 

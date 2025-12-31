@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useSessionHook } from "@/hook/session-hook";
 import { Link, usePathname } from "@/i18n/navigation";
+import { LinkHref } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { getDiscordInviteLink } from "@/lib/utils/base";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { FaDiscord } from "react-icons/fa";
@@ -33,21 +35,21 @@ export default function Navbar() {
 
   return (
     <header className="bg-background/80 sticky top-0 left-0 z-9999 w-full backdrop-blur-md">
-      <div className="container mx-auto flex h-12 items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-1 md:hidden">
-          <LogoImage />
-          <CompanyName className="text-xl font-bold" />
-        </Link>
-        <div className="ml-auto flex items-center md:hidden">
+      <div className="container mx-auto flex h-12 items-center justify-between px-4 lg:px-6">
+        <div className="flex items-center lg:hidden">
           <MobileNav />
         </div>
-
-        <Link href="/" className="hidden items-center gap-2 sm:flex md:mr-6">
+        <Link href="/" className="flex items-center gap-1 lg:hidden">
           <LogoImage />
-          <CompanyName className="text-xl font-bold" />
+          <CompanyName className="hidden text-xl font-bold lg:block" />
         </Link>
 
-        <NavigationMenu className="hidden md:flex">
+        <Link href="/" className="hidden items-center gap-2 lg:mr-6 lg:flex">
+          <LogoImage />
+          <CompanyName className="hidden text-xl font-bold lg:block" />
+        </Link>
+
+        <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="flex-wrap gap-1">
             {navigation(isLoggedIn).map((item) => {
               const isActive = isActiveLink(pathname, item.href);
@@ -169,6 +171,15 @@ export default function Navbar() {
         </NavigationMenu>
 
         <div className="flex items-center gap-2">
+          <Link
+            href={getDiscordInviteLink() as LinkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-[#5865F2] text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
+          >
+            <FaDiscord className="size-5" />
+            <span className="sr-only">Join Discord Server</span>
+          </Link>
           {!isLoggedIn && (
             <Button
               onClick={() =>
@@ -177,10 +188,10 @@ export default function Navbar() {
                   callbackURL: "/",
                 })
               }
-              className="hidden gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4] md:flex"
+              className="hidden gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4] lg:flex"
             >
               <FaDiscord className="size-5" />
-              {t("MAIN.AUTH.LOGIN_WITH_DISCORD")}
+              <span>{t("MAIN.AUTH.LOGIN_WITH_DISCORD")}</span>
             </Button>
           )}
 
