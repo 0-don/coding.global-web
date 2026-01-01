@@ -1,10 +1,10 @@
-import { MainLayout } from "@/components/layout/main-layout";
-import { Resources } from "@/components/pages/resources/resources";
+import { TOCLayout } from "@/components/layout/resources/toc";
+import { Resources, resourcesTOC } from "@/components/pages/resources/resources";
 
 export default function ResourcesPage() {
   return (
-    <MainLayout>
+    <TOCLayout toc={resourcesTOC}>
       <Resources />
-    </MainLayout>
+    </TOCLayout>
   );
 }
