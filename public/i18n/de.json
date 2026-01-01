@@ -306,6 +306,12 @@
       "DESCRIPTION": "Umfassende Lernressourcen, Anleitungen und Werkzeuge für Entwickler",
       "KEYWORDS": "ressourcen, lernen, tutorials, anleitungen, programmierung"
     },
+    "FOOTER": {
+      "CONTRIBUTE_TEXT": "Möchtest du eine neue Ressource hinzufügen oder eine bestehende bearbeiten? Besuche unser",
+      "GITHUB": "GitHub",
+      "OR_JOIN": "oder tritt unserem",
+      "DISCORD": "Discord-Server bei"
+    },
     "JAVASCRIPT": {
       "META": {
         "TITLE": "JavaScript - Coding Global",

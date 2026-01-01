@@ -9,7 +9,6 @@ import * as React from "react";
 import { useEffect } from "react";
 import { MainLayout } from "../main-layout";
 
-// Types & Atom
 export type TOCState = {
   items: TOCItemType[];
   title: string;
@@ -22,7 +21,6 @@ const INITIAL_TOC_STATE: TOCState = {
 
 const tocAtom = atom<TOCState>(INITIAL_TOC_STATE);
 
-// Helper to create TOCState for pages
 export function createTOC(
   items: TOCItemType[],
   title: string = "On This Page",
@@ -30,7 +28,6 @@ export function createTOC(
   return { items, title };
 }
 
-// Panel Component
 function TOCPanel({ className }: { className?: string }) {
   const [{ items, title }] = useAtom(tocAtom);
   const containerRef = React.useRef<HTMLDivElement>(null);
