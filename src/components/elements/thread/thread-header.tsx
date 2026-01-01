@@ -2,6 +2,7 @@ import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown"
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { getDiscordChannelLink } from "@/lib/utils/base";
 import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
 import dayjs from "dayjs";
 import {
@@ -102,7 +103,7 @@ export function ThreadHeader(props: ThreadHeaderProps) {
               <span>{dayjs(props.thread.createdAt).fromNow()}</span>
             </div>
             <Link
-              href={`https://discord.com/channels/${process.env.NEXT_PUBLIC_GUILD_ID}/${props.thread.id}`}
+              href={getDiscordChannelLink(props.thread.id)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors"

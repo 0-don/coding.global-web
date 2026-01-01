@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
+import { getDiscordUserLink } from "@/lib/utils/base";
 import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
 import Link from "next/link";
@@ -225,7 +226,7 @@ export function DiscordUser(props: DiscordUserProps) {
                   </button>
 
                   <Link
-                    href={`https://discord.com/users/${props.user.id}`}
+                    href={getDiscordUserLink(props.user.id)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground text-xs transition-colors"
