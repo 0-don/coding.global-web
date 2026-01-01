@@ -1,5 +1,6 @@
 "use client";
 
+import { ResourceFooter } from "@/components/layout/resources/resource-footer";
 import { createTOC } from "@/components/layout/resources/toc";
 import {
   Card,
@@ -315,6 +316,8 @@ export function Resources() {
             />
           </div>
         </section>
+
+        <ResourceFooter />
       </div>
     </div>
   );
