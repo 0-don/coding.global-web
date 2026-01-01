@@ -10,7 +10,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.coding-global-web.rule=Host(`coding.global`)"
+      - "traefik.http.routers.coding-global-web.rule=Host(`coding.global`) || Host(`www.coding.global`)"
       - "traefik.http.routers.coding-global-web.entrypoints=websecure"
       - "traefik.http.routers.coding-global-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.coding-global-web.loadbalancer.server.port=3000"
