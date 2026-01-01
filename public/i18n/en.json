@@ -232,6 +232,7 @@
     "LOCKED": "Locked",
     "SLOWMODE": "{seconds}s slowmode",
     "CREATED": "Created {date}",
+    "OPEN_IN_DISCORD": "Open in Discord",
     "LOADING": "Loading...",
     "LOADING_MORE_MESSAGES": "Loading more messages...",
     "FILTER": {
