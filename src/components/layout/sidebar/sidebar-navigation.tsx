@@ -6,6 +6,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from "@/components/ui/sidebar";
+import { useNavigationAutoExpand } from "@/hook/ui/use-navigation-auto-expand";
 import * as React from "react";
 import {
   NavigationItems,
@@ -20,6 +21,8 @@ export function SidebarNavigation(
     items: NavigationItem[];
   } & React.ComponentPropsWithoutRef<typeof SidebarGroup>
 ) {
+  useNavigationAutoExpand(props.items);
+
   return (
     <SidebarGroup {...props}>
       <SidebarGroupLabel>{props.title}</SidebarGroupLabel>

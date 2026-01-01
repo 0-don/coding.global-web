@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useSearch } from "@/hook/use-search";
+import { useSearchQuery } from "@/hook/search-hook";
 import { Link } from "@/i18n/navigation";
 import type { LinkHref } from "@/i18n/routing";
 import { Search } from "lucide-react";
@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 export function SidebarSearch() {
   const t = useTranslations();
   const [query, setQuery] = useState("");
-  const { results, isLoading, isIndexLoaded } = useSearch(query);
+  const { results, isLoading, isIndexLoaded } = useSearchQuery(query);
   const [open, setOpen] = useState(false);
 
   const handleSelect = () => {
