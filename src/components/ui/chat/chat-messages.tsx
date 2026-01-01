@@ -1,0 +1,21 @@
+'use client";';
+
+import { cn } from "@/lib/utils";
+
+export function ChatMessages({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "flex flex-1 flex-col-reverse overflow-auto py-2",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
