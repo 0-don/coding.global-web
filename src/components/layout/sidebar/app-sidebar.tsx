@@ -32,13 +32,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
+              size="lg"
+              className="pt-0"
               render={
-                <Link href="/" className="flex w-full justify-center">
+                <Link
+                  href="/"
+                  className="flex w-full items-center justify-center"
+                >
                   <LogoImage />
                   <CompanyName className="text-2xl font-bold" />
                 </Link>
               }
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
             />
           </SidebarMenuItem>
         </SidebarMenu>
