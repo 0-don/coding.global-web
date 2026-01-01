@@ -39,4 +39,7 @@ export const queryKeys = {
     threadId,
     "messages",
   ],
+
+  // Search
+  searchIndex: () => ["search-index"],
 };

@@ -16,7 +16,8 @@ import { useEffect, useRef, useState } from "react";
 
 export function SidebarSearch() {
   const t = useTranslations();
-  const { query, setQuery, results, isLoading, isIndexLoaded } = useSearch();
+  const [query, setQuery] = useState("");
+  const { results, isLoading, isIndexLoaded } = useSearch(query);
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
