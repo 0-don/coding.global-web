@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TranslationKey } from "@/lib/config/constants";
 import type { TypeCompiler } from "@sinclair/typebox/compiler";
 import type { ValueError } from "@sinclair/typebox/errors";
@@ -55,7 +54,10 @@ export function handleError(
     let title = "";
     try {
       title = t
-        ? t(`MAIN.ERROR.${err.title}` as TranslationKey, err.params as any)
+        ? t(
+            `MAIN.ERROR.${err.title}` as TranslationKey,
+            err.params as Record<string, string>,
+          )
         : err.title;
     } catch (e) {
       title = err.title;
@@ -64,7 +66,10 @@ export function handleError(
     let description = "";
     try {
       description = t
-        ? t(err.description as TranslationKey, err.params as any)
+        ? t(
+            err.description as TranslationKey,
+            err.params as Record<string, string>,
+          )
         : err.description || ""!;
     } catch (e) {
       description = err.description || "";
