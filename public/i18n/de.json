@@ -300,6 +300,41 @@
       "TODO_SEED": "Todos erfolgreich initialisiert"
     }
   },
+  "RESOURCES": {
+    "META": {
+      "TITLE": "Ressourcen - Coding Global",
+      "DESCRIPTION": "Umfassende Lernressourcen, Anleitungen und Werkzeuge für Entwickler",
+      "KEYWORDS": "ressourcen, lernen, tutorials, anleitungen, programmierung"
+    },
+    "JAVASCRIPT": {
+      "META": {
+        "TITLE": "JavaScript - Coding Global",
+        "DESCRIPTION": "JavaScript lernen mit umfassenden Anleitungen, Tutorials und Best Practices",
+        "KEYWORDS": "javascript, js, webentwicklung, programmierung, tutorials"
+      }
+    },
+    "PYTHON": {
+      "META": {
+        "TITLE": "Python - Coding Global",
+        "DESCRIPTION": "Python meistern mit Anleitungen, Tutorials und Best Practices für alle Erfahrungsstufen",
+        "KEYWORDS": "python, programmierung, tutorials, data science, automatisierung"
+      }
+    },
+    "CYBER_SECURITY": {
+      "META": {
+        "TITLE": "Cybersicherheit - Coding Global",
+        "DESCRIPTION": "Grundlagen der Cybersicherheit, Best Practices und Techniken zum Schutz Ihrer Anwendungen lernen",
+        "KEYWORDS": "cybersicherheit, sicherheit, hacking, penetrationstest, infosec"
+      }
+    },
+    "VIBE_CODING": {
+      "META": {
+        "TITLE": "Vibe Coding - Coding Global",
+        "DESCRIPTION": "Entdecken Sie Tipps und Techniken für Flow-Zustand und maximale Produktivität beim Coden",
+        "KEYWORDS": "vibe coding, produktivität, flow-zustand, coding-tipps, entwicklererfahrung"
+      }
+    }
+  },
   "DISCORD_WIDGET": {
     "ONLINE": "Online",
     "MEMBERS": "Mitglieder",

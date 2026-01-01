@@ -300,6 +300,41 @@
       "TODO_SEED": "Todos seeded successfully"
     }
   },
+  "RESOURCES": {
+    "META": {
+      "TITLE": "Resources - Coding Global",
+      "DESCRIPTION": "Comprehensive learning resources, guides, and tools for developers",
+      "KEYWORDS": "resources, learning, tutorials, guides, programming"
+    },
+    "JAVASCRIPT": {
+      "META": {
+        "TITLE": "JavaScript - Coding Global",
+        "DESCRIPTION": "Learn JavaScript with comprehensive guides, tutorials, and best practices",
+        "KEYWORDS": "javascript, js, web development, programming, tutorials"
+      }
+    },
+    "PYTHON": {
+      "META": {
+        "TITLE": "Python - Coding Global",
+        "DESCRIPTION": "Master Python with guides, tutorials, and best practices for all skill levels",
+        "KEYWORDS": "python, programming, tutorials, data science, automation"
+      }
+    },
+    "CYBER_SECURITY": {
+      "META": {
+        "TITLE": "Cyber Security - Coding Global",
+        "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
+        "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
+      }
+    },
+    "VIBE_CODING": {
+      "META": {
+        "TITLE": "Vibe Coding - Coding Global",
+        "DESCRIPTION": "Discover tips and techniques for achieving flow state and maximum productivity while coding",
+        "KEYWORDS": "vibe coding, productivity, flow state, coding tips, developer experience"
+      }
+    }
+  },
   "DISCORD_WIDGET": {
     "ONLINE": "Online",
     "MEMBERS": "Members",
