@@ -1,6 +1,12 @@
 export const getDiscordInviteLink = () =>
   `https://discord.com/invite/${process.env.NEXT_PUBLIC_INVITE_CODE}`;
 
+export const getDiscordUserLink = (userId: string) =>
+  `https://discord.com/users/${userId}`;
+
+export const getDiscordChannelLink = (channelId: string) =>
+  `https://discord.com/channels/${process.env.NEXT_PUBLIC_GUILD_ID}/${channelId}`;
+
 /**
  * Helper to handle Eden.js API responses for use with TanStack Query.
  * Takes an Eden response object and either:
