@@ -1,8 +1,9 @@
 "use client";
 
 import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { search } from "@orama/orama";
-import { restore } from "@orama/plugin-data-persistence";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 
@@ -13,15 +14,8 @@ type SearchResult = {
   category: string;
 };
 
-type OramaDB = Awaited<ReturnType<typeof restore>>;
-
-async function fetchSearchIndex(): Promise<OramaDB> {
-  const response = await fetch("/search-index.json");
-  if (!response.ok) {
-    throw new Error("Search index not found");
-  }
-  const data = await response.json();
-  return restore("json", data);
+export async function fetchSearchIndex() {
+  return handleElysia(await rpc.api.search.index.get());
 }
 
 export function useSearchQueryIndex() {
