@@ -90,6 +90,5 @@ function getEntries(href: Pathname): MetadataRoute.Sitemap {
 function getUrl(href: Pathname, locale: Locale): string {
   const pathname = getPathname({ locale, href });
 
-  // Add locale prefix for all locales in sitemap
-  return `${new URL(process.env.NEXT_PUBLIC_URL).origin}/${locale}${pathname}`;
+  return `${new URL(process.env.NEXT_PUBLIC_URL).origin}${pathname}`;
 }
