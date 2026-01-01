@@ -17,266 +17,167 @@ import {
   getApiByGuildIdStaff,
 } from "../src/openapi";
 
-// Turndown setup for HTML to markdown conversion
+const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
+
 const turndown = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
 });
-// Remove non-content elements
-turndown.remove(["script", "style", "nav", "footer", "noscript", "button", "form"] as const);
+turndown.remove([
+  "script",
+  "style",
+  "nav",
+  "footer",
+  "noscript",
+  "button",
+  "form",
+] as const);
 turndown.addRule("removeSvg", {
   filter: (node) => node.nodeName === "SVG",
   replacement: () => "",
 });
 
-// Types
-type PageConfig = {
-  url: string;
-  category: "Community" | "Resources" | "Marketplace";
-  componentPath: string;
-  titleKey?: string;
-  prefetch?: (queryClient: QueryClient) => Promise<void>;
-};
+type Category = "Community" | "Resources" | "Marketplace";
+type Prefetcher = (qc: QueryClient) => Promise<void>;
 
-type ComponentModule = {
-  default?: React.ComponentType;
-  [key: string]: unknown;
-};
-
-// API Prefetch functions
-const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
-
-async function prefetchNews(queryClient: QueryClient) {
-  try {
-    const response = await getApiByGuildIdNews(GUILD_ID);
-    if (response.status === 200) {
-      queryClient.setQueryData(queryKeys.news(), response.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch news data");
-  }
-}
-
-async function prefetchTeam(queryClient: QueryClient) {
-  try {
-    const response = await getApiByGuildIdStaff(GUILD_ID);
-    if (response.status === 200) {
-      queryClient.setQueryData(queryKeys.team(), response.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch team data");
-  }
-}
-
-async function prefetchShowcase(queryClient: QueryClient) {
-  try {
-    const response = await getApiByGuildIdBoardByBoardType(GUILD_ID, "showcase");
-    if (response.status === 200) {
-      queryClient.setQueryData(queryKeys.boardThreads("showcase"), response.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch showcase data");
-  }
-}
-
-async function prefetchMarketplace(queryClient: QueryClient) {
-  // Marketplace needs both job-board and dev-board
-  try {
-    const [jobResponse, devResponse] = await Promise.all([
-      getApiByGuildIdBoardByBoardType(GUILD_ID, "job-board"),
-      getApiByGuildIdBoardByBoardType(GUILD_ID, "dev-board"),
+const prefetch = {
+  news: async (qc: QueryClient) => {
+    const res = await getApiByGuildIdNews(GUILD_ID).catch(() => null);
+    if (res?.status === 200) qc.setQueryData(queryKeys.news(), res.data);
+  },
+  team: async (qc: QueryClient) => {
+    const res = await getApiByGuildIdStaff(GUILD_ID).catch(() => null);
+    if (res?.status === 200) qc.setQueryData(queryKeys.team(), res.data);
+  },
+  board:
+    (type: "job-board" | "dev-board" | "showcase"): Prefetcher =>
+    async (qc) => {
+      const res = await getApiByGuildIdBoardByBoardType(GUILD_ID, type).catch(
+        () => null,
+      );
+      if (res?.status === 200)
+        qc.setQueryData(queryKeys.boardThreads(type), res.data);
+    },
+  marketplace: async (qc: QueryClient) => {
+    await Promise.all([
+      prefetch.board("job-board")(qc),
+      prefetch.board("dev-board")(qc),
     ]);
-    if (jobResponse.status === 200) {
-      queryClient.setQueryData(queryKeys.boardThreads("job-board"), jobResponse.data);
-    }
-    if (devResponse.status === 200) {
-      queryClient.setQueryData(queryKeys.boardThreads("dev-board"), devResponse.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch marketplace data");
-  }
-}
+  },
+};
 
-async function prefetchJobBoard(queryClient: QueryClient) {
-  try {
-    const response = await getApiByGuildIdBoardByBoardType(GUILD_ID, "job-board");
-    if (response.status === 200) {
-      queryClient.setQueryData(queryKeys.boardThreads("job-board"), response.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch job board data");
-  }
-}
+const components: Record<
+  string,
+  () => Promise<{ default?: React.ComponentType; [key: string]: unknown }>
+> = {
+  news: () => import("../src/components/pages/community/news/news"),
+  rules: () => import("../src/components/pages/community/rules/rules"),
+  showcase: () => import("../src/components/pages/community/showcase/showcase"),
+  team: () => import("../src/components/pages/community/team/team"),
+  marketplace: () => import("../src/components/pages/marketplace/marketplace"),
+  "job-board": () => import("../src/components/pages/marketplace/job-board"),
+  "dev-board": () => import("../src/components/pages/marketplace/dev-board"),
+  resources: () => import("../src/components/pages/resources/resources"),
+  javascript: () =>
+    import("../src/components/pages/resources/languages/javascript"),
+  python: () => import("../src/components/pages/resources/languages/python"),
+  "vibe-coding": () =>
+    import("../src/components/pages/resources/guides/vibe-coding"),
+  "cyber-security": () =>
+    import("../src/components/pages/resources/guides/cyber-security"),
+};
 
-async function prefetchDevBoard(queryClient: QueryClient) {
-  try {
-    const response = await getApiByGuildIdBoardByBoardType(GUILD_ID, "dev-board");
-    if (response.status === 200) {
-      queryClient.setQueryData(queryKeys.boardThreads("dev-board"), response.data);
-    }
-  } catch (e) {
-    log("  Warning: Failed to fetch dev board data");
-  }
-}
-
-// Page configurations
-const pages: PageConfig[] = [
-  // Community
+const pages: {
+  url: string;
+  category: Category;
+  component: string;
+  titleKey?: string;
+  prefetch?: Prefetcher;
+}[] = [
   {
     url: "/community/news",
     category: "Community",
-    componentPath: "news",
+    component: "news",
     titleKey: "NEWS.TITLE",
-    prefetch: prefetchNews,
+    prefetch: prefetch.news,
   },
   {
     url: "/community/rules",
     category: "Community",
-    componentPath: "rules",
+    component: "rules",
     titleKey: "RULES.HEADING",
   },
   {
     url: "/community/showcase",
     category: "Community",
-    componentPath: "showcase",
+    component: "showcase",
     titleKey: "SHOWCASE.HEADING",
-    prefetch: prefetchShowcase,
+    prefetch: prefetch.board("showcase"),
   },
   {
     url: "/community/team",
     category: "Community",
-    componentPath: "team",
+    component: "team",
     titleKey: "TEAM.HEADING",
-    prefetch: prefetchTeam,
+    prefetch: prefetch.team,
   },
-
-  // Marketplace
   {
     url: "/marketplace",
     category: "Marketplace",
-    componentPath: "marketplace",
+    component: "marketplace",
     titleKey: "MARKETPLACE.HEADING",
-    prefetch: prefetchMarketplace,
+    prefetch: prefetch.marketplace,
   },
   {
     url: "/marketplace/job-board",
     category: "Marketplace",
-    componentPath: "job-board",
+    component: "job-board",
     titleKey: "MARKETPLACE.JOB_BOARD.HEADING",
-    prefetch: prefetchJobBoard,
+    prefetch: prefetch.board("job-board"),
   },
   {
     url: "/marketplace/dev-board",
     category: "Marketplace",
-    componentPath: "dev-board",
+    component: "dev-board",
     titleKey: "MARKETPLACE.DEV_BOARD.HEADING",
-    prefetch: prefetchDevBoard,
+    prefetch: prefetch.board("dev-board"),
   },
-
-  // Resources (no API prefetch needed - static content)
-  {
-    url: "/resources",
-    category: "Resources",
-    componentPath: "resources",
-  },
+  { url: "/resources", category: "Resources", component: "resources" },
   {
     url: "/resources/languages/javascript",
     category: "Resources",
-    componentPath: "javascript",
+    component: "javascript",
   },
   {
     url: "/resources/languages/python",
     category: "Resources",
-    componentPath: "python",
+    component: "python",
   },
   {
     url: "/resources/guides/vibe-coding",
     category: "Resources",
-    componentPath: "vibe-coding",
+    component: "vibe-coding",
   },
   {
     url: "/resources/guides/cyber-security",
     category: "Resources",
-    componentPath: "cyber-security",
+    component: "cyber-security",
   },
 ];
 
-// Component loader
-async function loadComponent(
-  componentPath: string
-): Promise<React.ComponentType> {
-  const components: Record<string, () => Promise<ComponentModule>> = {
-    news: () =>
-      import("../src/components/pages/community/news/news") as Promise<ComponentModule>,
-    rules: () =>
-      import("../src/components/pages/community/rules/rules") as Promise<ComponentModule>,
-    showcase: () =>
-      import("../src/components/pages/community/showcase/showcase") as Promise<ComponentModule>,
-    team: () =>
-      import("../src/components/pages/community/team/team") as Promise<ComponentModule>,
-    marketplace: () =>
-      import("../src/components/pages/marketplace/marketplace") as Promise<ComponentModule>,
-    "job-board": () =>
-      import("../src/components/pages/marketplace/job-board") as Promise<ComponentModule>,
-    "dev-board": () =>
-      import("../src/components/pages/marketplace/dev-board") as Promise<ComponentModule>,
-    resources: () =>
-      import("../src/components/pages/resources/resources") as Promise<ComponentModule>,
-    javascript: () =>
-      import("../src/components/pages/resources/languages/javascript") as Promise<ComponentModule>,
-    python: () =>
-      import("../src/components/pages/resources/languages/python") as Promise<ComponentModule>,
-    "vibe-coding": () =>
-      import("../src/components/pages/resources/guides/vibe-coding") as Promise<ComponentModule>,
-    "cyber-security": () =>
-      import("../src/components/pages/resources/guides/cyber-security") as Promise<ComponentModule>,
-  };
-
-  const mod = await components[componentPath]();
-  // Get the named export (e.g., News, Rules, Team) or default
-  return (
-    mod.default ??
-    (Object.values(mod).find(
-      (v) => typeof v === "function"
-    ) as React.ComponentType)
-  );
-}
-
-// Create render wrapper with IntlProvider and QueryClientProvider
-function createRenderWrapper(
-  locale: (typeof LOCALES)[number],
-  messages: Record<string, unknown>,
-  queryClient: QueryClient
-) {
-  return function RenderWrapper({
-    children,
-  }: {
-    children: React.ReactNode;
-  }): React.ReactElement {
-    // Using nested createElement with children as third argument
-    const intlElement = createElement(
-      IntlProvider,
-      { locale, messages } as Parameters<typeof IntlProvider>[0],
-      children
-    );
-    return createElement(QueryClientProvider, { client: queryClient }, intlElement);
-  };
-}
-
-// Helper to get translation value from messages object
 function getTranslation(
   messages: Record<string, unknown>,
-  key: string
+  key: string,
 ): string {
-  const keys = key.split(".");
-  let value: unknown = messages;
-  for (const k of keys) {
-    value = (value as Record<string, unknown>)?.[k];
-  }
+  const value = key
+    .split(".")
+    .reduce<unknown>(
+      (acc, k) => (acc as Record<string, unknown>)?.[k],
+      messages,
+    );
   return typeof value === "string" ? value : key;
 }
 
-// Main generator function
 async function generateSearchIndex() {
   log("Generating search index...");
 
@@ -295,52 +196,45 @@ async function generateSearchIndex() {
 
   for (const locale of LOCALES) {
     log(`Processing locale: ${locale}`);
-
-    // Load translations
     const messages = (await import(`../public/i18n/${locale}.json`)).default;
 
     for (const page of pages) {
       log(`  Rendering: ${page.url}`);
-
       try {
-        const queryClient = new QueryClient({
+        const qc = new QueryClient({
           defaultOptions: { queries: { retry: false } },
         });
+        if (page.prefetch) await page.prefetch(qc);
 
-        // Prefetch API data if needed
-        if (page.prefetch) {
-          await page.prefetch(queryClient);
-        }
-
-        // Load and render component
-        const Component = await loadComponent(page.componentPath);
-        const Wrapper = createRenderWrapper(locale, messages, queryClient);
+        const mod = await components[page.component]();
+        const Component =
+          mod.default ??
+          (Object.values(mod).find(
+            (v) => typeof v === "function",
+          ) as React.ComponentType);
 
         const html = renderToString(
-          createElement(Wrapper, null, createElement(Component))
+          createElement(
+            QueryClientProvider,
+            { client: qc },
+            createElement(
+              IntlProvider,
+              { locale, messages } as Parameters<typeof IntlProvider>[0],
+              createElement(Component),
+            ),
+          ),
         );
 
-        // Parse HTML and extract content
-        const dom = new JSDOM(html);
-        const doc = dom.window.document;
-
-        // Extract title from translation key or h1
+        const doc = new JSDOM(html).window.document;
         const title = page.titleKey
           ? getTranslation(messages, page.titleKey)
-          : doc.querySelector("h1")?.textContent?.trim() ?? "";
+          : (doc.querySelector("h1")?.textContent?.trim() ?? "");
 
-        // Get body content
-        const body = doc.body;
-
-        // Remove interactive/navigation elements
-        body
+        doc.body
           .querySelectorAll("nav, footer, button, form, .sidebar")
           .forEach((el) => el.remove());
+        const content = turndown.turndown(doc.body.innerHTML);
 
-        // Convert translated HTML to markdown
-        const content = turndown.turndown(body.innerHTML);
-
-        // Extract description from first paragraph
         const firstP = doc.querySelector("p")?.textContent?.trim() ?? "";
         const description =
           firstP.slice(0, 200) + (firstP.length > 200 ? "..." : "");
@@ -353,7 +247,6 @@ async function generateSearchIndex() {
           category: page.category,
           locale,
         });
-
         totalIndexed++;
       } catch (e) {
         error(`  Error rendering ${page.url}:`, e);
@@ -361,11 +254,8 @@ async function generateSearchIndex() {
     }
   }
 
-  const serialized = await persist(db, "json");
   const outputPath = join(process.cwd(), "public", "search-index.json");
-  writeFileSync(outputPath, JSON.stringify(serialized));
-
-  log(`Search index generated at ${outputPath}`);
+  writeFileSync(outputPath, JSON.stringify(await persist(db, "json")));
   log(`Indexed ${totalIndexed} pages across ${LOCALES.length} locales`);
 }
 
