@@ -4,11 +4,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { error, log } from "console";
 import { writeFileSync } from "fs";
 import { JSDOM } from "jsdom";
+import { IntlProvider } from "use-intl";
 import { join } from "path";
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import TurndownService from "turndown";
-import { IntlProvider } from "use-intl";
 import { LOCALES } from "../src/lib/config/constants";
 import { queryKeys } from "../src/lib/react-query/keys";
 import {
@@ -219,7 +219,11 @@ async function generateSearchIndex() {
             { client: qc },
             createElement(
               IntlProvider,
-              { locale, messages } as Parameters<typeof IntlProvider>[0],
+              {
+                locale,
+                messages,
+                onError: () => {},
+              } as unknown as Parameters<typeof IntlProvider>[0],
               createElement(Component),
             ),
           ),
