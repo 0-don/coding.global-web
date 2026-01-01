@@ -35,8 +35,8 @@ export default function Navbar() {
 
   return (
     <header className="bg-background/80 sticky top-0 left-0 z-9999 w-full backdrop-blur-md">
-      <div className="container mx-auto flex h-12 items-center justify-between px-4 lg:px-6">
-        <div className="flex items-center gap-1 lg:hidden">
+      <div className="container mx-auto flex h-12 items-center justify-between px-4 xl:px-6">
+        <div className="flex items-center gap-1 xl:hidden">
           <MobileNav />
           <Link
             href={getDiscordInviteLink() as LinkHref}
@@ -48,12 +48,12 @@ export default function Navbar() {
             <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
           </Link>
         </div>
-        <Link href="/" className="flex items-center gap-1 lg:hidden">
+        <Link href="/" className="flex items-center gap-1 xl:hidden">
           <LogoImage />
-          <CompanyName className="hidden text-xl font-bold lg:block" />
+          <CompanyName className="hidden text-xl font-bold xl:block" />
         </Link>
 
-        <div className="hidden items-center gap-2 lg:mr-6 lg:flex">
+        <div className="hidden items-center gap-2 xl:mr-6 xl:flex">
           <Link href="/" className="flex items-center gap-2">
             <LogoImage />
             <CompanyName className="text-xl font-bold" />
@@ -69,7 +69,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <NavigationMenu className="hidden lg:flex">
+        <NavigationMenu className="hidden xl:flex">
           <NavigationMenuList className="flex-wrap gap-1">
             {navigation(isLoggedIn).map((item) => {
               const isActive = isActiveLink(pathname, item.href);
@@ -199,7 +199,7 @@ export default function Navbar() {
                   callbackURL: "/",
                 })
               }
-              className="hidden gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4] lg:flex"
+              className="hidden gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4] xl:flex"
             >
               <FaDiscord className="size-5" />
               <span>{t("MAIN.AUTH.LOGIN_WITH_DISCORD")}</span>

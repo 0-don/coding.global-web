@@ -4,7 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
 import dayjs from "dayjs";
-import { Archive, Calendar, Lock, MessageCircle, Users } from "lucide-react";
+import {
+  Archive,
+  Calendar,
+  ExternalLink,
+  Lock,
+  MessageCircle,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -93,6 +101,16 @@ export function ThreadHeader(props: ThreadHeaderProps) {
               <Calendar className="h-4 w-4" />
               <span>{dayjs(props.thread.createdAt).fromNow()}</span>
             </div>
+            <Link
+              href={`https://discord.com/channels/${process.env.NEXT_PUBLIC_GUILD_ID}/${props.thread.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors"
+              title={t("SHOWCASE.OPEN_IN_DISCORD")}
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span>{t("SHOWCASE.OPEN_IN_DISCORD")}</span>
+            </Link>
           </div>
         </CardHeader>
 
