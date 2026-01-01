@@ -8,9 +8,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
 import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IoDiamondSharp } from "react-icons/io5";
 import { toast } from "sonner";
@@ -22,7 +24,7 @@ import {
   StatusIndicator,
   StatusRole,
 } from "../utils/enums";
-import { useSessionHook } from "@/hook/session-hook";
+
 interface DiscordUserProps {
   className?: string;
   user?: GetApiByGuildIdWidget200MembersItem;
@@ -35,8 +37,7 @@ export function DiscordUser(props: DiscordUserProps) {
 
   if (!props.user) return null;
 
-  const isCurrentUser =
-    session.data?.user?.discordId === props.user.id;
+  const isCurrentUser = session.data?.user?.discordId === props.user.id;
 
   const bannerStyle = props.user.bannerUrl
     ? { backgroundImage: `url(${props.user.bannerUrl})` }
@@ -61,6 +62,7 @@ export function DiscordUser(props: DiscordUserProps) {
       toast.error(t("DISCORD_WIDGET.USER_CARD.COPY_FAILED"));
     }
   };
+
 
   return (
     <Popover>
@@ -204,7 +206,7 @@ export function DiscordUser(props: DiscordUserProps) {
                 )}
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <button
                   onClick={copyUsername}
                   className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-sm transition-colors"
@@ -213,13 +215,32 @@ export function DiscordUser(props: DiscordUserProps) {
                   {props.user.username}
                 </button>
 
-                <button
-                  onClick={copyUserId}
-                  className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-xs transition-colors"
-                  type="button"
-                >
-                  {props.user.id}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={copyUserId}
+                    className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-xs transition-colors"
+                    type="button"
+                  >
+                    {props.user.id}
+                  </button>
+
+                  <Link
+                    href={`https://discord.com/users/${props.user.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground text-xs transition-colors"
+                    title={t("DISCORD_WIDGET.USER_CARD.OPEN_IN_DISCORD")}
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
 
