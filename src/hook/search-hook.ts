@@ -1,8 +1,8 @@
 "use client";
 
+import { queryKeys } from "@/lib/react-query/keys";
 import { search } from "@orama/orama";
 import { restore } from "@orama/plugin-data-persistence";
-import { queryKeys } from "@/lib/react-query/keys";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 
@@ -24,7 +24,7 @@ async function fetchSearchIndex(): Promise<OramaDB> {
   return restore("json", data);
 }
 
-export function useSearchIndex() {
+export function useSearchQueryIndex() {
   return useQuery({
     queryKey: queryKeys.searchIndex(),
     queryFn: fetchSearchIndex,
@@ -33,9 +33,9 @@ export function useSearchIndex() {
   });
 }
 
-export function useSearch(query: string) {
+export function useSearchQuery(query: string) {
   const locale = useLocale();
-  const { data: db, isLoading: isIndexLoading } = useSearchIndex();
+  const { data: db, isLoading: isIndexLoading } = useSearchQueryIndex();
 
   const searchQuery = useQuery({
     queryKey: [...queryKeys.searchIndex(), "results", locale, query],
