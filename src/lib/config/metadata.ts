@@ -14,7 +14,7 @@ type Params = {
 
 export async function getPageMetadata(params: Params): Promise<Metadata> {
   const canonicalPath = params.path || `/${params.locale}`;
-  const ogImageUrl = params.ogImage || "/images/logo_512.gif";
+  const ogImageUrl = params.ogImage || "/images/logo.gif";
   const shouldIndex = params.robots ?? true;
 
   return {

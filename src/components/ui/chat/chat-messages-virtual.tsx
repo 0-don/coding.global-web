@@ -8,7 +8,6 @@ import {
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
-  useMemo,
   useRef,
   type ReactNode,
 } from "react";
@@ -65,15 +64,12 @@ function ChatMessagesVirtualInner<T>(
   const isInitialMountRef = useRef(true);
   const lastFetchedAtRef = useRef(0);
 
-  // Reverse items: oldest first in array = top of view, newest last = bottom
-  const reversedItems = useMemo(
-    () => [...props.items].reverse(),
-    [props.items]
-  );
+  // Items are expected in chronological order (oldest first, newest last)
+  const items = props.items;
 
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
-    count: reversedItems.length,
+    count: items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => props.estimateSize ?? 80,
     overscan: props.overscan ?? 5,
@@ -84,7 +80,7 @@ function ChatMessagesVirtualInner<T>(
   // Expose methods via ref
   useImperativeHandle(ref, () => ({
     scrollToBottom: (behavior: "smooth" | "auto" = "smooth") => {
-      virtualizer.scrollToIndex(reversedItems.length - 1, {
+      virtualizer.scrollToIndex(items.length - 1, {
         align: "end",
         behavior,
       });
@@ -97,11 +93,11 @@ function ChatMessagesVirtualInner<T>(
 
   // Scroll to bottom on initial mount
   useEffect(() => {
-    if (isInitialMountRef.current && reversedItems.length > 0) {
-      virtualizer.scrollToIndex(reversedItems.length - 1, { align: "end" });
+    if (isInitialMountRef.current && items.length > 0) {
+      virtualizer.scrollToIndex(items.length - 1, { align: "end" });
       isInitialMountRef.current = false;
     }
-  }, [reversedItems.length, virtualizer]);
+  }, [items.length, virtualizer]);
 
   // Track scroll position
   useEffect(() => {
@@ -154,27 +150,28 @@ function ChatMessagesVirtualInner<T>(
     const scrollElement = parentRef.current;
     if (!scrollElement) return;
 
-    if (
-      reversedItems.length > previousItemCountRef.current &&
+    const itemsWereAddedAtTop =
+      items.length > previousItemCountRef.current &&
       previousItemCountRef.current > 0 &&
-      !wasAtBottomRef.current
-    ) {
+      !wasAtBottomRef.current;
+
+    if (itemsWereAddedAtTop) {
       // Older messages were added at the top
       const heightDifference =
         scrollElement.scrollHeight - previousScrollHeightRef.current;
       scrollElement.scrollTop += heightDifference;
     }
 
-    previousItemCountRef.current = reversedItems.length;
+    previousItemCountRef.current = items.length;
     previousScrollHeightRef.current = scrollElement.scrollHeight;
-  }, [reversedItems.length]);
+  }, [items.length]);
 
   // Auto-scroll on new messages
   useEffect(() => {
-    if (reversedItems.length === 0) return;
+    if (items.length === 0) return;
 
-    const newestItem = reversedItems[reversedItems.length - 1];
-    const newestId = props.getItemKey(newestItem, reversedItems.length - 1);
+    const newestItem = items[items.length - 1];
+    const newestId = props.getItemKey(newestItem, items.length - 1);
 
     if (
       previousNewestIdRef.current !== null &&
@@ -182,28 +179,32 @@ function ChatMessagesVirtualInner<T>(
     ) {
       // New message arrived
       if (props.enableAutoScroll !== false && wasAtBottomRef.current) {
+        // Wait for the virtualizer to measure the new item before scrolling
+        // Use double requestAnimationFrame to ensure measurement is complete
         requestAnimationFrame(() => {
-          virtualizer.scrollToIndex(reversedItems.length - 1, {
-            align: "end",
-            behavior: "smooth",
+          requestAnimationFrame(() => {
+            virtualizer.scrollToIndex(items.length - 1, {
+              align: "end",
+              behavior: "smooth",
+            });
           });
         });
       }
     }
 
     previousNewestIdRef.current = newestId;
-  }, [reversedItems, props.enableAutoScroll, props.getItemKey, virtualizer]);
+  }, [items, props.enableAutoScroll, props.getItemKey, virtualizer]);
 
   // Determine if item is first in group
   const isFirstInGroup = useCallback(
     (index: number): boolean => {
       if (index === 0) return true;
       if (!props.shouldGroup) return true;
-      const current = reversedItems[index];
-      const previous = reversedItems[index - 1];
+      const current = items[index];
+      const previous = items[index - 1];
       return !props.shouldGroup(current, previous);
     },
-    [reversedItems, props.shouldGroup]
+    [items, props.shouldGroup]
   );
 
   return (
@@ -225,10 +226,10 @@ function ChatMessagesVirtualInner<T>(
         }}
       >
         {virtualItems.map((virtualItem) => {
-          const item = reversedItems[virtualItem.index];
+          const item = items[virtualItem.index];
           const previousItem =
             virtualItem.index > 0
-              ? reversedItems[virtualItem.index - 1]
+              ? items[virtualItem.index - 1]
               : null;
 
           return (

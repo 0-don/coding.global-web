@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/chat/chat-messages-virtual";
 import {
   ChatToolbar,
+  ChatToolbarSendButton,
   ChatToolbarTextarea,
 } from "@/components/ui/chat/chat-toolbar";
 import { useChatAddMutation, useChatsInfiniteQuery } from "@/hook/chat-hook";
@@ -25,7 +26,7 @@ import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import { HashIcon, Loader2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRef, useMemo, useCallback, type KeyboardEvent } from "react";
+import { useCallback, useMemo, useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
 
 interface ChatMessage {
@@ -56,7 +57,10 @@ export function ChatRoom() {
   const chatAddMutation = useChatAddMutation();
 
   const allMessages = useMemo(() => {
-    const messages = (chatsQuery.data?.pages.flatMap((page) => page) ?? []) as ChatMessage[];
+    // Pages are in reverse chronological order (newest page first, older pages later)
+    // Reverse pages so older messages come first, then flatten
+    const pages = chatsQuery.data?.pages ?? [];
+    const messages = [...pages].reverse().flatMap((page) => page) as ChatMessage[];
     // Deduplicate messages by id to prevent duplicate key errors
     const seen = new Set<string>();
     return messages.filter((msg) => {
@@ -70,15 +74,19 @@ export function ChatRoom() {
     const content = textareaRef.current?.value.trim();
     if (!content) return;
 
+    if (textareaRef.current) {
+      textareaRef.current.value = "";
+    }
+
     chatAddMutation.mutate(
       { content },
       {
-        onSuccess: () => {
-          if (textareaRef.current) {
-            textareaRef.current.value = "";
-          }
+        onSettled: () => {
+          requestAnimationFrame(() => {
+            textareaRef.current?.focus();
+          });
         },
-      }
+      },
     );
   }, [chatAddMutation]);
 
@@ -89,7 +97,7 @@ export function ChatRoom() {
         handleSendMessage();
       }
     },
-    [handleSendMessage]
+    [handleSendMessage],
   );
 
   const shouldGroup = useCallback(
@@ -106,7 +114,7 @@ export function ChatRoom() {
       const timeDiff = Math.abs(currentTime - previousTime);
       return timeDiff < 5 * 60 * 1000;
     },
-    []
+    [],
   );
 
   const getItemKey = useCallback((item: ChatMessage) => item.id, []);
@@ -120,7 +128,7 @@ export function ChatRoom() {
     }) => {
       if (renderProps.isFirstInGroup) {
         return (
-          <ChatEvent className="mt-4 hover:bg-accent/50">
+          <ChatEvent className="hover:bg-accent/50 mt-4">
             <ChatEventAddon>
               <Avatar className="mx-auto size-8 @md/chat:size-10">
                 <AvatarImage
@@ -128,13 +136,16 @@ export function ChatRoom() {
                   alt={renderProps.item.user?.name}
                 />
                 <AvatarFallback>
-                  {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ?? "??"}
+                  {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
+                    "??"}
                 </AvatarFallback>
               </Avatar>
             </ChatEventAddon>
             <ChatEventBody>
               <div className="flex items-baseline gap-2">
-                <ChatEventTitle>{renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}</ChatEventTitle>
+                <ChatEventTitle>
+                  {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+                </ChatEventTitle>
                 <ChatEventDescription>
                   {renderProps.item.createdAt
                     ? new Intl.DateTimeFormat("en-US", {
@@ -168,7 +179,7 @@ export function ChatRoom() {
         </ChatEvent>
       );
     },
-    [t]
+    [t],
   );
 
   const renderLoader = useCallback(
@@ -180,7 +191,7 @@ export function ChatRoom() {
         </span>
       </div>
     ),
-    [t]
+    [t],
   );
 
   return (
@@ -214,6 +225,10 @@ export function ChatRoom() {
             onKeyDown={handleKeyDown}
             disabled={chatAddMutation.isPending}
             placeholder={t("CHAT.TYPE_MESSAGE")}
+          />
+          <ChatToolbarSendButton
+            onClick={handleSendMessage}
+            disabled={chatAddMutation.isPending}
           />
         </ChatToolbar>
       ) : (

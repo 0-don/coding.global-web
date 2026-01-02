@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { SendIcon } from "lucide-react";
 import * as React from "react";
 
 export function ChatToolbar({
@@ -18,8 +20,7 @@ export function ChatToolbar({
     >
       <div
         className={cn(
-          "rounded-md border px-3 py-2",
-          "grid grid-cols-[max-content_auto_max-content] gap-x-2",
+          "relative flex items-end rounded-md border px-3 py-2",
         )}
       >
         {children}
@@ -53,19 +54,17 @@ export function ChatToolbarTextarea({
   ...props
 }: React.ComponentProps<typeof Textarea>) {
   return (
-    <div className="row-span-2 grid flex-1">
-      <Textarea
-        id="toolbar-input"
-        placeholder="Type your message..."
-        className={cn(
-          "h-fit max-h-30 min-h-10 px-1 @md/chat:text-base",
-          "resize-none border-none shadow-none placeholder:whitespace-nowrap focus-visible:border-none focus-visible:ring-0",
-          className,
-        )}
-        rows={1}
-        {...props}
-      />
-    </div>
+    <Textarea
+      id="toolbar-input"
+      placeholder="Type your message..."
+      className={cn(
+        "h-fit max-h-30 min-h-10 flex-1 pr-10 @md/chat:text-base",
+        "resize-none border-none shadow-none placeholder:whitespace-nowrap focus-visible:border-none focus-visible:ring-0",
+        className,
+      )}
+      rows={1}
+      {...props}
+    />
   );
 }
 
@@ -86,5 +85,23 @@ export function ChatToolbarAddonEnd({
     >
       {children}
     </div>
+  );
+}
+
+export function ChatToolbarSendButton({
+  className,
+  ...props
+}: React.ComponentProps<typeof Button>) {
+  return (
+    <Button
+      size="icon"
+      className={cn(
+        "absolute right-4 bottom-2.5 size-7 shrink-0 rounded-full",
+        className,
+      )}
+      {...props}
+    >
+      <SendIcon className="size-4" />
+    </Button>
   );
 }

@@ -12,7 +12,7 @@ export const LogoImage = (
       height={36}
       width={36}
       {...props}
-      src={"/images/cgLogo.gif"}
+      src={"/images/logo.gif"}
       alt={appName}
       unoptimized
       className="h-9 w-9 rounded-full object-cover"

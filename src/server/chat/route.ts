@@ -7,7 +7,7 @@ import {
   commentSelectSchema,
 } from "@/lib/db-schema/comment-db-schema";
 import { pageable } from "@/lib/typebox/pageable";
-import { and, desc, eq, getTableColumns, gt } from "drizzle-orm";
+import { and, asc, desc, eq, getTableColumns, lt } from "drizzle-orm";
 import Elysia, { t } from "elysia";
 import { authUserGuard, authUserResolve } from "../auth/guard";
 
@@ -17,18 +17,21 @@ export const chatRoute = new Elysia({ prefix: "/chat" })
     async ({ query }) => {
       const { email, ...user } = getTableColumns(users);
 
+      // For initial load (no cursor): get newest messages, then reverse to oldest-first
+      // For pagination (with cursor): get older messages before cursor, oldest-first
       const comments = await db
         .select({ ...getTableColumns(comment), user: user })
         .from(comment)
         .leftJoin(users, eq(comment.userId, user.id))
         .where(
           query.cursor
-            ? gt(comment.createdAt, new Date(query.cursor))
+            ? lt(comment.createdAt, new Date(query.cursor))
             : undefined,
         )
         .orderBy(desc(comment.createdAt))
         .limit(query.limit || PAGEABLE_LIMIT);
 
+      // Reverse so oldest is first (chronological order for chat)
       return comments.reverse();
     },
     { query: t.Optional(pageable) },
