@@ -12,6 +12,9 @@ export type ValidRoutes = LinkHref | RoutePush | Redirect;
 
 export const pathnames = {
   "/": "/",
+  "/chat": {
+    de: "/chat",
+  },
   "/community/news": {
     de: "/community/nachrichten",
   },

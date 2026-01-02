@@ -1,5 +1,12 @@
 {
   "CHAT": {
+    "GENERAL": "general",
+    "TYPE_MESSAGE": "Type your message...",
+    "LOADING_MESSAGES": "Loading messages...",
+    "UNKNOWN_USER": "Unknown User",
+    "LOGIN_REQUIRED": "Login Required",
+    "LOGIN_REQUIRED_DESCRIPTION": "You need to be logged in to view and send messages in the chat. Please sign in with your Discord account to join the conversation.",
+    "LOGIN_TO_SEND": "Sign in to send messages",
     "INFO": {
       "COMMENT_DELETED": "Comment deleted"
     },
@@ -60,6 +67,8 @@
     "NAVIGATION": {
       "HOME": "Home",
       "HOME_DESCRIPTION": "Return to the homepage",
+      "CHAT": "Chat",
+      "CHAT_DESCRIPTION": "Community chat room",
       "NEWS": "News",
       "NEWS_DESCRIPTION": "Latest news and updates",
       "OPEN_MENU": "Open menu",

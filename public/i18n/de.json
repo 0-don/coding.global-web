@@ -1,5 +1,12 @@
 {
   "CHAT": {
+    "GENERAL": "allgemein",
+    "TYPE_MESSAGE": "Nachricht eingeben...",
+    "LOADING_MESSAGES": "Nachrichten werden geladen...",
+    "UNKNOWN_USER": "Unbekannter Benutzer",
+    "LOGIN_REQUIRED": "Anmeldung erforderlich",
+    "LOGIN_REQUIRED_DESCRIPTION": "Du musst angemeldet sein, um Nachrichten im Chat zu sehen und zu senden. Bitte melde dich mit deinem Discord-Konto an, um an der Unterhaltung teilzunehmen.",
+    "LOGIN_TO_SEND": "Anmelden um Nachrichten zu senden",
     "INFO": {
       "COMMENT_DELETED": "Kommentar gelöscht"
     },
@@ -60,6 +67,8 @@
     "NAVIGATION": {
       "HOME": "Startseite",
       "HOME_DESCRIPTION": "Zur Startseite zurückkehren",
+      "CHAT": "Chat",
+      "CHAT_DESCRIPTION": "Community-Chatraum",
       "NEWS": "Nachrichten",
       "NEWS_DESCRIPTION": "Neueste Nachrichten und Updates",
       "OPEN_MENU": "Menü öffnen",
