@@ -1,5 +1,243 @@
-import React from "react";
+"use client";
 
-export const ChatRoom: React.FC = () => {
-  return <></>;
-};
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Chat } from "@/components/ui/chat/chat";
+import {
+  ChatEvent,
+  ChatEventAddon,
+  ChatEventBody,
+  ChatEventContent,
+  ChatEventDescription,
+  ChatEventTitle,
+} from "@/components/ui/chat/chat-event";
+import { ChatHeader, ChatHeaderStart } from "@/components/ui/chat/chat-header";
+import {
+  ChatMessagesVirtual,
+  ChatMessagesVirtualRef,
+} from "@/components/ui/chat/chat-messages-virtual";
+import {
+  ChatToolbar,
+  ChatToolbarTextarea,
+} from "@/components/ui/chat/chat-toolbar";
+import { useChatAddMutation, useChatsInfiniteQuery } from "@/hook/chat-hook";
+import { useSessionHook } from "@/hook/session-hook";
+import { authClient } from "@/lib/auth-client";
+import { HashIcon, Loader2Icon } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useRef, useMemo, useCallback, type KeyboardEvent } from "react";
+import { FaDiscord } from "react-icons/fa";
+
+interface ChatMessage {
+  id: string;
+  userId: string;
+  content: string;
+  createdAt: Date | null;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+    discordId: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    emailVerified: boolean;
+  } | null;
+}
+
+export function ChatRoom() {
+  const t = useTranslations();
+  const session = useSessionHook();
+  const isLoggedIn = !!session?.data?.user.id;
+
+  const chatRef = useRef<ChatMessagesVirtualRef>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const chatsQuery = useChatsInfiniteQuery();
+  const chatAddMutation = useChatAddMutation();
+
+  const allMessages = useMemo(() => {
+    const messages = (chatsQuery.data?.pages.flatMap((page) => page) ?? []) as ChatMessage[];
+    // Deduplicate messages by id to prevent duplicate key errors
+    const seen = new Set<string>();
+    return messages.filter((msg) => {
+      if (seen.has(msg.id)) return false;
+      seen.add(msg.id);
+      return true;
+    });
+  }, [chatsQuery.data]);
+
+  const handleSendMessage = useCallback(() => {
+    const content = textareaRef.current?.value.trim();
+    if (!content) return;
+
+    chatAddMutation.mutate(
+      { content },
+      {
+        onSuccess: () => {
+          if (textareaRef.current) {
+            textareaRef.current.value = "";
+          }
+        },
+      }
+    );
+  }, [chatAddMutation]);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSendMessage();
+      }
+    },
+    [handleSendMessage]
+  );
+
+  const shouldGroup = useCallback(
+    (current: ChatMessage, previous: ChatMessage) => {
+      if (current.userId !== previous.userId) return false;
+
+      // Group messages within 5 minutes of each other
+      const currentTime = current.createdAt
+        ? new Date(current.createdAt).getTime()
+        : 0;
+      const previousTime = previous.createdAt
+        ? new Date(previous.createdAt).getTime()
+        : 0;
+      const timeDiff = Math.abs(currentTime - previousTime);
+      return timeDiff < 5 * 60 * 1000;
+    },
+    []
+  );
+
+  const getItemKey = useCallback((item: ChatMessage) => item.id, []);
+
+  const renderItem = useCallback(
+    (renderProps: {
+      item: ChatMessage;
+      index: number;
+      isFirstInGroup: boolean;
+      previousItem: ChatMessage | null;
+    }) => {
+      if (renderProps.isFirstInGroup) {
+        return (
+          <ChatEvent className="mt-4 hover:bg-accent/50">
+            <ChatEventAddon>
+              <Avatar className="mx-auto size-8 @md/chat:size-10">
+                <AvatarImage
+                  src={renderProps.item.user?.image ?? undefined}
+                  alt={renderProps.item.user?.name}
+                />
+                <AvatarFallback>
+                  {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ?? "??"}
+                </AvatarFallback>
+              </Avatar>
+            </ChatEventAddon>
+            <ChatEventBody>
+              <div className="flex items-baseline gap-2">
+                <ChatEventTitle>{renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}</ChatEventTitle>
+                <ChatEventDescription>
+                  {renderProps.item.createdAt
+                    ? new Intl.DateTimeFormat("en-US", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      }).format(new Date(renderProps.item.createdAt))
+                    : ""}
+                </ChatEventDescription>
+              </div>
+              <ChatEventContent>{renderProps.item.content}</ChatEventContent>
+            </ChatEventBody>
+          </ChatEvent>
+        );
+      }
+
+      // Additional message (same user, within time window)
+      return (
+        <ChatEvent className="group hover:bg-accent/50">
+          <ChatEventAddon>
+            <ChatEventDescription className="invisible text-right text-[8px] group-hover:visible @md/chat:text-[10px]">
+              {renderProps.item.createdAt
+                ? new Intl.DateTimeFormat("en-US", {
+                    timeStyle: "short",
+                  }).format(new Date(renderProps.item.createdAt))
+                : ""}
+            </ChatEventDescription>
+          </ChatEventAddon>
+          <ChatEventBody>
+            <ChatEventContent>{renderProps.item.content}</ChatEventContent>
+          </ChatEventBody>
+        </ChatEvent>
+      );
+    },
+    [t]
+  );
+
+  const renderLoader = useCallback(
+    () => (
+      <div className="flex items-center gap-2">
+        <Loader2Icon className="size-4 animate-spin" />
+        <span className="text-muted-foreground text-sm">
+          {t("CHAT.LOADING_MESSAGES")}
+        </span>
+      </div>
+    ),
+    [t]
+  );
+
+  return (
+    <Chat className="h-[calc(100vh-10rem)] rounded-lg border">
+      <ChatHeader className="border-b">
+        <ChatHeaderStart>
+          <HashIcon className="text-muted-foreground size-5" />
+          <span className="font-medium">{t("CHAT.GENERAL")}</span>
+        </ChatHeaderStart>
+      </ChatHeader>
+
+      <ChatMessagesVirtual
+        ref={chatRef}
+        items={allMessages}
+        getItemKey={getItemKey}
+        hasNextPage={chatsQuery.hasNextPage}
+        isFetchingNextPage={chatsQuery.isFetchingNextPage}
+        fetchNextPage={chatsQuery.fetchNextPage}
+        shouldGroup={shouldGroup}
+        renderItem={renderItem}
+        renderLoader={renderLoader}
+        estimateSize={80}
+        overscan={10}
+        className="py-2"
+      />
+
+      {isLoggedIn ? (
+        <ChatToolbar>
+          <ChatToolbarTextarea
+            ref={textareaRef}
+            onKeyDown={handleKeyDown}
+            disabled={chatAddMutation.isPending}
+            placeholder={t("CHAT.TYPE_MESSAGE")}
+          />
+        </ChatToolbar>
+      ) : (
+        <div className="bg-background sticky bottom-0 border-t p-3">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-muted-foreground text-sm">
+              {t("CHAT.LOGIN_TO_SEND")}
+            </p>
+            <Button
+              onClick={() =>
+                authClient.signIn.social({
+                  provider: "discord",
+                  callbackURL: "/chat",
+                })
+              }
+              size="sm"
+              className="gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
+            >
+              <FaDiscord className="size-4" />
+              <span>{t("MAIN.AUTH.LOGIN_WITH_DISCORD")}</span>
+            </Button>
+          </div>
+        </div>
+      )}
+    </Chat>
+  );
+}

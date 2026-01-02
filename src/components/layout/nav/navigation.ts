@@ -7,6 +7,7 @@ import {
   HiOutlineBookOpen,
   HiOutlineBriefcase,
   HiOutlineChartBarSquare,
+  HiOutlineChatBubbleLeftRight,
   HiOutlineCodeBracket,
   HiOutlineCommandLine,
   HiOutlineInformationCircle,
@@ -78,6 +79,12 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
     href: "/",
     icon: HiOutlineChartBarSquare,
     hidden: !authenticated,
+  },
+  {
+    name: "MAIN.NAVIGATION.CHAT",
+    description: "MAIN.NAVIGATION.CHAT_DESCRIPTION",
+    href: "/chat",
+    icon: HiOutlineChatBubbleLeftRight,
   },
   {
     name: "MAIN.NAVIGATION.COMMUNITY",
