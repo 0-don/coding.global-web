@@ -1,13 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  type ReactNode,
-} from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { Virtualizer, type VirtualizerHandle } from "virtua";
 
 interface ChatMessagesVirtualRenderProps<T> {
   item: T;
@@ -16,127 +11,93 @@ interface ChatMessagesVirtualRenderProps<T> {
 }
 
 interface ChatMessagesVirtualProps<T> {
-  items: T[]; // Newest-first order
+  items: T[];
   getItemKey: (item: T, index: number) => number;
   renderItem: (props: ChatMessagesVirtualRenderProps<T>) => ReactNode;
-  estimateSize?: number;
-  overscan?: number;
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   fetchNextPage?: () => void;
   className?: string;
   renderLoader?: () => ReactNode;
-  ref?: React.RefObject<ChatMessagesVirtualRef>;
-}
-
-export interface ChatMessagesVirtualRef {
-  scrollToBottom: (behavior?: "smooth" | "auto") => void;
-  isAtBottom: () => boolean;
+  ref?: React.RefObject<VirtualizerHandle>;
 }
 
 export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   const { ref, ...restProps } = props;
   const scrollRef = useRef<HTMLDivElement>(null);
-  const atBottomRef = useRef(true);
+  const virtualRef = useRef<VirtualizerHandle>(null);
   const lastFetchRef = useRef(0);
+  const prevLengthRef = useRef(restProps.items.length);
+  const isInitialMount = useRef(true);
 
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const virtualizer = useVirtualizer({
-    count: restProps.items.length,
-    getScrollElement: () => scrollRef.current,
-    estimateSize: () => restProps.estimateSize ?? 80,
-    overscan: restProps.overscan ?? 5,
-    // React 19 compatibility: prevent flushSync during render
-    isScrollingResetDelay: 0,
-  });
-
-  useImperativeHandle(ref, () => ({
-    scrollToBottom: (behavior: "smooth" | "auto" = "smooth") => {
-      scrollRef.current?.scrollTo({ top: 0, behavior });
-    },
-    isAtBottom: () => atBottomRef.current,
-  }));
-
-  // Track scroll + invert wheel + infinite scroll
+  // Scroll to bottom on initial mount
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
+    if (isInitialMount.current && restProps.items.length > 0) {
+      virtualRef.current?.scrollToIndex(restProps.items.length - 1, {
+        align: "end",
+      });
+      isInitialMount.current = false;
+    }
+  }, [restProps.items.length]);
 
-    const onScroll = () => {
-      atBottomRef.current = el.scrollTop < 50;
+  // Auto-scroll to bottom when new messages are appended (not prepended)
+  useEffect(() => {
+    const newLength = restProps.items.length;
+    const prevLength = prevLengthRef.current;
 
-      // Fetch more when viewing old messages (high index in newest-first array)
-      // Get fresh virtualItems to avoid stale closure
-      const currentVirtualItems = virtualizer.getVirtualItems();
-      const lastVisible = currentVirtualItems[currentVirtualItems.length - 1];
-      if (!lastVisible) return;
+    // Only auto-scroll if items were added at the end (new messages)
+    // Not when prepending older messages (which adds to the beginning)
+    if (newLength > prevLength && !isInitialMount.current) {
+      const scrollEl = scrollRef.current;
+      if (scrollEl) {
+        const distanceFromBottom =
+          scrollEl.scrollHeight - scrollEl.scrollTop - scrollEl.clientHeight;
+        // Only auto-scroll if user is near bottom
+        if (distanceFromBottom < 100) {
+          virtualRef.current?.scrollToIndex(newLength - 1, { align: "end" });
+        }
+      }
+    }
+    prevLengthRef.current = newLength;
+  }, [restProps.items.length]);
 
+  const handleScroll = (offset: number) => {
+    // Fetch more when near top (older messages)
+    if (offset < 200 && restProps.hasNextPage && !restProps.isFetchingNextPage) {
       const now = Date.now();
-      if (now - lastFetchRef.current < 1000) return;
-
-      if (
-        lastVisible.index >= restProps.items.length - 5 &&
-        restProps.hasNextPage &&
-        !restProps.isFetchingNextPage
-      ) {
+      if (now - lastFetchRef.current > 1000) {
         lastFetchRef.current = now;
         restProps.fetchNextPage?.();
       }
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      el.scrollTop -= e.deltaY;
-    };
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      el.removeEventListener("wheel", onWheel);
-    };
-  }, [virtualizer, restProps.items.length, restProps.hasNextPage, restProps.isFetchingNextPage, restProps.fetchNextPage]);
-
+    }
+  };
 
   return (
     <div
       ref={scrollRef}
-      className={cn("flex flex-1 flex-col overflow-auto", restProps.className)}
-      style={{ transform: "scaleY(-1)" }}
+      className={cn("flex-1 overflow-auto", restProps.className)}
     >
-      {restProps.isFetchingNextPage && restProps.renderLoader && (
-        <div className="flex justify-center py-2" style={{ transform: "scaleY(-1)" }}>
-          {restProps.renderLoader()}
-        </div>
-      )}
-
-      <div style={{ height: virtualizer.getTotalSize(), width: "100%", position: "relative" }}>
-        {virtualizer.getVirtualItems().map((vItem) => {
-          const item = restProps.items[vItem.index];
-          if (!item) return null;
-
-          return (
-            <div
-              key={restProps.getItemKey(item, vItem.index)}
-              data-index={vItem.index}
-              ref={virtualizer.measureElement}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                transform: `translateY(${vItem.start}px) scaleY(-1)`,
-              }}
-            >
-              {restProps.renderItem({
-                item,
-                index: vItem.index,
-                previousItem: restProps.items[vItem.index + 1] ?? null,
-              })}
-            </div>
-          );
-        })}
-      </div>
+      <Virtualizer
+        ref={ref ?? virtualRef}
+        scrollRef={scrollRef}
+        shift
+        onScroll={handleScroll}
+      >
+        {restProps.isFetchingNextPage && restProps.renderLoader && (
+          <div className="flex justify-center py-2">
+            {restProps.renderLoader()}
+          </div>
+        )}
+        {restProps.items.map((item, index) => (
+          <div key={restProps.getItemKey(item, index)}>
+            {restProps.renderItem({
+              item,
+              index,
+              previousItem: restProps.items[index + 1] ?? null,
+            })}
+          </div>
+        ))}
+      </Virtualizer>
     </div>
   );
 }

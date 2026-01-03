@@ -10,14 +10,14 @@ import {
   GetApiByGuildIdBoardByBoardTypeByThreadId200,
   GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
-import { useVirtualizer } from "@tanstack/react-virtual";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { Virtualizer, type VirtualizerHandle } from "virtua";
 
 interface ThreadRepliesProps {
-  messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
+  messages: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem[];
   parentThread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
@@ -27,19 +27,10 @@ interface ThreadRepliesProps {
 export function ThreadReplies(props: ThreadRepliesProps) {
   const t = useTranslations();
   const parentRef = useRef<HTMLDivElement>(null);
+  const virtualRef = useRef<VirtualizerHandle>(null);
   const [highlightedMessageId, setHighlightedMessageId] = useState<
     string | null
   >(null);
-
-  // eslint-disable-next-line react-hooks/incompatible-library
-  const virtualizer = useVirtualizer({
-    count: props.messages.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 150,
-    overscan: 5,
-  });
-
-  const virtualItems = virtualizer.getVirtualItems();
 
   // Create message lookup map for O(1) reference resolution
   const messageMap = useMemo(() => {
@@ -76,7 +67,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
         (msg) => msg.id === messageId,
       );
       if (messageIndex !== -1) {
-        virtualizer.scrollToIndex(messageIndex, { align: "start" });
+        virtualRef.current?.scrollToIndex(messageIndex, { align: "start" });
         setHighlightedMessageId(messageId);
         setTimeout(() => {
           setHighlightedMessageId(null);
@@ -85,25 +76,22 @@ export function ThreadReplies(props: ThreadRepliesProps) {
     }
   };
 
-  useEffect(() => {
-    const lastItem = virtualItems[virtualItems.length - 1];
+  const handleScroll = (offset: number) => {
+    if (!virtualRef.current) return;
 
-    if (!lastItem) return;
+    const distanceFromBottom =
+      virtualRef.current.scrollSize -
+      (offset + virtualRef.current.viewportSize);
 
+    // Fetch more when near bottom
     if (
-      lastItem.index >= props.messages.length - 1 &&
+      distanceFromBottom < 200 &&
       props.hasNextPage &&
       !props.isFetchingNextPage
     ) {
       props.fetchNextPage();
     }
-  }, [
-    props.hasNextPage,
-    props.fetchNextPage,
-    props.messages.length,
-    props.isFetchingNextPage,
-    virtualItems,
-  ]);
+  };
 
   if (props.messages.length === 0) {
     return null;
@@ -119,35 +107,19 @@ export function ThreadReplies(props: ThreadRepliesProps) {
         ref={parentRef}
         className="bg-background/50 h-[calc(100vh-400px)] overflow-auto rounded-lg border"
       >
-        <div
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: "100%",
-            position: "relative",
-          }}
+        <Virtualizer
+          ref={virtualRef}
+          scrollRef={parentRef}
+          onScroll={handleScroll}
         >
-          {virtualizer.getVirtualItems().map((virtualItem) => {
-            const message = props.messages[virtualItem.index];
+          {props.messages.map((message, index) => {
             const prevMessage =
-              virtualItem.index > 0
-                ? props.messages[virtualItem.index - 1]
-                : null;
+              index > 0 ? props.messages[index - 1] : null;
             const showAvatar =
               !prevMessage || prevMessage.author?.id !== message.author?.id;
 
             return (
-              <div
-                key={message.id}
-                data-index={virtualItem.index}
-                ref={virtualizer.measureElement}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  transform: `translateY(${virtualItem.start}px)`,
-                }}
-              >
+              <div key={message.id}>
                 <div
                   className={`px-4 py-0.5 transition-all duration-300 ${
                     highlightedMessageId === message.id
@@ -274,7 +246,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
               </div>
             );
           })}
-        </div>
+        </Virtualizer>
 
         {props.isFetchingNextPage && (
           <div className="flex justify-center py-4">
