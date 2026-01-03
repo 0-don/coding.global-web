@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
-  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -30,6 +29,7 @@ interface ChatMessagesVirtualProps<T> {
   shouldGroup?: (current: T, previous: T) => boolean;
   className?: string;
   renderLoader?: () => ReactNode;
+  ref?: React.RefObject<ChatMessagesVirtualRef>;
 }
 
 export interface ChatMessagesVirtualRef {
@@ -37,20 +37,25 @@ export interface ChatMessagesVirtualRef {
   isAtBottom: () => boolean;
 }
 
-function ChatMessagesVirtualInner<T>(
-  props: ChatMessagesVirtualProps<T>,
-  ref: React.ForwardedRef<ChatMessagesVirtualRef>,
-) {
+export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
+  const { ref, ...restProps } = props;
   const scrollRef = useRef<HTMLDivElement>(null);
   const atBottomRef = useRef(true);
   const lastFetchRef = useRef(0);
 
+  // Track previous items length to detect new messages
+  const prevCountRef = useRef(restProps.items.length);
+
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
-    count: props.items.length,
+    count: restProps.items.length,
     getScrollElement: () => scrollRef.current,
-    estimateSize: () => props.estimateSize ?? 80,
-    overscan: props.overscan ?? 5,
+    estimateSize: () => restProps.estimateSize ?? 80,
+    overscan: restProps.overscan ?? 5,
+    measureElement:
+      typeof window !== "undefined" && navigator.userAgent.indexOf("Firefox") === -1
+        ? (element) => element?.getBoundingClientRect().height ?? 0
+        : undefined,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
@@ -61,6 +66,19 @@ function ChatMessagesVirtualInner<T>(
     },
     isAtBottom: () => atBottomRef.current,
   }));
+
+  // Handle new messages - remeasure and maintain scroll position
+  useEffect(() => {
+    const prevCount = prevCountRef.current;
+    const currentCount = restProps.items.length;
+
+    if (currentCount > prevCount) {
+      // New messages added, force remeasurement
+      virtualizer.measure();
+    }
+
+    prevCountRef.current = currentCount;
+  }, [restProps.items.length, virtualizer]);
 
   // Track scroll + invert wheel + infinite scroll
   useEffect(() => {
@@ -78,12 +96,12 @@ function ChatMessagesVirtualInner<T>(
       if (now - lastFetchRef.current < 1000) return;
 
       if (
-        lastVisible.index >= props.items.length - 5 &&
-        props.hasNextPage &&
-        !props.isFetchingNextPage
+        lastVisible.index >= restProps.items.length - 5 &&
+        restProps.hasNextPage &&
+        !restProps.isFetchingNextPage
       ) {
         lastFetchRef.current = now;
-        props.fetchNextPage?.();
+        restProps.fetchNextPage?.();
       }
     };
 
@@ -98,56 +116,57 @@ function ChatMessagesVirtualInner<T>(
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("wheel", onWheel);
     };
-  }, [virtualItems, props.items.length, props.hasNextPage, props.isFetchingNextPage, props.fetchNextPage]);
+  }, [virtualItems, restProps.items.length, restProps.hasNextPage, restProps.isFetchingNextPage, restProps.fetchNextPage]);
 
   // In newest-first: index+1 is the older (previous) message
   const isFirstInGroup = useCallback(
     (index: number): boolean => {
-      if (index + 1 >= props.items.length || !props.shouldGroup) return true;
-      return !props.shouldGroup(props.items[index], props.items[index + 1]);
+      if (index + 1 >= restProps.items.length || !restProps.shouldGroup) return true;
+      return !restProps.shouldGroup(restProps.items[index], restProps.items[index + 1]);
     },
-    [props.items, props.shouldGroup],
+    [restProps.items, restProps.shouldGroup],
   );
 
   return (
     <div
       ref={scrollRef}
-      className={cn("flex flex-1 flex-col overflow-auto", props.className)}
+      className={cn("flex flex-1 flex-col overflow-auto", restProps.className)}
       style={{ transform: "scaleY(-1)" }}
     >
-      {props.isFetchingNextPage && props.renderLoader && (
+      {restProps.isFetchingNextPage && restProps.renderLoader && (
         <div className="flex justify-center py-2" style={{ transform: "scaleY(-1)" }}>
-          {props.renderLoader()}
+          {restProps.renderLoader()}
         </div>
       )}
 
       <div style={{ height: virtualizer.getTotalSize(), width: "100%", position: "relative" }}>
-        {virtualItems.map((vItem) => (
-          <div
-            key={props.getItemKey(props.items[vItem.index], vItem.index)}
-            data-index={vItem.index}
-            ref={virtualizer.measureElement}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              transform: `translateY(${vItem.start}px) scaleY(-1)`,
-            }}
-          >
-            {props.renderItem({
-              item: props.items[vItem.index],
-              index: vItem.index,
-              isFirstInGroup: isFirstInGroup(vItem.index),
-              previousItem: props.items[vItem.index + 1] ?? null,
-            })}
-          </div>
-        ))}
+        {virtualItems.map((vItem) => {
+          const item = restProps.items[vItem.index];
+          if (!item) return null;
+
+          return (
+            <div
+              key={restProps.getItemKey(item, vItem.index)}
+              data-index={vItem.index}
+              ref={virtualizer.measureElement}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                transform: `translateY(${vItem.start}px) scaleY(-1)`,
+              }}
+            >
+              {restProps.renderItem({
+                item,
+                index: vItem.index,
+                isFirstInGroup: isFirstInGroup(vItem.index),
+                previousItem: restProps.items[vItem.index + 1] ?? null,
+              })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
-
-export const ChatMessagesVirtual = forwardRef(ChatMessagesVirtualInner) as <T>(
-  props: ChatMessagesVirtualProps<T> & { ref?: React.ForwardedRef<ChatMessagesVirtualRef> },
-) => ReturnType<typeof ChatMessagesVirtualInner>;
