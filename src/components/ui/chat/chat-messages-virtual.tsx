@@ -33,10 +33,16 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   // Scroll to bottom on initial mount
   useEffect(() => {
     if (isInitialMount.current && restProps.items.length > 0) {
-      virtualRef.current?.scrollToIndex(restProps.items.length - 1, {
-        align: "end",
+      // Use requestAnimationFrame to ensure Virtualizer has rendered
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          virtualRef.current?.scrollToIndex(restProps.items.length - 1, {
+            align: "end",
+            smooth: false,
+          });
+          isInitialMount.current = false;
+        });
       });
-      isInitialMount.current = false;
     }
   }, [restProps.items.length]);
 
@@ -93,7 +99,7 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
             {restProps.renderItem({
               item,
               index,
-              previousItem: restProps.items[index + 1] ?? null,
+              previousItem: restProps.items[index - 1] ?? null,
             })}
           </div>
         ))}
