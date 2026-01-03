@@ -58,7 +58,10 @@ export function ChatRoom() {
   const chatAddMutation = useChatAddMutation();
   const chatDeleteMutation = useChatDeleteMutation();
 
-  const allMessages = (chatsQuery.data?.pages ?? []).flat() as ChatMessage[];
+  const allMessages = (chatsQuery.data?.pages ?? []).reduceRight(
+    (acc, page) => [...acc, ...page],
+    [],
+  );
 
   const handleSendMessage = () => {
     const content = textareaRef.current?.value.trim();

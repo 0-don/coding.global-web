@@ -23,18 +23,14 @@ export function useChatsInfiniteQuery() {
       const response = await rpc.api.chat.get({
         query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
       });
-
       if (response.error) throw response.error;
       return response.data || [];
     },
     initialPageParam: null as string | undefined | null,
-    getNextPageParam: (lastPage) => {
-      // Cursor for older messages: last item is oldest in newest-first order
-      const oldestItem = lastPage[lastPage.length - 1];
-      return oldestItem?.createdAt
-        ? new Date(oldestItem.createdAt).toISOString()
-        : null;
-    },
+    getNextPageParam: (lastPage) =>
+      lastPage[0]?.createdAt
+        ? new Date(lastPage[0].createdAt).toISOString()
+        : null,
   });
 }
 
@@ -48,14 +44,11 @@ export function useChatAddMutation() {
     onSuccess: (newComment) => {
       queryClient.setQueryData(
         queryKeys.chats(),
-        (
-          oldData: InfiniteData<Comments[]> | undefined,
-        ): InfiniteData<Comments[]> | undefined => {
+        (oldData: InfiniteData<Comments[]> | undefined) => {
           if (!oldData?.pages) return oldData;
-          // Add new message to start of first page (newest-first order)
           const [firstPage = [], ...restPages] = oldData.pages;
           return {
-            pages: [[newComment, ...firstPage], ...restPages],
+            pages: [[...firstPage, newComment], ...restPages],
             pageParams: oldData.pageParams,
           };
         },
@@ -76,14 +69,11 @@ export function useChatDeleteMutation() {
     onSuccess: (deletedComment) => {
       queryClient.setQueryData(
         queryKeys.chats(),
-        (
-          oldData: InfiniteData<Comments[]> | undefined,
-        ): InfiniteData<Comments[]> | undefined => {
+        (oldData: InfiniteData<Comments[]> | undefined) => {
           if (!oldData?.pages) return oldData;
-          // Remove the deleted message from all pages
           return {
             pages: oldData.pages.map((page) =>
-              page.filter((comment) => comment.id !== deletedComment?.id),
+              page.filter((c) => c.id !== deletedComment?.id),
             ),
             pageParams: oldData.pageParams,
           };

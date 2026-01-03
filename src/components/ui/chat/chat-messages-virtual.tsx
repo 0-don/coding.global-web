@@ -23,20 +23,17 @@ interface ChatMessagesVirtualProps<T> {
 }
 
 export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
-  const { ref, ...restProps } = props;
   const scrollRef = useRef<HTMLDivElement>(null);
   const virtualRef = useRef<VirtualizerHandle>(null);
   const lastFetchRef = useRef(0);
-  const prevLengthRef = useRef(restProps.items.length);
+  const prevLengthRef = useRef(props.items.length);
   const isInitialMount = useRef(true);
 
-  // Scroll to bottom on initial mount
   useEffect(() => {
-    if (isInitialMount.current && restProps.items.length > 0) {
-      // Use requestAnimationFrame to ensure Virtualizer has rendered
+    if (isInitialMount.current && props.items.length > 0) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          virtualRef.current?.scrollToIndex(restProps.items.length - 1, {
+          virtualRef.current?.scrollToIndex(props.items.length - 1, {
             align: "end",
             smooth: false,
           });
@@ -44,36 +41,29 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
         });
       });
     }
-  }, [restProps.items.length]);
+  }, [props.items.length]);
 
-  // Auto-scroll to bottom when new messages are appended (not prepended)
   useEffect(() => {
-    const newLength = restProps.items.length;
-    const prevLength = prevLengthRef.current;
-
-    // Only auto-scroll if items were added at the end (new messages)
-    // Not when prepending older messages (which adds to the beginning)
-    if (newLength > prevLength && !isInitialMount.current) {
+    const newLength = props.items.length;
+    if (newLength > prevLengthRef.current && !isInitialMount.current) {
       const scrollEl = scrollRef.current;
       if (scrollEl) {
         const distanceFromBottom =
           scrollEl.scrollHeight - scrollEl.scrollTop - scrollEl.clientHeight;
-        // Only auto-scroll if user is near bottom
         if (distanceFromBottom < 100) {
           virtualRef.current?.scrollToIndex(newLength - 1, { align: "end" });
         }
       }
     }
     prevLengthRef.current = newLength;
-  }, [restProps.items.length]);
+  }, [props.items.length]);
 
   const handleScroll = (offset: number) => {
-    // Fetch more when near top (older messages)
-    if (offset < 200 && restProps.hasNextPage && !restProps.isFetchingNextPage) {
+    if (offset < 200 && props.hasNextPage && !props.isFetchingNextPage) {
       const now = Date.now();
       if (now - lastFetchRef.current > 1000) {
         lastFetchRef.current = now;
-        restProps.fetchNextPage?.();
+        props.fetchNextPage?.();
       }
     }
   };
@@ -81,25 +71,24 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   return (
     <div
       ref={scrollRef}
-      className={cn("flex-1 overflow-auto", restProps.className)}
+      className={cn("flex-1 overflow-auto", props.className)}
     >
+      {props.isFetchingNextPage && props.renderLoader && (
+        <div className="flex justify-center py-4">{props.renderLoader()}</div>
+      )}
       <Virtualizer
-        ref={ref ?? virtualRef}
+        ref={props.ref ?? virtualRef}
         scrollRef={scrollRef}
         shift
         onScroll={handleScroll}
       >
-        {restProps.isFetchingNextPage && restProps.renderLoader && (
-          <div className="flex justify-center py-2">
-            {restProps.renderLoader()}
-          </div>
-        )}
-        {restProps.items.map((item, index) => (
-          <div key={restProps.getItemKey(item, index)}>
-            {restProps.renderItem({
+        {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
+        {props.items.map((item, index) => (
+          <div key={props.getItemKey(item, index)}>
+            {props.renderItem({
               item,
               index,
-              previousItem: restProps.items[index - 1] ?? null,
+              previousItem: props.items[index - 1] ?? null,
             })}
           </div>
         ))}
