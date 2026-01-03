@@ -26,7 +26,7 @@ import {
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import dayjs from "dayjs";
-import { HashIcon, Loader2Icon, Trash2Icon } from "lucide-react";
+import { HashIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
@@ -90,7 +90,7 @@ export function ChatRoom() {
     }
   };
 
-  const getItemKey = (item: ChatMessage) => item.id;
+  const getItemKey = (item: ChatMessage) => String(item.id);
 
   const handleDeleteMessage = (messageId: number) => {
     chatDeleteMutation.mutate(messageId);
@@ -150,15 +150,6 @@ export function ChatRoom() {
     );
   };
 
-  const renderLoader = () => (
-    <div className="flex items-center gap-2">
-      <Loader2Icon className="size-4 animate-spin" />
-      <span className="text-muted-foreground text-sm">
-        {t("CHAT.LOADING_MESSAGES")}
-      </span>
-    </div>
-  );
-
   return (
     <Chat className="h-[calc(100vh-10rem)] rounded-lg border">
       <ChatHeader className="border-b">
@@ -175,8 +166,6 @@ export function ChatRoom() {
         isFetchingNextPage={chatsQuery.isFetchingNextPage}
         fetchNextPage={chatsQuery.fetchNextPage}
         renderItem={renderItem}
-        renderLoader={renderLoader}
-        className="py-2"
       />
 
       {isLoggedIn ? (
