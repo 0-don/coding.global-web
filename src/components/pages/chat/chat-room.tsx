@@ -51,18 +51,13 @@ export function ChatRoom() {
     const content = textareaRef.current?.value.trim();
     if (!content) return;
 
-    if (textareaRef.current) {
-      textareaRef.current.value = "";
-    }
+    if (textareaRef.current) textareaRef.current.value = "";
 
     chatAddMutation.mutate(
       { content },
       {
-        onSettled: () => {
-          requestAnimationFrame(() => {
-            textareaRef.current?.focus();
-          });
-        },
+        onSettled: () =>
+          requestAnimationFrame(() => textareaRef.current?.focus()),
       },
     );
   };
@@ -72,10 +67,6 @@ export function ChatRoom() {
       e.preventDefault();
       handleSendMessage();
     }
-  };
-
-  const handleDeleteMessage = (messageId: number) => {
-    chatDeleteMutation.mutate(messageId);
   };
 
   return (
@@ -133,7 +124,9 @@ export function ChatRoom() {
                       variant="ghost"
                       size="icon"
                       className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
-                      onClick={() => handleDeleteMessage(renderProps.item.id)}
+                      onClick={() =>
+                        chatDeleteMutation.mutate(renderProps.item.id)
+                      }
                       disabled={chatDeleteMutation.isPending}
                     >
                       <Trash2Icon className="size-3.5" />
