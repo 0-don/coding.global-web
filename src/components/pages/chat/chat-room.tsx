@@ -18,12 +18,17 @@ import {
   ChatToolbarSendButton,
   ChatToolbarTextarea,
 } from "@/components/ui/chat/chat-toolbar";
-import { useChatAddMutation, useChatsInfiniteQuery } from "@/hook/chat-hook";
+import {
+  useChatAddMutation,
+  useChatDeleteMutation,
+  useChatsInfiniteQuery,
+} from "@/hook/chat-hook";
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
-import { HashIcon, Loader2Icon } from "lucide-react";
+import dayjs from "dayjs";
+import { HashIcon, Loader2Icon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useRef, type KeyboardEvent } from "react";
+import { useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
 
 interface ChatMessage {
@@ -51,19 +56,11 @@ export function ChatRoom() {
 
   const chatsQuery = useChatsInfiniteQuery();
   const chatAddMutation = useChatAddMutation();
+  const chatDeleteMutation = useChatDeleteMutation();
 
-  const allMessages = useMemo(() => {
-    // Pages are newest-first, just flatten and dedupe
-    const messages = (chatsQuery.data?.pages ?? []).flat() as ChatMessage[];
-    const seen = new Set<string>();
-    return messages.filter((msg) => {
-      if (seen.has(msg.id)) return false;
-      seen.add(msg.id);
-      return true;
-    });
-  }, [chatsQuery.data]);
+  const allMessages = (chatsQuery.data?.pages ?? []).flat() as ChatMessage[];
 
-  const handleSendMessage = useCallback(() => {
+  const handleSendMessage = () => {
     const content = textareaRef.current?.value.trim();
     if (!content) return;
 
@@ -81,74 +78,78 @@ export function ChatRoom() {
         },
       },
     );
-  }, [chatAddMutation]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        handleSendMessage();
-      }
-    },
-    [handleSendMessage],
-  );
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
 
+  const getItemKey = (item: ChatMessage) => item.id;
 
-  const getItemKey = useCallback((item: ChatMessage) => item.id, []);
+  const handleDeleteMessage = (messageId: string) => {
+    chatDeleteMutation.mutate(messageId);
+  };
 
-  const renderItem = useCallback(
-    (renderProps: {
-      item: ChatMessage;
-      index: number;
-      isFirstInGroup: boolean;
-      previousItem: ChatMessage | null;
-    }) => {
-      return (
-        <ChatEvent className="hover:bg-accent/50 py-2">
-          <ChatEventAddon>
-            <Avatar className="mx-auto size-8 @md/chat:size-10">
-              <AvatarImage
-                src={renderProps.item.user?.image ?? undefined}
-                alt={renderProps.item.user?.name}
-              />
-              <AvatarFallback>
-                {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
-                  "??"}
-              </AvatarFallback>
-            </Avatar>
-          </ChatEventAddon>
-          <ChatEventBody>
-            <div className="flex items-baseline gap-2">
-              <ChatEventTitle>
-                {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-              </ChatEventTitle>
-              <ChatEventDescription>
-                {renderProps.item.createdAt
-                  ? new Intl.DateTimeFormat("en-US", {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    }).format(new Date(renderProps.item.createdAt))
-                  : ""}
-              </ChatEventDescription>
-            </div>
-            <ChatEventContent>{renderProps.item.content}</ChatEventContent>
-          </ChatEventBody>
-        </ChatEvent>
-      );
-    },
-    [t],
-  );
+  const renderItem = (renderProps: {
+    item: ChatMessage;
+    index: number;
+    previousItem: ChatMessage | null;
+  }) => {
+    const isOwnMessage = renderProps.item.userId === session?.data?.user.id;
 
-  const renderLoader = useCallback(
-    () => (
-      <div className="flex items-center gap-2">
-        <Loader2Icon className="size-4 animate-spin" />
-        <span className="text-muted-foreground text-sm">
-          {t("CHAT.LOADING_MESSAGES")}
-        </span>
-      </div>
-    ),
-    [t],
+    return (
+      <ChatEvent className="group hover:bg-accent/50 py-2">
+        <ChatEventAddon>
+          <Avatar className="mx-auto size-8 @md/chat:size-10">
+            <AvatarImage
+              src={renderProps.item.user?.image ?? undefined}
+              alt={renderProps.item.user?.name}
+            />
+            <AvatarFallback>
+              {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ?? "??"}
+            </AvatarFallback>
+          </Avatar>
+        </ChatEventAddon>
+        <ChatEventBody>
+          <div className="flex items-baseline gap-2">
+            <ChatEventTitle>
+              {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+            </ChatEventTitle>
+            <ChatEventDescription>
+              {renderProps.item.createdAt
+                ? dayjs(renderProps.item.createdAt).format(
+                    "DD.MM.YYYY HH:mm:ss",
+                  )
+                : ""}
+            </ChatEventDescription>
+            {isOwnMessage && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100 hover:text-primary"
+                onClick={() => handleDeleteMessage(renderProps.item.id)}
+                disabled={chatDeleteMutation.isPending}
+              >
+                <Trash2Icon className="size-3.5" />
+              </Button>
+            )}
+          </div>
+          <ChatEventContent>{renderProps.item.content}</ChatEventContent>
+        </ChatEventBody>
+      </ChatEvent>
+    );
+  };
+
+  const renderLoader = () => (
+    <div className="flex items-center gap-2">
+      <Loader2Icon className="size-4 animate-spin" />
+      <span className="text-muted-foreground text-sm">
+        {t("CHAT.LOADING_MESSAGES")}
+      </span>
+    </div>
   );
 
   return (

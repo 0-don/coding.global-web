@@ -32,27 +32,3 @@ export function ChatHeaderStart({
     </div>
   );
 }
-
-export function ChatHeaderMain({
-  children,
-  className,
-  ...props
-}: { children?: React.ReactNode } & React.ComponentProps<"div">) {
-  return (
-    <div className={cn("flex flex-1 items-center gap-2", className)} {...props}>
-      {children}
-    </div>
-  );
-}
-
-export function ChatHeaderEnd({
-  children,
-  className,
-  ...props
-}: { children?: React.ReactNode } & React.ComponentProps<"div">) {
-  return (
-    <div className={cn("flex items-center gap-2", className)} {...props}>
-      {children}
-    </div>
-  );
-}
