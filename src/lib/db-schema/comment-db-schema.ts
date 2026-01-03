@@ -1,11 +1,17 @@
 import { Type as t } from "@sinclair/typebox/type";
-import { pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  bigserial,
+  pgTable,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { createSelectSchema } from "drizzle-typebox";
 import { Elysia } from "elysia";
 import { users } from "./auth-db-schema";
 
 export const comment = pgTable("comment", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: bigserial("id", { mode: "number" }).primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),

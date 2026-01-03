@@ -32,7 +32,7 @@ import { useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
 
 interface ChatMessage {
-  id: string;
+  id: number;
   userId: string;
   content: string;
   createdAt: Date | null;
@@ -89,7 +89,7 @@ export function ChatRoom() {
 
   const getItemKey = (item: ChatMessage) => item.id;
 
-  const handleDeleteMessage = (messageId: string) => {
+  const handleDeleteMessage = (messageId: number) => {
     chatDeleteMutation.mutate(messageId);
   };
 
@@ -124,6 +124,10 @@ export function ChatRoom() {
                     "DD.MM.YYYY HH:mm:ss",
                   )
                 : ""}
+              {" • "}
+              <span className="text-muted-foreground/50 text-xs font-mono">
+                {renderProps.item.id}
+              </span>
             </ChatEventDescription>
             {isOwnMessage && (
               <Button

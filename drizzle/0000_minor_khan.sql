@@ -16,7 +16,7 @@ CREATE TABLE "account" (
 );
 --> statement-breakpoint
 CREATE TABLE "comment" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"id" bigserial PRIMARY KEY NOT NULL,
 	"userId" text NOT NULL,
 	"content" varchar(4096) NOT NULL,
 	"createdAt" timestamp DEFAULT now()

@@ -71,7 +71,7 @@ export function useChatDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) =>
+    mutationFn: async (id: number) =>
       handleElysia(await rpc.api.chat({ id }).delete()),
     onSuccess: (deletedComment) => {
       queryClient.setQueryData(

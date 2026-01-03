@@ -57,7 +57,7 @@ export default function RootLayout(props: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}
       >
-        <Toaster />
+        <Toaster richColors />
         <Providers>{props.children}</Providers>
       </body>
     </html>
