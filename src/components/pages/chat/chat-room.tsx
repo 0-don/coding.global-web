@@ -173,8 +173,6 @@ export function ChatRoom() {
         fetchNextPage={chatsQuery.fetchNextPage}
         renderItem={renderItem}
         renderLoader={renderLoader}
-        estimateSize={80}
-        overscan={10}
         className="py-2"
       />
 
