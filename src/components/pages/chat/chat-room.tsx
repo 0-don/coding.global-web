@@ -12,10 +12,7 @@ import {
   ChatEventTitle,
 } from "@/components/ui/chat/chat-event";
 import { ChatHeader, ChatHeaderStart } from "@/components/ui/chat/chat-header";
-import {
-  ChatMessagesVirtual,
-  ChatMessagesVirtualRef,
-} from "@/components/ui/chat/chat-messages-virtual";
+import { ChatMessagesVirtual } from "@/components/ui/chat/chat-messages-virtual";
 import {
   ChatToolbar,
   ChatToolbarSendButton,
@@ -50,7 +47,6 @@ export function ChatRoom() {
   const session = useSessionHook();
   const isLoggedIn = !!session?.data?.user.id;
 
-  const chatRef = useRef<ChatMessagesVirtualRef>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const chatsQuery = useChatsInfiniteQuery();
@@ -201,7 +197,6 @@ export function ChatRoom() {
       </ChatHeader>
 
       <ChatMessagesVirtual
-        ref={chatRef}
         items={allMessages}
         getItemKey={getItemKey}
         hasNextPage={chatsQuery.hasNextPage}
