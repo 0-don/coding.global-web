@@ -17,7 +17,6 @@ export const chatRoute = new Elysia({ prefix: "/chat" })
     async ({ query }) => {
       const { email, ...user } = getTableColumns(users);
 
-      // Fetch newest messages first, then reverse to get oldest-first order for display
       const messages = await db
         .select({ ...getTableColumns(comment), user: user })
         .from(comment)
@@ -29,8 +28,6 @@ export const chatRoute = new Elysia({ prefix: "/chat" })
         )
         .orderBy(desc(comment.createdAt))
         .limit(query.limit || PAGEABLE_LIMIT);
-
-      // Reverse to oldest-first order (top to bottom display)
       return messages.reverse();
     },
     { query: t.Optional(pageable) },
