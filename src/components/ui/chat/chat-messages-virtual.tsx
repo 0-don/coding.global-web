@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/refs */
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -9,8 +8,8 @@ import { Virtualizer, type VirtualizerHandle } from "virtua";
 
 interface ChatMessagesVirtualProps<T> {
   items: T[];
-  getItemKey: (item: T, index: number) => string;
-  renderItem: (props: {
+  itemKey: keyof T;
+  children: (props: {
     item: T;
     index: number;
     previousItem: T | null;
@@ -18,8 +17,6 @@ interface ChatMessagesVirtualProps<T> {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   fetchNextPage?: () => void;
-  className?: string;
-  ref?: React.RefObject<VirtualizerHandle>;
 }
 
 export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
@@ -31,12 +28,14 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    const ref = props.ref ?? virtualRef;
     const length = props.items.length;
 
     if (isInitialMount.current && length > 0) {
       requestAnimationFrame(() => {
-        ref.current?.scrollToIndex(length - 1, { align: "end", smooth: false });
+        virtualRef.current?.scrollToIndex(length - 1, {
+          align: "end",
+          smooth: false,
+        });
         isInitialMount.current = false;
       });
       return;
@@ -49,12 +48,12 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
         : Infinity;
 
       if (distanceFromBottom < 100) {
-        ref.current?.scrollToIndex(length - 1, { align: "end" });
+        virtualRef.current?.scrollToIndex(length - 1, { align: "end" });
       }
     }
 
     prevLengthRef.current = length;
-  }, [props.items.length, props.ref]);
+  }, [props.items.length]);
 
   const handleScroll = (offset: number) => {
     if (offset < 200 && props.hasNextPage && !props.isFetchingNextPage) {
@@ -67,10 +66,7 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   };
 
   return (
-    <div
-      ref={scrollRef}
-      className={cn("flex-1 overflow-auto", props.className)}
-    >
+    <div ref={scrollRef} className={cn("flex-1 overflow-auto")}>
       {props.isFetchingNextPage && (
         <div className="flex items-center justify-center gap-2 py-4">
           <Loader2Icon className="size-4 animate-spin" />
@@ -86,8 +82,8 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
         onScroll={handleScroll}
       >
         {props.items.map((item, index) => (
-          <div key={props.getItemKey(item, index)}>
-            {props.renderItem({
+          <div key={String(item[props.itemKey])}>
+            {props.children({
               item,
               index,
               previousItem: props.items[index - 1] ?? null,

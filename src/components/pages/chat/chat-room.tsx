@@ -31,22 +31,6 @@ import { useTranslations } from "next-intl";
 import { useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
 
-interface ChatMessage {
-  id: number;
-  userId: string;
-  content: string;
-  createdAt: Date | null;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-    discordId: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-    emailVerified: boolean;
-  } | null;
-}
-
 export function ChatRoom() {
   const t = useTranslations();
   const session = useSessionHook();
@@ -90,64 +74,8 @@ export function ChatRoom() {
     }
   };
 
-  const getItemKey = (item: ChatMessage) => String(item.id);
-
   const handleDeleteMessage = (messageId: number) => {
     chatDeleteMutation.mutate(messageId);
-  };
-
-  const renderItem = (renderProps: {
-    item: ChatMessage;
-    index: number;
-    previousItem: ChatMessage | null;
-  }) => {
-    const isOwnMessage = renderProps.item.userId === session?.data?.user.id;
-
-    return (
-      <ChatEvent className="group hover:bg-accent/50 py-2">
-        <ChatEventAddon>
-          <Avatar className="mx-auto size-8 @md/chat:size-10">
-            <AvatarImage
-              src={renderProps.item.user?.image ?? undefined}
-              alt={renderProps.item.user?.name}
-            />
-            <AvatarFallback>
-              {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ?? "??"}
-            </AvatarFallback>
-          </Avatar>
-        </ChatEventAddon>
-        <ChatEventBody>
-          <div className="flex items-baseline gap-2">
-            <ChatEventTitle>
-              {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-            </ChatEventTitle>
-            <ChatEventDescription>
-              {renderProps.item.createdAt
-                ? dayjs(renderProps.item.createdAt).format(
-                    "DD.MM.YYYY HH:mm:ss",
-                  )
-                : ""}
-              {" • "}
-              <span className="text-muted-foreground/50 font-mono text-xs">
-                {renderProps.item.id}
-              </span>
-            </ChatEventDescription>
-            {isOwnMessage && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
-                onClick={() => handleDeleteMessage(renderProps.item.id)}
-                disabled={chatDeleteMutation.isPending}
-              >
-                <Trash2Icon className="size-3.5" />
-              </Button>
-            )}
-          </div>
-          <ChatEventContent>{renderProps.item.content}</ChatEventContent>
-        </ChatEventBody>
-      </ChatEvent>
-    );
   };
 
   return (
@@ -160,13 +88,64 @@ export function ChatRoom() {
       </ChatHeader>
 
       <ChatMessagesVirtual
+        itemKey="id"
         items={allMessages}
-        getItemKey={getItemKey}
         hasNextPage={chatsQuery.hasNextPage}
         isFetchingNextPage={chatsQuery.isFetchingNextPage}
         fetchNextPage={chatsQuery.fetchNextPage}
-        renderItem={renderItem}
-      />
+      >
+        {(renderProps) => {
+          const isOwnMessage =
+            renderProps.item.userId === session?.data?.user.id;
+
+          return (
+            <ChatEvent className="group hover:bg-accent/50 py-2">
+              <ChatEventAddon>
+                <Avatar className="mx-auto size-8 @md/chat:size-10">
+                  <AvatarImage
+                    src={renderProps.item.user?.image ?? undefined}
+                    alt={renderProps.item.user?.name}
+                  />
+                  <AvatarFallback>
+                    {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
+                      "??"}
+                  </AvatarFallback>
+                </Avatar>
+              </ChatEventAddon>
+              <ChatEventBody>
+                <div className="flex items-baseline gap-2">
+                  <ChatEventTitle>
+                    {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+                  </ChatEventTitle>
+                  <ChatEventDescription>
+                    {renderProps.item.createdAt
+                      ? dayjs(renderProps.item.createdAt).format(
+                          "DD.MM.YYYY HH:mm:ss",
+                        )
+                      : ""}
+                    {" • "}
+                    <span className="text-muted-foreground/50 font-mono text-xs">
+                      {renderProps.item.id}
+                    </span>
+                  </ChatEventDescription>
+                  {isOwnMessage && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={() => handleDeleteMessage(renderProps.item.id)}
+                      disabled={chatDeleteMutation.isPending}
+                    >
+                      <Trash2Icon className="size-3.5" />
+                    </Button>
+                  )}
+                </div>
+                <ChatEventContent>{renderProps.item.content}</ChatEventContent>
+              </ChatEventBody>
+            </ChatEvent>
+          );
+        }}
+      </ChatMessagesVirtual>
 
       {isLoggedIn ? (
         <ChatToolbar>
