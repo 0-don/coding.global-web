@@ -17,7 +17,7 @@ interface ChatMessagesVirtualRenderProps<T> {
 
 interface ChatMessagesVirtualProps<T> {
   items: T[]; // Newest-first order
-  getItemKey: (item: T, index: number) => string;
+  getItemKey: (item: T, index: number) => number;
   renderItem: (props: ChatMessagesVirtualRenderProps<T>) => ReactNode;
   estimateSize?: number;
   overscan?: number;
@@ -66,7 +66,9 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
       atBottomRef.current = el.scrollTop < 50;
 
       // Fetch more when viewing old messages (high index in newest-first array)
-      const lastVisible = virtualItems[virtualItems.length - 1];
+      // Get fresh virtualItems to avoid stale closure
+      const currentVirtualItems = virtualizer.getVirtualItems();
+      const lastVisible = currentVirtualItems[currentVirtualItems.length - 1];
       if (!lastVisible) return;
 
       const now = Date.now();
@@ -93,7 +95,7 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("wheel", onWheel);
     };
-  }, [virtualItems, restProps.items.length, restProps.hasNextPage, restProps.isFetchingNextPage, restProps.fetchNextPage]);
+  }, [virtualizer, restProps.items.length, restProps.hasNextPage, restProps.isFetchingNextPage, restProps.fetchNextPage]);
 
 
   return (
