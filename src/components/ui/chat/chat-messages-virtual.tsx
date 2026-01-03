@@ -46,9 +46,9 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
     getScrollElement: () => scrollRef.current,
     estimateSize: () => restProps.estimateSize ?? 80,
     overscan: restProps.overscan ?? 5,
+    // React 19 compatibility: prevent flushSync during render
+    isScrollingResetDelay: 0,
   });
-
-  const virtualItems = virtualizer.getVirtualItems();
 
   useImperativeHandle(ref, () => ({
     scrollToBottom: (behavior: "smooth" | "auto" = "smooth") => {
@@ -111,7 +111,7 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
       )}
 
       <div style={{ height: virtualizer.getTotalSize(), width: "100%", position: "relative" }}>
-        {virtualItems.map((vItem) => {
+        {virtualizer.getVirtualItems().map((vItem) => {
           const item = restProps.items[vItem.index];
           if (!item) return null;
 
