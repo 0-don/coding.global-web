@@ -57,11 +57,8 @@ export function ChatRoom() {
   const chatAddMutation = useChatAddMutation();
 
   const allMessages = useMemo(() => {
-    // Pages are in reverse chronological order (newest page first, older pages later)
-    // Reverse pages so older messages come first, then flatten
-    const pages = chatsQuery.data?.pages ?? [];
-    const messages = [...pages].reverse().flatMap((page) => page) as ChatMessage[];
-    // Deduplicate messages by id to prevent duplicate key errors
+    // Pages are newest-first, just flatten and dedupe
+    const messages = (chatsQuery.data?.pages ?? []).flat() as ChatMessage[];
     const seen = new Set<string>();
     return messages.filter((msg) => {
       if (seen.has(msg.id)) return false;

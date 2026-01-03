@@ -29,8 +29,8 @@ export function useChatsInfiniteQuery() {
     },
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) => {
-      // Cursor for older messages: use the oldest message's createdAt (first item since array is chronological)
-      const oldestItem = lastPage[0];
+      // Cursor for older messages: last item is oldest in newest-first order
+      const oldestItem = lastPage[lastPage.length - 1];
       return oldestItem?.createdAt
         ? new Date(oldestItem.createdAt).toISOString()
         : null;
@@ -52,10 +52,10 @@ export function useChatAddMutation() {
           oldData: InfiniteData<Comments[]> | undefined,
         ): InfiniteData<Comments[]> | undefined => {
           if (!oldData?.pages) return oldData;
-          // Add new message to the end of the first page (chronological order: oldest→newest)
+          // Add new message to start of first page (newest-first order)
           const [firstPage = [], ...restPages] = oldData.pages;
           return {
-            pages: [[...firstPage, newComment], ...restPages],
+            pages: [[newComment, ...firstPage], ...restPages],
             pageParams: oldData.pageParams,
           };
         },
