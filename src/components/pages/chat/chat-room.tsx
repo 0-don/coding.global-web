@@ -125,7 +125,7 @@ export function ChatRoom() {
                   )
                 : ""}
               {" • "}
-              <span className="text-muted-foreground/50 text-xs font-mono">
+              <span className="text-muted-foreground/50 font-mono text-xs">
                 {renderProps.item.id}
               </span>
             </ChatEventDescription>
@@ -133,7 +133,7 @@ export function ChatRoom() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100 hover:text-primary"
+                className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
                 onClick={() => handleDeleteMessage(renderProps.item.id)}
                 disabled={chatDeleteMutation.isPending}
               >
