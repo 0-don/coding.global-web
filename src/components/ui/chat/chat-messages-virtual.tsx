@@ -43,19 +43,12 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   const atBottomRef = useRef(true);
   const lastFetchRef = useRef(0);
 
-  // Track previous items length to detect new messages
-  const prevCountRef = useRef(restProps.items.length);
-
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: restProps.items.length,
     getScrollElement: () => scrollRef.current,
     estimateSize: () => restProps.estimateSize ?? 80,
     overscan: restProps.overscan ?? 5,
-    measureElement:
-      typeof window !== "undefined" && navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element?.getBoundingClientRect().height ?? 0
-        : undefined,
   });
 
   const virtualItems = virtualizer.getVirtualItems();
@@ -66,19 +59,6 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
     },
     isAtBottom: () => atBottomRef.current,
   }));
-
-  // Handle new messages - remeasure and maintain scroll position
-  useEffect(() => {
-    const prevCount = prevCountRef.current;
-    const currentCount = restProps.items.length;
-
-    if (currentCount > prevCount) {
-      // New messages added, force remeasurement
-      virtualizer.measure();
-    }
-
-    prevCountRef.current = currentCount;
-  }, [restProps.items.length, virtualizer]);
 
   // Track scroll + invert wheel + infinite scroll
   useEffect(() => {

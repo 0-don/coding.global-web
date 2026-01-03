@@ -93,22 +93,6 @@ export function ChatRoom() {
     [handleSendMessage],
   );
 
-  const shouldGroup = useCallback(
-    (current: ChatMessage, previous: ChatMessage) => {
-      if (current.userId !== previous.userId) return false;
-
-      // Group messages within 5 minutes of each other
-      const currentTime = current.createdAt
-        ? new Date(current.createdAt).getTime()
-        : 0;
-      const previousTime = previous.createdAt
-        ? new Date(previous.createdAt).getTime()
-        : 0;
-      const timeDiff = Math.abs(currentTime - previousTime);
-      return timeDiff < 5 * 60 * 1000;
-    },
-    [],
-  );
 
   const getItemKey = useCallback((item: ChatMessage) => item.id, []);
 
@@ -119,54 +103,34 @@ export function ChatRoom() {
       isFirstInGroup: boolean;
       previousItem: ChatMessage | null;
     }) => {
-      if (renderProps.isFirstInGroup) {
-        return (
-          <ChatEvent className="hover:bg-accent/50 mt-4">
-            <ChatEventAddon>
-              <Avatar className="mx-auto size-8 @md/chat:size-10">
-                <AvatarImage
-                  src={renderProps.item.user?.image ?? undefined}
-                  alt={renderProps.item.user?.name}
-                />
-                <AvatarFallback>
-                  {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
-                    "??"}
-                </AvatarFallback>
-              </Avatar>
-            </ChatEventAddon>
-            <ChatEventBody>
-              <div className="flex items-baseline gap-2">
-                <ChatEventTitle>
-                  {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-                </ChatEventTitle>
-                <ChatEventDescription>
-                  {renderProps.item.createdAt
-                    ? new Intl.DateTimeFormat("en-US", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      }).format(new Date(renderProps.item.createdAt))
-                    : ""}
-                </ChatEventDescription>
-              </div>
-              <ChatEventContent>{renderProps.item.content}</ChatEventContent>
-            </ChatEventBody>
-          </ChatEvent>
-        );
-      }
-
-      // Additional message (same user, within time window)
       return (
-        <ChatEvent className="group hover:bg-accent/50">
+        <ChatEvent className="hover:bg-accent/50 py-2">
           <ChatEventAddon>
-            <ChatEventDescription className="invisible text-right text-[8px] group-hover:visible @md/chat:text-[10px]">
-              {renderProps.item.createdAt
-                ? new Intl.DateTimeFormat("en-US", {
-                    timeStyle: "short",
-                  }).format(new Date(renderProps.item.createdAt))
-                : ""}
-            </ChatEventDescription>
+            <Avatar className="mx-auto size-8 @md/chat:size-10">
+              <AvatarImage
+                src={renderProps.item.user?.image ?? undefined}
+                alt={renderProps.item.user?.name}
+              />
+              <AvatarFallback>
+                {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
+                  "??"}
+              </AvatarFallback>
+            </Avatar>
           </ChatEventAddon>
           <ChatEventBody>
+            <div className="flex items-baseline gap-2">
+              <ChatEventTitle>
+                {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+              </ChatEventTitle>
+              <ChatEventDescription>
+                {renderProps.item.createdAt
+                  ? new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    }).format(new Date(renderProps.item.createdAt))
+                  : ""}
+              </ChatEventDescription>
+            </div>
             <ChatEventContent>{renderProps.item.content}</ChatEventContent>
           </ChatEventBody>
         </ChatEvent>
@@ -202,7 +166,6 @@ export function ChatRoom() {
         hasNextPage={chatsQuery.hasNextPage}
         isFetchingNextPage={chatsQuery.isFetchingNextPage}
         fetchNextPage={chatsQuery.fetchNextPage}
-        shouldGroup={shouldGroup}
         renderItem={renderItem}
         renderLoader={renderLoader}
         estimateSize={80}
