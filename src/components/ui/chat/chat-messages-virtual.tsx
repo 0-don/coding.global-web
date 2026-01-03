@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
-  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -13,7 +12,6 @@ import {
 interface ChatMessagesVirtualRenderProps<T> {
   item: T;
   index: number;
-  isFirstInGroup: boolean;
   previousItem: T | null;
 }
 
@@ -26,7 +24,6 @@ interface ChatMessagesVirtualProps<T> {
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
   fetchNextPage?: () => void;
-  shouldGroup?: (current: T, previous: T) => boolean;
   className?: string;
   renderLoader?: () => ReactNode;
   ref?: React.RefObject<ChatMessagesVirtualRef>;
@@ -98,14 +95,6 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
     };
   }, [virtualItems, restProps.items.length, restProps.hasNextPage, restProps.isFetchingNextPage, restProps.fetchNextPage]);
 
-  // In newest-first: index+1 is the older (previous) message
-  const isFirstInGroup = useCallback(
-    (index: number): boolean => {
-      if (index + 1 >= restProps.items.length || !restProps.shouldGroup) return true;
-      return !restProps.shouldGroup(restProps.items[index], restProps.items[index + 1]);
-    },
-    [restProps.items, restProps.shouldGroup],
-  );
 
   return (
     <div
@@ -140,7 +129,6 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
               {restProps.renderItem({
                 item,
                 index: vItem.index,
-                isFirstInGroup: isFirstInGroup(vItem.index),
                 previousItem: restProps.items[vItem.index + 1] ?? null,
               })}
             </div>

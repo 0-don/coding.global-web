@@ -73,14 +73,25 @@ export function useChatDeleteMutation() {
   return useMutation({
     mutationFn: async (id: string) =>
       handleElysia(await rpc.api.chat({ id }).delete()),
-    onSuccess: (c) => {
-      queryClient.setQueryData<Comments[]>(
+    onSuccess: (deletedComment) => {
+      queryClient.setQueryData(
         queryKeys.chats(),
-        (oldQueryData = []) =>
-          oldQueryData.filter((comment) => comment.id !== c?.id),
+        (
+          oldData: InfiniteData<Comments[]> | undefined,
+        ): InfiniteData<Comments[]> | undefined => {
+          if (!oldData?.pages) return oldData;
+          // Remove the deleted message from all pages
+          return {
+            pages: oldData.pages.map((page) =>
+              page.filter((comment) => comment.id !== deletedComment?.id),
+            ),
+            pageParams: oldData.pageParams,
+          };
+        },
       );
       toast.error(t("CHAT.INFO.COMMENT_DELETED"));
     },
     onError: (e) => handleError(e, t),
   });
 }
+

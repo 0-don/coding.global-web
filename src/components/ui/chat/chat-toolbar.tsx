@@ -29,26 +29,6 @@ export function ChatToolbar({
   );
 }
 
-export function ChatToolbarAddonStart({
-  children,
-  className,
-  ...props
-}: {
-  children?: React.ReactNode;
-} & React.ComponentProps<"div">) {
-  return (
-    <div
-      className={cn(
-        "col-start-1 row-start-1 flex h-10 items-center gap-1.5",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
-
 export function ChatToolbarTextarea({
   className,
   ...props
@@ -65,26 +45,6 @@ export function ChatToolbarTextarea({
       rows={1}
       {...props}
     />
-  );
-}
-
-export function ChatToolbarAddonEnd({
-  children,
-  className,
-  ...props
-}: {
-  children?: React.ReactNode;
-} & React.ComponentProps<"div">) {
-  return (
-    <div
-      className={cn(
-        "col-start-3 row-start-1 flex h-10 items-center gap-1 @md/chat:gap-1.5",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </div>
   );
 }
 
