@@ -89,57 +89,41 @@ export function ChatRoom() {
           const isOwnMessage =
             renderProps.item.userId === session?.data?.user.id;
 
-          const isSameUser =
-            renderProps.previousItem?.userId === renderProps.item.userId;
-          const timeDiff =
-            renderProps.previousItem?.createdAt && renderProps.item.createdAt
-              ? dayjs(renderProps.item.createdAt).diff(
-                  dayjs(renderProps.previousItem.createdAt),
-                  "minute",
-                )
-              : Infinity;
-          const isGrouped = isSameUser && timeDiff < 5;
-
           return (
-            <ChatEvent className="group hover:bg-accent/50 py-0.5">
+            <ChatEvent className="group hover:bg-accent/50 py-2">
               <ChatEventAddon>
-                {!isGrouped && (
-                  <Avatar className="mx-auto size-8 @md/chat:size-10">
-                    <AvatarImage
-                      src={renderProps.item.user?.image ?? undefined}
-                      alt={renderProps.item.user?.name}
-                    />
-                    <AvatarFallback>
-                      {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
-                        "??"}
-                    </AvatarFallback>
-                  </Avatar>
-                )}
+                <Avatar className="mx-auto size-8 @md/chat:size-10">
+                  <AvatarImage
+                    src={renderProps.item.user?.image ?? undefined}
+                    alt={renderProps.item.user?.name}
+                  />
+                  <AvatarFallback>
+                    {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
+                      "??"}
+                  </AvatarFallback>
+                </Avatar>
               </ChatEventAddon>
               <ChatEventBody>
-                {!isGrouped && (
-                  <div className="flex items-baseline gap-2">
-                    <ChatEventTitle>
-                      {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-                    </ChatEventTitle>
-                    <ChatEventDescription>
-                      {renderProps.item.createdAt
-                        ? dayjs(renderProps.item.createdAt).format(
-                            "DD.MM.YYYY HH:mm:ss",
-                          )
-                        : ""}
-                    </ChatEventDescription>
-                  </div>
-                )}
-                <div className="group/message flex items-start gap-2">
-                  <ChatEventContent className="flex-1">
-                    {renderProps.item.content}
-                  </ChatEventContent>
+                <div className="flex items-baseline gap-2">
+                  <ChatEventTitle>
+                    {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+                  </ChatEventTitle>
+                  <ChatEventDescription>
+                    {renderProps.item.createdAt
+                      ? dayjs(renderProps.item.createdAt).format(
+                          "DD.MM.YYYY HH:mm:ss",
+                        )
+                      : ""}
+                    {" • "}
+                    <span className="text-muted-foreground/50 font-mono text-xs">
+                      {renderProps.item.id}
+                    </span>
+                  </ChatEventDescription>
                   {isOwnMessage && (
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="hover:text-primary size-6 shrink-0 opacity-0 transition-opacity group-hover/message:opacity-100"
+                      className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
                       onClick={() =>
                         chatDeleteMutation.mutate(renderProps.item.id)
                       }
@@ -149,6 +133,7 @@ export function ChatRoom() {
                     </Button>
                   )}
                 </div>
+                <ChatEventContent>{renderProps.item.content}</ChatEventContent>
               </ChatEventBody>
             </ChatEvent>
           );
