@@ -56,9 +56,9 @@ export function ChatMessagesVirtual<T>(props: ChatMessagesVirtualProps<T>) {
   }, [props.items.length]);
 
   const handleScroll = (offset: number) => {
-    if (offset < 200 && props.hasNextPage && !props.isFetchingNextPage) {
+    if (offset < 300 && props.hasNextPage && !props.isFetchingNextPage) {
       const now = Date.now();
-      if (now - lastFetchRef.current > 1000) {
+      if (now - lastFetchRef.current > 300) {
         lastFetchRef.current = now;
         props.fetchNextPage?.();
       }
