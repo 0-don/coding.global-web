@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
 import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { IoDiamondSharp } from "react-icons/io5";
 import { toast } from "sonner";
 import {
@@ -65,7 +65,6 @@ export function DiscordUser(props: DiscordUserProps) {
     }
   };
 
-
   const rowTrigger = (
     <div
       className={cn(
@@ -91,10 +90,7 @@ export function DiscordUser(props: DiscordUserProps) {
 
       <div className="relative z-10">
         <Avatar className="h-8 w-8">
-          <AvatarImage
-            src={props.user.avatarUrl}
-            alt={props.user.username}
-          />
+          <AvatarImage src={props.user.avatarUrl} alt={props.user.username} />
           <AvatarFallback>
             {props.user.username.charAt(0).toUpperCase()}
           </AvatarFallback>
@@ -135,9 +131,7 @@ export function DiscordUser(props: DiscordUserProps) {
 
         {props.user.roles?.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1 text-xs">
-            <RoleBadgeIcon
-              role={props.user.roles?.[0]?.name as StaffRole}
-            />
+            <RoleBadgeIcon role={props.user.roles?.[0]?.name as StaffRole} />
           </div>
         )}
       </div>
@@ -145,13 +139,15 @@ export function DiscordUser(props: DiscordUserProps) {
   );
 
   const cardTrigger = (
-    <Card className={cn("group/user relative h-full cursor-pointer overflow-hidden pt-0 transition-all hover:shadow-lg", props.className)}>
+    <Card
+      className={cn(
+        "group/user relative h-full cursor-pointer overflow-hidden pt-0 transition-all hover:shadow-lg",
+        props.className,
+      )}
+    >
       {/* Banner with diagonal fade */}
       <div className="relative h-20 w-full overflow-hidden">
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={bannerStyle}
-        />
+        <div className="h-full w-full bg-cover bg-center" style={bannerStyle} />
         {props.user.bannerUrl && (
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -170,10 +166,7 @@ export function DiscordUser(props: DiscordUserProps) {
       <CardHeader className="-mt-10 pb-2">
         <div className="relative w-fit">
           <Avatar className="border-card h-16 w-16 border-4">
-            <AvatarImage
-              src={props.user.avatarUrl}
-              alt={props.user.username}
-            />
+            <AvatarImage src={props.user.avatarUrl} alt={props.user.username} />
             <AvatarFallback>
               {props.user.username.charAt(0).toUpperCase()}
             </AvatarFallback>
@@ -190,10 +183,12 @@ export function DiscordUser(props: DiscordUserProps) {
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
             <h3 className="truncate text-base font-semibold group-hover/user:underline">
-              {props.user.displayName || props.user.globalName || props.user.username}
+              {props.user.displayName ||
+                props.user.globalName ||
+                props.user.username}
             </h3>
             {isCurrentUser && (
-              <Badge className="h-4 text-[10px] shrink-0">
+              <Badge className="h-4 shrink-0 text-[10px]">
                 {t("DISCORD_WIDGET.USER_CARD.YOU")}
               </Badge>
             )}

@@ -20,7 +20,7 @@ import { GiMusicalNotes } from "react-icons/gi";
 import { IoMdMail } from "react-icons/io";
 import { MdOutlineDiamond, MdShield } from "react-icons/md";
 import { RiScissorsCutFill } from "react-icons/ri";
-import { TbCircleFilled, TbCodeDots, TbCopy } from "react-icons/tb";
+import { TbCodeDots, TbCopy } from "react-icons/tb";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -90,7 +90,7 @@ export const STAFF_ROLES: StaffRoleData[] = [
   {
     role: StaffRole.ADMIN,
     color: "text-red-500",
-    Icon: TbCircleFilled,
+    Icon: MdShield,
   },
   {
     role: StaffRole.HELPER,
