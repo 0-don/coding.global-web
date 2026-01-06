@@ -4,8 +4,8 @@ import { motion, useInView } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import { useRef, useEffect, useState } from "react";
-import { Users, Wifi, Code2, MessageSquare } from "lucide-react";
-import { useDiscordWidget } from "@/hook/bot-hook";
+import { Users, Wifi, MessageSquare, Mic } from "lucide-react";
+import { useDiscordWidget, useTopStatsQuery } from "@/hook/bot-hook";
 
 function AnimatedCounter(props: { value: number; inView: boolean }) {
   const [count, setCount] = useState(0);
@@ -67,6 +67,7 @@ export function StatsSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const { data: widget } = useDiscordWidget();
+  const { data: topStats } = useTopStatsQuery();
 
   const stats = [
     {
@@ -80,14 +81,14 @@ export function StatsSection() {
       label: t("HOME.STATS_ONLINE"),
     },
     {
-      icon: <Code2 className="h-8 w-8" />,
-      value: 18,
-      label: t("HOME.STATS_LANGUAGES"),
+      icon: <MessageSquare className="h-8 w-8" />,
+      value: topStats?.totalMessages ?? 0,
+      label: t("HOME.STATS_MESSAGES"),
     },
     {
-      icon: <MessageSquare className="h-8 w-8" />,
-      value: 18,
-      label: t("HOME.STATS_BOARDS"),
+      icon: <Mic className="h-8 w-8" />,
+      value: topStats?.totalVoiceHours ?? 0,
+      label: t("HOME.STATS_VOICE_HOURS"),
     },
   ];
 

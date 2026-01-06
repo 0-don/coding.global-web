@@ -489,27 +489,394 @@ export type GetApiByGuildIdTopStatsParams = {
   days?: number;
 };
 
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemId =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemUsername =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemGlobalName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemNickname =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemDisplayName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemAvatarUrl =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemBannerUrl =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemAccentColor =
+  | number
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemDisplayHexColor =
+  string | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemFlags =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemCollectibles =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemPrimaryGuild =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemRolesAnyOfItem =
+  {
+    name: string;
+    position: number;
+  };
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemRoles =
+  | GetApiByGuildIdTopStats200MostActiveMessageUsersItemRolesAnyOfItem[]
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemHighestRolePosition =
+  number | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemStatus =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemActivity =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemPresenceUpdatedAt =
+  string | null | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemPremiumSince =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemCommunicationDisabledUntil =
+  string | null | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemJoinedAt =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemCreatedAt =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItemUpdatedAt =
+  | string
+  | null
+  | unknown;
+
 export type GetApiByGuildIdTopStats200MostActiveMessageUsersItem = {
   count: number;
-  memberId: string;
-  username: string;
+  id?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemId;
+  username?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemUsername;
+  globalName?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemGlobalName;
+  nickname?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemNickname;
+  displayName?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemDisplayName;
+  avatarUrl?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemAvatarUrl;
+  bannerUrl?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemBannerUrl;
+  accentColor?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemAccentColor;
+  displayHexColor?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemDisplayHexColor;
+  flags?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemFlags;
+  collectibles?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemCollectibles;
+  primaryGuild?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemPrimaryGuild;
+  roles?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemRoles;
+  highestRolePosition?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemHighestRolePosition;
+  status?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemStatus;
+  activity?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemActivity;
+  presenceUpdatedAt?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemPresenceUpdatedAt;
+  premiumSince?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemPremiumSince;
+  communicationDisabledUntil?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemCommunicationDisabledUntil;
+  joinedAt?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemJoinedAt;
+  createdAt?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemCreatedAt;
+  updatedAt?: GetApiByGuildIdTopStats200MostActiveMessageUsersItemUpdatedAt;
 };
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemId = string | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemUsername =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemGlobalName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemNickname =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemDisplayName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemAvatarUrl =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemBannerUrl =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemAccentColor =
+  | number
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemDisplayHexColor =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemFlags =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemCollectibles =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemPrimaryGuild =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemRolesAnyOfItem = {
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemRoles =
+  | GetApiByGuildIdTopStats200MostHelpfulUsersItemRolesAnyOfItem[]
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemHighestRolePosition =
+  | number
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemStatus =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemActivity =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemPresenceUpdatedAt =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemPremiumSince =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemCommunicationDisabledUntil =
+  string | null | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemJoinedAt =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemCreatedAt =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItemUpdatedAt =
+  | string
+  | null
+  | unknown;
 
 export type GetApiByGuildIdTopStats200MostHelpfulUsersItem = {
   count: number;
-  memberId: string;
-  username: string;
+  id?: GetApiByGuildIdTopStats200MostHelpfulUsersItemId;
+  username?: GetApiByGuildIdTopStats200MostHelpfulUsersItemUsername;
+  globalName?: GetApiByGuildIdTopStats200MostHelpfulUsersItemGlobalName;
+  nickname?: GetApiByGuildIdTopStats200MostHelpfulUsersItemNickname;
+  displayName?: GetApiByGuildIdTopStats200MostHelpfulUsersItemDisplayName;
+  avatarUrl?: GetApiByGuildIdTopStats200MostHelpfulUsersItemAvatarUrl;
+  bannerUrl?: GetApiByGuildIdTopStats200MostHelpfulUsersItemBannerUrl;
+  accentColor?: GetApiByGuildIdTopStats200MostHelpfulUsersItemAccentColor;
+  displayHexColor?: GetApiByGuildIdTopStats200MostHelpfulUsersItemDisplayHexColor;
+  flags?: GetApiByGuildIdTopStats200MostHelpfulUsersItemFlags;
+  collectibles?: GetApiByGuildIdTopStats200MostHelpfulUsersItemCollectibles;
+  primaryGuild?: GetApiByGuildIdTopStats200MostHelpfulUsersItemPrimaryGuild;
+  roles?: GetApiByGuildIdTopStats200MostHelpfulUsersItemRoles;
+  highestRolePosition?: GetApiByGuildIdTopStats200MostHelpfulUsersItemHighestRolePosition;
+  status?: GetApiByGuildIdTopStats200MostHelpfulUsersItemStatus;
+  activity?: GetApiByGuildIdTopStats200MostHelpfulUsersItemActivity;
+  presenceUpdatedAt?: GetApiByGuildIdTopStats200MostHelpfulUsersItemPresenceUpdatedAt;
+  premiumSince?: GetApiByGuildIdTopStats200MostHelpfulUsersItemPremiumSince;
+  communicationDisabledUntil?: GetApiByGuildIdTopStats200MostHelpfulUsersItemCommunicationDisabledUntil;
+  joinedAt?: GetApiByGuildIdTopStats200MostHelpfulUsersItemJoinedAt;
+  createdAt?: GetApiByGuildIdTopStats200MostHelpfulUsersItemCreatedAt;
+  updatedAt?: GetApiByGuildIdTopStats200MostHelpfulUsersItemUpdatedAt;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemId =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemUsername =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemGlobalName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemNickname =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemDisplayName =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemAvatarUrl =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemBannerUrl =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemAccentColor =
+  | number
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemDisplayHexColor =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemFlags =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCollectibles =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPrimaryGuild =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemRolesAnyOfItem = {
+  name: string;
+  position: number;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemRoles =
+  | GetApiByGuildIdTopStats200MostActiveVoiceUsersItemRolesAnyOfItem[]
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemHighestRolePosition =
+  number | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemStatus =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemActivity =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPresenceUpdatedAt =
+  string | null | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPremiumSince =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCommunicationDisabledUntil =
+  string | null | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemJoinedAt =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCreatedAt =
+  | string
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItemUpdatedAt =
+  | string
+  | null
+  | unknown;
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItem = {
+  sum: number;
+  id?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemId;
+  username?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemUsername;
+  globalName?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemGlobalName;
+  nickname?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemNickname;
+  displayName?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemDisplayName;
+  avatarUrl?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemAvatarUrl;
+  bannerUrl?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemBannerUrl;
+  accentColor?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemAccentColor;
+  displayHexColor?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemDisplayHexColor;
+  flags?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemFlags;
+  collectibles?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCollectibles;
+  primaryGuild?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPrimaryGuild;
+  roles?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemRoles;
+  highestRolePosition?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemHighestRolePosition;
+  status?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemStatus;
+  activity?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemActivity;
+  presenceUpdatedAt?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPresenceUpdatedAt;
+  premiumSince?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemPremiumSince;
+  communicationDisabledUntil?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCommunicationDisabledUntil;
+  joinedAt?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemJoinedAt;
+  createdAt?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemCreatedAt;
+  updatedAt?: GetApiByGuildIdTopStats200MostActiveVoiceUsersItemUpdatedAt;
 };
 
 export type GetApiByGuildIdTopStats200MostActiveMessageChannelsItem = {
   count: number;
   channelId: string;
-};
-
-export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItem = {
-  sum: number;
-  memberId: string;
-  username: string;
 };
 
 export type GetApiByGuildIdTopStats200MostActiveVoiceChannelsItem = {
@@ -520,9 +887,11 @@ export type GetApiByGuildIdTopStats200MostActiveVoiceChannelsItem = {
 export type GetApiByGuildIdTopStats200 = {
   mostActiveMessageUsers: GetApiByGuildIdTopStats200MostActiveMessageUsersItem[];
   mostHelpfulUsers: GetApiByGuildIdTopStats200MostHelpfulUsersItem[];
-  mostActiveMessageChannels: GetApiByGuildIdTopStats200MostActiveMessageChannelsItem[];
   mostActiveVoiceUsers: GetApiByGuildIdTopStats200MostActiveVoiceUsersItem[];
+  mostActiveMessageChannels: GetApiByGuildIdTopStats200MostActiveMessageChannelsItem[];
   mostActiveVoiceChannels: GetApiByGuildIdTopStats200MostActiveVoiceChannelsItem[];
+  totalMessages: number;
+  totalVoiceHours: number;
   lookback: number;
 };
 

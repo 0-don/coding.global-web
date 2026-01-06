@@ -2,22 +2,28 @@
 
 import { motion, useInView } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { useTopStatsQuery } from "@/hook/bot-hook";
 import { Heart, MessageSquare, Mic } from "lucide-react";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
+import {
+  GetApiByGuildIdTopStats200MostActiveMessageUsersItem,
+  GetApiByGuildIdTopStats200MostActiveVoiceUsersItem,
+  GetApiByGuildIdTopStats200MostHelpfulUsersItem,
+} from "@/openapi";
+
+type TopStatsUser =
+  | GetApiByGuildIdTopStats200MostActiveMessageUsersItem
+  | GetApiByGuildIdTopStats200MostHelpfulUsersItem
+  | GetApiByGuildIdTopStats200MostActiveVoiceUsersItem;
 
 interface ContributorCardProps {
   title: string;
   icon: React.ReactNode;
-  contributors: Array<{
-    memberId: string;
-    username: string;
-    value: number;
-  }>;
-  formatValue: (value: number) => string;
+  contributors: TopStatsUser[];
+  formatValue: (user: TopStatsUser) => string;
   index: number;
   inView: boolean;
   accentColor: string;
@@ -42,7 +48,7 @@ function ContributorCard(props: ContributorCardProps) {
         <CardContent className="space-y-3">
           {props.contributors.slice(0, 5).map((contributor, idx) => (
             <motion.div
-              key={contributor.memberId}
+              key={contributor.id as string}
               initial={{ opacity: 0, x: -20 }}
               animate={props.inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.3, delay: props.index * 0.15 + idx * 0.1 }}
@@ -51,20 +57,12 @@ function ContributorCard(props: ContributorCardProps) {
               <span className="text-muted-foreground w-4 text-sm font-medium">
                 {idx + 1}.
               </span>
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={`https://cdn.discordapp.com/avatars/${contributor.memberId}/${contributor.memberId}.webp`}
-                  alt={contributor.username}
-                />
-                <AvatarFallback>
-                  {contributor.username?.charAt(0)?.toUpperCase() ?? "?"}
-                </AvatarFallback>
-              </Avatar>
-              <span className="flex-1 truncate text-sm font-medium">
-                {contributor.username ?? "Unknown"}
-              </span>
+              <DiscordUser
+                className="flex-1"
+                user={contributor as Parameters<typeof DiscordUser>[0]["user"]}
+              />
               <Badge variant="secondary" className="text-xs">
-                {props.formatValue(contributor.value)}
+                {props.formatValue(contributor)}
               </Badge>
             </motion.div>
           ))}
@@ -87,34 +85,25 @@ export function TopContributors() {
     {
       title: t("HOME.CONTRIBUTORS_HELPERS"),
       icon: <Heart className="h-4 w-4 text-pink-500" />,
-      contributors: (stats?.mostHelpfulUsers ?? []).map((u) => ({
-        memberId: u.memberId,
-        username: u.username,
-        value: u.count,
-      })),
-      formatValue: (v: number) => t("HOME.CONTRIBUTORS_HELPERS_COUNT", { count: v }),
+      contributors: stats?.mostHelpfulUsers ?? [],
+      formatValue: (u: TopStatsUser) =>
+        t("HOME.CONTRIBUTORS_HELPERS_COUNT", { count: "count" in u ? u.count : 0 }),
       accentColor: "bg-pink-500/10",
     },
     {
       title: t("HOME.CONTRIBUTORS_MESSAGES"),
       icon: <MessageSquare className="h-4 w-4 text-blue-500" />,
-      contributors: (stats?.mostActiveMessageUsers ?? []).map((u) => ({
-        memberId: u.memberId,
-        username: u.username,
-        value: u.count,
-      })),
-      formatValue: (v: number) => t("HOME.CONTRIBUTORS_MESSAGES_COUNT", { count: v }),
+      contributors: stats?.mostActiveMessageUsers ?? [],
+      formatValue: (u: TopStatsUser) =>
+        t("HOME.CONTRIBUTORS_MESSAGES_COUNT", { count: "count" in u ? u.count : 0 }),
       accentColor: "bg-blue-500/10",
     },
     {
       title: t("HOME.CONTRIBUTORS_VOICE"),
       icon: <Mic className="h-4 w-4 text-green-500" />,
-      contributors: (stats?.mostActiveVoiceUsers ?? []).map((u) => ({
-        memberId: u.memberId,
-        username: u.username,
-        value: u.sum,
-      })),
-      formatValue: (v: number) => t("HOME.CONTRIBUTORS_VOICE_HOURS", { hours: v.toFixed(0) }),
+      contributors: stats?.mostActiveVoiceUsers ?? [],
+      formatValue: (u: TopStatsUser) =>
+        t("HOME.CONTRIBUTORS_VOICE_HOURS", { hours: ("sum" in u ? u.sum : 0).toFixed(0) }),
       accentColor: "bg-green-500/10",
     },
   ];
