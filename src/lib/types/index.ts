@@ -8,3 +8,8 @@ export type MarketplaceBoardType = Exclude<
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
   "showcase"
 >;
+
+export type ProgrammingBoardType = Exclude<
+  GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  "showcase" | "job-board" | "dev-board"
+>;
