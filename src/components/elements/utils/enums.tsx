@@ -11,6 +11,7 @@ import {
   FaLock,
   FaMicrophone,
   FaRocket,
+  FaShieldAlt,
   FaUserCheck,
   FaUsers,
   FaUserTie,
@@ -18,9 +19,8 @@ import {
 import { FaGem } from "react-icons/fa6";
 import { GiMusicalNotes } from "react-icons/gi";
 import { IoMdMail } from "react-icons/io";
-import { MdOutlineDiamond, MdShield } from "react-icons/md";
-import { RiScissorsCutFill } from "react-icons/ri";
-import { TbCodeDots, TbCopy } from "react-icons/tb";
+import { RiShieldFill, RiScissorsCutFill } from "react-icons/ri";
+import { TbCodeDots, TbCopy, TbDiamondFilled } from "react-icons/tb";
 
 export enum StaffRole {
   OWNER = "Owner",
@@ -85,12 +85,12 @@ export const STAFF_ROLES: StaffRoleData[] = [
   {
     role: StaffRole.MODERATOR,
     color: "text-amber-500",
-    Icon: MdShield,
+    Icon: FaShieldAlt,
   },
   {
     role: StaffRole.ADMIN,
     color: "text-red-500",
-    Icon: MdShield,
+    Icon: RiShieldFill,
   },
   {
     role: StaffRole.HELPER,
@@ -100,7 +100,7 @@ export const STAFF_ROLES: StaffRoleData[] = [
   {
     role: StaffRole.TECHLEAD,
     color: "text-cyan-500",
-    Icon: MdOutlineDiamond,
+    Icon: TbDiamondFilled,
   },
   {
     role: StaffRole.BOOSTER,
