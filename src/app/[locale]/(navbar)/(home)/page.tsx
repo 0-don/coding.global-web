@@ -1,6 +1,10 @@
 import { Home } from "@/components/pages/home/home";
 import { getPageMetadata } from "@/lib/config/metadata";
+import getQueryClient from "@/lib/react-query/client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { rpc } from "@/lib/rpc";
 import { serverLocale } from "@/lib/utils/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {
@@ -16,6 +20,31 @@ export async function generateMetadata(props: {
   });
 }
 
-export default function Main() {
-  return <Home />;
+export default async function Main() {
+  const queryClient = getQueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.discordWidget(),
+      queryFn: async () => {
+        const response = await rpc.api.bot.widget.get();
+        if (response.error) throw response.error;
+        return response.data;
+      },
+    }),
+    queryClient.prefetchQuery({
+      queryKey: queryKeys.topStats(),
+      queryFn: async () => {
+        const response = await rpc.api.bot["top-stats"].get();
+        if (response.error) throw response.error;
+        return response.data;
+      },
+    }),
+  ]);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Home />
+    </HydrationBoundary>
+  );
 }

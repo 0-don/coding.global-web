@@ -36,8 +36,8 @@
 
     "STATS_MEMBERS": "Total Members",
     "STATS_ONLINE": "Online Now",
-    "STATS_LANGUAGES": "Languages",
-    "STATS_BOARDS": "Coding Boards",
+    "STATS_MESSAGES": "Total Messages",
+    "STATS_VOICE_HOURS": "Voice Hours",
 
     "FEATURES_TITLE": "Everything You Need",
     "FEATURES_SUBTITLE": "All the tools and resources to accelerate your coding journey",

@@ -10,20 +10,11 @@ import Link from "next/link";
 
 function TerminalTypingEffect(props: { text: string }) {
   return (
-    <div className="flex items-center">
+    <div className="inline">
       <span className="mr-2 text-green-400">{">"}</span>
-      {props.text.split("").map((char, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.03, delay: i * 0.03 }}
-        >
-          {char}
-        </motion.span>
-      ))}
+      <span>{props.text}</span>
       <motion.span
-        className="ml-1"
+        className="ml-0.5"
         animate={{ opacity: [1, 0, 1] }}
         transition={{ duration: 0.8, repeat: Infinity }}
       >
