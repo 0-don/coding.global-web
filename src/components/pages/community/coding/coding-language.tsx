@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
@@ -10,7 +11,9 @@ interface CodingLanguageProps {
 }
 
 export function CodingLanguage(props: CodingLanguageProps) {
-  const { data: threads } = useBoardThreadsQuery(props.channel.boardType as BoardType);
+  const { data: threads } = useBoardThreadsQuery(
+    props.channel.boardType as BoardType,
+  );
 
   return (
     <BoardList
@@ -20,6 +23,7 @@ export function CodingLanguage(props: CodingLanguageProps) {
       showBoardBadge={false}
       boardType={props.channel.boardType as BoardType}
       getDetailHref={(thread) => ({
+        // @ts-ignore
         pathname: `/community/coding/${props.channel.slug}/[id]`,
         params: { id: thread.id },
       })}
