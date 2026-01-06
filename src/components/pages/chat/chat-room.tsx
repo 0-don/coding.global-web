@@ -27,6 +27,7 @@ import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import dayjs from "dayjs";
 import { HashIcon, Trash2Icon } from "lucide-react";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { useRef, type KeyboardEvent } from "react";
 import { FaDiscord } from "react-icons/fa";
@@ -70,7 +71,12 @@ export function ChatRoom() {
   };
 
   return (
-    <Chat className="h-[calc(100vh-10rem)] rounded-lg border">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Chat className="h-[calc(100vh-10rem)] rounded-lg border">
       <ChatHeader className="border-b">
         <ChatHeaderStart>
           <HashIcon className="text-muted-foreground size-5" />
@@ -176,5 +182,6 @@ export function ChatRoom() {
         </div>
       )}
     </Chat>
+    </motion.div>
   );
 }

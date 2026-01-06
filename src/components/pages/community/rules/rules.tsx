@@ -8,7 +8,9 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
+import { motion, useInView } from "motion/react";
 import { useTranslations } from "next-intl";
+import { useRef } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 type CategoryKey = "GENERAL" | "BEHAVIOR" | "AUTHORITY" | "CONTENT";
@@ -60,48 +62,65 @@ function RulesTerminalHeader(props: RulesTerminalHeaderProps) {
   const t = useTranslations();
 
   return (
-    <Card className="border-primary mb-6 font-mono text-sm">
-      <CardContent className="space-y-4">
-        <div className="flex items-center space-x-2">
-          <span className="bg-red-500 h-3 w-3 rounded-full"></span>
-          <span className="h-3 w-3 rounded-full bg-yellow-500"></span>
-          <span className="h-3 w-3 rounded-full bg-green-500"></span>
-        </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
+      <Card className="border-primary mb-6 font-mono text-sm">
+        <CardContent className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <span className="bg-red-500 h-3 w-3 rounded-full"></span>
+            <span className="h-3 w-3 rounded-full bg-yellow-500"></span>
+            <span className="h-3 w-3 rounded-full bg-green-500"></span>
+          </div>
 
-        <div className="flex flex-wrap items-center justify-center space-x-1">
-          <span className="text-green-400">{">"}</span>
-          <span className="ml-1">{t("RULES.TERMINAL.COMMAND")}</span>
-          <span className="text-primary font-bold">
-            {t("RULES.TERMINAL.FILENAME")}
-          </span>
-        </div>
+          <div className="flex flex-wrap items-center justify-center space-x-1">
+            <span className="text-green-400">{">"}</span>
+            <span className="ml-1">{t("RULES.TERMINAL.COMMAND")}</span>
+            <span className="text-primary font-bold">
+              {t("RULES.TERMINAL.FILENAME")}
+            </span>
+          </div>
 
-        <div className="animate-pulse text-center text-xs text-muted-foreground">
-          {t("RULES.TERMINAL.LOADED", { count: props.ruleCount })}
-        </div>
-      </CardContent>
-    </Card>
+          <div className="animate-pulse text-center text-xs text-muted-foreground">
+            {t("RULES.TERMINAL.LOADED", { count: props.ruleCount })}
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
 
 interface RuleCardProps {
   rule: { title: string; content: string };
   index: number;
+  animationIndex: number;
 }
 
 function RuleCard(props: RuleCardProps) {
   const t = useTranslations();
   const category = getRuleCategory(props.index);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <HoverCard>
-      <HoverCardTrigger>
-        <Card
-          className={cn(
-            "group h-full cursor-pointer overflow-hidden border-l-4 transition-all hover:shadow-lg",
-            category.borderColor
-          )}
-        >
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: props.animationIndex * 0.08 }}
+      whileHover={{ y: -8 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <HoverCard>
+        <HoverCardTrigger>
+          <Card
+            className={cn(
+              "group h-full cursor-pointer overflow-hidden border-l-4 transition-all hover:shadow-lg",
+              category.borderColor
+            )}
+          >
           <CardHeader className="pb-2">
             <div className="flex items-start justify-between gap-2">
               <Badge variant="default" className="font-mono shrink-0">
@@ -134,6 +153,7 @@ function RuleCard(props: RuleCardProps) {
         </div>
       </HoverCardContent>
     </HoverCard>
+    </motion.div>
   );
 }
 
@@ -192,19 +212,29 @@ export function Rules() {
   ];
 
   return (
-    <div className="container mx-auto px-4 md:px-6">
-      <div className="flex items-center justify-center gap-2 py-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="container mx-auto px-4 md:px-6"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="flex items-center justify-center gap-2 py-6"
+      >
         <FaQuestionCircle className="text-3xl" />
         <h1 className="text-3xl font-bold">{t("RULES.HEADING")}</h1>
-      </div>
+      </motion.div>
 
       <RulesTerminalHeader ruleCount={rules.length} />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {rules.map((rule, index) => (
-          <RuleCard key={rule.title} rule={rule} index={index + 1} />
+          <RuleCard key={rule.title} rule={rule} index={index + 1} animationIndex={index} />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
