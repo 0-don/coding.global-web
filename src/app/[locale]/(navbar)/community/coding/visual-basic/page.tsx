@@ -10,7 +10,6 @@ import { getCookieValue, serverLocale } from "@/lib/utils/server";
 import { ListItemState, getListItemStoreKey } from "@/store/list-item-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-import { HiOutlineCommandLine } from "react-icons/hi2";
 
 const BOARD_TYPE: ProgrammingBoardType = "visual-basic";
 
@@ -42,7 +41,7 @@ export default async function VisualBasicPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage boardType={BOARD_TYPE} icon={HiOutlineCommandLine} />
+        <CodingLanguage boardType={BOARD_TYPE} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );
