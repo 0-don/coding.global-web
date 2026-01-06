@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { TbSql } from "react-icons/tb";
 
 const BOARD_TYPE: ProgrammingBoardType = "sql";
-const SLUG = "sql";
-const DISPLAY_NAME = "SQL";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function SqlPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={TbSql}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={TbSql} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

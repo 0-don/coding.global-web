@@ -12,9 +12,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 import { SiHtml5 } from "react-icons/si";
 
-const BOARD_TYPE: ProgrammingBoardType = "html／css";
-const SLUG = "html-css";
-const DISPLAY_NAME = "HTML/CSS";
+const BOARD_TYPE: ProgrammingBoardType = "html-css";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function HtmlCssPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiHtml5}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiHtml5} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

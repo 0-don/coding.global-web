@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { HiOutlineCodeBracket } from "react-icons/hi2";
 
 const BOARD_TYPE: ProgrammingBoardType = "other";
-const SLUG = "other";
-const DISPLAY_NAME = "Other";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function OtherPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={HiOutlineCodeBracket}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={HiOutlineCodeBracket} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

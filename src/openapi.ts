@@ -492,13 +492,13 @@ export const GetApiByGuildIdBoardByBoardType200ItemBoardType = {
   "job-board": "job-board",
   "dev-board": "dev-board",
   showcase: "showcase",
-  "c++": "c++",
-  "c#": "c#",
+  cpp: "cpp",
+  csharp: "csharp",
   c: "c",
   dart: "dart",
   lua: "lua",
   go: "go",
-  "html／css": "html／css",
+  "html-css": "html-css",
   java: "java",
   javascript: "javascript",
   kotlin: "kotlin",
@@ -675,13 +675,13 @@ export const GetApiByGuildIdBoardByBoardTypeByThreadId200BoardType = {
   "job-board": "job-board",
   "dev-board": "dev-board",
   showcase: "showcase",
-  "c++": "c++",
-  "c#": "c#",
+  cpp: "cpp",
+  csharp: "csharp",
   c: "c",
   dart: "dart",
   lua: "lua",
   go: "go",
-  "html／css": "html／css",
+  "html-css": "html-css",
   java: "java",
   javascript: "javascript",
   kotlin: "kotlin",
@@ -1377,13 +1377,13 @@ export const getGetApiByGuildIdBoardByBoardTypeUrl = (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"
@@ -1406,13 +1406,13 @@ export const getApiByGuildIdBoardByBoardType = async (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"
@@ -1465,13 +1465,13 @@ export const getGetApiByGuildIdBoardByBoardTypeByThreadIdUrl = (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"
@@ -1495,13 +1495,13 @@ export const getApiByGuildIdBoardByBoardTypeByThreadId = async (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"
@@ -1559,13 +1559,13 @@ export const getGetApiByGuildIdBoardByBoardTypeByThreadIdMessagesUrl = (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"
@@ -1602,13 +1602,13 @@ export const getApiByGuildIdBoardByBoardTypeByThreadIdMessages = async (
     | "job-board"
     | "dev-board"
     | "showcase"
-    | "c++"
-    | "c#"
+    | "cpp"
+    | "csharp"
     | "c"
     | "dart"
     | "lua"
     | "go"
-    | "html／css"
+    | "html-css"
     | "java"
     | "javascript"
     | "kotlin"

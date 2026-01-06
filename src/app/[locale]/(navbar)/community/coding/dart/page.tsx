@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiDart } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "dart";
-const SLUG = "dart";
-const DISPLAY_NAME = "Dart";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function DartPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiDart}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiDart} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

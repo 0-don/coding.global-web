@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiPhp } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "php";
-const SLUG = "php";
-const DISPLAY_NAME = "PHP";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function PhpPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiPhp}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiPhp} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiPython } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "python";
-const SLUG = "python";
-const DISPLAY_NAME = "Python";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function PythonPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiPython}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiPython} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );
