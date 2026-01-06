@@ -1,18 +1,20 @@
 import { CodingLanguage } from "@/components/pages/community/coding/coding-language";
 import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
-import { LANGUAGE_CHANNELS } from "@/lib/config/language-channels";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
-import { BoardType } from "@/lib/types";
+import { ProgrammingBoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
 import { ListItemState, getListItemStoreKey } from "@/store/list-item-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
+import { HiOutlineCommandLine } from "react-icons/hi2";
 
-const CHANNEL = LANGUAGE_CHANNELS.find((c) => c.slug === "visual-basic")!;
+const BOARD_TYPE: ProgrammingBoardType = "visual-basic";
+const SLUG = "visual-basic";
+const DISPLAY_NAME = "Visual Basic";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -32,24 +34,22 @@ export default async function VisualBasicPage() {
 
   const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads(CHANNEL.boardType as BoardType),
+      queryKey: queryKeys.boardThreads(BOARD_TYPE),
       queryFn: async () =>
-        handleElysia(
-          await rpc.api.bot.board({ boardType: CHANNEL.boardType }).get(),
-        ),
+        handleElysia(await rpc.api.bot.board({ boardType: BOARD_TYPE }).get()),
     }),
-    getCookieValue<ListItemState>(
-      getListItemStoreKey(CHANNEL.boardType as BoardType),
-    ),
+    getCookieValue<ListItemState>(getListItemStoreKey(BOARD_TYPE)),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ListItemStoreProvider
-        boardType={CHANNEL.boardType as BoardType}
-        data={listItemStore}
-      >
-        <CodingLanguage channel={CHANNEL} />
+      <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
+        <CodingLanguage
+          boardType={BOARD_TYPE}
+          slug={SLUG}
+          displayName={DISPLAY_NAME}
+          icon={HiOutlineCommandLine}
+        />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

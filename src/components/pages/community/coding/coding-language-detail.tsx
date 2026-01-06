@@ -6,25 +6,21 @@ import {
   useBoardThreadMessagesInfiniteQuery,
   useBoardThreadQuery,
 } from "@/hook/bot-hook";
-import { LanguageChannel } from "@/lib/config/language-channels";
-import { BoardType } from "@/lib/types";
+import { ProgrammingBoardType } from "@/lib/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
 interface CodingLanguageDetailProps {
-  channel: LanguageChannel;
+  boardType: ProgrammingBoardType;
   threadId: string;
 }
 
 export function CodingLanguageDetail(props: CodingLanguageDetailProps) {
-  const boardThread = useBoardThreadQuery(
-    props.channel.boardType as BoardType,
-    props.threadId,
-  );
+  const boardThread = useBoardThreadQuery(props.boardType, props.threadId);
   const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    props.channel.boardType as BoardType,
+    props.boardType,
     props.threadId,
   );
 

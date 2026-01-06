@@ -3,28 +3,29 @@
 
 import { BoardList } from "@/components/elements/boards/board-list";
 import { useBoardThreadsQuery } from "@/hook/bot-hook";
-import { LanguageChannel } from "@/lib/config/language-channels";
-import { BoardType } from "@/lib/types";
+import { ProgrammingBoardType } from "@/lib/types";
+import { IconType } from "react-icons";
 
 interface CodingLanguageProps {
-  channel: LanguageChannel;
+  boardType: ProgrammingBoardType;
+  displayName: string;
+  slug: string;
+  icon: IconType;
 }
 
 export function CodingLanguage(props: CodingLanguageProps) {
-  const { data: threads } = useBoardThreadsQuery(
-    props.channel.boardType as BoardType,
-  );
+  const { data: threads } = useBoardThreadsQuery(props.boardType);
 
   return (
     <BoardList
       threads={threads ?? []}
-      title={`${props.channel.displayName}`}
-      icon={props.channel.icon}
+      title={props.displayName}
+      icon={props.icon}
       showBoardBadge={false}
-      boardType={props.channel.boardType as BoardType}
+      boardType={props.boardType}
       getDetailHref={(thread) => ({
         // @ts-ignore
-        pathname: `/community/coding/${props.channel.slug}/[id]`,
+        pathname: `/community/coding/${props.slug}/[id]`,
         params: { id: thread.id },
       })}
     />
