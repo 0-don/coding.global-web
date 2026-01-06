@@ -17,7 +17,7 @@ import { useMemo, useRef, useState } from "react";
 import { Virtualizer, type VirtualizerHandle } from "virtua";
 
 interface ThreadRepliesProps {
-  messages: GetApiByGuildIdBoardByBoardTypeByThreadId200MessagesItem[];
+  messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
   parentThread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
