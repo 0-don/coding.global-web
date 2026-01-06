@@ -7,6 +7,7 @@ import { BoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
 import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
+import { GetApiByGuildIdBoardByBoardType200ItemBoardType as ApiBoardType } from "@/openapi";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 const CHANNEL = LANGUAGE_CHANNELS.find((c) => c.slug === "bash-powershell")!;
@@ -18,7 +19,7 @@ export async function generateMetadata(props: {
     props.params,
     serverLocale(props),
   ]);
-  const thread = await getThread(params.id, CHANNEL.boardType as BoardType);
+  const thread = await getThread(params.id, CHANNEL.boardType as ApiBoardType);
 
   return getThreadPageMetadata(thread, locale, {
     title: `${CHANNEL.displayName} - Coding Global`,

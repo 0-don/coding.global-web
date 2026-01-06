@@ -1,5 +1,6 @@
 import { LinkHref, ValidRoutes } from "@/i18n/routing";
 import type { TranslationKey } from "@/lib/config/constants";
+import { DiJava } from "react-icons/di";
 import {
   HiOutlineAcademicCap,
   HiOutlineArrowsRightLeft,
@@ -9,6 +10,7 @@ import {
   HiOutlineChartBarSquare,
   HiOutlineChatBubbleLeftRight,
   HiOutlineCodeBracket,
+  HiOutlineCodeBracketSquare,
   HiOutlineCommandLine,
   HiOutlineInformationCircle,
   HiOutlineShieldCheck,
@@ -18,7 +20,24 @@ import {
   HiOutlineUsers,
 } from "react-icons/hi2";
 import { IconType } from "react-icons/lib";
-import { SiJavascript, SiPython } from "react-icons/si";
+import {
+  SiC,
+  SiCplusplus,
+  SiDart,
+  SiDotnet,
+  SiGnubash,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiKotlin,
+  SiLua,
+  SiPhp,
+  SiPython,
+  SiRust,
+  SiSwift,
+  SiZig,
+} from "react-icons/si";
+import { TbSql } from "react-icons/tb";
 
 export const isActiveLink = (pathname: string, href: ValidRoutes) => {
   if (typeof href !== "string") return false;
@@ -115,6 +134,128 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
         description: "MAIN.NAVIGATION.TEAM_DESCRIPTION",
         href: "/community/team",
         icon: HiOutlineUsers,
+      },
+      {
+        name: "MAIN.NAVIGATION.CODING",
+        description: "MAIN.NAVIGATION.CODING_DESCRIPTION",
+        href: "/community/coding/javascript",
+        icon: HiOutlineCodeBracketSquare,
+        submenu: [
+          {
+            name: "MAIN.NAVIGATION.CODING_JAVASCRIPT",
+            description: "MAIN.NAVIGATION.CODING_JAVASCRIPT_DESCRIPTION",
+            href: "/community/coding/javascript",
+            icon: SiJavascript,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_PYTHON",
+            description: "MAIN.NAVIGATION.CODING_PYTHON_DESCRIPTION",
+            href: "/community/coding/python",
+            icon: SiPython,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_RUST",
+            description: "MAIN.NAVIGATION.CODING_RUST_DESCRIPTION",
+            href: "/community/coding/rust",
+            icon: SiRust,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_CPP",
+            description: "MAIN.NAVIGATION.CODING_CPP_DESCRIPTION",
+            href: "/community/coding/cpp",
+            icon: SiCplusplus,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_CSHARP",
+            description: "MAIN.NAVIGATION.CODING_CSHARP_DESCRIPTION",
+            href: "/community/coding/csharp",
+            icon: SiDotnet,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_C",
+            description: "MAIN.NAVIGATION.CODING_C_DESCRIPTION",
+            href: "/community/coding/c",
+            icon: SiC,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_GO",
+            description: "MAIN.NAVIGATION.CODING_GO_DESCRIPTION",
+            href: "/community/coding/go",
+            icon: SiGo,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_JAVA",
+            description: "MAIN.NAVIGATION.CODING_JAVA_DESCRIPTION",
+            href: "/community/coding/java",
+            icon: DiJava,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_KOTLIN",
+            description: "MAIN.NAVIGATION.CODING_KOTLIN_DESCRIPTION",
+            href: "/community/coding/kotlin",
+            icon: SiKotlin,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_DART",
+            description: "MAIN.NAVIGATION.CODING_DART_DESCRIPTION",
+            href: "/community/coding/dart",
+            icon: SiDart,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_LUA",
+            description: "MAIN.NAVIGATION.CODING_LUA_DESCRIPTION",
+            href: "/community/coding/lua",
+            icon: SiLua,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_PHP",
+            description: "MAIN.NAVIGATION.CODING_PHP_DESCRIPTION",
+            href: "/community/coding/php",
+            icon: SiPhp,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_HTML_CSS",
+            description: "MAIN.NAVIGATION.CODING_HTML_CSS_DESCRIPTION",
+            href: "/community/coding/html-css",
+            icon: SiHtml5,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_SQL",
+            description: "MAIN.NAVIGATION.CODING_SQL_DESCRIPTION",
+            href: "/community/coding/sql",
+            icon: TbSql,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_SWIFT",
+            description: "MAIN.NAVIGATION.CODING_SWIFT_DESCRIPTION",
+            href: "/community/coding/swift",
+            icon: SiSwift,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_BASH_POWERSHELL",
+            description: "MAIN.NAVIGATION.CODING_BASH_POWERSHELL_DESCRIPTION",
+            href: "/community/coding/bash-powershell",
+            icon: SiGnubash,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_VISUAL_BASIC",
+            description: "MAIN.NAVIGATION.CODING_VISUAL_BASIC_DESCRIPTION",
+            href: "/community/coding/visual-basic",
+            icon: HiOutlineCommandLine,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_ZIG",
+            description: "MAIN.NAVIGATION.CODING_ZIG_DESCRIPTION",
+            href: "/community/coding/zig",
+            icon: SiZig,
+          },
+          {
+            name: "MAIN.NAVIGATION.CODING_OTHER",
+            description: "MAIN.NAVIGATION.CODING_OTHER_DESCRIPTION",
+            href: "/community/coding/other",
+            icon: HiOutlineCodeBracket,
+          },
+        ],
       },
     ],
   },
