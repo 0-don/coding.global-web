@@ -6,6 +6,26 @@ import { TranslationKey } from "@/lib/config/constants";
 import { ProgrammingBoardType } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
+import { DiJava } from "react-icons/di";
+import { HiOutlineCodeBracket, HiOutlineCommandLine } from "react-icons/hi2";
+import {
+  SiC,
+  SiCplusplus,
+  SiDart,
+  SiDotnet,
+  SiGnubash,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiKotlin,
+  SiLua,
+  SiPhp,
+  SiPython,
+  SiRust,
+  SiSwift,
+  SiZig,
+} from "react-icons/si";
+import { TbSql } from "react-icons/tb";
 
 const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingBoardType, TranslationKey> = {
   javascript: "CODING.JAVASCRIPT.META.TITLE",
@@ -29,9 +49,30 @@ const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingBoardType, TranslationKey> = {
   other: "CODING.OTHER.META.TITLE",
 };
 
+const BOARD_TYPE_ICONS: Record<ProgrammingBoardType, IconType> = {
+  javascript: SiJavascript,
+  python: SiPython,
+  rust: SiRust,
+  cpp: SiCplusplus,
+  csharp: SiDotnet,
+  c: SiC,
+  go: SiGo,
+  java: DiJava,
+  kotlin: SiKotlin,
+  dart: SiDart,
+  lua: SiLua,
+  php: SiPhp,
+  "html-css": SiHtml5,
+  sql: TbSql,
+  swift: SiSwift,
+  "bash-powershell": SiGnubash,
+  "visual-basic": HiOutlineCommandLine,
+  zig: SiZig,
+  other: HiOutlineCodeBracket,
+};
+
 interface CodingLanguageProps {
   boardType: ProgrammingBoardType;
-  icon: IconType;
 }
 
 export function CodingLanguage(props: CodingLanguageProps) {
@@ -42,7 +83,7 @@ export function CodingLanguage(props: CodingLanguageProps) {
     <BoardList
       threads={threads ?? []}
       title={t(BOARD_TYPE_TITLE_KEYS[props.boardType])}
-      icon={props.icon}
+      icon={BOARD_TYPE_ICONS[props.boardType]}
       showBoardBadge={false}
       boardType={props.boardType}
       getDetailHref={(thread) => ({

@@ -38,24 +38,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const threadEntries: MetadataRoute.Sitemap = [];
 
       threads.forEach((thread) => {
-        if (boardType === "showcase") {
-          threadEntries.push(
-            ...getEntries({
-              pathname: "/community/showcase/[id]",
-              params: { id: thread.id },
-            }),
-          );
-        } else {
-          // job-board and dev-board go under /marketplace
-          threadEntries.push(
-            ...getEntries({
-              pathname:
-                boardType === "job-board"
-                  ? "/marketplace/job-board/[id]"
-                  : "/marketplace/dev-board/[id]",
-              params: { id: thread.id },
-            }),
-          );
+        const pathname = getThreadPathname(boardType, thread.id);
+        if (pathname) {
+          threadEntries.push(...getEntries(pathname));
         }
       });
 
@@ -73,6 +58,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   log("Generating sitemap with entries:", entries.length);
   return entries;
+}
+
+function getThreadPathname(
+  boardType: GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  threadId: string,
+): Pathname | null {
+  switch (boardType) {
+    case "showcase":
+      return { pathname: "/community/showcase/[id]", params: { id: threadId } };
+    case "job-board":
+      return {
+        pathname: "/marketplace/job-board/[id]",
+        params: { id: threadId },
+      };
+    case "dev-board":
+      return {
+        pathname: "/marketplace/dev-board/[id]",
+        params: { id: threadId },
+      };
+    default:
+      // All other board types are programming languages
+      return {
+        pathname: `/community/coding/${boardType}/[id]`,
+        params: { id: threadId },
+      } as Pathname;
+  }
 }
 
 function getEntries(href: Pathname): MetadataRoute.Sitemap {
