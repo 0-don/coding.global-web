@@ -30,6 +30,7 @@ interface DiscordUserProps {
   className?: string;
   user?: GetApiByGuildIdWidget200MembersItem;
   enableBanner?: boolean;
+  variant?: "row" | "card";
 }
 
 export function DiscordUser(props: DiscordUserProps) {
@@ -65,88 +66,171 @@ export function DiscordUser(props: DiscordUserProps) {
   };
 
 
+  const rowTrigger = (
+    <div
+      className={cn(
+        "group/user relative flex cursor-pointer items-start gap-2 overflow-hidden rounded-md py-2 transition-colors",
+        props.className,
+      )}
+    >
+      {/* Banner on the right side with diagonal fade */}
+      {props.user.bannerUrl && props.enableBanner && (
+        <div className="absolute top-0 right-0 h-full w-1/2 overflow-hidden">
+          <div
+            className="h-full w-full bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${props.user.bannerUrl})`,
+              maskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
+            }}
+          />
+        </div>
+      )}
+
+      <div className="relative z-10">
+        <Avatar className="h-8 w-8">
+          <AvatarImage
+            src={props.user.avatarUrl}
+            alt={props.user.username}
+          />
+          <AvatarFallback>
+            {props.user.username.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <StatusIndicator status={props.user.status as MemberStatus} />
+      </div>
+
+      <div className="relative z-10 min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="truncate text-sm font-medium group-hover/user:underline">
+            {props.user.displayName}
+            {isCurrentUser && (
+              <Badge className="ml-1.5 h-4 text-[10px]">
+                {t("DISCORD_WIDGET.USER_CARD.YOU")}
+              </Badge>
+            )}
+          </span>
+          {props.user.premiumSince && (
+            <IoDiamondSharp
+              className="h-3 w-3 shrink-0"
+              style={{
+                color: "#FF73FA",
+                filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
+              }}
+              title={t("DISCORD_WIDGET.USER_CARD.NITRO_SINCE", {
+                date: dayjs(props.user.premiumSince).format("MMMM D, YYYY"),
+              })}
+            />
+          )}
+          {props.user.activity && (
+            <p className="text-muted-foreground truncate text-xs">
+              {t("DISCORD_WIDGET.PLAYING", {
+                activity: props.user.activity,
+              })}
+            </p>
+          )}
+        </div>
+
+        {props.user.roles?.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1 text-xs">
+            <RoleBadgeIcon
+              role={props.user.roles?.[0]?.name as StaffRole}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const cardTrigger = (
+    <Card className={cn("group/user relative h-full cursor-pointer overflow-hidden pt-0 transition-all hover:shadow-lg", props.className)}>
+      {/* Banner with diagonal fade */}
+      <div className="relative h-20 w-full overflow-hidden">
+        <div
+          className="h-full w-full bg-cover bg-center"
+          style={bannerStyle}
+        />
+        {props.user.bannerUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${props.user.bannerUrl})`,
+              maskImage:
+                "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
+            }}
+          />
+        )}
+      </div>
+
+      {/* Avatar overlapping banner */}
+      <CardHeader className="-mt-10 pb-2">
+        <div className="relative w-fit">
+          <Avatar className="border-card h-16 w-16 border-4">
+            <AvatarImage
+              src={props.user.avatarUrl}
+              alt={props.user.username}
+            />
+            <AvatarFallback>
+              {props.user.username.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <StatusIndicator
+            status={props.user.status as MemberStatus}
+            className="-right-1 -bottom-1 h-4 w-4 border-[3px]"
+          />
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-2 pt-0">
+        {/* Display name */}
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5">
+            <h3 className="truncate text-base font-semibold group-hover/user:underline">
+              {props.user.displayName || props.user.globalName || props.user.username}
+            </h3>
+            {isCurrentUser && (
+              <Badge className="h-4 text-[10px] shrink-0">
+                {t("DISCORD_WIDGET.USER_CARD.YOU")}
+              </Badge>
+            )}
+            {props.user.premiumSince && (
+              <IoDiamondSharp
+                className="h-3 w-3 shrink-0"
+                style={{
+                  color: "#FF73FA",
+                  filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
+                }}
+                title={t("DISCORD_WIDGET.USER_CARD.NITRO_SINCE", {
+                  date: dayjs(props.user.premiumSince).format("MMMM D, YYYY"),
+                })}
+              />
+            )}
+            {/* Primary role badge */}
+            {props.user.roles && props.user.roles.length > 0 && (
+              <RoleBadgeIcon role={props.user.roles[0].name as StaffRole} />
+            )}
+          </div>
+          <p className="text-muted-foreground truncate text-sm">
+            @{props.user.username}
+          </p>
+          {props.user.activity && (
+            <p className="text-muted-foreground mt-1 truncate text-xs">
+              {t("DISCORD_WIDGET.PLAYING", { activity: props.user.activity })}
+            </p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <Popover>
       <PopoverTrigger
-        render={
-          <div
-            className={cn(
-              "group/user relative flex cursor-pointer items-start gap-2 overflow-hidden rounded-md py-2 transition-colors",
-              props.className,
-            )}
-          >
-            {/* Banner on the right side with diagonal fade */}
-            {props.user.bannerUrl && props.enableBanner && (
-              <div className="absolute top-0 right-0 h-full w-1/2 overflow-hidden">
-                <div
-                  className="h-full w-full bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${props.user.bannerUrl})`,
-                    maskImage:
-                      "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
-                    WebkitMaskImage:
-                      "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.7) 60%, black 100%)",
-                  }}
-                />
-              </div>
-            )}
-
-            <div className="relative z-10">
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={props.user.avatarUrl}
-                  alt={props.user.username}
-                />
-                <AvatarFallback>
-                  {props.user.username.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <StatusIndicator status={props.user.status as MemberStatus} />
-            </div>
-
-            <div className="relative z-10 min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="truncate text-sm font-medium group-hover/user:underline">
-                  {props.user.displayName}
-                  {isCurrentUser && (
-                    <Badge className="ml-1.5 h-4 text-[10px]">
-                      {t("DISCORD_WIDGET.USER_CARD.YOU")}
-                    </Badge>
-                  )}
-                </span>
-                {props.user.premiumSince && (
-                  <IoDiamondSharp
-                    className="h-3 w-3 shrink-0"
-                    style={{
-                      color: "#FF73FA",
-                      filter: "drop-shadow(0 0 2px rgba(59, 137, 255, 0.5))",
-                    }}
-                    title={t("DISCORD_WIDGET.USER_CARD.NITRO_SINCE", {
-                      date: dayjs(props.user.premiumSince).format(
-                        "MMMM D, YYYY",
-                      ),
-                    })}
-                  />
-                )}
-                {props.user.activity && (
-                  <p className="text-muted-foreground truncate text-xs">
-                    {t("DISCORD_WIDGET.PLAYING", {
-                      activity: props.user.activity,
-                    })}
-                  </p>
-                )}
-              </div>
-
-              {props.user.roles?.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-1 text-xs">
-                  <RoleBadgeIcon
-                    role={props.user.roles?.[0]?.name as StaffRole}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        }
+        render={props.variant === "card" ? cardTrigger : rowTrigger}
         nativeButton={false}
       />
       <PopoverContent
