@@ -5,6 +5,7 @@ export const queryKeys = {
 
   // Widget
   discordWidget: () => ["discord-widget"],
+  topStats: () => ["top-stats"],
 
   // News
   news: () => ["news"],
