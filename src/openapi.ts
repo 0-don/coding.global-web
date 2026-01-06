@@ -492,6 +492,25 @@ export const GetApiByGuildIdBoardByBoardType200ItemBoardType = {
   "job-board": "job-board",
   "dev-board": "dev-board",
   showcase: "showcase",
+  "c++": "c++",
+  "c#": "c#",
+  c: "c",
+  dart: "dart",
+  lua: "lua",
+  go: "go",
+  "html／css": "html／css",
+  java: "java",
+  javascript: "javascript",
+  kotlin: "kotlin",
+  python: "python",
+  rust: "rust",
+  php: "php",
+  "bash-powershell": "bash-powershell",
+  sql: "sql",
+  swift: "swift",
+  "visual-basic": "visual-basic",
+  zig: "zig",
+  other: "other",
 } as const;
 
 export type GetApiByGuildIdBoardByBoardType200ItemParentId = string | null;
@@ -656,6 +675,25 @@ export const GetApiByGuildIdBoardByBoardTypeByThreadId200BoardType = {
   "job-board": "job-board",
   "dev-board": "dev-board",
   showcase: "showcase",
+  "c++": "c++",
+  "c#": "c#",
+  c: "c",
+  dart: "dart",
+  lua: "lua",
+  go: "go",
+  "html／css": "html／css",
+  java: "java",
+  javascript: "javascript",
+  kotlin: "kotlin",
+  python: "python",
+  rust: "rust",
+  php: "php",
+  "bash-powershell": "bash-powershell",
+  sql: "sql",
+  swift: "swift",
+  "visual-basic": "visual-basic",
+  zig: "zig",
+  other: "other",
 } as const;
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadId200ParentId =
@@ -1335,14 +1373,58 @@ export type getApiByGuildIdBoardByBoardTypeResponse =
 
 export const getGetApiByGuildIdBoardByBoardTypeUrl = (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
 ) => {
   return `/api/${guildId}/board/${boardType}`;
 };
 
 export const getApiByGuildIdBoardByBoardType = async (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
   options?: RequestInit,
 ): Promise<getApiByGuildIdBoardByBoardTypeResponse> => {
   return customFetch<getApiByGuildIdBoardByBoardTypeResponse>(
@@ -1379,7 +1461,29 @@ export type getApiByGuildIdBoardByBoardTypeByThreadIdResponse =
 
 export const getGetApiByGuildIdBoardByBoardTypeByThreadIdUrl = (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
   threadId: string,
 ) => {
   return `/api/${guildId}/board/${boardType}/${threadId}`;
@@ -1387,7 +1491,29 @@ export const getGetApiByGuildIdBoardByBoardTypeByThreadIdUrl = (
 
 export const getApiByGuildIdBoardByBoardTypeByThreadId = async (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
   threadId: string,
   options?: RequestInit,
 ): Promise<getApiByGuildIdBoardByBoardTypeByThreadIdResponse> => {
@@ -1429,7 +1555,29 @@ export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse =
 
 export const getGetApiByGuildIdBoardByBoardTypeByThreadIdMessagesUrl = (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
   threadId: string,
   params?: GetApiByGuildIdBoardByBoardTypeByThreadIdMessagesParams,
 ) => {
@@ -1450,7 +1598,29 @@ export const getGetApiByGuildIdBoardByBoardTypeByThreadIdMessagesUrl = (
 
 export const getApiByGuildIdBoardByBoardTypeByThreadIdMessages = async (
   guildId: string,
-  boardType: "job-board" | "dev-board" | "showcase",
+  boardType:
+    | "job-board"
+    | "dev-board"
+    | "showcase"
+    | "c++"
+    | "c#"
+    | "c"
+    | "dart"
+    | "lua"
+    | "go"
+    | "html／css"
+    | "java"
+    | "javascript"
+    | "kotlin"
+    | "python"
+    | "rust"
+    | "php"
+    | "bash-powershell"
+    | "sql"
+    | "swift"
+    | "visual-basic"
+    | "zig"
+    | "other",
   threadId: string,
   params?: GetApiByGuildIdBoardByBoardTypeByThreadIdMessagesParams,
   options?: RequestInit,

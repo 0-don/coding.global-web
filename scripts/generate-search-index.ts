@@ -18,6 +18,9 @@ import {
 } from "../src/openapi";
 
 const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
+const STANDALONE = !!process.env.STANDALONE;
+
+if (STANDALONE) process.exit(0);
 
 const turndown = new TurndownService({
   headingStyle: "atx",
