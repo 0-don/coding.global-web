@@ -9,7 +9,7 @@ import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-const BOARD_TYPE: ProgrammingBoardType = "c++";
+const BOARD_TYPE: ProgrammingBoardType = "cpp";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;

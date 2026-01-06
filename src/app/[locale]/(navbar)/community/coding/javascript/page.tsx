@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiJavascript } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "javascript";
-const SLUG = "javascript";
-const DISPLAY_NAME = "JavaScript";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function JavaScriptPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiJavascript}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiJavascript} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

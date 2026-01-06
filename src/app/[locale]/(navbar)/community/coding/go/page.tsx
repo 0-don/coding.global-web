@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiGo } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "go";
-const SLUG = "go";
-const DISPLAY_NAME = "Go";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function GoPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiGo}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiGo} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

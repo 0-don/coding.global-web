@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiSwift } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "swift";
-const SLUG = "swift";
-const DISPLAY_NAME = "Swift";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function SwiftPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiSwift}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiSwift} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

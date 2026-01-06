@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiC } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "c";
-const SLUG = "c";
-const DISPLAY_NAME = "C";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function CPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiC}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiC} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

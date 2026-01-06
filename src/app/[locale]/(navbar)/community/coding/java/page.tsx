@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { DiJava } from "react-icons/di";
 
 const BOARD_TYPE: ProgrammingBoardType = "java";
-const SLUG = "java";
-const DISPLAY_NAME = "Java";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function JavaPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={DiJava}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={DiJava} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

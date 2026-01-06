@@ -13,8 +13,6 @@ import { getTranslations } from "next-intl/server";
 import { SiGnubash } from "react-icons/si";
 
 const BOARD_TYPE: ProgrammingBoardType = "bash-powershell";
-const SLUG = "bash-powershell";
-const DISPLAY_NAME = "Bash/PowerShell";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function BashPowershellPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiGnubash}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiGnubash} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

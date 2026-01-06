@@ -12,9 +12,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 import { SiDotnet } from "react-icons/si";
 
-const BOARD_TYPE: ProgrammingBoardType = "c#";
-const SLUG = "csharp";
-const DISPLAY_NAME = "C#";
+const BOARD_TYPE: ProgrammingBoardType = "csharp";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -44,12 +42,7 @@ export default async function CSharpPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage
-          boardType={BOARD_TYPE}
-          slug={SLUG}
-          displayName={DISPLAY_NAME}
-          icon={SiDotnet}
-        />
+        <CodingLanguage boardType={BOARD_TYPE} icon={SiDotnet} />
       </ListItemStoreProvider>
     </HydrationBoundary>
   );
