@@ -28,6 +28,14 @@ export function useDiscordWidget() {
   });
 }
 
+export function useTopStatsQuery() {
+  return useSuspenseQuery({
+    queryKey: queryKeys.topStats(),
+    queryFn: async () =>
+      handleElysia(await rpc.api.bot["top-stats"].get()),
+  });
+}
+
 export function useBoardThreadsQuery(boardType: BoardType) {
   return useSuspenseQuery({
     queryKey: queryKeys.boardThreads(boardType),

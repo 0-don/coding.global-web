@@ -26,7 +26,54 @@
     "WELCOME_TO": "Willkommen bei",
     "WEBSITE": "Website",
     "WAITING_MESSAGE": "Wir warten darauf, dass du beitrittst...",
-    "JOIN_BUTTON": "Beitreten"
+    "JOIN_BUTTON": "Beitreten",
+
+    "HERO_TITLE": "Bauen. Lernen. Verbinden.",
+    "HERO_SUBTITLE": "Werde Teil von tausenden Entwicklern in der ultimativen Coding-Community",
+    "HERO_TERMINAL_TEXT": "$ verbinde mit coding.global...",
+    "HERO_CTA_PRIMARY": "Discord beitreten",
+    "HERO_CTA_SECONDARY": "Ressourcen entdecken",
+
+    "STATS_MEMBERS": "Mitglieder",
+    "STATS_ONLINE": "Online",
+    "STATS_LANGUAGES": "Sprachen",
+    "STATS_BOARDS": "Coding Boards",
+
+    "FEATURES_TITLE": "Alles was du brauchst",
+    "FEATURES_SUBTITLE": "Alle Werkzeuge und Ressourcen um deine Coding-Reise zu beschleunigen",
+    "FEATURES_CHAT_TITLE": "Community Chat",
+    "FEATURES_CHAT_DESC": "Echtzeit-Gespräche mit Entwicklern weltweit",
+    "FEATURES_SHOWCASE_TITLE": "Projekt Showcase",
+    "FEATURES_SHOWCASE_DESC": "Teile und entdecke tolle Projekte",
+    "FEATURES_NEWS_TITLE": "Neueste News",
+    "FEATURES_NEWS_DESC": "Bleib auf dem Laufenden mit Tech-News und Ankündigungen",
+    "FEATURES_BOARDS_TITLE": "Coding Boards",
+    "FEATURES_BOARDS_DESC": "Erhalte Hilfe in über 18 Programmiersprachen",
+    "FEATURES_RESOURCES_TITLE": "Lernressourcen",
+    "FEATURES_RESOURCES_DESC": "Umfassende Anleitungen und Tutorials",
+    "FEATURES_MARKETPLACE_TITLE": "Marktplatz",
+    "FEATURES_MARKETPLACE_DESC": "Finde Jobs oder stelle talentierte Entwickler ein",
+
+    "LANGUAGES_TITLE": "18+ Programmiersprachen",
+    "LANGUAGES_SUBTITLE": "Finde Hilfe und Diskussionen für deine Lieblingssprache",
+    "LANGUAGES_VIEW_ALL": "Alle Boards anzeigen",
+
+    "CONTRIBUTORS_TITLE": "Top Mitwirkende",
+    "CONTRIBUTORS_SUBTITLE": "Unsere aktivsten Community-Mitglieder",
+    "CONTRIBUTORS_HELPERS": "Top Helfer",
+    "CONTRIBUTORS_HELPERS_COUNT": "{count} Hilfen",
+    "CONTRIBUTORS_MESSAGES": "Top Schreiber",
+    "CONTRIBUTORS_MESSAGES_COUNT": "{count} Nachrichten",
+    "CONTRIBUTORS_VOICE": "Top Voice",
+    "CONTRIBUTORS_VOICE_HOURS": "{hours} Stunden",
+
+    "COMMUNITY_TITLE": "Werde Teil unserer wachsenden Community",
+    "COMMUNITY_SUBTITLE": "Verbinde dich mit Entwicklern aus aller Welt",
+    "COMMUNITY_NEWS_TITLE": "Neueste News",
+
+    "CTA_TITLE": "Bereit durchzustarten?",
+    "CTA_SUBTITLE": "Werde Teil von tausenden Entwicklern die gemeinsam lernen und bauen",
+    "CTA_BUTTON": "Jetzt Discord beitreten"
   },
   "MAIN": {
     "ACTIONS": {

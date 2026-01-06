@@ -484,6 +484,58 @@ export type GetApiByGuildIdWidget422 = {
   expected?: string;
 };
 
+export type GetApiByGuildIdTopStatsParams = {
+  limit?: number;
+  days?: number;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveMessageUsersItem = {
+  count: number;
+  memberId: string;
+  username: string;
+};
+
+export type GetApiByGuildIdTopStats200MostHelpfulUsersItem = {
+  count: number;
+  memberId: string;
+  username: string;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveMessageChannelsItem = {
+  count: number;
+  channelId: string;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceUsersItem = {
+  sum: number;
+  memberId: string;
+  username: string;
+};
+
+export type GetApiByGuildIdTopStats200MostActiveVoiceChannelsItem = {
+  sum: number;
+  channelId: string;
+};
+
+export type GetApiByGuildIdTopStats200 = {
+  mostActiveMessageUsers: GetApiByGuildIdTopStats200MostActiveMessageUsersItem[];
+  mostHelpfulUsers: GetApiByGuildIdTopStats200MostHelpfulUsersItem[];
+  mostActiveMessageChannels: GetApiByGuildIdTopStats200MostActiveMessageChannelsItem[];
+  mostActiveVoiceUsers: GetApiByGuildIdTopStats200MostActiveVoiceUsersItem[];
+  mostActiveVoiceChannels: GetApiByGuildIdTopStats200MostActiveVoiceChannelsItem[];
+  lookback: number;
+};
+
+export type GetApiByGuildIdTopStats422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
 export type GetApiByGuildIdBoardByBoardType200ItemBoardType =
   (typeof GetApiByGuildIdBoardByBoardType200ItemBoardType)[keyof typeof GetApiByGuildIdBoardByBoardType200ItemBoardType];
 
@@ -1341,6 +1393,62 @@ export const getApiByGuildIdWidget = async (
 ): Promise<getApiByGuildIdWidgetResponse> => {
   return customFetch<getApiByGuildIdWidgetResponse>(
     getGetApiByGuildIdWidgetUrl(guildId),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export type getApiByGuildIdTopStatsResponse200 = {
+  data: GetApiByGuildIdTopStats200;
+  status: 200;
+};
+
+export type getApiByGuildIdTopStatsResponse422 = {
+  data: GetApiByGuildIdTopStats422;
+  status: 422;
+};
+
+export type getApiByGuildIdTopStatsResponseSuccess =
+  getApiByGuildIdTopStatsResponse200 & {
+    headers: Headers;
+  };
+export type getApiByGuildIdTopStatsResponseError =
+  getApiByGuildIdTopStatsResponse422 & {
+    headers: Headers;
+  };
+
+export type getApiByGuildIdTopStatsResponse =
+  | getApiByGuildIdTopStatsResponseSuccess
+  | getApiByGuildIdTopStatsResponseError;
+
+export const getGetApiByGuildIdTopStatsUrl = (
+  guildId: string,
+  params?: GetApiByGuildIdTopStatsParams,
+) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? "null" : value.toString());
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0
+    ? `/api/${guildId}/top-stats?${stringifiedParams}`
+    : `/api/${guildId}/top-stats`;
+};
+
+export const getApiByGuildIdTopStats = async (
+  guildId: string,
+  params?: GetApiByGuildIdTopStatsParams,
+  options?: RequestInit,
+): Promise<getApiByGuildIdTopStatsResponse> => {
+  return customFetch<getApiByGuildIdTopStatsResponse>(
+    getGetApiByGuildIdTopStatsUrl(guildId, params),
     {
       ...options,
       method: "GET",

@@ -5,9 +5,12 @@ import {
   getApiByGuildIdBoardByBoardTypeByThreadIdMessages,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
+  getApiByGuildIdTopStats,
   getApiByGuildIdWidget,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
+
+
 
 const boardTypeSchema = t.UnionEnum(
   Object.values(BoardType) as [BoardType, ...BoardType[]],
@@ -50,6 +53,28 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       return status("Internal Server Error", error as Error);
     }
   })
+  .get(
+    "/top-stats",
+    async ({ query, status }) => {
+      try {
+        const response = await getApiByGuildIdTopStats(
+          process.env.NEXT_PUBLIC_GUILD_ID,
+          { limit: query.limit, days: query.days },
+        );
+        if (response.status !== 200)
+          return status("Unprocessable Content", response.data);
+        return response.data;
+      } catch (error) {
+        return status("Internal Server Error", error as Error);
+      }
+    },
+    {
+      query: t.Object({
+        limit: t.Optional(t.Number()),
+        days: t.Optional(t.Number()),
+      }),
+    },
+  )
   .get(
     "/board/:boardType",
     async ({ params, status }) => {

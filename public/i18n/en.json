@@ -26,7 +26,54 @@
     "WELCOME_TO": "Welcome to",
     "WEBSITE": "Website",
     "WAITING_MESSAGE": "Waiting for u to join...",
-    "JOIN_BUTTON": "Join"
+    "JOIN_BUTTON": "Join",
+
+    "HERO_TITLE": "Build. Learn. Connect.",
+    "HERO_SUBTITLE": "Join thousands of developers in the ultimate coding community",
+    "HERO_TERMINAL_TEXT": "$ connecting to coding.global...",
+    "HERO_CTA_PRIMARY": "Join Our Discord",
+    "HERO_CTA_SECONDARY": "Explore Resources",
+
+    "STATS_MEMBERS": "Total Members",
+    "STATS_ONLINE": "Online Now",
+    "STATS_LANGUAGES": "Languages",
+    "STATS_BOARDS": "Coding Boards",
+
+    "FEATURES_TITLE": "Everything You Need",
+    "FEATURES_SUBTITLE": "All the tools and resources to accelerate your coding journey",
+    "FEATURES_CHAT_TITLE": "Community Chat",
+    "FEATURES_CHAT_DESC": "Real-time conversations with developers worldwide",
+    "FEATURES_SHOWCASE_TITLE": "Project Showcase",
+    "FEATURES_SHOWCASE_DESC": "Share and discover amazing projects",
+    "FEATURES_NEWS_TITLE": "Latest News",
+    "FEATURES_NEWS_DESC": "Stay updated with tech news and announcements",
+    "FEATURES_BOARDS_TITLE": "Coding Boards",
+    "FEATURES_BOARDS_DESC": "Get help in 18+ programming languages",
+    "FEATURES_RESOURCES_TITLE": "Learning Resources",
+    "FEATURES_RESOURCES_DESC": "Comprehensive guides and tutorials",
+    "FEATURES_MARKETPLACE_TITLE": "Marketplace",
+    "FEATURES_MARKETPLACE_DESC": "Find jobs or hire talented developers",
+
+    "LANGUAGES_TITLE": "18+ Programming Languages",
+    "LANGUAGES_SUBTITLE": "Find help and discussions for your favorite language",
+    "LANGUAGES_VIEW_ALL": "View All Boards",
+
+    "CONTRIBUTORS_TITLE": "Top Contributors",
+    "CONTRIBUTORS_SUBTITLE": "Our most active community members",
+    "CONTRIBUTORS_HELPERS": "Top Helpers",
+    "CONTRIBUTORS_HELPERS_COUNT": "{count} helps",
+    "CONTRIBUTORS_MESSAGES": "Top Messagers",
+    "CONTRIBUTORS_MESSAGES_COUNT": "{count} messages",
+    "CONTRIBUTORS_VOICE": "Top Voice",
+    "CONTRIBUTORS_VOICE_HOURS": "{hours} hours",
+
+    "COMMUNITY_TITLE": "Join Our Thriving Community",
+    "COMMUNITY_SUBTITLE": "Connect with developers from around the world",
+    "COMMUNITY_NEWS_TITLE": "Latest News",
+
+    "CTA_TITLE": "Ready to Level Up?",
+    "CTA_SUBTITLE": "Join thousands of developers learning and building together",
+    "CTA_BUTTON": "Join Our Discord Now"
   },
   "MAIN": {
     "ACTIONS": {
