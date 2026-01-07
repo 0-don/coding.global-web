@@ -3,6 +3,7 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
@@ -26,19 +27,11 @@ export default async function Main() {
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.discordWidget(),
-      queryFn: async () => {
-        const response = await rpc.api.bot.widget.get();
-        if (response.error) throw response.error;
-        return response.data;
-      },
+      queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
     }),
     queryClient.prefetchQuery({
       queryKey: queryKeys.topStats(),
-      queryFn: async () => {
-        const response = await rpc.api.bot["top-stats"].get();
-        if (response.error) throw response.error;
-        return response.data;
-      },
+      queryFn: async () => handleElysia(await rpc.api.bot["top-stats"].get()),
     }),
   ]);
 
