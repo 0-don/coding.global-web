@@ -4,6 +4,7 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { search } from "@orama/orama";
+import { restore } from "@orama/plugin-data-persistence";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 
@@ -14,14 +15,13 @@ type SearchResult = {
   category: string;
 };
 
-export async function fetchSearchIndex() {
-  return handleElysia(await rpc.api.search.index.get());
-}
-
 export function useSearchQueryIndex() {
   return useQuery({
     queryKey: queryKeys.searchIndex(),
-    queryFn: fetchSearchIndex,
+    queryFn: async () => {
+      const data = handleElysia(await rpc.api.search.get());
+      return restore("json", JSON.stringify(data));
+    },
     staleTime: Infinity,
     gcTime: Infinity,
   });

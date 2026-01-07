@@ -2,9 +2,6 @@ import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 import { SidebarHeader } from "@/components/layout/sidebar/sidebar-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import getQueryClient from "@/lib/react-query/client";
-import { queryKeys } from "@/lib/react-query/keys";
-import { rpc } from "@/lib/rpc";
-import { handleElysia } from "@/lib/utils/base";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface SidebarLayoutProps {
@@ -14,10 +11,13 @@ interface SidebarLayoutProps {
 export default async function SidebarLayout(props: SidebarLayoutProps) {
   const queryClient = getQueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.searchIndex(),
-    queryFn: async () => handleElysia(await rpc.api.search.index.get()),
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: queryKeys.searchIndex(),
+  //   queryFn: async () => {
+  //     const data = handleElysia(await rpc.api.search.get());
+  //     return restore("json", JSON.stringify(data));
+  //   },
+  // });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
