@@ -21,9 +21,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...getEntries(route as Pathname));
   });
 
-  const boardPromises = Object.values(
-    GetApiByGuildIdBoardByBoardType200ItemBoardType,
-  ).map(async (boardType) => {
+  // Fetch boards sequentially to avoid overwhelming the API
+  const boardTypes = Object.values(GetApiByGuildIdBoardByBoardType200ItemBoardType);
+
+  for (const boardType of boardTypes) {
     try {
       const response = await getApiByGuildIdBoardByBoardType(
         process.env.NEXT_PUBLIC_GUILD_ID,
@@ -31,32 +32,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       );
 
       if (response.status !== 200) {
-        return [];
+        log(`[Sitemap] ${boardType} returned status ${response.status}`);
+        continue;
       }
 
       const threads = response.data;
-      const threadEntries: MetadataRoute.Sitemap = [];
+      log(`[Sitemap] ${boardType}: fetched ${threads.length} threads`);
 
       threads.forEach((thread) => {
         const pathname = getThreadPathname(boardType, thread.id);
         if (pathname) {
-          threadEntries.push(...getEntries(pathname));
+          entries.push(...getEntries(pathname));
         }
       });
-
-      return threadEntries;
     } catch (error) {
-      log(`Failed to fetch threads for ${boardType}:`, error);
-      return [];
+      log(`[Sitemap] Failed to fetch threads for ${boardType}:`, error);
     }
-  });
+  }
 
-  const boardEntries = await Promise.all(boardPromises);
-  boardEntries.forEach((boardThreadEntries) => {
-    entries.push(...boardThreadEntries);
-  });
-
-  log("Generating sitemap with entries:", entries.length);
+  log("[Sitemap] Total entries:", entries.length);
   return entries;
 }
 
