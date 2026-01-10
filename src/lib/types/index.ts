@@ -1,9 +1,10 @@
-import { getApiByGuildIdBoardByBoardType } from "@/openapi";
+import {
+  GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+} from "@/openapi";
 
-// BoardType inferred from API function parameters
-export type ApiBoardType = Parameters<
-  typeof getApiByGuildIdBoardByBoardType
->[1];
+// Re-export the generated const and type
+export const ApiBoardTypeValues = GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType;
+export type ApiBoardType = GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType;
 
 export type BoardType = ApiBoardType | "marketplace";
 

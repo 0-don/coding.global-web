@@ -27,9 +27,8 @@ export function useDiscordWidget() {
 
 export function useTopStatsQuery() {
   return useQuery({
-    queryKey: queryKeys.topStats(),
-    queryFn: async () =>
-      handleElysia(await rpc.api.bot["top-stats"].get()),
+    queryKey: queryKeys.top(),
+    queryFn: async () => handleElysia(await rpc.api.bot.top.get()),
   });
 }
 
