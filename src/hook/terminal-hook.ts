@@ -1,6 +1,10 @@
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
+import type {
+  GetApiByGuildIdTopParams,
+  GetApiByGuildIdUserSearchParams,
+} from "@/openapi";
 import { useQuery } from "@tanstack/react-query";
 
 export function useTerminalMembersQuery() {
@@ -10,36 +14,30 @@ export function useTerminalMembersQuery() {
   });
 }
 
-export function useTerminalTopQuery(options?: { days?: number; limit?: number }) {
+export function useTerminalTopQuery(query?: GetApiByGuildIdTopParams) {
   return useQuery({
-    queryKey: queryKeys.terminalTop(options?.days, options?.limit),
+    queryKey: queryKeys.terminalTop(query),
     queryFn: async () =>
-      handleElysia(
-        await rpc.api.terminal.top.get({
-          query: { days: options?.days, limit: options?.limit },
-        }),
-      ),
+      handleElysia(await rpc.api.terminal.top.get({ query })),
   });
 }
 
-export function useTerminalUserSearchQuery(query: string, options?: { limit?: number; enabled?: boolean }) {
+export function useTerminalUserSearchQuery(
+  query: GetApiByGuildIdUserSearchParams,
+) {
   return useQuery({
-    queryKey: queryKeys.terminalUserSearch(query, options?.limit),
+    queryKey: queryKeys.terminalUserSearch(query),
     queryFn: async () =>
-      handleElysia(
-        await rpc.api.terminal.user.search.get({
-          query: { q: query, limit: options?.limit },
-        }),
-      ),
-    enabled: options?.enabled ?? query.length > 0,
+      handleElysia(await rpc.api.terminal.user.search.get({ query })),
+    enabled: query.q.length > 0,
   });
 }
 
-export function useTerminalUserQuery(userId: string, options?: { enabled?: boolean }) {
+export function useTerminalUserQuery(userId: string) {
   return useQuery({
     queryKey: queryKeys.terminalUser(userId),
     queryFn: async () =>
       handleElysia(await rpc.api.terminal.user({ userId }).get()),
-    enabled: options?.enabled ?? userId.length > 0,
+    enabled: userId.length > 0,
   });
 }
