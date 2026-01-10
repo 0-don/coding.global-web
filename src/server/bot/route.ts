@@ -1,3 +1,4 @@
+import { ApiBoardType, ApiBoardTypeValues } from "@/lib/types";
 import {
   getApiByGuildIdBoardByBoardType,
   getApiByGuildIdBoardByBoardTypeByThreadId,
@@ -7,36 +8,10 @@ import {
   getApiByGuildIdTop,
   getApiByGuildIdWidget,
 } from "@/openapi";
-import { ApiBoardType } from "@/lib/types";
 import { Elysia, t } from "elysia";
 
-const BOARD_TYPE_VALUES: ApiBoardType[] = [
-  "job-board",
-  "dev-board",
-  "showcase",
-  "cpp",
-  "csharp",
-  "c",
-  "dart",
-  "lua",
-  "go",
-  "html-css",
-  "java",
-  "javascript",
-  "kotlin",
-  "python",
-  "rust",
-  "php",
-  "bash-powershell",
-  "sql",
-  "swift",
-  "visual-basic",
-  "zig",
-  "other",
-] as const
-
 const boardTypeSchema = t.UnionEnum(
-  BOARD_TYPE_VALUES as [ApiBoardType, ...ApiBoardType[]],
+  Object.values(ApiBoardTypeValues) as [ApiBoardType, ...ApiBoardType[]],
 );
 
 export const botRoute = new Elysia({ prefix: "/bot" })
@@ -77,7 +52,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     }
   })
   .get(
-    "/top-stats",
+    "/top",
     async ({ query, status }) => {
       try {
         const response = await getApiByGuildIdTop(
