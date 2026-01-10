@@ -1,12 +1,12 @@
 import { Showcase } from "@/components/pages/community/showcase/showcase";
-import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
+import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
-import { ListItemState, getListItemStoreKey } from "@/store/list-item-store";
+import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -32,15 +32,15 @@ export default async function ShowcasePage() {
       queryFn: async () =>
         handleElysia(await rpc.api.bot.board({ boardType: "showcase" }).get()),
     }),
-    getCookieValue<ListItemState>(getListItemStoreKey("showcase")),
+    getCookieValue<ThreadState>(getThreadStoreKey("showcase")),
     getTranslations(),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ListItemStoreProvider boardType="showcase" data={listItemStore}>
+      <ThreadStoreProvider boardType="showcase" data={listItemStore}>
         <Showcase />
-      </ListItemStoreProvider>
+      </ThreadStoreProvider>
     </HydrationBoundary>
   );
 }

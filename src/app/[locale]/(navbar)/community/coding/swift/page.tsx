@@ -1,5 +1,5 @@
 import { CodingLanguage } from "@/components/pages/community/coding/coding-language";
-import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
+import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -7,7 +7,7 @@ import { rpc } from "@/lib/rpc";
 import { ProgrammingBoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
-import { ListItemState, getListItemStoreKey } from "@/store/list-item-store";
+import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -35,14 +35,14 @@ export default async function SwiftPage() {
       queryFn: async () =>
         handleElysia(await rpc.api.bot.board({ boardType: BOARD_TYPE }).get()),
     }),
-    getCookieValue<ListItemState>(getListItemStoreKey(BOARD_TYPE)),
+    getCookieValue<ThreadState>(getThreadStoreKey(BOARD_TYPE)),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ListItemStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
+      <ThreadStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
         <CodingLanguage boardType={BOARD_TYPE} />
-      </ListItemStoreProvider>
+      </ThreadStoreProvider>
     </HydrationBoundary>
   );
 }

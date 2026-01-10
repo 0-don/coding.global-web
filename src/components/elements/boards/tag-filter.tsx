@@ -20,7 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { BoardType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
-import { getListItemAtoms } from "@/store/list-item-store";
+import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
 import { RxCheck, RxPlusCircled } from "react-icons/rx";
@@ -37,7 +37,7 @@ interface TagFilterProps {
 }
 
 export function TagFilter({ threads, boardType }: TagFilterProps) {
-  const atoms = getListItemAtoms(boardType);
+  const atoms = getThreadAtoms(boardType);
   const selectedTags = useAtomValue(atoms.selectedTagsAtom);
   const setSelectedTags = useSetAtom(atoms.selectedTagsAtom);
   const t = useTranslations();
