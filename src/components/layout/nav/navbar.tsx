@@ -34,8 +34,8 @@ export default function Navbar() {
   const isLoggedIn = !!session?.data?.user.id;
 
   return (
-    <header className="bg-background/80 sticky top-0 left-0 z-9999 w-full backdrop-blur-md">
-      <div className="container mx-auto flex h-12 items-center justify-between px-4 xl:px-6">
+    <header className="bg-background/80 fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 xl:px-6">
         <div className="flex items-center gap-1 xl:hidden">
           <MobileNav />
           <Link
