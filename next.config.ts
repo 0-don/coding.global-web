@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   output: process.env.STANDALONE ? "standalone" : undefined,
   // trailingSlash: true,
 
+  staticPageGenerationTimeout: 300, // 3 minutes for sitemap generation
+
   images: {
     qualities: [10, 25, 50, 75, 90, 100],
     remotePatterns: [{ hostname: "*.discordapp.com" }],
