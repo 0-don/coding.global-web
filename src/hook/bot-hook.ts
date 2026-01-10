@@ -2,34 +2,31 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { BoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
-import {
-  useSuspenseInfiniteQuery,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export function useTeamQuery() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.team(),
     queryFn: async () => handleElysia(await rpc.api.bot.team.get()),
   });
 }
 
 export function useNewsQuery() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.news(),
     queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
   });
 }
 
 export function useDiscordWidget() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.discordWidget(),
     queryFn: async () => handleElysia(await rpc.api.bot.widget.get()),
   });
 }
 
 export function useTopStatsQuery() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.topStats(),
     queryFn: async () =>
       handleElysia(await rpc.api.bot["top-stats"].get()),
@@ -37,7 +34,7 @@ export function useTopStatsQuery() {
 }
 
 export function useBoardThreadsQuery(boardType: BoardType) {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.boardThreads(boardType),
     queryFn: async () =>
       handleElysia(await rpc.api.bot.board({ boardType }).get()),
@@ -45,7 +42,7 @@ export function useBoardThreadsQuery(boardType: BoardType) {
 }
 
 export function useBoardThreadQuery(boardType: BoardType, threadId: string) {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: queryKeys.boardThread(boardType, threadId),
     queryFn: async () =>
       handleElysia(await rpc.api.bot.board({ boardType })({ threadId }).get()),
@@ -56,7 +53,7 @@ export function useBoardThreadMessagesInfiniteQuery(
   boardType: BoardType,
   threadId: string,
 ) {
-  return useSuspenseInfiniteQuery({
+  return useInfiniteQuery({
     queryKey: queryKeys.boardThreadMessages(boardType, threadId),
     queryFn: async ({ pageParam }) =>
       handleElysia(

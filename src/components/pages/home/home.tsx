@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Suspense } from "react";
 import { HeroSection } from "./hero-section";
 import { StatsSection } from "./stats-section";
 import { FeaturesSection } from "./features-section";
@@ -9,23 +8,6 @@ import { LanguagesGrid } from "./languages-grid";
 import { TopContributors } from "./top-contributors";
 import { CommunityPreview } from "./community-preview";
 import { CtaSection } from "./cta-section";
-import { Skeleton } from "@/components/ui/skeleton";
-
-function SectionSkeleton() {
-  return (
-    <div className="container mx-auto px-4">
-      <div className="flex flex-col items-center gap-4">
-        <Skeleton className="h-10 w-64" />
-        <Skeleton className="h-6 w-96" />
-        <div className="mt-8 grid w-full grid-cols-1 gap-6 md:grid-cols-3">
-          <Skeleton className="h-48" />
-          <Skeleton className="h-48" />
-          <Skeleton className="h-48" />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export function Home() {
   return (
@@ -42,9 +24,7 @@ export function Home() {
 
       {/* Stats Section */}
       <section className="bg-muted/30 py-16">
-        <Suspense fallback={<SectionSkeleton />}>
-          <StatsSection />
-        </Suspense>
+        <StatsSection />
       </section>
 
       {/* Features Section */}
@@ -59,9 +39,7 @@ export function Home() {
 
       {/* Top Contributors */}
       <section className="py-24">
-        <Suspense fallback={<SectionSkeleton />}>
-          <TopContributors />
-        </Suspense>
+        <TopContributors />
       </section>
 
       {/* Community Preview with Discord Widget */}

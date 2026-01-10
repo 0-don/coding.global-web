@@ -3,9 +3,8 @@
 import { motion, useInView } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
-import { useRef, Suspense } from "react";
+import { useRef } from "react";
 import { DiscordWidget } from "./discord-widget";
-import { DiscordWidgetSkeleton } from "./discord-widget-skeleton";
 import { useNewsQuery } from "@/hook/bot-hook";
 import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
 import { Newspaper } from "lucide-react";
@@ -81,9 +80,7 @@ export function CommunityPreview() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Suspense fallback={<DiscordWidgetSkeleton className="h-full" />}>
-            <DiscordWidget className="h-full" />
-          </Suspense>
+          <DiscordWidget className="h-full" />
         </motion.div>
 
         <motion.div
@@ -91,17 +88,7 @@ export function CommunityPreview() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Suspense
-            fallback={
-              <Card className="h-full">
-                <CardContent className="flex h-64 items-center justify-center">
-                  <div className="bg-muted h-4 w-32 animate-pulse rounded" />
-                </CardContent>
-              </Card>
-            }
-          >
-            <NewsPreview />
-          </Suspense>
+          <NewsPreview />
         </motion.div>
       </div>
     </div>
