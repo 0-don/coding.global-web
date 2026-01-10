@@ -5,54 +5,75 @@ import type {
   GetApiByGuildIdTopParams,
   GetApiByGuildIdUserSearchParams,
 } from "@/openapi";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 /**
- * Usage example:
+ * Fetch guild member stats on demand with caching.
  *
- * const { refetch: fetchMembers, data, isLoading } = useTerminalMembersQuery();
- *
- * const handleCommand = async (cmd: string) => {
- *   if (cmd === "/stats") {
- *     const result = await fetchMembers();
- *     console.log(result.data);
- *   }
- * };
+ * @example
+ * const fetchMembers = useFetchTerminalMembers();
+ * const data = await fetchMembers();
  */
+export function useFetchTerminalMembers() {
+  const queryClient = useQueryClient();
 
-export function useTerminalMembersQuery() {
-  return useQuery({
-    queryKey: queryKeys.terminalMembers(),
-    queryFn: async () => handleElysia(await rpc.api.terminal.members.get()),
-    enabled: false,
-  });
+  return () =>
+    queryClient.fetchQuery({
+      queryKey: queryKeys.terminalMembers(),
+      queryFn: async () => handleElysia(await rpc.api.terminal.members.get()),
+    });
 }
 
-export function useTerminalTopQuery(query?: GetApiByGuildIdTopParams) {
-  return useQuery({
-    queryKey: queryKeys.terminalTop(query),
-    queryFn: async () =>
-      handleElysia(await rpc.api.terminal.top.get({ query })),
-    enabled: false,
-  });
+/**
+ * Fetch top contributors on demand with caching.
+ *
+ * @example
+ * const fetchTop = useFetchTerminalTop();
+ * const data = await fetchTop({ limit: 5 });
+ */
+export function useFetchTerminalTop() {
+  const queryClient = useQueryClient();
+
+  return (query?: GetApiByGuildIdTopParams) =>
+    queryClient.fetchQuery({
+      queryKey: queryKeys.terminalTop(query),
+      queryFn: async () =>
+        handleElysia(await rpc.api.terminal.top.get({ query })),
+    });
 }
 
-export function useTerminalUserSearchQuery(
-  query?: GetApiByGuildIdUserSearchParams,
-) {
-  return useQuery({
-    queryKey: queryKeys.terminalUserSearch(query),
-    queryFn: async () =>
-      handleElysia(await rpc.api.terminal.user.search.get({ query })),
-    enabled: false,
-  });
+/**
+ * Search users on demand with caching.
+ *
+ * @example
+ * const searchUsers = useFetchTerminalUserSearch();
+ * const data = await searchUsers({ q: "john", limit: 10 });
+ */
+export function useFetchTerminalUserSearch() {
+  const queryClient = useQueryClient();
+
+  return (query: GetApiByGuildIdUserSearchParams) =>
+    queryClient.fetchQuery({
+      queryKey: queryKeys.terminalUserSearch(query),
+      queryFn: async () =>
+        handleElysia(await rpc.api.terminal.user.search.get({ query })),
+    });
 }
 
-export function useTerminalUserQuery(userId: string) {
-  return useQuery({
-    queryKey: queryKeys.terminalUser(userId),
-    queryFn: async () =>
-      handleElysia(await rpc.api.terminal.user({ userId }).get()),
-    enabled: false,
-  });
+/**
+ * Fetch a specific user on demand with caching.
+ *
+ * @example
+ * const fetchUser = useFetchTerminalUser();
+ * const data = await fetchUser("123456789");
+ */
+export function useFetchTerminalUser() {
+  const queryClient = useQueryClient();
+
+  return (userId: string) =>
+    queryClient.fetchQuery({
+      queryKey: queryKeys.terminalUser(userId),
+      queryFn: async () =>
+        handleElysia(await rpc.api.terminal.user({ userId }).get()),
+    });
 }
