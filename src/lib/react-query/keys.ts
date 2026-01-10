@@ -1,3 +1,7 @@
+import type {
+  GetApiByGuildIdTopParams,
+  GetApiByGuildIdUserSearchParams,
+} from "@/openapi";
 import { BoardType } from "../types";
 
 export const queryKeys = {
@@ -46,16 +50,16 @@ export const queryKeys = {
 
   // Terminal
   terminalMembers: () => ["terminal", "members"],
-  terminalTop: (days?: number, limit?: number) => [
+  terminalTop: (options?: GetApiByGuildIdTopParams) => [
     "terminal",
     "top",
-    { days, limit },
+    options,
   ],
-  terminalUserSearch: (query: string, limit?: number) => [
+  terminalUserSearch: (options?: GetApiByGuildIdUserSearchParams) => [
     "terminal",
     "user",
     "search",
-    { query, limit },
+    options,
   ],
   terminalUser: (userId: string) => ["terminal", "user", userId],
 };
