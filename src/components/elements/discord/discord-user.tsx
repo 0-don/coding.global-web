@@ -11,7 +11,10 @@ import {
 import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
-import { GetApiByGuildIdWidget200MembersItem } from "@/openapi";
+import {
+  GetApiByGuildIdBoardByBoardType200ItemAuthor,
+  GetApiByGuildIdWidget200MembersItem,
+} from "@/openapi";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -28,7 +31,9 @@ import {
 
 interface DiscordUserProps {
   className?: string;
-  user?: GetApiByGuildIdWidget200MembersItem;
+  user?:
+    | GetApiByGuildIdBoardByBoardType200ItemAuthor
+    | GetApiByGuildIdWidget200MembersItem;
   enableBanner?: boolean;
   variant?: "row" | "card";
 }
