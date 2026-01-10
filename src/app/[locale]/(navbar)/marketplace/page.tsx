@@ -1,12 +1,12 @@
 import { Marketplace } from "@/components/pages/marketplace/marketplace";
-import { ListItemStoreProvider } from "@/components/provider/store/list-item-store-provider";
+import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
-import { getListItemStoreKey, ListItemState } from "@/store/list-item-store";
+import { getThreadStoreKey, ThreadState } from "@/store/thread-store";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {
@@ -26,7 +26,7 @@ export default async function MarketplacePage() {
   const queryClient = getQueryClient();
 
   const [listItemStore] = await Promise.all([
-    getCookieValue<ListItemState>(getListItemStoreKey("marketplace")),
+    getCookieValue<ThreadState>(getThreadStoreKey("marketplace")),
     queryClient.prefetchQuery({
       queryKey: queryKeys.boardThreads("job-board"),
       queryFn: async () =>
@@ -40,8 +40,8 @@ export default async function MarketplacePage() {
   ]);
 
   return (
-    <ListItemStoreProvider boardType="marketplace" data={listItemStore}>
+    <ThreadStoreProvider boardType="marketplace" data={listItemStore}>
       <Marketplace />
-    </ListItemStoreProvider>
+    </ThreadStoreProvider>
   );
 }

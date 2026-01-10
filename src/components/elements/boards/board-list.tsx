@@ -13,7 +13,7 @@ import {
   GetApiByGuildIdBoardByBoardType200Item,
   GetApiByGuildIdBoardByBoardType200ItemBoardType,
 } from "@/openapi";
-import { filterItems, getListItemAtoms } from "@/store/list-item-store";
+import { filterThreads, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
@@ -38,13 +38,13 @@ interface BoardListProps {
 
 export function BoardList(props: BoardListProps) {
   const t = useTranslations();
-  const atoms = getListItemAtoms(props.boardType);
+  const atoms = getThreadAtoms(props.boardType);
 
   const state = useAtomValue(atoms.baseAtom);
   const setSearchQuery = useSetAtom(atoms.searchQueryAtom);
   const clearFilters = useSetAtom(atoms.clearFiltersAtom);
 
-  const filteredThreads = filterItems(props.threads, state);
+  const filteredThreads = filterThreads(props.threads, state);
   const hasActiveFilters =
     state.searchQuery?.trim() || (state.selectedTags?.length ?? 0) > 0;
 
