@@ -1,5 +1,4 @@
 import { News } from "@/components/pages/community/news/news";
-import { NewsSkeleton } from "@/components/pages/community/news/news-skeleton";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -8,7 +7,6 @@ import { handleElysia } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -26,7 +24,7 @@ export async function generateMetadata(props: {
 export default async function NewsPage() {
   const queryClient = getQueryClient();
 
-  const [, t] = await Promise.all([
+  await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.news(),
       queryFn: async () => handleElysia(await rpc.api.bot.news.get()),
@@ -36,9 +34,7 @@ export default async function NewsPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      {/* <Suspense fallback={<NewsSkeleton title={t("NEWS.TITLE")} />}> */}
       <News />
-      {/* </Suspense> */}
     </HydrationBoundary>
   );
 }

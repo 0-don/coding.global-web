@@ -26,29 +26,19 @@ export async function generateMetadata(props: {
 export default async function DevBoardPage() {
   const queryClient = getQueryClient();
 
-  const [, listItemStore, t] = await Promise.all([
+  const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.boardThreads("dev-board"),
       queryFn: async () =>
         handleElysia(await rpc.api.bot.board({ boardType: "dev-board" }).get()),
     }),
     getCookieValue<ListItemState>(getListItemStoreKey("dev-board")),
-    getTranslations(),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="dev-board" data={listItemStore}>
-        {/* <Suspense
-          fallback={
-            <BoardListSkeleton
-              title={t("MARKETPLACE.DEV_BOARD.HEADING")}
-              icon={HiOutlineCodeBracket}
-            />
-          }
-        > */}
         <DevBoard />
-        {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

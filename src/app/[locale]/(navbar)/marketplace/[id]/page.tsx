@@ -1,4 +1,3 @@
-import { ThreadDetailSkeleton } from "@/components/elements/thread/thread-detail-skeleton";
 import { MarketplaceDetail } from "@/components/pages/marketplace/marketplace-detail";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
@@ -10,7 +9,6 @@ import {
 } from "@/lib/utils/thread-metadata";
 import { GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType } from "@/openapi";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -79,11 +77,5 @@ export default async function MarketplaceDetailPage(props: {
     return null;
   }
 
-  return (
-    <>
-      {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
-      <MarketplaceDetail threadId={params.id} boardType={boardType} />
-      {/* </Suspense> */}
-    </>
-  );
+  return <MarketplaceDetail threadId={params.id} boardType={boardType} />;
 }

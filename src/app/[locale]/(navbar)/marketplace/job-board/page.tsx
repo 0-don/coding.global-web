@@ -26,29 +26,19 @@ export async function generateMetadata(props: {
 export default async function JobBoardPage() {
   const queryClient = getQueryClient();
 
-  const [, listItemStore, t] = await Promise.all([
+  const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.boardThreads("job-board"),
       queryFn: async () =>
         handleElysia(await rpc.api.bot.board({ boardType: "job-board" }).get()),
     }),
     getCookieValue<ListItemState>(getListItemStoreKey("job-board")),
-    getTranslations(),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="job-board" data={listItemStore}>
-        {/* <Suspense
-          fallback={
-            <BoardListSkeleton
-              title={t("MARKETPLACE.JOB_BOARD.HEADING")}
-              icon={HiOutlineBriefcase}
-            />
-          }
-        > */}
         <JobBoard />
-        {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

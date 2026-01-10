@@ -39,17 +39,7 @@ export default async function ShowcasePage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ListItemStoreProvider boardType="showcase" data={listItemStore}>
-        {/* <Suspense
-          
-          // fallback={
-          //   <BoardListSkeleton
-          //     title={t("SHOWCASE.HEADING")}
-          //     icon={HiOutlineTrophy}
-          //   />
-          // }
-        > */}
         <Showcase />
-        {/* </Suspense> */}
       </ListItemStoreProvider>
     </HydrationBoundary>
   );

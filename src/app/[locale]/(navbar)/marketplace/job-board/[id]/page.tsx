@@ -1,4 +1,3 @@
-import { ThreadDetailSkeleton } from "@/components/elements/thread/thread-detail-skeleton";
 import { BoardDetail } from "@/components/pages/marketplace/board-detail";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -8,7 +7,6 @@ import { serverLocale } from "@/lib/utils/server";
 import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -58,9 +56,7 @@ export default async function JobBoardDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      {/* <Suspense fallback={<ThreadDetailSkeleton />}> */}
       <BoardDetail threadId={params.id} boardType="job-board" />
-      {/* </Suspense> */}
     </HydrationBoundary>
   );
 }
