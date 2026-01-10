@@ -18,7 +18,6 @@ export function DiscordWidget(props: DiscordWidgetProps) {
   const t = useTranslations();
   const { data: widget } = useDiscordWidget();
 
-  console.log("Discord Widget Data:", widget);
   if (!widget) return null;
 
   return (
