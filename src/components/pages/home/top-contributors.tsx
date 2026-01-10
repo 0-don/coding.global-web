@@ -9,15 +9,15 @@ import { useTopStatsQuery } from "@/hook/bot-hook";
 import { Heart, MessageSquare, Mic } from "lucide-react";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import {
-  GetApiByGuildIdTopStats200MostActiveMessageUsersItem,
-  GetApiByGuildIdTopStats200MostActiveVoiceUsersItem,
-  GetApiByGuildIdTopStats200MostHelpfulUsersItem,
+  GetApiByGuildIdTop200MostActiveMessageUsersItem,
+  GetApiByGuildIdTop200MostActiveVoiceUsersItem,
+  GetApiByGuildIdTop200MostHelpfulUsersItem,
 } from "@/openapi";
 
 type TopStatsUser =
-  | GetApiByGuildIdTopStats200MostActiveMessageUsersItem
-  | GetApiByGuildIdTopStats200MostHelpfulUsersItem
-  | GetApiByGuildIdTopStats200MostActiveVoiceUsersItem;
+  | GetApiByGuildIdTop200MostActiveMessageUsersItem
+  | GetApiByGuildIdTop200MostHelpfulUsersItem
+  | GetApiByGuildIdTop200MostActiveVoiceUsersItem;
 
 interface ContributorCardProps {
   title: string;

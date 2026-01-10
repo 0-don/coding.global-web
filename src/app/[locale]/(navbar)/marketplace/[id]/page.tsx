@@ -7,7 +7,6 @@ import {
   detectThreadWithType,
   getThreadPageMetadata,
 } from "@/lib/utils/thread-metadata";
-import { GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType } from "@/openapi";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata(props: {
@@ -55,12 +54,16 @@ async function detectBoardType(
     rpc.api.bot
       .board({ boardType: "job-board" })({ threadId })
       .get()
-      .then((r) => (r.status === 200 ? BoardType["job-board"] : null))
+      .then((r): MarketplaceBoardType | null =>
+        r.status === 200 ? "job-board" : null,
+      )
       .catch(() => null),
     rpc.api.bot
       .board({ boardType: "dev-board" })({ threadId })
       .get()
-      .then((r) => (r.status === 200 ? BoardType["dev-board"] : null))
+      .then((r): MarketplaceBoardType | null =>
+        r.status === 200 ? "dev-board" : null,
+      )
       .catch(() => null),
   ]);
 

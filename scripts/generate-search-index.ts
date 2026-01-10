@@ -11,9 +11,9 @@ import { renderToString } from "react-dom/server";
 import TurndownService from "turndown";
 import { LOCALES } from "../src/lib/config/constants";
 import { queryKeys } from "../src/lib/react-query/keys";
+import { ApiBoardType } from "../src/lib/types";
 import {
   getApiByGuildIdBoardByBoardType,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
 } from "../src/openapi";
@@ -62,7 +62,7 @@ const prefetch = {
         qc.setQueryData(queryKeys.boardThreads(type), res.data);
     },
   codingBoard:
-    (type: GetApiByGuildIdBoardByBoardType200ItemBoardType): Prefetcher =>
+    (type: ApiBoardType): Prefetcher =>
     async (qc) => {
       const res = await getApiByGuildIdBoardByBoardType(GUILD_ID, type).catch(
         () => null,
