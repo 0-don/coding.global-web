@@ -612,6 +612,7 @@ export type GetApiByGuildIdBoardByBoardType200Item = {
   id: string;
   name: string;
   parentId: GetApiByGuildIdBoardByBoardType200ItemParentId;
+  boardType: string;
   author: GetApiByGuildIdBoardByBoardType200ItemAuthor;
   createdAt: GetApiByGuildIdBoardByBoardType200ItemCreatedAt;
   tags: GetApiByGuildIdBoardByBoardType200ItemTagsItem[];
@@ -811,6 +812,7 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadId200 = {
   id: string;
   name: string;
   parentId: GetApiByGuildIdBoardByBoardTypeByThreadId200ParentId;
+  boardType: string;
   author: GetApiByGuildIdBoardByBoardTypeByThreadId200Author;
   createdAt: GetApiByGuildIdBoardByBoardTypeByThreadId200CreatedAt;
   tags: GetApiByGuildIdBoardByBoardTypeByThreadId200TagsItem[];
