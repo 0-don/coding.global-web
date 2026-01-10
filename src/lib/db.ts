@@ -8,6 +8,9 @@ export const db = drizzle(
   postgres(process.env.DATABASE_URL!, { onnotice: () => {} }),
 );
 
-migrate(db, { migrationsFolder: resolve("drizzle") }).catch((e) =>
-  error("Database migration failed", e),
-);
+// Skip migration during build time (when there's no database connection)
+if (process.env.NODE_ENV !== "test") {
+  migrate(db, { migrationsFolder: resolve("drizzle") }).catch((e) =>
+    error("Database migration failed", e),
+  );
+}
