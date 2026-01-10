@@ -24,9 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch boards sequentially to avoid overwhelming the API
   const boardTypes = Object.values(GetApiByGuildIdBoardByBoardType200ItemBoardType);
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
   log(`[Sitemap] API base URL: ${apiUrl}`);
-  log(`[Sitemap] GUILD_ID: ${process.env.NEXT_PUBLIC_GUILD_ID}`);
 
   for (const boardType of boardTypes) {
     const fullUrl = `${apiUrl}/${boardType}`;
