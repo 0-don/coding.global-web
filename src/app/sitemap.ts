@@ -24,15 +24,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch boards sequentially to avoid overwhelming the API
   const boardTypes = Object.values(GetApiByGuildIdBoardByBoardType200ItemBoardType);
 
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
+  log(`[Sitemap] API base URL: ${apiUrl}`);
+  log(`[Sitemap] GUILD_ID: ${process.env.NEXT_PUBLIC_GUILD_ID}`);
+
   for (const boardType of boardTypes) {
+    const fullUrl = `${apiUrl}/${boardType}`;
+    log(`[Sitemap] Fetching ${boardType} from: ${fullUrl}`);
+
     try {
       const response = await getApiByGuildIdBoardByBoardType(
         process.env.NEXT_PUBLIC_GUILD_ID,
         boardType,
       );
 
+      log(`[Sitemap] ${boardType} response status: ${response.status}`);
+
       if (response.status !== 200) {
-        log(`[Sitemap] ${boardType} returned status ${response.status}`);
+        log(`[Sitemap] ${boardType} returned non-200 status: ${response.status}`);
+        log(`[Sitemap] ${boardType} response data:`, JSON.stringify(response.data).slice(0, 500));
         continue;
       }
 
@@ -46,7 +56,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
       });
     } catch (error) {
-      log(`[Sitemap] Failed to fetch threads for ${boardType}:`, error);
+      log(`[Sitemap] Failed to fetch threads for ${boardType}`);
+      log(`[Sitemap] URL attempted: ${fullUrl}`);
+      if (error instanceof Error) {
+        log(`[Sitemap] Error name: ${error.name}`);
+        log(`[Sitemap] Error message: ${error.message}`);
+        log(`[Sitemap] Error stack: ${error.stack}`);
+      } else {
+        log(`[Sitemap] Error (raw):`, error);
+      }
     }
   }
 
