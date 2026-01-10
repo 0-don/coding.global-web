@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <header className="bg-background/80 fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 xl:px-6">
+      <div className="container mx-auto flex h-12 items-center justify-between px-4 xl:px-6">
         <div className="flex items-center gap-1 xl:hidden">
           <MobileNav />
           <Link
@@ -53,18 +53,18 @@ export default function Navbar() {
           <CompanyName className="hidden text-xl font-bold xl:block" />
         </Link>
 
-        <div className="hidden items-center gap-2 xl:mr-6 xl:flex">
-          <Link href="/" className="flex items-center gap-2">
+        <div className="hidden items-center gap-1 xl:flex">
+          <Link href="/" className="flex items-center gap-1.5">
             <LogoImage />
-            <CompanyName className="text-xl font-bold" />
+            <CompanyName className="text-base font-bold" />
           </Link>
           <Link
             href={getDiscordInviteLink() as LinkHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
+            className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-8 items-center justify-center rounded-md text-[#5865F2] transition-colors"
           >
-            <FaDiscord className="size-5" />
+            <FaDiscord className="size-4" />
             <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
           </Link>
         </div>
