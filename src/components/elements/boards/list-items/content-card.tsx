@@ -250,7 +250,7 @@ export function ContentCard(props: ContentCardProps) {
   if (href) {
     return (
       <Card
-        className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
+        className={`h-full overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
       >
         <Link href={href} className="flex h-full cursor-pointer flex-col">
           {cardContent}
@@ -261,7 +261,7 @@ export function ContentCard(props: ContentCardProps) {
 
   return (
     <Card
-      className={`overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
+      className={`h-full overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
     >
       <div className="flex h-full flex-col">{cardContent}</div>
     </Card>
