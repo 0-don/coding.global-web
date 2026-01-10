@@ -1,60 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
   useTerminalMembersQuery,
   useTerminalTopQuery,
-  useTerminalUserSearchQuery,
   useTerminalUserQuery,
+  useTerminalUserSearchQuery,
 } from "@/hook/terminal-hook";
+import { useState } from "react";
 
 export function TerminalHooksTest() {
   const [searchQuery, setSearchQuery] = useState("");
   const [userId, setUserId] = useState("");
 
   const membersQuery = useTerminalMembersQuery();
-  const topQuery = useTerminalTopQuery({ limit: 10 });
-  const userSearchQuery = useTerminalUserSearchQuery({ q: searchQuery });
-  const userQuery = useTerminalUserQuery(userId);
+  const topQuery = useTerminalTopQuery();
+  const userSearchQuery = useTerminalUserSearchQuery();
+  const userQuery = useTerminalUserQuery();
 
-  useEffect(() => {
-    console.log("=== Terminal Members ===");
-    console.log("Loading:", membersQuery.isLoading);
-    console.log("Error:", membersQuery.error);
-    console.log("Data:", membersQuery.data);
-  }, [membersQuery.isLoading, membersQuery.error, membersQuery.data]);
+  const handleFetchMembers = async () => {
+    await membersQuery.fetch();
+  };
 
-  useEffect(() => {
-    console.log("=== Terminal Top ===");
-    console.log("Loading:", topQuery.isLoading);
-    console.log("Error:", topQuery.error);
-    console.log("Data:", topQuery.data);
-  }, [topQuery.isLoading, topQuery.error, topQuery.data]);
+  const handleFetchTop = async () => {
+    await topQuery.fetch({ limit: 10 });
+  };
 
-  useEffect(() => {
-    if (searchQuery.length > 0) {
-      console.log("=== Terminal User Search ===");
-      console.log("Query:", searchQuery);
-      console.log("Loading:", userSearchQuery.isLoading);
-      console.log("Error:", userSearchQuery.error);
-      console.log("Data:", userSearchQuery.data);
-    }
-  }, [
-    searchQuery,
-    userSearchQuery.isLoading,
-    userSearchQuery.error,
-    userSearchQuery.data,
-  ]);
+  const handleSearch = async () => {
+    if (!searchQuery) return;
+    await userSearchQuery.fetch({ q: searchQuery });
+  };
 
-  useEffect(() => {
-    if (userId.length > 0) {
-      console.log("=== Terminal User ===");
-      console.log("User ID:", userId);
-      console.log("Loading:", userQuery.isLoading);
-      console.log("Error:", userQuery.error);
-      console.log("Data:", userQuery.data);
-    }
-  }, [userId, userQuery.isLoading, userQuery.error, userQuery.data]);
+  const handleFetchUser = async () => {
+    if (!userId) return;
+    await userQuery.fetch(userId);
+  };
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
@@ -63,19 +42,16 @@ export function TerminalHooksTest() {
       {/* Members Section */}
       <div className="rounded-lg border p-4">
         <h3 className="mb-2 text-lg font-semibold">useTerminalMembersQuery</h3>
+        <button
+          onClick={handleFetchMembers}
+          disabled={membersQuery.isLoading}
+          className="bg-primary text-primary-foreground mb-2 rounded px-4 py-2 disabled:opacity-50"
+        >
+          {membersQuery.isLoading ? "Loading..." : "Fetch Members"}
+        </button>
         <div className="space-y-1 text-sm">
-          <p>
-            Status:{" "}
-            {membersQuery.isLoading
-              ? "Loading..."
-              : membersQuery.error
-                ? "Error"
-                : "Success"}
-          </p>
           {membersQuery.error && (
-            <p className="text-red-500">
-              Error: {String(membersQuery.error.message)}
-            </p>
+            <p className="text-red-500">Error: {membersQuery.error.message}</p>
           )}
           {membersQuery.data && (
             <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
@@ -90,17 +66,16 @@ export function TerminalHooksTest() {
         <h3 className="mb-2 text-lg font-semibold">
           useTerminalTopQuery (limit: 10)
         </h3>
+        <button
+          onClick={handleFetchTop}
+          disabled={topQuery.isLoading}
+          className="bg-primary text-primary-foreground mb-2 rounded px-4 py-2 disabled:opacity-50"
+        >
+          {topQuery.isLoading ? "Loading..." : "Fetch Top"}
+        </button>
         <div className="space-y-1 text-sm">
-          <p>
-            Status:{" "}
-            {topQuery.isLoading
-              ? "Loading..."
-              : topQuery.error
-                ? "Error"
-                : "Success"}
-          </p>
           {topQuery.error && (
-            <p className="text-red-500">Error: {String(topQuery.error.message)}</p>
+            <p className="text-red-500">Error: {topQuery.error.message}</p>
           )}
           {topQuery.data && (
             <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
@@ -112,41 +87,35 @@ export function TerminalHooksTest() {
 
       {/* User Search Section */}
       <div className="rounded-lg border p-4">
-        <h3 className="mb-2 text-lg font-semibold">useTerminalUserSearchQuery</h3>
-        <input
-          type="text"
-          placeholder="Search for a user..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border-input bg-background mb-2 w-full rounded border px-3 py-2"
-        />
+        <h3 className="mb-2 text-lg font-semibold">
+          useTerminalUserSearchQuery
+        </h3>
+        <div className="mb-2 flex gap-2">
+          <input
+            type="text"
+            placeholder="Search for a user..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border-input bg-background flex-1 rounded border px-3 py-2"
+          />
+          <button
+            onClick={handleSearch}
+            disabled={userSearchQuery.isLoading || !searchQuery}
+            className="bg-primary text-primary-foreground rounded px-4 py-2 disabled:opacity-50"
+          >
+            {userSearchQuery.isLoading ? "Loading..." : "Search"}
+          </button>
+        </div>
         <div className="space-y-1 text-sm">
-          {searchQuery.length > 0 && (
-            <>
-              <p>
-                Status:{" "}
-                {userSearchQuery.isLoading
-                  ? "Loading..."
-                  : userSearchQuery.error
-                    ? "Error"
-                    : "Success"}
-              </p>
-              {userSearchQuery.error && (
-                <p className="text-red-500">
-                  Error: {String(userSearchQuery.error.message)}
-                </p>
-              )}
-              {userSearchQuery.data && (
-                <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
-                  {JSON.stringify(userSearchQuery.data, null, 2)}
-                </pre>
-              )}
-            </>
-          )}
-          {searchQuery.length === 0 && (
-            <p className="text-muted-foreground">
-              Type something to search for users
+          {userSearchQuery.error && (
+            <p className="text-red-500">
+              Error: {userSearchQuery.error.message}
             </p>
+          )}
+          {userSearchQuery.data && (
+            <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
+              {JSON.stringify(userSearchQuery.data, null, 2)}
+            </pre>
           )}
         </div>
       </div>
@@ -154,38 +123,30 @@ export function TerminalHooksTest() {
       {/* User By ID Section */}
       <div className="rounded-lg border p-4">
         <h3 className="mb-2 text-lg font-semibold">useTerminalUserQuery</h3>
-        <input
-          type="text"
-          placeholder="Enter user ID..."
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          className="border-input bg-background mb-2 w-full rounded border px-3 py-2"
-        />
+        <div className="mb-2 flex gap-2">
+          <input
+            type="text"
+            placeholder="Enter user ID..."
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            className="border-input bg-background flex-1 rounded border px-3 py-2"
+          />
+          <button
+            onClick={handleFetchUser}
+            disabled={userQuery.isLoading || !userId}
+            className="bg-primary text-primary-foreground rounded px-4 py-2 disabled:opacity-50"
+          >
+            {userQuery.isLoading ? "Loading..." : "Fetch User"}
+          </button>
+        </div>
         <div className="space-y-1 text-sm">
-          {userId.length > 0 && (
-            <>
-              <p>
-                Status:{" "}
-                {userQuery.isLoading
-                  ? "Loading..."
-                  : userQuery.error
-                    ? "Error"
-                    : "Success"}
-              </p>
-              {userQuery.error && (
-                <p className="text-red-500">
-                  Error: {String(userQuery.error.message)}
-                </p>
-              )}
-              {userQuery.data && (
-                <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
-                  {JSON.stringify(userQuery.data, null, 2)}
-                </pre>
-              )}
-            </>
+          {userQuery.error && (
+            <p className="text-red-500">Error: {userQuery.error.message}</p>
           )}
-          {userId.length === 0 && (
-            <p className="text-muted-foreground">Enter a user ID to fetch</p>
+          {userQuery.data && (
+            <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
+              {JSON.stringify(userQuery.data, null, 2)}
+            </pre>
           )}
         </div>
       </div>
