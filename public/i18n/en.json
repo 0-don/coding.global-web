@@ -31,6 +31,9 @@
     "HERO_TITLE": "Build. Learn. Connect.",
     "HERO_SUBTITLE": "Join thousands of developers in the ultimate coding community",
     "HERO_TERMINAL_TEXT": "$ connecting to coding.global...",
+    "HERO_TERMINAL_OUTPUT_1": "✓ Installing community features...",
+    "HERO_TERMINAL_OUTPUT_2": "✓ Starting your coding journey...",
+    "HERO_TERMINAL_OUTPUT_3": "✓ Connecting with developers worldwide...",
     "HERO_CTA_PRIMARY": "Join Our Discord",
     "HERO_CTA_SECONDARY": "Explore Resources",
 
