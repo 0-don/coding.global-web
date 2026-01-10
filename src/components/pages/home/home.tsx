@@ -1,14 +1,13 @@
 "use client";
 
 import { motion } from "motion/react";
-import { HeroSection } from "./hero-section";
-import { StatsSection } from "./stats-section";
-import { FeaturesSection } from "./features-section";
-import { LanguagesGrid } from "./languages-grid";
-import { TopContributors } from "./top-contributors";
 import { CommunityPreview } from "./community-preview";
 import { CtaSection } from "./cta-section";
-import { TerminalHooksTest } from "./terminal-hooks-test";
+import { FeaturesSection } from "./features-section";
+import { HeroSection } from "./hero-section";
+import { LanguagesGrid } from "./languages-grid";
+import { StatsSection } from "./stats-section";
+import { TopContributors } from "./top-contributors";
 
 export function Home() {
   return (
@@ -19,9 +18,9 @@ export function Home() {
       className="flex flex-col"
     >
       {/* Terminal Hooks Test */}
-      <section className="bg-muted/30 py-16">
+      {/* <section className="bg-muted/30 py-16">
         <TerminalHooksTest />
-      </section>
+      </section> */}
 
       {/* Hero Section - Full viewport height */}
       <section className="flex min-h-[85vh] items-center justify-center py-20">
