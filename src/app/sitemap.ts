@@ -1,37 +1,14 @@
 import { getPathname } from "@/i18n/navigation";
 import { Pathname, pathnames, routing } from "@/i18n/routing";
-import { ApiBoardType } from "@/lib/types";
-import { getApiByGuildIdBoardByBoardType } from "@/openapi";
+import {
+  getApiByGuildIdBoardByBoardType,
+  GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+} from "@/openapi";
 import { log } from "console";
 import { MetadataRoute } from "next";
 import { Locale } from "next-intl";
 
 export const revalidate = 3600;
-
-const BOARD_TYPES: ApiBoardType[] = [
-  "job-board",
-  "dev-board",
-  "showcase",
-  "cpp",
-  "csharp",
-  "c",
-  "dart",
-  "lua",
-  "go",
-  "html-css",
-  "java",
-  "javascript",
-  "kotlin",
-  "python",
-  "rust",
-  "php",
-  "bash-powershell",
-  "sql",
-  "swift",
-  "visual-basic",
-  "zig",
-  "other",
-];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = Object.keys(pathnames).filter(
@@ -45,10 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   // Fetch boards sequentially to avoid overwhelming the API
+  const boardTypes = Object.values(
+    GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+  );
+
   const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
   log(`[Sitemap] API base URL: ${apiUrl}`);
 
-  for (const boardType of BOARD_TYPES) {
+  for (const boardType of boardTypes) {
     const fullUrl = `${apiUrl}/${boardType}`;
     log(`[Sitemap] Fetching ${boardType} from: ${fullUrl}`);
 
@@ -61,8 +42,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       log(`[Sitemap] ${boardType} response status: ${response.status}`);
 
       if (response.status !== 200) {
-        log(`[Sitemap] ${boardType} returned non-200 status: ${response.status}`);
-        log(`[Sitemap] ${boardType} response data:`, JSON.stringify(response.data).slice(0, 500));
+        log(
+          `[Sitemap] ${boardType} returned non-200 status: ${response.status}`,
+        );
+        log(
+          `[Sitemap] ${boardType} response data:`,
+          JSON.stringify(response.data).slice(0, 500),
+        );
         continue;
       }
 
@@ -93,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 function getThreadPathname(
-  boardType: ApiBoardType,
+  boardType: GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
   threadId: string,
 ): Pathname | null {
   switch (boardType) {
