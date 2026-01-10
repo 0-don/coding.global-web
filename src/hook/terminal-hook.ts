@@ -17,18 +17,21 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
  */
 export function useTerminalMembersQuery() {
   const queryClient = useQueryClient();
+  const queryKey = queryKeys.terminalMembers();
 
   const query = useQuery({
-    queryKey: queryKeys.terminalMembers(),
+    queryKey,
     queryFn: async () => handleElysia(await rpc.api.terminal.members.get()),
     enabled: false,
   });
 
-  const fetch = () =>
-    queryClient.fetchQuery({
-      queryKey: queryKeys.terminalMembers(),
+  const fetch = async () => {
+    const data = await queryClient.fetchQuery({
+      queryKey,
       queryFn: async () => handleElysia(await rpc.api.terminal.members.get()),
     });
+    return data;
+  };
 
   return { ...query, fetch };
 }
@@ -41,21 +44,25 @@ export function useTerminalMembersQuery() {
  * const { data, isLoading, error, fetch } = useTerminalTopQuery();
  * await fetch({ limit: 5 });
  */
-export function useTerminalTopQuery() {
+export function useTerminalTopQuery(params?: GetApiByGuildIdTopParams) {
   const queryClient = useQueryClient();
+  const queryKey = queryKeys.terminalTop(params);
 
   const query = useQuery({
-    queryKey: queryKeys.terminalTop(),
-    queryFn: async () => handleElysia(await rpc.api.terminal.top.get({})),
+    queryKey,
+    queryFn: async () =>
+      handleElysia(await rpc.api.terminal.top.get({ query: params })),
     enabled: false,
   });
 
-  const fetch = (params?: GetApiByGuildIdTopParams) =>
-    queryClient.fetchQuery({
-      queryKey: queryKeys.terminalTop(params),
+  const fetch = async () => {
+    const data = await queryClient.fetchQuery({
+      queryKey,
       queryFn: async () =>
         handleElysia(await rpc.api.terminal.top.get({ query: params })),
     });
+    return data;
+  };
 
   return { ...query, fetch };
 }
@@ -65,25 +72,30 @@ export function useTerminalTopQuery() {
  * Provides reactive states (data, isLoading, error) and a cached fetch function.
  *
  * @example
- * const { data, isLoading, error, fetch } = useTerminalUserSearchQuery();
- * await fetch({ q: "john", limit: 10 });
+ * const { data, isLoading, error, fetch } = useTerminalUserSearchQuery({ q: "john" });
+ * await fetch();
  */
-export function useTerminalUserSearchQuery() {
+export function useTerminalUserSearchQuery(
+  params?: GetApiByGuildIdUserSearchParams,
+) {
   const queryClient = useQueryClient();
+  const queryKey = queryKeys.terminalUserSearch(params);
 
   const query = useQuery({
-    queryKey: queryKeys.terminalUserSearch(),
+    queryKey,
     queryFn: async () =>
-      handleElysia(await rpc.api.terminal.user.search.get({})),
+      handleElysia(await rpc.api.terminal.user.search.get({ query: params })),
     enabled: false,
   });
 
-  const fetch = (params: GetApiByGuildIdUserSearchParams) =>
-    queryClient.fetchQuery({
-      queryKey: queryKeys.terminalUserSearch(params),
+  const fetch = async () => {
+    const data = await queryClient.fetchQuery({
+      queryKey,
       queryFn: async () =>
         handleElysia(await rpc.api.terminal.user.search.get({ query: params })),
     });
+    return data;
+  };
 
   return { ...query, fetch };
 }
@@ -93,24 +105,28 @@ export function useTerminalUserSearchQuery() {
  * Provides reactive states (data, isLoading, error) and a cached fetch function.
  *
  * @example
- * const { data, isLoading, error, fetch } = useTerminalUserQuery();
- * await fetch("123456789");
+ * const { data, isLoading, error, fetch } = useTerminalUserQuery("123456789");
+ * await fetch();
  */
-export function useTerminalUserQuery() {
+export function useTerminalUserQuery(userId: string) {
   const queryClient = useQueryClient();
+  const queryKey = queryKeys.terminalUser(userId);
 
   const query = useQuery({
-    queryKey: queryKeys.terminalUser(""),
-    queryFn: async () => handleElysia(await rpc.api.terminal.user({ userId: "" }).get()),
+    queryKey,
+    queryFn: async () =>
+      handleElysia(await rpc.api.terminal.user({ userId }).get()),
     enabled: false,
   });
 
-  const fetch = (userId: string) =>
-    queryClient.fetchQuery({
-      queryKey: queryKeys.terminalUser(userId),
+  const fetch = async () => {
+    const data = await queryClient.fetchQuery({
+      queryKey,
       queryFn: async () =>
         handleElysia(await rpc.api.terminal.user({ userId }).get()),
     });
+    return data;
+  };
 
   return { ...query, fetch };
 }

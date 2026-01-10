@@ -13,26 +13,26 @@ export function TerminalHooksTest() {
   const [userId, setUserId] = useState("");
 
   const membersQuery = useTerminalMembersQuery();
-  const topQuery = useTerminalTopQuery();
-  const userSearchQuery = useTerminalUserSearchQuery();
-  const userQuery = useTerminalUserQuery();
+  const topQuery = useTerminalTopQuery({ limit: 10 });
+  const userSearchQuery = useTerminalUserSearchQuery({ q: searchQuery });
+  const userQuery = useTerminalUserQuery(userId);
 
   const handleFetchMembers = async () => {
     await membersQuery.fetch();
   };
 
   const handleFetchTop = async () => {
-    await topQuery.fetch({ limit: 10 });
+    await topQuery.fetch();
   };
 
   const handleSearch = async () => {
     if (!searchQuery) return;
-    await userSearchQuery.fetch({ q: searchQuery });
+    await userSearchQuery.fetch();
   };
 
   const handleFetchUser = async () => {
     if (!userId) return;
-    await userQuery.fetch(userId);
+    await userQuery.fetch();
   };
 
   return (
