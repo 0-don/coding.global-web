@@ -9,13 +9,13 @@ export const LogoImage = (
   const appName = process.env.NEXT_PUBLIC_APP_NAME;
   return (
     <NextImage
-      height={36}
-      width={36}
+      height={28}
+      width={28}
       {...props}
       src={"/images/logo.gif"}
       alt={appName}
       unoptimized
-      className="h-9 w-9 rounded-full object-cover"
+      className="h-7 w-7 rounded-full object-cover"
     />
   );
 };
