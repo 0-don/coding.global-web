@@ -23,13 +23,13 @@ export function useTerminalTopQuery(query?: GetApiByGuildIdTopParams) {
 }
 
 export function useTerminalUserSearchQuery(
-  query: GetApiByGuildIdUserSearchParams,
+  query?: GetApiByGuildIdUserSearchParams,
 ) {
   return useQuery({
     queryKey: queryKeys.terminalUserSearch(query),
     queryFn: async () =>
       handleElysia(await rpc.api.terminal.user.search.get({ query })),
-    enabled: query.q.length > 0,
+    enabled: !!query?.q.length,
   });
 }
 
@@ -38,6 +38,6 @@ export function useTerminalUserQuery(userId: string) {
     queryKey: queryKeys.terminalUser(userId),
     queryFn: async () =>
       handleElysia(await rpc.api.terminal.user({ userId }).get()),
-    enabled: userId.length > 0,
+    enabled: !!userId.length,
   });
 }

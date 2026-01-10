@@ -37,7 +37,9 @@ export const terminalRoute = new Elysia({ prefix: "/terminal" })
     {
       query: t.Object({
         limit: t.Optional(t.Number({ default: 5, minimum: 1, maximum: 10 })),
-        days: t.Optional(t.Number({ default: 9999, minimum: 1, maximum: 9999 })),
+        days: t.Optional(
+          t.Number({ default: 9999, minimum: 1, maximum: 9999 }),
+        ),
       }),
     },
   )
@@ -47,7 +49,7 @@ export const terminalRoute = new Elysia({ prefix: "/terminal" })
       try {
         const response = await getApiByGuildIdUserSearch(
           process.env.NEXT_PUBLIC_GUILD_ID!,
-          { q: query.q, limit: query.limit },
+          { q: query.q || "", limit: query.limit },
         );
         if (response.status !== 200)
           return status("Unprocessable Content", response.data);
@@ -58,7 +60,7 @@ export const terminalRoute = new Elysia({ prefix: "/terminal" })
     },
     {
       query: t.Object({
-        q: t.String(),
+        q: t.Optional(t.String()),
         limit: t.Optional(t.Number({ default: 10, minimum: 1, maximum: 50 })),
       }),
     },
