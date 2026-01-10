@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { BoardType } from "@/lib/types";
-import { getListItemAtoms } from "@/store/list-item-store";
+import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
 
@@ -11,7 +11,7 @@ interface ViewModeToggleProps {
 }
 
 export function ViewModeToggle({ boardType }: ViewModeToggleProps) {
-  const atoms = getListItemAtoms(boardType);
+  const atoms = getThreadAtoms(boardType);
   const viewMode = useAtomValue(atoms.viewModeAtom);
   const setViewMode = useSetAtom(atoms.viewModeAtom);
 
