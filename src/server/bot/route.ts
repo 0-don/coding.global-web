@@ -1,19 +1,42 @@
 import {
-  GetApiByGuildIdBoardByBoardType200ItemBoardType as BoardType,
   getApiByGuildIdBoardByBoardType,
   getApiByGuildIdBoardByBoardTypeByThreadId,
   getApiByGuildIdBoardByBoardTypeByThreadIdMessages,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
-  getApiByGuildIdTopStats,
+  getApiByGuildIdTop,
   getApiByGuildIdWidget,
 } from "@/openapi";
+import { ApiBoardType } from "@/lib/types";
 import { Elysia, t } from "elysia";
 
-
+const BOARD_TYPE_VALUES: ApiBoardType[] = [
+  "job-board",
+  "dev-board",
+  "showcase",
+  "cpp",
+  "csharp",
+  "c",
+  "dart",
+  "lua",
+  "go",
+  "html-css",
+  "java",
+  "javascript",
+  "kotlin",
+  "python",
+  "rust",
+  "php",
+  "bash-powershell",
+  "sql",
+  "swift",
+  "visual-basic",
+  "zig",
+  "other",
+] as const
 
 const boardTypeSchema = t.UnionEnum(
-  Object.values(BoardType) as [BoardType, ...BoardType[]],
+  BOARD_TYPE_VALUES as [ApiBoardType, ...ApiBoardType[]],
 );
 
 export const botRoute = new Elysia({ prefix: "/bot" })
@@ -57,7 +80,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     "/top-stats",
     async ({ query, status }) => {
       try {
-        const response = await getApiByGuildIdTopStats(
+        const response = await getApiByGuildIdTop(
           process.env.NEXT_PUBLIC_GUILD_ID,
           { limit: query.limit, days: query.days },
         );

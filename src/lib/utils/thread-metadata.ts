@@ -1,9 +1,6 @@
 import { getPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
-import {
-  GetApiByGuildIdBoardByBoardType200ItemBoardType as ApiBoardType,
-  GetApiByGuildIdBoardByBoardTypeByThreadId200,
-} from "@/openapi";
+import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
 import { BoardType, MarketplaceBoardType } from "@/lib/types";
 
 type ThreadResult = {
