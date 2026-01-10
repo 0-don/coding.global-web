@@ -20,6 +20,8 @@ import {
 
 const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
 
+if (!process.env.STANDALONE) process.exit(0);
+
 const turndown = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
