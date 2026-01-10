@@ -19,23 +19,11 @@ export async function generateMetadata(props: {
 }
 
 export default async function MarketplacePage() {
-  const [t, listItemStore] = await Promise.all([
-    getTranslations(),
-    getCookieValue<ListItemState>(getListItemStoreKey("marketplace")),
-  ]);
+  const listItemStore = await getCookieValue<ListItemState>(getListItemStoreKey("marketplace"));
 
   return (
     <ListItemStoreProvider boardType="marketplace" data={listItemStore}>
-      {/* <Suspense
-        fallback={
-          <BoardListSkeleton
-            title={t("MARKETPLACE.HEADING")}
-            icon={HiOutlineShoppingBag}
-          />
-        }
-      > */}
       <Marketplace />
-      {/* </Suspense> */}
     </ListItemStoreProvider>
   );
 }
