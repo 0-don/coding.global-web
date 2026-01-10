@@ -31,7 +31,7 @@ export default async function Main() {
     }),
     queryClient.prefetchQuery({
       queryKey: queryKeys.top(),
-      queryFn: async () => handleElysia(await rpc.api.bot["top-stats"].get()),
+      queryFn: async () => handleElysia(await rpc.api.bot.top.get()),
     }),
   ]);
 

@@ -1,20 +1,21 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { motion } from "motion/react";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function TypewriterText({
   text,
   delay = 50,
   loop = false,
   deleteDelay = 50,
-  pauseTime = 2000
+  pauseTime = 2000,
 }: {
   text: string;
   delay?: number;
@@ -70,7 +71,17 @@ function TypewriterText({
         setIsPaused(true);
       }
     }
-  }, [currentIndex, text, delay, isDeleting, displayedText, loop, deleteDelay, pauseTime, isPaused]);
+  }, [
+    currentIndex,
+    text,
+    delay,
+    isDeleting,
+    displayedText,
+    loop,
+    deleteDelay,
+    pauseTime,
+    isPaused,
+  ]);
 
   const showCursor = loop || currentIndex < text.length;
 
@@ -92,7 +103,9 @@ function TypewriterText({
 
 function InteractiveTerminal() {
   const t = useTranslations();
-  const [commands, setCommands] = useState<Array<{ command: string; output: string; id: number; isUser?: boolean }>>([]);
+  const [commands, setCommands] = useState<
+    Array<{ command: string; output: string; id: number; isUser?: boolean }>
+  >([]);
   const [currentCommand, setCurrentCommand] = useState(0);
   const [isInteractive, setIsInteractive] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -101,35 +114,47 @@ function InteractiveTerminal() {
   const terminalCommands = [
     {
       command: "npm install coding.global",
-      output: t("HOME.HERO_TERMINAL_OUTPUT_1") || "✓ Installing community features..."
+      output:
+        t("HOME.HERO_TERMINAL_OUTPUT_1") ||
+        "✓ Installing community features...",
     },
     {
       command: "npm start learning",
-      output: t("HOME.HERO_TERMINAL_OUTPUT_2") || "✓ Starting your coding journey..."
+      output:
+        t("HOME.HERO_TERMINAL_OUTPUT_2") || "✓ Starting your coding journey...",
     },
     {
       command: "npm run connect",
-      output: t("HOME.HERO_TERMINAL_OUTPUT_3") || "✓ Connecting with developers worldwide..."
+      output:
+        t("HOME.HERO_TERMINAL_OUTPUT_3") ||
+        "✓ Connecting with developers worldwide...",
     },
   ];
 
   const availableCommands: Record<string, string> = {
-    "/help": "Available commands:\n  /help - Show this help message\n  /about - Learn about coding.global\n  /usercount - Show member statistics\n  /discord - Get Discord invite link\n  /clear - Clear terminal",
-    "/about": "coding.global is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
-    "/usercount": "📊 Community Stats:\n  • 10,000+ Members\n  • 2,000+ Active Users\n  • 50,000+ Messages\n  • Growing daily!",
-    "/discord": "Join our Discord: discord.gg/coding-global\nConnect with developers from around the world!",
-    "/clear": "CLEAR_COMMAND"
+    "/help":
+      "Available commands:\n  /help - Show this help message\n  /about - Learn about coding.global\n  /usercount - Show member statistics\n  /discord - Get Discord invite link\n  /clear - Clear terminal",
+    "/about":
+      "coding.global is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
+    "/usercount":
+      "📊 Community Stats:\n  • 10,000+ Members\n  • 2,000+ Active Users\n  • 50,000+ Messages\n  • Growing daily!",
+    "/discord":
+      "Join our Discord: discord.gg/coding-global\nConnect with developers from around the world!",
+    "/clear": "CLEAR_COMMAND",
   };
 
   useEffect(() => {
     if (currentCommand < terminalCommands.length) {
-      const timeout = setTimeout(() => {
-        setCommands((prev) => [
-          ...prev,
-          { ...terminalCommands[currentCommand], id: Date.now() },
-        ]);
-        setCurrentCommand((prev) => prev + 1);
-      }, currentCommand === 0 ? 500 : 2500);
+      const timeout = setTimeout(
+        () => {
+          setCommands((prev) => [
+            ...prev,
+            { ...terminalCommands[currentCommand], id: Date.now() },
+          ]);
+          setCurrentCommand((prev) => prev + 1);
+        },
+        currentCommand === 0 ? 500 : 2500,
+      );
 
       return () => clearTimeout(timeout);
     } else if (currentCommand === terminalCommands.length && !isInteractive) {
@@ -140,7 +165,7 @@ function InteractiveTerminal() {
           {
             command: "",
             output: "✨ Terminal ready! Type /help to see available commands.",
-            id: Date.now()
+            id: Date.now(),
           },
         ]);
       }, 1000);
@@ -174,8 +199,9 @@ function InteractiveTerminal() {
           setCommands([
             {
               command: "",
-              output: "✨ Terminal cleared! Type /help to see available commands.",
-              id: Date.now()
+              output:
+                "✨ Terminal cleared! Type /help to see available commands.",
+              id: Date.now(),
             },
           ]);
         }, 100);
@@ -183,7 +209,11 @@ function InteractiveTerminal() {
         setTimeout(() => {
           setCommands((prev) => [
             ...prev,
-            { command: "", output: availableCommands[trimmedCmd], id: Date.now() },
+            {
+              command: "",
+              output: availableCommands[trimmedCmd],
+              id: Date.now(),
+            },
           ]);
         }, 300);
       }
@@ -194,7 +224,7 @@ function InteractiveTerminal() {
           {
             command: "",
             output: `Command not found: ${cmd}\nType /help to see available commands.`,
-            id: Date.now()
+            id: Date.now(),
           },
         ]);
       }, 300);
@@ -212,7 +242,7 @@ function InteractiveTerminal() {
   return (
     <div
       ref={terminalRef}
-      className="space-y-3 font-mono text-base max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent"
+      className="scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent max-h-96 space-y-3 overflow-y-auto font-mono text-base"
     >
       {commands.map((cmd) => (
         <div key={cmd.id} className="space-y-2">
@@ -231,7 +261,7 @@ function InteractiveTerminal() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: cmd.isUser ? 0 : 0.5 }}
-              className="text-muted-foreground whitespace-pre-line pl-5 text-sm"
+              className="text-muted-foreground pl-5 text-sm whitespace-pre-line"
             >
               {cmd.output}
             </motion.div>
@@ -276,7 +306,9 @@ function InteractiveTerminal() {
 
 export function HeroSection() {
   const t = useTranslations();
-  const [terminalState, setTerminalState] = useState<"normal" | "maximized" | "minimized" | "closed">("normal");
+  const [terminalState, setTerminalState] = useState<
+    "normal" | "maximized" | "minimized" | "closed"
+  >("normal");
   const [terminalSize, setTerminalSize] = useState({ width: 896, height: 500 }); // max-w-4xl = 896px
   const [isResizing, setIsResizing] = useState(false);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
@@ -323,8 +355,14 @@ export function HeroSection() {
       const deltaX = e.clientX - resizeStartRef.current.x;
       const deltaY = e.clientY - resizeStartRef.current.y;
 
-      const newWidth = Math.max(400, Math.min(1400, resizeStartRef.current.width + deltaX));
-      const newHeight = Math.max(300, Math.min(800, resizeStartRef.current.height + deltaY));
+      const newWidth = Math.max(
+        400,
+        Math.min(1400, resizeStartRef.current.width + deltaX),
+      );
+      const newHeight = Math.max(
+        300,
+        Math.min(800, resizeStartRef.current.height + deltaY),
+      );
 
       setTerminalSize({ width: newWidth, height: newHeight });
     };
@@ -398,8 +436,8 @@ export function HeroSection() {
           {terminalState !== "closed" && (
             <Card className="border-primary relative overflow-hidden rounded-lg bg-black/40 backdrop-blur-sm">
               {/* Terminal header with macOS-style buttons */}
-              <div className="bg-muted/30 flex items-center justify-between border-b border-border px-6 py-4">
-                <div className="text-muted-foreground flex-1 text-center text-sm font-mono">
+              <div className="bg-muted/30 border-border flex items-center justify-between border-b px-6 py-4">
+                <div className="text-muted-foreground flex-1 text-center font-mono text-sm">
                   coding.global — terminal
                 </div>
                 <div className="flex items-center space-x-2.5">
@@ -410,7 +448,9 @@ export function HeroSection() {
                     className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 transition-all hover:bg-red-600"
                     aria-label="Close"
                   >
-                    <span className="text-[11px] font-bold leading-3 text-red-950">✕</span>
+                    <span className="text-[11px] leading-3 font-bold text-red-950">
+                      ✕
+                    </span>
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -419,7 +459,9 @@ export function HeroSection() {
                     className="flex h-4 w-4 items-center justify-center rounded-full bg-yellow-500 transition-all hover:bg-yellow-600"
                     aria-label="Minimize"
                   >
-                    <span className="text-[11px] font-bold leading-3 text-yellow-950">−</span>
+                    <span className="text-[11px] leading-3 font-bold text-yellow-950">
+                      −
+                    </span>
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -428,7 +470,9 @@ export function HeroSection() {
                     className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 transition-all hover:bg-green-600"
                     aria-label="Maximize"
                   >
-                    <span className="text-[11px] font-bold leading-3 text-green-950">+</span>
+                    <span className="text-[11px] leading-3 font-bold text-green-950">
+                      +
+                    </span>
                   </motion.button>
                 </div>
               </div>
@@ -439,27 +483,28 @@ export function HeroSection() {
                   initial={{ height: "auto" }}
                   animate={{ height: "auto" }}
                   style={{ height: `${terminalSize.height}px` }}
-                  className="p-8 overflow-hidden"
+                  className="overflow-hidden p-8"
                 >
                   <InteractiveTerminal />
                 </motion.div>
               )}
 
               {/* Resize handle - bottom right corner */}
-              {terminalState !== "minimized" && terminalState !== "maximized" && (
-                <div
-                  onMouseDown={handleResizeStart}
-                  className="bg-muted/50 absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize"
-                  style={{
-                    clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-                  }}
-                >
-                  <div className="absolute bottom-0.5 right-0.5 flex flex-col gap-0.5">
-                    <div className="bg-border h-px w-2 self-end" />
-                    <div className="bg-border h-px w-2.5 self-end" />
+              {terminalState !== "minimized" &&
+                terminalState !== "maximized" && (
+                  <div
+                    onMouseDown={handleResizeStart}
+                    className="bg-muted/50 absolute right-0 bottom-0 h-4 w-4 cursor-nwse-resize"
+                    style={{
+                      clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+                    }}
+                  >
+                    <div className="absolute right-0.5 bottom-0.5 flex flex-col gap-0.5">
+                      <div className="bg-border h-px w-2 self-end" />
+                      <div className="bg-border h-px w-2.5 self-end" />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </Card>
           )}
         </motion.div>
