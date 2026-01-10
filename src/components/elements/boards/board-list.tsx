@@ -113,6 +113,7 @@ export function BoardList(props: BoardListProps) {
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -8 }}
               whileTap={{ scale: 0.98 }}
+              className="h-full"
             >
               <ContentCard
                 type="thread"
