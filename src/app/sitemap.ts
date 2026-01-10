@@ -1,14 +1,37 @@
 import { getPathname } from "@/i18n/navigation";
 import { Pathname, pathnames, routing } from "@/i18n/routing";
-import {
-  getApiByGuildIdBoardByBoardType,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
-} from "@/openapi";
+import { ApiBoardType } from "@/lib/types";
+import { getApiByGuildIdBoardByBoardType } from "@/openapi";
 import { log } from "console";
 import { MetadataRoute } from "next";
 import { Locale } from "next-intl";
 
 export const revalidate = 3600;
+
+const BOARD_TYPES: ApiBoardType[] = [
+  "job-board",
+  "dev-board",
+  "showcase",
+  "cpp",
+  "csharp",
+  "c",
+  "dart",
+  "lua",
+  "go",
+  "html-css",
+  "java",
+  "javascript",
+  "kotlin",
+  "python",
+  "rust",
+  "php",
+  "bash-powershell",
+  "sql",
+  "swift",
+  "visual-basic",
+  "zig",
+  "other",
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = Object.keys(pathnames).filter(
@@ -22,12 +45,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   // Fetch boards sequentially to avoid overwhelming the API
-  const boardTypes = Object.values(GetApiByGuildIdBoardByBoardType200ItemBoardType);
-
   const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
   log(`[Sitemap] API base URL: ${apiUrl}`);
 
-  for (const boardType of boardTypes) {
+  for (const boardType of BOARD_TYPES) {
     const fullUrl = `${apiUrl}/${boardType}`;
     log(`[Sitemap] Fetching ${boardType} from: ${fullUrl}`);
 
@@ -72,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 function getThreadPathname(
-  boardType: GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  boardType: ApiBoardType,
   threadId: string,
 ): Pathname | null {
   switch (boardType) {

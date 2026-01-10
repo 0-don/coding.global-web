@@ -8,11 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { BoardType } from "@/lib/types";
-import {
-  GetApiByGuildIdBoardByBoardType200Item,
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
-} from "@/openapi";
+import { ApiBoardType, BoardType } from "@/lib/types";
+import { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 import { filterThreads, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { motion } from "motion/react";
@@ -22,7 +19,7 @@ import type { IconType } from "react-icons/lib";
 import { RxCross2 } from "react-icons/rx";
 
 export type BoardItemWithType = GetApiByGuildIdBoardByBoardType200Item & {
-  boardType?: GetApiByGuildIdBoardByBoardType200ItemBoardType;
+  boardType?: ApiBoardType;
 };
 
 interface BoardListProps {

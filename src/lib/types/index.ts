@@ -1,15 +1,15 @@
-import { GetApiByGuildIdBoardByBoardType200ItemBoardType } from "@/openapi";
+import { getApiByGuildIdBoardByBoardType } from "@/openapi";
 
-export type BoardType =
-  | GetApiByGuildIdBoardByBoardType200ItemBoardType
-  | "marketplace";
+// BoardType inferred from API function parameters
+export type ApiBoardType = Parameters<
+  typeof getApiByGuildIdBoardByBoardType
+>[1];
 
-export type MarketplaceBoardType = Exclude<
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
-  "showcase"
->;
+export type BoardType = ApiBoardType | "marketplace";
+
+export type MarketplaceBoardType = Exclude<ApiBoardType, "showcase">;
 
 export type ProgrammingBoardType = Exclude<
-  GetApiByGuildIdBoardByBoardType200ItemBoardType,
+  ApiBoardType,
   "showcase" | "job-board" | "dev-board"
 >;

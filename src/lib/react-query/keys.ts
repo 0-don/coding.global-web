@@ -43,4 +43,10 @@ export const queryKeys = {
 
   // Search
   searchIndex: () => ["search-index"],
+
+  // Terminal
+  terminalMembers: () => ["terminal", "members"],
+  terminalTop: (days?: number, limit?: number) => ["terminal", "top", { days, limit }],
+  terminalUserSearch: (query: string, limit?: number) => ["terminal", "user", "search", { query, limit }],
+  terminalUser: (userId: string) => ["terminal", "user", userId],
 };
