@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/layout/sidebar/app-sidebar";
 import { SidebarHeader } from "@/components/layout/sidebar/sidebar-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProviderWrapper } from "@/components/layout/sidebar/sidebar-provider-wrapper";
+import { SidebarInset } from "@/components/ui/sidebar";
 import getQueryClient from "@/lib/react-query/client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
@@ -21,7 +22,7 @@ export default async function SidebarLayout(props: SidebarLayoutProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SidebarProvider
+      <SidebarProviderWrapper
         style={
           {
             "--sidebar-width": "calc(var(--spacing) * 72)",
@@ -34,7 +35,7 @@ export default async function SidebarLayout(props: SidebarLayoutProps) {
           <SidebarHeader />
           <div className="flex flex-1">{props.children}</div>
         </SidebarInset>
-      </SidebarProvider>
+      </SidebarProviderWrapper>
     </HydrationBoundary>
   );
 }

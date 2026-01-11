@@ -3,7 +3,12 @@ import { createJotaiCookieStorage } from "@/lib/utils/jotai-cookie-storage";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-export type NavigationState = Record<string, boolean>;
+export type NavigationExpandedState = Record<string, boolean>;
+
+export type NavigationState = {
+  expanded: NavigationExpandedState;
+  sidebarOpen: boolean;
+};
 
 /**
  * Builds a map from href paths to the list of parent navigation keys
@@ -66,7 +71,10 @@ export function findExpandedParents(
 
 export const NAVIGATION_STORE_KEY = "navigation-store";
 
-export const INITIAL_NAVIGATION_STATE: NavigationState = {};
+export const INITIAL_NAVIGATION_STATE: NavigationState = {
+  expanded: {},
+  sidebarOpen: true,
+};
 
 const navigationCookieStorage = createJotaiCookieStorage<NavigationState>();
 
@@ -76,12 +84,35 @@ export const navigationAtom = atomWithStorage<NavigationState>(
   navigationCookieStorage,
 );
 
-export const toggleNavigationAtom = atom(null, (get, set, itemKey: string) => {
+// Derived atom for sidebar open state
+export const sidebarOpenAtom = atom(
+  (get) => get(navigationAtom).sidebarOpen,
+  (get, set, value: boolean) => {
+    const state = get(navigationAtom);
+    set(navigationAtom, {
+      ...state,
+      sidebarOpen: value,
+    });
+  },
+);
+
+export const toggleSidebarAtom = atom(null, (get, set) => {
   const state = get(navigationAtom);
-  const currentValue = state[itemKey] ?? false;
   set(navigationAtom, {
     ...state,
-    [itemKey]: !currentValue,
+    sidebarOpen: !state.sidebarOpen,
+  });
+});
+
+export const toggleNavigationAtom = atom(null, (get, set, itemKey: string) => {
+  const state = get(navigationAtom);
+  const currentValue = state.expanded[itemKey] ?? false;
+  set(navigationAtom, {
+    ...state,
+    expanded: {
+      ...state.expanded,
+      [itemKey]: !currentValue,
+    },
   });
 });
 
@@ -91,7 +122,10 @@ export const setNavigationAtom = atom(
     const state = get(navigationAtom);
     set(navigationAtom, {
       ...state,
-      [itemKey]: expanded,
+      expanded: {
+        ...state.expanded,
+        [itemKey]: expanded,
+      },
     });
   },
 );
@@ -102,6 +136,9 @@ export const expandNavigationItemsAtom = atom(
     if (itemKeys.length === 0) return;
     const state = get(navigationAtom);
     const updates = Object.fromEntries(itemKeys.map((key) => [key, true]));
-    set(navigationAtom, { ...state, ...updates });
+    set(navigationAtom, {
+      ...state,
+      expanded: { ...state.expanded, ...updates },
+    });
   },
 );
