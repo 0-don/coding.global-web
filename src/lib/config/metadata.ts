@@ -1,18 +1,11 @@
+import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
 import { Metadata } from "next";
-import { Locale } from "next-intl";
+import { MetadataKeys, MetadataParams } from "../types";
 import { ALTERNATE_LANGUAGES, LANGUAGES, LOCALES } from "./constants";
 
-type Params = {
-  locale: Locale | (string & {});
-  title: string;
-  description: string;
-  keywords: string;
-  path?: string;
-  ogImage?: string;
-  robots?: boolean;
-};
-
-export async function getPageMetadata(params: Params): Promise<Metadata> {
+export async function getPageMetadata(
+  params: MetadataParams,
+): Promise<Metadata> {
   const canonicalPath = params.path || `/${params.locale}`;
   const ogImageUrl = params.ogImage || "/images/logo.gif";
   const shouldIndex = params.robots ?? true;
@@ -75,4 +68,31 @@ export async function getPageMetadata(params: Params): Promise<Metadata> {
       },
     },
   };
+}
+
+export async function getThreadPageMetadata(
+  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200 | null,
+  locale: string,
+  fallback: MetadataKeys,
+) {
+  if (thread) {
+    const tagNames = thread.tags?.map((tag) => tag.name).join(", ") || "";
+    const keywords = tagNames
+      ? `${tagNames}, ${fallback.keywords}`
+      : fallback.keywords;
+
+    return getPageMetadata({
+      locale,
+      title: `${thread.name} - Coding Global`,
+      description: thread.name || fallback.description,
+      keywords,
+    });
+  }
+
+  return getPageMetadata({
+    locale,
+    title: fallback.title,
+    description: fallback.description,
+    keywords: fallback.keywords,
+  });
 }

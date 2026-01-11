@@ -1,13 +1,38 @@
 import { MarketplaceDetail } from "@/components/pages/marketplace/marketplace-detail";
-import { getPageMetadata } from "@/lib/config/metadata";
+import { getPageMetadata, getThreadPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
 import { MarketplaceBoardType } from "@/lib/types";
 import { serverLocale } from "@/lib/utils/server";
-import {
-  detectThreadWithType,
-  getThreadPageMetadata,
-} from "@/lib/utils/thread-metadata";
+import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
 import { getTranslations } from "next-intl/server";
+
+type ThreadWithType = {
+  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
+  boardType: MarketplaceBoardType;
+} | null;
+
+function detectThread(threadId: string): Promise<ThreadWithType>[] {
+  return [
+    rpc.api.bot
+      .board({ boardType: "job-board" })({ threadId })
+      .get()
+      .then((r) =>
+        r.status === 200 && r.data
+          ? { thread: r.data, boardType: "job-board" as const }
+          : null,
+      )
+      .catch(() => null),
+    rpc.api.bot
+      .board({ boardType: "dev-board" })({ threadId })
+      .get()
+      .then((r) =>
+        r.status === 200 && r.data
+          ? { thread: r.data, boardType: "dev-board" as const }
+          : null,
+      )
+      .catch(() => null),
+  ];
+}
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -16,10 +41,12 @@ export async function generateMetadata(props: {
     props.params,
     serverLocale(props),
   ]);
-  const [t, result] = await Promise.all([
+  const [t, jobBoardResult, devBoardResult] = await Promise.all([
     getTranslations({ locale }),
-    detectThreadWithType(params.id),
+    ...detectThread(params.id),
   ]);
+
+  const result = jobBoardResult ?? devBoardResult;
 
   if (result?.thread) {
     const { thread, boardType } = result;
@@ -47,38 +74,18 @@ export async function generateMetadata(props: {
   });
 }
 
-async function detectBoardType(
-  threadId: string,
-): Promise<MarketplaceBoardType | null> {
-  const results = await Promise.all([
-    rpc.api.bot
-      .board({ boardType: "job-board" })({ threadId })
-      .get()
-      .then((r): MarketplaceBoardType | null =>
-        r.status === 200 ? "job-board" : null,
-      )
-      .catch(() => null),
-    rpc.api.bot
-      .board({ boardType: "dev-board" })({ threadId })
-      .get()
-      .then((r): MarketplaceBoardType | null =>
-        r.status === 200 ? "dev-board" : null,
-      )
-      .catch(() => null),
-  ]);
-
-  return results.find((r) => r !== null) || null;
-}
-
 export default async function MarketplaceDetailPage(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
   const params = await props.params;
-  const boardType = await detectBoardType(params.id);
+  const results = await Promise.all(detectThread(params.id));
+  const result = results.find((r) => r !== null);
 
-  if (!boardType) {
+  if (!result) {
     return null;
   }
 
-  return <MarketplaceDetail threadId={params.id} boardType={boardType} />;
+  return (
+    <MarketplaceDetail threadId={params.id} boardType={result.boardType} />
+  );
 }

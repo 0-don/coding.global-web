@@ -6,6 +6,9 @@ import {
   LOCALES,
   SERVER_URL_KEY,
 } from "../config/constants";
+import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
+import { rpc } from "../rpc";
+import { BoardType } from "../types";
 
 export const serverUrl = async () => (await headers()).get(SERVER_URL_KEY);
 
@@ -35,3 +38,18 @@ export const getCookieValue = async <T>(
     return undefined;
   }
 };
+
+export async function getThread(
+  threadId: string,
+  boardType: BoardType,
+): Promise<GetApiByGuildIdBoardByBoardTypeByThreadId200 | null> {
+  try {
+    const response = await rpc.api.bot.board({ boardType })({ threadId }).get();
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch {
+    // Fall back to default metadata
+  }
+  return null;
+}
