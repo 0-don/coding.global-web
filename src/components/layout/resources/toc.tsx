@@ -5,6 +5,7 @@ import type { TOCItemType } from "fumadocs-core/toc";
 import { AnchorProvider, ScrollProvider, TOCItem } from "fumadocs-core/toc";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
+import { useTranslations } from "next-intl";
 import * as React from "react";
 import { useEffect } from "react";
 import { MainLayout } from "../main-layout";
@@ -30,6 +31,7 @@ export function createTOC(
 
 function TOCPanel({ className }: { className?: string }) {
   const [{ items, title }] = useAtom(tocAtom);
+  const t = useTranslations();
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   if (items.length === 0) {
@@ -66,7 +68,7 @@ function TOCPanel({ className }: { className?: string }) {
                     item.depth === 4 && "pl-9",
                   )}
                 >
-                  {item.title}
+                  {t(item.title as Parameters<typeof t>[0])}
                 </TOCItem>
               ))}
             </nav>
