@@ -1,7 +1,7 @@
-import { GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItem } from "@/openapi";
+import { GetApiByGuildIdNews200ItemReactionsItem } from "@/openapi";
 
 interface MessageReactionsProps {
-  reactions: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItem[];
+  reactions: GetApiByGuildIdNews200ItemReactionsItem[];
 }
 
 export function MessageReactions({ reactions }: MessageReactionsProps) {
