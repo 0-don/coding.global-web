@@ -406,17 +406,248 @@
       "DESCRIPTION": "Comprehensive learning resources, guides, and tools for developers",
       "KEYWORDS": "resources, learning, tutorials, guides, programming"
     },
+    "TITLE": "Resources",
+    "SUBTITLE": "Curated learning resources, tools, and guides for developers",
     "FOOTER": {
       "CONTRIBUTE_TEXT": "Want to add a new resource or edit an existing one? Visit our",
       "GITHUB": "GitHub",
       "OR_JOIN": "or join our",
       "DISCORD": "Discord server"
     },
+    "TOC": {
+      "PROGRAMMING_LANGUAGES": "Programming Languages",
+      "GENERAL_RESOURCES": "General Resources",
+      "GETTING_STARTED": "Getting Started",
+      "FREE_AI_ASSISTANTS": "Free AI Assistants",
+      "CODE_LIKE_A_PRO": "Code Like a Pro",
+      "UTILITIES": "Utilities",
+      "DISCORD_TEXT_FORMATTING": "Discord Text Formatting"
+    },
+    "CATEGORIES": {
+      "PROGRAMMING_LANGUAGES": {
+        "TITLE": "Programming Languages",
+        "DESCRIPTION": "Learn popular programming languages with curated resources"
+      },
+      "GENERAL_RESOURCES": {
+        "TITLE": "General Resources",
+        "DESCRIPTION": "Productivity tips and recommended tools"
+      }
+    },
+    "ITEMS": {
+      "JAVASCRIPT": {
+        "NAME": "JavaScript",
+        "DESCRIPTION": "Web development essentials"
+      },
+      "PYTHON": {
+        "NAME": "Python",
+        "DESCRIPTION": "Data science & automation"
+      },
+      "VIBE_CODING": {
+        "NAME": "Vibe Coding",
+        "DESCRIPTION": "Flow state & productivity"
+      },
+      "CYBER_SECURITY": {
+        "NAME": "Cyber Security",
+        "DESCRIPTION": "Security best practices"
+      }
+    },
+    "SECTIONS": {
+      "GETTING_STARTED": {
+        "TITLE": "Getting Started",
+        "DESCRIPTION": "Essential resources for learning programming"
+      },
+      "FREE_AI_ASSISTANTS": {
+        "TITLE": "Free AI Assistants",
+        "DESCRIPTION": "AI tools to help you learn and code faster"
+      },
+      "CODE_LIKE_A_PRO": {
+        "TITLE": "Code Like a Pro",
+        "DESCRIPTION": "Free resources for learning different languages and technologies"
+      },
+      "UTILITIES": {
+        "TITLE": "Utilities",
+        "DESCRIPTION": "Helpful tools and services"
+      },
+      "DISCORD_TEXT_FORMATTING": {
+        "TITLE": "Discord Text Formatting",
+        "DESCRIPTION": "Learn how to format your messages in Discord"
+      }
+    },
+    "GENERAL_LINKS": {
+      "ROADMAP": {
+        "TITLE": "Roadmap.sh",
+        "DESCRIPTION": "Interactive roadmaps for all developer paths"
+      },
+      "FREECODECAMP": {
+        "TITLE": "FreeCodeCamp",
+        "DESCRIPTION": "Free courses for Python, JavaScript, HTML, CSS and more"
+      },
+      "CODECADEMY": {
+        "TITLE": "Codecademy",
+        "DESCRIPTION": "Interactive courses for Python, JavaScript, Java, SQL, C++ and more"
+      },
+      "DONT_ASK_TO_ASK": {
+        "TITLE": "Don't Ask to Ask",
+        "DESCRIPTION": "Learn how to ask questions properly in tech communities"
+      },
+      "QUICKTYPE": {
+        "TITLE": "QuickType",
+        "DESCRIPTION": "Convert JSON to TypeScript, Python, Go, and more"
+      }
+    },
+    "UTILITY_LINKS": {
+      "SERVERHUNTER": {
+        "TITLE": "ServerHunter",
+        "DESCRIPTION": "Find cheap VPS and server deals"
+      },
+      "MAS_GENUINE_ISO": {
+        "TITLE": "MAS Genuine ISO",
+        "DESCRIPTION": "Genuine Windows installation media"
+      }
+    },
+    "CODE_RESOURCES": {
+      "HTML": "HTML",
+      "CSS": "CSS",
+      "JAVASCRIPT": "JavaScript",
+      "REACT": "React",
+      "PYTHON": "Python",
+      "JAVA": "Java",
+      "PHP": "PHP",
+      "CYBERSECURITY": "Cybersecurity",
+      "C": "C",
+      "CPP": "C++",
+      "AWS": "AWS",
+      "AI_ML": "AI / ML",
+      "GIT": "Git",
+      "SQL": "SQL"
+    },
     "JAVASCRIPT": {
       "META": {
         "TITLE": "JavaScript - Coding Global",
         "DESCRIPTION": "Learn JavaScript with comprehensive guides, tutorials, and best practices",
         "KEYWORDS": "javascript, js, web development, programming, tutorials"
+      },
+      "TITLE": "JavaScript & Full-Stack Development",
+      "WHY_JAVASCRIPT": {
+        "TITLE": "Why JavaScript?",
+        "CONTENT": "JavaScript is the easiest path to becoming a full-stack developer. With a single language, you can build everything from interactive websites to server-side applications, mobile apps, and even desktop software."
+      },
+      "WEB_DEV_SPEEDRUN": {
+        "TITLE": "Web Dev Speedrun",
+        "DESCRIPTION": "This is the exact path I took to learn web development. Follow these resources in order to build a good foundation in HTML, CSS, and JavaScript. Each resource builds on the previous one."
+      },
+      "NODEJS": {
+        "TITLE": "Node.js",
+        "CONTENT_1": "Node.js lets you run JavaScript on the server, making you a true full-stack developer. With Node.js, you can build APIs, handle databases, and create complete web applications using the same language you learned for the frontend. Download it from",
+        "LINK_TEXT": "nodejs.org"
+      },
+      "REACT": {
+        "TITLE": "React",
+        "CONTENT": "Once you've learned the basics and Node.js, it's time to master React. React is the most popular JavaScript library for building user interfaces and is used by companies like Meta, Netflix, and Airbnb."
+      },
+      "SHADCN": {
+        "TITLE": "Designing with shadcn/ui",
+        "DESCRIPTION": "is a collection of beautifully designed, accessible components that you can copy and paste into your apps. It's built on top of Radix UI and Tailwind CSS, giving you full control over your components.",
+        "BLOCKS_TITLE": "Component Libraries & Blocks",
+        "BLOCKS_DESCRIPTION": "These libraries provide pre-built components and blocks that work seamlessly with shadcn/ui.",
+        "UTILS_TITLE": "Tools & Utilities",
+        "UTILS_DESCRIPTION": "Helpful tools for customizing and extending shadcn/ui."
+      },
+      "SPEEDRUN_RESOURCES": {
+        "RESPONSIVE_WEB_DESIGN": {
+          "TITLE": "Responsive Web Design",
+          "DESCRIPTION": "FreeCodeCamp - HTML & CSS fundamentals"
+        },
+        "LEARN_HTML": {
+          "TITLE": "Learn HTML",
+          "DESCRIPTION": "Codecademy - Deep dive into HTML"
+        },
+        "LEARN_CSS": {
+          "TITLE": "Learn CSS",
+          "DESCRIPTION": "Codecademy - Master CSS styling"
+        },
+        "RESPONSIVE_WEB_DESIGN_2022": {
+          "TITLE": "Responsive Web Design (2022)",
+          "DESCRIPTION": "FreeCodeCamp - Updated HTML & CSS curriculum"
+        },
+        "JS_ALGORITHMS": {
+          "TITLE": "JavaScript Algorithms & Data Structures",
+          "DESCRIPTION": "FreeCodeCamp - Core JavaScript concepts"
+        },
+        "INTRO_TO_JS": {
+          "TITLE": "Introduction to JavaScript",
+          "DESCRIPTION": "Codecademy - JavaScript fundamentals"
+        },
+        "JS_ALGORITHMS_V8": {
+          "TITLE": "JavaScript Algorithms & Data Structures (v8)",
+          "DESCRIPTION": "FreeCodeCamp - Latest JavaScript curriculum"
+        }
+      },
+      "REACT_RESOURCES": {
+        "REACT_DOCS": {
+          "TITLE": "React Official Docs",
+          "DESCRIPTION": "The best place to learn React from scratch"
+        },
+        "REACT_TUTORIAL": {
+          "TITLE": "React Tutorial for Beginners",
+          "DESCRIPTION": "FreeCodeCamp - Comprehensive React course"
+        }
+      },
+      "SHADCN_BLOCKS": {
+        "AWESOME_SHADCN": {
+          "TITLE": "Awesome shadcn",
+          "DESCRIPTION": "Curated list of shadcn resources"
+        },
+        "ORIGIN_UI": {
+          "TITLE": "Origin UI",
+          "DESCRIPTION": "Beautiful UI components"
+        },
+        "ANIMATE_UI": {
+          "TITLE": "Animate UI",
+          "DESCRIPTION": "Animated components for React"
+        },
+        "MVP_BLOCKS": {
+          "TITLE": "MVP Blocks",
+          "DESCRIPTION": "Ready-to-use blocks for MVPs"
+        },
+        "SHSF_UI": {
+          "TITLE": "SHSF UI",
+          "DESCRIPTION": "Modern component library"
+        },
+        "KIBO_UI": {
+          "TITLE": "Kibo UI",
+          "DESCRIPTION": "Accessible component library"
+        },
+        "REACT_BITS": {
+          "TITLE": "React Bits",
+          "DESCRIPTION": "Useful React components"
+        },
+        "SKIPER_UI": {
+          "TITLE": "Skiper UI",
+          "DESCRIPTION": "UI components collection"
+        },
+        "ACETERNITY_UI": {
+          "TITLE": "Aceternity UI",
+          "DESCRIPTION": "Beautiful animated components"
+        },
+        "MAGIC_UI": {
+          "TITLE": "Magic UI",
+          "DESCRIPTION": "Magical UI components"
+        },
+        "CULT_UI": {
+          "TITLE": "Cult UI",
+          "DESCRIPTION": "Modern design system"
+        }
+      },
+      "SHADCN_UTILS": {
+        "TWEAKCN": {
+          "TITLE": "TweakCN",
+          "DESCRIPTION": "Customize shadcn themes visually"
+        },
+        "AWESOME_SHADCN_UI": {
+          "TITLE": "Awesome shadcn/ui",
+          "DESCRIPTION": "GitHub collection of shadcn resources"
+        }
       }
     },
     "PYTHON": {
@@ -424,13 +655,50 @@
         "TITLE": "Python - Coding Global",
         "DESCRIPTION": "Master Python with guides, tutorials, and best practices for all skill levels",
         "KEYWORDS": "python, programming, tutorials, data science, automation"
-      }
+      },
+      "TITLE": "Python",
+      "CONTENT_1": "Python is really only relevant for specific fields like data science, machine learning, scientific computing, and automation scripting. Outside of these areas, it's not particularly useful.",
+      "CONTENT_2": "Many people choose Python as their first language because they think it's simple. While the syntax is readable, this simplicity doesn't transfer well to other languages or real-world development. If you want to become a full-stack developer, JavaScript is a much better choice since it works on both frontend and backend.",
+      "CONTENT_3": "But if you really want to learn Python, check out",
+      "FREECODECAMP_LINK": "FreeCodeCamp's Scientific Computing with Python",
+      "OR": "or",
+      "CODECADEMY_LINK": "Codecademy's Python courses"
     },
     "CYBER_SECURITY": {
       "META": {
         "TITLE": "Cyber Security - Coding Global",
         "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
         "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
+      },
+      "TITLE": "Cyber Security",
+      "INTRODUCTION": {
+        "TITLE": "Introduction",
+        "CONTENT_1": "Let's be honest - most of us got into cyber security because we wanted to be hackers. We imagined ourselves breaking into systems, bypassing firewalls, and doing cool stuff like in the movies. Then reality hit: turns out hacking is mostly just... coding. A lot of coding.",
+        "CONTENT_2": "But that's actually the good news. The skills you learn in cyber security - understanding systems, networks, and how software works - make you a better developer overall. Whether you end up in pentesting, security engineering, or just writing more secure code, it all starts with the fundamentals."
+      },
+      "LEARNING_PLATFORMS": {
+        "TITLE": "Learning Platforms",
+        "DESCRIPTION": "The best way to learn cyber security is by doing. These platforms offer hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
+        "TRYHACKME": {
+          "TITLE": "TryHackMe",
+          "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
+        },
+        "HACKTHEBOX": {
+          "TITLE": "Hack The Box",
+          "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
+        },
+        "PICOCTF": {
+          "TITLE": "picoCTF",
+          "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
+        },
+        "ROOTME": {
+          "TITLE": "Root Me",
+          "DESCRIPTION": "Platform for practicing hacking skills with challenges and virtual environments"
+        },
+        "CISCO": {
+          "TITLE": "Cisco Networking Academy",
+          "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
+        }
       }
     },
     "VIBE_CODING": {
@@ -438,6 +706,60 @@
         "TITLE": "Vibe Coding - Coding Global",
         "DESCRIPTION": "Discover tips and techniques for achieving flow state and maximum productivity while coding",
         "KEYWORDS": "vibe coding, productivity, flow state, coding tips, developer experience"
+      },
+      "TITLE": "Vibe Coding",
+      "WHAT_IS_VIBE_CODING": {
+        "TITLE": "What is Vibe Coding?",
+        "CONTENT_1": "Vibe coding is a new approach to programming where you describe what you want in natural language and let AI build it for you. Instead of writing every line of code yourself, you guide the AI with prompts and let it handle the implementation.",
+        "CONTENT_2": "The term was coined by Andrej Karpathy in this tweet:",
+        "CONTENT_3": "To vibe code effectively, you need the right tools. Here are the best AI-powered editors and CLIs available today."
+      },
+      "CHOOSING_THE_BEST_MODEL": {
+        "TITLE": "Choosing the Best Model",
+        "CONTENT_1": "The AI model you use matters just as much as the tool. You can find the latest rankings of AI models for web development on the",
+        "LEADERBOARD_LINK": "LM Arena Web Development Leaderboard",
+        "CONTENT_2": "That said, Claude models by Anthropic consistently rank at the top for coding tasks. If you want the best results for vibe coding, Claude is usually the way to go."
+      },
+      "MY_SETUP": {
+        "TITLE": "My Setup",
+        "CONTENT_1": "I personally use the",
+        "CLAUDE_CODE_LINK": "Claude Code VSCode Extension",
+        "CONTENT_2": "for my vibe coding workflow. It integrates Claude directly into VSCode with agentic capabilities.",
+        "CONTENT_3": "To help gather context for AI assistants, I also built the",
+        "CODE_COLLECTOR_LINK": "Code Collector",
+        "CONTENT_4": "extension. It automatically collects files based on import dependencies, making it easy to provide your codebase context to any AI assistant."
+      },
+      "AI_EDITORS": {
+        "TITLE": "AI Editors",
+        "DESCRIPTION": "These editors have AI deeply integrated into the coding experience, allowing you to chat with AI, generate code, and get intelligent completions.",
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "AI-first code editor built on VSCode"
+        },
+        "WINDSURF": {
+          "TITLE": "Windsurf",
+          "DESCRIPTION": "AI-powered IDE by Codeium"
+        },
+        "ANTIGRAVITY": {
+          "TITLE": "Antigravity",
+          "DESCRIPTION": "AI coding environment"
+        }
+      },
+      "AI_CLIS": {
+        "TITLE": "AI CLIs",
+        "DESCRIPTION": "Command-line tools that let you vibe code directly from your terminal. These are great for quick tasks, automation, and working in any editor you prefer.",
+        "CLAUDE_CODE": {
+          "TITLE": "Claude Code",
+          "DESCRIPTION": "Anthropic's agentic coding CLI"
+        },
+        "OPENAI_CODEX": {
+          "TITLE": "OpenAI Codex CLI",
+          "DESCRIPTION": "OpenAI's terminal coding assistant"
+        },
+        "GEMINI_CLI": {
+          "TITLE": "Gemini CLI",
+          "DESCRIPTION": "Google's AI coding assistant for terminal"
+        }
       }
     }
   },

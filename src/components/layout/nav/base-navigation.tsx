@@ -394,7 +394,9 @@ export function SidebarCollapsibleItem(props: {
   if (isCollapsed && hasSubmenu) {
     return (
       <SidebarMenuItem className="group/collapsed relative">
-        <div
+        <Link
+          href={props.item.href as LinkHref}
+          onClick={props.onNavigate}
           className={cn(
             "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex size-8 cursor-pointer items-center justify-center rounded-md p-2 outline-none transition-colors",
             isActive && "bg-primary/10 text-primary font-medium",
@@ -403,7 +405,7 @@ export function SidebarCollapsibleItem(props: {
           <props.item.icon
             className={cn("size-4", isActive && "text-primary")}
           />
-        </div>
+        </Link>
         {/* Hover menu */}
         <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-2 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/collapsed:visible group-hover/collapsed:opacity-100">
           <div className="text-muted-foreground mb-1 px-2 py-1.5 text-xs font-semibold">
