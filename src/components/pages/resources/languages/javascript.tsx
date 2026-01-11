@@ -8,62 +8,106 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { msg } from "@/lib/config/constants";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
-  { url: "#why-javascript", title: "Why JavaScript?", depth: 2 },
-  { url: "#web-dev-speedrun", title: "Web Dev Speedrun", depth: 2 },
-  { url: "#nodejs", title: "Node.js", depth: 2 },
-  { url: "#react", title: "React", depth: 2 },
-  { url: "#shadcn-ui", title: "Designing with shadcn/ui", depth: 2 },
-  { url: "#shadcn-blocks", title: "Component Libraries", depth: 3 },
-  { url: "#shadcn-utils", title: "Tools & Utilities", depth: 3 },
+  {
+    url: "#why-javascript",
+    title: msg("RESOURCES.JAVASCRIPT.WHY_JAVASCRIPT.TITLE"),
+    depth: 2,
+  },
+  {
+    url: "#web-dev-speedrun",
+    title: msg("RESOURCES.JAVASCRIPT.WEB_DEV_SPEEDRUN.TITLE"),
+    depth: 2,
+  },
+  { url: "#nodejs", title: msg("RESOURCES.JAVASCRIPT.NODEJS.TITLE"), depth: 2 },
+  { url: "#react", title: msg("RESOURCES.JAVASCRIPT.REACT.TITLE"), depth: 2 },
+  {
+    url: "#shadcn-ui",
+    title: msg("RESOURCES.JAVASCRIPT.SHADCN.TITLE"),
+    depth: 2,
+  },
+  {
+    url: "#shadcn-blocks",
+    title: msg("RESOURCES.JAVASCRIPT.SHADCN.BLOCKS_TITLE"),
+    depth: 3,
+  },
+  {
+    url: "#shadcn-utils",
+    title: msg("RESOURCES.JAVASCRIPT.SHADCN.UTILS_TITLE"),
+    depth: 3,
+  },
 ];
 
 export const javascriptTOC = createTOC(toc);
 
 const speedrunResources = [
   {
-    title: "Responsive Web Design",
-    description: "FreeCodeCamp - HTML & CSS fundamentals",
+    titleKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.RESPONSIVE_WEB_DESIGN.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.RESPONSIVE_WEB_DESIGN.DESCRIPTION",
+    ),
     url: "https://www.freecodecamp.org/learn/responsive-web-design/",
     step: 1,
   },
   {
-    title: "Learn HTML",
-    description: "Codecademy - Deep dive into HTML",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.LEARN_HTML.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.LEARN_HTML.DESCRIPTION",
+    ),
     url: "https://www.codecademy.com/learn/learn-html",
     step: 2,
   },
   {
-    title: "Learn CSS",
-    description: "Codecademy - Master CSS styling",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.LEARN_CSS.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.LEARN_CSS.DESCRIPTION",
+    ),
     url: "https://www.codecademy.com/learn/learn-css",
     step: 3,
   },
   {
-    title: "Responsive Web Design (2022)",
-    description: "FreeCodeCamp - Updated HTML & CSS curriculum",
+    titleKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.RESPONSIVE_WEB_DESIGN_2022.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.RESPONSIVE_WEB_DESIGN_2022.DESCRIPTION",
+    ),
     url: "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
     step: 4,
   },
   {
-    title: "JavaScript Algorithms & Data Structures",
-    description: "FreeCodeCamp - Core JavaScript concepts",
+    titleKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.JS_ALGORITHMS.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.JS_ALGORITHMS.DESCRIPTION",
+    ),
     url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/",
     step: 5,
   },
   {
-    title: "Introduction to JavaScript",
-    description: "Codecademy - JavaScript fundamentals",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.INTRO_TO_JS.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.INTRO_TO_JS.DESCRIPTION",
+    ),
     url: "https://www.codecademy.com/learn/introduction-to-javascript",
     step: 6,
   },
   {
-    title: "JavaScript Algorithms & Data Structures (v8)",
-    description: "FreeCodeCamp - Latest JavaScript curriculum",
+    titleKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.JS_ALGORITHMS_V8.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SPEEDRUN_RESOURCES.JS_ALGORITHMS_V8.DESCRIPTION",
+    ),
     url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/",
     step: 7,
   },
@@ -71,111 +115,142 @@ const speedrunResources = [
 
 const reactResources = [
   {
-    title: "React Official Docs",
-    description: "The best place to learn React from scratch",
+    titleKey: msg("RESOURCES.JAVASCRIPT.REACT_RESOURCES.REACT_DOCS.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.REACT_RESOURCES.REACT_DOCS.DESCRIPTION",
+    ),
     url: "https://react.dev/learn",
   },
   {
-    title: "React Tutorial for Beginners",
-    description: "FreeCodeCamp - Comprehensive React course",
+    titleKey: msg("RESOURCES.JAVASCRIPT.REACT_RESOURCES.REACT_TUTORIAL.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.REACT_RESOURCES.REACT_TUTORIAL.DESCRIPTION",
+    ),
     url: "https://www.freecodecamp.org/news/learn-react-course/",
   },
 ];
 
 const shadcnBlocks = [
   {
-    title: "Awesome shadcn",
-    description: "Curated list of shadcn resources",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.AWESOME_SHADCN.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.AWESOME_SHADCN.DESCRIPTION",
+    ),
     url: "https://www.shadcn.io/awesome",
   },
   {
-    title: "Origin UI",
-    description: "Beautiful UI components",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ORIGIN_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ORIGIN_UI.DESCRIPTION",
+    ),
     url: "https://originui.com/",
   },
   {
-    title: "Animate UI",
-    description: "Animated components for React",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ANIMATE_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ANIMATE_UI.DESCRIPTION",
+    ),
     url: "https://animate-ui.com/",
   },
   {
-    title: "MVP Blocks",
-    description: "Ready-to-use blocks for MVPs",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.MVP_BLOCKS.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.MVP_BLOCKS.DESCRIPTION",
+    ),
     url: "https://blocks.mvp-subha.me/",
   },
   {
-    title: "SHSF UI",
-    description: "Modern component library",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.SHSF_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.SHSF_UI.DESCRIPTION",
+    ),
     url: "https://www.shsfui.com/",
   },
   {
-    title: "Kibo UI",
-    description: "Accessible component library",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.KIBO_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.KIBO_UI.DESCRIPTION",
+    ),
     url: "https://www.kibo-ui.com/",
   },
   {
-    title: "React Bits",
-    description: "Useful React components",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.REACT_BITS.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.REACT_BITS.DESCRIPTION",
+    ),
     url: "https://reactbits.dev/",
   },
   {
-    title: "Skiper UI",
-    description: "UI components collection",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.SKIPER_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.SKIPER_UI.DESCRIPTION",
+    ),
     url: "https://skiper-ui.com/",
   },
   {
-    title: "Aceternity UI",
-    description: "Beautiful animated components",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ACETERNITY_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.ACETERNITY_UI.DESCRIPTION",
+    ),
     url: "https://ui.aceternity.com/",
   },
   {
-    title: "Magic UI",
-    description: "Magical UI components",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.MAGIC_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.MAGIC_UI.DESCRIPTION",
+    ),
     url: "https://magicui.design/",
   },
   {
-    title: "Cult UI",
-    description: "Modern design system",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.CULT_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_BLOCKS.CULT_UI.DESCRIPTION",
+    ),
     url: "https://cult-ui.com/",
   },
 ];
 
 const shadcnUtils = [
   {
-    title: "TweakCN",
-    description: "Customize shadcn themes visually",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_UTILS.TWEAKCN.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_UTILS.TWEAKCN.DESCRIPTION",
+    ),
     url: "https://tweakcn.com/",
   },
   {
-    title: "Awesome shadcn/ui",
-    description: "GitHub collection of shadcn resources",
+    titleKey: msg("RESOURCES.JAVASCRIPT.SHADCN_UTILS.AWESOME_SHADCN_UI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.JAVASCRIPT.SHADCN_UTILS.AWESOME_SHADCN_UI.DESCRIPTION",
+    ),
     url: "https://github.com/birobirobiro/awesome-shadcn-ui",
   },
 ];
 
 export function Javascript() {
+  const t = useTranslations();
+
   return (
     <div className="px-8 py-8">
       <h1 className="mb-8 text-3xl font-bold">
-        JavaScript & Full-Stack Development
+        {t("RESOURCES.JAVASCRIPT.TITLE")}
       </h1>
 
       <section id="why-javascript" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Why JavaScript?</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.JAVASCRIPT.WHY_JAVASCRIPT.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-4">
-          JavaScript is the easiest path to becoming a full-stack developer.
-          With a single language, you can build everything from interactive
-          websites to server-side applications, mobile apps, and even desktop
-          software.
+          {t("RESOURCES.JAVASCRIPT.WHY_JAVASCRIPT.CONTENT")}
         </p>
       </section>
 
       <section id="web-dev-speedrun" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Web Dev Speedrun</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.JAVASCRIPT.WEB_DEV_SPEEDRUN.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-6">
-          This is the exact path I took to learn web development. Follow these
-          resources in order to build a good foundation in HTML, CSS, and
-          JavaScript. Each resource builds on the previous one.
+          {t("RESOURCES.JAVASCRIPT.WEB_DEV_SPEEDRUN.DESCRIPTION")}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {speedrunResources.map((resource) => (
@@ -192,10 +267,12 @@ export function Javascript() {
                     <span className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold">
                       {resource.step}
                     </span>
-                    {resource.title}
+                    {t(resource.titleKey)}
                     <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                   </CardTitle>
-                  <CardDescription>{resource.description}</CardDescription>
+                  <CardDescription>
+                    {t(resource.descriptionKey)}
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </a>
@@ -204,31 +281,29 @@ export function Javascript() {
       </section>
 
       <section id="nodejs" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Node.js</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.JAVASCRIPT.NODEJS.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-6">
-          Node.js lets you run JavaScript on the server, making you a true
-          full-stack developer. With Node.js, you can build APIs, handle
-          databases, and create complete web applications using the same
-          language you learned for the frontend. Download it from{" "}
+          {t("RESOURCES.JAVASCRIPT.NODEJS.CONTENT_1")}{" "}
           <a
             href="https://nodejs.org/en/download"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            nodejs.org
+            {t("RESOURCES.JAVASCRIPT.NODEJS.LINK_TEXT")}
           </a>
           .
         </p>
       </section>
 
       <section id="react" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">React</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.JAVASCRIPT.REACT.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-6">
-          Once you&apos;ve learned the basics and Node.js, it&apos;s time to
-          master React. React is the most popular JavaScript library for
-          building user interfaces and is used by companies like Meta, Netflix,
-          and Airbnb.
+          {t("RESOURCES.JAVASCRIPT.REACT.CONTENT")}
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           {reactResources.map((resource) => (
@@ -242,10 +317,12 @@ export function Javascript() {
               <Card className="hover:bg-muted/50 h-full transition-colors">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    {resource.title}
+                    {t(resource.titleKey)}
                     <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                   </CardTitle>
-                  <CardDescription>{resource.description}</CardDescription>
+                  <CardDescription>
+                    {t(resource.descriptionKey)}
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </a>
@@ -255,7 +332,7 @@ export function Javascript() {
 
       <section id="shadcn-ui" className="mb-12 scroll-mt-20">
         <h2 className="mb-4 text-2xl font-semibold">
-          Designing with shadcn/ui
+          {t("RESOURCES.JAVASCRIPT.SHADCN.TITLE")}
         </h2>
         <p className="text-muted-foreground mb-6">
           <a
@@ -266,18 +343,15 @@ export function Javascript() {
           >
             shadcn/ui
           </a>{" "}
-          is a collection of beautifully designed, accessible components that
-          you can copy and paste into your apps. It&apos;s built on top of Radix
-          UI and Tailwind CSS, giving you full control over your components.
+          {t("RESOURCES.JAVASCRIPT.SHADCN.DESCRIPTION")}
         </p>
 
         <div id="shadcn-blocks" className="mb-8 scroll-mt-20">
           <h3 className="mb-4 text-xl font-semibold">
-            Component Libraries & Blocks
+            {t("RESOURCES.JAVASCRIPT.SHADCN.BLOCKS_TITLE")}
           </h3>
           <p className="text-muted-foreground mb-4">
-            These libraries provide pre-built components and blocks that work
-            seamlessly with shadcn/ui.
+            {t("RESOURCES.JAVASCRIPT.SHADCN.BLOCKS_DESCRIPTION")}
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {shadcnBlocks.map((resource) => (
@@ -294,11 +368,13 @@ export function Javascript() {
                 >
                   <CardContent className="pt-4">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium">{resource.title}</span>
+                      <span className="font-medium">
+                        {t(resource.titleKey)}
+                      </span>
                       <ExternalLink className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
                     <p className="text-muted-foreground mt-1 text-xs">
-                      {resource.description}
+                      {t(resource.descriptionKey)}
                     </p>
                   </CardContent>
                 </Card>
@@ -308,9 +384,11 @@ export function Javascript() {
         </div>
 
         <div id="shadcn-utils" className="scroll-mt-20">
-          <h3 className="mb-4 text-xl font-semibold">Tools & Utilities</h3>
+          <h3 className="mb-4 text-xl font-semibold">
+            {t("RESOURCES.JAVASCRIPT.SHADCN.UTILS_TITLE")}
+          </h3>
           <p className="text-muted-foreground mb-4">
-            Helpful tools for customizing and extending shadcn/ui.
+            {t("RESOURCES.JAVASCRIPT.SHADCN.UTILS_DESCRIPTION")}
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {shadcnUtils.map((resource) => (
@@ -327,11 +405,13 @@ export function Javascript() {
                 >
                   <CardContent className="pt-4">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium">{resource.title}</span>
+                      <span className="font-medium">
+                        {t(resource.titleKey)}
+                      </span>
                       <ExternalLink className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
                     <p className="text-muted-foreground mt-1 text-xs">
-                      {resource.description}
+                      {t(resource.descriptionKey)}
                     </p>
                   </CardContent>
                 </Card>

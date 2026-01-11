@@ -7,44 +7,63 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { msg } from "@/lib/config/constants";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
-  { url: "#introduction", title: "Introduction", depth: 2 },
-  { url: "#learning-platforms", title: "Learning Platforms", depth: 2 },
+  {
+    url: "#introduction",
+    title: msg("RESOURCES.CYBER_SECURITY.INTRODUCTION.TITLE"),
+    depth: 2,
+  },
+  {
+    url: "#learning-platforms",
+    title: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TITLE"),
+    depth: 2,
+  },
 ];
 
 const learningPlatforms = [
   {
-    title: "TryHackMe",
-    description:
-      "Free online platform for learning cyber security with hands-on exercises and labs",
+    titleKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TRYHACKME.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TRYHACKME.DESCRIPTION",
+    ),
     url: "https://tryhackme.com/",
   },
   {
-    title: "Hack The Box",
-    description:
-      "Cyber mastery platform with beginner-friendly modules and real-world challenges",
+    titleKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.HACKTHEBOX.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.HACKTHEBOX.DESCRIPTION",
+    ),
     url: "https://hackthebox.com/",
   },
   {
-    title: "picoCTF",
-    description:
-      "Free computer security education program by Carnegie Mellon University",
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PICOCTF.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PICOCTF.DESCRIPTION",
+    ),
     url: "https://www.picoctf.org/",
   },
   {
-    title: "Root Me",
-    description:
-      "Platform for practicing hacking skills with challenges and virtual environments",
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.ROOTME.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.ROOTME.DESCRIPTION",
+    ),
     url: "https://www.root-me.org/",
   },
   {
-    title: "Cisco Networking Academy",
-    description:
-      "Learn cybersecurity, networking, and Python from Cisco's official training program",
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.CISCO.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.CISCO.DESCRIPTION",
+    ),
     url: "https://netacad.com/",
   },
 ];
@@ -52,34 +71,32 @@ const learningPlatforms = [
 export const cyberSecurityTOC = createTOC(toc);
 
 export function CyberSecurity() {
+  const t = useTranslations();
+
   return (
     <div className="px-8 py-8">
-      <h1 className="mb-8 text-3xl font-bold">Cyber Security</h1>
+      <h1 className="mb-8 text-3xl font-bold">
+        {t("RESOURCES.CYBER_SECURITY.TITLE")}
+      </h1>
 
       <section id="introduction" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Introduction</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.CYBER_SECURITY.INTRODUCTION.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-4">
-          Let&apos;s be honest - most of us got into cyber security because we
-          wanted to be hackers. We imagined ourselves breaking into systems,
-          bypassing firewalls, and doing cool stuff like in the movies. Then
-          reality hit: turns out hacking is mostly just... coding. A lot of
-          coding.
+          {t("RESOURCES.CYBER_SECURITY.INTRODUCTION.CONTENT_1")}
         </p>
         <p className="text-muted-foreground">
-          But that&apos;s actually the good news. The skills you learn in cyber
-          security - understanding systems, networks, and how software works -
-          make you a better developer overall. Whether you end up in pentesting,
-          security engineering, or just writing more secure code, it all starts
-          with the fundamentals.
+          {t("RESOURCES.CYBER_SECURITY.INTRODUCTION.CONTENT_2")}
         </p>
       </section>
 
       <section id="learning-platforms" className="mb-12 scroll-mt-20">
-        <h2 className="mb-4 text-2xl font-semibold">Learning Platforms</h2>
+        <h2 className="mb-4 text-2xl font-semibold">
+          {t("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TITLE")}
+        </h2>
         <p className="text-muted-foreground mb-6">
-          The best way to learn cyber security is by doing. These platforms
-          offer hands-on challenges, CTFs, and virtual labs where you can
-          practice legally and safely.
+          {t("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.DESCRIPTION")}
         </p>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {learningPlatforms.map((platform) => (
@@ -93,10 +110,12 @@ export function CyberSecurity() {
               <Card className="hover:bg-muted/50 h-full transition-colors">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    {platform.title}
+                    {t(platform.titleKey)}
                     <ExternalLink className="ml-auto h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100" />
                   </CardTitle>
-                  <CardDescription>{platform.description}</CardDescription>
+                  <CardDescription>
+                    {t(platform.descriptionKey)}
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </a>
