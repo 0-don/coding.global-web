@@ -12,7 +12,7 @@ export default function MainLayout(props: MainLayoutProps) {
       <Background />
       <Navbar />
 
-      <main className="flex-1 pt-16">
+      <main className="flex-1 pt-12">
         {props.children}
         {/* <iframe
           src="https://discord.com/widget?id=693908458986143824&theme=dark"
@@ -21,7 +21,6 @@ export default function MainLayout(props: MainLayoutProps) {
           frameBorder="0"
           sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
         /> */}
-
       </main>
       <Footer />
     </>
