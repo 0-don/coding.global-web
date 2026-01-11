@@ -6,6 +6,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { LinkHref } from "@/i18n/routing";
@@ -381,11 +382,100 @@ export function SidebarCollapsibleItem(props: {
   const pathname = usePathname();
   const [navigationState] = useAtom(navigationAtom);
   const toggleNavigation = useSetAtom(toggleNavigationAtom);
+  const { state, isMobile } = useSidebar();
 
   const isActive = isActiveLink(pathname, props.item.href);
   const hasSubmenu = props.item.submenu && props.item.submenu.length > 0;
   const isExpanded = navigationState[props.item.name] ?? false;
   const toggle = () => toggleNavigation(props.item.name);
+  const isCollapsed = state === "collapsed" && !isMobile;
+
+  // When sidebar is collapsed, show hover menu
+  if (isCollapsed && hasSubmenu) {
+    return (
+      <SidebarMenuItem className="group/collapsed relative">
+        <div
+          className={cn(
+            "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex size-8 cursor-pointer items-center justify-center rounded-md p-2 outline-none transition-colors",
+            isActive && "bg-primary/10 text-primary font-medium",
+          )}
+        >
+          <props.item.icon
+            className={cn("size-4", isActive && "text-primary")}
+          />
+        </div>
+        {/* Hover menu */}
+        <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-2 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/collapsed:visible group-hover/collapsed:opacity-100">
+          <div className="text-muted-foreground mb-1 px-2 py-1.5 text-xs font-semibold">
+            {t(props.item.name)}
+          </div>
+          <ul className="grid gap-1">
+            {props.item.submenu!.map((subItem) => {
+              // Check if subItem has nested submenu
+              if (subItem.submenu?.length) {
+                return (
+                  <li key={subItem.name} className="group/nested relative">
+                    <div className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all">
+                      <div className="flex items-center gap-2">
+                        <subItem.icon className="size-4" />
+                        <span className="font-medium">{t(subItem.name)}</span>
+                      </div>
+                      <ChevronRight className="size-4" />
+                    </div>
+                    {/* Nested submenu */}
+                    <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                      <ul className="grid gap-1">
+                        {subItem.submenu.map((nestedItem) => {
+                          const isNestedActive = isActiveLink(
+                            pathname,
+                            nestedItem.href,
+                          );
+                          return (
+                            <li key={nestedItem.name}>
+                              <Link
+                                href={nestedItem.href as LinkHref}
+                                onClick={props.onNavigate}
+                                className={cn(
+                                  "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                  isNestedActive && "bg-primary/10 text-primary",
+                                )}
+                              >
+                                <nestedItem.icon className="size-4" />
+                                <span className="font-medium">
+                                  {t(nestedItem.name)}
+                                </span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </li>
+                );
+              }
+
+              const isSubActive = isActiveLink(pathname, subItem.href);
+              return (
+                <li key={subItem.name}>
+                  <Link
+                    href={subItem.href as LinkHref}
+                    onClick={props.onNavigate}
+                    className={cn(
+                      "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                      isSubActive && "bg-primary/10 text-primary",
+                    )}
+                  >
+                    <subItem.icon className="size-4" />
+                    <span className="font-medium">{t(subItem.name)}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </SidebarMenuItem>
+    );
+  }
 
   return (
     <SidebarMenuItem>
