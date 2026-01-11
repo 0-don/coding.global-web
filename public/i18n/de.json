@@ -406,17 +406,248 @@
       "DESCRIPTION": "Umfassende Lernressourcen, Anleitungen und Werkzeuge für Entwickler",
       "KEYWORDS": "ressourcen, lernen, tutorials, anleitungen, programmierung"
     },
+    "TITLE": "Ressourcen",
+    "SUBTITLE": "Kuratierte Lernressourcen, Werkzeuge und Anleitungen für Entwickler",
     "FOOTER": {
       "CONTRIBUTE_TEXT": "Möchtest du eine neue Ressource hinzufügen oder eine bestehende bearbeiten? Besuche unser",
       "GITHUB": "GitHub",
       "OR_JOIN": "oder tritt unserem",
       "DISCORD": "Discord-Server bei"
     },
+    "TOC": {
+      "PROGRAMMING_LANGUAGES": "Programmiersprachen",
+      "GENERAL_RESOURCES": "Allgemeine Ressourcen",
+      "GETTING_STARTED": "Erste Schritte",
+      "FREE_AI_ASSISTANTS": "Kostenlose KI-Assistenten",
+      "CODE_LIKE_A_PRO": "Programmieren wie ein Profi",
+      "UTILITIES": "Werkzeuge",
+      "DISCORD_TEXT_FORMATTING": "Discord Textformatierung"
+    },
+    "CATEGORIES": {
+      "PROGRAMMING_LANGUAGES": {
+        "TITLE": "Programmiersprachen",
+        "DESCRIPTION": "Lerne beliebte Programmiersprachen mit kuratierten Ressourcen"
+      },
+      "GENERAL_RESOURCES": {
+        "TITLE": "Allgemeine Ressourcen",
+        "DESCRIPTION": "Produktivitätstipps und empfohlene Werkzeuge"
+      }
+    },
+    "ITEMS": {
+      "JAVASCRIPT": {
+        "NAME": "JavaScript",
+        "DESCRIPTION": "Grundlagen der Webentwicklung"
+      },
+      "PYTHON": {
+        "NAME": "Python",
+        "DESCRIPTION": "Data Science & Automatisierung"
+      },
+      "VIBE_CODING": {
+        "NAME": "Vibe Coding",
+        "DESCRIPTION": "Flow-Zustand & Produktivität"
+      },
+      "CYBER_SECURITY": {
+        "NAME": "Cybersicherheit",
+        "DESCRIPTION": "Best Practices für Sicherheit"
+      }
+    },
+    "SECTIONS": {
+      "GETTING_STARTED": {
+        "TITLE": "Erste Schritte",
+        "DESCRIPTION": "Wichtige Ressourcen zum Programmieren lernen"
+      },
+      "FREE_AI_ASSISTANTS": {
+        "TITLE": "Kostenlose KI-Assistenten",
+        "DESCRIPTION": "KI-Werkzeuge die dir beim Lernen und Programmieren helfen"
+      },
+      "CODE_LIKE_A_PRO": {
+        "TITLE": "Programmieren wie ein Profi",
+        "DESCRIPTION": "Kostenlose Ressourcen zum Erlernen verschiedener Sprachen und Technologien"
+      },
+      "UTILITIES": {
+        "TITLE": "Werkzeuge",
+        "DESCRIPTION": "Hilfreiche Tools und Dienste"
+      },
+      "DISCORD_TEXT_FORMATTING": {
+        "TITLE": "Discord Textformatierung",
+        "DESCRIPTION": "Lerne wie du deine Nachrichten in Discord formatierst"
+      }
+    },
+    "GENERAL_LINKS": {
+      "ROADMAP": {
+        "TITLE": "Roadmap.sh",
+        "DESCRIPTION": "Interaktive Roadmaps für alle Entwicklerpfade"
+      },
+      "FREECODECAMP": {
+        "TITLE": "FreeCodeCamp",
+        "DESCRIPTION": "Kostenlose Kurse für Python, JavaScript, HTML, CSS und mehr"
+      },
+      "CODECADEMY": {
+        "TITLE": "Codecademy",
+        "DESCRIPTION": "Interaktive Kurse für Python, JavaScript, Java, SQL, C++ und mehr"
+      },
+      "DONT_ASK_TO_ASK": {
+        "TITLE": "Don't Ask to Ask",
+        "DESCRIPTION": "Lerne wie man in Tech-Communities richtig Fragen stellt"
+      },
+      "QUICKTYPE": {
+        "TITLE": "QuickType",
+        "DESCRIPTION": "Konvertiere JSON zu TypeScript, Python, Go und mehr"
+      }
+    },
+    "UTILITY_LINKS": {
+      "SERVERHUNTER": {
+        "TITLE": "ServerHunter",
+        "DESCRIPTION": "Finde günstige VPS- und Server-Angebote"
+      },
+      "MAS_GENUINE_ISO": {
+        "TITLE": "MAS Genuine ISO",
+        "DESCRIPTION": "Originale Windows-Installationsmedien"
+      }
+    },
+    "CODE_RESOURCES": {
+      "HTML": "HTML",
+      "CSS": "CSS",
+      "JAVASCRIPT": "JavaScript",
+      "REACT": "React",
+      "PYTHON": "Python",
+      "JAVA": "Java",
+      "PHP": "PHP",
+      "CYBERSECURITY": "Cybersicherheit",
+      "C": "C",
+      "CPP": "C++",
+      "AWS": "AWS",
+      "AI_ML": "KI / ML",
+      "GIT": "Git",
+      "SQL": "SQL"
+    },
     "JAVASCRIPT": {
       "META": {
         "TITLE": "JavaScript - Coding Global",
         "DESCRIPTION": "JavaScript lernen mit umfassenden Anleitungen, Tutorials und Best Practices",
         "KEYWORDS": "javascript, js, webentwicklung, programmierung, tutorials"
+      },
+      "TITLE": "JavaScript & Full-Stack-Entwicklung",
+      "WHY_JAVASCRIPT": {
+        "TITLE": "Warum JavaScript?",
+        "CONTENT": "JavaScript ist der einfachste Weg zum Full-Stack-Entwickler. Mit einer einzigen Sprache kannst du alles bauen - von interaktiven Websites bis hin zu serverseitigen Anwendungen, mobilen Apps und sogar Desktop-Software."
+      },
+      "WEB_DEV_SPEEDRUN": {
+        "TITLE": "Web-Entwicklung Speedrun",
+        "DESCRIPTION": "Das ist genau der Weg, den ich genommen habe, um Webentwicklung zu lernen. Folge diesen Ressourcen der Reihe nach, um eine solide Grundlage in HTML, CSS und JavaScript aufzubauen. Jede Ressource baut auf der vorherigen auf."
+      },
+      "NODEJS": {
+        "TITLE": "Node.js",
+        "CONTENT_1": "Node.js ermöglicht es dir, JavaScript auf dem Server auszuführen und macht dich zu einem echten Full-Stack-Entwickler. Mit Node.js kannst du APIs bauen, Datenbanken verwalten und komplette Webanwendungen mit derselben Sprache erstellen, die du für das Frontend gelernt hast. Lade es herunter von",
+        "LINK_TEXT": "nodejs.org"
+      },
+      "REACT": {
+        "TITLE": "React",
+        "CONTENT": "Sobald du die Grundlagen und Node.js gelernt hast, ist es Zeit, React zu meistern. React ist die beliebteste JavaScript-Bibliothek zum Erstellen von Benutzeroberflächen und wird von Unternehmen wie Meta, Netflix und Airbnb verwendet."
+      },
+      "SHADCN": {
+        "TITLE": "Design mit shadcn/ui",
+        "DESCRIPTION": "ist eine Sammlung von wunderschön gestalteten, barrierefreien Komponenten, die du kopieren und in deine Apps einfügen kannst. Es basiert auf Radix UI und Tailwind CSS und gibt dir volle Kontrolle über deine Komponenten.",
+        "BLOCKS_TITLE": "Komponentenbibliotheken & Blöcke",
+        "BLOCKS_DESCRIPTION": "Diese Bibliotheken bieten vorgefertigte Komponenten und Blöcke, die nahtlos mit shadcn/ui funktionieren.",
+        "UTILS_TITLE": "Tools & Werkzeuge",
+        "UTILS_DESCRIPTION": "Hilfreiche Tools zum Anpassen und Erweitern von shadcn/ui."
+      },
+      "SPEEDRUN_RESOURCES": {
+        "RESPONSIVE_WEB_DESIGN": {
+          "TITLE": "Responsive Web Design",
+          "DESCRIPTION": "FreeCodeCamp - HTML & CSS Grundlagen"
+        },
+        "LEARN_HTML": {
+          "TITLE": "Learn HTML",
+          "DESCRIPTION": "Codecademy - Tiefes Eintauchen in HTML"
+        },
+        "LEARN_CSS": {
+          "TITLE": "Learn CSS",
+          "DESCRIPTION": "Codecademy - CSS-Styling meistern"
+        },
+        "RESPONSIVE_WEB_DESIGN_2022": {
+          "TITLE": "Responsive Web Design (2022)",
+          "DESCRIPTION": "FreeCodeCamp - Aktualisierter HTML & CSS Lehrplan"
+        },
+        "JS_ALGORITHMS": {
+          "TITLE": "JavaScript Algorithms & Data Structures",
+          "DESCRIPTION": "FreeCodeCamp - JavaScript Kernkonzepte"
+        },
+        "INTRO_TO_JS": {
+          "TITLE": "Introduction to JavaScript",
+          "DESCRIPTION": "Codecademy - JavaScript Grundlagen"
+        },
+        "JS_ALGORITHMS_V8": {
+          "TITLE": "JavaScript Algorithms & Data Structures (v8)",
+          "DESCRIPTION": "FreeCodeCamp - Neuester JavaScript Lehrplan"
+        }
+      },
+      "REACT_RESOURCES": {
+        "REACT_DOCS": {
+          "TITLE": "React Official Docs",
+          "DESCRIPTION": "Der beste Ort um React von Grund auf zu lernen"
+        },
+        "REACT_TUTORIAL": {
+          "TITLE": "React Tutorial for Beginners",
+          "DESCRIPTION": "FreeCodeCamp - Umfassender React-Kurs"
+        }
+      },
+      "SHADCN_BLOCKS": {
+        "AWESOME_SHADCN": {
+          "TITLE": "Awesome shadcn",
+          "DESCRIPTION": "Kuratierte Liste von shadcn-Ressourcen"
+        },
+        "ORIGIN_UI": {
+          "TITLE": "Origin UI",
+          "DESCRIPTION": "Schöne UI-Komponenten"
+        },
+        "ANIMATE_UI": {
+          "TITLE": "Animate UI",
+          "DESCRIPTION": "Animierte Komponenten für React"
+        },
+        "MVP_BLOCKS": {
+          "TITLE": "MVP Blocks",
+          "DESCRIPTION": "Fertige Blöcke für MVPs"
+        },
+        "SHSF_UI": {
+          "TITLE": "SHSF UI",
+          "DESCRIPTION": "Moderne Komponentenbibliothek"
+        },
+        "KIBO_UI": {
+          "TITLE": "Kibo UI",
+          "DESCRIPTION": "Barrierefreie Komponentenbibliothek"
+        },
+        "REACT_BITS": {
+          "TITLE": "React Bits",
+          "DESCRIPTION": "Nützliche React-Komponenten"
+        },
+        "SKIPER_UI": {
+          "TITLE": "Skiper UI",
+          "DESCRIPTION": "UI-Komponentensammlung"
+        },
+        "ACETERNITY_UI": {
+          "TITLE": "Aceternity UI",
+          "DESCRIPTION": "Schöne animierte Komponenten"
+        },
+        "MAGIC_UI": {
+          "TITLE": "Magic UI",
+          "DESCRIPTION": "Magische UI-Komponenten"
+        },
+        "CULT_UI": {
+          "TITLE": "Cult UI",
+          "DESCRIPTION": "Modernes Design-System"
+        }
+      },
+      "SHADCN_UTILS": {
+        "TWEAKCN": {
+          "TITLE": "TweakCN",
+          "DESCRIPTION": "Shadcn-Themes visuell anpassen"
+        },
+        "AWESOME_SHADCN_UI": {
+          "TITLE": "Awesome shadcn/ui",
+          "DESCRIPTION": "GitHub-Sammlung von shadcn-Ressourcen"
+        }
       }
     },
     "PYTHON": {
@@ -424,13 +655,50 @@
         "TITLE": "Python - Coding Global",
         "DESCRIPTION": "Python meistern mit Anleitungen, Tutorials und Best Practices für alle Erfahrungsstufen",
         "KEYWORDS": "python, programmierung, tutorials, data science, automatisierung"
-      }
+      },
+      "TITLE": "Python",
+      "CONTENT_1": "Python ist wirklich nur für bestimmte Bereiche wie Data Science, Machine Learning, wissenschaftliches Rechnen und Automatisierungsskripte relevant. Außerhalb dieser Bereiche ist es nicht besonders nützlich.",
+      "CONTENT_2": "Viele Menschen wählen Python als ihre erste Sprache, weil sie denken, es sei einfach. Während die Syntax lesbar ist, überträgt sich diese Einfachheit nicht gut auf andere Sprachen oder die reale Entwicklung. Wenn du Full-Stack-Entwickler werden möchtest, ist JavaScript die viel bessere Wahl, da es sowohl im Frontend als auch im Backend funktioniert.",
+      "CONTENT_3": "Aber wenn du wirklich Python lernen möchtest, schau dir",
+      "FREECODECAMP_LINK": "FreeCodeCamps Scientific Computing with Python",
+      "OR": "oder",
+      "CODECADEMY_LINK": "Codecademys Python-Kurse"
     },
     "CYBER_SECURITY": {
       "META": {
         "TITLE": "Cybersicherheit - Coding Global",
         "DESCRIPTION": "Grundlagen der Cybersicherheit, Best Practices und Techniken zum Schutz Ihrer Anwendungen lernen",
         "KEYWORDS": "cybersicherheit, sicherheit, hacking, penetrationstest, infosec"
+      },
+      "TITLE": "Cybersicherheit",
+      "INTRODUCTION": {
+        "TITLE": "Einführung",
+        "CONTENT_1": "Seien wir ehrlich - die meisten von uns sind in die Cybersicherheit eingestiegen, weil wir Hacker sein wollten. Wir haben uns vorgestellt, wie wir in Systeme einbrechen, Firewalls umgehen und coole Sachen wie in den Filmen machen. Dann kam die Realität: Es stellt sich heraus, dass Hacking hauptsächlich... Programmieren ist. Viel Programmieren.",
+        "CONTENT_2": "Aber das ist eigentlich die gute Nachricht. Die Fähigkeiten, die du in der Cybersicherheit lernst - Verständnis von Systemen, Netzwerken und wie Software funktioniert - machen dich insgesamt zu einem besseren Entwickler. Egal ob du im Pentesting, Security Engineering oder einfach beim Schreiben von sichererem Code landest, alles beginnt mit den Grundlagen."
+      },
+      "LEARNING_PLATFORMS": {
+        "TITLE": "Lernplattformen",
+        "DESCRIPTION": "Der beste Weg, Cybersicherheit zu lernen, ist durch Praxis. Diese Plattformen bieten praktische Herausforderungen, CTFs und virtuelle Labs, in denen du legal und sicher üben kannst.",
+        "TRYHACKME": {
+          "TITLE": "TryHackMe",
+          "DESCRIPTION": "Kostenlose Online-Plattform zum Erlernen von Cybersicherheit mit praktischen Übungen und Labs"
+        },
+        "HACKTHEBOX": {
+          "TITLE": "Hack The Box",
+          "DESCRIPTION": "Cyber-Meisterschaftsplattform mit anfängerfreundlichen Modulen und realen Herausforderungen"
+        },
+        "PICOCTF": {
+          "TITLE": "picoCTF",
+          "DESCRIPTION": "Kostenloses Computersicherheits-Bildungsprogramm der Carnegie Mellon University"
+        },
+        "ROOTME": {
+          "TITLE": "Root Me",
+          "DESCRIPTION": "Plattform zum Üben von Hacking-Fähigkeiten mit Herausforderungen und virtuellen Umgebungen"
+        },
+        "CISCO": {
+          "TITLE": "Cisco Networking Academy",
+          "DESCRIPTION": "Lerne Cybersicherheit, Netzwerke und Python im offiziellen Trainingsprogramm von Cisco"
+        }
       }
     },
     "VIBE_CODING": {
@@ -438,6 +706,60 @@
         "TITLE": "Vibe Coding - Coding Global",
         "DESCRIPTION": "Entdecken Sie Tipps und Techniken für Flow-Zustand und maximale Produktivität beim Coden",
         "KEYWORDS": "vibe coding, produktivität, flow-zustand, coding-tipps, entwicklererfahrung"
+      },
+      "TITLE": "Vibe Coding",
+      "WHAT_IS_VIBE_CODING": {
+        "TITLE": "Was ist Vibe Coding?",
+        "CONTENT_1": "Vibe Coding ist ein neuer Ansatz zum Programmieren, bei dem du beschreibst, was du willst, in natürlicher Sprache und die KI es für dich baut. Anstatt jede Codezeile selbst zu schreiben, leitest du die KI mit Prompts an und lässt sie die Implementierung übernehmen.",
+        "CONTENT_2": "Der Begriff wurde von Andrej Karpathy in diesem Tweet geprägt:",
+        "CONTENT_3": "Um effektiv Vibe Coding zu betreiben, brauchst du die richtigen Werkzeuge. Hier sind die besten KI-gestützten Editoren und CLIs, die heute verfügbar sind."
+      },
+      "CHOOSING_THE_BEST_MODEL": {
+        "TITLE": "Das beste Modell wählen",
+        "CONTENT_1": "Das KI-Modell, das du verwendest, ist genauso wichtig wie das Werkzeug. Du findest die neuesten Rankings von KI-Modellen für Webentwicklung auf dem",
+        "LEADERBOARD_LINK": "LM Arena Web Development Leaderboard",
+        "CONTENT_2": "Allerdings rangieren Claude-Modelle von Anthropic durchgehend an der Spitze für Coding-Aufgaben. Wenn du die besten Ergebnisse beim Vibe Coding willst, ist Claude normalerweise die richtige Wahl."
+      },
+      "MY_SETUP": {
+        "TITLE": "Mein Setup",
+        "CONTENT_1": "Ich persönlich verwende die",
+        "CLAUDE_CODE_LINK": "Claude Code VSCode Extension",
+        "CONTENT_2": "für meinen Vibe Coding Workflow. Sie integriert Claude direkt in VSCode mit agentischen Fähigkeiten.",
+        "CONTENT_3": "Um beim Sammeln von Kontext für KI-Assistenten zu helfen, habe ich auch die",
+        "CODE_COLLECTOR_LINK": "Code Collector",
+        "CONTENT_4": "Extension gebaut. Sie sammelt automatisch Dateien basierend auf Import-Abhängigkeiten, was es einfach macht, deinen Codebase-Kontext jedem KI-Assistenten bereitzustellen."
+      },
+      "AI_EDITORS": {
+        "TITLE": "KI-Editoren",
+        "DESCRIPTION": "Diese Editoren haben KI tief in das Coding-Erlebnis integriert und ermöglichen es dir, mit KI zu chatten, Code zu generieren und intelligente Vervollständigungen zu erhalten.",
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "KI-first Code-Editor basierend auf VSCode"
+        },
+        "WINDSURF": {
+          "TITLE": "Windsurf",
+          "DESCRIPTION": "KI-gestützte IDE von Codeium"
+        },
+        "ANTIGRAVITY": {
+          "TITLE": "Antigravity",
+          "DESCRIPTION": "KI-Coding-Umgebung"
+        }
+      },
+      "AI_CLIS": {
+        "TITLE": "KI-CLIs",
+        "DESCRIPTION": "Kommandozeilentools, mit denen du direkt von deinem Terminal aus Vibe Coden kannst. Diese sind ideal für schnelle Aufgaben, Automatisierung und Arbeiten in jedem Editor deiner Wahl.",
+        "CLAUDE_CODE": {
+          "TITLE": "Claude Code",
+          "DESCRIPTION": "Anthropics agentisches Coding-CLI"
+        },
+        "OPENAI_CODEX": {
+          "TITLE": "OpenAI Codex CLI",
+          "DESCRIPTION": "OpenAIs Terminal-Coding-Assistent"
+        },
+        "GEMINI_CLI": {
+          "TITLE": "Gemini CLI",
+          "DESCRIPTION": "Googles KI-Coding-Assistent für das Terminal"
+        }
       }
     }
   },

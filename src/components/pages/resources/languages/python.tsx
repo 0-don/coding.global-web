@@ -2,6 +2,7 @@
 
 import { createTOC } from "@/components/layout/resources/toc";
 import type { TOCItemType } from "fumadocs-core/toc";
+import { useTranslations } from "next-intl";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [];
@@ -9,41 +10,37 @@ const toc: TOCItemType[] = [];
 export const pythonTOC = createTOC(toc);
 
 export function Python() {
+  const t = useTranslations();
+
   return (
     <div className="px-8 py-8">
-      <h1 className="mb-8 text-3xl font-bold">Python</h1>
+      <h1 className="mb-8 text-3xl font-bold">{t("RESOURCES.PYTHON.TITLE")}</h1>
 
       <section className="mb-12">
         <p className="text-muted-foreground mb-4">
-          Python is really only relevant for specific fields like data science,
-          machine learning, scientific computing, and automation scripting.
-          Outside of these areas, it&apos;s not particularly useful.
+          {t("RESOURCES.PYTHON.CONTENT_1")}
         </p>
         <p className="text-muted-foreground mb-4">
-          Many people choose Python as their first language because they think
-          it&apos;s simple. While the syntax is readable, this simplicity
-          doesn&apos;t transfer well to other languages or real-world
-          development. If you want to become a full-stack developer, JavaScript
-          is a much better choice since it works on both frontend and backend.
+          {t("RESOURCES.PYTHON.CONTENT_2")}
         </p>
         <p className="text-muted-foreground">
-          But if you really want to learn Python, check out{" "}
+          {t("RESOURCES.PYTHON.CONTENT_3")}{" "}
           <a
             href="https://www.freecodecamp.org/learn/scientific-computing-with-python/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            FreeCodeCamp&apos;s Scientific Computing with Python
+            {t("RESOURCES.PYTHON.FREECODECAMP_LINK")}
           </a>{" "}
-          or{" "}
+          {t("RESOURCES.PYTHON.OR")}{" "}
           <a
             href="https://www.codecademy.com/catalog/language/python"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            Codecademy&apos;s Python courses
+            {t("RESOURCES.PYTHON.CODECADEMY_LINK")}
           </a>
           .
         </p>
