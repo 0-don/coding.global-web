@@ -1,11 +1,11 @@
 import { CodingLanguageDetail } from "@/components/pages/community/coding/coding-language-detail";
+import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { ProgrammingBoardType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
-import { serverLocale } from "@/lib/utils/server";
-import { getThread, getThreadPageMetadata } from "@/lib/utils/thread-metadata";
+import { getThread, serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
@@ -14,7 +14,10 @@ const BOARD_TYPE: ProgrammingBoardType = "python";
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const [params, locale] = await Promise.all([props.params, serverLocale(props)]);
+  const [params, locale] = await Promise.all([
+    props.params,
+    serverLocale(props),
+  ]);
   const [t, thread] = await Promise.all([
     getTranslations({ locale }),
     getThread(params.id, BOARD_TYPE),

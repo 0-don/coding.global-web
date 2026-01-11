@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
 import { ApiBoardType, BoardType } from "@/lib/types";
+import { chunkArray } from "@/lib/utils/base";
 import { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
 import { filterThreads, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -17,6 +18,7 @@ import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import type { IconType } from "react-icons/lib";
 import { RxCross2 } from "react-icons/rx";
+import { VList } from "virtua";
 
 export type BoardItemWithType = GetApiByGuildIdBoardByBoardType200Item & {
   boardType?: ApiBoardType;
@@ -101,38 +103,45 @@ export function BoardList(props: BoardListProps) {
 
       {/* Conditional Rendering */}
       {state.viewMode === "grid" ? (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredThreads.map((thread, index) => (
+        <VList style={{ height: "calc(100vh - 250px)" }}>
+          {chunkArray(filteredThreads, 3).map((row, rowIndex) => (
             <motion.div
-              key={thread.id}
-              initial={{ opacity: 0, y: 30 }}
+              key={rowIndex}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ y: -8 }}
-              whileTap={{ scale: 0.98 }}
-              className="h-full"
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 gap-6 pb-6 md:grid-cols-2 lg:grid-cols-3"
             >
-              <ContentCard
-                type="thread"
-                data={thread}
-                href={props.getDetailHref(thread)}
-                contentClassName="text-muted-foreground"
-                showBoardBadge={props.showBoardBadge}
-                boardType={
-                  thread.boardType as "job-board" | "dev-board" | undefined
-                }
-              />
+              {row.map((thread) => (
+                <motion.div
+                  key={thread.id}
+                  className="h-full"
+                  whileHover={{ y: -8 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <ContentCard
+                    type="thread"
+                    data={thread}
+                    href={props.getDetailHref(thread)}
+                    contentClassName="text-muted-foreground"
+                    showBoardBadge={props.showBoardBadge}
+                    boardType={
+                      thread.boardType as "job-board" | "dev-board" | undefined
+                    }
+                  />
+                </motion.div>
+              ))}
             </motion.div>
           ))}
-        </div>
+        </VList>
       ) : (
-        <div className="flex flex-col">
+        <VList style={{ height: "calc(100vh - 250px)" }}>
           {filteredThreads.map((thread, index) => (
             <motion.div
               key={thread.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.03 }}
+              transition={{ duration: 0.3 }}
             >
               <ContentListItem
                 data={thread}
@@ -147,7 +156,7 @@ export function BoardList(props: BoardListProps) {
               )}
             </motion.div>
           ))}
-        </div>
+        </VList>
       )}
     </motion.div>
   );
