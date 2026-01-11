@@ -44,31 +44,6 @@ export function buildPathToParentsMap(
   return map;
 }
 
-/**
- * Finds all parent navigation item keys that should be expanded
- * for the given pathname to show the active item.
- */
-export function findExpandedParents(
-  items: NavigationItem[],
-  pathname: string,
-): string[] {
-  const pathToParents = buildPathToParentsMap(items);
-
-  // Try exact match first
-  if (pathToParents.has(pathname)) {
-    return pathToParents.get(pathname)!;
-  }
-
-  // Try prefix match (for nested routes like /resources/guides/vibe-coding/something)
-  for (const [href, parents] of pathToParents) {
-    if (pathname.startsWith(href + "/") || pathname === href) {
-      return parents;
-    }
-  }
-
-  return [];
-}
-
 export const NAVIGATION_STORE_KEY = "navigation-store";
 
 export const INITIAL_NAVIGATION_STATE: NavigationState = {
