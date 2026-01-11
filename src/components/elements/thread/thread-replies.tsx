@@ -113,8 +113,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
           onScroll={handleScroll}
         >
           {props.messages.map((message, index) => {
-            const prevMessage =
-              index > 0 ? props.messages[index - 1] : null;
+            const prevMessage = index > 0 ? props.messages[index - 1] : null;
             const showAvatar =
               !prevMessage || prevMessage.author?.id !== message.author?.id;
 

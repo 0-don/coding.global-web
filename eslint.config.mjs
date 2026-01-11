@@ -14,6 +14,9 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
   ]),
   {
+    linterOptions: {
+      reportUnusedDisableDirectives: "off",
+    },
     rules: {
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
