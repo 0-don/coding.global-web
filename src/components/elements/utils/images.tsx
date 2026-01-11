@@ -15,7 +15,7 @@ export const LogoImage = (
       src={"/images/logo.gif"}
       alt={appName}
       unoptimized
-      className="h-7 w-7 rounded-full object-cover"
+      className={cn("h-7 w-7 rounded-full object-cover", props.className)}
     />
   );
 };
