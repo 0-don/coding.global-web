@@ -118,7 +118,7 @@ export function CollapsibleNavItem(props: CollapsibleNavItemProps) {
 
   const isActive = isActiveLink(pathname, props.item.href);
   const hasSubmenu = props.item.submenu && props.item.submenu.length > 0;
-  const isExpanded = navigationState[props.item.name] ?? false;
+  const isExpanded = navigationState.expanded[props.item.name] ?? false;
   const toggle = () => toggleNavigation(props.item.name);
 
   return (
@@ -196,7 +196,7 @@ export function CategoryGroup(props: CategoryGroupProps) {
   const [navigationState] = useAtom(navigationAtom);
   const toggleNavigation = useSetAtom(toggleNavigationAtom);
 
-  const isExpanded = navigationState[props.category] ?? false;
+  const isExpanded = navigationState.expanded[props.category] ?? false;
   const toggle = () => toggleNavigation(props.category);
 
   if (!props.category) {
@@ -290,7 +290,7 @@ export function SidebarCategoryGroup(props: {
   const [navigationState] = useAtom(navigationAtom);
   const toggleNavigation = useSetAtom(toggleNavigationAtom);
 
-  const isExpanded = navigationState[props.category] ?? false;
+  const isExpanded = navigationState.expanded[props.category] ?? false;
   const toggle = () => toggleNavigation(props.category);
 
   if (!props.category) {
@@ -386,7 +386,7 @@ export function SidebarCollapsibleItem(props: {
 
   const isActive = isActiveLink(pathname, props.item.href);
   const hasSubmenu = props.item.submenu && props.item.submenu.length > 0;
-  const isExpanded = navigationState[props.item.name] ?? false;
+  const isExpanded = navigationState.expanded[props.item.name] ?? false;
   const toggle = () => toggleNavigation(props.item.name);
   const isCollapsed = state === "collapsed" && !isMobile;
 
