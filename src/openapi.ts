@@ -822,6 +822,363 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessagesParams = {
   after?: string;
 };
 
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEditedAt =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemContentType =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemWidth =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemHeight =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemDuration =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemWaveform =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItem =
+  {
+    id: string;
+    url: string;
+    proxyURL: string;
+    name: string;
+    description: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemDescription;
+    contentType: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemContentType;
+    size: number;
+    width: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemWidth;
+    height: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemHeight;
+    ephemeral: boolean;
+    duration: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemDuration;
+    waveform: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItemWaveform;
+    flags: string;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemTitle =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemUrl =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemColor =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemTimestamp =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFieldsItemInline =
+  boolean | unknown;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFieldsItem =
+  {
+    name: string;
+    value: string;
+    inline: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFieldsItemInline;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOf =
+  {
+    name: string;
+    url: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfUrl;
+    iconURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthor =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthorAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfProxyURL;
+    width: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfWidth;
+    height: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOfHeight;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnail =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnailAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfProxyURL;
+    width: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfWidth;
+    height: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOfHeight;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImage =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImageAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfProxyURL;
+    width: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfWidth;
+    height: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOfHeight;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideo =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideoAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOf =
+  {
+    text: string;
+    iconURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooter =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooterAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOfName =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOf =
+  {
+    name: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOfName;
+    url: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOfUrl;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProvider =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProviderAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItem =
+  {
+    title: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemTitle;
+    description: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemDescription;
+    url: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemUrl;
+    color: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemColor;
+    timestamp: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemTimestamp;
+    fields: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFieldsItem[];
+    author: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemAuthor;
+    thumbnail: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemThumbnail;
+    image: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemImage;
+    video: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemVideo;
+    footer: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemFooter;
+    provider: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItemProvider;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsUsersItemGlobalName =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsUsersItem =
+  {
+    id: string;
+    username: string;
+    globalName: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsUsersItemGlobalName;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsRolesItem =
+  {
+    id: string;
+    name: string;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentions =
+  {
+    users: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsUsersItem[];
+    roles: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentionsRolesItem[];
+    everyone: boolean;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmojiId =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmojiName =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmoji =
+  {
+    id: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmojiId;
+    name: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmojiName;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItem =
+  {
+    emoji: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItemEmoji;
+    count: number;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOfMessageId =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOfGuildId =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOf =
+  {
+    messageId: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOfMessageId;
+    channelId: string;
+    guildId: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOfGuildId;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReference =
+  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReferenceAnyOf | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorGlobalName =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorNickname =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorBannerUrl =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorAccentColor =
+  number | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorFlags =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCollectibles =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPrimaryGuild =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorRolesItem =
+  {
+    name: string;
+    position: number;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorActivity =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPresenceUpdatedAt =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPremiumSince =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCommunicationDisabledUntil =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorJoinedAt =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCreatedAt =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorUpdatedAt =
+  string | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthor =
+  {
+    id: string;
+    username: string;
+    globalName: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorGlobalName;
+    nickname: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorNickname;
+    displayName: string;
+    avatarUrl: string;
+    bannerUrl: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorBannerUrl;
+    accentColor: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorAccentColor;
+    displayHexColor: string;
+    flags: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorFlags;
+    collectibles: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCollectibles;
+    primaryGuild: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPrimaryGuild;
+    roles: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorRolesItem[];
+    highestRolePosition: number;
+    status: string;
+    activity: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorActivity;
+    presenceUpdatedAt: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPresenceUpdatedAt;
+    premiumSince: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorPremiumSince;
+    communicationDisabledUntil: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCommunicationDisabledUntil;
+    joinedAt: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorJoinedAt;
+    createdAt: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorCreatedAt;
+    updatedAt: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthorUpdatedAt;
+  };
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem = {
+  id: string;
+  content: string;
+  createdAt: string;
+  editedAt: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEditedAt;
+  pinned: boolean;
+  tts: boolean;
+  type: string;
+  attachments: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAttachmentsItem[];
+  embeds: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemEmbedsItem[];
+  mentions: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemMentions;
+  reactions: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReactionsItem[];
+  reference: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReference;
+  author: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthor;
+};
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200NextCursor =
+  | string
+  | null;
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200 = {
+  messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
+  hasMore: boolean;
+  nextCursor: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200NextCursor;
+};
+
+export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
 export type GetApiByGuildIdTopParams = {
   /**
    * @minimum 1
@@ -1796,17 +2153,28 @@ export const getApiByGuildIdBoardByBoardTypeByThreadId = async (
   );
 };
 
-export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseDefault = {
-  data: unknown;
-  status: number;
+export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse200 = {
+  data: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200;
+  status: 200;
 };
+
+export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse422 = {
+  data: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages422;
+  status: 422;
+};
+
+export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseSuccess =
+  getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse200 & {
+    headers: Headers;
+  };
 export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseError =
-  getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseDefault & {
+  getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse422 & {
     headers: Headers;
   };
 
 export type getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponse =
-  getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseError;
+  | getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseSuccess
+  | getApiByGuildIdBoardByBoardTypeByThreadIdMessagesResponseError;
 
 export const getGetApiByGuildIdBoardByBoardTypeByThreadIdMessagesUrl = (
   guildId: string,

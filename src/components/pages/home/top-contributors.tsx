@@ -1,18 +1,18 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useTranslations } from "next-intl";
-import { useRef } from "react";
-import { useTopStatsQuery } from "@/hook/bot-hook";
-import { Heart, MessageSquare, Mic } from "lucide-react";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTopStatsQuery } from "@/hook/bot-hook";
 import {
   GetApiByGuildIdTop200MostActiveMessageUsersItem,
   GetApiByGuildIdTop200MostActiveVoiceUsersItem,
   GetApiByGuildIdTop200MostHelpfulUsersItem,
 } from "@/openapi";
+import { Heart, MessageSquare, Mic } from "lucide-react";
+import { motion, useInView } from "motion/react";
+import { useTranslations } from "next-intl";
+import { useRef } from "react";
 
 type TopStatsUser =
   | GetApiByGuildIdTop200MostActiveMessageUsersItem
@@ -51,7 +51,10 @@ function ContributorCard(props: ContributorCardProps) {
               key={contributor.id as string}
               initial={{ opacity: 0, x: -20 }}
               animate={props.inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.3, delay: props.index * 0.15 + idx * 0.1 }}
+              transition={{
+                duration: 0.3,
+                delay: props.index * 0.15 + idx * 0.1,
+              }}
               className="flex items-center gap-3"
             >
               <span className="text-muted-foreground w-4 text-sm font-medium">
@@ -87,7 +90,9 @@ export function TopContributors() {
       icon: <Heart className="h-4 w-4 text-pink-500" />,
       contributors: stats?.mostHelpfulUsers ?? [],
       formatValue: (u: TopStatsUser) =>
-        t("HOME.CONTRIBUTORS_HELPERS_COUNT", { count: "count" in u ? u.count : 0 }),
+        t("HOME.CONTRIBUTORS_HELPERS_COUNT", {
+          count: "count" in u ? (u.count as number) : 0,
+        }),
       accentColor: "bg-pink-500/10",
     },
     {
@@ -95,7 +100,9 @@ export function TopContributors() {
       icon: <MessageSquare className="h-4 w-4 text-blue-500" />,
       contributors: stats?.mostActiveMessageUsers ?? [],
       formatValue: (u: TopStatsUser) =>
-        t("HOME.CONTRIBUTORS_MESSAGES_COUNT", { count: "count" in u ? u.count : 0 }),
+        t("HOME.CONTRIBUTORS_MESSAGES_COUNT", {
+          count: "count" in u ? (u.count as number) : 0,
+        }),
       accentColor: "bg-blue-500/10",
     },
     {
@@ -103,7 +110,9 @@ export function TopContributors() {
       icon: <Mic className="h-4 w-4 text-green-500" />,
       contributors: stats?.mostActiveVoiceUsers ?? [],
       formatValue: (u: TopStatsUser) =>
-        t("HOME.CONTRIBUTORS_VOICE_HOURS", { hours: ("sum" in u ? u.sum : 0).toFixed(0) }),
+        t("HOME.CONTRIBUTORS_VOICE_HOURS", {
+          hours: ("sum" in u ? u.sum : 0).toFixed(0),
+        }),
       accentColor: "bg-green-500/10",
     },
   ];
