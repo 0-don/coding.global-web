@@ -1159,14 +1159,10 @@ export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem = {
   author: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemAuthor;
 };
 
-export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200NextCursor =
-  | string
-  | null;
-
 export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200 = {
   messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
   hasMore: boolean;
-  nextCursor: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200NextCursor;
+  nextCursor: string;
 };
 
 export type GetApiByGuildIdBoardByBoardTypeByThreadIdMessages422 = {
