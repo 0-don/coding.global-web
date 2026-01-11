@@ -1,20 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 import {
-  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem,
-  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReference,
+  GetApiByGuildIdNews200Item,
+  GetApiByGuildIdNews200ItemReference,
 } from "@/openapi";
 import { Reply } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export type ReferencedMessageData = Pick<
-  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem,
+  GetApiByGuildIdNews200Item,
   "id" | "author" | "content" | "createdAt"
 > & {
   isParentThread: boolean;
 };
 
 interface MessageReplyReferenceProps {
-  reference: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItemReference;
+  reference: GetApiByGuildIdNews200ItemReference;
   referencedMessage: ReferencedMessageData | undefined;
   onClickReference?: (messageId: string, isParentThread: boolean) => void;
 }
