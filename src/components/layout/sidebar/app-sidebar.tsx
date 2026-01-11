@@ -37,10 +37,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               render={
                 <Link
                   href="/"
-                  className="flex w-full items-center justify-center"
+                  className="flex w-full items-center gap-2 group-data-[collapsible=icon]:justify-center"
                 >
-                  <LogoImage />
-                  <CompanyName className="text-2xl font-bold" />
+                  <LogoImage className="shrink-0" />
+                  <CompanyName className="text-2xl font-bold group-data-[collapsible=icon]:hidden" />
                 </Link>
               }
             />
