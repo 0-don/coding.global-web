@@ -141,6 +141,22 @@ export function ContentListItem({
           </div>
 
           <div className="text-muted-foreground flex items-center gap-4 text-xs">
+            {data.firstMessage?.reactions &&
+              data.firstMessage.reactions.length > 0 && (
+                <div className="hover:text-foreground flex items-center gap-1">
+                  {data.firstMessage.reactions.slice(0, 3).map((reaction, idx) => (
+                    <span key={idx} className="text-base">
+                      {reaction.emoji.name}
+                    </span>
+                  ))}
+                  <span className="ml-1">
+                    {data.firstMessage.reactions.reduce(
+                      (sum, r) => sum + r.count,
+                      0,
+                    )}
+                  </span>
+                </div>
+              )}
             <div className="hover:text-foreground flex items-center gap-1.5">
               <MessageCircle className="h-3.5 w-3.5" />
               <span>
