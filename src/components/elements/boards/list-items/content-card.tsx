@@ -186,6 +186,25 @@ export function ContentCard(props: ContentCardProps) {
             </div>
 
             <div className="text-muted-foreground flex flex-1 flex-col items-end justify-end gap-0.5 text-xs">
+              {props.data.firstMessage?.reactions &&
+                props.data.firstMessage.reactions.length > 0 && (
+                  <div className="hover:text-foreground flex items-center gap-1">
+                    {props.data.firstMessage.reactions
+                      .slice(0, 3)
+                      .map((reaction, idx) => (
+                        <span key={idx} className="text-base">
+                          {reaction.emoji.name}
+                        </span>
+                      ))}
+                    <span className="ml-1">
+                      {props.data.firstMessage.reactions.reduce(
+                        (sum, r) => sum + r.count,
+                        0,
+                      )}
+                    </span>
+                  </div>
+                )}
+
               <div className="hover:text-foreground flex items-center gap-2">
                 <span>
                   {t("SHOWCASE.MESSAGES_COUNT", {
