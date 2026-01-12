@@ -4,12 +4,8 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
-import { ProgrammingThreadType } from "@/lib/types";
+import { PROGRAMMING_LANGUAGES, ProgrammingThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
-import {
-  languageToTranslationKey,
-  PROGRAMMING_LANGUAGES,
-} from "@/lib/utils/language";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
 import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -27,7 +23,8 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
-  const translationKey = languageToTranslationKey(params.language);
+  const translationKey =
+    params.language.toUpperCase() as Uppercase<ProgrammingThreadType>;
 
   return getPageMetadata({
     locale,

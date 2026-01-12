@@ -1,6 +1,17 @@
 import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
+const NON_PROGRAMMING_TYPES = ["job-board", "dev-board", "showcase"] as const;
+
+export const PROGRAMMING_LANGUAGES = Object.keys(
+  GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
+).filter(
+  (type) =>
+    !NON_PROGRAMMING_TYPES.includes(
+      type as (typeof NON_PROGRAMMING_TYPES)[number],
+    ),
+) as ProgrammingThreadType[];
+
 export type ApiThreadType =
   GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType;
 
