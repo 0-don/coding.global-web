@@ -42,12 +42,12 @@ export function ContentListItem({
   const content = (
     <div
       className={cn(
-        "group border-border bg-card hover:bg-muted/85 flex gap-4 rounded-md border p-4 transition-colors",
+        "group border-border bg-card hover:bg-muted/85 flex gap-3 rounded-md border p-3 transition-colors md:gap-4 md:p-4",
         className,
       )}
     >
-      {/* Thumbnail - Fixed 128px width */}
-      <div className="bg-muted relative h-20 w-32 shrink-0 overflow-hidden rounded">
+      {/* Thumbnail - Hidden on mobile, fixed 128px width on md+ */}
+      <div className="bg-muted relative hidden h-20 w-32 shrink-0 overflow-hidden rounded md:block">
         {data.imageUrl ? (
           <Image
             src={data.imageUrl}
@@ -66,7 +66,7 @@ export function ContentListItem({
       </div>
 
       {/* Main Content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 md:gap-2">
         {/* Title Row */}
         <div className="flex items-start gap-2">
           <h3 className="line-clamp-1 flex-1 text-base font-semibold group-hover:underline">
@@ -130,7 +130,7 @@ export function ContentListItem({
         )}
 
         {/* Bottom Row - Author and Stats */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 md:gap-4">
           <div
             onClick={(e) => {
               e.preventDefault();
@@ -140,7 +140,7 @@ export function ContentListItem({
             <DiscordUser user={data.author} />
           </div>
 
-          <div className="text-muted-foreground flex items-center gap-4 text-xs">
+          <div className="text-muted-foreground flex items-center gap-2 text-xs md:gap-4">
             {data.firstMessage?.reactions &&
               data.firstMessage.reactions.length > 0 && (
                 <div className="hover:text-foreground flex items-center gap-1">
