@@ -1,6 +1,6 @@
 "use client";
 
-import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

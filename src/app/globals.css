@@ -128,8 +128,4 @@
   button {
     @apply cursor-pointer;
   }
-
-  .markdown a {
-    @apply text-primary hover:text-primary/80 cursor-pointer underline;
-  }
 }

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { DiscordWidget } from "./discord-widget";
 import { useNewsQuery } from "@/hook/bot-hook";
-import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Newspaper } from "lucide-react";
 import Link from "next/link";
