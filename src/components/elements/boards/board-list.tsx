@@ -59,13 +59,13 @@ export function BoardList(props: BoardListProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-wrap items-center justify-between gap-4 py-6"
+        className="flex flex-wrap items-center justify-between gap-2 py-3 md:gap-4 md:py-6"
       >
-        <div className="flex items-center gap-2">
-          <props.icon className="text-3xl" />
-          <h1 className="text-3xl font-bold">
+        <div className="flex items-center gap-1.5 md:gap-2">
+          <props.icon className="text-xl md:text-3xl" />
+          <h1 className="text-xl font-bold md:text-3xl">
             {props.title}
-            <span className="text-muted-foreground ml-2 text-lg font-normal">
+            <span className="text-muted-foreground ml-1 text-sm font-normal md:ml-2 md:text-lg">
               ({filteredThreads.length})
             </span>
           </h1>
@@ -91,7 +91,7 @@ export function BoardList(props: BoardListProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="pb-6"
+        className="pb-3 md:pb-6"
       >
         <Input
           type="text"
