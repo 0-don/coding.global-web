@@ -42,7 +42,7 @@ export default async function PythonDetailPage(props: {
       queryFn: async () =>
         handleElysia(
           await rpc.api.bot
-            .board({ threadType: BOARD_TYPE })({ threadId: params.id })
+            .thread({ threadType: BOARD_TYPE })({ threadId: params.id })
             .get(),
         ),
     }),
@@ -51,7 +51,7 @@ export default async function PythonDetailPage(props: {
       queryFn: async ({ pageParam }) =>
         handleElysia(
           await rpc.api.bot
-            .board({ threadType: BOARD_TYPE })({ threadId: params.id })
+            .thread({ threadType: BOARD_TYPE })({ threadId: params.id })
             .messages.get({ query: { after: pageParam } }),
         ),
       initialPageParam: undefined as string | undefined,
