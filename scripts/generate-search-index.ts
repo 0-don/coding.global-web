@@ -11,11 +11,11 @@ import { renderToString } from "react-dom/server";
 import TurndownService from "turndown";
 import { LOCALES } from "../src/lib/config/constants";
 import { queryKeys } from "../src/lib/react-query/keys";
-import { ApiThreadType } from "../src/lib/types";
+import { ThreadType } from "../src/lib/types";
 import {
-  getApiByGuildIdThreadByThreadType,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
+  getApiByGuildIdThreadByThreadType,
 } from "../src/openapi";
 
 const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
@@ -62,7 +62,7 @@ const prefetch = {
         qc.setQueryData(queryKeys.threads(type), res.data);
     },
   codingThread:
-    (type: ApiThreadType): Prefetcher =>
+    (type: ThreadType): Prefetcher =>
     async (qc) => {
       const res = await getApiByGuildIdThreadByThreadType(GUILD_ID, type).catch(
         () => null,
