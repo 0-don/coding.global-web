@@ -1,10 +1,8 @@
 import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
-// Re-export the generated const and type
-export const ApiThreadTypeValues =
+export type ApiThreadType =
   GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType;
-export type ApiThreadType = GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType;
 
 export type ThreadType = ApiThreadType | "marketplace";
 

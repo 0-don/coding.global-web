@@ -1,28 +1,27 @@
-import { ApiThreadType, ApiThreadTypeValues } from "@/lib/types";
+import { ApiThreadType } from "@/lib/types";
 import {
-  GetApiByGuildIdNews200Item,
-  GetApiByGuildIdStaff200Item,
-  GetApiByGuildIdThreadByThreadType200Item,
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200,
-  GetApiByGuildIdTop200,
-  GetApiByGuildIdWidget200,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
+  getApiByGuildIdNews,
+  getApiByGuildIdStaff,
   getApiByGuildIdThreadByThreadType,
   getApiByGuildIdThreadByThreadTypeByThreadId,
   getApiByGuildIdThreadByThreadTypeByThreadIdMessages,
-  getApiByGuildIdNews,
-  getApiByGuildIdStaff,
   getApiByGuildIdTop,
   getApiByGuildIdWidget,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
 
 const threadTypeSchema = t.UnionEnum(
-  Object.values(ApiThreadTypeValues) as [ApiThreadType, ...ApiThreadType[]],
+  Object.values(GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType) as [
+    ApiThreadType,
+    ...ApiThreadType[],
+  ],
 );
 
 export const botRoute = new Elysia({ prefix: "/bot" })
-  .get("/widget", async ({ status }): Promise<GetApiByGuildIdWidget200> => {
+  .get("/widget", async ({ status }) => {
     const response = await getApiByGuildIdWidget(
       process.env.NEXT_PUBLIC_GUILD_ID,
     );
@@ -31,7 +30,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     }
     return response.data;
   })
-  .get("/team", async ({ status }): Promise<GetApiByGuildIdStaff200Item[]> => {
+  .get("/team", async ({ status }) => {
     const response = await getApiByGuildIdStaff(
       process.env.NEXT_PUBLIC_GUILD_ID,
     );
@@ -40,7 +39,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     }
     return response.data;
   })
-  .get("/news", async ({ status }): Promise<GetApiByGuildIdNews200Item[]> => {
+  .get("/news", async ({ status }) => {
     const response = await getApiByGuildIdNews(
       process.env.NEXT_PUBLIC_GUILD_ID,
     );
@@ -51,7 +50,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
   })
   .get(
     "/top",
-    async ({ query, status }): Promise<GetApiByGuildIdTop200> => {
+    async ({ query, status }) => {
       const response = await getApiByGuildIdTop(
         process.env.NEXT_PUBLIC_GUILD_ID,
         { limit: query.limit, days: query.days },
@@ -70,7 +69,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
   )
   .get(
     "/thread/:threadType",
-    async ({ params, status }): Promise<GetApiByGuildIdThreadByThreadType200Item[]> => {
+    async ({ params, status }) => {
       const response = await getApiByGuildIdThreadByThreadType(
         process.env.NEXT_PUBLIC_GUILD_ID!,
         params.threadType,
@@ -84,7 +83,10 @@ export const botRoute = new Elysia({ prefix: "/bot" })
   )
   .get(
     "/thread/:threadType/:threadId",
-    async ({ params, status }): Promise<GetApiByGuildIdThreadByThreadTypeByThreadId200> => {
+    async ({
+      params,
+      status,
+    }): Promise<GetApiByGuildIdThreadByThreadTypeByThreadId200> => {
       const response = await getApiByGuildIdThreadByThreadTypeByThreadId(
         process.env.NEXT_PUBLIC_GUILD_ID!,
         params.threadType,
@@ -95,11 +97,17 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       }
       return response.data;
     },
-    { params: t.Object({ threadType: threadTypeSchema, threadId: t.String() }) },
+    {
+      params: t.Object({ threadType: threadTypeSchema, threadId: t.String() }),
+    },
   )
   .get(
     "/thread/:threadType/:threadId/messages",
-    async ({ params, query, status }): Promise<GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200> => {
+    async ({
+      params,
+      query,
+      status,
+    }): Promise<GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200> => {
       const response =
         await getApiByGuildIdThreadByThreadTypeByThreadIdMessages(
           process.env.NEXT_PUBLIC_GUILD_ID!,

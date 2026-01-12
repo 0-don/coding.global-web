@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { ApiThreadType, ThreadType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import { chunkArray } from "@/lib/utils/base";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { filterThreads, getThreadAtoms } from "@/store/thread-store";
@@ -21,7 +21,7 @@ import { RxCross2 } from "react-icons/rx";
 import { VList } from "virtua";
 
 export type BoardItemWithType = GetApiByGuildIdThreadByThreadType200Item & {
-  threadType?: ApiThreadType;
+  threadType?: ThreadType;
 };
 
 interface BoardListProps {
