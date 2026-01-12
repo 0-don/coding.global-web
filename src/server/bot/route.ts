@@ -10,6 +10,8 @@ import {
 } from "@/openapi";
 import { Elysia, t } from "elysia";
 
+type FetchError = { status: number; data: unknown };
+
 const boardTypeSchema = t.UnionEnum(
   Object.values(ApiBoardTypeValues) as [ApiBoardType, ...ApiBoardType[]],
 );
@@ -21,10 +23,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         process.env.NEXT_PUBLIC_GUILD_ID,
       );
       if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
+        return status(response.status, response.data);
       return response.data;
     } catch (error) {
-      return status("Internal Server Error", error as Error);
+      const err = error as FetchError;
+      return status(err.status, err.data);
     }
   })
   .get("/team", async ({ status }) => {
@@ -33,10 +36,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         process.env.NEXT_PUBLIC_GUILD_ID,
       );
       if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
+        return status(response.status, response.data);
       return response.data;
     } catch (error) {
-      return status("Internal Server Error", error as Error);
+      const err = error as FetchError;
+      return status(err.status, err.data);
     }
   })
   .get("/news", async ({ status }) => {
@@ -45,10 +49,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         process.env.NEXT_PUBLIC_GUILD_ID,
       );
       if (response.status !== 200)
-        return status("Unprocessable Content", response.data);
+        return status(response.status, response.data);
       return response.data;
     } catch (error) {
-      return status("Internal Server Error", error as Error);
+      const err = error as FetchError;
+      return status(err.status, err.data);
     }
   })
   .get(
@@ -60,10 +65,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
           { limit: query.limit, days: query.days },
         );
         if (response.status !== 200)
-          return status("Unprocessable Content", response.data);
+          return status(response.status, response.data);
         return response.data;
       } catch (error) {
-        return status("Internal Server Error", error as Error);
+        const err = error as FetchError;
+        return status(err.status, err.data);
       }
     },
     {
@@ -82,10 +88,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
           params.boardType,
         );
         if (response.status !== 200)
-          return status("Unprocessable Content", response.data);
+          return status(response.status, response.data);
         return response.data;
       } catch (error) {
-        return status("Internal Server Error", error as Error);
+        const err = error as FetchError;
+        return status(err.status, err.data);
       }
     },
     { params: t.Object({ boardType: boardTypeSchema }) },
@@ -100,10 +107,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
           params.threadId,
         );
         if (response.status !== 200)
-          return status("Unprocessable Content", response.data);
+          return status(response.status, response.data);
         return response.data;
       } catch (error) {
-        return status("Internal Server Error", error as Error);
+        const err = error as FetchError;
+        return status(err.status, err.data);
       }
     },
     { params: t.Object({ boardType: boardTypeSchema, threadId: t.String() }) },
@@ -120,10 +128,11 @@ export const botRoute = new Elysia({ prefix: "/bot" })
             { after: query.after },
           );
         if (response.status !== 200)
-          return status("Unprocessable Content", response.data);
+          return status(response.status, response.data);
         return response.data;
       } catch (error) {
-        return status("Internal Server Error", error as Error);
+        const err = error as FetchError;
+        return status(err.status, err.data);
       }
     },
     {

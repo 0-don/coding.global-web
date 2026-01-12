@@ -11,7 +11,14 @@ export const customFetch = async <T>(
   );
 
   if (!response.ok) {
-    throw await response.json();
+    const text = await response.text();
+    let data: unknown;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = text;
+    }
+    throw { status: response.status, data, headers: response.headers };
   }
 
   const contentType = response.headers.get("content-type");
