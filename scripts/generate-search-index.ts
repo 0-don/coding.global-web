@@ -11,11 +11,7 @@ import { renderToString } from "react-dom/server";
 import TurndownService from "turndown";
 import { LOCALES } from "../src/lib/config/constants";
 import { queryKeys } from "../src/lib/react-query/keys";
-import { ApiThreadType } from "../src/lib/types";
-import {
-  PROGRAMMING_LANGUAGES,
-  languageToTranslationKey,
-} from "../src/lib/utils/language";
+import { ApiThreadType, PROGRAMMING_LANGUAGES } from "../src/lib/types";
 import {
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
@@ -187,7 +183,7 @@ const pages: {
     url: `/community/coding/${language}`,
     category: "Coding" as Category,
     component: "coding-language",
-    titleKey: `CODING.${languageToTranslationKey(language)}.HEADING`,
+    titleKey: `CODING.${language.toUpperCase()}.HEADING`,
     prefetch: prefetch.codingThread(language),
     props: { threadType: language },
   })),
