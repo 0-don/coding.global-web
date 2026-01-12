@@ -21,7 +21,7 @@ function detectThread(threadId: string): Promise<ThreadWithType>[] {
           ? { thread: r.data, threadType: "job-board" as const }
           : null,
       )
-      .catch(() => null),
+      .catch(() => null) as Promise<ThreadWithType>,
     rpc.api.bot
       .thread({ threadType: "dev-board" })({ threadId })
       .get()
@@ -30,7 +30,7 @@ function detectThread(threadId: string): Promise<ThreadWithType>[] {
           ? { thread: r.data, threadType: "dev-board" as const }
           : null,
       )
-      .catch(() => null),
+      .catch(() => null) as Promise<ThreadWithType>,
   ];
 }
 
