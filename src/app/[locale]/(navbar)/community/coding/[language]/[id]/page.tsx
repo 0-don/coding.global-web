@@ -3,14 +3,11 @@ import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
-import { ProgrammingThreadType } from "@/lib/types";
+import { PROGRAMMING_LANGUAGES, ProgrammingThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
-import {
-  languageToTranslationKey,
-  PROGRAMMING_LANGUAGES,
-} from "@/lib/utils/language";
 import { getThread, serverLocale } from "@/lib/utils/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
 export async function generateStaticParams() {
@@ -20,10 +17,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(props: {
-  params: Promise<{ locale: string; language: ProgrammingThreadType; id: string }>;
+  params: Promise<{
+    locale: Locale;
+    language: ProgrammingThreadType;
+    id: string;
+  }>;
 }) {
-  const [params, locale] = await Promise.all([props.params, serverLocale(props)]);
-  const translationKey = languageToTranslationKey(params.language);
+  const [params, locale] = await Promise.all([
+    props.params,
+    serverLocale(props),
+  ]);
+  const translationKey =
+    params.language.toUpperCase() as Uppercase<ProgrammingThreadType>;
   const [t, thread] = await Promise.all([
     getTranslations({ locale }),
     getThread(params.id, params.language),
@@ -66,10 +71,7 @@ export default async function ProgrammingLanguageDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CodingLanguageDetail
-        threadType={params.language}
-        threadId={params.id}
-      />
+      <CodingLanguageDetail threadType={params.language} threadId={params.id} />
     </HydrationBoundary>
   );
 }
