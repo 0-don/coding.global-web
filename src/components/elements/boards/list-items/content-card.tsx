@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
-  GetApiByGuildIdBoardByBoardType200Item,
+  GetApiByGuildIdThreadByThreadType200Item,
   GetApiByGuildIdNews200Item,
 } from "@/openapi";
 import dayjs from "dayjs";
@@ -38,10 +38,10 @@ type MessageCardProps = BaseContentCardProps & {
 
 type ThreadCardProps = BaseContentCardProps & {
   type: "thread";
-  data: GetApiByGuildIdBoardByBoardType200Item;
+  data: GetApiByGuildIdThreadByThreadType200Item;
   href?: ComponentProps<typeof Link>["href"];
   showBoardBadge?: boolean;
-  boardType?: "job-board" | "dev-board";
+  threadType?: "job-board" | "dev-board";
 };
 
 type ContentCardProps = MessageCardProps | ThreadCardProps;
@@ -99,14 +99,14 @@ export function ContentCard(props: ContentCardProps) {
                 {props.data.name}
               </h3>
               <div className="flex flex-wrap items-center gap-2">
-                {props.showBoardBadge && props.boardType && (
+                {props.showBoardBadge && props.threadType && (
                   <Badge
                     variant={
-                      props.boardType === "job-board" ? "default" : "secondary"
+                      props.threadType === "job-board" ? "default" : "secondary"
                     }
                     className="shrink-0"
                   >
-                    {props.boardType === "job-board"
+                    {props.threadType === "job-board"
                       ? t("MARKETPLACE.BADGE.JOB")
                       : t("MARKETPLACE.BADGE.DEV")}
                   </Badge>

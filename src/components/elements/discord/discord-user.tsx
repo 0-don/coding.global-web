@@ -12,7 +12,7 @@ import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
 import {
-  GetApiByGuildIdBoardByBoardType200ItemAuthor,
+  GetApiByGuildIdThreadByThreadType200ItemAuthor,
   GetApiByGuildIdNews200ItemAuthor,
   GetApiByGuildIdWidget200MembersItem,
 } from "@/openapi";
@@ -33,7 +33,7 @@ import {
 interface DiscordUserProps {
   className?: string;
   user?:
-    | GetApiByGuildIdBoardByBoardType200ItemAuthor
+    | GetApiByGuildIdThreadByThreadType200ItemAuthor
     | GetApiByGuildIdNews200ItemAuthor
     | GetApiByGuildIdWidget200MembersItem;
   enableBanner?: boolean;

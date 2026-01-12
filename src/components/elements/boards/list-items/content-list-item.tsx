@@ -5,7 +5,7 @@ import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {
@@ -23,11 +23,11 @@ import { ComponentProps } from "react";
 dayjs.extend(relativeTime);
 
 type ContentListItemProps = {
-  data: GetApiByGuildIdBoardByBoardType200Item;
+  data: GetApiByGuildIdThreadByThreadType200Item;
   href?: ComponentProps<typeof Link>["href"];
   className?: string;
   showBoardBadge?: boolean;
-  boardType?: "job-board" | "dev-board";
+  threadType?: "job-board" | "dev-board";
 };
 
 export function ContentListItem({
@@ -35,7 +35,7 @@ export function ContentListItem({
   href,
   className,
   showBoardBadge,
-  boardType,
+  threadType,
 }: ContentListItemProps) {
   const t = useTranslations();
 
@@ -73,12 +73,12 @@ export function ContentListItem({
             {data.name}
           </h3>
           <div className="flex shrink-0 items-center gap-2">
-            {showBoardBadge && boardType && (
+            {showBoardBadge && threadType && (
               <Badge
-                variant={boardType === "job-board" ? "default" : "secondary"}
+                variant={threadType === "job-board" ? "default" : "secondary"}
                 className="text-xs"
               >
-                {boardType === "job-board"
+                {threadType === "job-board"
                   ? t("MARKETPLACE.BADGE.JOB")
                   : t("MARKETPLACE.BADGE.DEV")}
               </Badge>

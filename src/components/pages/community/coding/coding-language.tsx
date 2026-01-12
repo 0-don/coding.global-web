@@ -1,9 +1,9 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import { useBoardThreadsQuery } from "@/hook/bot-hook";
+import { useThreadsQuery } from "@/hook/bot-hook";
 import { TranslationKey } from "@/lib/config/constants";
-import { ProgrammingBoardType } from "@/lib/types";
+import { ProgrammingThreadType } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { IconType } from "react-icons";
 import { DiJava } from "react-icons/di";
@@ -27,7 +27,7 @@ import {
 } from "react-icons/si";
 import { TbSql } from "react-icons/tb";
 
-const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingBoardType, TranslationKey> = {
+const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingThreadType, TranslationKey> = {
   javascript: "CODING.JAVASCRIPT.HEADING",
   python: "CODING.PYTHON.HEADING",
   rust: "CODING.RUST.HEADING",
@@ -49,7 +49,7 @@ const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingBoardType, TranslationKey> = {
   other: "CODING.OTHER.HEADING",
 };
 
-const BOARD_TYPE_ICONS: Record<ProgrammingBoardType, IconType> = {
+const BOARD_TYPE_ICONS: Record<ProgrammingThreadType, IconType> = {
   javascript: SiJavascript,
   python: SiPython,
   rust: SiRust,
@@ -72,22 +72,22 @@ const BOARD_TYPE_ICONS: Record<ProgrammingBoardType, IconType> = {
 };
 
 interface CodingLanguageProps {
-  boardType: ProgrammingBoardType;
+  threadType: ProgrammingThreadType;
 }
 
 export function CodingLanguage(props: CodingLanguageProps) {
   const t = useTranslations();
-  const { data: threads } = useBoardThreadsQuery(props.boardType);
+  const { data: threads } = useThreadsQuery(props.threadType);
 
   return (
     <BoardList
       threads={threads ?? []}
-      title={t(BOARD_TYPE_TITLE_KEYS[props.boardType])}
-      icon={BOARD_TYPE_ICONS[props.boardType]}
+      title={t(BOARD_TYPE_TITLE_KEYS[props.threadType])}
+      icon={BOARD_TYPE_ICONS[props.threadType]}
       showBoardBadge={false}
-      boardType={props.boardType}
+      threadType={props.threadType}
       getDetailHref={(thread) => ({
-        pathname: `/community/coding/${props.boardType}/[id]`,
+        pathname: `/community/coding/${props.threadType}/[id]`,
         params: { id: thread.id },
       })}
     />

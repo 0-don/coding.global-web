@@ -3,8 +3,8 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
-  useBoardThreadMessagesInfiniteQuery,
-  useBoardThreadQuery,
+  useThreadMessagesInfiniteQuery,
+  useThreadQuery,
 } from "@/hook/bot-hook";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -16,8 +16,8 @@ interface ShowcaseDetailProps {
 }
 
 export function ShowcaseDetail(props: ShowcaseDetailProps) {
-  const boardThread = useBoardThreadQuery("showcase", props.threadId);
-  const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
+  const boardThread = useThreadQuery("showcase", props.threadId);
+  const boardThreadMessages = useThreadMessagesInfiniteQuery(
     "showcase",
     props.threadId,
   );

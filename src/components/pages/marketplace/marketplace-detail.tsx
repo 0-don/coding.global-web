@@ -3,10 +3,10 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
-  useBoardThreadMessagesInfiniteQuery,
-  useBoardThreadQuery,
+  useThreadMessagesInfiniteQuery,
+  useThreadQuery,
 } from "@/hook/bot-hook";
-import { MarketplaceBoardType } from "@/lib/types";
+import { MarketplaceThreadType } from "@/lib/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -14,13 +14,13 @@ dayjs.extend(relativeTime);
 
 interface MarketplaceDetailProps {
   threadId: string;
-  boardType: MarketplaceBoardType;
+  threadType: MarketplaceThreadType;
 }
 
 export function MarketplaceDetail(props: MarketplaceDetailProps) {
-  const boardThread = useBoardThreadQuery(props.boardType, props.threadId);
-  const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    props.boardType,
+  const boardThread = useThreadQuery(props.threadType, props.threadId);
+  const boardThreadMessages = useThreadMessagesInfiniteQuery(
+    props.threadType,
     props.threadId,
   );
 

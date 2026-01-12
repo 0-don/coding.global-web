@@ -2,7 +2,7 @@ import type {
   GetApiByGuildIdTopParams,
   GetApiByGuildIdUserSearchParams,
 } from "@/openapi";
-import { BoardType } from "../types";
+import { ThreadType } from "../types";
 
 export const queryKeys = {
   session: () => ["session"],
@@ -29,17 +29,17 @@ export const queryKeys = {
   commentsAdd: () => ["comments-add"],
   commentsDelete: () => ["comments-delete"],
 
-  // Boards (unified)
-  boardThreads: (boardType: BoardType) => ["board", boardType, "threads"],
-  boardThread: (boardType: BoardType, threadId: string) => [
-    "board",
-    boardType,
+  // Threads (unified)
+  threads: (threadType: ThreadType) => ["thread", threadType, "threads"],
+  thread: (threadType: ThreadType, threadId: string) => [
+    "thread",
+    threadType,
     "thread",
     threadId,
   ],
-  boardThreadMessages: (boardType: BoardType, threadId: string) => [
-    "board",
-    boardType,
+  threadMessages: (threadType: ThreadType, threadId: string) => [
+    "thread",
+    threadType,
     "thread",
     threadId,
     "messages",

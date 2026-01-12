@@ -1,33 +1,33 @@
 import { MarketplaceDetail } from "@/components/pages/marketplace/marketplace-detail";
 import { getPageMetadata, getThreadPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
-import { MarketplaceBoardType } from "@/lib/types";
+import { MarketplaceThreadType } from "@/lib/types";
 import { serverLocale } from "@/lib/utils/server";
-import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { getTranslations } from "next-intl/server";
 
 type ThreadWithType = {
-  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
-  boardType: MarketplaceBoardType;
+  thread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
+  threadType: MarketplaceThreadType;
 } | null;
 
 function detectThread(threadId: string): Promise<ThreadWithType>[] {
   return [
     rpc.api.bot
-      .board({ boardType: "job-board" })({ threadId })
+      .thread({ threadType: "job-board" })({ threadId })
       .get()
       .then((r) =>
         r.status === 200 && r.data
-          ? { thread: r.data, boardType: "job-board" as const }
+          ? { thread: r.data, threadType: "job-board" as const }
           : null,
       )
       .catch(() => null),
     rpc.api.bot
-      .board({ boardType: "dev-board" })({ threadId })
+      .thread({ threadType: "dev-board" })({ threadId })
       .get()
       .then((r) =>
         r.status === 200 && r.data
-          ? { thread: r.data, boardType: "dev-board" as const }
+          ? { thread: r.data, threadType: "dev-board" as const }
           : null,
       )
       .catch(() => null),
@@ -49,9 +49,9 @@ export async function generateMetadata(props: {
   const result = jobBoardResult ?? devBoardResult;
 
   if (result?.thread) {
-    const { thread, boardType } = result;
+    const { thread, threadType } = result;
     const fallback =
-      boardType === "job-board"
+      threadType === "job-board"
         ? {
             title: t("MARKETPLACE.JOB_BOARD.META.TITLE"),
             description: t("MARKETPLACE.JOB_BOARD.META.DESCRIPTION"),
@@ -86,6 +86,6 @@ export default async function MarketplaceDetailPage(props: {
   }
 
   return (
-    <MarketplaceDetail threadId={params.id} boardType={result.boardType} />
+    <MarketplaceDetail threadId={params.id} threadType={result.threadType} />
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import {
   INITIAL_THREAD_STORE,
   type ThreadState,
@@ -11,12 +11,12 @@ import type { ReactNode } from "react";
 
 export function ThreadStoreProvider(props: {
   children: ReactNode;
-  boardType: BoardType;
+  threadType: ThreadType;
   data?: Partial<ThreadState>;
 }) {
   useHydrateAtoms([
     [
-      threadAtomFamily(props.boardType),
+      threadAtomFamily(props.threadType),
       { ...INITIAL_THREAD_STORE, ...props.data },
     ],
   ]);

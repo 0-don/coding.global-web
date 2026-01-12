@@ -1,6 +1,6 @@
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
-import { BoardType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
@@ -32,32 +32,32 @@ export function useTopStatsQuery() {
   });
 }
 
-export function useBoardThreadsQuery(boardType: BoardType) {
+export function useThreadsQuery(threadType: ThreadType) {
   return useQuery({
-    queryKey: queryKeys.boardThreads(boardType),
+    queryKey: queryKeys.threads(threadType),
     queryFn: async () =>
-      handleElysia(await rpc.api.bot.board({ boardType }).get()),
+      handleElysia(await rpc.api.bot.thread({ threadType }).get()),
   });
 }
 
-export function useBoardThreadQuery(boardType: BoardType, threadId: string) {
+export function useThreadQuery(threadType: ThreadType, threadId: string) {
   return useQuery({
-    queryKey: queryKeys.boardThread(boardType, threadId),
+    queryKey: queryKeys.thread(threadType, threadId),
     queryFn: async () =>
-      handleElysia(await rpc.api.bot.board({ boardType })({ threadId }).get()),
+      handleElysia(await rpc.api.bot.thread({ threadType })({ threadId }).get()),
   });
 }
 
-export function useBoardThreadMessagesInfiniteQuery(
-  boardType: BoardType,
+export function useThreadMessagesInfiniteQuery(
+  threadType: ThreadType,
   threadId: string,
 ) {
   return useInfiniteQuery({
-    queryKey: queryKeys.boardThreadMessages(boardType, threadId),
+    queryKey: queryKeys.threadMessages(threadType, threadId),
     queryFn: async ({ pageParam }) =>
       handleElysia(
         await rpc.api.bot
-          .board({ boardType })({ threadId })
+          .thread({ threadType })({ threadId })
           .messages.get({ query: { after: pageParam } }),
       ),
     initialPageParam: undefined as string | undefined,

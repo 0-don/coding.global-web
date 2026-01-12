@@ -34,20 +34,20 @@ export default async function DevBoardDetailPage(props: {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThread("dev-board", params.id),
+      queryKey: queryKeys.thread("dev-board", params.id),
       queryFn: async () =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "dev-board" })({ threadId: params.id })
+            .thread({ threadType: "dev-board" })({ threadId: params.id })
             .get(),
         ),
     }),
     queryClient.prefetchInfiniteQuery({
-      queryKey: queryKeys.boardThreadMessages("dev-board", params.id),
+      queryKey: queryKeys.threadMessages("dev-board", params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "dev-board" })({ threadId: params.id })
+            .thread({ threadType: "dev-board" })({ threadId: params.id })
             .messages.get({ query: { after: pageParam } }),
         ),
       initialPageParam: undefined as string | undefined,
@@ -56,7 +56,7 @@ export default async function DevBoardDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BoardDetail threadId={params.id} boardType="dev-board" />
+      <BoardDetail threadId={params.id} threadType="dev-board" />
     </HydrationBoundary>
   );
 }

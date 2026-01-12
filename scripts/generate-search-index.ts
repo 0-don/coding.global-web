@@ -11,9 +11,9 @@ import { renderToString } from "react-dom/server";
 import TurndownService from "turndown";
 import { LOCALES } from "../src/lib/config/constants";
 import { queryKeys } from "../src/lib/react-query/keys";
-import { ApiBoardType } from "../src/lib/types";
+import { ApiThreadType } from "../src/lib/types";
 import {
-  getApiByGuildIdBoardByBoardType,
+  getApiByGuildIdThreadByThreadType,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
 } from "../src/openapi";
@@ -52,28 +52,28 @@ const prefetch = {
     const res = await getApiByGuildIdStaff(GUILD_ID).catch(() => null);
     if (res?.status === 200) qc.setQueryData(queryKeys.team(), res.data);
   },
-  board:
+  thread:
     (type: "job-board" | "dev-board" | "showcase"): Prefetcher =>
     async (qc) => {
-      const res = await getApiByGuildIdBoardByBoardType(GUILD_ID, type).catch(
+      const res = await getApiByGuildIdThreadByThreadType(GUILD_ID, type).catch(
         () => null,
       );
       if (res?.status === 200)
-        qc.setQueryData(queryKeys.boardThreads(type), res.data);
+        qc.setQueryData(queryKeys.threads(type), res.data);
     },
-  codingBoard:
-    (type: ApiBoardType): Prefetcher =>
+  codingThread:
+    (type: ApiThreadType): Prefetcher =>
     async (qc) => {
-      const res = await getApiByGuildIdBoardByBoardType(GUILD_ID, type).catch(
+      const res = await getApiByGuildIdThreadByThreadType(GUILD_ID, type).catch(
         () => null,
       );
       if (res?.status === 200)
-        qc.setQueryData(queryKeys.boardThreads(type), res.data);
+        qc.setQueryData(queryKeys.threads(type), res.data);
     },
   marketplace: async (qc: QueryClient) => {
     await Promise.all([
-      prefetch.board("job-board")(qc),
-      prefetch.board("dev-board")(qc),
+      prefetch.thread("job-board")(qc),
+      prefetch.thread("dev-board")(qc),
     ]);
   },
 };
@@ -127,7 +127,7 @@ const pages: {
     category: "Community",
     component: "showcase",
     titleKey: "SHOWCASE.HEADING",
-    prefetch: prefetch.board("showcase"),
+    prefetch: prefetch.thread("showcase"),
   },
   {
     url: "/community/team",
@@ -148,14 +148,14 @@ const pages: {
     category: "Marketplace",
     component: "job-board",
     titleKey: "MARKETPLACE.JOB_BOARD.HEADING",
-    prefetch: prefetch.board("job-board"),
+    prefetch: prefetch.thread("job-board"),
   },
   {
     url: "/marketplace/dev-board",
     category: "Marketplace",
     component: "dev-board",
     titleKey: "MARKETPLACE.DEV_BOARD.HEADING",
-    prefetch: prefetch.board("dev-board"),
+    prefetch: prefetch.thread("dev-board"),
   },
   { url: "/resources", category: "Resources", component: "resources" },
   {
@@ -184,152 +184,152 @@ const pages: {
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.JAVASCRIPT.HEADING",
-    prefetch: prefetch.codingBoard("javascript"),
-    props: { boardType: "javascript" },
+    prefetch: prefetch.codingThread("javascript"),
+    props: { threadType: "javascript" },
   },
   {
     url: "/community/coding/python",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.PYTHON.HEADING",
-    prefetch: prefetch.codingBoard("python"),
-    props: { boardType: "python" },
+    prefetch: prefetch.codingThread("python"),
+    props: { threadType: "python" },
   },
   {
     url: "/community/coding/rust",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.RUST.HEADING",
-    prefetch: prefetch.codingBoard("rust"),
-    props: { boardType: "rust" },
+    prefetch: prefetch.codingThread("rust"),
+    props: { threadType: "rust" },
   },
   {
     url: "/community/coding/cpp",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.CPP.HEADING",
-    prefetch: prefetch.codingBoard("cpp"),
-    props: { boardType: "cpp" },
+    prefetch: prefetch.codingThread("cpp"),
+    props: { threadType: "cpp" },
   },
   {
     url: "/community/coding/csharp",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.CSHARP.HEADING",
-    prefetch: prefetch.codingBoard("csharp"),
-    props: { boardType: "csharp" },
+    prefetch: prefetch.codingThread("csharp"),
+    props: { threadType: "csharp" },
   },
   {
     url: "/community/coding/c",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.C.HEADING",
-    prefetch: prefetch.codingBoard("c"),
-    props: { boardType: "c" },
+    prefetch: prefetch.codingThread("c"),
+    props: { threadType: "c" },
   },
   {
     url: "/community/coding/go",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.GO.HEADING",
-    prefetch: prefetch.codingBoard("go"),
-    props: { boardType: "go" },
+    prefetch: prefetch.codingThread("go"),
+    props: { threadType: "go" },
   },
   {
     url: "/community/coding/java",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.JAVA.HEADING",
-    prefetch: prefetch.codingBoard("java"),
-    props: { boardType: "java" },
+    prefetch: prefetch.codingThread("java"),
+    props: { threadType: "java" },
   },
   {
     url: "/community/coding/kotlin",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.KOTLIN.HEADING",
-    prefetch: prefetch.codingBoard("kotlin"),
-    props: { boardType: "kotlin" },
+    prefetch: prefetch.codingThread("kotlin"),
+    props: { threadType: "kotlin" },
   },
   {
     url: "/community/coding/dart",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.DART.HEADING",
-    prefetch: prefetch.codingBoard("dart"),
-    props: { boardType: "dart" },
+    prefetch: prefetch.codingThread("dart"),
+    props: { threadType: "dart" },
   },
   {
     url: "/community/coding/lua",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.LUA.HEADING",
-    prefetch: prefetch.codingBoard("lua"),
-    props: { boardType: "lua" },
+    prefetch: prefetch.codingThread("lua"),
+    props: { threadType: "lua" },
   },
   {
     url: "/community/coding/php",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.PHP.HEADING",
-    prefetch: prefetch.codingBoard("php"),
-    props: { boardType: "php" },
+    prefetch: prefetch.codingThread("php"),
+    props: { threadType: "php" },
   },
   {
     url: "/community/coding/html-css",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.HTML_CSS.HEADING",
-    prefetch: prefetch.codingBoard("html-css"),
-    props: { boardType: "html-css" },
+    prefetch: prefetch.codingThread("html-css"),
+    props: { threadType: "html-css" },
   },
   {
     url: "/community/coding/sql",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.SQL.HEADING",
-    prefetch: prefetch.codingBoard("sql"),
-    props: { boardType: "sql" },
+    prefetch: prefetch.codingThread("sql"),
+    props: { threadType: "sql" },
   },
   {
     url: "/community/coding/swift",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.SWIFT.HEADING",
-    prefetch: prefetch.codingBoard("swift"),
-    props: { boardType: "swift" },
+    prefetch: prefetch.codingThread("swift"),
+    props: { threadType: "swift" },
   },
   {
     url: "/community/coding/bash-powershell",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.BASH_POWERSHELL.HEADING",
-    prefetch: prefetch.codingBoard("bash-powershell"),
-    props: { boardType: "bash-powershell" },
+    prefetch: prefetch.codingThread("bash-powershell"),
+    props: { threadType: "bash-powershell" },
   },
   {
     url: "/community/coding/visual-basic",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.VISUAL_BASIC.HEADING",
-    prefetch: prefetch.codingBoard("visual-basic"),
-    props: { boardType: "visual-basic" },
+    prefetch: prefetch.codingThread("visual-basic"),
+    props: { threadType: "visual-basic" },
   },
   {
     url: "/community/coding/zig",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.ZIG.HEADING",
-    prefetch: prefetch.codingBoard("zig"),
-    props: { boardType: "zig" },
+    prefetch: prefetch.codingThread("zig"),
+    props: { threadType: "zig" },
   },
   {
     url: "/community/coding/other",
     category: "Coding",
     component: "coding-language",
     titleKey: "CODING.OTHER.HEADING",
-    prefetch: prefetch.codingBoard("other"),
-    props: { boardType: "other" },
+    prefetch: prefetch.codingThread("other"),
+    props: { threadType: "other" },
   },
 ];
 

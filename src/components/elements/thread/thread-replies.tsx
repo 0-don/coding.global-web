@@ -7,8 +7,8 @@ import { MessageReplyReference } from "@/components/elements/discord/message-rep
 import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
 import {
-  GetApiByGuildIdBoardByBoardTypeByThreadId200,
-  GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem,
+  GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
@@ -17,8 +17,8 @@ import { useMemo, useRef, useState } from "react";
 import { Virtualizer, type VirtualizerHandle } from "virtua";
 
 interface ThreadRepliesProps {
-  messages: GetApiByGuildIdBoardByBoardTypeByThreadIdMessages200MessagesItem[];
-  parentThread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
+  messages: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[];
+  parentThread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
