@@ -28,19 +28,19 @@ export default async function MarketplacePage() {
   const [listItemStore] = await Promise.all([
     getCookieValue<ThreadState>(getThreadStoreKey("marketplace")),
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads("job-board"),
+      queryKey: queryKeys.threads("job-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.board({ boardType: "job-board" }).get()),
+        handleElysia(await rpc.api.bot.thread({ threadType: "job-board" }).get()),
     }),
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads("dev-board"),
+      queryKey: queryKeys.threads("dev-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.board({ boardType: "dev-board" }).get()),
+        handleElysia(await rpc.api.bot.thread({ threadType: "dev-board" }).get()),
     }),
   ]);
 
   return (
-    <ThreadStoreProvider boardType="marketplace" data={listItemStore}>
+    <ThreadStoreProvider threadType="marketplace" data={listItemStore}>
       <Marketplace />
     </ThreadStoreProvider>
   );

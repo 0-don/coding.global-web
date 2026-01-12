@@ -28,9 +28,9 @@ export default async function ShowcasePage() {
 
   const [, listItemStore, t] = await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads("showcase"),
+      queryKey: queryKeys.threads("showcase"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.board({ boardType: "showcase" }).get()),
+        handleElysia(await rpc.api.bot.thread({ threadType: "showcase" }).get()),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey("showcase")),
     getTranslations(),
@@ -38,7 +38,7 @@ export default async function ShowcasePage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider boardType="showcase" data={listItemStore}>
+      <ThreadStoreProvider threadType="showcase" data={listItemStore}>
         <Showcase />
       </ThreadStoreProvider>
     </HydrationBoundary>

@@ -28,16 +28,16 @@ export default async function JobBoardPage() {
 
   const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads("job-board"),
+      queryKey: queryKeys.threads("job-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.board({ boardType: "job-board" }).get()),
+        handleElysia(await rpc.api.bot.thread({ threadType: "job-board" }).get()),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey("job-board")),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider boardType="job-board" data={listItemStore}>
+      <ThreadStoreProvider threadType="job-board" data={listItemStore}>
         <JobBoard />
       </ThreadStoreProvider>
     </HydrationBoundary>

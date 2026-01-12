@@ -1,13 +1,13 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import { useBoardThreadsQuery } from "@/hook/bot-hook";
+import { useThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 
 export function JobBoard() {
   const t = useTranslations();
-  const { data: threads } = useBoardThreadsQuery("job-board");
+  const { data: threads } = useThreadsQuery("job-board");
 
   return (
     <BoardList
@@ -15,7 +15,7 @@ export function JobBoard() {
       title={t("MARKETPLACE.JOB_BOARD.HEADING")}
       icon={HiOutlineBriefcase}
       showBoardBadge={false}
-      boardType="job-board"
+      threadType="job-board"
       getDetailHref={(thread) => ({
         pathname: "/marketplace/job-board/[id]",
         params: { id: thread.id },

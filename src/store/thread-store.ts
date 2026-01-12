@@ -1,6 +1,6 @@
-import { BoardType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import { createJotaiCookieStorage } from "@/lib/utils/jotai-cookie-storage";
-import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import type { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { atom } from "jotai";
 import { atomFamily } from "jotai-family";
 import { atomWithStorage } from "jotai/utils";
@@ -19,23 +19,23 @@ export const INITIAL_THREAD_STORE: ThreadState = {
   selectedTags: [],
 };
 
-export const getThreadStoreKey = (boardType: BoardType) =>
-  `thread-store-${boardType}`;
+export const getThreadStoreKey = (threadType: ThreadType) =>
+  `thread-store-${threadType}`;
 
 const threadCookieStorage = createJotaiCookieStorage<ThreadState>();
 
-// Atom family for per-board-type state with cookie persistence
-export const threadAtomFamily = atomFamily((boardType: BoardType) =>
+// Atom family for per-thread-type state with cookie persistence
+export const threadAtomFamily = atomFamily((threadType: ThreadType) =>
   atomWithStorage<ThreadState>(
-    getThreadStoreKey(boardType),
+    getThreadStoreKey(threadType),
     INITIAL_THREAD_STORE,
     threadCookieStorage,
   ),
 );
 
 // Derived atom families
-const viewModeAtomFamily = atomFamily((boardType: BoardType) => {
-  const baseAtom = threadAtomFamily(boardType);
+const viewModeAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
   return atom(
     (get) => get(baseAtom).viewMode,
     (get, set, value: ViewMode) => {
@@ -44,8 +44,8 @@ const viewModeAtomFamily = atomFamily((boardType: BoardType) => {
   );
 });
 
-const searchQueryAtomFamily = atomFamily((boardType: BoardType) => {
-  const baseAtom = threadAtomFamily(boardType);
+const searchQueryAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
   return atom(
     (get) => get(baseAtom).searchQuery,
     (get, set, value: string) => {
@@ -54,8 +54,8 @@ const searchQueryAtomFamily = atomFamily((boardType: BoardType) => {
   );
 });
 
-const selectedTagsAtomFamily = atomFamily((boardType: BoardType) => {
-  const baseAtom = threadAtomFamily(boardType);
+const selectedTagsAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
   return atom(
     (get) => get(baseAtom).selectedTags,
     (get, set, value: string[]) => {
@@ -64,26 +64,26 @@ const selectedTagsAtomFamily = atomFamily((boardType: BoardType) => {
   );
 });
 
-const clearFiltersAtomFamily = atomFamily((boardType: BoardType) => {
-  const baseAtom = threadAtomFamily(boardType);
+const clearFiltersAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
   return atom(null, (get, set) => {
     set(baseAtom, { ...get(baseAtom), searchQuery: "", selectedTags: [] });
   });
 });
 
-// Get atoms for a board type (returns cached atoms)
-export const getThreadAtoms = (boardType: BoardType) => ({
-  baseAtom: threadAtomFamily(boardType),
-  viewModeAtom: viewModeAtomFamily(boardType),
-  searchQueryAtom: searchQueryAtomFamily(boardType),
-  selectedTagsAtom: selectedTagsAtomFamily(boardType),
-  clearFiltersAtom: clearFiltersAtomFamily(boardType),
+// Get atoms for a thread type (returns cached atoms)
+export const getThreadAtoms = (threadType: ThreadType) => ({
+  baseAtom: threadAtomFamily(threadType),
+  viewModeAtom: viewModeAtomFamily(threadType),
+  searchQueryAtom: searchQueryAtomFamily(threadType),
+  selectedTagsAtom: selectedTagsAtomFamily(threadType),
+  clearFiltersAtom: clearFiltersAtomFamily(threadType),
 });
 
 export const filterThreads = (
-  threads: GetApiByGuildIdBoardByBoardType200Item[],
+  threads: GetApiByGuildIdThreadByThreadType200Item[],
   state: ThreadState,
-): GetApiByGuildIdBoardByBoardType200Item[] => {
+): GetApiByGuildIdThreadByThreadType200Item[] => {
   const { searchQuery, selectedTags } = state;
 
   let filtered = threads;

@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/navigation";
-import { ApiBoardType, BoardType } from "@/lib/types";
+import { ApiThreadType, ThreadType } from "@/lib/types";
 import { chunkArray } from "@/lib/utils/base";
-import { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { filterThreads, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { motion } from "motion/react";
@@ -20,24 +20,24 @@ import type { IconType } from "react-icons/lib";
 import { RxCross2 } from "react-icons/rx";
 import { VList } from "virtua";
 
-export type BoardItemWithType = GetApiByGuildIdBoardByBoardType200Item & {
-  boardType?: ApiBoardType;
+export type BoardItemWithType = GetApiByGuildIdThreadByThreadType200Item & {
+  threadType?: ApiThreadType;
 };
 
 interface BoardListProps {
-  threads: GetApiByGuildIdBoardByBoardType200Item[];
+  threads: GetApiByGuildIdThreadByThreadType200Item[];
   title: string;
   icon: IconType;
   showBoardBadge: boolean;
   getDetailHref: (
-    thread: GetApiByGuildIdBoardByBoardType200Item,
+    thread: GetApiByGuildIdThreadByThreadType200Item,
   ) => ComponentProps<typeof Link>["href"];
-  boardType: BoardType;
+  threadType: ThreadType;
 }
 
 export function BoardList(props: BoardListProps) {
   const t = useTranslations();
-  const atoms = getThreadAtoms(props.boardType);
+  const atoms = getThreadAtoms(props.threadType);
 
   const state = useAtomValue(atoms.baseAtom);
   const setSearchQuery = useSetAtom(atoms.searchQueryAtom);
@@ -81,8 +81,8 @@ export function BoardList(props: BoardListProps) {
               <RxCross2 className="ml-2 h-4 w-4" />
             </Button>
           )}
-          <TagFilter threads={props.threads} boardType={props.boardType} />
-          <ViewModeToggle boardType={props.boardType} />
+          <TagFilter threads={props.threads} threadType={props.threadType} />
+          <ViewModeToggle threadType={props.threadType} />
         </div>
       </motion.div>
 
@@ -125,8 +125,8 @@ export function BoardList(props: BoardListProps) {
                     href={props.getDetailHref(thread)}
                     contentClassName="text-muted-foreground"
                     showBoardBadge={props.showBoardBadge}
-                    boardType={
-                      thread.boardType as "job-board" | "dev-board" | undefined
+                    threadType={
+                      thread.threadType as "job-board" | "dev-board" | undefined
                     }
                   />
                 </motion.div>
@@ -147,8 +147,8 @@ export function BoardList(props: BoardListProps) {
                 data={thread}
                 href={props.getDetailHref(thread)}
                 showBoardBadge={props.showBoardBadge}
-                boardType={
-                  thread.boardType as "job-board" | "dev-board" | undefined
+                threadType={
+                  thread.threadType as "job-board" | "dev-board" | undefined
                 }
               />
               {index < filteredThreads.length - 1 && (

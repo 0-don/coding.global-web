@@ -1,17 +1,17 @@
-import { GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
 // Re-export the generated const and type
-export const ApiBoardTypeValues =
-  GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType;
-export type ApiBoardType = GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType;
+export const ApiThreadTypeValues =
+  GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType;
+export type ApiThreadType = GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType;
 
-export type BoardType = ApiBoardType | "marketplace";
+export type ThreadType = ApiThreadType | "marketplace";
 
-export type MarketplaceBoardType = Exclude<ApiBoardType, "showcase">;
+export type MarketplaceThreadType = Exclude<ApiThreadType, "showcase">;
 
-export type ProgrammingBoardType = Exclude<
-  ApiBoardType,
+export type ProgrammingThreadType = Exclude<
+  ApiThreadType,
   "showcase" | "job-board" | "dev-board"
 >;
 

@@ -1,8 +1,8 @@
 import { getPathname } from "@/i18n/navigation";
 import { Pathname, pathnames, routing } from "@/i18n/routing";
 import {
-  getApiByGuildIdBoardByBoardType,
-  GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+  getApiByGuildIdThreadByThreadType,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
 } from "@/openapi";
 import { log } from "console";
 import { MetadataRoute } from "next";
@@ -21,48 +21,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...getEntries(route as Pathname));
   });
 
-  // Fetch boards sequentially to avoid overwhelming the API
-  const boardTypes = Object.values(
-    GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+  // Fetch threads sequentially to avoid overwhelming the API
+  const threadTypes = Object.values(
+    GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
   );
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/board`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/thread`;
   log(`[Sitemap] API base URL: ${apiUrl}`);
 
-  for (const boardType of boardTypes) {
-    const fullUrl = `${apiUrl}/${boardType}`;
-    log(`[Sitemap] Fetching ${boardType} from: ${fullUrl}`);
+  for (const threadType of threadTypes) {
+    const fullUrl = `${apiUrl}/${threadType}`;
+    log(`[Sitemap] Fetching ${threadType} from: ${fullUrl}`);
 
     try {
-      const response = await getApiByGuildIdBoardByBoardType(
+      const response = await getApiByGuildIdThreadByThreadType(
         process.env.NEXT_PUBLIC_GUILD_ID,
-        boardType,
+        threadType,
       );
 
-      log(`[Sitemap] ${boardType} response status: ${response.status}`);
+      log(`[Sitemap] ${threadType} response status: ${response.status}`);
 
       if (response.status !== 200) {
         log(
-          `[Sitemap] ${boardType} returned non-200 status: ${response.status}`,
+          `[Sitemap] ${threadType} returned non-200 status: ${response.status}`,
         );
         log(
-          `[Sitemap] ${boardType} response data:`,
+          `[Sitemap] ${threadType} response data:`,
           JSON.stringify(response.data).slice(0, 500),
         );
         continue;
       }
 
       const threads = response.data;
-      log(`[Sitemap] ${boardType}: fetched ${threads.length} threads`);
+      log(`[Sitemap] ${threadType}: fetched ${threads.length} threads`);
 
       threads.forEach((thread) => {
-        const pathname = getThreadPathname(boardType, thread.id);
+        const pathname = getThreadPathname(threadType, thread.id);
         if (pathname) {
           entries.push(...getEntries(pathname));
         }
       });
     } catch (error) {
-      log(`[Sitemap] Failed to fetch threads for ${boardType}`);
+      log(`[Sitemap] Failed to fetch threads for ${threadType}`);
       log(`[Sitemap] URL attempted: ${fullUrl}`);
       if (error instanceof Error) {
         log(`[Sitemap] Error name: ${error.name}`);
@@ -79,10 +79,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 function getThreadPathname(
-  boardType: GetApiByGuildIdBoardByBoardTypeByThreadIdBoardType,
+  threadType: GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
   threadId: string,
 ): Pathname | null {
-  switch (boardType) {
+  switch (threadType) {
     case "showcase":
       return { pathname: "/community/showcase/[id]", params: { id: threadId } };
     case "job-board":
@@ -96,9 +96,9 @@ function getThreadPathname(
         params: { id: threadId },
       };
     default:
-      // All other board types are programming languages
+      // All other thread types are programming languages
       return {
-        pathname: `/community/coding/${boardType}/[id]`,
+        pathname: `/community/coding/${threadType}/[id]`,
         params: { id: threadId },
       } as Pathname;
   }

@@ -1,17 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { BoardType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
 
 interface ViewModeToggleProps {
-  boardType: BoardType;
+  threadType: ThreadType;
 }
 
-export function ViewModeToggle({ boardType }: ViewModeToggleProps) {
-  const atoms = getThreadAtoms(boardType);
+export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
+  const atoms = getThreadAtoms(threadType);
   const viewMode = useAtomValue(atoms.viewModeAtom);
   const setViewMode = useSetAtom(atoms.viewModeAtom);
 

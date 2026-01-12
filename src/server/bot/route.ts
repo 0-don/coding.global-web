@@ -1,8 +1,8 @@
-import { ApiBoardType, ApiBoardTypeValues } from "@/lib/types";
+import { ApiThreadType, ApiThreadTypeValues } from "@/lib/types";
 import {
-  getApiByGuildIdBoardByBoardType,
-  getApiByGuildIdBoardByBoardTypeByThreadId,
-  getApiByGuildIdBoardByBoardTypeByThreadIdMessages,
+  getApiByGuildIdThreadByThreadType,
+  getApiByGuildIdThreadByThreadTypeByThreadId,
+  getApiByGuildIdThreadByThreadTypeByThreadIdMessages,
   getApiByGuildIdNews,
   getApiByGuildIdStaff,
   getApiByGuildIdTop,
@@ -12,8 +12,8 @@ import { Elysia, t } from "elysia";
 
 type FetchError = { status: number; data: unknown };
 
-const boardTypeSchema = t.UnionEnum(
-  Object.values(ApiBoardTypeValues) as [ApiBoardType, ...ApiBoardType[]],
+const threadTypeSchema = t.UnionEnum(
+  Object.values(ApiThreadTypeValues) as [ApiThreadType, ...ApiThreadType[]],
 );
 
 export const botRoute = new Elysia({ prefix: "/bot" })
@@ -80,12 +80,12 @@ export const botRoute = new Elysia({ prefix: "/bot" })
     },
   )
   .get(
-    "/board/:boardType",
+    "/thread/:threadType",
     async ({ params, status }) => {
       try {
-        const response = await getApiByGuildIdBoardByBoardType(
+        const response = await getApiByGuildIdThreadByThreadType(
           process.env.NEXT_PUBLIC_GUILD_ID!,
-          params.boardType,
+          params.threadType,
         );
         if (response.status !== 200)
           return status(response.status, response.data);
@@ -95,15 +95,15 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status(err.status, err.data);
       }
     },
-    { params: t.Object({ boardType: boardTypeSchema }) },
+    { params: t.Object({ threadType: threadTypeSchema }) },
   )
   .get(
-    "/board/:boardType/:threadId",
+    "/thread/:threadType/:threadId",
     async ({ params, status }) => {
       try {
-        const response = await getApiByGuildIdBoardByBoardTypeByThreadId(
+        const response = await getApiByGuildIdThreadByThreadTypeByThreadId(
           process.env.NEXT_PUBLIC_GUILD_ID!,
-          params.boardType,
+          params.threadType,
           params.threadId,
         );
         if (response.status !== 200)
@@ -114,16 +114,16 @@ export const botRoute = new Elysia({ prefix: "/bot" })
         return status(err.status, err.data);
       }
     },
-    { params: t.Object({ boardType: boardTypeSchema, threadId: t.String() }) },
+    { params: t.Object({ threadType: threadTypeSchema, threadId: t.String() }) },
   )
   .get(
-    "/board/:boardType/:threadId/messages",
+    "/thread/:threadType/:threadId/messages",
     async ({ params, query, status }) => {
       try {
         const response =
-          await getApiByGuildIdBoardByBoardTypeByThreadIdMessages(
+          await getApiByGuildIdThreadByThreadTypeByThreadIdMessages(
             process.env.NEXT_PUBLIC_GUILD_ID!,
-            params.boardType,
+            params.threadType,
             params.threadId,
             { after: query.after },
           );
@@ -136,7 +136,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       }
     },
     {
-      params: t.Object({ boardType: boardTypeSchema, threadId: t.String() }),
+      params: t.Object({ threadType: threadTypeSchema, threadId: t.String() }),
       query: t.Object({ after: t.Optional(t.String()) }),
     },
   );
