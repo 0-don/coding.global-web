@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
 import {
   GetApiByGuildIdBoardByBoardType200ItemAuthor,
+  GetApiByGuildIdNews200ItemAuthor,
   GetApiByGuildIdWidget200MembersItem,
 } from "@/openapi";
 import dayjs from "dayjs";
@@ -33,6 +34,7 @@ interface DiscordUserProps {
   className?: string;
   user?:
     | GetApiByGuildIdBoardByBoardType200ItemAuthor
+    | GetApiByGuildIdNews200ItemAuthor
     | GetApiByGuildIdWidget200MembersItem;
   enableBanner?: boolean;
   variant?: "row" | "card";

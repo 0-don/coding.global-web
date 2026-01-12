@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { DiscordWidget } from "./discord-widget";
 import { useNewsQuery } from "@/hook/bot-hook";
 import { DiscordMarkdown } from "@/components/elements/discord/discord-markdown";
+import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Newspaper } from "lucide-react";
 import Link from "next/link";
 
@@ -28,22 +29,23 @@ function NewsPreview() {
       </CardHeader>
       <CardContent className="space-y-4">
         {latestNews.map((item) => (
-          <Link
+          <div
             key={item.id}
-            href="/community/news"
-            className="hover:bg-muted/50 block rounded-lg p-3 transition-colors"
+            className="hover:bg-muted/50 rounded-lg p-3 transition-colors"
           >
             <div className="mb-1 flex items-center gap-2">
-              <span className="text-sm font-medium">{item.author?.username}</span>
+              <DiscordUser user={item.author} />
               <span className="text-muted-foreground text-xs">
                 {new Date(item.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <DiscordMarkdown
-              content={item.content}
-              className="text-muted-foreground line-clamp-2 text-sm"
-            />
-          </Link>
+            <Link href="/community/news" className="block">
+              <DiscordMarkdown
+                content={item.content}
+                className="text-muted-foreground line-clamp-2 text-sm"
+              />
+            </Link>
+          </div>
         ))}
         {latestNews.length === 0 && (
           <p className="text-muted-foreground text-sm">No news available</p>
