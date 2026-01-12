@@ -73,6 +73,24 @@ export function ThreadHeader(props: ThreadHeaderProps) {
 
           {/* Thread Stats */}
           <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-sm">
+            {props.thread.firstMessage?.reactions &&
+              props.thread.firstMessage.reactions.length > 0 && (
+                <div className="flex items-center gap-1">
+                  {props.thread.firstMessage.reactions
+                    .slice(0, 5)
+                    .map((reaction, idx) => (
+                      <span key={idx} className="text-base">
+                        {reaction.emoji.name}
+                      </span>
+                    ))}
+                  <span className="ml-1">
+                    {props.thread.firstMessage.reactions.reduce(
+                      (sum, r) => sum + r.count,
+                      0,
+                    )}
+                  </span>
+                </div>
+              )}
             <div className="flex items-center gap-1.5">
               <MessageCircle className="h-4 w-4" />
               <span>
