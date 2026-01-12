@@ -772,7 +772,9 @@
     "HEADING": "Coding",
     "EMPTY": {
       "THREADS": "No threads yet",
-      "MESSAGES": "No messages found"
+      "MESSAGES": "No messages found",
+      "THREAD_NOT_FOUND": "Thread not found",
+      "THREAD_NOT_FOUND_DESCRIPTION": "The thread you are looking for does not exist or has been deleted."
     },
     "JAVASCRIPT": {
       "HEADING": "JavaScript",
