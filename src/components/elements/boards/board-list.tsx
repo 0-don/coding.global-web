@@ -126,7 +126,7 @@ export function BoardList(props: BoardListProps) {
                     contentClassName="text-muted-foreground"
                     showBoardBadge={props.showBoardBadge}
                     threadType={
-                      thread.threadType as "job-board" | "dev-board" | undefined
+                      thread.boardType as "job-board" | "dev-board" | undefined
                     }
                   />
                 </motion.div>
@@ -148,7 +148,7 @@ export function BoardList(props: BoardListProps) {
                 href={props.getDetailHref(thread)}
                 showBoardBadge={props.showBoardBadge}
                 threadType={
-                  thread.threadType as "job-board" | "dev-board" | undefined
+                  thread.boardType as "job-board" | "dev-board" | undefined
                 }
               />
               {index < filteredThreads.length - 1 && (
