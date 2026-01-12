@@ -1,14 +1,14 @@
 "use client";
 
 import { BoardList } from "@/components/elements/boards/board-list";
-import { useBoardThreadsQuery } from "@/hook/bot-hook";
+import { useThreadsQuery } from "@/hook/bot-hook";
 import { useTranslations } from "next-intl";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
 export function Marketplace() {
   const t = useTranslations();
-  const { data: jobThreads } = useBoardThreadsQuery("job-board");
-  const { data: devThreads } = useBoardThreadsQuery("dev-board");
+  const { data: jobThreads } = useThreadsQuery("job-board");
+  const { data: devThreads } = useThreadsQuery("dev-board");
 
   const jobs = jobThreads ?? [];
   const devs = devThreads ?? [];
@@ -25,7 +25,7 @@ export function Marketplace() {
       title={t("MARKETPLACE.HEADING")}
       icon={HiOutlineShoppingBag}
       showBoardBadge={true}
-      boardType="marketplace"
+      threadType="marketplace"
       getDetailHref={(thread) => ({
         pathname: "/marketplace/[id]",
         params: { id: thread.id },

@@ -3,7 +3,7 @@ import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getDiscordChannelLink } from "@/lib/utils/base";
-import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import dayjs from "dayjs";
 import {
   Archive,
@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface ThreadHeaderProps {
-  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200;
+  thread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
 }
 
 export function ThreadHeader(props: ThreadHeaderProps) {

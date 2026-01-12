@@ -3,24 +3,24 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
-  useBoardThreadMessagesInfiniteQuery,
-  useBoardThreadQuery,
+  useThreadMessagesInfiniteQuery,
+  useThreadQuery,
 } from "@/hook/bot-hook";
-import { ProgrammingBoardType } from "@/lib/types";
+import { ProgrammingThreadType } from "@/lib/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
 interface CodingLanguageDetailProps {
-  boardType: ProgrammingBoardType;
+  threadType: ProgrammingThreadType;
   threadId: string;
 }
 
 export function CodingLanguageDetail(props: CodingLanguageDetailProps) {
-  const boardThread = useBoardThreadQuery(props.boardType, props.threadId);
-  const boardThreadMessages = useBoardThreadMessagesInfiniteQuery(
-    props.boardType,
+  const boardThread = useThreadQuery(props.threadType, props.threadId);
+  const boardThreadMessages = useThreadMessagesInfiniteQuery(
+    props.threadType,
     props.threadId,
   );
 

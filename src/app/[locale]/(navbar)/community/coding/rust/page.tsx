@@ -4,14 +4,14 @@ import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
-import { ProgrammingBoardType } from "@/lib/types";
+import { ProgrammingThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
 import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-const BOARD_TYPE: ProgrammingBoardType = "rust";
+const BOARD_TYPE: ProgrammingThreadType = "rust";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -31,17 +31,17 @@ export default async function RustPage() {
 
   const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThreads(BOARD_TYPE),
+      queryKey: queryKeys.threads(BOARD_TYPE),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.board({ boardType: BOARD_TYPE }).get()),
+        handleElysia(await rpc.api.bot.thread({ threadType: BOARD_TYPE }).get()),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey(BOARD_TYPE)),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider boardType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage boardType={BOARD_TYPE} />
+      <ThreadStoreProvider threadType={BOARD_TYPE} data={listItemStore}>
+        <CodingLanguage threadType={BOARD_TYPE} />
       </ThreadStoreProvider>
     </HydrationBoundary>
   );

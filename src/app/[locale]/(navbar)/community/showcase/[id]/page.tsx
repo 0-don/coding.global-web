@@ -34,20 +34,20 @@ export default async function ShowcaseDetailPage(props: {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThread("showcase", params.id),
+      queryKey: queryKeys.thread("showcase", params.id),
       queryFn: async () =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "showcase" })({ threadId: params.id })
+            .thread({ threadType: "showcase" })({ threadId: params.id })
             .get(),
         ),
     }),
     queryClient.prefetchInfiniteQuery({
-      queryKey: queryKeys.boardThreadMessages("showcase", params.id),
+      queryKey: queryKeys.threadMessages("showcase", params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "showcase" })({ threadId: params.id })
+            .thread({ threadType: "showcase" })({ threadId: params.id })
             .messages.get({ query: { after: pageParam } }),
         ),
       initialPageParam: undefined as string | undefined,

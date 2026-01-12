@@ -34,20 +34,20 @@ export default async function JobBoardDetailPage(props: {
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.boardThread("job-board", params.id),
+      queryKey: queryKeys.thread("job-board", params.id),
       queryFn: async () =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "job-board" })({ threadId: params.id })
+            .thread({ threadType: "job-board" })({ threadId: params.id })
             .get(),
         ),
     }),
     queryClient.prefetchInfiniteQuery({
-      queryKey: queryKeys.boardThreadMessages("job-board", params.id),
+      queryKey: queryKeys.threadMessages("job-board", params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
           await rpc.api.bot
-            .board({ boardType: "job-board" })({ threadId: params.id })
+            .thread({ threadType: "job-board" })({ threadId: params.id })
             .messages.get({ query: { after: pageParam } }),
         ),
       initialPageParam: undefined as string | undefined,
@@ -56,7 +56,7 @@ export default async function JobBoardDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BoardDetail threadId={params.id} boardType="job-board" />
+      <BoardDetail threadId={params.id} threadType="job-board" />
     </HydrationBoundary>
   );
 }

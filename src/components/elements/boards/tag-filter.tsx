@@ -17,9 +17,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { BoardType } from "@/lib/types";
+import { ThreadType } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import type { GetApiByGuildIdBoardByBoardType200Item } from "@/openapi";
+import type { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
@@ -32,12 +32,12 @@ interface TagOption {
 }
 
 interface TagFilterProps {
-  threads: GetApiByGuildIdBoardByBoardType200Item[];
-  boardType: BoardType;
+  threads: GetApiByGuildIdThreadByThreadType200Item[];
+  threadType: ThreadType;
 }
 
-export function TagFilter({ threads, boardType }: TagFilterProps) {
-  const atoms = getThreadAtoms(boardType);
+export function TagFilter({ threads, threadType }: TagFilterProps) {
+  const atoms = getThreadAtoms(threadType);
   const selectedTags = useAtomValue(atoms.selectedTagsAtom);
   const setSelectedTags = useSetAtom(atoms.selectedTagsAtom);
   const t = useTranslations();

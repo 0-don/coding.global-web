@@ -1,4 +1,4 @@
-import { GetApiByGuildIdBoardByBoardTypeByThreadId200 } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { Metadata } from "next";
 import { MetadataKeys, MetadataParams } from "../types";
 import { ALTERNATE_LANGUAGES, LANGUAGES, LOCALES } from "./constants";
@@ -71,7 +71,7 @@ export async function getPageMetadata(
 }
 
 export async function getThreadPageMetadata(
-  thread: GetApiByGuildIdBoardByBoardTypeByThreadId200 | null,
+  thread: GetApiByGuildIdThreadByThreadTypeByThreadId200 | null,
   locale: string,
   fallback: MetadataKeys,
 ) {
