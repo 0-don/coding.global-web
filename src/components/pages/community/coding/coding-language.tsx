@@ -40,11 +40,11 @@ const BOARD_TYPE_TITLE_KEYS: Record<ProgrammingThreadType, TranslationKey> = {
   dart: "CODING.DART.HEADING",
   lua: "CODING.LUA.HEADING",
   php: "CODING.PHP.HEADING",
-  "html-css": "CODING.HTML_CSS.HEADING",
+  "html-css": "CODING.HTML-CSS.HEADING",
   sql: "CODING.SQL.HEADING",
   swift: "CODING.SWIFT.HEADING",
-  "bash-powershell": "CODING.BASH_POWERSHELL.HEADING",
-  "visual-basic": "CODING.VISUAL_BASIC.HEADING",
+  "bash-powershell": "CODING.BASH-POWERSHELL.HEADING",
+  "visual-basic": "CODING.VISUAL-BASIC.HEADING",
   zig: "CODING.ZIG.HEADING",
   other: "CODING.OTHER.HEADING",
 };
@@ -87,8 +87,8 @@ export function CodingLanguage(props: CodingLanguageProps) {
       showBoardBadge={false}
       threadType={props.threadType}
       getDetailHref={(thread) => ({
-        pathname: `/community/coding/${props.threadType}/[id]`,
-        params: { id: thread.id },
+        pathname: "/community/coding/[language]/[id]",
+        params: { language: props.threadType, id: thread.id },
       })}
     />
   );

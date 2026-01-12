@@ -870,7 +870,7 @@
         "KEYWORDS": "php, webentwicklung, programmierung, hilfe, community, backend"
       }
     },
-    "HTML_CSS": {
+    "HTML-CSS": {
       "HEADING": "HTML/CSS",
       "META": {
         "TITLE": "HTML/CSS - Coding Global",
@@ -894,7 +894,7 @@
         "KEYWORDS": "swift, ios, macos, programmierung, hilfe, community, apple"
       }
     },
-    "BASH_POWERSHELL": {
+    "BASH-POWERSHELL": {
       "HEADING": "Bash/PowerShell",
       "META": {
         "TITLE": "Bash/PowerShell - Coding Global",
@@ -902,7 +902,7 @@
         "KEYWORDS": "bash, powershell, shell, scripting, programmierung, hilfe, community"
       }
     },
-    "VISUAL_BASIC": {
+    "VISUAL-BASIC": {
       "HEADING": "Visual Basic",
       "META": {
         "TITLE": "Visual Basic - Coding Global",
