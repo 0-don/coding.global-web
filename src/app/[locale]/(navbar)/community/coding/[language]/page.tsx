@@ -6,42 +6,58 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { ProgrammingThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
+import {
+  languageToTranslationKey,
+  PROGRAMMING_LANGUAGES,
+} from "@/lib/utils/language";
 import { getCookieValue, serverLocale } from "@/lib/utils/server";
 import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-const BOARD_TYPE: ProgrammingThreadType = "python";
+export async function generateStaticParams() {
+  return PROGRAMMING_LANGUAGES.map((language) => ({
+    language,
+  }));
+}
 
 export async function generateMetadata(props: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; language: ProgrammingThreadType }>;
 }) {
+  const params = await props.params;
   const locale = await serverLocale(props);
   const t = await getTranslations({ locale });
+  const translationKey = languageToTranslationKey(params.language);
+
   return getPageMetadata({
     locale,
-    title: t("CODING.PYTHON.META.TITLE"),
-    description: t("CODING.PYTHON.META.DESCRIPTION"),
-    keywords: t("CODING.PYTHON.META.KEYWORDS"),
+    title: t(`CODING.${translationKey}.META.TITLE`),
+    description: t(`CODING.${translationKey}.META.DESCRIPTION`),
+    keywords: t(`CODING.${translationKey}.META.KEYWORDS`),
   });
 }
 
-export default async function PythonPage() {
+export default async function ProgrammingLanguagePage(props: {
+  params: Promise<{ language: ProgrammingThreadType }>;
+}) {
+  const params = await props.params;
   const queryClient = getQueryClient();
 
   const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.threads(BOARD_TYPE),
+      queryKey: queryKeys.threads(params.language),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: BOARD_TYPE }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: params.language }).get(),
+        ),
     }),
-    getCookieValue<ThreadState>(getThreadStoreKey(BOARD_TYPE)),
+    getCookieValue<ThreadState>(getThreadStoreKey(params.language)),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider threadType={BOARD_TYPE} data={listItemStore}>
-        <CodingLanguage threadType={BOARD_TYPE} />
+      <ThreadStoreProvider threadType={params.language} data={listItemStore}>
+        <CodingLanguage threadType={params.language} />
       </ThreadStoreProvider>
     </HydrationBoundary>
   );

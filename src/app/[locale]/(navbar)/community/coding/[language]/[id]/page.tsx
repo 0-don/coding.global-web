@@ -5,53 +5,59 @@ import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { ProgrammingThreadType } from "@/lib/types";
 import { handleElysia } from "@/lib/utils/base";
+import {
+  languageToTranslationKey,
+  PROGRAMMING_LANGUAGES,
+} from "@/lib/utils/language";
 import { getThread, serverLocale } from "@/lib/utils/server";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-const BOARD_TYPE: ProgrammingThreadType = "go";
+export async function generateStaticParams() {
+  return PROGRAMMING_LANGUAGES.map((language) => ({
+    language,
+  }));
+}
 
 export async function generateMetadata(props: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; language: ProgrammingThreadType; id: string }>;
 }) {
-  const [params, locale] = await Promise.all([
-    props.params,
-    serverLocale(props),
-  ]);
+  const [params, locale] = await Promise.all([props.params, serverLocale(props)]);
+  const translationKey = languageToTranslationKey(params.language);
   const [t, thread] = await Promise.all([
     getTranslations({ locale }),
-    getThread(params.id, BOARD_TYPE),
+    getThread(params.id, params.language),
   ]);
 
   return getThreadPageMetadata(thread, locale, {
-    title: t("CODING.GO.META.TITLE"),
-    description: t("CODING.GO.META.DESCRIPTION"),
-    keywords: t("CODING.GO.META.KEYWORDS"),
+    title: t(`CODING.${translationKey}.META.TITLE`),
+    description: t(`CODING.${translationKey}.META.DESCRIPTION`),
+    keywords: t(`CODING.${translationKey}.META.KEYWORDS`),
   });
 }
 
-export default async function GoDetailPage(props: {
-  params: Promise<{ locale: string; id: string }>;
+export default async function ProgrammingLanguageDetailPage(props: {
+  params: Promise<{ language: ProgrammingThreadType; id: string }>;
 }) {
   const params = await props.params;
   const queryClient = getQueryClient();
 
   await Promise.all([
     queryClient.prefetchQuery({
-      queryKey: queryKeys.thread(BOARD_TYPE, params.id),
+      queryKey: queryKeys.thread(params.language, params.id),
       queryFn: async () =>
         handleElysia(
           await rpc.api.bot
-            .thread({ threadType: BOARD_TYPE })({ threadId: params.id })
+            .thread({ threadType: params.language })({ threadId: params.id })
             .get(),
         ),
     }),
     queryClient.prefetchInfiniteQuery({
-      queryKey: queryKeys.threadMessages(BOARD_TYPE, params.id),
+      queryKey: queryKeys.threadMessages(params.language, params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
           await rpc.api.bot
-            .thread({ threadType: BOARD_TYPE })({ threadId: params.id })
+            .thread({ threadType: params.language })({ threadId: params.id })
             .messages.get({ query: { after: pageParam } }),
         ),
       initialPageParam: undefined as string | undefined,
@@ -60,7 +66,10 @@ export default async function GoDetailPage(props: {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CodingLanguageDetail threadType={BOARD_TYPE} threadId={params.id} />
+      <CodingLanguageDetail
+        threadType={params.language}
+        threadId={params.id}
+      />
     </HydrationBoundary>
   );
 }
