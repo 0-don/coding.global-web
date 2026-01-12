@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "cross-env NODE_ENV=test bun scripts/generate-search-index.ts",
+    "prebuild": "cross-env NODE_ENV=test tsx scripts/generate-search-index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -68,6 +68,7 @@
     "prettier": "3.7.4",
     "prettier-plugin-tailwindcss": "0.7.2",
     "tailwindcss": "4.1.18",
+    "tsx": "^4.21.0",
     "turndown": "7.2.2",
     "typescript": "5.9.3"
   }
