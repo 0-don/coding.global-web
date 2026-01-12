@@ -584,6 +584,340 @@ export type GetApiByGuildIdThreadByThreadType200ItemRateLimitPerUser =
 
 export type GetApiByGuildIdThreadByThreadType200ItemFlags = string | null;
 
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEditedAt =
+  | string
+  | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemContentType =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemDuration =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemWaveform =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItem =
+  {
+    id: string;
+    url: string;
+    proxyURL: string;
+    name: string;
+    description: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemDescription;
+    contentType: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemContentType;
+    size: number;
+    width: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemWidth;
+    height: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemHeight;
+    ephemeral: boolean;
+    duration: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemDuration;
+    waveform: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItemWaveform;
+    flags: string;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemTitle =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemColor =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemTimestamp =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFieldsItemInline =
+  boolean | unknown;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFieldsItem =
+  {
+    name: string;
+    value: string;
+    inline: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFieldsItemInline;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOf =
+  {
+    name: string;
+    url: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfUrl;
+    iconURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthor =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthorAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnail =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnailAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImage =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImageAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideo =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideoAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOf =
+  {
+    text: string;
+    iconURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooter =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooterAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOfName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOf =
+  {
+    name: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOfName;
+    url: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOfUrl;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProvider =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProviderAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItem =
+  {
+    title: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemTitle;
+    description: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemDescription;
+    url: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemUrl;
+    color: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemColor;
+    timestamp: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemTimestamp;
+    fields: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFieldsItem[];
+    author: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemAuthor;
+    thumbnail: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemThumbnail;
+    image: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemImage;
+    video: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemVideo;
+    footer: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemFooter;
+    provider: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItemProvider;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsUsersItemGlobalName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsUsersItem =
+  {
+    id: string;
+    username: string;
+    globalName: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsUsersItemGlobalName;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsRolesItem =
+  {
+    id: string;
+    name: string;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentions =
+  {
+    users: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsUsersItem[];
+    roles: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsRolesItem[];
+    everyone: boolean;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmojiId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmojiName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmoji =
+  {
+    id: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmojiId;
+    name: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmojiName;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItem =
+  {
+    emoji: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItemEmoji;
+    count: number;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOfMessageId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOfGuildId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOf =
+  {
+    messageId: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOfMessageId;
+    channelId: string;
+    guildId: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOfGuildId;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReference =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReferenceAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorGlobalName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorNickname =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorBannerUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorAccentColor =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorFlags =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorCollectibles =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPrimaryGuild =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorRolesItem =
+  {
+    name: string;
+    position: number;
+  };
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorActivity =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPresenceUpdatedAt =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPremiumSince =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorCommunicationDisabledUntil =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorJoinedAt =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthor = {
+  id: string;
+  username: string;
+  globalName: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorGlobalName;
+  nickname: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorNickname;
+  displayName: string;
+  avatarUrl: string;
+  bannerUrl: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorBannerUrl;
+  accentColor: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorAccentColor;
+  displayHexColor: string;
+  flags: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorFlags;
+  collectibles: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorCollectibles;
+  primaryGuild: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPrimaryGuild;
+  roles: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorRolesItem[];
+  highestRolePosition: number;
+  status: string;
+  activity: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorActivity;
+  presenceUpdatedAt: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPresenceUpdatedAt;
+  premiumSince: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorPremiumSince;
+  communicationDisabledUntil: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorCommunicationDisabledUntil;
+  joinedAt: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthorJoinedAt;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOf = {
+  id: string;
+  content: string;
+  createdAt: string;
+  editedAt: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEditedAt;
+  pinned: boolean;
+  tts: boolean;
+  type: string;
+  attachments: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAttachmentsItem[];
+  embeds: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfEmbedsItem[];
+  mentions: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentions;
+  reactions: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReactionsItem[];
+  reference: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfReference;
+  author: GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfAuthor;
+};
+
+export type GetApiByGuildIdThreadByThreadType200ItemFirstMessage =
+  GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOf | null;
+
 export type GetApiByGuildIdThreadByThreadType200Item = {
   id: string;
   name: string;
@@ -604,6 +938,7 @@ export type GetApiByGuildIdThreadByThreadType200Item = {
   invitable: GetApiByGuildIdThreadByThreadType200ItemInvitable;
   rateLimitPerUser: GetApiByGuildIdThreadByThreadType200ItemRateLimitPerUser;
   flags: GetApiByGuildIdThreadByThreadType200ItemFlags;
+  firstMessage: GetApiByGuildIdThreadByThreadType200ItemFirstMessage;
 };
 
 export type GetApiByGuildIdThreadByThreadType422 = {
@@ -778,6 +1113,340 @@ export type GetApiByGuildIdThreadByThreadTypeByThreadId200RateLimitPerUser =
 
 export type GetApiByGuildIdThreadByThreadTypeByThreadId200Flags = string | null;
 
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEditedAt =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemContentType =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemDuration =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemWaveform =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItem =
+  {
+    id: string;
+    url: string;
+    proxyURL: string;
+    name: string;
+    description: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemDescription;
+    contentType: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemContentType;
+    size: number;
+    width: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemWidth;
+    height: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemHeight;
+    ephemeral: boolean;
+    duration: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemDuration;
+    waveform: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItemWaveform;
+    flags: string;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemTitle =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemDescription =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemColor =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemTimestamp =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFieldsItemInline =
+  boolean | unknown;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFieldsItem =
+  {
+    name: string;
+    value: string;
+    inline: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFieldsItemInline;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOf =
+  {
+    name: string;
+    url: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfUrl;
+    iconURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthor =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthorAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnail =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnailAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImage =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImageAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfProxyURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfWidth =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfHeight =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOf =
+  {
+    url: string;
+    proxyURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfProxyURL;
+    width: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfWidth;
+    height: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOfHeight;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideo =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideoAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOfIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOfProxyIconURL =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOf =
+  {
+    text: string;
+    iconURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOfIconURL;
+    proxyIconURL: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOfProxyIconURL;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooter =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooterAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOfName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOfUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOf =
+  {
+    name: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOfName;
+    url: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOfUrl;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProvider =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProviderAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItem =
+  {
+    title: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemTitle;
+    description: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemDescription;
+    url: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemUrl;
+    color: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemColor;
+    timestamp: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemTimestamp;
+    fields: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFieldsItem[];
+    author: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemAuthor;
+    thumbnail: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemThumbnail;
+    image: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemImage;
+    video: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemVideo;
+    footer: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemFooter;
+    provider: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItemProvider;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsUsersItemGlobalName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsUsersItem =
+  {
+    id: string;
+    username: string;
+    globalName: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsUsersItemGlobalName;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsRolesItem =
+  {
+    id: string;
+    name: string;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentions =
+  {
+    users: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsUsersItem[];
+    roles: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentionsRolesItem[];
+    everyone: boolean;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmojiId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmojiName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmoji =
+  {
+    id: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmojiId;
+    name: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmojiName;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItem =
+  {
+    emoji: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItemEmoji;
+    count: number;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOfMessageId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOfGuildId =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOf =
+  {
+    messageId: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOfMessageId;
+    channelId: string;
+    guildId: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOfGuildId;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReference =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReferenceAnyOf | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorGlobalName =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorNickname =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorBannerUrl =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorAccentColor =
+  number | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorFlags =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorCollectibles =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPrimaryGuild =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorRolesItem =
+  {
+    name: string;
+    position: number;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorActivity =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPresenceUpdatedAt =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPremiumSince =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorCommunicationDisabledUntil =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorJoinedAt =
+  string | null;
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthor =
+  {
+    id: string;
+    username: string;
+    globalName: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorGlobalName;
+    nickname: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorNickname;
+    displayName: string;
+    avatarUrl: string;
+    bannerUrl: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorBannerUrl;
+    accentColor: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorAccentColor;
+    displayHexColor: string;
+    flags: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorFlags;
+    collectibles: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorCollectibles;
+    primaryGuild: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPrimaryGuild;
+    roles: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorRolesItem[];
+    highestRolePosition: number;
+    status: string;
+    activity: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorActivity;
+    presenceUpdatedAt: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPresenceUpdatedAt;
+    premiumSince: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorPremiumSince;
+    communicationDisabledUntil: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorCommunicationDisabledUntil;
+    joinedAt: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthorJoinedAt;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOf = {
+  id: string;
+  content: string;
+  createdAt: string;
+  editedAt: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEditedAt;
+  pinned: boolean;
+  tts: boolean;
+  type: string;
+  attachments: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAttachmentsItem[];
+  embeds: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfEmbedsItem[];
+  mentions: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfMentions;
+  reactions: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReactionsItem[];
+  reference: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfReference;
+  author: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOfAuthor;
+};
+
+export type GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessage =
+  GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessageAnyOf | null;
+
 export type GetApiByGuildIdThreadByThreadTypeByThreadId200 = {
   id: string;
   name: string;
@@ -798,6 +1467,7 @@ export type GetApiByGuildIdThreadByThreadTypeByThreadId200 = {
   invitable: GetApiByGuildIdThreadByThreadTypeByThreadId200Invitable;
   rateLimitPerUser: GetApiByGuildIdThreadByThreadTypeByThreadId200RateLimitPerUser;
   flags: GetApiByGuildIdThreadByThreadTypeByThreadId200Flags;
+  firstMessage: GetApiByGuildIdThreadByThreadTypeByThreadId200FirstMessage;
 };
 
 export type GetApiByGuildIdThreadByThreadTypeByThreadId422 = {
