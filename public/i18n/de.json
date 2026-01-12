@@ -772,7 +772,9 @@
     "HEADING": "Coding",
     "EMPTY": {
       "THREADS": "Noch keine Threads",
-      "MESSAGES": "Keine Nachrichten gefunden"
+      "MESSAGES": "Keine Nachrichten gefunden",
+      "THREAD_NOT_FOUND": "Thread nicht gefunden",
+      "THREAD_NOT_FOUND_DESCRIPTION": "Der gesuchte Thread existiert nicht oder wurde gelöscht."
     },
     "JAVASCRIPT": {
       "HEADING": "JavaScript",
