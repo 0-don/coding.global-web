@@ -98,8 +98,8 @@ function getThreadPathname(
     default:
       // All other thread types are programming languages
       return {
-        pathname: `/community/coding/${threadType}/[id]`,
-        params: { id: threadId },
+        pathname: "/community/coding/[language]/[id]",
+        params: { language: threadType, id: threadId },
       } as Pathname;
   }
 }
