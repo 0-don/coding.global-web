@@ -1,5 +1,6 @@
 "use client";
 
+import { MobileNavigationContent } from "@/components/layout/nav/mobile-navigation-content";
 import { navigation } from "@/components/layout/nav/navigation";
 import {
   Sidebar,
@@ -9,6 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useSessionHook } from "@/hook/session-hook";
 import { Link } from "@/i18n/navigation";
@@ -18,16 +20,11 @@ import { CompanyName, LogoImage } from "../../elements/utils/images";
 import { SidebarNavigation } from "./sidebar-navigation";
 import { SidebarUser } from "./sidebar-user";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+function SidebarDesktopContent(props: { navMain: ReturnType<typeof navigation> }) {
   const t = useTranslations();
-  const session = useSessionHook();
-
-  const navMain = navigation(!!session?.data?.user.id).filter(
-    (item) => !item.hidden,
-  );
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -50,12 +47,45 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarNavigation
           title={t("MAIN.SIDEBAR.MENU.NAVIGATION")}
-          items={navMain}
+          items={props.navMain}
         />
       </SidebarContent>
       <SidebarFooter>
         <SidebarUser />
       </SidebarFooter>
+    </>
+  );
+}
+
+function SidebarMobileContent(props: { onNavigate?: () => void }) {
+  return (
+    <MobileNavigationContent
+      showHeader
+      onNavigate={props.onNavigate}
+      className="px-2"
+    />
+  );
+}
+
+function AppSidebarContent() {
+  const session = useSessionHook();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const navMain = navigation(!!session?.data?.user.id).filter(
+    (item) => !item.hidden,
+  );
+
+  if (isMobile) {
+    return <SidebarMobileContent onNavigate={() => setOpenMobile(false)} />;
+  }
+
+  return <SidebarDesktopContent navMain={navMain} />;
+}
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar collapsible="icon" {...props}>
+      <AppSidebarContent />
     </Sidebar>
   );
 }
