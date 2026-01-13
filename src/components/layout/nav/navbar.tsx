@@ -104,7 +104,14 @@ export default function Navbar() {
                                 key={subItem.name}
                                 className="group/nested relative"
                               >
-                                <div className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all">
+                                <Link
+                                  href={subItem.href}
+                                  className={cn(
+                                    "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
+                                    isActiveLink(pathname, subItem.href) &&
+                                      "bg-primary/10 text-primary",
+                                  )}
+                                >
                                   <div className="flex items-center gap-2">
                                     <subItem.icon className="size-4" />
                                     <span className="font-medium">
@@ -112,7 +119,7 @@ export default function Navbar() {
                                     </span>
                                   </div>
                                   <ChevronRightIcon className="size-4" />
-                                </div>
+                                </Link>
                                 <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                                   <ul className="grid gap-1">
                                     {subItem.submenu.map((nestedItem) => (

@@ -135,6 +135,11 @@ const components: Record<
       import("../src/components/pages/community/coding/coding-language"),
     name: "CodingLanguage",
   },
+  "coding-index": {
+    load: () =>
+      import("../src/components/pages/community/coding/coding-index"),
+    name: "CodingIndex",
+  },
 };
 
 const pages: {
@@ -213,6 +218,12 @@ const pages: {
     url: "/resources/guides/cyber-security",
     category: "Resources",
     component: "cyber-security",
+  },
+  {
+    url: "/community/coding",
+    category: "Coding",
+    component: "coding-index",
+    titleKey: "CODING.HEADING",
   },
   ...PROGRAMMING_LANGUAGES.map((lang) => ({
     url: `/community/coding/${lang}`,

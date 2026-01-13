@@ -415,15 +415,23 @@ export function SidebarCollapsibleItem(props: {
             {props.item.submenu!.map((subItem) => {
               // Check if subItem has nested submenu
               if (subItem.submenu?.length) {
+                const isSubActive = isActiveLink(pathname, subItem.href);
                 return (
                   <li key={subItem.name} className="group/nested relative">
-                    <div className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all">
+                    <Link
+                      href={subItem.href as LinkHref}
+                      onClick={props.onNavigate}
+                      className={cn(
+                        "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
+                        isSubActive && "bg-primary/10 text-primary",
+                      )}
+                    >
                       <div className="flex items-center gap-2">
                         <subItem.icon className="size-4" />
                         <span className="font-medium">{t(subItem.name)}</span>
                       </div>
                       <ChevronRight className="size-4" />
-                    </div>
+                    </Link>
                     {/* Nested submenu */}
                     <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                       <ul className="grid gap-1">
