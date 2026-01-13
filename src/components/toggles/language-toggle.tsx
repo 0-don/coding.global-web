@@ -10,12 +10,14 @@ import {
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { LANGUAGES } from "@/lib/config/constants";
 import { Locale, useLocale, useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import { useTransition } from "react";
 
 export function LanguageToggle() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   const t = useTranslations();
   const [isPending, startTransition] = useTransition();
 
@@ -25,7 +27,11 @@ export function LanguageToggle() {
 
   function onLanguageChange(newLocale: Locale) {
     startTransition(() => {
-      router.replace(pathname as "/", { locale: newLocale });
+      router.replace(
+        // @ts-expect-error - dynamic params are passed separately
+        { pathname, params },
+        { locale: newLocale }
+      );
     });
   }
 
