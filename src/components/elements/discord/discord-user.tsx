@@ -106,7 +106,7 @@ export function DiscordUser(props: DiscordUserProps) {
       </div>
 
       <div className="relative z-10 min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex items-center gap-1.5">
           <span className="truncate text-sm font-medium group-hover/user:underline">
             {props.user.displayName}
             {isCurrentUser && (
@@ -127,14 +127,14 @@ export function DiscordUser(props: DiscordUserProps) {
               })}
             />
           )}
-          {props.user.activity && (
-            <p className="text-muted-foreground truncate text-xs">
-              {t("DISCORD_WIDGET.PLAYING", {
-                activity: props.user.activity,
-              })}
-            </p>
-          )}
         </div>
+        {props.user.activity && (
+          <p className="text-muted-foreground truncate text-xs">
+            {t("DISCORD_WIDGET.PLAYING", {
+              activity: props.user.activity,
+            })}
+          </p>
+        )}
 
         {props.user.roles?.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1 text-xs">
