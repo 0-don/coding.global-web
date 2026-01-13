@@ -1,10 +1,10 @@
-import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { getDiscordChannelLink } from "@/lib/utils/base";
+import { dayjs } from "@/lib/utils/dayjs";
 import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
-import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,
@@ -13,9 +13,9 @@ import {
   MessageCircle,
   Users,
 } from "lucide-react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ThreadHeaderProps {
   thread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
