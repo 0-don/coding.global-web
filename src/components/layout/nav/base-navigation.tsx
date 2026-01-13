@@ -168,6 +168,15 @@ export function CollapsibleNavItem(props: CollapsibleNavItemProps) {
                 />
               ))
             : props.item.submenu!.map((subItem) => {
+                if (subItem.submenu?.length) {
+                  return (
+                    <CollapsibleNavItem
+                      key={subItem.name}
+                      item={subItem}
+                      onNavigate={props.onNavigate}
+                    />
+                  );
+                }
                 const isSubActive = isActiveLink(pathname, subItem.href);
                 return (
                   <NavItemFromData
@@ -433,32 +442,41 @@ export function SidebarCollapsibleItem(props: {
                       <ChevronRight className="size-4" />
                     </Link>
                     {/* Nested submenu */}
-                    <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
-                      <ul className="grid gap-1">
-                        {subItem.submenu.map((nestedItem) => {
-                          const isNestedActive = isActiveLink(
-                            pathname,
-                            nestedItem.href,
-                          );
-                          return (
-                            <li key={nestedItem.name}>
-                              <Link
-                                href={nestedItem.href as LinkHref}
-                                onClick={props.onNavigate}
-                                className={cn(
-                                  "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                  isNestedActive && "bg-primary/10 text-primary",
-                                )}
-                              >
-                                <nestedItem.icon className="size-4" />
-                                <span className="font-medium">
-                                  {t(nestedItem.name)}
-                                </span>
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
+                    <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                      {(() => {
+                        const items = subItem.submenu!;
+                        const numColumns = Math.ceil(items.length / 8);
+                        const itemsPerColumn = Math.ceil(items.length / numColumns);
+                        return Array.from({ length: numColumns }).map((_, columnIndex) => (
+                          <ul key={columnIndex} className="grid gap-1">
+                            {items
+                              .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
+                              .map((nestedItem) => {
+                                const isNestedActive = isActiveLink(
+                                  pathname,
+                                  nestedItem.href,
+                                );
+                                return (
+                                  <li key={nestedItem.name}>
+                                    <Link
+                                      href={nestedItem.href as LinkHref}
+                                      onClick={props.onNavigate}
+                                      className={cn(
+                                        "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                        isNestedActive && "bg-primary/10 text-primary",
+                                      )}
+                                    >
+                                      <nestedItem.icon className="size-4" />
+                                      <span className="font-medium">
+                                        {t(nestedItem.name)}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                          </ul>
+                        ));
+                      })()}
                     </div>
                   </li>
                 );

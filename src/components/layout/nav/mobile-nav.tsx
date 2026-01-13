@@ -1,9 +1,6 @@
 "use client";
 
 import { CompanyName, LogoImage } from "@/components/elements/utils/images";
-import { LanguageToggle } from "@/components/toggles/language-toggle";
-import { ThemeToggle } from "@/components/toggles/theme-toggle";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -11,38 +8,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useSessionHook } from "@/hook/session-hook";
-import { authClient } from "@/lib/auth-client";
-import { cn } from "@/lib/utils";
-import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { FaDiscord } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
-import { UserAvatar } from "../user/user-avatar";
-import { UserDropdown } from "../user/user-dropdown";
-import {
-  CollapsibleNavItem,
-  NavigationItems,
-  NavItemFromData,
-} from "./base-navigation";
-import { navigation } from "./navigation";
+import { MobileNavigationContent } from "./mobile-navigation-content";
 
 export function MobileNav() {
   const t = useTranslations();
-  const session = useSessionHook();
   const [open, setOpen] = useState(false);
-
-  async function handleLogin() {
-    await authClient.signIn.social({
-      provider: "discord",
-      callbackURL: "/",
-    });
-  }
-
-  const navItems = navigation(!!session?.data?.user.id).filter(
-    (item) => !item.hidden,
-  );
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -62,64 +35,7 @@ export function MobileNav() {
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
-          <nav className={cn("flex flex-col gap-1")}>
-            <NavigationItems
-              items={navItems}
-              onNavigate={() => setOpen(false)}
-              renderItem={(itemProps) => (
-                <NavItemFromData
-                  key={itemProps.item.name}
-                  item={itemProps.item}
-                  isActive={itemProps.isActive}
-                  onClick={itemProps.onClick}
-                />
-              )}
-              renderCollapsibleItem={(collapsibleProps) => (
-                <CollapsibleNavItem
-                  key={collapsibleProps.item.name}
-                  item={collapsibleProps.item}
-                  hasCategories={collapsibleProps.hasCategories}
-                  onNavigate={collapsibleProps.onNavigate}
-                />
-              )}
-            />
-          </nav>
-
-          <div className="border-t px-4 pt-4">
-            <a
-              href={getDiscordInviteLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mb-2 flex items-center gap-2 rounded-md border border-[#5865F2] px-3 py-2 text-[#5865F2] transition-colors hover:bg-[#5865F2] hover:text-white"
-            >
-              <FaDiscord className="size-5" />
-              {t("MAIN.AUTH.JOIN_DISCORD_SERVER")}
-            </a>
-            {session?.data?.user.id ? (
-              <div className="flex items-center gap-3">
-                <UserDropdown side="bottom" align="start">
-                  <Button variant="ghost" className="h-auto justify-start p-0">
-                    <UserAvatar showName className="h-8 w-8" />
-                  </Button>
-                </UserDropdown>
-              </div>
-            ) : (
-              <Button
-                onClick={handleLogin}
-                className="w-full gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
-              >
-                <FaDiscord className="size-5" />
-                {t("MAIN.AUTH.LOGIN_WITH_DISCORD")}
-              </Button>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2 border-t px-4 pt-4">
-            <LanguageToggle />
-            <ThemeToggle />
-          </div>
-        </div>
+        <MobileNavigationContent onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   );
