@@ -130,6 +130,10 @@ const components: Record<
       import("../src/components/pages/resources/guides/cyber-security"),
     name: "CyberSecurity",
   },
+  "ai-assistants": {
+    load: () => import("../src/components/pages/resources/ai-assistants"),
+    name: "AiAssistants",
+  },
   "coding-language": {
     load: () =>
       import("../src/components/pages/community/coding/coding-language"),
@@ -218,6 +222,11 @@ const pages: {
     url: "/resources/guides/cyber-security",
     category: "Resources",
     component: "cyber-security",
+  },
+  {
+    url: "/resources/ai-assistants",
+    category: "Resources",
+    component: "ai-assistants",
   },
   {
     url: "/community/coding",

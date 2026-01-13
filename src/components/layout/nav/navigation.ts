@@ -12,6 +12,7 @@ import {
   HiOutlineCodeBracket,
   HiOutlineCodeBracketSquare,
   HiOutlineCommandLine,
+  HiOutlineCpuChip,
   HiOutlineInformationCircle,
   HiOutlineShieldCheck,
   HiOutlineShoppingBag,
@@ -307,6 +308,12 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
         href: "/resources",
         icon: HiOutlineAcademicCap,
         submenu: [
+          {
+            name: "MAIN.NAVIGATION.RESOURCES_AI_ASSISTANTS",
+            description: "MAIN.NAVIGATION.RESOURCES_AI_ASSISTANTS_DESCRIPTION",
+            href: "/resources/ai-assistants",
+            icon: HiOutlineCpuChip,
+          },
           {
             name: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING",
             description: "MAIN.NAVIGATION.RESOURCES_VIBE_CODING_DESCRIPTION",

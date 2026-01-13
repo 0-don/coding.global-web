@@ -17,7 +17,7 @@ import { motion, useInView } from "motion/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef } from "react";
-import { HiOutlineBolt, HiOutlineShieldCheck } from "react-icons/hi2";
+import { HiOutlineBolt, HiOutlineCpuChip, HiOutlineShieldCheck } from "react-icons/hi2";
 import { SiJavascript, SiPython } from "react-icons/si";
 
 const toc: TOCItemType[] = [
@@ -147,6 +147,12 @@ const resourceCategories = [
     titleKey: msg("RESOURCES.CATEGORIES.GENERAL_RESOURCES.TITLE"),
     descriptionKey: msg("RESOURCES.CATEGORIES.GENERAL_RESOURCES.DESCRIPTION"),
     items: [
+      {
+        nameKey: msg("RESOURCES.ITEMS.AI_ASSISTANTS.NAME"),
+        descriptionKey: msg("RESOURCES.ITEMS.AI_ASSISTANTS.DESCRIPTION"),
+        href: "/resources/ai-assistants" as const,
+        icon: HiOutlineCpuChip,
+      },
       {
         nameKey: msg("RESOURCES.ITEMS.VIBE_CODING.NAME"),
         descriptionKey: msg("RESOURCES.ITEMS.VIBE_CODING.DESCRIPTION"),
