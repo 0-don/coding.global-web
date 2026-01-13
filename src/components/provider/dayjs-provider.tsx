@@ -1,6 +1,6 @@
 "use client";
 
-import { dayjs } from "@/lib/dayjs";
+import { dayjs } from "@/lib/utils/dayjs";
 import { useLocale } from "next-intl";
 import { ReactNode, useEffect } from "react";
 

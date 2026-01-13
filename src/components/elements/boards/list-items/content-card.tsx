@@ -1,16 +1,16 @@
 "use client";
 
-import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { dayjs } from "@/lib/utils/dayjs";
 import {
-  GetApiByGuildIdThreadByThreadType200Item,
   GetApiByGuildIdNews200Item,
+  GetApiByGuildIdThreadByThreadType200Item,
 } from "@/openapi";
-import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,
@@ -92,7 +92,7 @@ export function ContentCard(props: ContentCardProps) {
         {props.type === "thread" ? (
           <>
             <div className="mb-2 flex items-start gap-2">
-              <h3 className="line-clamp-2 min-w-0 flex-1 wrap-break-word text-xl font-semibold group-hover:underline">
+              <h3 className="line-clamp-2 min-w-0 flex-1 text-xl font-semibold wrap-break-word group-hover:underline">
                 {props.data.name}
               </h3>
               <div className="flex flex-wrap items-center gap-2">

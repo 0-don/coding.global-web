@@ -25,7 +25,7 @@ import {
 } from "@/hook/chat-hook";
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
-import { dayjs } from "@/lib/dayjs";
+import { dayjs } from "@/lib/utils/dayjs";
 import { HashIcon, Trash2Icon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
@@ -77,111 +77,113 @@ export function ChatRoom() {
       transition={{ duration: 0.5 }}
     >
       <Chat className="h-[calc(100vh-10rem)] rounded-lg border">
-      <ChatHeader className="border-b">
-        <ChatHeaderStart>
-          <HashIcon className="text-muted-foreground size-5" />
-          <span className="font-medium">{t("CHAT.GENERAL")}</span>
-        </ChatHeaderStart>
-      </ChatHeader>
+        <ChatHeader className="border-b">
+          <ChatHeaderStart>
+            <HashIcon className="text-muted-foreground size-5" />
+            <span className="font-medium">{t("CHAT.GENERAL")}</span>
+          </ChatHeaderStart>
+        </ChatHeader>
 
-      <ChatMessagesVirtual
-        itemKey="id"
-        items={allMessages}
-        hasNextPage={chatsQuery.hasNextPage}
-        isFetchingNextPage={chatsQuery.isFetchingNextPage}
-        fetchNextPage={chatsQuery.fetchNextPage}
-      >
-        {(renderProps) => {
-          const isOwnMessage =
-            renderProps.item.userId === session?.data?.user.id;
+        <ChatMessagesVirtual
+          itemKey="id"
+          items={allMessages}
+          hasNextPage={chatsQuery.hasNextPage}
+          isFetchingNextPage={chatsQuery.isFetchingNextPage}
+          fetchNextPage={chatsQuery.fetchNextPage}
+        >
+          {(renderProps) => {
+            const isOwnMessage =
+              renderProps.item.userId === session?.data?.user.id;
 
-          return (
-            <ChatEvent className="group hover:bg-accent/50 py-2">
-              <ChatEventAddon>
-                <Avatar className="mx-auto size-8 @md/chat:size-10">
-                  <AvatarImage
-                    src={renderProps.item.user?.image ?? undefined}
-                    alt={renderProps.item.user?.name}
-                  />
-                  <AvatarFallback>
-                    {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
-                      "??"}
-                  </AvatarFallback>
-                </Avatar>
-              </ChatEventAddon>
-              <ChatEventBody>
-                <div className="flex items-baseline gap-2">
-                  <ChatEventTitle>
-                    {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-                  </ChatEventTitle>
-                  <ChatEventDescription>
-                    {renderProps.item.createdAt
-                      ? dayjs(renderProps.item.createdAt).format(
-                          "DD.MM.YYYY HH:mm:ss",
-                        )
-                      : ""}
-                    {" • "}
-                    <span className="text-muted-foreground/50 font-mono text-xs">
-                      {renderProps.item.id}
-                    </span>
-                  </ChatEventDescription>
-                  {isOwnMessage && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
-                      onClick={() =>
-                        chatDeleteMutation.mutate(renderProps.item.id)
-                      }
-                      disabled={chatDeleteMutation.isPending}
-                    >
-                      <Trash2Icon className="size-3.5" />
-                    </Button>
-                  )}
-                </div>
-                <ChatEventContent>{renderProps.item.content}</ChatEventContent>
-              </ChatEventBody>
-            </ChatEvent>
-          );
-        }}
-      </ChatMessagesVirtual>
+            return (
+              <ChatEvent className="group hover:bg-accent/50 py-2">
+                <ChatEventAddon>
+                  <Avatar className="mx-auto size-8 @md/chat:size-10">
+                    <AvatarImage
+                      src={renderProps.item.user?.image ?? undefined}
+                      alt={renderProps.item.user?.name}
+                    />
+                    <AvatarFallback>
+                      {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
+                        "??"}
+                    </AvatarFallback>
+                  </Avatar>
+                </ChatEventAddon>
+                <ChatEventBody>
+                  <div className="flex items-baseline gap-2">
+                    <ChatEventTitle>
+                      {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+                    </ChatEventTitle>
+                    <ChatEventDescription>
+                      {renderProps.item.createdAt
+                        ? dayjs(renderProps.item.createdAt).format(
+                            "DD.MM.YYYY HH:mm:ss",
+                          )
+                        : ""}
+                      {" • "}
+                      <span className="text-muted-foreground/50 font-mono text-xs">
+                        {renderProps.item.id}
+                      </span>
+                    </ChatEventDescription>
+                    {isOwnMessage && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="hover:text-primary ml-auto size-6 opacity-0 transition-opacity group-hover:opacity-100"
+                        onClick={() =>
+                          chatDeleteMutation.mutate(renderProps.item.id)
+                        }
+                        disabled={chatDeleteMutation.isPending}
+                      >
+                        <Trash2Icon className="size-3.5" />
+                      </Button>
+                    )}
+                  </div>
+                  <ChatEventContent>
+                    {renderProps.item.content}
+                  </ChatEventContent>
+                </ChatEventBody>
+              </ChatEvent>
+            );
+          }}
+        </ChatMessagesVirtual>
 
-      {isLoggedIn ? (
-        <ChatToolbar>
-          <ChatToolbarTextarea
-            ref={textareaRef}
-            onKeyDown={handleKeyDown}
-            disabled={chatAddMutation.isPending}
-            placeholder={t("CHAT.TYPE_MESSAGE")}
-          />
-          <ChatToolbarSendButton
-            onClick={handleSendMessage}
-            disabled={chatAddMutation.isPending}
-          />
-        </ChatToolbar>
-      ) : (
-        <div className="bg-background sticky bottom-0 border-t p-3">
-          <div className="flex items-center justify-between gap-4">
-            <p className="text-muted-foreground text-sm">
-              {t("CHAT.LOGIN_TO_SEND")}
-            </p>
-            <Button
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: "discord",
-                  callbackURL: "/chat",
-                })
-              }
-              size="sm"
-              className="gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
-            >
-              <FaDiscord className="size-4" />
-              <span>{t("MAIN.AUTH.LOGIN_WITH_DISCORD")}</span>
-            </Button>
+        {isLoggedIn ? (
+          <ChatToolbar>
+            <ChatToolbarTextarea
+              ref={textareaRef}
+              onKeyDown={handleKeyDown}
+              disabled={chatAddMutation.isPending}
+              placeholder={t("CHAT.TYPE_MESSAGE")}
+            />
+            <ChatToolbarSendButton
+              onClick={handleSendMessage}
+              disabled={chatAddMutation.isPending}
+            />
+          </ChatToolbar>
+        ) : (
+          <div className="bg-background sticky bottom-0 border-t p-3">
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-muted-foreground text-sm">
+                {t("CHAT.LOGIN_TO_SEND")}
+              </p>
+              <Button
+                onClick={() =>
+                  authClient.signIn.social({
+                    provider: "discord",
+                    callbackURL: "/chat",
+                  })
+                }
+                size="sm"
+                className="gap-2 bg-[#5865F2] text-white hover:bg-[#4752C4]"
+              >
+                <FaDiscord className="size-4" />
+                <span>{t("MAIN.AUTH.LOGIN_WITH_DISCORD")}</span>
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
-    </Chat>
+        )}
+      </Chat>
     </motion.div>
   );
 }

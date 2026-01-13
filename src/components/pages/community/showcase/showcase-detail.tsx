@@ -6,7 +6,6 @@ import {
   useThreadMessagesInfiniteQuery,
   useThreadQuery,
 } from "@/hook/bot-hook";
-import { dayjs } from "@/lib/dayjs";
 
 interface ShowcaseDetailProps {
   threadId: string;
