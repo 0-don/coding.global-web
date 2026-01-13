@@ -1,9 +1,9 @@
 "use client";
 
-import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { MessageReactions } from "@/components/elements/discord/message-reactions";
 import { MessageReplyReference } from "@/components/elements/discord/message-reply-reference";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
 import {
