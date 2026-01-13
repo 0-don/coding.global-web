@@ -63,6 +63,9 @@ export const pathnames = {
   "/resources/guides/cyber-security": {
     de: "/ressourcen/anleitungen/cyber-security",
   },
+  "/resources/ai-assistants": {
+    de: "/ressourcen/ki-assistenten",
+  },
   // Coding language pages (dynamic route)
   "/community/coding": {
     de: "/community/coding",
