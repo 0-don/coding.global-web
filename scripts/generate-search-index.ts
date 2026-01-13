@@ -20,8 +20,6 @@ import {
 
 const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
 
-if (!process.env.STANDALONE) process.exit(0);
-
 const turndown = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
@@ -34,9 +32,9 @@ turndown.remove([
   "noscript",
   "button",
   "form",
-] as const);
+]);
 turndown.addRule("removeSvg", {
-  filter: (node) => node.nodeName === "SVG",
+  filter: (n) => n.nodeName === "SVG",
   replacement: () => "",
 });
 
@@ -80,25 +78,63 @@ const prefetch = {
 
 const components: Record<
   string,
-  () => Promise<{ default?: React.ComponentType; [key: string]: unknown }>
+  { load: () => Promise<Record<string, unknown>>; name: string }
 > = {
-  news: () => import("../src/components/pages/community/news/news"),
-  rules: () => import("../src/components/pages/community/rules/rules"),
-  showcase: () => import("../src/components/pages/community/showcase/showcase"),
-  team: () => import("../src/components/pages/community/team/team"),
-  marketplace: () => import("../src/components/pages/marketplace/marketplace"),
-  "job-board": () => import("../src/components/pages/marketplace/job-board"),
-  "dev-board": () => import("../src/components/pages/marketplace/dev-board"),
-  resources: () => import("../src/components/pages/resources/resources"),
-  javascript: () =>
-    import("../src/components/pages/resources/languages/javascript"),
-  python: () => import("../src/components/pages/resources/languages/python"),
-  "vibe-coding": () =>
-    import("../src/components/pages/resources/guides/vibe-coding"),
-  "cyber-security": () =>
-    import("../src/components/pages/resources/guides/cyber-security"),
-  "coding-language": () =>
-    import("../src/components/pages/community/coding/coding-language"),
+  news: {
+    load: () => import("../src/components/pages/community/news/news"),
+    name: "News",
+  },
+  rules: {
+    load: () => import("../src/components/pages/community/rules/rules"),
+    name: "Rules",
+  },
+  showcase: {
+    load: () => import("../src/components/pages/community/showcase/showcase"),
+    name: "Showcase",
+  },
+  team: {
+    load: () => import("../src/components/pages/community/team/team"),
+    name: "Team",
+  },
+  marketplace: {
+    load: () => import("../src/components/pages/marketplace/marketplace"),
+    name: "Marketplace",
+  },
+  "job-board": {
+    load: () => import("../src/components/pages/marketplace/job-board"),
+    name: "JobBoard",
+  },
+  "dev-board": {
+    load: () => import("../src/components/pages/marketplace/dev-board"),
+    name: "DevBoard",
+  },
+  resources: {
+    load: () => import("../src/components/pages/resources/resources"),
+    name: "Resources",
+  },
+  javascript: {
+    load: () =>
+      import("../src/components/pages/resources/languages/javascript"),
+    name: "Javascript",
+  },
+  python: {
+    load: () => import("../src/components/pages/resources/languages/python"),
+    name: "Python",
+  },
+  "vibe-coding": {
+    load: () => import("../src/components/pages/resources/guides/vibe-coding"),
+    name: "VibeCoding",
+  },
+  "cyber-security": {
+    load: () =>
+      import("../src/components/pages/resources/guides/cyber-security"),
+    name: "CyberSecurity",
+  },
+  "coding-language": {
+    load: () =>
+      import("../src/components/pages/community/coding/coding-language"),
+    name: "CodingLanguage",
+  },
 };
 
 const pages: {
@@ -178,14 +214,13 @@ const pages: {
     category: "Resources",
     component: "cyber-security",
   },
-  // Coding language pages (dynamically generated)
-  ...PROGRAMMING_LANGUAGES.map((language) => ({
-    url: `/community/coding/${language}`,
+  ...PROGRAMMING_LANGUAGES.map((lang) => ({
+    url: `/community/coding/${lang}`,
     category: "Coding" as Category,
     component: "coding-language",
-    titleKey: `CODING.${language.toUpperCase()}.HEADING`,
-    prefetch: prefetch.codingThread(language),
-    props: { threadType: language },
+    titleKey: `CODING.${lang.toUpperCase()}.HEADING`,
+    prefetch: prefetch.codingThread(lang),
+    props: { threadType: lang },
   })),
 ];
 
@@ -230,12 +265,9 @@ async function generateSearchIndex() {
         });
         if (page.prefetch) await page.prefetch(qc);
 
-        const mod = await components[page.component]();
-        const Component =
-          mod.default ??
-          (Object.values(mod).find(
-            (v) => typeof v === "function",
-          ) as React.ComponentType);
+        const { load, name } = components[page.component];
+        const Component = (await load())[name] as React.ComponentType;
+        if (typeof Component !== "function") continue;
 
         const html = renderToString(
           createElement(
@@ -243,11 +275,9 @@ async function generateSearchIndex() {
             { client: qc },
             createElement(
               NextIntlClientProvider,
-              {
-                locale,
-                messages,
-                onError: () => {},
-              } as unknown as Parameters<typeof NextIntlClientProvider>[0],
+              { locale, messages, onError: () => {} } as unknown as Parameters<
+                typeof NextIntlClientProvider
+              >[0],
               createElement(Component, page.props),
             ),
           ),
@@ -257,12 +287,10 @@ async function generateSearchIndex() {
         const title = page.titleKey
           ? getTranslation(messages, page.titleKey)
           : (doc.querySelector("h1")?.textContent?.trim() ?? "");
-
         doc.body
           .querySelectorAll("nav, footer, button, form, .sidebar")
           .forEach((el) => el.remove());
         const content = turndown.turndown(doc.body.innerHTML);
-
         const firstP = doc.querySelector("p")?.textContent?.trim() ?? "";
         const description =
           firstP.slice(0, 200) + (firstP.length > 200 ? "..." : "");
@@ -282,8 +310,10 @@ async function generateSearchIndex() {
     }
   }
 
-  const outputPath = join(process.cwd(), "public", "search-index.json");
-  writeFileSync(outputPath, JSON.stringify(await persist(db, "json")));
+  writeFileSync(
+    join(process.cwd(), "public", "search-index.json"),
+    JSON.stringify(await persist(db, "json")),
+  );
   log(`Indexed ${totalIndexed} pages across ${LOCALES.length} locales`);
 }
 
