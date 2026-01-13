@@ -10,6 +10,8 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return PROGRAMMING_LANGUAGES.map((language) => ({
     language,
