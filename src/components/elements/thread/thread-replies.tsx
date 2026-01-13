@@ -216,9 +216,10 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                                 </p>
                               )}
                               {embed.description && (
-                                <p className="text-muted-foreground text-sm">
-                                  {embed.description}
-                                </p>
+                                <DiscordMarkdown
+                                  content={embed.description}
+                                  className="text-muted-foreground text-sm"
+                                />
                               )}
                               {embed.url && (
                                 <Link
