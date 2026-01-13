@@ -341,7 +341,13 @@
       "SELECTED": "selected",
       "SEARCH_TAGS": "Search tags...",
       "NO_TAGS_FOUND": "No tags found.",
-      "CLEAR_FILTERS": "Clear filters"
+      "CLEAR_FILTERS": "Clear filters",
+      "SORT_NEWEST": "Newest first",
+      "SORT_OLDEST": "Oldest first",
+      "STATUS": "Status",
+      "ARCHIVED_ALL": "All",
+      "ARCHIVED_ACTIVE": "Active",
+      "ARCHIVED_ONLY": "Archived"
     },
     "MESSAGE_REPLY": {
       "MESSAGE_NOT_FOUND": "Message not found",

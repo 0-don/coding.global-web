@@ -16,7 +16,7 @@ export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
   const setViewMode = useSetAtom(atoms.viewModeAtom);
 
   return (
-    <div className="border-border flex items-center gap-1 rounded-md border p-1">
+    <div className="border-border flex items-center gap-0.5 rounded-md border p-0.5 md:gap-1 md:p-1">
       <Button
         variant={viewMode === "grid" ? "secondary" : "ghost"}
         size="icon-sm"
@@ -24,8 +24,9 @@ export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
         aria-label="Grid view"
         aria-pressed={viewMode === "grid"}
         title="Grid view"
+        className="h-6 w-6 md:h-7 md:w-7"
       >
-        <LayoutGrid />
+        <LayoutGrid className="h-3.5 w-3.5 md:h-4 md:w-4" />
       </Button>
       <Button
         variant={viewMode === "list" ? "secondary" : "ghost"}
@@ -34,8 +35,9 @@ export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
         aria-label="List view"
         aria-pressed={viewMode === "list"}
         title="List view"
+        className="h-6 w-6 md:h-7 md:w-7"
       >
-        <List />
+        <List className="h-3.5 w-3.5 md:h-4 md:w-4" />
       </Button>
     </div>
   );
