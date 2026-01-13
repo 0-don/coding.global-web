@@ -1,12 +1,12 @@
 "use client";
 
-import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
+import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { dayjs } from "@/lib/utils/dayjs";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
-import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,
@@ -141,11 +141,13 @@ export function ContentListItem({
             {data.firstMessage?.reactions &&
               data.firstMessage.reactions.length > 0 && (
                 <div className="hover:text-foreground flex items-center gap-1">
-                  {data.firstMessage.reactions.slice(0, 3).map((reaction, idx) => (
-                    <span key={idx} className="text-base">
-                      {reaction.emoji.name}
-                    </span>
-                  ))}
+                  {data.firstMessage.reactions
+                    .slice(0, 3)
+                    .map((reaction, idx) => (
+                      <span key={idx} className="text-base">
+                        {reaction.emoji.name}
+                      </span>
+                    ))}
                   <span className="ml-1">
                     {data.firstMessage.reactions.reduce(
                       (sum, r) => sum + r.count,

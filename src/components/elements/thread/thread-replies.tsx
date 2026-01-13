@@ -6,11 +6,11 @@ import { MessageReplyReference } from "@/components/elements/discord/message-rep
 import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
+import { dayjs } from "@/lib/utils/dayjs";
 import {
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
-import { dayjs } from "@/lib/dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
