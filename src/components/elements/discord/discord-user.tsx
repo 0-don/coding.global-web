@@ -16,7 +16,7 @@ import {
   GetApiByGuildIdNews200ItemAuthor,
   GetApiByGuildIdWidget200MembersItem,
 } from "@/openapi";
-import dayjs from "dayjs";
+import { dayjs } from "@/lib/dayjs";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { IoDiamondSharp } from "react-icons/io5";
