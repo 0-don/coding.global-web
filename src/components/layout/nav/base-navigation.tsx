@@ -420,38 +420,63 @@ export function SidebarCollapsibleItem(props: {
           <div className="text-muted-foreground mb-1 px-2 py-1.5 text-xs font-semibold">
             {t(props.item.name)}
           </div>
-          <ul className="grid gap-1">
-            {props.item.submenu!.map((subItem) => {
-              // Check if subItem has nested submenu
-              if (subItem.submenu?.length) {
-                const isSubActive = isActiveLink(pathname, subItem.href);
-                return (
-                  <li key={subItem.name} className="group/nested relative">
-                    <Link
-                      href={subItem.href as LinkHref}
-                      onClick={props.onNavigate}
-                      className={cn(
-                        "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
-                        isSubActive && "bg-primary/10 text-primary",
-                      )}
-                    >
-                      <div className="flex items-center gap-2">
-                        <subItem.icon className="size-4" />
-                        <span className="font-medium">{t(subItem.name)}</span>
+          {props.hasCategories ? (
+            // Render categories with their nested items (no active state on category headers)
+            <ul className="grid gap-1">
+              {props.item.submenu!.map((subItem) => {
+                if (subItem.submenu?.length) {
+                  return (
+                    <li key={subItem.name} className="group/nested relative">
+                      <div
+                        className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all"
+                      >
+                        <div className="flex items-center gap-2">
+                          <subItem.icon className="size-4" />
+                          <span className="font-medium">{t(subItem.name)}</span>
+                        </div>
+                        <ChevronRight className="size-4" />
                       </div>
-                      <ChevronRight className="size-4" />
-                    </Link>
-                    {/* Nested submenu */}
-                    <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
-                      {(() => {
-                        const items = subItem.submenu!;
-                        const numColumns = Math.ceil(items.length / 8);
-                        const itemsPerColumn = Math.ceil(items.length / numColumns);
-                        return Array.from({ length: numColumns }).map((_, columnIndex) => (
-                          <ul key={columnIndex} className="grid gap-1">
-                            {items
-                              .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
-                              .map((nestedItem) => {
+                      {/* Nested submenu */}
+                      <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                        {(() => {
+                          const items = subItem.submenu!;
+                          const numColumns = Math.ceil(items.length / 8);
+                          const itemsPerColumn = Math.ceil(items.length / numColumns);
+                          return numColumns > 1 ? (
+                            <div className="flex items-start gap-2">
+                              {Array.from({ length: numColumns }).map((_, columnIndex) => (
+                                <ul key={columnIndex} className="grid gap-1">
+                                  {items
+                                    .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
+                                    .map((nestedItem) => {
+                                      const isNestedActive = isActiveLink(
+                                        pathname,
+                                        nestedItem.href,
+                                      );
+                                      return (
+                                        <li key={nestedItem.name}>
+                                          <Link
+                                            href={nestedItem.href as LinkHref}
+                                            onClick={props.onNavigate}
+                                            className={cn(
+                                              "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                              isNestedActive && "bg-primary/10 text-primary",
+                                            )}
+                                          >
+                                            <nestedItem.icon className="size-4" />
+                                            <span className="font-medium">
+                                              {t(nestedItem.name)}
+                                            </span>
+                                          </Link>
+                                        </li>
+                                      );
+                                    })}
+                                </ul>
+                              ))}
+                            </div>
+                          ) : (
+                            <ul className="grid gap-1">
+                              {items.map((nestedItem) => {
                                 const isNestedActive = isActiveLink(
                                   pathname,
                                   nestedItem.href,
@@ -462,7 +487,7 @@ export function SidebarCollapsibleItem(props: {
                                       href={nestedItem.href as LinkHref}
                                       onClick={props.onNavigate}
                                       className={cn(
-                                        "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                        "hover:bg-muted flex w-full items-center gap-2 rounded-sm p-2 text-sm transition-all",
                                         isNestedActive && "bg-primary/10 text-primary",
                                       )}
                                     >
@@ -474,32 +499,145 @@ export function SidebarCollapsibleItem(props: {
                                   </li>
                                 );
                               })}
-                          </ul>
-                        ));
-                      })()}
-                    </div>
+                            </ul>
+                          );
+                        })()}
+                      </div>
+                    </li>
+                  );
+                }
+
+                const isSubActive = isActiveLink(pathname, subItem.href);
+                return (
+                  <li key={subItem.name}>
+                    <Link
+                      href={subItem.href as LinkHref}
+                      onClick={props.onNavigate}
+                      className={cn(
+                        "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                        isSubActive && "bg-primary/10 text-primary",
+                      )}
+                    >
+                      <subItem.icon className="size-4" />
+                      <span className="font-medium">{t(subItem.name)}</span>
+                    </Link>
                   </li>
                 );
-              }
+              })}
+            </ul>
+          ) : (
+            // Render regular submenu items
+            <ul className="grid gap-1">
+              {props.item.submenu!.map((subItem) => {
+                // Check if subItem has nested submenu
+                if (subItem.submenu?.length) {
+                  const isSubActive = isActiveLink(pathname, subItem.href);
+                  return (
+                    <li key={subItem.name} className="group/nested relative">
+                      <Link
+                        href={subItem.href as LinkHref}
+                        onClick={props.onNavigate}
+                        className={cn(
+                          "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
+                          isSubActive && "bg-primary/10 text-primary",
+                        )}
+                      >
+                        <div className="flex items-center gap-2">
+                          <subItem.icon className="size-4" />
+                          <span className="font-medium">{t(subItem.name)}</span>
+                        </div>
+                        <ChevronRight className="size-4" />
+                      </Link>
+                      {/* Nested submenu */}
+                      <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                        {(() => {
+                          const items = subItem.submenu!;
+                          const numColumns = Math.ceil(items.length / 8);
+                          const itemsPerColumn = Math.ceil(items.length / numColumns);
+                          return numColumns > 1 ? (
+                            <div className="flex items-start gap-2">
+                              {Array.from({ length: numColumns }).map((_, columnIndex) => (
+                                <ul key={columnIndex} className="grid gap-1">
+                                  {items
+                                    .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
+                                    .map((nestedItem) => {
+                                      const isNestedActive = isActiveLink(
+                                        pathname,
+                                        nestedItem.href,
+                                      );
+                                      return (
+                                        <li key={nestedItem.name}>
+                                          <Link
+                                            href={nestedItem.href as LinkHref}
+                                            onClick={props.onNavigate}
+                                            className={cn(
+                                              "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                              isNestedActive && "bg-primary/10 text-primary",
+                                            )}
+                                          >
+                                            <nestedItem.icon className="size-4" />
+                                            <span className="font-medium">
+                                              {t(nestedItem.name)}
+                                            </span>
+                                          </Link>
+                                        </li>
+                                      );
+                                    })}
+                                </ul>
+                              ))}
+                            </div>
+                          ) : (
+                            <ul className="grid gap-1">
+                              {items.map((nestedItem) => {
+                                const isNestedActive = isActiveLink(
+                                  pathname,
+                                  nestedItem.href,
+                                );
+                                return (
+                                  <li key={nestedItem.name}>
+                                    <Link
+                                      href={nestedItem.href as LinkHref}
+                                      onClick={props.onNavigate}
+                                      className={cn(
+                                        "hover:bg-muted flex w-full items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                        isNestedActive && "bg-primary/10 text-primary",
+                                      )}
+                                    >
+                                      <nestedItem.icon className="size-4" />
+                                      <span className="font-medium">
+                                        {t(nestedItem.name)}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          );
+                        })()}
+                      </div>
+                    </li>
+                  );
+                }
 
-              const isSubActive = isActiveLink(pathname, subItem.href);
-              return (
-                <li key={subItem.name}>
-                  <Link
-                    href={subItem.href as LinkHref}
-                    onClick={props.onNavigate}
-                    className={cn(
-                      "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                      isSubActive && "bg-primary/10 text-primary",
-                    )}
-                  >
-                    <subItem.icon className="size-4" />
-                    <span className="font-medium">{t(subItem.name)}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+                const isSubActive = isActiveLink(pathname, subItem.href);
+                return (
+                  <li key={subItem.name}>
+                    <Link
+                      href={subItem.href as LinkHref}
+                      onClick={props.onNavigate}
+                      className={cn(
+                        "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                        isSubActive && "bg-primary/10 text-primary",
+                      )}
+                    >
+                      <subItem.icon className="size-4" />
+                      <span className="font-medium">{t(subItem.name)}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </SidebarMenuItem>
     );
