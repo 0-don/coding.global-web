@@ -2,9 +2,10 @@
   "name": "coding.global-web",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "dotenvx run -e NODE_ENV=test -- tsx scripts/generate-search-index.ts",
+    "prebuild": "dotenvx run -e NODE_ENV=test -- node --import ./scripts/loader.mjs --import tsx scripts/generate-search-index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
