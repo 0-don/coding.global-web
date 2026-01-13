@@ -62,12 +62,21 @@ export function TagFilter({ threads, threadType }: TagFilterProps) {
     <Popover>
       <PopoverTrigger
         render={
-          <Button variant="outline" size="sm" className="h-9 border-dashed">
-            <RxPlusCircled className="mr-2 h-4 w-4" />
-            {t("SHOWCASE.FILTER.TAGS")}
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 border-dashed md:h-9"
+          >
+            <RxPlusCircled className="mr-1.5 h-4 w-4 md:mr-2" />
+            <span className="hidden sm:inline">
+              {t("SHOWCASE.FILTER.TAGS")}
+            </span>
+            <span className="sm:hidden">
+              {t("SHOWCASE.FILTER.TAGS")}
+            </span>
             {selectedTags.length > 0 && (
               <>
-                <Separator orientation="vertical" className="mx-2 h-4" />
+                <Separator orientation="vertical" className="mx-1.5 h-4 md:mx-2" />
                 <Badge
                   variant="secondary"
                   className="rounded-sm px-1 font-normal lg:hidden"

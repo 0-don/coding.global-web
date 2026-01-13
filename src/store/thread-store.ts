@@ -6,17 +6,23 @@ import { atomFamily } from "jotai-family";
 import { atomWithStorage } from "jotai/utils";
 
 export type ViewMode = "grid" | "list";
+export type SortOrder = "newest" | "oldest";
+export type ArchivedFilter = "all" | "active" | "archived";
 
 export interface ThreadState {
   viewMode: ViewMode;
   searchQuery: string;
   selectedTags: string[];
+  sortOrder: SortOrder;
+  archivedFilter: ArchivedFilter;
 }
 
 export const INITIAL_THREAD_STORE: ThreadState = {
   viewMode: "grid",
   searchQuery: "",
   selectedTags: [],
+  sortOrder: "newest",
+  archivedFilter: "all",
 };
 
 export const getThreadStoreKey = (threadType: ThreadType) =>
@@ -64,10 +70,35 @@ const selectedTagsAtomFamily = atomFamily((threadType: ThreadType) => {
   );
 });
 
+const sortOrderAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
+  return atom(
+    (get) => get(baseAtom).sortOrder,
+    (get, set, value: SortOrder) => {
+      set(baseAtom, { ...get(baseAtom), sortOrder: value });
+    },
+  );
+});
+
+const archivedFilterAtomFamily = atomFamily((threadType: ThreadType) => {
+  const baseAtom = threadAtomFamily(threadType);
+  return atom(
+    (get) => get(baseAtom).archivedFilter,
+    (get, set, value: ArchivedFilter) => {
+      set(baseAtom, { ...get(baseAtom), archivedFilter: value });
+    },
+  );
+});
+
 const clearFiltersAtomFamily = atomFamily((threadType: ThreadType) => {
   const baseAtom = threadAtomFamily(threadType);
   return atom(null, (get, set) => {
-    set(baseAtom, { ...get(baseAtom), searchQuery: "", selectedTags: [] });
+    set(baseAtom, {
+      ...get(baseAtom),
+      searchQuery: "",
+      selectedTags: [],
+      archivedFilter: "all",
+    });
   });
 });
 
@@ -77,6 +108,8 @@ export const getThreadAtoms = (threadType: ThreadType) => ({
   viewModeAtom: viewModeAtomFamily(threadType),
   searchQueryAtom: searchQueryAtomFamily(threadType),
   selectedTagsAtom: selectedTagsAtomFamily(threadType),
+  sortOrderAtom: sortOrderAtomFamily(threadType),
+  archivedFilterAtom: archivedFilterAtomFamily(threadType),
   clearFiltersAtom: clearFiltersAtomFamily(threadType),
 });
 
@@ -84,9 +117,16 @@ export const filterThreads = (
   threads: GetApiByGuildIdThreadByThreadType200Item[],
   state: ThreadState,
 ): GetApiByGuildIdThreadByThreadType200Item[] => {
-  const { searchQuery, selectedTags } = state;
+  const { searchQuery, selectedTags, sortOrder, archivedFilter } = state;
 
   let filtered = threads;
+
+  // Filter by archived status
+  if (archivedFilter === "active") {
+    filtered = filtered.filter((thread) => !thread.archived);
+  } else if (archivedFilter === "archived") {
+    filtered = filtered.filter((thread) => thread.archived);
+  }
 
   // Filter by search query
   if (searchQuery.trim()) {
@@ -126,6 +166,13 @@ export const filterThreads = (
       thread.tags.some((tag) => selectedTags.includes(tag.id)),
     );
   }
+
+  // Sort by date
+  filtered = [...filtered].sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+  });
 
   return filtered;
 };
