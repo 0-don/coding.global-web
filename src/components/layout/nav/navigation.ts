@@ -138,7 +138,7 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
       {
         name: "MAIN.NAVIGATION.CODING",
         description: "MAIN.NAVIGATION.CODING_DESCRIPTION",
-        href: { pathname: "/community/coding/[language]", params: { language: "javascript" } },
+        href: "/community/coding",
         icon: HiOutlineCodeBracketSquare,
         submenu: [
           {

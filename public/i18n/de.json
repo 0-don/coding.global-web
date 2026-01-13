@@ -770,6 +770,7 @@
       "KEYWORDS": "programmierung, coding, hilfe, community, threads"
     },
     "HEADING": "Coding",
+    "SUBTITLE": "Finde Hilfe und Diskussionen für deine Lieblingsprogrammiersprache",
     "EMPTY": {
       "THREADS": "Noch keine Threads",
       "MESSAGES": "Keine Nachrichten gefunden",
@@ -780,7 +781,7 @@
       "HEADING": "JavaScript",
       "META": {
         "TITLE": "JavaScript - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie JavaScript-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Webentwicklung, Node.js, React und Frontend-Frameworks",
         "KEYWORDS": "javascript, js, programmierung, hilfe, community, webentwicklung"
       }
     },
@@ -788,7 +789,7 @@
       "HEADING": "Python",
       "META": {
         "TITLE": "Python - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Python-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Data Science, Automatisierung, KI/ML und Backend-Entwicklung",
         "KEYWORDS": "python, programmierung, hilfe, community, data science, automatisierung"
       }
     },
@@ -796,7 +797,7 @@
       "HEADING": "Rust",
       "META": {
         "TITLE": "Rust - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Rust-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Speichersichere Systemprogrammierung und Hochleistungsanwendungen",
         "KEYWORDS": "rust, programmierung, hilfe, community, systemprogrammierung, speichersicherheit"
       }
     },
@@ -804,7 +805,7 @@
       "HEADING": "C++",
       "META": {
         "TITLE": "C++ - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie C++-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Game-Engines, Systemprogrammierung und performancekritische Software",
         "KEYWORDS": "c++, cpp, programmierung, hilfe, community, systemprogrammierung"
       }
     },
@@ -812,7 +813,7 @@
       "HEADING": "C#",
       "META": {
         "TITLE": "C# - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie C#-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": ".NET-Entwicklung, Unity-Spiele und Enterprise-Anwendungen",
         "KEYWORDS": "csharp, c#, dotnet, programmierung, hilfe, community, .net"
       }
     },
@@ -820,7 +821,7 @@
       "HEADING": "C",
       "META": {
         "TITLE": "C - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie C-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Embedded-Systeme, Betriebssysteme und Low-Level-Programmierung",
         "KEYWORDS": "c, programmierung, hilfe, community, systemprogrammierung, embedded"
       }
     },
@@ -828,7 +829,7 @@
       "HEADING": "Go",
       "META": {
         "TITLE": "Go - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Go-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Cloud-Infrastruktur, Microservices und nebenläufige Programmierung",
         "KEYWORDS": "go, golang, programmierung, hilfe, community, backend, nebenläufigkeit"
       }
     },
@@ -836,7 +837,7 @@
       "HEADING": "Java",
       "META": {
         "TITLE": "Java - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Java-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Enterprise-Anwendungen, Android-Entwicklung und Spring-Framework",
         "KEYWORDS": "java, jvm, programmierung, hilfe, community, enterprise, android"
       }
     },
@@ -844,7 +845,7 @@
       "HEADING": "Kotlin",
       "META": {
         "TITLE": "Kotlin - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Kotlin-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Moderne Android-Entwicklung und JVM-Anwendungen",
         "KEYWORDS": "kotlin, android, programmierung, hilfe, community, jvm"
       }
     },
@@ -852,7 +853,7 @@
       "HEADING": "Dart",
       "META": {
         "TITLE": "Dart - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Dart-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Flutter-Apps und plattformübergreifende Mobile-Entwicklung",
         "KEYWORDS": "dart, flutter, programmierung, hilfe, community, mobile-entwicklung"
       }
     },
@@ -860,7 +861,7 @@
       "HEADING": "Lua",
       "META": {
         "TITLE": "Lua - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Lua-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Spiele-Scripting, Embedded-Systeme und leichtgewichtige Anwendungen",
         "KEYWORDS": "lua, scripting, programmierung, hilfe, community, spieleentwicklung"
       }
     },
@@ -868,7 +869,7 @@
       "HEADING": "PHP",
       "META": {
         "TITLE": "PHP - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie PHP-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Web-Backends, Laravel, WordPress und serverseitige Entwicklung",
         "KEYWORDS": "php, webentwicklung, programmierung, hilfe, community, backend"
       }
     },
@@ -876,7 +877,7 @@
       "HEADING": "HTML/CSS",
       "META": {
         "TITLE": "HTML/CSS - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie HTML- und CSS-Diskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Webstruktur, Styling, Layouts und responsives Design",
         "KEYWORDS": "html, css, webentwicklung, frontend, hilfe, community, styling"
       }
     },
@@ -884,7 +885,7 @@
       "HEADING": "SQL",
       "META": {
         "TITLE": "SQL - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie SQL-Diskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Datenbankabfragen, Optimierung und Datenmanagement",
         "KEYWORDS": "sql, datenbank, programmierung, hilfe, community, abfragen"
       }
     },
@@ -892,7 +893,7 @@
       "HEADING": "Swift",
       "META": {
         "TITLE": "Swift - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Swift-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "iOS-, macOS- und Apple-Plattform-Entwicklung",
         "KEYWORDS": "swift, ios, macos, programmierung, hilfe, community, apple"
       }
     },
@@ -900,7 +901,7 @@
       "HEADING": "Bash/PowerShell",
       "META": {
         "TITLE": "Bash/PowerShell - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Bash- und PowerShell-Scripting-Diskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Shell-Scripting, Automatisierung und Systemadministration",
         "KEYWORDS": "bash, powershell, shell, scripting, programmierung, hilfe, community"
       }
     },
@@ -908,7 +909,7 @@
       "HEADING": "Visual Basic",
       "META": {
         "TITLE": "Visual Basic - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Visual Basic-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Office-Automatisierung, VBA-Makros und Legacy-Anwendungen",
         "KEYWORDS": "visual basic, vb, vba, programmierung, hilfe, community, microsoft"
       }
     },
@@ -916,7 +917,7 @@
       "HEADING": "Zig",
       "META": {
         "TITLE": "Zig - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Zig-Programmierdiskussionen und Hilfe-Threads aus unserer Community",
+        "DESCRIPTION": "Low-Level-Programmierung und C/C++-Interoperabilität",
         "KEYWORDS": "zig, systemprogrammierung, hilfe, community, low-level"
       }
     },
@@ -924,7 +925,7 @@
       "HEADING": "Andere Sprachen",
       "META": {
         "TITLE": "Andere Sprachen - Coding Global",
-        "DESCRIPTION": "Durchstöbern Sie Diskussionen zu anderen Programmiersprachen aus unserer Community",
+        "DESCRIPTION": "Diskussionen für nicht aufgelistete Sprachen",
         "KEYWORDS": "programmierung, sprachen, hilfe, community, coding"
       }
     }
