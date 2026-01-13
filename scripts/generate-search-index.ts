@@ -20,6 +20,8 @@ import {
 
 const GUILD_ID = process.env.NEXT_PUBLIC_GUILD_ID!;
 
+if (!process.env.STANDALONE) process.exit(0);
+
 const turndown = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
@@ -140,8 +142,7 @@ const components: Record<
     name: "CodingLanguage",
   },
   "coding-index": {
-    load: () =>
-      import("../src/components/pages/community/coding/coding-index"),
+    load: () => import("../src/components/pages/community/coding/coding-index"),
     name: "CodingIndex",
   },
 };
