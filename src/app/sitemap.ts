@@ -26,34 +26,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
   );
 
-  const apiUrl = `${process.env.NEXT_PUBLIC_BOT_URL}/api/${process.env.NEXT_PUBLIC_GUILD_ID}/thread`;
-  log(`[Sitemap] API base URL: ${apiUrl}`);
+  const results: string[] = [];
 
   for (const threadType of threadTypes) {
-    const fullUrl = `${apiUrl}/${threadType}`;
-    log(`[Sitemap] Fetching ${threadType} from: ${fullUrl}`);
-
     try {
       const response = await getApiByGuildIdThreadByThreadType(
         process.env.NEXT_PUBLIC_GUILD_ID,
         threadType,
       );
 
-      log(`[Sitemap] ${threadType} response status: ${response.status}`);
-
       if (response.status !== 200) {
-        log(
-          `[Sitemap] ${threadType} returned non-200 status: ${response.status}`,
-        );
-        log(
-          `[Sitemap] ${threadType} response data:`,
-          JSON.stringify(response.data).slice(0, 500),
-        );
+        results.push(`${threadType}: error (${response.status})`);
         continue;
       }
 
       const threads = response.data;
-      log(`[Sitemap] ${threadType}: fetched ${threads.length} threads`);
+      results.push(`${threadType}: ${threads.length}`);
 
       threads.forEach((thread) => {
         const pathname = getThreadPathname(threadType, thread.id);
@@ -62,19 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
       });
     } catch (error) {
-      log(`[Sitemap] Failed to fetch threads for ${threadType}`);
-      log(`[Sitemap] URL attempted: ${fullUrl}`);
-      if (error instanceof Error) {
-        log(`[Sitemap] Error name: ${error.name}`);
-        log(`[Sitemap] Error message: ${error.message}`);
-        log(`[Sitemap] Error stack: ${error.stack}`);
-      } else {
-        log(`[Sitemap] Error (raw):`, error);
-      }
+      const message = error instanceof Error ? error.message : "unknown error";
+      results.push(`${threadType}: failed (${message})`);
     }
   }
 
-  log("[Sitemap] Total entries:", entries.length);
+  log(`[Sitemap] Threads fetched: ${results.join(", ")}. Total entries: ${entries.length}`);
   return entries;
 }
 
