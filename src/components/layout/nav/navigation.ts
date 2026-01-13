@@ -40,11 +40,27 @@ import {
 import { TbSql } from "react-icons/tb";
 
 export const isActiveLink = (pathname: string, href: ValidRoutes) => {
-  if (typeof href !== "string") return false;
+  let hrefString: string;
+
+  if (typeof href === "string") {
+    hrefString = href;
+  } else if (typeof href === "object" && href !== null && "pathname" in href) {
+    // Handle object-style hrefs like { pathname: "/community/coding/[language]", params: { language: "javascript" } }
+    let resolvedPath = href.pathname as string;
+    if ("params" in href && href.params) {
+      const params = href.params as Record<string, string>;
+      for (const [key, value] of Object.entries(params)) {
+        resolvedPath = resolvedPath.replace(`[${key}]`, value);
+      }
+    }
+    hrefString = resolvedPath;
+  } else {
+    return false;
+  }
 
   // Normalize paths by removing trailing slashes
   const cleanPathname = pathname.replace(/\/$/, "") || "/";
-  const cleanHref = href.replace(/\/$/, "") || "/";
+  const cleanHref = hrefString.replace(/\/$/, "") || "/";
 
   // Exact match for home page
   if (cleanHref === "/") {
