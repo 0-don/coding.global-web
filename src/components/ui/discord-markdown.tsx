@@ -446,7 +446,7 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   if (!props.content) return null;
 
   if (!isClient) {
-    return <span className={props.className}>{props.content}</span>;
+    return <div className={`leading-snug ${props.className}`}>{props.content}</div>;
   }
 
   const html = toHTML(props.content, {
@@ -456,8 +456,8 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   });
 
   return (
-    <span
-      className={props.className}
+    <div
+      className={`leading-snug ${props.className}`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
