@@ -1,9 +1,11 @@
 "use client";
 
+import { ArchivedFilter } from "@/components/elements/boards/filters/archived-filter";
+import { SortFilter } from "@/components/elements/boards/filters/sort-filter";
+import { TagFilter } from "@/components/elements/boards/filters/tag-filter";
+import { ViewModeToggle } from "@/components/elements/boards/filters/view-mode-toggle";
 import { ContentCard } from "@/components/elements/boards/list-items/content-card";
 import { ContentListItem } from "@/components/elements/boards/list-items/content-list-item";
-import { TagFilter } from "@/components/elements/boards/tag-filter";
-import { ViewModeToggle } from "@/components/elements/boards/view-mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -45,7 +47,9 @@ export function BoardList(props: BoardListProps) {
 
   const filteredThreads = filterThreads(props.threads, state);
   const hasActiveFilters =
-    state.searchQuery?.trim() || (state.selectedTags?.length ?? 0) > 0;
+    state.searchQuery?.trim() ||
+    (state.selectedTags?.length ?? 0) > 0 ||
+    state.archivedFilter !== "all";
 
   return (
     <motion.div
@@ -59,30 +63,34 @@ export function BoardList(props: BoardListProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-wrap items-center justify-between gap-2 py-3 md:gap-4 md:py-6"
+        className="py-3 md:py-6"
       >
-        <div className="flex items-center gap-1.5 md:gap-2">
-          <props.icon className="text-xl md:text-3xl" />
-          <h1 className="text-xl font-bold md:text-3xl">
-            {props.title}
-            <span className="text-muted-foreground ml-1 text-sm font-normal md:ml-2 md:text-lg">
-              ({filteredThreads.length})
-            </span>
-          </h1>
-        </div>
-        <div className="flex items-center gap-2">
-          {hasActiveFilters && (
-            <Button
-              variant="ghost"
-              onClick={() => clearFilters()}
-              className="h-9 px-2 lg:px-3"
-            >
-              {t("SHOWCASE.RESET")}
-              <RxCross2 className="ml-2 h-4 w-4" />
-            </Button>
-          )}
-          <TagFilter threads={props.threads} threadType={props.threadType} />
-          <ViewModeToggle threadType={props.threadType} />
+        <div className="flex flex-wrap items-center justify-between gap-2 md:gap-4">
+          <div className="flex items-center gap-1.5 md:gap-2">
+            <props.icon className="text-xl md:text-3xl" />
+            <h1 className="text-xl font-bold md:text-3xl">
+              {props.title}
+              <span className="text-muted-foreground ml-1 text-sm font-normal md:ml-2 md:text-lg">
+                ({filteredThreads.length})
+              </span>
+            </h1>
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
+            {hasActiveFilters && (
+              <Button
+                variant="ghost"
+                onClick={() => clearFilters()}
+                className="h-8 px-2 md:h-9 lg:px-3"
+              >
+                {t("SHOWCASE.RESET")}
+                <RxCross2 className="ml-1 h-4 w-4 md:ml-2" />
+              </Button>
+            )}
+            <TagFilter threads={props.threads} threadType={props.threadType} />
+            <ArchivedFilter threadType={props.threadType} />
+            <SortFilter threadType={props.threadType} />
+            <ViewModeToggle threadType={props.threadType} />
+          </div>
         </div>
       </motion.div>
 

@@ -293,10 +293,10 @@ export function DiscordUser(props: DiscordUserProps) {
                 )}
               </div>
 
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
                 <button
                   onClick={copyUsername}
-                  className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-sm transition-colors"
+                  className="text-muted-foreground hover:text-foreground cursor-pointer text-left text-sm transition-colors"
                   type="button"
                 >
                   {props.user.username}
@@ -305,7 +305,7 @@ export function DiscordUser(props: DiscordUserProps) {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={copyUserId}
-                    className="text-muted-foreground hover:text-foreground cursor-pointer truncate text-left text-xs transition-colors"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer text-left text-xs transition-colors"
                     type="button"
                   >
                     {props.user.id}

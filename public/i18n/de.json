@@ -339,7 +339,13 @@
       "SELECTED": "ausgewählt",
       "SEARCH_TAGS": "Tags suchen...",
       "NO_TAGS_FOUND": "Keine Tags gefunden.",
-      "CLEAR_FILTERS": "Filter löschen"
+      "CLEAR_FILTERS": "Filter löschen",
+      "SORT_NEWEST": "Neueste zuerst",
+      "SORT_OLDEST": "Älteste zuerst",
+      "STATUS": "Status",
+      "ARCHIVED_ALL": "Alle",
+      "ARCHIVED_ACTIVE": "Aktiv",
+      "ARCHIVED_ONLY": "Archiviert"
     },
     "MESSAGE_REPLY": {
       "MESSAGE_NOT_FOUND": "Nachricht nicht gefunden",
