@@ -155,6 +155,8 @@
       "RESOURCES_DEVOPS_DESCRIPTION": "DevOps practices and tools",
       "RESOURCES_CYBER_SECURITY": "Cyber Security",
       "RESOURCES_CYBER_SECURITY_DESCRIPTION": "Security best practices and guides",
+      "RESOURCES_AI_ASSISTANTS": "AI Assistants",
+      "RESOURCES_AI_ASSISTANTS_DESCRIPTION": "Free AI tools for coding and productivity",
       "RESOURCES_BEST_TOOLS": "Best Tools",
       "RESOURCES_BEST_TOOLS_DESCRIPTION": "Recommended tools and software",
       "CODING": "Coding",
@@ -442,6 +444,10 @@
         "NAME": "Python",
         "DESCRIPTION": "Data science & automation"
       },
+      "AI_ASSISTANTS": {
+        "NAME": "AI Assistants",
+        "DESCRIPTION": "Free AI tools for coding & productivity"
+      },
       "VIBE_CODING": {
         "NAME": "Vibe Coding",
         "DESCRIPTION": "Flow state & productivity"
@@ -698,6 +704,127 @@
         "CISCO": {
           "TITLE": "Cisco Networking Academy",
           "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
+        }
+      }
+    },
+    "AI_ASSISTANTS": {
+      "META": {
+        "TITLE": "Free AI Assistants - Coding Global",
+        "DESCRIPTION": "Discover the best free AI assistants for chatting, coding, image generation, and research",
+        "KEYWORDS": "ai assistants, free ai, chatgpt, claude, gemini, coding ai, image generation"
+      },
+      "TITLE": "Free AI Assistants",
+      "DESCRIPTION": "A curated list of the best free AI assistants available today. From chatbots to coding helpers, image generators to research tools.",
+      "CHATBOTS": {
+        "TITLE": "AI Chatbots",
+        "DESCRIPTION": "General-purpose AI assistants for conversations, questions, and creative tasks.",
+        "CHATGPT": {
+          "TITLE": "ChatGPT",
+          "DESCRIPTION": "OpenAI's powerful conversational AI with GPT-4"
+        },
+        "CLAUDE": {
+          "TITLE": "Claude",
+          "DESCRIPTION": "Anthropic's helpful, harmless, and honest AI assistant"
+        },
+        "GEMINI": {
+          "TITLE": "Gemini",
+          "DESCRIPTION": "Google's multimodal AI for text, code, and images"
+        },
+        "COPILOT": {
+          "TITLE": "Microsoft Copilot",
+          "DESCRIPTION": "AI assistant powered by GPT-4 with web access"
+        },
+        "GROK": {
+          "TITLE": "Grok",
+          "DESCRIPTION": "xAI's witty assistant with real-time X data"
+        },
+        "DEEPSEEK": {
+          "TITLE": "DeepSeek",
+          "DESCRIPTION": "Advanced reasoning AI with strong coding abilities"
+        },
+        "LLAMA": {
+          "TITLE": "Meta AI",
+          "DESCRIPTION": "Meta's AI assistant powered by Llama models"
+        },
+        "HUGGINGCHAT": {
+          "TITLE": "HuggingChat",
+          "DESCRIPTION": "Open-source AI chat with multiple model options"
+        }
+      },
+      "CODING_ASSISTANTS": {
+        "TITLE": "Coding Assistants",
+        "DESCRIPTION": "AI tools specifically designed to help you write, understand, and debug code.",
+        "GITHUB_COPILOT": {
+          "TITLE": "GitHub Copilot",
+          "DESCRIPTION": "AI pair programmer that suggests code in your editor"
+        },
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "AI-first code editor built for pair programming"
+        },
+        "CODEIUM": {
+          "TITLE": "Codeium",
+          "DESCRIPTION": "Free AI code completion for 70+ languages"
+        },
+        "TABNINE": {
+          "TITLE": "Tabnine",
+          "DESCRIPTION": "AI assistant trained on your codebase"
+        },
+        "REPLIT": {
+          "TITLE": "Replit AI",
+          "DESCRIPTION": "Code, debug, and deploy with AI assistance"
+        },
+        "BLACKBOX": {
+          "TITLE": "Blackbox AI",
+          "DESCRIPTION": "AI code generation and search engine"
+        }
+      },
+      "IMAGE_GENERATION": {
+        "TITLE": "Image Generation",
+        "DESCRIPTION": "AI tools that create images from text descriptions.",
+        "DALL_E": {
+          "TITLE": "DALL-E 3",
+          "DESCRIPTION": "OpenAI's latest image generation model"
+        },
+        "MIDJOURNEY": {
+          "TITLE": "Midjourney",
+          "DESCRIPTION": "Stunning artistic image generation"
+        },
+        "LEONARDO": {
+          "TITLE": "Leonardo.AI",
+          "DESCRIPTION": "AI image generation with creative control"
+        },
+        "STABLE_DIFFUSION": {
+          "TITLE": "Stable Diffusion",
+          "DESCRIPTION": "Open-source image generation you can run locally"
+        },
+        "IDEOGRAM": {
+          "TITLE": "Ideogram",
+          "DESCRIPTION": "AI art with excellent text rendering"
+        },
+        "BING_IMAGE": {
+          "TITLE": "Bing Image Creator",
+          "DESCRIPTION": "Free DALL-E 3 access through Microsoft"
+        }
+      },
+      "SEARCH_ENGINES": {
+        "TITLE": "AI Search Engines",
+        "DESCRIPTION": "Search engines enhanced with AI for better answers and research.",
+        "PERPLEXITY": {
+          "TITLE": "Perplexity",
+          "DESCRIPTION": "AI-powered answer engine with citations"
+        },
+        "YOU": {
+          "TITLE": "You.com",
+          "DESCRIPTION": "AI search with chat and app integrations"
+        },
+        "PHIND": {
+          "TITLE": "Phind",
+          "DESCRIPTION": "AI search engine optimized for developers"
+        },
+        "KAGI": {
+          "TITLE": "Kagi",
+          "DESCRIPTION": "Premium search with AI assistant features"
         }
       }
     },
