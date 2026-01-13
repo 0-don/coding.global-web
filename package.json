@@ -17,7 +17,6 @@
   "dependencies": {
     "@base-ui/react": "1.0.0",
     "@elysiajs/eden": "1.4.6",
-    "highlight.js": "11.11.1",
     "@orama/orama": "3.1.18",
     "@orama/plugin-data-persistence": "3.1.18",
     "@tanstack/react-query": "5.90.16",
@@ -33,6 +32,7 @@
     "drizzle-typebox": "0.3.3",
     "elysia": "1.4.21",
     "fumadocs-core": "16.4.6",
+    "highlight.js": "11.11.1",
     "jotai": "2.16.1",
     "jotai-family": "1.0.1",
     "lucide-react": "0.562.0",
@@ -40,6 +40,7 @@
     "next": "16.1.1",
     "next-intl": "4.7.0",
     "next-themes": "0.4.6",
+    "node-emoji": "^2.2.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-icons": "5.5.0",
