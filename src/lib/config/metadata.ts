@@ -55,6 +55,9 @@ export async function getPageMetadata(
         },
       ],
     },
+    icons: {
+      icon: "/images/logo.gif",
+    },
     robots: {
       index: shouldIndex,
       follow: shouldIndex,
