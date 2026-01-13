@@ -7,10 +7,7 @@ import {
   useThreadQuery,
 } from "@/hook/bot-hook";
 import { MarketplaceThreadType } from "@/lib/types";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(relativeTime);
+import { dayjs } from "@/lib/dayjs";
 
 interface BoardDetailProps {
   threadId: string;

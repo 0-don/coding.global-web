@@ -25,7 +25,7 @@ import {
 } from "@/hook/chat-hook";
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
-import dayjs from "dayjs";
+import { dayjs } from "@/lib/dayjs";
 import { HashIcon, Trash2Icon } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
