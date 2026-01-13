@@ -6,10 +6,7 @@ import {
   useThreadMessagesInfiniteQuery,
   useThreadQuery,
 } from "@/hook/bot-hook";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(relativeTime);
+import { dayjs } from "@/lib/dayjs";
 
 interface ShowcaseDetailProps {
   threadId: string;

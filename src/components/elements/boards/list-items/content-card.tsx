@@ -10,8 +10,7 @@ import {
   GetApiByGuildIdThreadByThreadType200Item,
   GetApiByGuildIdNews200Item,
 } from "@/openapi";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,
@@ -23,8 +22,6 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ComponentProps } from "react";
-
-dayjs.extend(relativeTime);
 
 type BaseContentCardProps = {
   className?: string;

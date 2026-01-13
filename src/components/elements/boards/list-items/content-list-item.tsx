@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,
@@ -19,8 +18,6 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ComponentProps } from "react";
-
-dayjs.extend(relativeTime);
 
 type ContentListItemProps = {
   data: GetApiByGuildIdThreadByThreadType200Item;

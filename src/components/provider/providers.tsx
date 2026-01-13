@@ -4,6 +4,7 @@ import {
   NavigationState,
 } from "@/store/navigation-store";
 import { ReactNode, use } from "react";
+import { DayjsProvider } from "./dayjs-provider";
 import { JotaiProvider } from "./jotai-provider";
 import { LanguageProvider } from "./language-provider";
 import { QueryProvider } from "./query-provider";
@@ -20,11 +21,13 @@ export function Providers(props: { children: ReactNode }) {
     <JotaiProvider>
       <NavigationStoreProvider data={navigationStore}>
         <LanguageProvider>
-          <QueryProvider>
-            <ThemeProvider>
-              <SessionProvider>{props.children}</SessionProvider>
-            </ThemeProvider>
-          </QueryProvider>
+          <DayjsProvider>
+            <QueryProvider>
+              <ThemeProvider>
+                <SessionProvider>{props.children}</SessionProvider>
+              </ThemeProvider>
+            </QueryProvider>
+          </DayjsProvider>
         </LanguageProvider>
       </NavigationStoreProvider>
     </JotaiProvider>

@@ -10,13 +10,10 @@ import {
 } from "@/hook/bot-hook";
 import { useRouter } from "@/i18n/navigation";
 import { ProgrammingThreadType } from "@/lib/types";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { dayjs } from "@/lib/dayjs";
 import { useTranslations } from "next-intl";
 import { FiHome } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
-
-dayjs.extend(relativeTime);
 
 interface CodingLanguageDetailProps {
   threadType: ProgrammingThreadType;

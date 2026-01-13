@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getDiscordChannelLink } from "@/lib/utils/base";
 import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
-import dayjs from "dayjs";
+import { dayjs } from "@/lib/dayjs";
 import {
   Archive,
   Calendar,

@@ -10,7 +10,7 @@ import {
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
-import dayjs from "dayjs";
+import { dayjs } from "@/lib/dayjs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
