@@ -1,6 +1,7 @@
 "use client";
 
 import hljs from "highlight.js";
+import { get as getEmoji } from "node-emoji";
 import { useSyncExternalStore } from "react";
 
 // Types
@@ -172,6 +173,14 @@ const createRules = (escape: boolean): ParseRule[] => {
         const name = match[2];
         const id = match[3];
         return `<img class="${styles.emoji}" src="https://cdn.discordapp.com/emojis/${id}.${animated ? "gif" : "png"}" alt=":${escapeHtml(name)}:" />`;
+      },
+    },
+    // Standard emoji shortcodes (:clap:, :white_check_mark:, etc.)
+    {
+      pattern: /^:([a-z0-9_+-]+):/i,
+      replace: (match) => {
+        const emoji = getEmoji(match[1]);
+        return emoji ? emoji : e(match[0]);
       },
     },
     // Timestamp (<t:timestamp:style>)
