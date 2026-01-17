@@ -159,9 +159,9 @@ export function ThreadHeader(props: ThreadHeaderProps) {
 
             <div className="flex-1">
               {props.thread.content && (
-                <p className="text-sm whitespace-pre-wrap">
+                <div className="text-sm whitespace-pre-wrap">
                   <DiscordMarkdown content={props.thread.content} />
-                </p>
+                </div>
               )}
 
               {props.thread.imageUrl && (
