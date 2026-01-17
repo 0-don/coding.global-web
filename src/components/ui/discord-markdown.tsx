@@ -1,6 +1,7 @@
 "use client";
 
 import hljs from "highlight.js";
+import "highlight.js/styles/github-dark.css";
 import { get as getEmoji } from "node-emoji";
 import { useSyncExternalStore } from "react";
 
