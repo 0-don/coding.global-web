@@ -342,6 +342,7 @@
       "CLEAR_FILTERS": "Filter löschen",
       "SORT_RECENTLY_ACTIVE": "Kürzlich aktiv",
       "SORT_DATE_POSTED": "Erstellungsdatum",
+      "SORT_OLDEST": "Älteste zuerst",
       "STATUS": "Status",
       "ARCHIVED_ALL": "Alle",
       "ARCHIVED_ACTIVE": "Aktiv",
