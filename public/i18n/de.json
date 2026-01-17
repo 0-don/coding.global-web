@@ -331,6 +331,8 @@
     "LOCKED": "Gesperrt",
     "SLOWMODE": "{seconds}s Langsammodus",
     "CREATED": "Erstellt {date}",
+    "CREATED_AT": "Erstellt {date}",
+    "UPDATED_AT": "Aktualisiert {date}",
     "OPEN_IN_DISCORD": "In Discord öffnen",
     "LOADING": "Lädt...",
     "LOADING_MORE_MESSAGES": "Weitere Nachrichten werden geladen...",
