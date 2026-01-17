@@ -24,6 +24,13 @@ export function SortFilter({ threadType }: SortFilterProps) {
   const setSortOrder = useSetAtom(atoms.sortOrderAtom);
   const t = useTranslations();
 
+  const getSortLabel = () => {
+    if (sortOrder === "recentlyActive") {
+      return t("SHOWCASE.FILTER.SORT_RECENTLY_ACTIVE");
+    }
+    return t("SHOWCASE.FILTER.SORT_DATE_POSTED");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -34,14 +41,7 @@ export function SortFilter({ threadType }: SortFilterProps) {
             className="h-8 border-dashed md:h-9"
           >
             <RxCaretSort className="mr-1.5 h-4 w-4 md:mr-2" />
-            <span className="hidden sm:inline">
-              {sortOrder === "newest"
-                ? t("SHOWCASE.FILTER.SORT_NEWEST")
-                : t("SHOWCASE.FILTER.SORT_OLDEST")}
-            </span>
-            <span className="sm:hidden">
-              {sortOrder === "newest" ? t("SHOWCASE.FILTER.SORT_NEWEST") : t("SHOWCASE.FILTER.SORT_OLDEST")}
-            </span>
+            <span>{getSortLabel()}</span>
           </Button>
         }
       />
@@ -50,11 +50,11 @@ export function SortFilter({ threadType }: SortFilterProps) {
           value={sortOrder}
           onValueChange={(value) => setSortOrder(value as SortOrder)}
         >
-          <DropdownMenuRadioItem value="newest">
-            {t("SHOWCASE.FILTER.SORT_NEWEST")}
+          <DropdownMenuRadioItem value="recentlyActive">
+            {t("SHOWCASE.FILTER.SORT_RECENTLY_ACTIVE")}
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="oldest">
-            {t("SHOWCASE.FILTER.SORT_OLDEST")}
+          <DropdownMenuRadioItem value="datePosted">
+            {t("SHOWCASE.FILTER.SORT_DATE_POSTED")}
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
