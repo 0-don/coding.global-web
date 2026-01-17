@@ -84,7 +84,8 @@ export default function Navbar() {
                           href={item.href}
                           className={cn(
                             "bg-transparent",
-                            isActive && "bg-primary text-primary-foreground",
+                            isActive &&
+                              "bg-primary text-primary-foreground hover:bg-primary/90 focus:bg-primary/90 data-open:bg-primary/90",
                           )}
                         >
                           {t(item.name)}
@@ -204,7 +205,8 @@ export default function Navbar() {
                     className={cn(
                       navigationMenuTriggerStyle(),
                       "bg-transparent",
-                      isActive && "bg-primary text-primary-foreground",
+                      isActive &&
+                        "bg-primary text-primary-foreground hover:bg-primary/90 focus:bg-primary/90",
                     )}
                     render={<Link href={item.href}>{t(item.name)}</Link>}
                   />
