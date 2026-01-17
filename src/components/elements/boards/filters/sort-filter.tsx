@@ -28,6 +28,9 @@ export function SortFilter({ threadType }: SortFilterProps) {
     if (sortOrder === "recentlyActive") {
       return t("SHOWCASE.FILTER.SORT_RECENTLY_ACTIVE");
     }
+    if (sortOrder === "oldest") {
+      return t("SHOWCASE.FILTER.SORT_OLDEST");
+    }
     return t("SHOWCASE.FILTER.SORT_DATE_POSTED");
   };
 
@@ -55,6 +58,9 @@ export function SortFilter({ threadType }: SortFilterProps) {
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="datePosted">
             {t("SHOWCASE.FILTER.SORT_DATE_POSTED")}
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="oldest">
+            {t("SHOWCASE.FILTER.SORT_OLDEST")}
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
