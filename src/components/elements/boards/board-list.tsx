@@ -136,6 +136,7 @@ export function BoardList(props: BoardListProps) {
                     threadType={
                       thread.boardType as "job-board" | "dev-board" | undefined
                     }
+                    sortOrder={state.sortOrder}
                   />
                 </motion.div>
               ))}
@@ -158,6 +159,7 @@ export function BoardList(props: BoardListProps) {
                 threadType={
                   thread.boardType as "job-board" | "dev-board" | undefined
                 }
+                sortOrder={state.sortOrder}
               />
               {index < filteredThreads.length - 1 && (
                 <Separator className="my-1" />

@@ -6,6 +6,7 @@ import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/utils/dayjs";
+import { SortOrder } from "@/store/thread-store";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import {
   Archive,
@@ -25,32 +26,32 @@ type ContentListItemProps = {
   className?: string;
   showBoardBadge?: boolean;
   threadType?: "job-board" | "dev-board";
+  sortOrder?: SortOrder;
 };
 
-export function ContentListItem({
-  data,
-  href,
-  className,
-  showBoardBadge,
-  threadType,
-}: ContentListItemProps) {
+export function ContentListItem(props: ContentListItemProps) {
   const t = useTranslations();
+
+  const displayDate =
+    props.sortOrder === "recentlyActive"
+      ? props.data.updatedAt
+      : props.data.createdAt;
 
   const content = (
     <div
       className={cn(
         "group border-border bg-card hover:bg-muted/85 flex gap-3 rounded-md border p-3 transition-colors md:gap-4 md:p-4",
-        className,
+        props.className,
       )}
     >
       {/* Thumbnail - Hidden on mobile, fixed 128px width on md+ */}
       <div className="bg-muted relative hidden h-20 w-32 shrink-0 overflow-hidden rounded md:block">
-        {data.imageUrl ? (
+        {props.data.imageUrl ? (
           <Image
-            src={data.imageUrl}
-            alt={data.name}
+            src={props.data.imageUrl}
+            alt={props.data.name}
             fill
-            unoptimized={data.imageUrl.includes(".gif")}
+            unoptimized={props.data.imageUrl.includes(".gif")}
             className="object-cover"
             sizes="128px"
             loading="lazy"
@@ -67,38 +68,42 @@ export function ContentListItem({
         {/* Title Row */}
         <div className="flex items-start gap-2">
           <h3 className="line-clamp-1 flex-1 text-base font-semibold group-hover:underline">
-            {data.name}
+            {props.data.name}
           </h3>
           <div className="flex shrink-0 items-center gap-2">
-            {showBoardBadge && threadType && (
+            {props.showBoardBadge && props.threadType && (
               <Badge
-                variant={threadType === "job-board" ? "default" : "secondary"}
+                variant={
+                  props.threadType === "job-board" ? "default" : "secondary"
+                }
                 className="text-xs"
               >
-                {threadType === "job-board"
+                {props.threadType === "job-board"
                   ? t("MARKETPLACE.BADGE.JOB")
                   : t("MARKETPLACE.BADGE.DEV")}
               </Badge>
             )}
-            {data.archived && (
+            {props.data.archived && (
               <Badge
                 variant="secondary"
                 className="gap-1 text-xs"
                 title={
-                  data.archivedAt
-                    ? dayjs(data.archivedAt).format("MMMM D, YYYY [at] h:mm A")
+                  props.data.archivedAt
+                    ? dayjs(props.data.archivedAt).format(
+                        "MMMM D, YYYY [at] h:mm A",
+                      )
                     : undefined
                 }
               >
                 <Archive className="h-3 w-3" />
-                {data.archivedAt
+                {props.data.archivedAt
                   ? t("SHOWCASE.ARCHIVED_AT", {
-                      date: dayjs(data.archivedAt).fromNow(),
+                      date: dayjs(props.data.archivedAt).fromNow(),
                     })
                   : t("SHOWCASE.ARCHIVED")}
               </Badge>
             )}
-            {data.locked && (
+            {props.data.locked && (
               <Badge variant="outline" className="gap-1 text-xs">
                 <Lock className="h-3 w-3" />
                 {t("SHOWCASE.LOCKED")}
@@ -108,9 +113,9 @@ export function ContentListItem({
         </div>
 
         {/* Tags Row */}
-        {data.tags.length > 0 && (
+        {props.data.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {data.tags.map((tag) => (
+            {props.data.tags.map((tag) => (
               <Badge key={tag.id} className="text-xs" variant={"outline"}>
                 {tag.name} {tag.emoji.name}
               </Badge>
@@ -119,9 +124,9 @@ export function ContentListItem({
         )}
 
         {/* Preview Text */}
-        {data.content && (
+        {props.data.content && (
           <DiscordMarkdown
-            content={data.content}
+            content={props.data.content}
             className="text-muted-foreground line-clamp-2 text-sm"
           />
         )}
@@ -134,14 +139,14 @@ export function ContentListItem({
               e.stopPropagation();
             }}
           >
-            <DiscordUser user={data.author} />
+            <DiscordUser user={props.data.author} />
           </div>
 
           <div className="text-muted-foreground flex items-center gap-2 text-xs md:gap-4">
-            {data.firstMessage?.reactions &&
-              data.firstMessage.reactions.length > 0 && (
+            {props.data.firstMessage?.reactions &&
+              props.data.firstMessage.reactions.length > 0 && (
                 <div className="hover:text-foreground flex items-center gap-1">
-                  {data.firstMessage.reactions
+                  {props.data.firstMessage.reactions
                     .slice(0, 3)
                     .map((reaction, idx) => (
                       <span key={idx} className="text-base">
@@ -149,7 +154,7 @@ export function ContentListItem({
                       </span>
                     ))}
                   <span className="ml-1">
-                    {data.firstMessage.reactions.reduce(
+                    {props.data.firstMessage.reactions.reduce(
                       (sum, r) => sum + r.count,
                       0,
                     )}
@@ -159,21 +164,23 @@ export function ContentListItem({
             <div className="hover:text-foreground flex items-center gap-1.5">
               <MessageCircle className="h-3.5 w-3.5" />
               <span>
-                {t("SHOWCASE.MESSAGES_COUNT", { count: data.messageCount })}
+                {t("SHOWCASE.MESSAGES_COUNT", {
+                  count: props.data.messageCount,
+                })}
               </span>
             </div>
             <div className="hover:text-foreground flex items-center gap-1.5">
               <Users className="h-3.5 w-3.5" />
               <span>
-                {t("SHOWCASE.MEMBERS_COUNT", { count: data.memberCount })}
+                {t("SHOWCASE.MEMBERS_COUNT", { count: props.data.memberCount })}
               </span>
             </div>
             <div
               className="hover:text-foreground flex items-center gap-1.5"
-              title={dayjs(data.createdAt).format("MMMM D, YYYY [at] h:mm A")}
+              title={dayjs(displayDate).format("MMMM D, YYYY [at] h:mm A")}
             >
               <Calendar className="h-3.5 w-3.5" />
-              <span>{dayjs(data.createdAt).fromNow()}</span>
+              <span>{dayjs(displayDate).fromNow()}</span>
             </div>
           </div>
         </div>
@@ -181,9 +188,9 @@ export function ContentListItem({
     </div>
   );
 
-  if (href) {
+  if (props.href) {
     return (
-      <Link href={href} className="block">
+      <Link href={props.href} className="block">
         {content}
       </Link>
     );
