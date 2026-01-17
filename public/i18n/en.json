@@ -344,6 +344,7 @@
       "CLEAR_FILTERS": "Clear filters",
       "SORT_RECENTLY_ACTIVE": "Recently Active",
       "SORT_DATE_POSTED": "Date Posted",
+      "SORT_OLDEST": "Oldest first",
       "STATUS": "Status",
       "ARCHIVED_ALL": "All",
       "ARCHIVED_ACTIVE": "Active",
