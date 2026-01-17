@@ -8,6 +8,7 @@ import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import {
   Archive,
   Calendar,
+  Clock,
   ExternalLink,
   Lock,
   MessageCircle,
@@ -118,8 +119,27 @@ export function ThreadHeader(props: ThreadHeaderProps) {
               }
             >
               <Calendar className="h-4 w-4" />
-              <span>{dayjs(props.thread.createdAt).fromNow()}</span>
+              <span>
+                {t("SHOWCASE.CREATED_AT", {
+                  date: dayjs(props.thread.createdAt).fromNow(),
+                })}
+              </span>
             </div>
+            {props.thread.updatedAt && (
+              <div
+                className="flex items-center gap-1.5"
+                title={dayjs(props.thread.updatedAt).format(
+                  "MMMM D, YYYY [at] h:mm A",
+                )}
+              >
+                <Clock className="h-4 w-4" />
+                <span>
+                  {t("SHOWCASE.UPDATED_AT", {
+                    date: dayjs(props.thread.updatedAt).fromNow(),
+                  })}
+                </span>
+              </div>
+            )}
             <Link
               href={getDiscordChannelLink(props.thread.id)}
               target="_blank"
