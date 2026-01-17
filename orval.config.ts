@@ -14,6 +14,7 @@ export default defineConfig({
           path: "./src/lib/custom-fetch.ts",
           name: "customFetch",
         },
+        aliasCombinedTypes: true,
       },
     },
     hooks: { afterAllFilesWrite: "prettier --write" },

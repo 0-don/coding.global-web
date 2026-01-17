@@ -7,6 +7,7 @@ import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/utils/dayjs";
+import { SortOrder } from "@/store/thread-store";
 import {
   GetApiByGuildIdNews200Item,
   GetApiByGuildIdThreadByThreadType200Item,
@@ -39,6 +40,7 @@ type ThreadCardProps = BaseContentCardProps & {
   href?: ComponentProps<typeof Link>["href"];
   showBoardBadge?: boolean;
   threadType?: "job-board" | "dev-board";
+  sortOrder?: SortOrder;
 };
 
 type ContentCardProps = MessageCardProps | ThreadCardProps;
@@ -222,11 +224,19 @@ export function ContentCard(props: ContentCardProps) {
 
               <div
                 className="hover:text-foreground flex items-center gap-2"
-                title={dayjs(props.data.createdAt).format(
-                  "MMMM D, YYYY [at] h:mm A",
-                )}
+                title={dayjs(
+                  props.sortOrder === "recentlyActive"
+                    ? props.data.updatedAt
+                    : props.data.createdAt,
+                ).format("MMMM D, YYYY [at] h:mm A")}
               >
-                <span>{dayjs(props.data.createdAt).fromNow()}</span>
+                <span>
+                  {dayjs(
+                    props.sortOrder === "recentlyActive"
+                      ? props.data.updatedAt
+                      : props.data.createdAt,
+                  ).fromNow()}
+                </span>
                 <Calendar className="h-4 w-4" />
               </div>
             </div>
