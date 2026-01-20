@@ -36,9 +36,7 @@ const withNextIntl = createNextIntlPlugin({
 
 const configWithNextIntl = withNextIntl(nextConfig);
 
-console.log(process.env.POSTHOG_API_KEY, process.env.POSTHOG_ENV_ID);
-
-export default !process.env.STANDALONE
+export default process.env.STANDALONE
   ? withPostHogConfig(configWithNextIntl, {
       personalApiKey: process.env.POSTHOG_API_KEY,
       envId: process.env.POSTHOG_ENV_ID,
