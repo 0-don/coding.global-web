@@ -16,5 +16,7 @@ declare namespace NodeJS {
     DISCORD_CLIENT_SECRET: string;
 
     NEXT_PUBLIC_POSTHOG_KEY: string;
+    POSTHOG_API_KEY: string;
+    POSTHOG_ENV_ID: string;
   }
 }

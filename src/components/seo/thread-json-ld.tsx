@@ -1,4 +1,4 @@
-import { buildDiscussionForumPostingSchema } from "@/lib/structured-data";
+import { buildDiscussionForumPostingSchema } from "@/lib/config/structured-data";
 import {
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,

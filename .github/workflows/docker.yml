@@ -35,6 +35,8 @@ jobs:
           echo NEXT_PUBLIC_GUILD_ID=${{ secrets.NEXT_PUBLIC_GUILD_ID }} >> .env
 
           echo NEXT_PUBLIC_POSTHOG_KEY=${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }} >> .env
+          echo POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }} >> .env
+          echo POSTHOG_ENV_ID=${{ secrets.POSTHOG_ENV_ID }} >> .env
 
       # - name: Reset DB
       #   run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true

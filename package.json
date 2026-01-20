@@ -29,6 +29,7 @@
     "country-flag-icons": "1.6.4",
     "dayjs": "1.11.19",
     "drizzle-orm": "0.45.1",
+    "@posthog/nextjs-config": "1.7.5",
     "drizzle-typebox": "0.3.3",
     "elysia": "1.4.22",
     "fumadocs-core": "16.4.7",

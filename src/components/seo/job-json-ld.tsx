@@ -1,4 +1,7 @@
-import { buildJobPostingSchema, JobPostingData } from "@/lib/structured-data";
+import {
+  buildJobPostingSchema,
+  JobPostingData,
+} from "@/lib/config/structured-data";
 
 interface JobJsonLdProps {
   data: JobPostingData;

@@ -12,7 +12,7 @@ import {
   Person,
   WithContext,
 } from "schema-dts";
-import { getDiscordUserLink } from "./utils/base";
+import { getDiscordUserLink } from "../utils/base";
 
 type Author = {
   id: string;

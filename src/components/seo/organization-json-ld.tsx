@@ -1,4 +1,4 @@
-import { buildOrganizationSchema } from "@/lib/structured-data";
+import { buildOrganizationSchema } from "@/lib/config/structured-data";
 
 export function OrganizationJsonLd() {
   const data = buildOrganizationSchema();
