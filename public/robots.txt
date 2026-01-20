@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+# Block API routes
+Disallow: /api/
+
+Sitemap: https://coding.global/sitemap.xml

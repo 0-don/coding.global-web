@@ -1,4 +1,6 @@
 import { BoardDetail } from "@/components/pages/marketplace/board-detail";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JobJsonLd } from "@/components/seo/job-json-ld";
 import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
@@ -58,10 +60,30 @@ export default async function JobBoardDetailPage(props: {
   const messages = messagesData?.pages?.[0]?.messages ?? [];
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/marketplace/job-board/${params.id}`;
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const breadcrumbs = [
+    { name: "Home", url: `${baseUrl}/${params.locale}` },
+    { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
+    { name: "Job Board", url: `${baseUrl}/${params.locale}/marketplace/job-board` },
+    { name: thread?.name || "Job Listing" },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       {thread && (
-        <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
+        <>
+          <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
+          <JobJsonLd
+            data={{
+              title: thread.name,
+              description: thread.content || thread.name,
+              datePosted: thread.createdAt || thread.updatedAt,
+              employerName: thread.author.displayName || thread.author.username,
+              pageUrl,
+            }}
+          />
+        </>
       )}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <BoardDetail threadId={params.id} threadType="job-board" />

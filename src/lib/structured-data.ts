@@ -3,9 +3,12 @@ import {
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
 import {
+  BreadcrumbList,
   Comment,
   DiscussionForumPosting,
   InteractionCounter,
+  JobPosting,
+  Organization,
   Person,
   WithContext,
 } from "schema-dts";
@@ -111,4 +114,60 @@ export function buildDiscussionForumPostingSchema(
   }
 
   return schema;
+}
+
+export function buildOrganizationSchema(): WithContext<Organization> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: process.env.NEXT_PUBLIC_APP_NAME || "Coding Global",
+    url: process.env.NEXT_PUBLIC_URL,
+    logo: `${process.env.NEXT_PUBLIC_URL}/images/logo.gif`,
+    sameAs: ["https://discord.gg/coding"],
+  };
+}
+
+export type BreadcrumbItem = {
+  name: string;
+  url?: string;
+};
+
+export function buildBreadcrumbListSchema(
+  items: BreadcrumbItem[],
+): WithContext<BreadcrumbList> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 1,
+      name: item.name,
+      ...(item.url && { item: item.url }),
+    })),
+  };
+}
+
+export type JobPostingData = {
+  title: string;
+  description: string;
+  datePosted: string;
+  employerName: string;
+  pageUrl: string;
+};
+
+export function buildJobPostingSchema(
+  data: JobPostingData,
+): WithContext<JobPosting> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: data.title,
+    description: data.description,
+    datePosted: data.datePosted,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: data.employerName,
+    },
+    url: data.pageUrl,
+  };
 }
