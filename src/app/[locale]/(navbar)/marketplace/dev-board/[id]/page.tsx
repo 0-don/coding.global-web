@@ -21,11 +21,16 @@ export async function generateMetadata(props: {
     getTranslations({ locale }),
     getThread(params.id, "dev-board"),
   ]);
-  return getThreadPageMetadata(thread, locale, {
-    title: t("MARKETPLACE.DEV_BOARD.META.TITLE"),
-    description: t("MARKETPLACE.DEV_BOARD.META.DESCRIPTION"),
-    keywords: t("MARKETPLACE.DEV_BOARD.META.KEYWORDS"),
-  });
+  return getThreadPageMetadata(
+    thread,
+    locale,
+    {
+      title: t("MARKETPLACE.DEV_BOARD.META.TITLE"),
+      description: t("MARKETPLACE.DEV_BOARD.META.DESCRIPTION"),
+      keywords: t("MARKETPLACE.DEV_BOARD.META.KEYWORDS"),
+    },
+    `/${locale}/marketplace/dev-board/${params.id}`,
+  );
 }
 
 export default async function DevBoardDetailPage(props: {

@@ -68,7 +68,12 @@ export async function generateMetadata(props: {
             keywords: t("MARKETPLACE.DEV_BOARD.META.KEYWORDS"),
           };
 
-    return getThreadPageMetadata(thread, locale, fallback);
+    return getThreadPageMetadata(
+      thread,
+      locale,
+      fallback,
+      `/${locale}/marketplace/${params.id}`,
+    );
   }
 
   return getPageMetadata({
@@ -76,6 +81,7 @@ export async function generateMetadata(props: {
     title: t("MARKETPLACE.META.TITLE"),
     description: t("MARKETPLACE.META.DESCRIPTION"),
     keywords: t("MARKETPLACE.META.KEYWORDS"),
+    path: `/${locale}/marketplace/${params.id}`,
   });
 }
 

@@ -38,11 +38,16 @@ export async function generateMetadata(props: {
     getThread(params.id, params.language),
   ]);
 
-  return getThreadPageMetadata(thread, locale, {
-    title: t(`CODING.${translationKey}.META.TITLE`),
-    description: t(`CODING.${translationKey}.META.DESCRIPTION`),
-    keywords: t(`CODING.${translationKey}.META.KEYWORDS`),
-  });
+  return getThreadPageMetadata(
+    thread,
+    locale,
+    {
+      title: t(`CODING.${translationKey}.META.TITLE`),
+      description: t(`CODING.${translationKey}.META.DESCRIPTION`),
+      keywords: t(`CODING.${translationKey}.META.KEYWORDS`),
+    },
+    `/${locale}/community/coding/${params.language}/${params.id}`,
+  );
 }
 
 export default async function ProgrammingLanguageDetailPage(props: {

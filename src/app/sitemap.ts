@@ -10,6 +10,38 @@ import { Locale } from "next-intl";
 
 export const revalidate = 3600;
 
+type SitemapEntryOptions = {
+  priority?: number;
+  changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"];
+  lastModified?: Date;
+};
+
+function getRoutePriority(route: string): SitemapEntryOptions {
+  // Homepage gets highest priority
+  if (route === "/") {
+    return { priority: 1.0, changeFrequency: "daily" };
+  }
+  // Main category/section pages
+  if (
+    [
+      "/community/showcase",
+      "/community/coding",
+      "/marketplace",
+      "/marketplace/job-board",
+      "/marketplace/dev-board",
+      "/resources",
+    ].includes(route)
+  ) {
+    return { priority: 0.8, changeFrequency: "daily" };
+  }
+  // Sub-pages like rules, team, news, guides
+  if (route.includes("/community/") || route.includes("/resources/")) {
+    return { priority: 0.7, changeFrequency: "weekly" };
+  }
+  // Default for other static pages
+  return { priority: 0.5, changeFrequency: "weekly" };
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = Object.keys(pathnames).filter(
     (route) => !route.includes("["),
@@ -18,7 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   staticRoutes.forEach((route) => {
-    entries.push(...getEntries(route as Pathname));
+    const options = getRoutePriority(route);
+    entries.push(...getEntries(route as Pathname, options));
   });
 
   // Fetch threads sequentially to avoid overwhelming the API
@@ -46,7 +79,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       threads.forEach((thread) => {
         const pathname = getThreadPathname(threadType, thread.id);
         if (pathname) {
-          entries.push(...getEntries(pathname));
+          entries.push(
+            ...getEntries(pathname, {
+              priority: 0.6,
+              changeFrequency: "weekly",
+              lastModified: thread.updatedAt
+                ? new Date(thread.updatedAt)
+                : undefined,
+            }),
+          );
         }
       });
     } catch (error) {
@@ -87,10 +128,15 @@ function getThreadPathname(
   }
 }
 
-function getEntries(href: Pathname): MetadataRoute.Sitemap {
+function getEntries(
+  href: Pathname,
+  options?: SitemapEntryOptions,
+): MetadataRoute.Sitemap {
   return routing.locales.map((locale) => ({
     url: getUrl(href, locale),
-    lastModified: new Date(),
+    lastModified: options?.lastModified ?? new Date(),
+    ...(options?.priority !== undefined && { priority: options.priority }),
+    ...(options?.changeFrequency && { changeFrequency: options.changeFrequency }),
     alternates: {
       languages: Object.fromEntries(
         routing.locales.map((cur) => [cur, getUrl(href, cur)]),
