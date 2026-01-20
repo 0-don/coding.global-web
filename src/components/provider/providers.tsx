@@ -19,20 +19,20 @@ export function Providers(props: { children: ReactNode }) {
   );
 
   return (
-    <PostHogProvider>
+    <QueryProvider>
       <JotaiProvider>
         <NavigationStoreProvider data={navigationStore}>
           <LanguageProvider>
             <DayjsProvider>
-              <QueryProvider>
+              <PostHogProvider>
                 <ThemeProvider>
                   <SessionProvider>{props.children}</SessionProvider>
                 </ThemeProvider>
-              </QueryProvider>
+              </PostHogProvider>
             </DayjsProvider>
           </LanguageProvider>
         </NavigationStoreProvider>
       </JotaiProvider>
-    </PostHogProvider>
+    </QueryProvider>
   );
 }
