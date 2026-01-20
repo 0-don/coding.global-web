@@ -3,7 +3,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   output: process.env.STANDALONE ? "standalone" : undefined,
-  // trailingSlash: true,
+  skipTrailingSlashRedirect: true,
 
   staticPageGenerationTimeout: 300, // 3 minutes for sitemap generation
 
@@ -12,6 +12,19 @@ const nextConfig: NextConfig = {
     qualities: [10, 25, 50, 75, 90, 100],
     minimumCacheTTL: 60 * 60 * 24,
     remotePatterns: [{ hostname: "*.discordapp.com" }],
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://eu-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://eu.i.posthog.com/:path*",
+      },
+    ];
   },
 };
 
