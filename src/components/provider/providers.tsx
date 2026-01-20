@@ -7,6 +7,7 @@ import { ReactNode, use } from "react";
 import { DayjsProvider } from "./dayjs-provider";
 import { JotaiProvider } from "./jotai-provider";
 import { LanguageProvider } from "./language-provider";
+import { PostHogProvider } from "./posthog-provider";
 import { QueryProvider } from "./query-provider";
 import { SessionProvider } from "./session-provider";
 import { NavigationStoreProvider } from "./store/navigation-store-provider";
@@ -18,18 +19,20 @@ export function Providers(props: { children: ReactNode }) {
   );
 
   return (
-    <JotaiProvider>
-      <NavigationStoreProvider data={navigationStore}>
-        <LanguageProvider>
-          <DayjsProvider>
-            <QueryProvider>
-              <ThemeProvider>
-                <SessionProvider>{props.children}</SessionProvider>
-              </ThemeProvider>
-            </QueryProvider>
-          </DayjsProvider>
-        </LanguageProvider>
-      </NavigationStoreProvider>
-    </JotaiProvider>
+    <PostHogProvider>
+      <JotaiProvider>
+        <NavigationStoreProvider data={navigationStore}>
+          <LanguageProvider>
+            <DayjsProvider>
+              <QueryProvider>
+                <ThemeProvider>
+                  <SessionProvider>{props.children}</SessionProvider>
+                </ThemeProvider>
+              </QueryProvider>
+            </DayjsProvider>
+          </LanguageProvider>
+        </NavigationStoreProvider>
+      </JotaiProvider>
+    </PostHogProvider>
   );
 }

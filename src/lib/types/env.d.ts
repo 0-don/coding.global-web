@@ -14,5 +14,8 @@ declare namespace NodeJS {
 
     DISCORD_CLIENT_ID: string;
     DISCORD_CLIENT_SECRET: string;
+
+    NEXT_PUBLIC_POSTHOG_KEY: string;
+    NEXT_PUBLIC_POSTHOG_HOST: string;
   }
 }
