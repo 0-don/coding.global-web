@@ -12,8 +12,8 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Match all pathnames except forja
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+  // Match all pathnames except:
+  // - … if they start with `/api`, `/trpc`, `/_next`, `/_vercel` or `/ingest`
   // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+  matcher: "/((?!api|trpc|_next|_vercel|ingest|.*\\..*).*)",
 };
