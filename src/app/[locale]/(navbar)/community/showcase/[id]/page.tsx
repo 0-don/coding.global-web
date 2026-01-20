@@ -21,11 +21,16 @@ export async function generateMetadata(props: {
     getTranslations({ locale }),
     getThread(params.id, "showcase"),
   ]);
-  return getThreadPageMetadata(thread, locale, {
-    title: t("SHOWCASE.META.TITLE"),
-    description: t("SHOWCASE.META.DESCRIPTION"),
-    keywords: t("SHOWCASE.META.KEYWORDS"),
-  });
+  return getThreadPageMetadata(
+    thread,
+    locale,
+    {
+      title: t("SHOWCASE.META.TITLE"),
+      description: t("SHOWCASE.META.DESCRIPTION"),
+      keywords: t("SHOWCASE.META.KEYWORDS"),
+    },
+    `/${locale}/community/showcase/${params.id}`,
+  );
 }
 
 export default async function ShowcaseDetailPage(props: {
