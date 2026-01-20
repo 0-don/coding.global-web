@@ -1,4 +1,20 @@
 services:
+  posthog-proxy:
+    container_name: posthog-proxy
+    image: caddy:2-alpine
+    restart: always
+    networks:
+      - proxy
+    command: |
+      caddy reverse-proxy --from :8080 --to https://eu.i.posthog.com:443 \
+        --header-up "Host: eu.i.posthog.com"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.posthog-proxy.rule=Host(`ph.coding.global`)"
+      - "traefik.http.routers.posthog-proxy.entrypoints=websecure"
+      - "traefik.http.routers.posthog-proxy.tls.certresolver=letsencrypt"
+      - "traefik.http.services.posthog-proxy.loadbalancer.server.port=8080"
+
   coding-global-web:
     container_name: coding-global-web
     restart: always

@@ -14,6 +14,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { toast } from "sonner";
 
 export function useChatsInfiniteQuery() {
@@ -42,6 +43,9 @@ export function useChatAddMutation() {
     mutationFn: async (args: typeof commentInsertSchema.static) =>
       handleElysia(await rpc.api.chat.post(args))!,
     onSuccess: (newComment) => {
+      posthog.capture("chat_message_sent", {
+        message_length: newComment?.content?.length,
+      });
       queryClient.setQueryData(
         queryKeys.chats(),
         (oldData: InfiniteData<Comments[]> | undefined) => {
@@ -67,6 +71,7 @@ export function useChatDeleteMutation() {
     mutationFn: async (id: number) =>
       handleElysia(await rpc.api.chat({ id }).delete()),
     onSuccess: (deletedComment) => {
+      posthog.capture("chat_message_deleted");
       queryClient.setQueryData(
         queryKeys.chats(),
         (oldData: InfiniteData<Comments[]> | undefined) => {

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import posthog from "posthog-js";
 import { useEffect, useState } from "react";
 import { AiOutlineLaptop } from "react-icons/ai";
 import { BsMoonStars } from "react-icons/bs";
@@ -23,6 +24,14 @@ export function ThemeToggle() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
+  const handleThemeChange = (newTheme: string) => {
+    posthog.capture("theme_changed", {
+      previous_theme: theme,
+      new_theme: newTheme,
+    });
+    setTheme(newTheme);
+  };
 
   return (
     <DropdownMenu>
@@ -48,21 +57,21 @@ export function ThemeToggle() {
       />
       <DropdownMenuContent align="end">
         <DropdownMenuItem
-          onClick={() => setTheme("light")}
+          onClick={() => handleThemeChange("light")}
           className={"cursor-pointer"}
         >
           <FiSun className="mr-2 size-4" />
           {t("MAIN.ENUM.LIGHT")}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setTheme("dark")}
+          onClick={() => handleThemeChange("dark")}
           className={"cursor-pointer"}
         >
           <BsMoonStars className="mr-2 size-4" />
           {t("MAIN.ENUM.DARK")}
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setTheme("system")}
+          onClick={() => handleThemeChange("system")}
           className={"cursor-pointer"}
         >
           <AiOutlineLaptop className="mr-2 size-4" />
