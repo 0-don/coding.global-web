@@ -53,9 +53,7 @@ const LANGUAGE_CONFIG: Record<
   other: { icon: HiOutlineCodeBracket, color: "#6B7280" },
 };
 
-function getTranslationKey(
-  language: ProgrammingThreadType
-): Uppercase<string> {
+function getTranslationKey(language: ProgrammingThreadType): Uppercase<string> {
   return language.toUpperCase().replace(/-/g, "-") as Uppercase<string>;
 }
 
@@ -93,10 +91,7 @@ function LanguageCard(props: LanguageCardProps) {
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg"
               style={{ backgroundColor: `${config.color}15` }}
             >
-              <Icon
-                className="h-6 w-6"
-                style={{ color: config.color }}
-              />
+              <Icon className="h-6 w-6" style={{ color: config.color }} />
             </div>
             <h3 className="text-lg font-semibold">
               {t(`CODING.${translationKey}.HEADING` as TranslationKey)}
@@ -125,9 +120,7 @@ export function CodingIndex() {
         className="mb-8"
       >
         <h1 className="mb-2 text-3xl font-bold">{t("CODING.HEADING")}</h1>
-        <p className="text-muted-foreground text-lg">
-          {t("CODING.SUBTITLE")}
-        </p>
+        <p className="text-muted-foreground text-lg">{t("CODING.SUBTITLE")}</p>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

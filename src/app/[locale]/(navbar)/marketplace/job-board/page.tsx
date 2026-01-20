@@ -30,7 +30,9 @@ export default async function JobBoardPage() {
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("job-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: "job-board" }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: "job-board" }).get(),
+        ),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey("job-board")),
   ]);

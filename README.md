@@ -14,16 +14,16 @@ A full-stack web platform for the **Coding Global** Discord community. Features 
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| Framework | Next.js 16 (App Router) |
-| Frontend | React 19, TypeScript, Tailwind CSS 4 |
-| Backend | Elysia with Eden Treaty |
-| Database | PostgreSQL + Drizzle ORM |
-| Auth | Better Auth (Discord OAuth) |
-| State | TanStack Query + Jotai |
-| Search | Orama |
-| i18n | next-intl |
+| Category  | Technology                           |
+| --------- | ------------------------------------ |
+| Framework | Next.js 16 (App Router)              |
+| Frontend  | React 19, TypeScript, Tailwind CSS 4 |
+| Backend   | Elysia with Eden Treaty              |
+| Database  | PostgreSQL + Drizzle ORM             |
+| Auth      | Better Auth (Discord OAuth)          |
+| State     | TanStack Query + Jotai               |
+| Search    | Orama                                |
+| i18n      | next-intl                            |
 
 ## Prerequisites
 
@@ -34,12 +34,14 @@ A full-stack web platform for the **Coding Global** Discord community. Features 
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/coding-global/coding.global-web.git
    cd coding.global-web
    ```
 
 2. Install dependencies:
+
    ```bash
    bun install
    ```
@@ -47,6 +49,7 @@ A full-stack web platform for the **Coding Global** Discord community. Features 
 3. Create a `.env` file with the required environment variables (see below)
 
 4. Run database migrations:
+
    ```bash
    bun run drizzle
    ```
@@ -81,15 +84,15 @@ NEXT_PUBLIC_GUILD_ID=your_discord_server_id
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `bun run dev` | Start development server |
-| `bun run build` | Build for production |
-| `bun run start` | Start production server |
-| `bun run drizzle` | Generate database migrations |
-| `bun run reset` | Reset database (dev only) |
-| `bun run lint` | Run ESLint |
-| `bun run format` | Format code with Prettier |
+| Command           | Description                           |
+| ----------------- | ------------------------------------- |
+| `bun run dev`     | Start development server              |
+| `bun run build`   | Build for production                  |
+| `bun run start`   | Start production server               |
+| `bun run drizzle` | Generate database migrations          |
+| `bun run reset`   | Reset database (dev only)             |
+| `bun run lint`    | Run ESLint                            |
+| `bun run format`  | Format code with Prettier             |
 | `bun run openapi` | Generate API client from OpenAPI spec |
 
 ## Project Structure

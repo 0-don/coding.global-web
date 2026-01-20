@@ -85,7 +85,9 @@ function FeatureCard(props: FeatureCardProps) {
               <CardTitle className="text-lg">{props.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground text-sm">{props.description}</p>
+              <p className="text-muted-foreground text-sm">
+                {props.description}
+              </p>
             </CardContent>
           </Card>
         </motion.div>

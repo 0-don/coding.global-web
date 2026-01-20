@@ -55,7 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  log(`[Sitemap] Threads fetched: ${results.join(", ")}. Total entries: ${entries.length}`);
+  log(
+    `[Sitemap] Threads fetched: ${results.join(", ")}. Total entries: ${entries.length}`,
+  );
   return entries;
 }
 

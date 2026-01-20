@@ -30,12 +30,16 @@ export default async function MarketplacePage() {
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("job-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: "job-board" }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: "job-board" }).get(),
+        ),
     }),
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("dev-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: "dev-board" }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: "dev-board" }).get(),
+        ),
     }),
   ]);
 

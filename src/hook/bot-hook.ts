@@ -44,7 +44,9 @@ export function useThreadQuery(threadType: ThreadType, threadId: string) {
   return useQuery({
     queryKey: queryKeys.thread(threadType, threadId),
     queryFn: async () =>
-      handleElysia(await rpc.api.bot.thread({ threadType })({ threadId }).get()),
+      handleElysia(
+        await rpc.api.bot.thread({ threadType })({ threadId }).get(),
+      ),
   });
 }
 

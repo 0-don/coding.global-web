@@ -30,7 +30,9 @@ export default async function ShowcasePage() {
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("showcase"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: "showcase" }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: "showcase" }).get(),
+        ),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey("showcase")),
     getTranslations(),

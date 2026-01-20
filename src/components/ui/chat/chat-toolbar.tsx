@@ -19,9 +19,7 @@ export function ChatToolbar({
       {...props}
     >
       <div
-        className={cn(
-          "relative flex items-end rounded-md border px-3 py-2",
-        )}
+        className={cn("relative flex items-end rounded-md border px-3 py-2")}
       >
         {children}
       </div>

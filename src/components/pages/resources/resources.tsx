@@ -17,17 +17,45 @@ import { motion, useInView } from "motion/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef } from "react";
-import { HiOutlineBolt, HiOutlineCpuChip, HiOutlineShieldCheck } from "react-icons/hi2";
+import {
+  HiOutlineBolt,
+  HiOutlineCpuChip,
+  HiOutlineShieldCheck,
+} from "react-icons/hi2";
 import { SiJavascript, SiPython } from "react-icons/si";
 
 const toc: TOCItemType[] = [
-  { url: "#programming-languages", title: msg("RESOURCES.TOC.PROGRAMMING_LANGUAGES"), depth: 2 },
-  { url: "#general-resources", title: msg("RESOURCES.TOC.GENERAL_RESOURCES"), depth: 2 },
-  { url: "#getting-started", title: msg("RESOURCES.TOC.GETTING_STARTED"), depth: 2 },
-  { url: "#free-ai-assistants", title: msg("RESOURCES.TOC.FREE_AI_ASSISTANTS"), depth: 2 },
-  { url: "#code-like-a-pro", title: msg("RESOURCES.TOC.CODE_LIKE_A_PRO"), depth: 2 },
+  {
+    url: "#programming-languages",
+    title: msg("RESOURCES.TOC.PROGRAMMING_LANGUAGES"),
+    depth: 2,
+  },
+  {
+    url: "#general-resources",
+    title: msg("RESOURCES.TOC.GENERAL_RESOURCES"),
+    depth: 2,
+  },
+  {
+    url: "#getting-started",
+    title: msg("RESOURCES.TOC.GETTING_STARTED"),
+    depth: 2,
+  },
+  {
+    url: "#free-ai-assistants",
+    title: msg("RESOURCES.TOC.FREE_AI_ASSISTANTS"),
+    depth: 2,
+  },
+  {
+    url: "#code-like-a-pro",
+    title: msg("RESOURCES.TOC.CODE_LIKE_A_PRO"),
+    depth: 2,
+  },
   { url: "#utilities", title: msg("RESOURCES.TOC.UTILITIES"), depth: 2 },
-  { url: "#discord-text-formatting", title: msg("RESOURCES.TOC.DISCORD_TEXT_FORMATTING"), depth: 2 },
+  {
+    url: "#discord-text-formatting",
+    title: msg("RESOURCES.TOC.DISCORD_TEXT_FORMATTING"),
+    depth: 2,
+  },
 ];
 
 export const resourcesTOC = createTOC(toc);
@@ -106,27 +134,85 @@ const utilityLinks = [
 ];
 
 const codeResources = [
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.HTML"), site: "W3Schools.com", url: "https://w3schools.com/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.CSS"), site: "Codecademy.com", url: "https://www.codecademy.com/learn/learn-css" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.JAVASCRIPT"), site: "freecodecamp.org", url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.REACT"), site: "react.dev", url: "https://react.dev/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.PYTHON"), site: "learnpython.org", url: "https://learnpython.org/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.JAVA"), site: "sololearn.com", url: "https://www.sololearn.com/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.PHP"), site: "php.net", url: "https://www.php.net/manual/en/tutorial.php" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.CYBERSECURITY"), site: "tryhackme.com", url: "https://tryhackme.com/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.C"), site: "learn-c.org", url: "https://learn-c.org/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.CPP"), site: "learncpp.com", url: "https://www.learncpp.com/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.AWS"), site: "skillbuilder.aws", url: "https://skillbuilder.aws/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.AI_ML"), site: "coursera.org", url: "https://www.coursera.org/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.GIT"), site: "learngitbranching.js.org", url: "https://learngitbranching.js.org/" },
-  { languageKey: msg("RESOURCES.CODE_RESOURCES.SQL"), site: "sqlbolt.com", url: "https://sqlbolt.com/" },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.HTML"),
+    site: "W3Schools.com",
+    url: "https://w3schools.com/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.CSS"),
+    site: "Codecademy.com",
+    url: "https://www.codecademy.com/learn/learn-css",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.JAVASCRIPT"),
+    site: "freecodecamp.org",
+    url: "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.REACT"),
+    site: "react.dev",
+    url: "https://react.dev/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.PYTHON"),
+    site: "learnpython.org",
+    url: "https://learnpython.org/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.JAVA"),
+    site: "sololearn.com",
+    url: "https://www.sololearn.com/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.PHP"),
+    site: "php.net",
+    url: "https://www.php.net/manual/en/tutorial.php",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.CYBERSECURITY"),
+    site: "tryhackme.com",
+    url: "https://tryhackme.com/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.C"),
+    site: "learn-c.org",
+    url: "https://learn-c.org/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.CPP"),
+    site: "learncpp.com",
+    url: "https://www.learncpp.com/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.AWS"),
+    site: "skillbuilder.aws",
+    url: "https://skillbuilder.aws/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.AI_ML"),
+    site: "coursera.org",
+    url: "https://www.coursera.org/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.GIT"),
+    site: "learngitbranching.js.org",
+    url: "https://learngitbranching.js.org/",
+  },
+  {
+    languageKey: msg("RESOURCES.CODE_RESOURCES.SQL"),
+    site: "sqlbolt.com",
+    url: "https://sqlbolt.com/",
+  },
 ];
 
 const resourceCategories = [
   {
     id: "programming-languages",
     titleKey: msg("RESOURCES.CATEGORIES.PROGRAMMING_LANGUAGES.TITLE"),
-    descriptionKey: msg("RESOURCES.CATEGORIES.PROGRAMMING_LANGUAGES.DESCRIPTION"),
+    descriptionKey: msg(
+      "RESOURCES.CATEGORIES.PROGRAMMING_LANGUAGES.DESCRIPTION",
+    ),
     items: [
       {
         nameKey: msg("RESOURCES.ITEMS.JAVASCRIPT.NAME"),
@@ -186,9 +272,7 @@ export function Resources() {
         className="mb-8"
       >
         <h1 className="mb-2 text-3xl font-bold">{t("RESOURCES.TITLE")}</h1>
-        <p className="text-muted-foreground">
-          {t("RESOURCES.SUBTITLE")}
-        </p>
+        <p className="text-muted-foreground">{t("RESOURCES.SUBTITLE")}</p>
       </motion.div>
 
       <div className="grid gap-8">
@@ -199,7 +283,9 @@ export function Resources() {
             className="scroll-mt-20"
             delay={categoryIndex * 0.1}
           >
-            <h2 className="mb-2 text-xl font-semibold">{t(category.titleKey)}</h2>
+            <h2 className="mb-2 text-xl font-semibold">
+              {t(category.titleKey)}
+            </h2>
             <p className="text-muted-foreground mb-4 text-sm">
               {t(category.descriptionKey)}
             </p>
@@ -239,7 +325,9 @@ export function Resources() {
 
         {/* General Links */}
         <AnimatedSection id="getting-started" className="scroll-mt-20">
-          <h2 className="mb-2 text-xl font-semibold">{t("RESOURCES.SECTIONS.GETTING_STARTED.TITLE")}</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            {t("RESOURCES.SECTIONS.GETTING_STARTED.TITLE")}
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             {t("RESOURCES.SECTIONS.GETTING_STARTED.DESCRIPTION")}
           </p>
@@ -275,7 +363,9 @@ export function Resources() {
 
         {/* Free AIs */}
         <AnimatedSection id="free-ai-assistants" className="scroll-mt-20">
-          <h2 className="mb-2 text-xl font-semibold">{t("RESOURCES.SECTIONS.FREE_AI_ASSISTANTS.TITLE")}</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            {t("RESOURCES.SECTIONS.FREE_AI_ASSISTANTS.TITLE")}
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             {t("RESOURCES.SECTIONS.FREE_AI_ASSISTANTS.DESCRIPTION")}
           </p>
@@ -302,7 +392,9 @@ export function Resources() {
 
         {/* Code Like a Pro */}
         <AnimatedSection id="code-like-a-pro" className="scroll-mt-20">
-          <h2 className="mb-2 text-xl font-semibold">{t("RESOURCES.SECTIONS.CODE_LIKE_A_PRO.TITLE")}</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            {t("RESOURCES.SECTIONS.CODE_LIKE_A_PRO.TITLE")}
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             {t("RESOURCES.SECTIONS.CODE_LIKE_A_PRO.DESCRIPTION")}
           </p>
@@ -347,7 +439,9 @@ export function Resources() {
 
         {/* Utilities */}
         <AnimatedSection id="utilities" className="scroll-mt-20">
-          <h2 className="mb-2 text-xl font-semibold">{t("RESOURCES.SECTIONS.UTILITIES.TITLE")}</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            {t("RESOURCES.SECTIONS.UTILITIES.TITLE")}
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             {t("RESOURCES.SECTIONS.UTILITIES.DESCRIPTION")}
           </p>
@@ -383,7 +477,9 @@ export function Resources() {
 
         {/* Discord Text Formatting */}
         <AnimatedSection id="discord-text-formatting" className="scroll-mt-20">
-          <h2 className="mb-2 text-xl font-semibold">{t("RESOURCES.SECTIONS.DISCORD_TEXT_FORMATTING.TITLE")}</h2>
+          <h2 className="mb-2 text-xl font-semibold">
+            {t("RESOURCES.SECTIONS.DISCORD_TEXT_FORMATTING.TITLE")}
+          </h2>
           <p className="text-muted-foreground mb-4 text-sm">
             {t("RESOURCES.SECTIONS.DISCORD_TEXT_FORMATTING.DESCRIPTION")}
           </p>

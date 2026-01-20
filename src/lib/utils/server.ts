@@ -44,7 +44,9 @@ export async function getThread(
   threadType: ThreadType,
 ): Promise<GetApiByGuildIdThreadByThreadTypeByThreadId200 | null> {
   try {
-    const response = await rpc.api.bot.thread({ threadType })({ threadId }).get();
+    const response = await rpc.api.bot
+      .thread({ threadType })({ threadId })
+      .get();
     if (response.status === 200) {
       return response.data;
     }

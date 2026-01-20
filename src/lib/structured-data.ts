@@ -1,0 +1,114 @@
+import {
+  Comment,
+  DiscussionForumPosting,
+  InteractionCounter,
+  Person,
+  WithContext,
+} from "schema-dts";
+import {
+  GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
+} from "@/openapi";
+import { getDiscordUserLink } from "./utils/base";
+
+type Author = {
+  id: string;
+  displayName: string;
+  username: string;
+  avatarUrl: string;
+};
+
+function buildAuthorSchema(author: Author): Person {
+  return {
+    "@type": "Person",
+    name: author.displayName || author.username,
+    url: getDiscordUserLink(author.id),
+    image: author.avatarUrl,
+  };
+}
+
+function buildCommentSchema(
+  message: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
+): Comment | null {
+  if (!message.author) return null;
+
+  const comment: Comment = {
+    "@type": "Comment",
+    author: buildAuthorSchema(message.author),
+    datePublished: message.createdAt,
+    text: message.content,
+  };
+
+  if (message.editedAt) {
+    comment.dateModified = message.editedAt;
+  }
+
+  return comment;
+}
+
+function buildInteractionStatistics(
+  thread: GetApiByGuildIdThreadByThreadTypeByThreadId200,
+): InteractionCounter[] {
+  const stats: InteractionCounter[] = [];
+
+  stats.push({
+    "@type": "InteractionCounter",
+    interactionType: { "@type": "CommentAction" },
+    userInteractionCount: thread.messageCount,
+  });
+
+  if (thread.firstMessage?.reactions?.length) {
+    const totalReactions = thread.firstMessage.reactions.reduce(
+      (sum, r) => sum + r.count,
+      0,
+    );
+    stats.push({
+      "@type": "InteractionCounter",
+      interactionType: { "@type": "LikeAction" },
+      userInteractionCount: totalReactions,
+    });
+  }
+
+  return stats;
+}
+
+export function buildDiscussionForumPostingSchema(
+  thread: GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  messages: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[],
+  pageUrl: string,
+): WithContext<DiscussionForumPosting> {
+  const comments = messages
+    .slice(0, 10)
+    .map(buildCommentSchema)
+    .filter((c): c is Comment => c !== null);
+
+  const schema: WithContext<DiscussionForumPosting> = {
+    "@context": "https://schema.org",
+    "@type": "DiscussionForumPosting",
+    mainEntityOfPage: pageUrl,
+    headline: thread.name,
+    author: buildAuthorSchema(thread.author),
+    datePublished: thread.createdAt || thread.updatedAt,
+    url: pageUrl,
+    commentCount: thread.messageCount,
+    interactionStatistic: buildInteractionStatistics(thread),
+  };
+
+  if (thread.content) {
+    schema.text = thread.content;
+  }
+
+  if (thread.updatedAt && thread.updatedAt !== thread.createdAt) {
+    schema.dateModified = thread.updatedAt;
+  }
+
+  if (thread.imageUrl) {
+    schema.image = thread.imageUrl;
+  }
+
+  if (comments.length > 0) {
+    schema.comment = comments;
+  }
+
+  return schema;
+}

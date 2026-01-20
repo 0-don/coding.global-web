@@ -446,7 +446,9 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   if (!props.content) return null;
 
   if (!isClient) {
-    return <div className={`leading-snug ${props.className}`}>{props.content}</div>;
+    return (
+      <div className={`leading-snug ${props.className}`}>{props.content}</div>
+    );
   }
 
   const html = toHTML(props.content, {
