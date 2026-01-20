@@ -1,7 +1,7 @@
 import {
   BreadcrumbItem,
   buildBreadcrumbListSchema,
-} from "@/lib/structured-data";
+} from "@/lib/config/structured-data";
 
 interface BreadcrumbJsonLdProps {
   items: BreadcrumbItem[];

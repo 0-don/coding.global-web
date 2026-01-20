@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { useEffect } from "react";
 import { LuRefreshCw, LuTriangleAlert } from "react-icons/lu";
 
@@ -15,6 +17,10 @@ export default function Error(props: Props) {
   const t = useTranslations();
 
   useEffect(() => {
+    useEffect(() => {
+      posthog.captureException(props.error);
+    }, [props.error]);
+
     console.error(props.error);
   }, [props.error]);
 
