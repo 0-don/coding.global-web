@@ -1,14 +1,14 @@
 import {
+  GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
+} from "@/openapi";
+import {
   Comment,
   DiscussionForumPosting,
   InteractionCounter,
   Person,
   WithContext,
 } from "schema-dts";
-import {
-  GetApiByGuildIdThreadByThreadTypeByThreadId200,
-  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
-} from "@/openapi";
 import { getDiscordUserLink } from "./utils/base";
 
 type Author = {
