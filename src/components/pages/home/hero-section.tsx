@@ -8,6 +8,7 @@ import { getDiscordInviteLink } from "@/lib/utils/base";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
 
 function TypewriterText({
@@ -184,6 +185,11 @@ function InteractiveTerminal() {
     const trimmedCmd = cmd.trim().toLowerCase();
 
     if (!trimmedCmd) return;
+
+    posthog.capture("terminal_command_executed", {
+      command: trimmedCmd,
+      is_valid_command: !!availableCommands[trimmedCmd],
+    });
 
     // Add user command to history
     setCommands((prev) => [
@@ -519,12 +525,24 @@ export function HeroSection() {
           <Link
             href={getDiscordInviteLink()}
             className={cn(buttonVariants({ size: "lg" }))}
+            onClick={() =>
+              posthog.capture("hero_cta_clicked", {
+                cta_type: "primary",
+                destination: "discord",
+              })
+            }
           >
             {t("HOME.HERO_CTA_PRIMARY")}
           </Link>
           <Link
             href="/resources"
             className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+            onClick={() =>
+              posthog.capture("hero_cta_clicked", {
+                cta_type: "secondary",
+                destination: "resources",
+              })
+            }
           >
             {t("HOME.HERO_CTA_SECONDARY")}
           </Link>

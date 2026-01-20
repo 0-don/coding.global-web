@@ -5,8 +5,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
 import Link from "next/link";
+import posthog from "posthog-js";
+import { useRef } from "react";
 
 export function CtaSection() {
   const t = useTranslations();
@@ -37,6 +38,11 @@ export function CtaSection() {
           <Link
             href={getDiscordInviteLink()}
             className={cn(buttonVariants({ size: "lg" }), "text-lg")}
+            onClick={() =>
+              posthog.capture("cta_discord_clicked", {
+                section: "footer_cta",
+              })
+            }
           >
             {t("HOME.CTA_BUTTON")}
           </Link>

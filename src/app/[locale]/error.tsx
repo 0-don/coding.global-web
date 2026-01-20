@@ -17,6 +17,10 @@ export default function Error(props: Props) {
   const t = useTranslations();
 
   useEffect(() => {
+    posthog.capture("error_page_viewed", {
+      error_message: props.error.message,
+      error_digest: props.error.digest,
+    });
     posthog.captureException(props.error);
     console.error(props.error);
   }, [props.error]);

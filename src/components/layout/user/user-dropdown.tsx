@@ -14,6 +14,7 @@ import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
 import { deleteCookie, getCookies } from "cookies-next/client";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { ReactElement } from "react";
 import { IoLogOut } from "react-icons/io5";
 
@@ -40,6 +41,8 @@ export function UserDropdown({
   }
 
   const handleLogout = async () => {
+    posthog.capture("user_signed_out");
+
     // Clear all cookies
     Object.keys(getCookies() ?? {}).forEach((cookieName) =>
       deleteCookie(cookieName),

@@ -15,7 +15,8 @@ import { Link } from "@/i18n/navigation";
 import type { LinkHref } from "@/i18n/routing";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import posthog from "posthog-js";
+import { useEffect, useRef, useState } from "react";
 
 export function SidebarSearch() {
   const t = useTranslations();
@@ -23,10 +24,31 @@ export function SidebarSearch() {
   const { results, isLoading, isIndexLoaded } = useSearchQuery(query);
   const [open, setOpen] = useState(false);
 
-  const handleSelect = () => {
+  const lastTrackedQuery = useRef("");
+
+  const handleSelect = (result: { url: string; title: string; category: string }) => {
+    posthog.capture("search_result_clicked", {
+      query,
+      result_url: result.url,
+      result_title: result.title,
+      result_category: result.category,
+    });
     setOpen(false);
     setQuery("");
   };
+
+  useEffect(() => {
+    if (query && query.length >= 2 && query !== lastTrackedQuery.current) {
+      const timer = setTimeout(() => {
+        posthog.capture("search_performed", {
+          query,
+          results_count: results.length,
+        });
+        lastTrackedQuery.current = query;
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [query, results.length]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -82,7 +104,7 @@ export function SidebarSearch() {
                   <Link
                     key={result.url}
                     href={result.url as LinkHref}
-                    onClick={handleSelect}
+                    onClick={() => handleSelect(result)}
                   >
                     <CommandItem
                       value={result.url}

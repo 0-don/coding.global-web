@@ -11,6 +11,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { LANGUAGES } from "@/lib/config/constants";
 import { Locale, useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import posthog from "posthog-js";
 import { useTransition } from "react";
 
 export function LanguageToggle() {
@@ -26,6 +27,10 @@ export function LanguageToggle() {
   );
 
   function onLanguageChange(newLocale: Locale) {
+    posthog.capture("language_changed", {
+      previous_language: locale,
+      new_language: newLocale,
+    });
     startTransition(() => {
       router.replace(
         // @ts-expect-error - dynamic params are passed separately
