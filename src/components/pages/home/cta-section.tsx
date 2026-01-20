@@ -35,11 +35,11 @@ export function CtaSection() {
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
           <Link
-              href={getDiscordInviteLink()}
-              className={cn(buttonVariants({ size: "lg" }), "text-lg")}
-            >
-              {t("HOME.CTA_BUTTON")}
-            </Link>
+            href={getDiscordInviteLink()}
+            className={cn(buttonVariants({ size: "lg" }), "text-lg")}
+          >
+            {t("HOME.CTA_BUTTON")}
+          </Link>
         </motion.div>
       </motion.div>
     </div>

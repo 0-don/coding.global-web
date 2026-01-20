@@ -20,7 +20,9 @@ import { CompanyName, LogoImage } from "../../elements/utils/images";
 import { SidebarNavigation } from "./sidebar-navigation";
 import { SidebarUser } from "./sidebar-user";
 
-function SidebarDesktopContent(props: { navMain: ReturnType<typeof navigation> }) {
+function SidebarDesktopContent(props: {
+  navMain: ReturnType<typeof navigation>;
+}) {
   const t = useTranslations();
 
   return (

@@ -45,14 +45,23 @@ export function MobileNavigationContent(props: MobileNavigationContentProps) {
     <>
       {props.showHeader && (
         <div className="flex items-center gap-2 px-4 py-3">
-          <Link href="/" onClick={props.onNavigate} className="flex items-center gap-2">
+          <Link
+            href="/"
+            onClick={props.onNavigate}
+            className="flex items-center gap-2"
+          >
             <LogoImage />
             <CompanyName className="text-lg font-bold" />
           </Link>
         </div>
       )}
 
-      <div className={cn("flex flex-1 flex-col gap-4 overflow-y-auto", props.className)}>
+      <div
+        className={cn(
+          "flex flex-1 flex-col gap-4 overflow-y-auto",
+          props.className,
+        )}
+      >
         <nav className="flex flex-col gap-1">
           <NavigationItems
             items={navItems}

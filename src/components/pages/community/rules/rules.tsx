@@ -70,7 +70,7 @@ function RulesTerminalHeader(props: RulesTerminalHeaderProps) {
       <Card className="border-primary mb-6 font-mono text-sm">
         <CardContent className="space-y-4">
           <div className="flex items-center space-x-2">
-            <span className="bg-red-500 h-3 w-3 rounded-full"></span>
+            <span className="h-3 w-3 rounded-full bg-red-500"></span>
             <span className="h-3 w-3 rounded-full bg-yellow-500"></span>
             <span className="h-3 w-3 rounded-full bg-green-500"></span>
           </div>
@@ -83,7 +83,7 @@ function RulesTerminalHeader(props: RulesTerminalHeaderProps) {
             </span>
           </div>
 
-          <div className="animate-pulse text-center text-xs text-muted-foreground">
+          <div className="text-muted-foreground animate-pulse text-center text-xs">
             {t("RULES.TERMINAL.LOADED", { count: props.ruleCount })}
           </div>
         </CardContent>
@@ -118,41 +118,44 @@ function RuleCard(props: RuleCardProps) {
           <Card
             className={cn(
               "group h-full cursor-pointer overflow-hidden border-l-4 transition-all hover:shadow-lg",
-              category.borderColor
+              category.borderColor,
             )}
           >
-          <CardHeader className="pb-2">
-            <div className="flex items-start justify-between gap-2">
-              <Badge variant="default" className="font-mono shrink-0">
+            <CardHeader className="pb-2">
+              <div className="flex items-start justify-between gap-2">
+                <Badge variant="default" className="shrink-0 font-mono">
+                  #{props.index}
+                </Badge>
+                <Badge
+                  variant={category.badgeVariant}
+                  className="shrink-0 text-xs"
+                >
+                  {t(`RULES.CATEGORIES.${category.key}`)}
+                </Badge>
+              </div>
+              <h3 className="mt-3 text-lg font-semibold group-hover:underline">
+                {props.rule.title}
+              </h3>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <p className="text-muted-foreground line-clamp-2 text-sm whitespace-pre-line">
+                {props.rule.content}
+              </p>
+            </CardContent>
+          </Card>
+        </HoverCardTrigger>
+        <HoverCardContent side="bottom" align="start" className="w-80">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Badge variant="default" className="font-mono">
                 #{props.index}
               </Badge>
-              <Badge variant={category.badgeVariant} className="text-xs shrink-0">
-                {t(`RULES.CATEGORIES.${category.key}`)}
-              </Badge>
+              <span className="font-semibold">{props.rule.title}</span>
             </div>
-            <h3 className="text-lg font-semibold mt-3 group-hover:underline">
-              {props.rule.title}
-            </h3>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <p className="text-sm text-muted-foreground line-clamp-2 whitespace-pre-line">
-              {props.rule.content}
-            </p>
-          </CardContent>
-        </Card>
-      </HoverCardTrigger>
-      <HoverCardContent side="bottom" align="start" className="w-80">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <Badge variant="default" className="font-mono">
-              #{props.index}
-            </Badge>
-            <span className="font-semibold">{props.rule.title}</span>
+            <p className="text-sm whitespace-pre-line">{props.rule.content}</p>
           </div>
-          <p className="text-sm whitespace-pre-line">{props.rule.content}</p>
-        </div>
-      </HoverCardContent>
-    </HoverCard>
+        </HoverCardContent>
+      </HoverCard>
     </motion.div>
   );
 }
@@ -232,7 +235,12 @@ export function Rules() {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {rules.map((rule, index) => (
-          <RuleCard key={rule.title} rule={rule} index={index + 1} animationIndex={index} />
+          <RuleCard
+            key={rule.title}
+            rule={rule}
+            index={index + 1}
+            animationIndex={index}
+          />
         ))}
       </div>
     </motion.div>

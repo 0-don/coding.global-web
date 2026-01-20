@@ -1,5 +1,8 @@
 import { TOCLayout } from "@/components/layout/resources/toc";
-import { Resources, resourcesTOC } from "@/components/pages/resources/resources";
+import {
+  Resources,
+  resourcesTOC,
+} from "@/components/pages/resources/resources";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
 import { getTranslations } from "next-intl/server";

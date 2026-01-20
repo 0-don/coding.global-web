@@ -30,7 +30,9 @@ export default async function DevBoardPage() {
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("dev-board"),
       queryFn: async () =>
-        handleElysia(await rpc.api.bot.thread({ threadType: "dev-board" }).get()),
+        handleElysia(
+          await rpc.api.bot.thread({ threadType: "dev-board" }).get(),
+        ),
     }),
     getCookieValue<ThreadState>(getThreadStoreKey("dev-board")),
   ]);

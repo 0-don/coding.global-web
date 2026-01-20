@@ -30,7 +30,7 @@ export function LanguageToggle() {
       router.replace(
         // @ts-expect-error - dynamic params are passed separately
         { pathname, params },
-        { locale: newLocale }
+        { locale: newLocale },
       );
     });
   }

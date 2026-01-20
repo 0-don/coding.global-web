@@ -19,7 +19,7 @@ export function SidebarNavigation(
   props: {
     title: string;
     items: NavigationItem[];
-  } & React.ComponentPropsWithoutRef<typeof SidebarGroup>
+  } & React.ComponentPropsWithoutRef<typeof SidebarGroup>,
 ) {
   useNavigationAutoExpand(props.items);
 

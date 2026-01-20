@@ -53,7 +53,10 @@ export function ArchivedFilter({ threadType }: ArchivedFilterProps) {
             {t("SHOWCASE.FILTER.STATUS")}
             {archivedFilter !== "all" && (
               <>
-                <Separator orientation="vertical" className="mx-1.5 h-4 md:mx-2" />
+                <Separator
+                  orientation="vertical"
+                  className="mx-1.5 h-4 md:mx-2"
+                />
                 <Badge
                   variant="secondary"
                   className="rounded-sm px-1 font-normal"

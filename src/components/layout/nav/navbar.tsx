@@ -34,7 +34,7 @@ export default function Navbar() {
   const isLoggedIn = !!session?.data?.user.id;
 
   return (
-    <header className="bg-background/80 fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md">
+    <header className="bg-background/80 fixed top-0 right-0 left-0 z-50 w-full backdrop-blur-md">
       <div className="container mx-auto flex h-12 items-center justify-between px-4 xl:px-6">
         <div className="flex items-center gap-1 xl:hidden">
           <MobileNav />
@@ -45,7 +45,9 @@ export default function Navbar() {
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
           >
             <FaDiscord className="size-5" />
-            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
+            <span className="sr-only">
+              {t("MAIN.AUTH.JOIN_DISCORD_SERVER")}
+            </span>
           </Link>
         </div>
         <Link href="/" className="flex items-center gap-1 xl:hidden">
@@ -65,7 +67,9 @@ export default function Navbar() {
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-8 items-center justify-center rounded-md text-[#5865F2] transition-colors"
           >
             <FaDiscord className="size-4" />
-            <span className="sr-only">{t("MAIN.AUTH.JOIN_DISCORD_SERVER")}</span>
+            <span className="sr-only">
+              {t("MAIN.AUTH.JOIN_DISCORD_SERVER")}
+            </span>
           </Link>
         </div>
 
@@ -102,94 +106,113 @@ export default function Navbar() {
                           length: Math.ceil(item.submenu!.length / 8),
                         }).map((_, columnIndex) => (
                           <ul key={columnIndex} className="grid gap-1">
-                            {item.submenu!
-                              .slice(columnIndex * 8, (columnIndex + 1) * 8)
+                            {item
+                              .submenu!.slice(
+                                columnIndex * 8,
+                                (columnIndex + 1) * 8,
+                              )
                               .map((subItem) => {
-                          if (subItem.submenu?.length) {
-                            return (
-                              <li
-                                key={subItem.name}
-                                className="group/nested relative"
-                              >
-                                <Link
-                                  href={subItem.href}
-                                  className={cn(
-                                    "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
-                                    isActiveLink(pathname, subItem.href) &&
-                                      "bg-primary/10 text-primary",
-                                  )}
-                                >
-                                  <div className="flex items-center gap-2">
-                                    <subItem.icon className="size-4" />
-                                    <span className="font-medium">
-                                      {t(subItem.name)}
-                                    </span>
-                                  </div>
-                                  <ChevronRightIcon className="size-4" />
-                                </Link>
-                                <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
-                                  {(() => {
-                                    const items = subItem.submenu!;
-                                    const numColumns = Math.ceil(items.length / 8);
-                                    const itemsPerColumn = Math.ceil(items.length / numColumns);
-                                    return Array.from({ length: numColumns }).map((_, columnIndex) => (
-                                      <ul key={columnIndex} className="grid gap-1">
-                                        {items
-                                          .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
-                                          .map((nestedItem) => (
-                                            <li key={nestedItem.name}>
-                                              <Link
-                                                href={nestedItem.href}
-                                                className={cn(
-                                                  "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                                  isActiveLink(
-                                                    pathname,
-                                                    nestedItem.href,
-                                                  ) && "bg-primary/10 text-primary",
-                                                )}
-                                              >
-                                                <nestedItem.icon className="size-4" />
-                                                <span className="font-medium">
-                                                  {t(nestedItem.name)}
-                                                </span>
-                                              </Link>
-                                            </li>
-                                          ))}
-                                      </ul>
-                                    ));
-                                  })()}
-                                </div>
-                              </li>
-                            );
-                          }
-
-                          const isSubActive = isActiveLink(
-                            pathname,
-                            subItem.href,
-                          );
-                          return (
-                            <li key={subItem.name}>
-                              <NavigationMenuLink
-                                render={
-                                  <Link
-                                    href={subItem.href}
-                                    className={cn(
-                                      "flex items-center gap-2",
-                                      isSubActive &&
-                                        "bg-primary/10 text-primary",
-                                    )}
-                                  >
-                                    {subItem.icon && (
-                                      <subItem.icon className="size-4" />
-                                    )}
-                                    <span className="text-sm font-medium">
-                                      {t(subItem.name)}
-                                    </span>
-                                  </Link>
+                                if (subItem.submenu?.length) {
+                                  return (
+                                    <li
+                                      key={subItem.name}
+                                      className="group/nested relative"
+                                    >
+                                      <Link
+                                        href={subItem.href}
+                                        className={cn(
+                                          "hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all",
+                                          isActiveLink(
+                                            pathname,
+                                            subItem.href,
+                                          ) && "bg-primary/10 text-primary",
+                                        )}
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          <subItem.icon className="size-4" />
+                                          <span className="font-medium">
+                                            {t(subItem.name)}
+                                          </span>
+                                        </div>
+                                        <ChevronRightIcon className="size-4" />
+                                      </Link>
+                                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                                        {(() => {
+                                          const items = subItem.submenu!;
+                                          const numColumns = Math.ceil(
+                                            items.length / 8,
+                                          );
+                                          const itemsPerColumn = Math.ceil(
+                                            items.length / numColumns,
+                                          );
+                                          return Array.from({
+                                            length: numColumns,
+                                          }).map((_, columnIndex) => (
+                                            <ul
+                                              key={columnIndex}
+                                              className="grid gap-1"
+                                            >
+                                              {items
+                                                .slice(
+                                                  columnIndex * itemsPerColumn,
+                                                  (columnIndex + 1) *
+                                                    itemsPerColumn,
+                                                )
+                                                .map((nestedItem) => (
+                                                  <li key={nestedItem.name}>
+                                                    <Link
+                                                      href={nestedItem.href}
+                                                      className={cn(
+                                                        "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                                        isActiveLink(
+                                                          pathname,
+                                                          nestedItem.href,
+                                                        ) &&
+                                                          "bg-primary/10 text-primary",
+                                                      )}
+                                                    >
+                                                      <nestedItem.icon className="size-4" />
+                                                      <span className="font-medium">
+                                                        {t(nestedItem.name)}
+                                                      </span>
+                                                    </Link>
+                                                  </li>
+                                                ))}
+                                            </ul>
+                                          ));
+                                        })()}
+                                      </div>
+                                    </li>
+                                  );
                                 }
-                              />
-                            </li>
-                          );
+
+                                const isSubActive = isActiveLink(
+                                  pathname,
+                                  subItem.href,
+                                );
+                                return (
+                                  <li key={subItem.name}>
+                                    <NavigationMenuLink
+                                      render={
+                                        <Link
+                                          href={subItem.href}
+                                          className={cn(
+                                            "flex items-center gap-2",
+                                            isSubActive &&
+                                              "bg-primary/10 text-primary",
+                                          )}
+                                        >
+                                          {subItem.icon && (
+                                            <subItem.icon className="size-4" />
+                                          )}
+                                          <span className="text-sm font-medium">
+                                            {t(subItem.name)}
+                                          </span>
+                                        </Link>
+                                      }
+                                    />
+                                  </li>
+                                );
                               })}
                           </ul>
                         ))}

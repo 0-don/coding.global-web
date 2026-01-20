@@ -161,115 +161,172 @@ export const navigation = (authenticated?: boolean): NavigationItem[] => [
           {
             name: "MAIN.NAVIGATION.CODING_JAVASCRIPT",
             description: "MAIN.NAVIGATION.CODING_JAVASCRIPT_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "javascript" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "javascript" },
+            },
             icon: SiJavascript,
           },
           {
             name: "MAIN.NAVIGATION.CODING_PYTHON",
             description: "MAIN.NAVIGATION.CODING_PYTHON_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "python" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "python" },
+            },
             icon: SiPython,
           },
           {
             name: "MAIN.NAVIGATION.CODING_RUST",
             description: "MAIN.NAVIGATION.CODING_RUST_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "rust" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "rust" },
+            },
             icon: SiRust,
           },
           {
             name: "MAIN.NAVIGATION.CODING_CPP",
             description: "MAIN.NAVIGATION.CODING_CPP_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "cpp" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "cpp" },
+            },
             icon: SiCplusplus,
           },
           {
             name: "MAIN.NAVIGATION.CODING_CSHARP",
             description: "MAIN.NAVIGATION.CODING_CSHARP_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "csharp" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "csharp" },
+            },
             icon: SiDotnet,
           },
           {
             name: "MAIN.NAVIGATION.CODING_C",
             description: "MAIN.NAVIGATION.CODING_C_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "c" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "c" },
+            },
             icon: SiC,
           },
           {
             name: "MAIN.NAVIGATION.CODING_GO",
             description: "MAIN.NAVIGATION.CODING_GO_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "go" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "go" },
+            },
             icon: SiGo,
           },
           {
             name: "MAIN.NAVIGATION.CODING_JAVA",
             description: "MAIN.NAVIGATION.CODING_JAVA_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "java" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "java" },
+            },
             icon: DiJava,
           },
           {
             name: "MAIN.NAVIGATION.CODING_KOTLIN",
             description: "MAIN.NAVIGATION.CODING_KOTLIN_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "kotlin" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "kotlin" },
+            },
             icon: SiKotlin,
           },
           {
             name: "MAIN.NAVIGATION.CODING_DART",
             description: "MAIN.NAVIGATION.CODING_DART_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "dart" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "dart" },
+            },
             icon: SiDart,
           },
           {
             name: "MAIN.NAVIGATION.CODING_LUA",
             description: "MAIN.NAVIGATION.CODING_LUA_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "lua" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "lua" },
+            },
             icon: SiLua,
           },
           {
             name: "MAIN.NAVIGATION.CODING_PHP",
             description: "MAIN.NAVIGATION.CODING_PHP_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "php" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "php" },
+            },
             icon: SiPhp,
           },
           {
             name: "MAIN.NAVIGATION.CODING_HTML_CSS",
             description: "MAIN.NAVIGATION.CODING_HTML_CSS_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "html-css" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "html-css" },
+            },
             icon: SiHtml5,
           },
           {
             name: "MAIN.NAVIGATION.CODING_SQL",
             description: "MAIN.NAVIGATION.CODING_SQL_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "sql" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "sql" },
+            },
             icon: TbSql,
           },
           {
             name: "MAIN.NAVIGATION.CODING_SWIFT",
             description: "MAIN.NAVIGATION.CODING_SWIFT_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "swift" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "swift" },
+            },
             icon: SiSwift,
           },
           {
             name: "MAIN.NAVIGATION.CODING_BASH_POWERSHELL",
             description: "MAIN.NAVIGATION.CODING_BASH_POWERSHELL_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "bash-powershell" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "bash-powershell" },
+            },
             icon: SiGnubash,
           },
           {
             name: "MAIN.NAVIGATION.CODING_VISUAL_BASIC",
             description: "MAIN.NAVIGATION.CODING_VISUAL_BASIC_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "visual-basic" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "visual-basic" },
+            },
             icon: HiOutlineCommandLine,
           },
           {
             name: "MAIN.NAVIGATION.CODING_ZIG",
             description: "MAIN.NAVIGATION.CODING_ZIG_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "zig" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "zig" },
+            },
             icon: SiZig,
           },
           {
             name: "MAIN.NAVIGATION.CODING_OTHER",
             description: "MAIN.NAVIGATION.CODING_OTHER_DESCRIPTION",
-            href: { pathname: "/community/coding/[language]", params: { language: "other" } },
+            href: {
+              pathname: "/community/coding/[language]",
+              params: { language: "other" },
+            },
             icon: HiOutlineCodeBracket,
           },
         ],

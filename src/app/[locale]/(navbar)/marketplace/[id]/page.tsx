@@ -1,9 +1,13 @@
 import { MarketplaceDetail } from "@/components/pages/marketplace/marketplace-detail";
+import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getPageMetadata, getThreadPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
 import { MarketplaceThreadType } from "@/lib/types";
 import { serverLocale } from "@/lib/utils/server";
-import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
+import {
+  GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
+} from "@/openapi";
 import { getTranslations } from "next-intl/server";
 
 type ThreadWithType = {
@@ -74,6 +78,21 @@ export async function generateMetadata(props: {
   });
 }
 
+async function fetchMessages(
+  threadType: MarketplaceThreadType,
+  threadId: string,
+): Promise<
+  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[]
+> {
+  const response = await rpc.api.bot
+    .thread({ threadType })({ threadId })
+    .messages.get({ query: {} });
+  if (response.status === 200 && response.data) {
+    return response.data.messages ?? [];
+  }
+  return [];
+}
+
 export default async function MarketplaceDetailPage(props: {
   params: Promise<{ locale: string; id: string }>;
 }) {
@@ -85,7 +104,17 @@ export default async function MarketplaceDetailPage(props: {
     return null;
   }
 
+  const messages = await fetchMessages(result.threadType, params.id);
+  const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/marketplace/${params.id}`;
+
   return (
-    <MarketplaceDetail threadId={params.id} threadType={result.threadType} />
+    <>
+      <ThreadJsonLd
+        thread={result.thread}
+        messages={messages}
+        pageUrl={pageUrl}
+      />
+      <MarketplaceDetail threadId={params.id} threadType={result.threadType} />
+    </>
   );
 }
