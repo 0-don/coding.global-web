@@ -1,4 +1,5 @@
 import { CodingLanguageDetail } from "@/components/pages/community/coding/coding-language-detail";
+import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -44,13 +45,17 @@ export async function generateMetadata(props: {
 }
 
 export default async function ProgrammingLanguageDetailPage(props: {
-  params: Promise<{ language: ProgrammingThreadType; id: string }>;
+  params: Promise<{
+    locale: string;
+    language: ProgrammingThreadType;
+    id: string;
+  }>;
 }) {
   const params = await props.params;
   const queryClient = getQueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery({
+  const [thread, messagesData] = await Promise.all([
+    queryClient.fetchQuery({
       queryKey: queryKeys.thread(params.language, params.id),
       queryFn: async () =>
         handleElysia(
@@ -59,7 +64,7 @@ export default async function ProgrammingLanguageDetailPage(props: {
             .get(),
         ),
     }),
-    queryClient.prefetchInfiniteQuery({
+    queryClient.fetchInfiniteQuery({
       queryKey: queryKeys.threadMessages(params.language, params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
@@ -71,9 +76,20 @@ export default async function ProgrammingLanguageDetailPage(props: {
     }),
   ]);
 
+  const messages = messagesData?.pages?.[0]?.messages ?? [];
+  const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/community/coding/${params.language}/${params.id}`;
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <CodingLanguageDetail threadType={params.language} threadId={params.id} />
-    </HydrationBoundary>
+    <>
+      {thread && (
+        <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
+      )}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CodingLanguageDetail
+          threadType={params.language}
+          threadId={params.id}
+        />
+      </HydrationBoundary>
+    </>
   );
 }

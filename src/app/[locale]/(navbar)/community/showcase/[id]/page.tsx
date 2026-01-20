@@ -1,4 +1,5 @@
 import { ShowcaseDetail } from "@/components/pages/community/showcase/showcase-detail";
+import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -32,8 +33,8 @@ export default async function ShowcaseDetailPage(props: {
   const params = await props.params;
   const queryClient = getQueryClient();
 
-  await Promise.all([
-    queryClient.prefetchQuery({
+  const [thread, messagesData] = await Promise.all([
+    queryClient.fetchQuery({
       queryKey: queryKeys.thread("showcase", params.id),
       queryFn: async () =>
         handleElysia(
@@ -42,7 +43,7 @@ export default async function ShowcaseDetailPage(props: {
             .get(),
         ),
     }),
-    queryClient.prefetchInfiniteQuery({
+    queryClient.fetchInfiniteQuery({
       queryKey: queryKeys.threadMessages("showcase", params.id),
       queryFn: async ({ pageParam }) =>
         handleElysia(
@@ -54,9 +55,17 @@ export default async function ShowcaseDetailPage(props: {
     }),
   ]);
 
+  const messages = messagesData?.pages?.[0]?.messages ?? [];
+  const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/community/showcase/${params.id}`;
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ShowcaseDetail threadId={params.id} />
-    </HydrationBoundary>
+    <>
+      {thread && (
+        <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
+      )}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ShowcaseDetail threadId={params.id} />
+      </HydrationBoundary>
+    </>
   );
 }

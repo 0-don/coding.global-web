@@ -13,11 +13,7 @@ export function SidebarProviderWrapper(props: SidebarProviderWrapperProps) {
   const [open, setOpen] = useAtom(sidebarOpenAtom);
 
   return (
-    <SidebarProvider
-      open={open}
-      onOpenChange={setOpen}
-      style={props.style}
-    >
+    <SidebarProvider open={open} onOpenChange={setOpen} style={props.style}>
       {props.children}
     </SidebarProvider>
   );

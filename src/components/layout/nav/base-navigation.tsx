@@ -407,7 +407,7 @@ export function SidebarCollapsibleItem(props: {
           href={props.item.href as LinkHref}
           onClick={props.onNavigate}
           className={cn(
-            "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex size-8 cursor-pointer items-center justify-center rounded-md p-2 outline-none transition-colors",
+            "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex size-8 cursor-pointer items-center justify-center rounded-md p-2 transition-colors outline-none",
             isActive && "bg-primary/10 text-primary font-medium",
           )}
         >
@@ -416,7 +416,7 @@ export function SidebarCollapsibleItem(props: {
           />
         </Link>
         {/* Hover menu */}
-        <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-2 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/collapsed:visible group-hover/collapsed:opacity-100">
+        <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-2 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/collapsed:visible group-hover/collapsed:opacity-100">
           <div className="text-muted-foreground mb-1 px-2 py-1.5 text-xs font-semibold">
             {t(props.item.name)}
           </div>
@@ -427,9 +427,7 @@ export function SidebarCollapsibleItem(props: {
                 if (subItem.submenu?.length) {
                   return (
                     <li key={subItem.name} className="group/nested relative">
-                      <div
-                        className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all"
-                      >
+                      <div className="hover:bg-muted flex cursor-pointer items-center justify-between gap-2 rounded-sm p-2 text-sm transition-all">
                         <div className="flex items-center gap-2">
                           <subItem.icon className="size-4" />
                           <span className="font-medium">{t(subItem.name)}</span>
@@ -437,42 +435,50 @@ export function SidebarCollapsibleItem(props: {
                         <ChevronRight className="size-4" />
                       </div>
                       {/* Nested submenu */}
-                      <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                         {(() => {
                           const items = subItem.submenu!;
                           const numColumns = Math.ceil(items.length / 8);
-                          const itemsPerColumn = Math.ceil(items.length / numColumns);
+                          const itemsPerColumn = Math.ceil(
+                            items.length / numColumns,
+                          );
                           return numColumns > 1 ? (
                             <div className="flex items-start gap-2">
-                              {Array.from({ length: numColumns }).map((_, columnIndex) => (
-                                <ul key={columnIndex} className="grid gap-1">
-                                  {items
-                                    .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
-                                    .map((nestedItem) => {
-                                      const isNestedActive = isActiveLink(
-                                        pathname,
-                                        nestedItem.href,
-                                      );
-                                      return (
-                                        <li key={nestedItem.name}>
-                                          <Link
-                                            href={nestedItem.href as LinkHref}
-                                            onClick={props.onNavigate}
-                                            className={cn(
-                                              "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                              isNestedActive && "bg-primary/10 text-primary",
-                                            )}
-                                          >
-                                            <nestedItem.icon className="size-4" />
-                                            <span className="font-medium">
-                                              {t(nestedItem.name)}
-                                            </span>
-                                          </Link>
-                                        </li>
-                                      );
-                                    })}
-                                </ul>
-                              ))}
+                              {Array.from({ length: numColumns }).map(
+                                (_, columnIndex) => (
+                                  <ul key={columnIndex} className="grid gap-1">
+                                    {items
+                                      .slice(
+                                        columnIndex * itemsPerColumn,
+                                        (columnIndex + 1) * itemsPerColumn,
+                                      )
+                                      .map((nestedItem) => {
+                                        const isNestedActive = isActiveLink(
+                                          pathname,
+                                          nestedItem.href,
+                                        );
+                                        return (
+                                          <li key={nestedItem.name}>
+                                            <Link
+                                              href={nestedItem.href as LinkHref}
+                                              onClick={props.onNavigate}
+                                              className={cn(
+                                                "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                                isNestedActive &&
+                                                  "bg-primary/10 text-primary",
+                                              )}
+                                            >
+                                              <nestedItem.icon className="size-4" />
+                                              <span className="font-medium">
+                                                {t(nestedItem.name)}
+                                              </span>
+                                            </Link>
+                                          </li>
+                                        );
+                                      })}
+                                  </ul>
+                                ),
+                              )}
                             </div>
                           ) : (
                             <ul className="grid gap-1">
@@ -488,7 +494,8 @@ export function SidebarCollapsibleItem(props: {
                                       onClick={props.onNavigate}
                                       className={cn(
                                         "hover:bg-muted flex w-full items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                        isNestedActive && "bg-primary/10 text-primary",
+                                        isNestedActive &&
+                                          "bg-primary/10 text-primary",
                                       )}
                                     >
                                       <nestedItem.icon className="size-4" />
@@ -549,42 +556,50 @@ export function SidebarCollapsibleItem(props: {
                         <ChevronRight className="size-4" />
                       </Link>
                       {/* Nested submenu */}
-                      <div className="bg-popover ring-foreground/10 invisible absolute left-full top-0 z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 min-w-48 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                         {(() => {
                           const items = subItem.submenu!;
                           const numColumns = Math.ceil(items.length / 8);
-                          const itemsPerColumn = Math.ceil(items.length / numColumns);
+                          const itemsPerColumn = Math.ceil(
+                            items.length / numColumns,
+                          );
                           return numColumns > 1 ? (
                             <div className="flex items-start gap-2">
-                              {Array.from({ length: numColumns }).map((_, columnIndex) => (
-                                <ul key={columnIndex} className="grid gap-1">
-                                  {items
-                                    .slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn)
-                                    .map((nestedItem) => {
-                                      const isNestedActive = isActiveLink(
-                                        pathname,
-                                        nestedItem.href,
-                                      );
-                                      return (
-                                        <li key={nestedItem.name}>
-                                          <Link
-                                            href={nestedItem.href as LinkHref}
-                                            onClick={props.onNavigate}
-                                            className={cn(
-                                              "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                              isNestedActive && "bg-primary/10 text-primary",
-                                            )}
-                                          >
-                                            <nestedItem.icon className="size-4" />
-                                            <span className="font-medium">
-                                              {t(nestedItem.name)}
-                                            </span>
-                                          </Link>
-                                        </li>
-                                      );
-                                    })}
-                                </ul>
-                              ))}
+                              {Array.from({ length: numColumns }).map(
+                                (_, columnIndex) => (
+                                  <ul key={columnIndex} className="grid gap-1">
+                                    {items
+                                      .slice(
+                                        columnIndex * itemsPerColumn,
+                                        (columnIndex + 1) * itemsPerColumn,
+                                      )
+                                      .map((nestedItem) => {
+                                        const isNestedActive = isActiveLink(
+                                          pathname,
+                                          nestedItem.href,
+                                        );
+                                        return (
+                                          <li key={nestedItem.name}>
+                                            <Link
+                                              href={nestedItem.href as LinkHref}
+                                              onClick={props.onNavigate}
+                                              className={cn(
+                                                "hover:bg-muted flex items-center gap-2 rounded-sm p-2 text-sm transition-all",
+                                                isNestedActive &&
+                                                  "bg-primary/10 text-primary",
+                                              )}
+                                            >
+                                              <nestedItem.icon className="size-4" />
+                                              <span className="font-medium">
+                                                {t(nestedItem.name)}
+                                              </span>
+                                            </Link>
+                                          </li>
+                                        );
+                                      })}
+                                  </ul>
+                                ),
+                              )}
                             </div>
                           ) : (
                             <ul className="grid gap-1">
@@ -600,7 +615,8 @@ export function SidebarCollapsibleItem(props: {
                                       onClick={props.onNavigate}
                                       className={cn(
                                         "hover:bg-muted flex w-full items-center gap-2 rounded-sm p-2 text-sm transition-all",
-                                        isNestedActive && "bg-primary/10 text-primary",
+                                        isNestedActive &&
+                                          "bg-primary/10 text-primary",
                                       )}
                                     >
                                       <nestedItem.icon className="size-4" />

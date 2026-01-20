@@ -71,12 +71,13 @@ export function TagFilter({ threads, threadType }: TagFilterProps) {
             <span className="hidden sm:inline">
               {t("SHOWCASE.FILTER.TAGS")}
             </span>
-            <span className="sm:hidden">
-              {t("SHOWCASE.FILTER.TAGS")}
-            </span>
+            <span className="sm:hidden">{t("SHOWCASE.FILTER.TAGS")}</span>
             {selectedTags.length > 0 && (
               <>
-                <Separator orientation="vertical" className="mx-1.5 h-4 md:mx-2" />
+                <Separator
+                  orientation="vertical"
+                  className="mx-1.5 h-4 md:mx-2"
+                />
                 <Badge
                   variant="secondary"
                   className="rounded-sm px-1 font-normal lg:hidden"

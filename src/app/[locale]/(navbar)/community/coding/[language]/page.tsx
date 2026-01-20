@@ -11,7 +11,7 @@ import { ThreadState, getThreadStoreKey } from "@/store/thread-store";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   return PROGRAMMING_LANGUAGES.map((language) => ({
