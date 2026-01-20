@@ -22,11 +22,16 @@ export async function generateMetadata(props: {
     getTranslations({ locale }),
     getThread(params.id, "job-board"),
   ]);
-  return getThreadPageMetadata(thread, locale, {
-    title: t("MARKETPLACE.JOB_BOARD.META.TITLE"),
-    description: t("MARKETPLACE.JOB_BOARD.META.DESCRIPTION"),
-    keywords: t("MARKETPLACE.JOB_BOARD.META.KEYWORDS"),
-  });
+  return getThreadPageMetadata(
+    thread,
+    locale,
+    {
+      title: t("MARKETPLACE.JOB_BOARD.META.TITLE"),
+      description: t("MARKETPLACE.JOB_BOARD.META.DESCRIPTION"),
+      keywords: t("MARKETPLACE.JOB_BOARD.META.KEYWORDS"),
+    },
+    `/${locale}/marketplace/job-board/${params.id}`,
+  );
 }
 
 export default async function JobBoardDetailPage(props: {

@@ -1,7 +1,7 @@
 import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { Metadata } from "next";
 import { MetadataKeys, MetadataParams } from "../types";
-import { ALTERNATE_LANGUAGES, LANGUAGES, LOCALES } from "./constants";
+import { LANGUAGES, LOCALES } from "./constants";
 
 export async function getPageMetadata(
   params: MetadataParams,
@@ -18,10 +18,13 @@ export async function getPageMetadata(
     authors: [{ name: process.env.NEXT_PUBLIC_APP_NAME }],
     alternates: {
       canonical: canonicalPath,
-      languages: {
-        ...ALTERNATE_LANGUAGES,
-        "x-default": `/${LOCALES[0]}`,
-      },
+      languages: Object.fromEntries([
+        ...LOCALES.map((loc) => [
+          loc,
+          canonicalPath.replace(/^\/(en|de)/, `/${loc}`),
+        ]),
+        ["x-default", canonicalPath.replace(/^\/(en|de)/, `/${LOCALES[0]}`)],
+      ]),
     },
     openGraph: {
       title: params.title,
@@ -77,6 +80,7 @@ export async function getThreadPageMetadata(
   thread: GetApiByGuildIdThreadByThreadTypeByThreadId200 | null,
   locale: string,
   fallback: MetadataKeys,
+  path?: string,
 ) {
   if (thread) {
     const tagNames = thread.tags?.map((tag) => tag.name).join(", ") || "";
@@ -89,6 +93,7 @@ export async function getThreadPageMetadata(
       title: `${thread.name} - Coding Global`,
       description: thread.name || fallback.description,
       keywords,
+      path,
     });
   }
 
@@ -97,5 +102,6 @@ export async function getThreadPageMetadata(
     title: fallback.title,
     description: fallback.description,
     keywords: fallback.keywords,
+    path,
   });
 }
