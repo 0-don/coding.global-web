@@ -17,10 +17,7 @@ export default function Error(props: Props) {
   const t = useTranslations();
 
   useEffect(() => {
-    useEffect(() => {
-      posthog.captureException(props.error);
-    }, [props.error]);
-
+    posthog.captureException(props.error);
     console.error(props.error);
   }, [props.error]);
 
