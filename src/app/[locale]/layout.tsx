@@ -1,7 +1,9 @@
+import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { serverLocale } from "@/lib/utils/server";
+import { Viewport } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
@@ -9,6 +11,12 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { Providers } from "../../components/provider/providers";
 import "../globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -57,6 +65,7 @@ export default function RootLayout(props: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}
       >
+        <OrganizationJsonLd />
         <Toaster richColors />
         <Providers>{props.children}</Providers>
       </body>

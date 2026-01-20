@@ -1,4 +1,5 @@
 import { BoardDetail } from "@/components/pages/marketplace/board-detail";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
@@ -58,8 +59,17 @@ export default async function DevBoardDetailPage(props: {
   const messages = messagesData?.pages?.[0]?.messages ?? [];
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/marketplace/dev-board/${params.id}`;
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const breadcrumbs = [
+    { name: "Home", url: `${baseUrl}/${params.locale}` },
+    { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
+    { name: "Dev Board", url: `${baseUrl}/${params.locale}/marketplace/dev-board` },
+    { name: thread?.name || "Thread" },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       {thread && (
         <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
       )}

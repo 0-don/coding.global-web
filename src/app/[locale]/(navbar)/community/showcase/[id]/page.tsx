@@ -1,4 +1,5 @@
 import { ShowcaseDetail } from "@/components/pages/community/showcase/showcase-detail";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
@@ -58,8 +59,16 @@ export default async function ShowcaseDetailPage(props: {
   const messages = messagesData?.pages?.[0]?.messages ?? [];
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/community/showcase/${params.id}`;
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const breadcrumbs = [
+    { name: "Home", url: `${baseUrl}/${params.locale}` },
+    { name: "Showcase", url: `${baseUrl}/${params.locale}/community/showcase` },
+    { name: thread?.name || "Thread" },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       {thread && (
         <ThreadJsonLd thread={thread} messages={messages} pageUrl={pageUrl} />
       )}

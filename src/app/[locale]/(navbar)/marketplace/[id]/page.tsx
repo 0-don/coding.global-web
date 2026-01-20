@@ -1,4 +1,5 @@
 import { MarketplaceDetail } from "@/components/pages/marketplace/marketplace-detail";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getPageMetadata, getThreadPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
@@ -107,8 +108,18 @@ export default async function MarketplaceDetailPage(props: {
   const messages = await fetchMessages(result.threadType, params.id);
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/marketplace/${params.id}`;
 
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
+  const boardName = result.threadType === "job-board" ? "Job Board" : "Dev Board";
+  const breadcrumbs = [
+    { name: "Home", url: `${baseUrl}/${params.locale}` },
+    { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
+    { name: boardName, url: `${baseUrl}/${params.locale}/marketplace/${result.threadType}` },
+    { name: result.thread.name },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       <ThreadJsonLd
         thread={result.thread}
         messages={messages}
