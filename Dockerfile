@@ -7,14 +7,14 @@ COPY package.json ./
 RUN bun install
 
 #
-FROM oven/bun:1-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 ENV STANDALONE=1
 
-RUN bun run build
+RUN npm run build
 
 # 
 FROM oven/bun:1-alpine AS prod
