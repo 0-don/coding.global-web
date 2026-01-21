@@ -1087,7 +1087,8 @@
       "USER_ID_COPIED": "User ID copied to clipboard!",
       "COPY_FAILED": "Failed to copy to clipboard",
       "YOU": "You",
-      "OPEN_IN_DISCORD": "Open in Discord"
+      "OPEN_IN_DISCORD": "Open in Discord",
+      "CONTACT_ME": "Contact me"
     }
   }
 }

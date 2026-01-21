@@ -205,7 +205,7 @@ export default function Navbar() {
                                           {subItem.icon && (
                                             <subItem.icon className="size-4" />
                                           )}
-                                          <span className="text-sm font-medium">
+                                          <span className="whitespace-nowrap text-sm font-medium">
                                             {t(subItem.name)}
                                           </span>
                                         </Link>

@@ -315,11 +315,12 @@ export function DiscordUser(props: DiscordUserProps) {
                     href={getDiscordUserLink(props.user.id)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground text-xs transition-colors"
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs transition-colors"
                     title={t("DISCORD_WIDGET.USER_CARD.OPEN_IN_DISCORD")}
                   >
+                    {t("DISCORD_WIDGET.USER_CARD.CONTACT_ME")}
                     <svg
-                      className="h-4 w-4"
+                      className="h-3 w-3"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"

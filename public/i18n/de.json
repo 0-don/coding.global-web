@@ -960,7 +960,8 @@
       "USER_ID_COPIED": "Benutzer-ID in die Zwischenablage kopiert!",
       "COPY_FAILED": "Kopieren in die Zwischenablage fehlgeschlagen",
       "YOU": "Du",
-      "OPEN_IN_DISCORD": "In Discord öffnen"
+      "OPEN_IN_DISCORD": "In Discord öffnen",
+      "CONTACT_ME": "Kontaktiere mich"
     }
   }
 }
