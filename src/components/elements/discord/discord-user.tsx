@@ -315,7 +315,7 @@ export function DiscordUser(props: DiscordUserProps) {
                     href={getDiscordUserLink(props.user.id)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs transition-colors"
+                    className="text-primary hover:text-primary/80 flex items-center gap-1 text-xs transition-colors"
                     title={t("DISCORD_WIDGET.USER_CARD.OPEN_IN_DISCORD")}
                   >
                     {t("DISCORD_WIDGET.USER_CARD.CONTACT_ME")}
