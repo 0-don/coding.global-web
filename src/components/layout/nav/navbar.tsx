@@ -101,7 +101,7 @@ export default function Navbar() {
                       }
                     />
                     <NavigationMenuContent>
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         {Array.from({
                           length: Math.ceil(item.submenu!.length / 8),
                         }).map((_, columnIndex) => (
@@ -130,13 +130,13 @@ export default function Navbar() {
                                       >
                                         <div className="flex items-center gap-2">
                                           <subItem.icon className="size-4" />
-                                          <span className="font-medium">
+                                          <span className="whitespace-nowrap font-medium">
                                             {t(subItem.name)}
                                           </span>
                                         </div>
                                         <ChevronRightIcon className="size-4" />
                                       </Link>
-                                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex flex-wrap items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                                         {(() => {
                                           const items = subItem.submenu!;
                                           const numColumns = Math.ceil(
@@ -172,7 +172,7 @@ export default function Navbar() {
                                                       )}
                                                     >
                                                       <nestedItem.icon className="size-4" />
-                                                      <span className="font-medium">
+                                                      <span className="whitespace-nowrap font-medium">
                                                         {t(nestedItem.name)}
                                                       </span>
                                                     </Link>
