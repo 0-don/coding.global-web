@@ -136,11 +136,12 @@ export default function Navbar() {
                                         </div>
                                         <ChevronRightIcon className="size-4" />
                                       </Link>
-                                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex flex-wrap items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
+                                      <div className="bg-popover ring-foreground/10 invisible absolute top-0 left-full z-50 ml-1 flex items-start gap-2 rounded-md p-2 opacity-0 shadow-md ring-1 transition-all group-hover/nested:visible group-hover/nested:opacity-100">
                                         {(() => {
                                           const items = subItem.submenu!;
+                                          const maxItemsPerColumn = 7;
                                           const numColumns = Math.ceil(
-                                            items.length / 8,
+                                            items.length / maxItemsPerColumn,
                                           );
                                           const itemsPerColumn = Math.ceil(
                                             items.length / numColumns,
