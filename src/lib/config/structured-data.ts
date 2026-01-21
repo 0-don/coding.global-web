@@ -33,7 +33,7 @@ function buildAuthorSchema(author: Author): Person {
 function buildCommentSchema(
   message: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 ): Comment | null {
-  if (!message.author) return null;
+  if (!message.author || !message.content?.trim()) return null;
 
   const comment: Comment = {
     "@type": "Comment",
