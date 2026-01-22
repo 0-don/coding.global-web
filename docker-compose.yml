@@ -7,7 +7,8 @@ services:
       - proxy
     command: |
       caddy reverse-proxy --from :8080 --to https://eu.i.posthog.com:443 \
-        --header-up "Host: eu.i.posthog.com"
+        --header-up "Host: eu.i.posthog.com" \
+        --header-up "X-Forwarded-For: {http.request.header.CF-Connecting-IP},{http.request.header.X-Forwarded-For}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.posthog-proxy.rule=Host(`ph.coding.global`)"
