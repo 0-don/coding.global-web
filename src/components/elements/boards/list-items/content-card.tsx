@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import posthog from "posthog-js";
 import { ComponentProps } from "react";
 
 type BaseContentCardProps = {
@@ -274,11 +275,21 @@ export function ContentCard(props: ContentCardProps) {
   const href = props.type === "thread" ? props.href : undefined;
 
   if (href) {
+    const handleClick = () => {
+      if (props.type === "thread") {
+        posthog.capture("thread_opened", {
+          thread_id: props.data.id,
+          thread_title: props.data.name,
+          thread_type: props.threadType || "showcase",
+        });
+      }
+    };
+
     return (
       <Card
         className={`h-full overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
       >
-        <Link href={href} className="flex h-full cursor-pointer flex-col">
+        <Link href={href} className="flex h-full cursor-pointer flex-col" onClick={handleClick}>
           {cardContent}
         </Link>
       </Card>

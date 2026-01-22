@@ -23,6 +23,7 @@ import type { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { RxCheck, RxPlusCircled } from "react-icons/rx";
 
 interface TagOption {
@@ -126,6 +127,12 @@ export function TagFilter({ threads, threadType }: TagFilterProps) {
                       const newSelectedTags = isSelected
                         ? selectedTags.filter((id) => id !== option.id)
                         : [...selectedTags, option.id];
+                      posthog.capture("tag_filter_changed", {
+                        board_type: threadType,
+                        tag_name: option.name,
+                        action: isSelected ? "removed" : "added",
+                        tags_count: newSelectedTags.length,
+                      });
                       setSelectedTags(newSelectedTags);
                     }}
                     className="[&>svg]:hidden"
@@ -153,7 +160,12 @@ export function TagFilter({ threads, threadType }: TagFilterProps) {
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => setSelectedTags([])}
+                    onSelect={() => {
+                      posthog.capture("tag_filter_cleared", {
+                        board_type: threadType,
+                      });
+                      setSelectedTags([]);
+                    }}
                     className="justify-center text-center"
                   >
                     {t("SHOWCASE.FILTER.CLEAR_FILTERS")}

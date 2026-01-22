@@ -525,12 +525,13 @@ export function HeroSection() {
           <Link
             href={getDiscordInviteLink()}
             className={cn(buttonVariants({ size: "lg" }))}
-            onClick={() =>
+            onClick={() => {
               posthog.capture("hero_cta_clicked", {
                 cta_type: "primary",
                 destination: "discord",
-              })
-            }
+              });
+              posthog.capture("discord_link_clicked", { section: "hero_cta" });
+            }}
           >
             {t("HOME.HERO_CTA_PRIMARY")}
           </Link>

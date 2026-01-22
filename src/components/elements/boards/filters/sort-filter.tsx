@@ -12,6 +12,7 @@ import { ThreadType } from "@/lib/types";
 import { SortOrder, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { RxCaretSort } from "react-icons/rx";
 
 interface SortFilterProps {
@@ -51,7 +52,13 @@ export function SortFilter({ threadType }: SortFilterProps) {
       <DropdownMenuContent align="start">
         <DropdownMenuRadioGroup
           value={sortOrder}
-          onValueChange={(value) => setSortOrder(value as SortOrder)}
+          onValueChange={(value) => {
+            posthog.capture("sort_order_changed", {
+              board_type: threadType,
+              sort_order: value,
+            });
+            setSortOrder(value as SortOrder);
+          }}
         >
           <DropdownMenuRadioItem value="recentlyActive">
             {t("SHOWCASE.FILTER.SORT_RECENTLY_ACTIVE")}
