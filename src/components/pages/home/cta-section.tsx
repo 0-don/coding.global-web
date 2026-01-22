@@ -38,11 +38,12 @@ export function CtaSection() {
           <Link
             href={getDiscordInviteLink()}
             className={cn(buttonVariants({ size: "lg" }), "text-lg")}
-            onClick={() =>
+            onClick={() => {
               posthog.capture("cta_discord_clicked", {
                 section: "footer_cta",
-              })
-            }
+              });
+              posthog.capture("discord_link_clicked", { section: "footer_cta" });
+            }}
           >
             {t("HOME.CTA_BUTTON")}
           </Link>

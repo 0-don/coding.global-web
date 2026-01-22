@@ -1,3 +1,5 @@
+"use client";
+
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -17,6 +19,7 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 interface ThreadHeaderProps {
   thread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
@@ -146,6 +149,7 @@ export function ThreadHeader(props: ThreadHeaderProps) {
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors"
               title={t("SHOWCASE.OPEN_IN_DISCORD")}
+              onClick={() => posthog.capture("discord_link_clicked", { section: "thread_header", thread_id: props.thread.id })}
             >
               <ExternalLink className="h-4 w-4" />
               <span>{t("SHOWCASE.OPEN_IN_DISCORD")}</span>
