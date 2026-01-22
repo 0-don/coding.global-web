@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { FaDiscord } from "react-icons/fa";
 import { UserAvatar } from "../user/user-avatar";
 import { UserDropdown } from "../user/user-dropdown";
@@ -43,6 +44,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
+            onClick={() => posthog.capture("discord_link_clicked", { section: "navbar_mobile" })}
           >
             <FaDiscord className="size-5" />
             <span className="sr-only">
@@ -65,6 +67,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-8 items-center justify-center rounded-md text-[#5865F2] transition-colors"
+            onClick={() => posthog.capture("discord_link_clicked", { section: "navbar_desktop" })}
           >
             <FaDiscord className="size-4" />
             <span className="sr-only">

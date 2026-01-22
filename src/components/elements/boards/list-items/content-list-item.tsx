@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import posthog from "posthog-js";
 import { ComponentProps } from "react";
 
 type ContentListItemProps = {
@@ -189,8 +190,16 @@ export function ContentListItem(props: ContentListItemProps) {
   );
 
   if (props.href) {
+    const handleClick = () => {
+      posthog.capture("thread_opened", {
+        thread_id: props.data.id,
+        thread_title: props.data.name,
+        thread_type: props.threadType || "showcase",
+      });
+    };
+
     return (
-      <Link href={props.href} className="block">
+      <Link href={props.href} className="block" onClick={handleClick}>
         {content}
       </Link>
     );

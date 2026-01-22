@@ -17,6 +17,7 @@ import {
 } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { RxArchive } from "react-icons/rx";
 
 interface ArchivedFilterProps {
@@ -71,9 +72,13 @@ export function ArchivedFilter({ threadType }: ArchivedFilterProps) {
       <DropdownMenuContent align="start">
         <DropdownMenuRadioGroup
           value={archivedFilter}
-          onValueChange={(value) =>
-            setArchivedFilter(value as ArchivedFilterType)
-          }
+          onValueChange={(value) => {
+            posthog.capture("archived_filter_changed", {
+              board_type: threadType,
+              archived_filter: value,
+            });
+            setArchivedFilter(value as ArchivedFilterType);
+          }}
         >
           <DropdownMenuRadioItem value="all">
             {t("SHOWCASE.FILTER.ARCHIVED_ALL")}

@@ -2,9 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { ThreadType } from "@/lib/types";
-import { getThreadAtoms } from "@/store/thread-store";
+import { getThreadAtoms, ViewMode } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { LayoutGrid, List } from "lucide-react";
+import posthog from "posthog-js";
 
 interface ViewModeToggleProps {
   threadType: ThreadType;
@@ -15,12 +16,20 @@ export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
   const viewMode = useAtomValue(atoms.viewModeAtom);
   const setViewMode = useSetAtom(atoms.viewModeAtom);
 
+  const handleViewModeChange = (mode: ViewMode) => {
+    posthog.capture("view_mode_changed", {
+      board_type: threadType,
+      view_mode: mode,
+    });
+    setViewMode(mode);
+  };
+
   return (
     <div className="border-border flex items-center gap-0.5 rounded-md border p-0.5 md:gap-1 md:p-1">
       <Button
         variant={viewMode === "grid" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => setViewMode("grid")}
+        onClick={() => handleViewModeChange("grid")}
         aria-label="Grid view"
         aria-pressed={viewMode === "grid"}
         title="Grid view"
@@ -31,7 +40,7 @@ export function ViewModeToggle({ threadType }: ViewModeToggleProps) {
       <Button
         variant={viewMode === "list" ? "secondary" : "ghost"}
         size="icon-sm"
-        onClick={() => setViewMode("list")}
+        onClick={() => handleViewModeChange("list")}
         aria-label="List view"
         aria-pressed={viewMode === "list"}
         title="List view"
