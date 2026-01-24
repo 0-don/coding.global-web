@@ -1,6 +1,6 @@
 services:
-  posthog-proxy:
-    container_name: posthog-proxy
+  coding-global-posthog-proxy:
+    container_name: coding-global-posthog-proxy
     image: valian/posthog-nginx-proxy:latest
     restart: always
     networks:
