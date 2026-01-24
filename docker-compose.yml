@@ -1,20 +1,19 @@
 services:
   posthog-proxy:
     container_name: posthog-proxy
-    image: caddy:2-alpine
+    image: valian/posthog-nginx-proxy:latest
     restart: always
     networks:
       - proxy
-    command: |
-      caddy reverse-proxy --from :8080 --to https://eu.i.posthog.com:443 \
-        --header-up "Host: eu.i.posthog.com" \
-        --header-up "X-Forwarded-For: {http.request.header.CF-Connecting-IP},{http.request.header.X-Forwarded-For}"
+    environment:
+      - DOMAIN=coding.global
+      - POSTHOG_HOST=eu.i.posthog.com
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.posthog-proxy.rule=Host(`ph.coding.global`)"
       - "traefik.http.routers.posthog-proxy.entrypoints=websecure"
       - "traefik.http.routers.posthog-proxy.tls.certresolver=letsencrypt"
-      - "traefik.http.services.posthog-proxy.loadbalancer.server.port=8080"
+      - "traefik.http.services.posthog-proxy.loadbalancer.server.port=80"
 
   coding-global-web:
     container_name: coding-global-web
