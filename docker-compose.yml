@@ -7,7 +7,6 @@ services:
       - proxy
     environment:
       - DOMAIN=coding.global
-      - POSTHOG_HOST=eu.i.posthog.com
       - POSTHOG_REGION=eu
     labels:
       - "traefik.enable=true"
