@@ -128,17 +128,17 @@ export function ThreadHeader(props: ThreadHeaderProps) {
                 })}
               </span>
             </div>
-            {props.thread.updatedAt && (
+            {props.thread.lastActivityAt && (
               <div
                 className="flex items-center gap-1.5"
-                title={dayjs(props.thread.updatedAt).format(
+                title={dayjs(props.thread.lastActivityAt).format(
                   "MMMM D, YYYY [at] h:mm A",
                 )}
               >
                 <Clock className="h-4 w-4" />
                 <span>
                   {t("SHOWCASE.UPDATED_AT", {
-                    date: dayjs(props.thread.updatedAt).fromNow(),
+                    date: dayjs(props.thread.lastActivityAt).fromNow(),
                   })}
                 </span>
               </div>

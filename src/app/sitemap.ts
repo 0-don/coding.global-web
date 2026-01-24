@@ -83,8 +83,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             ...getEntries(pathname, {
               priority: 0.6,
               changeFrequency: "weekly",
-              lastModified: thread.updatedAt
-                ? new Date(thread.updatedAt)
+              lastModified: thread.lastActivityAt
+                ? new Date(thread.lastActivityAt)
                 : undefined,
             }),
           );
