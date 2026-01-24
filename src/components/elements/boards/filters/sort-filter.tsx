@@ -49,7 +49,7 @@ export function SortFilter({ threadType }: SortFilterProps) {
           </Button>
         }
       />
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="start" className="whitespace-nowrap">
         <DropdownMenuRadioGroup
           value={sortOrder}
           onValueChange={(value) => {
