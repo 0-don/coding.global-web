@@ -170,8 +170,8 @@ export const filterThreads = (
   // Sort by date
   filtered = [...filtered].sort((a, b) => {
     if (sortOrder === "recentlyActive") {
-      const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
-      const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+      const dateA = a.lastActivityAt ? new Date(a.lastActivityAt).getTime() : 0;
+      const dateB = b.lastActivityAt ? new Date(b.lastActivityAt).getTime() : 0;
       return dateB - dateA;
     }
     if (sortOrder === "oldest") {
