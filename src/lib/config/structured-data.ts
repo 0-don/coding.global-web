@@ -91,7 +91,7 @@ export function buildDiscussionForumPostingSchema(
     mainEntityOfPage: pageUrl,
     headline: thread.name,
     author: buildAuthorSchema(thread.author),
-    datePublished: thread.createdAt || thread.updatedAt,
+    datePublished: thread.createdAt || thread.lastActivityAt || thread.updatedAt,
     url: pageUrl,
     commentCount: thread.messageCount,
     interactionStatistic: buildInteractionStatistics(thread),
@@ -101,8 +101,8 @@ export function buildDiscussionForumPostingSchema(
     schema.text = thread.content;
   }
 
-  if (thread.updatedAt && thread.updatedAt !== thread.createdAt) {
-    schema.dateModified = thread.updatedAt;
+  if (thread.lastActivityAt && thread.lastActivityAt !== thread.createdAt) {
+    schema.dateModified = thread.lastActivityAt;
   }
 
   if (thread.imageUrl) {

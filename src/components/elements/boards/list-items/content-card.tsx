@@ -227,14 +227,14 @@ export function ContentCard(props: ContentCardProps) {
                 className="hover:text-foreground flex items-center gap-2"
                 title={dayjs(
                   props.sortOrder === "recentlyActive"
-                    ? props.data.updatedAt
+                    ? props.data.lastActivityAt
                     : props.data.createdAt,
                 ).format("MMMM D, YYYY [at] h:mm A")}
               >
                 <span>
                   {dayjs(
                     props.sortOrder === "recentlyActive"
-                      ? props.data.updatedAt
+                      ? props.data.lastActivityAt
                       : props.data.createdAt,
                   ).fromNow()}
                 </span>

@@ -6,8 +6,8 @@ import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/utils/dayjs";
-import { SortOrder } from "@/store/thread-store";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
+import { SortOrder } from "@/store/thread-store";
 import {
   Archive,
   Calendar,
@@ -35,7 +35,7 @@ export function ContentListItem(props: ContentListItemProps) {
 
   const displayDate =
     props.sortOrder === "recentlyActive"
-      ? props.data.updatedAt
+      ? props.data.lastActivityAt
       : props.data.createdAt;
 
   const content = (
