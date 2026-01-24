@@ -934,6 +934,7 @@ export type GetApiByGuildIdThreadByThreadType200Item = {
   author: GetApiByGuildIdThreadByThreadType200ItemAuthor;
   createdAt: GetApiByGuildIdThreadByThreadType200ItemCreatedAt;
   updatedAt: string;
+  lastActivityAt: string | null;
   tags: GetApiByGuildIdThreadByThreadType200ItemTagsItem[];
   content: GetApiByGuildIdThreadByThreadType200ItemContent;
   imageUrl: GetApiByGuildIdThreadByThreadType200ItemImageUrl;
@@ -1471,6 +1472,7 @@ export type GetApiByGuildIdThreadByThreadTypeByThreadId200 = {
   author: GetApiByGuildIdThreadByThreadTypeByThreadId200Author;
   createdAt: GetApiByGuildIdThreadByThreadTypeByThreadId200CreatedAt;
   updatedAt: string;
+  lastActivityAt: string | null;
   tags: GetApiByGuildIdThreadByThreadTypeByThreadId200TagsItem[];
   content: GetApiByGuildIdThreadByThreadTypeByThreadId200Content;
   imageUrl: GetApiByGuildIdThreadByThreadTypeByThreadId200ImageUrl;
