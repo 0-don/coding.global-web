@@ -8,6 +8,7 @@ services:
     environment:
       - DOMAIN=coding.global
       - POSTHOG_HOST=eu.i.posthog.com
+      - POSTHOG_REGION=eu
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.posthog-proxy.rule=Host(`ph.coding.global`)"
