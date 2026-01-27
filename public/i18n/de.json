@@ -76,7 +76,12 @@
 
     "CTA_TITLE": "Bereit durchzustarten?",
     "CTA_SUBTITLE": "Werde Teil von tausenden Entwicklern die gemeinsam lernen und bauen",
-    "CTA_BUTTON": "Jetzt Discord beitreten"
+    "CTA_BUTTON": "Jetzt Discord beitreten",
+
+    "EMPTY": {
+      "NEWS": "Keine Neuigkeiten verfügbar",
+      "DATA": "Keine Daten verfügbar"
+    }
   },
   "MAIN": {
     "ACTIONS": {
@@ -940,6 +945,13 @@
         "KEYWORDS": "programmierung, sprachen, hilfe, community, coding"
       }
     }
+  },
+  "TWEET": {
+    "NOT_FOUND": "Tweet nicht gefunden",
+    "LINK": "Link zum Tweet",
+    "VIDEO_NOT_SUPPORTED": "Dein Browser unterstützt das Video-Tag nicht.",
+    "PROFILE_PICTURE": "Profilbild von {name}",
+    "PHOTO_BY": "Foto von {name}"
   },
   "DISCORD_WIDGET": {
     "ONLINE": "Online",
