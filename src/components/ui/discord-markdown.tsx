@@ -306,6 +306,8 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
     const target = e.target as HTMLElement;
     const userId = target.dataset.userId;
     if (userId) {
+      e.preventDefault();
+      e.stopPropagation();
       const user = userMap.get(userId);
       if (user) {
         setClickedUser(user);
