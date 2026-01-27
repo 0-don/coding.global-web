@@ -1,5 +1,8 @@
+"use client";
+
 import { enrichTweet, type EnrichedTweet } from "react-tweet";
 import { type Tweet } from "react-tweet/api";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -81,31 +84,36 @@ export const TweetNotFound = ({
 }: {
   className?: string;
   [key: string]: unknown;
-}) => (
-  <div
-    className={cn(
-      "flex size-full flex-col items-center justify-center gap-2 rounded-lg border p-4",
-      className,
-    )}
-    {...props}
-  >
-    <h3>Tweet not found</h3>
-  </div>
-);
+}) => {
+  const t = useTranslations();
+  return (
+    <div
+      className={cn(
+        "flex size-full flex-col items-center justify-center gap-2 rounded-lg border p-4",
+        className,
+      )}
+      {...props}
+    >
+      <h3>{t("TWEET.NOT_FOUND")}</h3>
+    </div>
+  );
+};
 
-export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => (
-  <div className="flex flex-row items-start justify-between tracking-normal">
-    <div className="flex items-center space-x-3">
-      <a href={tweet.user.url} target="_blank" rel="noreferrer">
-        <img
-          title={`Profile picture of ${tweet.user.name}`}
-          alt={tweet.user.screen_name}
-          height={48}
-          width={48}
-          src={tweet.user.profile_image_url_https}
-          className="border-border/50 overflow-hidden rounded-full border"
-        />
-      </a>
+export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => {
+  const t = useTranslations();
+  return (
+    <div className="flex flex-row items-start justify-between tracking-normal">
+      <div className="flex items-center space-x-3">
+        <a href={tweet.user.url} target="_blank" rel="noreferrer">
+          <img
+            title={t("TWEET.PROFILE_PICTURE", { name: tweet.user.name })}
+            alt={tweet.user.screen_name}
+            height={48}
+            width={48}
+            src={tweet.user.profile_image_url_https}
+            className="border-border/50 overflow-hidden rounded-full border"
+          />
+        </a>
       <div className="flex flex-col gap-0.5">
         <a
           href={tweet.user.url}
@@ -132,11 +140,12 @@ export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => (
       </div>
     </div>
     <a href={tweet.url} target="_blank" rel="noreferrer">
-      <span className="sr-only">Link to tweet</span>
+      <span className="sr-only">{t("TWEET.LINK")}</span>
       <Twitter className="text-muted-foreground hover:text-foreground size-5 items-start transition-all ease-in-out hover:scale-105" />
     </a>
   </div>
-);
+  );
+};
 
 export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
   <div className="text-[15px] leading-relaxed tracking-normal wrap-break-word">
@@ -171,6 +180,7 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
 );
 
 export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
+  const t = useTranslations();
   if (!tweet.video && !tweet.photos) return null;
   return (
     <div className="flex flex-1 items-center justify-center">
@@ -184,7 +194,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
           className="rounded-xl border shadow-sm"
         >
           <source src={tweet.video.variants[0].src} type="video/mp4" />
-          Your browser does not support the video tag.
+          {t("TWEET.VIDEO_NOT_SUPPORTED")}
         </video>
       )}
       {tweet.photos && (
@@ -196,7 +206,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
               src={photo.url}
               width={photo.width}
               height={photo.height}
-              title={"Photo by " + tweet.user.name}
+              title={t("TWEET.PHOTO_BY", { name: tweet.user.name })}
               alt={tweet.text}
               className="h-64 w-5/6 shrink-0 snap-center snap-always rounded-xl border object-cover shadow-sm"
             />

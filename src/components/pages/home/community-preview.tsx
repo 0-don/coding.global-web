@@ -49,7 +49,7 @@ function NewsPreview() {
           </div>
         ))}
         {latestNews.length === 0 && (
-          <p className="text-muted-foreground text-sm">No news available</p>
+          <p className="text-muted-foreground text-sm">{t("HOME.EMPTY.NEWS")}</p>
         )}
       </CardContent>
     </Card>

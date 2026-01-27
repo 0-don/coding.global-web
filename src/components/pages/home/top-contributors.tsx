@@ -30,6 +30,7 @@ interface ContributorCardProps {
 }
 
 function ContributorCard(props: ContributorCardProps) {
+  const t = useTranslations();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -70,7 +71,7 @@ function ContributorCard(props: ContributorCardProps) {
             </motion.div>
           ))}
           {props.contributors.length === 0 && (
-            <p className="text-muted-foreground text-sm">No data available</p>
+            <p className="text-muted-foreground text-sm">{t("HOME.EMPTY.DATA")}</p>
           )}
         </CardContent>
       </Card>
