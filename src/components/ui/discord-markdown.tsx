@@ -425,10 +425,33 @@ export function toHTML(source: string, options?: HtmlOptions): string {
   return parse(source, true);
 }
 
+// Mention types for user resolution
+interface MentionUser {
+  id: string;
+  username: string;
+  globalName: string | null;
+}
+
+interface MentionRole {
+  id: string;
+  name: string;
+}
+
+interface Mentions {
+  users?: MentionUser[];
+  roles?: MentionRole[];
+  everyone?: boolean;
+}
+
+// Resolved user type (from backend aggregation)
+type ResolvedUser = { id: string; username: string; globalName: string | null };
+
 // React component
 interface DiscordMarkdownProps {
   content: string;
   className?: string;
+  mentions?: Mentions;
+  resolvedUsers?: ResolvedUser[];
   options?: Omit<HtmlOptions, "escapeHTML">;
 }
 
@@ -451,10 +474,45 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
     );
   }
 
+  // Build lookup maps for mentions
+  const userMap = new Map(
+    props.mentions?.users?.map((u) => [u.id, u]) ?? [],
+  );
+  const roleMap = new Map(
+    props.mentions?.roles?.map((r) => [r.id, r]) ?? [],
+  );
+  const resolvedUserMap = new Map(
+    props.resolvedUsers?.map((u) => [u.id, u]) ?? [],
+  );
+
+  // Create callbacks that resolve mentions
+  const discordCallback: Partial<DiscordCallbacks> = {
+    user: (node) => {
+      const id = node.id || "";
+      // First check mentions array, then resolvedUsers fallback
+      const user = userMap.get(id) || resolvedUserMap.get(id);
+      if (user) {
+        return "@" + escapeHtml(user.globalName || user.username);
+      }
+      return "@" + escapeHtml(id);
+    },
+    role: (node) => {
+      const role = roleMap.get(node.id || "");
+      if (role) {
+        return "@" + escapeHtml(role.name);
+      }
+      return "@" + escapeHtml(node.id || "");
+    },
+  };
+
   const html = toHTML(props.content, {
     escapeHTML: true,
     discordOnly: false,
     ...props.options,
+    discordCallback: {
+      ...discordCallback,
+      ...props.options?.discordCallback,
+    },
   });
 
   return (

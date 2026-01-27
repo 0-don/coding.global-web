@@ -42,6 +42,7 @@ function NewsPreview() {
             <Link href="/community/news" className="block">
               <DiscordMarkdown
                 content={item.content}
+                mentions={item.mentions}
                 className="text-muted-foreground line-clamp-2 text-sm"
               />
             </Link>

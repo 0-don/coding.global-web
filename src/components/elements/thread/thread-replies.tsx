@@ -15,10 +15,12 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import { Virtualizer, type VirtualizerHandle } from "virtua";
+import { ResolvedUser } from "@/lib/types";
 
 interface ThreadRepliesProps {
   messages: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[];
   parentThread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
+  resolvedUsers?: ResolvedUser[];
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
@@ -165,7 +167,11 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                       )}
 
                       <div className="text-sm wrap-break-word whitespace-pre-wrap">
-                        <DiscordMarkdown content={message.content} />
+                        <DiscordMarkdown
+                          content={message.content}
+                          mentions={message.mentions}
+                          resolvedUsers={props.resolvedUsers}
+                        />
                       </div>
 
                       {message.attachments &&
@@ -218,6 +224,8 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                               {embed.description && (
                                 <DiscordMarkdown
                                   content={embed.description}
+                                  mentions={message.mentions}
+                                  resolvedUsers={props.resolvedUsers}
                                   className="text-muted-foreground text-sm"
                                 />
                               )}
