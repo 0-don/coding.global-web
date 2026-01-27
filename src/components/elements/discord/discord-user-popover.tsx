@@ -12,7 +12,7 @@ import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
 import { dayjs } from "@/lib/utils/dayjs";
-import { GetApiByGuildIdNews200ItemAuthor } from "@/openapi";
+import { GetApiByGuildIdNews200ItemMentionsUsersItem } from "@/openapi";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -29,7 +29,7 @@ import {
 } from "../utils/enums";
 
 interface DiscordUserPopoverProps {
-  user: GetApiByGuildIdNews200ItemAuthor;
+  user: GetApiByGuildIdNews200ItemMentionsUsersItem;
   children?: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -37,7 +37,7 @@ interface DiscordUserPopoverProps {
   anchorRect?: DOMRect;
 }
 
-function UserCardContent({ user }: { user: GetApiByGuildIdNews200ItemAuthor }) {
+function UserCardContent({ user }: { user: GetApiByGuildIdNews200ItemMentionsUsersItem }) {
   const t = useTranslations();
   const session = useSessionHook();
   const isCurrentUser = session.data?.user?.discordId === user.id;

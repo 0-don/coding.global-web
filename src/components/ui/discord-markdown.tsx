@@ -1,7 +1,7 @@
 "use client";
 
 import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
-import { GetApiByGuildIdNews200ItemAuthor } from "@/openapi";
+import { GetApiByGuildIdNews200ItemMentions, GetApiByGuildIdNews200ItemMentionsUsersItem } from "@/openapi";
 import hljs from "highlight.js";
 import { get as getEmoji } from "node-emoji";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -247,25 +247,11 @@ export function toHTML(source: string, options?: HtmlOptions): string {
   return parse(source);
 }
 
-// React component types
-interface MentionUser {
-  id: string;
-  username: string;
-  globalName: string | null;
-  displayName?: string;
-  avatarUrl?: string;
-  [key: string]: unknown;
-}
-
-interface Mentions {
-  users?: MentionUser[];
-  roles?: { id: string; name: string }[];
-}
 
 interface DiscordMarkdownProps {
   content: string;
   className?: string;
-  mentions?: Mentions;
+  mentions?: GetApiByGuildIdNews200ItemMentions;
   options?: Omit<HtmlOptions, "escapeHTML">;
 }
 
@@ -276,7 +262,7 @@ const getServerSnapshot = () => false;
 
 export function DiscordMarkdown(props: DiscordMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [clickedUser, setClickedUser] = useState<MentionUser | null>(null);
+  const [clickedUser, setClickedUser] = useState<GetApiByGuildIdNews200ItemMentionsUsersItem | null>(null);
   const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
   const isClient = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
@@ -325,15 +311,12 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
     },
   });
 
-  const isResolved = (u: MentionUser): u is MentionUser & GetApiByGuildIdNews200ItemAuthor =>
-    Boolean(u.displayName && u.avatarUrl);
-
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const userId = target.dataset.userId;
     if (userId) {
       const user = userMap.get(userId);
-      if (user && isResolved(user)) {
+      if (user) {
         setClickedUser(user);
         setAnchorRect(target.getBoundingClientRect());
       }
@@ -348,10 +331,10 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
         dangerouslySetInnerHTML={{ __html: html }}
         onClick={handleClick}
       />
-      {clickedUser && anchorRect && isResolved(clickedUser) &&
+      {clickedUser && anchorRect &&
         createPortal(
           <DiscordUserPopover
-            user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
+            user={clickedUser}
             anchorRect={anchorRect}
           />,
           document.body,
