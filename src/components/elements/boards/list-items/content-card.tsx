@@ -166,6 +166,11 @@ export function ContentCard(props: ContentCardProps) {
           >
             <DiscordMarkdown
               content={props.data.content}
+              mentions={
+                props.type === "message"
+                  ? props.data.mentions
+                  : props.data.firstMessage?.mentions
+              }
               className={cn(
                 "mb-3 line-clamp-3 text-sm",
                 props.contentClassName,

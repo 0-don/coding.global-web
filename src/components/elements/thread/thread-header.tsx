@@ -164,7 +164,11 @@ export function ThreadHeader(props: ThreadHeaderProps) {
             <div className="flex-1">
               {props.thread.content && (
                 <div className="text-sm whitespace-pre-wrap">
-                  <DiscordMarkdown content={props.thread.content} />
+                  <DiscordMarkdown
+                    content={props.thread.content}
+                    mentions={props.thread.firstMessage?.mentions}
+                    resolvedUsers={props.thread.resolvedUsers}
+                  />
                 </div>
               )}
 
