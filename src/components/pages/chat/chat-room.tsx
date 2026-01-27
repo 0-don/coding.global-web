@@ -100,31 +100,37 @@ export function ChatRoom() {
             return (
               <ChatEvent className="group hover:bg-accent/50 py-2">
                 <ChatEventAddon>
-                  <div className="relative mx-auto">
-                    <Avatar className="size-8 @md/chat:size-10">
-                      <AvatarImage
-                        src={
-                          renderProps.item.discordUser?.avatarUrl ??
-                          renderProps.item.user?.image ??
-                          undefined
-                        }
-                        alt={renderProps.item.user?.name}
-                      />
-                      <AvatarFallback>
-                        {renderProps.item.user?.name
-                          ?.slice(0, 2)
-                          .toUpperCase() ?? "??"}
-                      </AvatarFallback>
-                    </Avatar>
-                    {renderProps.item.discordUser && (
-                      <StatusIndicator
-                        status={
-                          renderProps.item.discordUser.status as MemberStatus
-                        }
-                        className="-right-0.5 -bottom-0.5 size-3 border-2"
-                      />
-                    )}
-                  </div>
+                  {renderProps.item.discordUser ? (
+                    <DiscordUserPopover user={renderProps.item.discordUser}>
+                      <div className="relative mx-auto cursor-pointer">
+                        <Avatar className="size-8 @md/chat:size-10">
+                          <AvatarImage
+                            src={renderProps.item.discordUser.avatarUrl ?? undefined}
+                            alt={renderProps.item.discordUser.displayName}
+                          />
+                          <AvatarFallback>
+                            {renderProps.item.discordUser.displayName?.slice(0, 2).toUpperCase() ?? "??"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <StatusIndicator
+                          status={renderProps.item.discordUser.status as MemberStatus}
+                          className="-right-0.5 -bottom-0.5 size-3 border-2"
+                        />
+                      </div>
+                    </DiscordUserPopover>
+                  ) : (
+                    <div className="relative mx-auto">
+                      <Avatar className="size-8 @md/chat:size-10">
+                        <AvatarImage
+                          src={renderProps.item.user?.image ?? undefined}
+                          alt={renderProps.item.user?.name}
+                        />
+                        <AvatarFallback>
+                          {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ?? "??"}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                  )}
                 </ChatEventAddon>
                 <ChatEventBody>
                   <div className="flex items-baseline gap-2">
