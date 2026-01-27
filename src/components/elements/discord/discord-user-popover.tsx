@@ -210,8 +210,8 @@ export function DiscordUserPopover(props: DiscordUserPopoverProps) {
     };
 
     return (
-      <PopoverPrimitive.Root open={true}>
-        <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Root open={true}  >
+        <PopoverPrimitive.Portal >
           <PopoverPrimitive.Positioner
             anchor={virtualAnchor}
             side="bottom"
@@ -234,7 +234,7 @@ export function DiscordUserPopover(props: DiscordUserPopoverProps) {
   // Default: use Radix Popover with children as trigger
   return (
     <Popover open={props.open} onOpenChange={props.onOpenChange}>
-      <PopoverTrigger nativeButton={false}>{props.children}</PopoverTrigger>
+      <PopoverTrigger render={<span />} nativeButton={false}>{props.children}</PopoverTrigger>
       <PopoverContent side="bottom" align="start" sideOffset={8} className="w-auto p-0">
         <UserCardContent user={props.user} />
       </PopoverContent>
