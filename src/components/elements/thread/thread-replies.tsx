@@ -1,6 +1,7 @@
 "use client";
 
 import { DiscordUser } from "@/components/elements/discord/discord-user";
+import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
 import { MessageReactions } from "@/components/elements/discord/message-reactions";
 import { MessageReplyReference } from "@/components/elements/discord/message-reply-reference";
 import { DiscordMarkdown } from "@/components/ui/discord-markdown";
@@ -141,10 +142,21 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                     <div className="min-w-0 flex-1">
                       {showAvatar && (
                         <div className="mb-1 flex items-baseline gap-2">
-                          <span className="text-sm font-semibold">
-                            {message.author?.displayName ||
-                              message.author?.username}
-                          </span>
+                          {message.author ? (
+                            <DiscordUserPopover user={message.author as any}>
+                              <button
+                                type="button"
+                                className="text-sm font-semibold hover:underline"
+                              >
+                                {message.author.displayName ||
+                                  message.author.username}
+                              </button>
+                            </DiscordUserPopover>
+                          ) : (
+                            <span className="text-sm font-semibold">
+                              Unknown User
+                            </span>
+                          )}
                           <span className="text-muted-foreground text-xs">
                             {dayjs(message.createdAt).format(
                               "MM/DD/YYYY h:mm A",
