@@ -13,26 +13,21 @@ interface DiscordNode {
   name?: string;
   timestamp?: number;
   style?: string;
-  animated?: boolean;
 }
 
-interface DiscordCallbacks {
-  user: (node: DiscordNode) => string;
-  channel: (node: DiscordNode) => string;
-  role: (node: DiscordNode) => string;
-  everyone: () => string;
-  here: () => string;
-  slash: (node: DiscordNode) => string;
-  timestamp: (node: DiscordNode) => string;
-}
+type ParseFn = (text: string) => string;
+type DiscordCallback = (node: DiscordNode) => string;
+type DiscordCallbacks = Record<
+  "user" | "channel" | "role" | "everyone" | "here" | "slash" | "timestamp",
+  DiscordCallback
+>;
 
 interface HtmlOptions {
   escapeHTML?: boolean;
-  discordOnly?: boolean;
   discordCallback?: Partial<DiscordCallbacks>;
 }
 
-// HTML escape
+// Utilities
 const escapeHtml = (text: string): string =>
   text
     .replace(/&/g, "&amp;")
@@ -41,374 +36,198 @@ const escapeHtml = (text: string): string =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+// Styles
+const S = {
+  h1: "text-xl font-bold mt-2 mb-1 block",
+  h2: "text-lg font-bold mt-2 mb-1 block",
+  h3: "text-base font-bold mt-2 mb-1 block",
+  quote: "border-l-4 border-muted-foreground/30 pl-3 my-1 text-muted-foreground block",
+  code: "bg-muted px-1.5 py-0.5 rounded text-sm font-mono",
+  pre: "bg-muted p-3 rounded-md my-2 overflow-x-auto block",
+  spoiler: "bg-foreground text-foreground rounded px-1 cursor-pointer hover:bg-transparent hover:text-inherit transition-colors",
+  mention: "bg-primary/20 text-primary rounded px-1 hover:bg-primary/30 cursor-pointer",
+  time: "bg-muted rounded px-1",
+  link: "text-primary hover:underline",
+  list: "block",
+  small: "text-xs text-muted-foreground block",
+  del: "line-through text-muted-foreground",
+  emoji: "inline-block h-5 w-5 align-text-bottom",
+} as const;
+
+// Timestamp formatting
+const TIMESTAMP_FORMATS: Record<string, Intl.DateTimeFormatOptions> = {
+  t: { timeStyle: "short" },
+  T: { timeStyle: "medium" },
+  d: { dateStyle: "short" },
+  D: { dateStyle: "medium" },
+  F: { dateStyle: "full", timeStyle: "short" },
+  f: { dateStyle: "long", timeStyle: "short" },
+};
+
 // Default callbacks
 const defaultCallbacks: DiscordCallbacks = {
-  user: (node) => "@" + escapeHtml(node.id || ""),
-  channel: (node) => "#" + escapeHtml(node.id || ""),
-  role: (node) => "&" + escapeHtml(node.id || ""),
+  user: (n) => "@" + escapeHtml(n.id || ""),
+  channel: (n) => "#" + escapeHtml(n.id || ""),
+  role: (n) => "&" + escapeHtml(n.id || ""),
   everyone: () => "@everyone",
   here: () => "@here",
-  slash: (node) => "/" + escapeHtml(node.name || ""),
-  timestamp: (node) => {
-    const date = new Date((node.timestamp || 0) * 1000);
-    switch (node.style) {
-      case "t":
-        return date.toLocaleTimeString(undefined, { timeStyle: "short" });
-      case "T":
-        return date.toLocaleTimeString(undefined, { timeStyle: "medium" });
-      case "d":
-        return date.toLocaleDateString(undefined, { dateStyle: "short" });
-      case "D":
-        return date.toLocaleDateString(undefined, { dateStyle: "medium" });
-      case "F":
-        return date.toLocaleString(undefined, {
-          dateStyle: "full",
-          timeStyle: "short",
-        });
-      default:
-        return date.toLocaleString(undefined, {
-          dateStyle: "long",
-          timeStyle: "short",
-        });
-    }
+  slash: (n) => "/" + escapeHtml(n.name || ""),
+  timestamp: (n) => {
+    const d = new Date((n.timestamp || 0) * 1000);
+    return d.toLocaleString(undefined, TIMESTAMP_FORMATS[n.style || "f"]);
   },
 };
 
-// Tailwind classes for styling
-const styles = {
-  heading1: "text-xl font-bold mt-2 mb-1 block",
-  heading2: "text-lg font-bold mt-2 mb-1 block",
-  heading3: "text-base font-bold mt-2 mb-1 block",
-  blockquote:
-    "border-l-4 border-muted-foreground/30 pl-3 my-1 text-muted-foreground block",
-  code: "bg-muted px-1.5 py-0.5 rounded text-sm font-mono",
-  codeBlock: "bg-muted p-3 rounded-md my-2 overflow-x-auto block",
-  spoiler:
-    "bg-foreground text-foreground rounded px-1 cursor-pointer hover:bg-transparent hover:text-inherit transition-colors",
-  mention:
-    "bg-primary/20 text-primary rounded px-1 hover:bg-primary/30 cursor-pointer",
-  timestamp: "bg-muted rounded px-1",
-  slash: "bg-muted rounded px-1",
-  emoji: "inline-block h-5 w-5 align-text-bottom",
-  link: "text-primary hover:underline",
-  list: "list-disc list-inside my-1",
-  listItem: "block",
-  small: "text-xs text-muted-foreground block",
-  del: "line-through text-muted-foreground",
+// Rule types
+type RuleFn = (m: RegExpExecArray, cb: DiscordCallbacks, parse: ParseFn) => string;
+type Rule = { p: RegExp; r: RuleFn; l?: boolean };
+
+// Rule helpers
+const wrap = (tag: string): RuleFn => (m, _, parse) =>
+  `<${tag}>${parse(m[1])}</${tag}>`;
+
+const spanClass = (cls: string): RuleFn => (m, _, parse) =>
+  `<span class="${cls}">${parse(m[1])}</span>`;
+
+const inlineCode: RuleFn = (m) =>
+  `<code class="${S.code}">${escapeHtml(m[1])}</code>`;
+
+const autoLink: RuleFn = (m) => {
+  const url = escapeHtml(m[1]);
+  return `<a href="${url}" class="${S.link}">${url}</a>`;
 };
 
-// Parse rules - order matters (more specific first)
-type ParseRule = {
-  pattern: RegExp;
-  replace: (
-    match: RegExpExecArray,
-    callbacks: DiscordCallbacks,
-    parse: (text: string) => string,
-    atLineStart: boolean,
-  ) => string;
-  requiresLineStart?: boolean;
-};
-
-const createRules = (escape: boolean): ParseRule[] => {
+// Build rules
+const createRules = (escape: boolean): Rule[] => {
   const e = escape ? escapeHtml : (s: string) => s;
 
   return [
-    // Escape sequences (backslash escaping)
+    // Escape sequences
+    { p: /^\\([*_~|`\\<>\[\]#-])/, r: (m) => e(m[1]) },
+
+    // Code blocks
     {
-      pattern: /^\\([*_~|`\\<>\[\]#-])/,
-      replace: (match) => e(match[1]),
-    },
-    // Code blocks (``` ```) - must be early to prevent inner parsing
-    {
-      pattern: /^```([a-z0-9-]*)\n?([\s\S]*?)```/i,
-      replace: (match) => {
-        const lang = match[1]?.trim();
-        const code = match[2] || "";
-        let highlighted: string;
-        if (lang && hljs.getLanguage(lang)) {
-          highlighted = hljs.highlight(code, {
-            language: lang,
-            ignoreIllegals: true,
-          }).value;
-        } else {
-          highlighted = escapeHtml(code);
-        }
-        return `<pre class="${styles.codeBlock}"><code class="hljs${lang ? ` ${lang}` : ""}">${highlighted}</code></pre>`;
+      p: /^```([a-z0-9-]*)\n?([\s\S]*?)```/i,
+      r: (m) => {
+        const lang = m[1]?.trim();
+        const code =
+          lang && hljs.getLanguage(lang)
+            ? hljs.highlight(m[2] || "", { language: lang, ignoreIllegals: true }).value
+            : escapeHtml(m[2] || "");
+        return `<pre class="${S.pre}"><code class="hljs${lang ? ` ${lang}` : ""}">${code}</code></pre>`;
       },
     },
-    // Double-backtick inline code (``code with ` inside``)
+
+    // Inline code
+    { p: /^``([^`]+)``/, r: inlineCode },
+    { p: /^`([^`]+)`/, r: inlineCode },
+
+    // Block quotes
+    { p: /^>>> ([\s\S]+?)(?=\n\n|$)/, r: spanClass(S.quote), l: true },
+    { p: /^> ([^\n]+)\n?/, r: spanClass(S.quote), l: true },
+
+    // Spoiler
+    { p: /^\|\|([\s\S]+?)\|\|/, r: spanClass(S.spoiler) },
+
+    // Custom emoji
     {
-      pattern: /^``([^`]+)``/,
-      replace: (match) =>
-        `<code class="${styles.code}">${escapeHtml(match[1])}</code>`,
+      p: /^<(a?):(\w+):(\d+)>/,
+      r: (m) =>
+        `<img class="${S.emoji}" src="https://cdn.discordapp.com/emojis/${m[3]}.${m[1] === "a" ? "gif" : "png"}" alt=":${escapeHtml(m[2])}:" />`,
     },
-    // Single-backtick inline code (`code`)
+
+    // Standard emoji
+    { p: /^:([a-z0-9_+-]+):/i, r: (m) => getEmoji(m[1]) || e(m[0]) },
+
+    // Timestamp
     {
-      pattern: /^`([^`]+)`/,
-      replace: (match) =>
-        `<code class="${styles.code}">${escapeHtml(match[1])}</code>`,
+      p: /^<t:(\d{10})(?::([RtTdDfF]))?>/,
+      r: (m, cb) =>
+        `<span class="${S.time}">${cb.timestamp({ timestamp: parseInt(m[1]), style: m[2] })}</span>`,
     },
-    // Block quote (>>> multiline) - requires line start
+
+    // Slash command
     {
-      pattern: /^>>> ([\s\S]+?)(?=\n\n|$)/,
-      requiresLineStart: true,
-      replace: (match, _, parse) =>
-        `<blockquote class="${styles.blockquote}">${parse(match[1])}</blockquote>`,
+      p: /^<\/([\w-]{1,32}):(\d{16,22})>/,
+      r: (m, cb) => `<span class="${S.time}">${cb.slash({ name: m[1], id: m[2] })}</span>`,
     },
-    // Block quote (> single line) - requires line start
+
+    // Mentions
     {
-      pattern: /^> ([^\n]+)\n?/,
-      requiresLineStart: true,
-      replace: (match, _, parse) =>
-        `<blockquote class="${styles.blockquote}">${parse(match[1])}</blockquote>`,
+      p: /^<@!?(\d+)>/,
+      r: (m, cb) =>
+        `<span class="${S.mention}" data-user-id="${escapeHtml(m[1])}">${cb.user({ id: m[1] })}</span>`,
     },
-    // Spoiler (||text||)
+    { p: /^<#(\d+)>/, r: (m, cb) => `<span class="${S.mention}">${cb.channel({ id: m[1] })}</span>` },
+    { p: /^<@&(\d+)>/, r: (m, cb) => `<span class="${S.mention}">${cb.role({ id: m[1] })}</span>` },
+    { p: /^@everyone/, r: (_, cb) => `<span class="${S.mention}">${cb.everyone({})}</span>` },
+    { p: /^@here/, r: (_, cb) => `<span class="${S.mention}">${cb.here({})}</span>` },
+
+    // Markdown link
     {
-      pattern: /^\|\|([\s\S]+?)\|\|/,
-      replace: (match, _, parse) =>
-        `<span class="${styles.spoiler}">${parse(match[1])}</span>`,
+      p: /^\[([^\]]+)\]\(([^)]+)\)/,
+      r: (m, _, parse) => `<a href="${escapeHtml(m[2])}" class="${S.link}">${parse(m[1])}</a>`,
     },
-    // Custom emoji (<:name:id> or <a:name:id>)
+
+    // Headings
     {
-      pattern: /^<(a?):(\w+):(\d+)>/,
-      replace: (match) => {
-        const animated = match[1] === "a";
-        const name = match[2];
-        const id = match[3];
-        return `<img class="${styles.emoji}" src="https://cdn.discordapp.com/emojis/${id}.${animated ? "gif" : "png"}" alt=":${escapeHtml(name)}:" />`;
+      p: /^(#{1,3}) +([^\n]+)\n?/,
+      l: true,
+      r: (m, _, parse) => {
+        const cls = m[1].length === 1 ? S.h1 : m[1].length === 2 ? S.h2 : S.h3;
+        return `<span class="${cls}">${parse(m[2])}</span>`;
       },
     },
-    // Standard emoji shortcodes (:clap:, :white_check_mark:, etc.)
-    {
-      pattern: /^:([a-z0-9_+-]+):/i,
-      replace: (match) => {
-        const emoji = getEmoji(match[1]);
-        return emoji ? emoji : e(match[0]);
-      },
-    },
-    // Timestamp (<t:timestamp:style>)
-    {
-      pattern: /^<t:(\d{10})(?::([RtTdDfF]))?>/,
-      replace: (match, callbacks) => {
-        const node = { timestamp: parseInt(match[1]), style: match[2] };
-        return `<span class="${styles.timestamp}">${callbacks.timestamp(node)}</span>`;
-      },
-    },
-    // Slash command (</name:id>)
-    {
-      pattern: /^<\/([\w-]{1,32}):(\d{16,22})>/,
-      replace: (match, callbacks) => {
-        const node = { name: match[1], id: match[2] };
-        return `<span class="${styles.slash}">${callbacks.slash(node)}</span>`;
-      },
-    },
-    // User mention (<@!id> or <@id>)
-    {
-      pattern: /^<@!?(\d+)>/,
-      replace: (match, callbacks) => {
-        const node = { id: match[1] };
-        return `<span class="${styles.mention}" data-user-id="${escapeHtml(match[1])}">${callbacks.user(node)}</span>`;
-      },
-    },
-    // Channel mention (<#id>)
-    {
-      pattern: /^<#(\d+)>/,
-      replace: (match, callbacks) => {
-        const node = { id: match[1] };
-        return `<span class="${styles.mention}">${callbacks.channel(node)}</span>`;
-      },
-    },
-    // Role mention (<@&id>)
-    {
-      pattern: /^<@&(\d+)>/,
-      replace: (match, callbacks) => {
-        const node = { id: match[1] };
-        return `<span class="${styles.mention}">${callbacks.role(node)}</span>`;
-      },
-    },
-    // @everyone
-    {
-      pattern: /^@everyone/,
-      replace: (_, callbacks) =>
-        `<span class="${styles.mention}">${callbacks.everyone()}</span>`,
-    },
-    // @here
-    {
-      pattern: /^@here/,
-      replace: (_, callbacks) =>
-        `<span class="${styles.mention}">${callbacks.here()}</span>`,
-    },
-    // Markdown link [text](url)
-    {
-      pattern: /^\[([^\]]+)\]\(([^)]+)\)/,
-      replace: (match, _, parse) => {
-        const text = parse(match[1]);
-        const url = escapeHtml(match[2]);
-        return `<a href="${url}" class="${styles.link}">${text}</a>`;
-      },
-    },
-    // Heading (# ## ###) - only at line start
-    {
-      pattern: /^(#{1,3}) +([^\n]+)\n?/,
-      requiresLineStart: true,
-      replace: (match, _, parse) => {
-        const level = match[1].length;
-        const style =
-          level === 1
-            ? styles.heading1
-            : level === 2
-              ? styles.heading2
-              : styles.heading3;
-        return `<span class="${style}">${parse(match[2])}</span>`;
-      },
-    },
-    // Footnote (-# text) - only at line start
-    {
-      pattern: /^-# +([^\n]+)\n?/,
-      requiresLineStart: true,
-      replace: (match, _, parse) =>
-        `<span class="${styles.small}">${parse(match[1])}</span>`,
-    },
-    // Unordered list item (- or *) - only at line start
-    {
-      pattern: /^([*-]) +([^\n]+)\n?/,
-      requiresLineStart: true,
-      replace: (match, _, parse) =>
-        `<span class="${styles.listItem}">• ${parse(match[2])}</span>`,
-    },
-    // Ordered list item (1. 2. etc) - only at line start
-    {
-      pattern: /^(\d+)\. +([^\n]+)\n?/,
-      requiresLineStart: true,
-      replace: (match, _, parse) =>
-        `<span class="${styles.listItem}">${match[1]}. ${parse(match[2])}</span>`,
-    },
-    // Bold + Italic (***text***)
-    {
-      pattern: /^\*\*\*(.+?)\*\*\*/,
-      replace: (match, _, parse) =>
-        `<strong><em>${parse(match[1])}</em></strong>`,
-    },
-    // Bold (**text**)
-    {
-      pattern: /^\*\*(.+?)\*\*/,
-      replace: (match, _, parse) => `<strong>${parse(match[1])}</strong>`,
-    },
-    // Bold + Underline (__**text**__)
-    {
-      pattern: /^__\*\*(.+?)\*\*__/,
-      replace: (match, _, parse) =>
-        `<u><strong>${parse(match[1])}</strong></u>`,
-    },
-    // Underline + Italic (__*text*__)
-    {
-      pattern: /^__\*(.+?)\*__/,
-      replace: (match, _, parse) => `<u><em>${parse(match[1])}</em></u>`,
-    },
-    // Underline (__text__)
-    {
-      pattern: /^__(.+?)__/,
-      replace: (match, _, parse) => `<u>${parse(match[1])}</u>`,
-    },
-    // Italic (*text*)
-    {
-      pattern: /^\*(.+?)\*/,
-      replace: (match, _, parse) => `<em>${parse(match[1])}</em>`,
-    },
-    // Italic (_text_) - but not mid-word
-    {
-      pattern: /^_(.+?)_(?![a-zA-Z0-9])/,
-      replace: (match, _, parse) => `<em>${parse(match[1])}</em>`,
-    },
-    // Strikethrough (~~text~~)
-    {
-      pattern: /^~~(.+?)~~/,
-      replace: (match, _, parse) =>
-        `<span class="${styles.del}">${parse(match[1])}</span>`,
-    },
-    // Autolink (<https://...>)
-    {
-      pattern: /^<(https?:\/\/[^>]+)>/,
-      replace: (match) => {
-        const url = escapeHtml(match[1]);
-        return `<a href="${url}" class="${styles.link}">${url}</a>`;
-      },
-    },
-    // URL (https://... or http://...)
-    {
-      pattern: /^(https?:\/\/[^\s<\])\n]+)/,
-      replace: (match) => {
-        const url = escapeHtml(match[1]);
-        return `<a href="${url}" class="${styles.link}">${url}</a>`;
-      },
-    },
-    // Newline
-    {
-      pattern: /^\n/,
-      replace: () => "<br />",
-    },
-    // Emoticon (shrug)
-    {
-      pattern: /^(¯\\_\(ツ\)_\/¯)/,
-      replace: (match) => e(match[1]),
-    },
-    // Text (consume until special character)
-    {
-      pattern: /^[^\s*_~|`<@\[\]\\\n]+/,
-      replace: (match) => e(match[0]),
-    },
-    // Whitespace (space/tab but not newline)
-    {
-      pattern: /^[ \t]+/,
-      replace: (match) => match[0],
-    },
-    // Fallback single character
-    {
-      pattern: /^./,
-      replace: (match) => e(match[0]),
-    },
+
+    // Footnote & lists
+    { p: /^-# +([^\n]+)\n?/, r: spanClass(S.small), l: true },
+    { p: /^[*-] +([^\n]+)\n?/, l: true, r: (m, _, parse) => `<span class="${S.list}">• ${parse(m[1])}</span>` },
+    { p: /^(\d+)\. +([^\n]+)\n?/, l: true, r: (m, _, parse) => `<span class="${S.list}">${m[1]}. ${parse(m[2])}</span>` },
+
+    // Text formatting
+    { p: /^\*\*\*(.+?)\*\*\*/, r: (m, _, parse) => `<strong><em>${parse(m[1])}</em></strong>` },
+    { p: /^\*\*(.+?)\*\*/, r: wrap("strong") },
+    { p: /^__\*\*(.+?)\*\*__/, r: (m, _, parse) => `<u><strong>${parse(m[1])}</strong></u>` },
+    { p: /^__\*(.+?)\*__/, r: (m, _, parse) => `<u><em>${parse(m[1])}</em></u>` },
+    { p: /^__(.+?)__/, r: wrap("u") },
+    { p: /^\*(.+?)\*/, r: wrap("em") },
+    { p: /^_(.+?)_(?![a-zA-Z0-9])/, r: wrap("em") },
+    { p: /^~~(.+?)~~/, r: spanClass(S.del) },
+
+    // Links
+    { p: /^<(https?:\/\/[^>]+)>/, r: autoLink },
+    { p: /^(https?:\/\/[^\s<\])\n]+)/, r: autoLink },
+
+    // Misc
+    { p: /^\n/, r: () => "<br />" },
+    { p: /^(¯\\_\(ツ\)_\/¯)/, r: (m) => e(m[1]) },
+    { p: /^[^\s*_~|`<@\[\]\\\n]+/, r: (m) => e(m[0]) },
+    { p: /^[ \t]+/, r: (m) => m[0] },
+    { p: /^./, r: (m) => e(m[0]) },
   ];
 };
 
-// Main parser
+// Parser
 export function toHTML(source: string, options?: HtmlOptions): string {
-  const opts = {
-    escapeHTML: true,
-    discordOnly: false,
-    discordCallback: {},
-    ...options,
-  };
+  const escape = options?.escapeHTML ?? true;
+  const callbacks: DiscordCallbacks = { ...defaultCallbacks, ...options?.discordCallback };
+  const rules = createRules(escape);
 
-  const callbacks: DiscordCallbacks = {
-    ...defaultCallbacks,
-    ...opts.discordCallback,
-  };
-  const rules = createRules(opts.escapeHTML);
-
-  const parse = (text: string, isLineStart: boolean = true): string => {
+  const parse = (text: string, lineStart = true): string => {
     let result = "";
     let remaining = text;
-    let atLineStart = isLineStart;
+    let atLineStart = lineStart;
 
     while (remaining.length > 0) {
       let matched = false;
 
       for (const rule of rules) {
-        // Skip rules that require line start if we're not at line start
-        if (rule.requiresLineStart && !atLineStart) {
-          continue;
-        }
+        if (rule.l && !atLineStart) continue;
 
-        const match = rule.pattern.exec(remaining);
+        const match = rule.p.exec(remaining);
         if (match) {
-          result += rule.replace(
-            match,
-            callbacks,
-            (t) => parse(t, false),
-            atLineStart,
-          );
+          result += rule.r(match, callbacks, (t) => parse(t, false));
           remaining = remaining.slice(match[0].length);
-          // After a newline, we're at line start again
           atLineStart = match[0].endsWith("\n") || match[0] === "\n";
           matched = true;
           break;
@@ -416,7 +235,7 @@ export function toHTML(source: string, options?: HtmlOptions): string {
       }
 
       if (!matched) {
-        result += opts.escapeHTML ? escapeHtml(remaining[0]) : remaining[0];
+        result += escape ? escapeHtml(remaining[0]) : remaining[0];
         atLineStart = remaining[0] === "\n";
         remaining = remaining.slice(1);
       }
@@ -425,35 +244,24 @@ export function toHTML(source: string, options?: HtmlOptions): string {
     return result;
   };
 
-  return parse(source, true);
+  return parse(source);
 }
 
-// Mention types for user resolution
-// MentionUser is the minimal type for name display
+// React component types
 interface MentionUser {
   id: string;
   username: string;
   globalName: string | null;
-  // Optional fields for popover (when resolved)
   displayName?: string;
   avatarUrl?: string;
-  bannerUrl?: string | null;
-  roles?: { name: string; position: number }[];
   [key: string]: unknown;
-}
-
-interface MentionRole {
-  id: string;
-  name: string;
 }
 
 interface Mentions {
   users?: MentionUser[];
-  roles?: MentionRole[];
-  everyone?: boolean;
+  roles?: { id: string; name: string }[];
 }
 
-// React component
 interface DiscordMarkdownProps {
   content: string;
   className?: string;
@@ -461,6 +269,7 @@ interface DiscordMarkdownProps {
   options?: Omit<HtmlOptions, "escapeHTML">;
 }
 
+// SSR helpers
 const subscribe = () => () => {};
 const getSnapshot = () => true;
 const getServerSnapshot = () => false;
@@ -468,32 +277,22 @@ const getServerSnapshot = () => false;
 export function DiscordMarkdown(props: DiscordMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [clickedUser, setClickedUser] = useState<MentionUser | null>(null);
-  const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | null>(null);
-  const isClient = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot,
-  );
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+  const isClient = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  // Close popover when clicking outside - must be before early returns
+  // Close popover on outside click
   useEffect(() => {
     if (!clickedUser) return;
 
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Don't close if clicking inside the popover
       if (target.closest("[data-slot='popover-content']")) return;
-      // Don't close if clicking on a mention (let handleClick handle it)
       if (target.dataset.userId) return;
       setClickedUser(null);
-      setPopoverAnchor(null);
+      setAnchorRect(null);
     };
 
-    // Use setTimeout to avoid closing immediately from the same click
-    const timer = setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
-    }, 0);
-
+    const timer = setTimeout(() => document.addEventListener("click", handleClickOutside), 0);
     return () => {
       clearTimeout(timer);
       document.removeEventListener("click", handleClickOutside);
@@ -503,94 +302,43 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   if (!props.content) return null;
 
   if (!isClient) {
-    return (
-      <div className={`leading-snug ${props.className}`}>{props.content}</div>
-    );
+    return <div className={`leading-snug ${props.className}`}>{props.content}</div>;
   }
 
-  // Build lookup maps for mentions
-  const userMap = new Map<string, MentionUser>(
-    props.mentions?.users?.map((u) => [u.id, u]) ?? [],
-  );
+  // Build mention maps
+  const userMap = new Map(props.mentions?.users?.map((u) => [u.id, u]) ?? []);
   const roleMap = new Map(props.mentions?.roles?.map((r) => [r.id, r]) ?? []);
-
-  // Create callbacks that resolve mentions
-  const discordCallback: Partial<DiscordCallbacks> = {
-    user: (node) => {
-      const id = node.id || "";
-      const user = userMap.get(id);
-      if (user) {
-        return "@" + escapeHtml(user.globalName || user.username);
-      }
-      return "@" + escapeHtml(id);
-    },
-    role: (node) => {
-      const role = roleMap.get(node.id || "");
-      if (role) {
-        return "@" + escapeHtml(role.name);
-      }
-      return "@" + escapeHtml(node.id || "");
-    },
-  };
 
   const html = toHTML(props.content, {
     escapeHTML: true,
-    discordOnly: false,
     ...props.options,
     discordCallback: {
-      ...discordCallback,
+      user: (n) => {
+        const user = userMap.get(n.id || "");
+        return "@" + escapeHtml(user?.globalName || user?.username || n.id || "");
+      },
+      role: (n) => {
+        const role = roleMap.get(n.id || "");
+        return "@" + escapeHtml(role?.name || n.id || "");
+      },
       ...props.options?.discordCallback,
     },
   });
 
-  // Check if user has full data (resolved) for popover display
-  const isResolvedUser = (
-    user: MentionUser,
-  ): user is MentionUser & GetApiByGuildIdNews200ItemAuthor => {
-    return Boolean(user.displayName && user.avatarUrl);
-  };
+  const isResolved = (u: MentionUser): u is MentionUser & GetApiByGuildIdNews200ItemAuthor =>
+    Boolean(u.displayName && u.avatarUrl);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     const userId = target.dataset.userId;
     if (userId) {
       const user = userMap.get(userId);
-      // Only show popover if user has full data
-      if (user && isResolvedUser(user)) {
+      if (user && isResolved(user)) {
         setClickedUser(user);
-        setPopoverAnchor(target);
+        setAnchorRect(target.getBoundingClientRect());
       }
     }
   };
-
-  // Render portal anchor for the popover (only when user has full data)
-  const portalAnchor =
-    clickedUser &&
-    popoverAnchor &&
-    isResolvedUser(clickedUser) &&
-    createPortal(
-      <DiscordUserPopover
-        user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
-        open={true}
-        onOpenChange={(open) => {
-          if (!open) {
-            setClickedUser(null);
-            setPopoverAnchor(null);
-          }
-        }}
-      >
-        <span
-          style={{
-            position: "fixed",
-            left: popoverAnchor.getBoundingClientRect().left,
-            top: popoverAnchor.getBoundingClientRect().bottom + 4,
-            width: 0,
-            height: 0,
-          }}
-        />
-      </DiscordUserPopover>,
-      document.body,
-    );
 
   return (
     <>
@@ -600,7 +348,14 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
         dangerouslySetInnerHTML={{ __html: html }}
         onClick={handleClick}
       />
-      {portalAnchor}
+      {clickedUser && anchorRect && isResolved(clickedUser) &&
+        createPortal(
+          <DiscordUserPopover
+            user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
+            anchorRect={anchorRect}
+          />,
+          document.body,
+        )}
     </>
   );
 }
