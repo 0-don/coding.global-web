@@ -74,7 +74,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         continue;
       }
 
-      const threads = response.data as GetApiByGuildIdThreadByThreadType200Item[];
+      const threads =
+        response.data as GetApiByGuildIdThreadByThreadType200Item[];
       results.push(`${threadType}: ${threads.length}`);
 
       threads.forEach((thread) => {
@@ -137,7 +138,9 @@ function getEntries(
     url: getUrl(href, locale),
     lastModified: options?.lastModified ?? new Date(),
     ...(options?.priority !== undefined && { priority: options.priority }),
-    ...(options?.changeFrequency && { changeFrequency: options.changeFrequency }),
+    ...(options?.changeFrequency && {
+      changeFrequency: options.changeFrequency,
+    }),
     alternates: {
       languages: Object.fromEntries(
         routing.locales.map((cur) => [cur, getUrl(href, cur)]),

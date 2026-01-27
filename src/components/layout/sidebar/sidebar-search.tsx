@@ -26,7 +26,11 @@ export function SidebarSearch() {
 
   const lastTrackedQuery = useRef("");
 
-  const handleSelect = (result: { url: string; title: string; category: string }) => {
+  const handleSelect = (result: {
+    url: string;
+    title: string;
+    category: string;
+  }) => {
     posthog.capture("search_result_clicked", {
       query,
       result_url: result.url,

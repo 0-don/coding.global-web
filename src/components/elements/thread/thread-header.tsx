@@ -149,7 +149,12 @@ export function ThreadHeader(props: ThreadHeaderProps) {
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors"
               title={t("SHOWCASE.OPEN_IN_DISCORD")}
-              onClick={() => posthog.capture("discord_link_clicked", { section: "thread_header", thread_id: props.thread.id })}
+              onClick={() =>
+                posthog.capture("discord_link_clicked", {
+                  section: "thread_header",
+                  thread_id: props.thread.id,
+                })
+              }
             >
               <ExternalLink className="h-4 w-4" />
               <span>{t("SHOWCASE.OPEN_IN_DISCORD")}</span>

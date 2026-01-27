@@ -17,7 +17,12 @@ export function ResourceFooter() {
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:underline"
-          onClick={() => posthog.capture("external_link_clicked", { section: "resource_footer", destination: "github" })}
+          onClick={() =>
+            posthog.capture("external_link_clicked", {
+              section: "resource_footer",
+              destination: "github",
+            })
+          }
         >
           {t("RESOURCES.FOOTER.GITHUB")}
         </a>{" "}
@@ -27,7 +32,11 @@ export function ResourceFooter() {
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:underline"
-          onClick={() => posthog.capture("discord_link_clicked", { section: "resource_footer" })}
+          onClick={() =>
+            posthog.capture("discord_link_clicked", {
+              section: "resource_footer",
+            })
+          }
         >
           {t("RESOURCES.FOOTER.DISCORD")}
         </a>
