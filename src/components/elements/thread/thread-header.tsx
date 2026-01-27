@@ -162,12 +162,11 @@ export function ThreadHeader(props: ThreadHeaderProps) {
             {props.thread.author && <DiscordUser user={props.thread.author} />}
 
             <div className="flex-1">
-              {props.thread.content && (
+              {props.thread.firstMessage?.content && (
                 <div className="text-sm whitespace-pre-wrap">
                   <DiscordMarkdown
-                    content={props.thread.content}
-                    mentions={props.thread.firstMessage?.mentions}
-                    resolvedUsers={props.thread.resolvedUsers}
+                    content={props.thread.firstMessage.content}
+                    mentions={props.thread.firstMessage.mentions}
                   />
                 </div>
               )}

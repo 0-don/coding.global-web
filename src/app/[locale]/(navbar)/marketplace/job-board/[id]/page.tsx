@@ -82,8 +82,8 @@ export default async function JobBoardDetailPage(props: {
           <JobJsonLd
             data={{
               title: thread.name,
-              description: thread.content || thread.name,
-              datePosted: thread.createdAt || thread.lastActivityAt || thread.updatedAt,
+              description: thread.firstMessage?.content || thread.name,
+              datePosted: thread.createdAt || thread.lastActivityAt || thread.updatedAt || "",
               employerName: thread.author.displayName || thread.author.username,
               pageUrl,
             }}

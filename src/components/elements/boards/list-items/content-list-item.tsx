@@ -125,10 +125,10 @@ export function ContentListItem(props: ContentListItemProps) {
         )}
 
         {/* Preview Text */}
-        {props.data.content && (
+        {props.data.firstMessage?.content && (
           <DiscordMarkdown
-            content={props.data.content}
-            mentions={props.data.firstMessage?.mentions}
+            content={props.data.firstMessage.content}
+            mentions={props.data.firstMessage.mentions}
             className="text-muted-foreground line-clamp-2 text-sm"
           />
         )}
