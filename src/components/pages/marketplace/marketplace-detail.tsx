@@ -1,6 +1,7 @@
 "use client";
 
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
+import { ThreadNotFound } from "@/components/elements/thread/thread-not-found";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
   useThreadMessagesInfiniteQuery,
@@ -26,7 +27,7 @@ export function MarketplaceDetail(props: MarketplaceDetailProps) {
     [];
 
   if (!thread) {
-    return null;
+    return <ThreadNotFound />;
   }
 
   return (

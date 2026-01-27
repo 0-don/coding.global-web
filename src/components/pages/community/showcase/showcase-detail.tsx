@@ -1,6 +1,7 @@
 "use client";
 
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
+import { ThreadNotFound } from "@/components/elements/thread/thread-not-found";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
 import {
   useThreadMessagesInfiniteQuery,
@@ -24,7 +25,7 @@ export function ShowcaseDetail(props: ShowcaseDetailProps) {
     [];
 
   if (!thread) {
-    return null;
+    return <ThreadNotFound />;
   }
 
   return (
