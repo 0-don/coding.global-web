@@ -8,7 +8,7 @@ import {
   getApiByGuildIdThreadByThreadTypeByThreadId,
   getApiByGuildIdThreadByThreadTypeByThreadIdMessages,
   getApiByGuildIdTop,
-  getApiByGuildIdWidget
+  getApiByGuildIdWidget,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
 
@@ -82,10 +82,7 @@ export const botRoute = new Elysia({ prefix: "/bot" })
   )
   .get(
     "/thread/:threadType/:threadId",
-    async ({
-      params,
-      status,
-    }) => {
+    async ({ params, status }) => {
       const response = await getApiByGuildIdThreadByThreadTypeByThreadId(
         process.env.NEXT_PUBLIC_GUILD_ID!,
         params.threadType,

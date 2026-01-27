@@ -2633,126 +2633,218 @@ export type GetApiByGuildIdUserSearch422 = {
   expected?: string;
 };
 
-export type GetApiByGuildIdUserByUserId200UserGlobalName = string | null;
+export type PostApiByGuildIdUsersStatsBodyOne = {
+  userIds: string[];
+};
 
-export type GetApiByGuildIdUserByUserId200UserNickname = string | null;
+export type PostApiByGuildIdUsersStatsBodyTwo = {
+  userIds: string[];
+};
 
-export type GetApiByGuildIdUserByUserId200UserBannerUrl = string | null;
+export type PostApiByGuildIdUsersStatsBodyThree = {
+  userIds: string[];
+};
 
-export type GetApiByGuildIdUserByUserId200UserAccentColor = number | null;
+export type PostApiByGuildIdUsersStats200ItemUserGlobalName = string | null;
 
-export type GetApiByGuildIdUserByUserId200UserFlags = string | null;
+export type PostApiByGuildIdUsersStats200ItemUserNickname = string | null;
 
-export type GetApiByGuildIdUserByUserId200UserCollectibles = string | null;
+export type PostApiByGuildIdUsersStats200ItemUserBannerUrl = string | null;
 
-export type GetApiByGuildIdUserByUserId200UserPrimaryGuild = string | null;
+export type PostApiByGuildIdUsersStats200ItemUserAccentColor = number | null;
 
-export type GetApiByGuildIdUserByUserId200UserRolesItem = {
+export type PostApiByGuildIdUsersStats200ItemUserFlags = string | null;
+
+export type PostApiByGuildIdUsersStats200ItemUserCollectibles = string | null;
+
+export type PostApiByGuildIdUsersStats200ItemUserPrimaryGuild = string | null;
+
+export type PostApiByGuildIdUsersStats200ItemUserRolesItem = {
   name: string;
   position: number;
 };
 
-export type GetApiByGuildIdUserByUserId200UserActivity = string | null;
+export type PostApiByGuildIdUsersStats200ItemUserActivity = string | null;
 
-export type GetApiByGuildIdUserByUserId200UserPresenceUpdatedAt = string | null;
-
-export type GetApiByGuildIdUserByUserId200UserPremiumSince = string | null;
-
-export type GetApiByGuildIdUserByUserId200UserCommunicationDisabledUntil =
+export type PostApiByGuildIdUsersStats200ItemUserPresenceUpdatedAt =
   | string
   | null;
 
-export type GetApiByGuildIdUserByUserId200UserJoinedAt = string | null;
+export type PostApiByGuildIdUsersStats200ItemUserPremiumSince = string | null;
 
-export type GetApiByGuildIdUserByUserId200User = {
+export type PostApiByGuildIdUsersStats200ItemUserCommunicationDisabledUntil =
+  | string
+  | null;
+
+export type PostApiByGuildIdUsersStats200ItemUserJoinedAt = string | null;
+
+export type PostApiByGuildIdUsersStats200ItemUser = {
   id: string;
   username: string;
-  globalName: GetApiByGuildIdUserByUserId200UserGlobalName;
-  nickname: GetApiByGuildIdUserByUserId200UserNickname;
+  globalName: PostApiByGuildIdUsersStats200ItemUserGlobalName;
+  nickname: PostApiByGuildIdUsersStats200ItemUserNickname;
   displayName: string;
   avatarUrl: string;
-  bannerUrl: GetApiByGuildIdUserByUserId200UserBannerUrl;
-  accentColor: GetApiByGuildIdUserByUserId200UserAccentColor;
+  bannerUrl: PostApiByGuildIdUsersStats200ItemUserBannerUrl;
+  accentColor: PostApiByGuildIdUsersStats200ItemUserAccentColor;
   displayHexColor: string;
-  flags: GetApiByGuildIdUserByUserId200UserFlags;
-  collectibles: GetApiByGuildIdUserByUserId200UserCollectibles;
-  primaryGuild: GetApiByGuildIdUserByUserId200UserPrimaryGuild;
-  roles: GetApiByGuildIdUserByUserId200UserRolesItem[];
+  flags: PostApiByGuildIdUsersStats200ItemUserFlags;
+  collectibles: PostApiByGuildIdUsersStats200ItemUserCollectibles;
+  primaryGuild: PostApiByGuildIdUsersStats200ItemUserPrimaryGuild;
+  roles: PostApiByGuildIdUsersStats200ItemUserRolesItem[];
   highestRolePosition: number;
   status: string;
-  activity: GetApiByGuildIdUserByUserId200UserActivity;
-  presenceUpdatedAt: GetApiByGuildIdUserByUserId200UserPresenceUpdatedAt;
-  premiumSince: GetApiByGuildIdUserByUserId200UserPremiumSince;
-  communicationDisabledUntil: GetApiByGuildIdUserByUserId200UserCommunicationDisabledUntil;
-  joinedAt: GetApiByGuildIdUserByUserId200UserJoinedAt;
+  activity: PostApiByGuildIdUsersStats200ItemUserActivity;
+  presenceUpdatedAt: PostApiByGuildIdUsersStats200ItemUserPresenceUpdatedAt;
+  premiumSince: PostApiByGuildIdUsersStats200ItemUserPremiumSince;
+  communicationDisabledUntil: PostApiByGuildIdUsersStats200ItemUserCommunicationDisabledUntil;
+  joinedAt: PostApiByGuildIdUsersStats200ItemUserJoinedAt;
   createdAt: string;
   updatedAt: string;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsMessagesMostActiveChannelId =
+export type PostApiByGuildIdUsersStats200ItemStatsMessagesMostActiveChannelId =
   | string
   | null;
 
-export type GetApiByGuildIdUserByUserId200StatsMessagesMostActiveChannel = {
-  id: GetApiByGuildIdUserByUserId200StatsMessagesMostActiveChannelId;
+export type PostApiByGuildIdUsersStats200ItemStatsMessagesMostActiveChannel = {
+  id: PostApiByGuildIdUsersStats200ItemStatsMessagesMostActiveChannelId;
   count: number;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsMessages = {
+export type PostApiByGuildIdUsersStats200ItemStatsMessages = {
   total: number;
   last7Days: number;
   last24Hours: number;
-  mostActiveChannel: GetApiByGuildIdUserByUserId200StatsMessagesMostActiveChannel;
+  mostActiveChannel: PostApiByGuildIdUsersStats200ItemStatsMessagesMostActiveChannel;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsVoiceMostActiveChannelId =
+export type PostApiByGuildIdUsersStats200ItemStatsVoiceMostActiveChannelId =
   | string
   | null;
 
-export type GetApiByGuildIdUserByUserId200StatsVoiceMostActiveChannel = {
-  id: GetApiByGuildIdUserByUserId200StatsVoiceMostActiveChannelId;
+export type PostApiByGuildIdUsersStats200ItemStatsVoiceMostActiveChannel = {
+  id: PostApiByGuildIdUsersStats200ItemStatsVoiceMostActiveChannelId;
   hours: number;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsVoice = {
+export type PostApiByGuildIdUsersStats200ItemStatsVoice = {
   totalHours: number;
   last7DaysHours: number;
   last24HoursHours: number;
-  mostActiveChannel: GetApiByGuildIdUserByUserId200StatsVoiceMostActiveChannel;
+  mostActiveChannel: PostApiByGuildIdUsersStats200ItemStatsVoiceMostActiveChannel;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsHelp = {
+export type PostApiByGuildIdUsersStats200ItemStatsHelp = {
   given: number;
   received: number;
 };
 
-export type GetApiByGuildIdUserByUserId200StatsLastActivityLastVoice =
+export type PostApiByGuildIdUsersStats200ItemStatsLastActivityLastVoice =
   | string
   | null;
 
-export type GetApiByGuildIdUserByUserId200StatsLastActivityLastMessage =
+export type PostApiByGuildIdUsersStats200ItemStatsLastActivityLastMessage =
   | string
   | null;
 
-export type GetApiByGuildIdUserByUserId200StatsLastActivity = {
-  lastVoice: GetApiByGuildIdUserByUserId200StatsLastActivityLastVoice;
-  lastMessage: GetApiByGuildIdUserByUserId200StatsLastActivityLastMessage;
+export type PostApiByGuildIdUsersStats200ItemStatsLastActivity = {
+  lastVoice: PostApiByGuildIdUsersStats200ItemStatsLastActivityLastVoice;
+  lastMessage: PostApiByGuildIdUsersStats200ItemStatsLastActivityLastMessage;
 };
 
-export type GetApiByGuildIdUserByUserId200Stats = {
-  messages: GetApiByGuildIdUserByUserId200StatsMessages;
-  voice: GetApiByGuildIdUserByUserId200StatsVoice;
-  help: GetApiByGuildIdUserByUserId200StatsHelp;
-  lastActivity: GetApiByGuildIdUserByUserId200StatsLastActivity;
+export type PostApiByGuildIdUsersStats200ItemStats = {
+  messages: PostApiByGuildIdUsersStats200ItemStatsMessages;
+  voice: PostApiByGuildIdUsersStats200ItemStatsVoice;
+  help: PostApiByGuildIdUsersStats200ItemStatsHelp;
+  lastActivity: PostApiByGuildIdUsersStats200ItemStatsLastActivity;
 };
 
-export type GetApiByGuildIdUserByUserId200 = {
-  user: GetApiByGuildIdUserByUserId200User;
-  stats: GetApiByGuildIdUserByUserId200Stats;
+export type PostApiByGuildIdUsersStats200Item = {
+  user: PostApiByGuildIdUsersStats200ItemUser;
+  stats: PostApiByGuildIdUsersStats200ItemStats;
   lookback: number;
 };
 
-export type GetApiByGuildIdUserByUserId422 = {
+export type PostApiByGuildIdUsersStats422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
+export type PostApiByGuildIdUsersInfoBodyOne = {
+  userIds: string[];
+};
+
+export type PostApiByGuildIdUsersInfoBodyTwo = {
+  userIds: string[];
+};
+
+export type PostApiByGuildIdUsersInfoBodyThree = {
+  userIds: string[];
+};
+
+export type PostApiByGuildIdUsersInfo200ItemGlobalName = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemNickname = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemBannerUrl = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemAccentColor = number | null;
+
+export type PostApiByGuildIdUsersInfo200ItemFlags = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemCollectibles = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemPrimaryGuild = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemRolesItem = {
+  name: string;
+  position: number;
+};
+
+export type PostApiByGuildIdUsersInfo200ItemActivity = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemPresenceUpdatedAt = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemPremiumSince = string | null;
+
+export type PostApiByGuildIdUsersInfo200ItemCommunicationDisabledUntil =
+  | string
+  | null;
+
+export type PostApiByGuildIdUsersInfo200ItemJoinedAt = string | null;
+
+export type PostApiByGuildIdUsersInfo200Item = {
+  id: string;
+  username: string;
+  globalName: PostApiByGuildIdUsersInfo200ItemGlobalName;
+  nickname: PostApiByGuildIdUsersInfo200ItemNickname;
+  displayName: string;
+  avatarUrl: string;
+  bannerUrl: PostApiByGuildIdUsersInfo200ItemBannerUrl;
+  accentColor: PostApiByGuildIdUsersInfo200ItemAccentColor;
+  displayHexColor: string;
+  flags: PostApiByGuildIdUsersInfo200ItemFlags;
+  collectibles: PostApiByGuildIdUsersInfo200ItemCollectibles;
+  primaryGuild: PostApiByGuildIdUsersInfo200ItemPrimaryGuild;
+  roles: PostApiByGuildIdUsersInfo200ItemRolesItem[];
+  highestRolePosition: number;
+  status: string;
+  activity: PostApiByGuildIdUsersInfo200ItemActivity;
+  presenceUpdatedAt: PostApiByGuildIdUsersInfo200ItemPresenceUpdatedAt;
+  premiumSince: PostApiByGuildIdUsersInfo200ItemPremiumSince;
+  communicationDisabledUntil: PostApiByGuildIdUsersInfo200ItemCommunicationDisabledUntil;
+  joinedAt: PostApiByGuildIdUsersInfo200ItemJoinedAt;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PostApiByGuildIdUsersInfo422 = {
   type: "validation";
   on: string;
   summary?: string;
@@ -3339,46 +3431,92 @@ export const getApiByGuildIdUserSearch = async (
   );
 };
 
-export type getApiByGuildIdUserByUserIdResponse200 = {
-  data: GetApiByGuildIdUserByUserId200;
+export type postApiByGuildIdUsersStatsResponse200 = {
+  data: PostApiByGuildIdUsersStats200Item[];
   status: 200;
 };
 
-export type getApiByGuildIdUserByUserIdResponse422 = {
-  data: GetApiByGuildIdUserByUserId422;
+export type postApiByGuildIdUsersStatsResponse422 = {
+  data: PostApiByGuildIdUsersStats422;
   status: 422;
 };
 
-export type getApiByGuildIdUserByUserIdResponseSuccess =
-  getApiByGuildIdUserByUserIdResponse200 & {
+export type postApiByGuildIdUsersStatsResponseSuccess =
+  postApiByGuildIdUsersStatsResponse200 & {
     headers: Headers;
   };
-export type getApiByGuildIdUserByUserIdResponseError =
-  getApiByGuildIdUserByUserIdResponse422 & {
+export type postApiByGuildIdUsersStatsResponseError =
+  postApiByGuildIdUsersStatsResponse422 & {
     headers: Headers;
   };
 
-export type getApiByGuildIdUserByUserIdResponse =
-  | getApiByGuildIdUserByUserIdResponseSuccess
-  | getApiByGuildIdUserByUserIdResponseError;
+export type postApiByGuildIdUsersStatsResponse =
+  | postApiByGuildIdUsersStatsResponseSuccess
+  | postApiByGuildIdUsersStatsResponseError;
 
-export const getGetApiByGuildIdUserByUserIdUrl = (
-  guildId: string,
-  userId: string,
-) => {
-  return `/api/${guildId}/user/${userId}`;
+export const getPostApiByGuildIdUsersStatsUrl = (guildId: string) => {
+  return `/api/${guildId}/users/stats`;
 };
 
-export const getApiByGuildIdUserByUserId = async (
+export const postApiByGuildIdUsersStats = async (
   guildId: string,
-  userId: string,
+  postApiByGuildIdUsersStatsBody:
+    | PostApiByGuildIdUsersStatsBodyOne
+    | PostApiByGuildIdUsersStatsBodyTwo
+    | PostApiByGuildIdUsersStatsBodyThree,
   options?: RequestInit,
-): Promise<getApiByGuildIdUserByUserIdResponse> => {
-  return customFetch<getApiByGuildIdUserByUserIdResponse>(
-    getGetApiByGuildIdUserByUserIdUrl(guildId, userId),
+): Promise<postApiByGuildIdUsersStatsResponse> => {
+  return customFetch<postApiByGuildIdUsersStatsResponse>(
+    getPostApiByGuildIdUsersStatsUrl(guildId),
     {
       ...options,
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify(postApiByGuildIdUsersStatsBody),
+    },
+  );
+};
+
+export type postApiByGuildIdUsersInfoResponse200 = {
+  data: PostApiByGuildIdUsersInfo200Item[];
+  status: 200;
+};
+
+export type postApiByGuildIdUsersInfoResponse422 = {
+  data: PostApiByGuildIdUsersInfo422;
+  status: 422;
+};
+
+export type postApiByGuildIdUsersInfoResponseSuccess =
+  postApiByGuildIdUsersInfoResponse200 & {
+    headers: Headers;
+  };
+export type postApiByGuildIdUsersInfoResponseError =
+  postApiByGuildIdUsersInfoResponse422 & {
+    headers: Headers;
+  };
+
+export type postApiByGuildIdUsersInfoResponse =
+  | postApiByGuildIdUsersInfoResponseSuccess
+  | postApiByGuildIdUsersInfoResponseError;
+
+export const getPostApiByGuildIdUsersInfoUrl = (guildId: string) => {
+  return `/api/${guildId}/users/info`;
+};
+
+export const postApiByGuildIdUsersInfo = async (
+  guildId: string,
+  postApiByGuildIdUsersInfoBody:
+    | PostApiByGuildIdUsersInfoBodyOne
+    | PostApiByGuildIdUsersInfoBodyTwo
+    | PostApiByGuildIdUsersInfoBodyThree,
+  options?: RequestInit,
+): Promise<postApiByGuildIdUsersInfoResponse> => {
+  return customFetch<postApiByGuildIdUsersInfoResponse>(
+    getPostApiByGuildIdUsersInfoUrl(guildId),
+    {
+      ...options,
+      method: "POST",
+      body: JSON.stringify(postApiByGuildIdUsersInfoBody),
     },
   );
 };

@@ -61,5 +61,5 @@ export const queryKeys = {
     "search",
     options,
   ],
-  terminalUser: (userId: string) => ["terminal", "user", userId],
+  terminalUsers: (userIds: string[]) => ["terminal", "users", userIds],
 };

@@ -101,21 +101,21 @@ export function useTerminalUserSearchQuery(
 }
 
 /**
- * Fetch a specific user on demand with caching.
+ * Fetch users on demand with caching.
  * Provides reactive states (data, isLoading, error) and a cached fetch function.
  *
  * @example
- * const { data, isLoading, error, fetch } = useTerminalUserQuery("123456789");
+ * const { data, isLoading, error, fetch } = useTerminalUsersQuery(["123456789", "987654321"]);
  * await fetch();
  */
-export function useTerminalUserQuery(userId: string) {
+export function useTerminalUsersQuery(userIds: string[]) {
   const queryClient = useQueryClient();
-  const queryKey = queryKeys.terminalUser(userId);
+  const queryKey = queryKeys.terminalUsers(userIds);
 
   const query = useQuery({
     queryKey,
     queryFn: async () =>
-      handleElysia(await rpc.api.terminal.user({ userId }).get()),
+      handleElysia(await rpc.api.terminal.users.post({ userIds })),
     enabled: false,
   });
 
@@ -123,7 +123,7 @@ export function useTerminalUserQuery(userId: string) {
     const data = await queryClient.fetchQuery({
       queryKey,
       queryFn: async () =>
-        handleElysia(await rpc.api.terminal.user({ userId }).get()),
+        handleElysia(await rpc.api.terminal.users.post({ userIds })),
     });
     return data;
   };

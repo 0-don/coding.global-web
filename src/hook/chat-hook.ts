@@ -1,8 +1,5 @@
 import { PAGEABLE_LIMIT } from "@/lib/config/constants";
-import {
-  commentInsertSchema,
-  Comments,
-} from "@/lib/db-schema/comment-db-schema";
+import { commentInsertSchema } from "@/lib/db-schema/comment-db-schema";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { handleElysia } from "@/lib/utils/base";
@@ -17,6 +14,10 @@ import { useTranslations } from "next-intl";
 import posthog from "posthog-js";
 import { toast } from "sonner";
 
+type ChatMessage = NonNullable<
+  Awaited<ReturnType<typeof rpc.api.chat.get>>["data"]
+>[number];
+
 export function useChatsInfiniteQuery() {
   return useInfiniteQuery({
     queryKey: queryKeys.chats(),
@@ -25,7 +26,7 @@ export function useChatsInfiniteQuery() {
         query: { cursor: pageParam, limit: PAGEABLE_LIMIT },
       });
       if (response.error) throw response.error;
-      return response.data || [];
+      return (response.data || []) as ChatMessage[];
     },
     initialPageParam: null as string | undefined | null,
     getNextPageParam: (lastPage) =>
@@ -48,7 +49,7 @@ export function useChatAddMutation() {
       });
       queryClient.setQueryData(
         queryKeys.chats(),
-        (oldData: InfiniteData<Comments[]> | undefined) => {
+        (oldData: InfiniteData<ChatMessage[]> | undefined) => {
           if (!oldData?.pages) return oldData;
           const [firstPage = [], ...restPages] = oldData.pages;
           return {
@@ -74,7 +75,7 @@ export function useChatDeleteMutation() {
       posthog.capture("chat_message_deleted");
       queryClient.setQueryData(
         queryKeys.chats(),
-        (oldData: InfiniteData<Comments[]> | undefined) => {
+        (oldData: InfiniteData<ChatMessage[]> | undefined) => {
           if (!oldData?.pages) return oldData;
           return {
             pages: oldData.pages.map((page) =>
