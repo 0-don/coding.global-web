@@ -1,7 +1,4 @@
-import {
-  GetApiByGuildIdThreadByThreadTypeByThreadId200ResolvedUsersItem,
-  GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
-} from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
 const NON_PROGRAMMING_TYPES = ["job-board", "dev-board", "showcase"] as const;
@@ -42,15 +39,3 @@ export type MetadataKeys = {
   description: string;
   keywords: string;
 };
-
-export type ResolvedUser = GetApiByGuildIdThreadByThreadTypeByThreadId200ResolvedUsersItem;
-
-export function mergeResolvedUsers(
-  thread: { resolvedUsers?: ResolvedUser[] } | null | undefined,
-  pages: Array<{ resolvedUsers?: ResolvedUser[] } | null | undefined> | undefined,
-): ResolvedUser[] {
-  const map = new Map<string, ResolvedUser>();
-  thread?.resolvedUsers?.forEach((u) => map.set(u.id, u));
-  pages?.forEach((page) => page?.resolvedUsers?.forEach((u) => map.set(u.id, u)));
-  return [...map.values()];
-}

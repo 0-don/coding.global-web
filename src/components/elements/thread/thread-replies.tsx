@@ -15,12 +15,10 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import { Virtualizer, type VirtualizerHandle } from "virtua";
-import { ResolvedUser } from "@/lib/types";
 
 interface ThreadRepliesProps {
   messages: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[];
   parentThread: GetApiByGuildIdThreadByThreadTypeByThreadId200;
-  resolvedUsers?: ResolvedUser[];
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
@@ -42,7 +40,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
     map.set(props.parentThread.id, {
       id: props.parentThread.id,
       author: props.parentThread.author,
-      content: props.parentThread.content,
+      content: props.parentThread.firstMessage?.content ?? null,
       createdAt: props.parentThread.createdAt,
       isParentThread: true,
     });
@@ -170,7 +168,6 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                         <DiscordMarkdown
                           content={message.content}
                           mentions={message.mentions}
-                          resolvedUsers={props.resolvedUsers}
                         />
                       </div>
 
@@ -225,7 +222,6 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                                 <DiscordMarkdown
                                   content={embed.description}
                                   mentions={message.mentions}
-                                  resolvedUsers={props.resolvedUsers}
                                   className="text-muted-foreground text-sm"
                                 />
                               )}

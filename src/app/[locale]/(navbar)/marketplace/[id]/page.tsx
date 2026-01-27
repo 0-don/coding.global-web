@@ -6,8 +6,7 @@ import { rpc } from "@/lib/rpc";
 import { MarketplaceThreadType } from "@/lib/types";
 import { serverLocale } from "@/lib/utils/server";
 import {
-  GetApiByGuildIdThreadByThreadTypeByThreadId200,
-  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
+  GetApiByGuildIdThreadByThreadTypeByThreadId200
 } from "@/openapi";
 import { getTranslations } from "next-intl/server";
 
@@ -88,9 +87,7 @@ export async function generateMetadata(props: {
 async function fetchMessages(
   threadType: MarketplaceThreadType,
   threadId: string,
-): Promise<
-  GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem[]
-> {
+) {
   const response = await rpc.api.bot
     .thread({ threadType })({ threadId })
     .messages.get({ query: {} });

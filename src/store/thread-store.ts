@@ -1,6 +1,6 @@
 import { ThreadType } from "@/lib/types";
 import { createJotaiCookieStorage } from "@/lib/utils/jotai-cookie-storage";
-import type { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { atom } from "jotai";
 import { atomFamily } from "jotai-family";
 import { atomWithStorage } from "jotai/utils";
@@ -133,7 +133,7 @@ export const filterThreads = (
     const query = searchQuery.toLowerCase();
     filtered = filtered.filter((thread) => {
       const nameMatch = thread.name.toLowerCase().includes(query);
-      const contentMatch = thread.content?.toLowerCase().includes(query);
+      const contentMatch = thread.firstMessage?.content?.toLowerCase().includes(query);
       const authorMatch = thread.author.username.toLowerCase().includes(query);
       const authorDisplayNameMatch = thread.author.displayName
         ?.toLowerCase()

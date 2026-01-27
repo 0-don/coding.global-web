@@ -19,7 +19,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { ThreadType } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import type { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
+import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import { getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";

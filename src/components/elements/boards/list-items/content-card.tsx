@@ -7,11 +7,11 @@ import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { dayjs } from "@/lib/utils/dayjs";
-import { SortOrder } from "@/store/thread-store";
 import {
   GetApiByGuildIdNews200Item,
   GetApiByGuildIdThreadByThreadType200Item,
 } from "@/openapi";
+import { SortOrder } from "@/store/thread-store";
 import {
   Archive,
   Calendar,
@@ -46,6 +46,12 @@ type ThreadCardProps = BaseContentCardProps & {
 
 type ContentCardProps = MessageCardProps | ThreadCardProps;
 
+function getContent(props: ContentCardProps) {
+  return props.type === "message"
+    ? props.data.content
+    : props.data.firstMessage?.content ?? null;
+}
+
 function getImageData(props: ContentCardProps) {
   if (props.type === "message") {
     return {
@@ -70,6 +76,7 @@ function getImageData(props: ContentCardProps) {
 export function ContentCard(props: ContentCardProps) {
   const t = useTranslations();
   const imageData = getImageData(props);
+  const content = getContent(props);
 
   const cardContent = (
     <>
@@ -157,7 +164,7 @@ export function ContentCard(props: ContentCardProps) {
       </CardHeader>
 
       <CardContent className="mt-auto pt-0">
-        {props.data.content && (
+        {content && (
           <div
             onClick={(e) => {
               e.preventDefault();
@@ -165,7 +172,7 @@ export function ContentCard(props: ContentCardProps) {
             }}
           >
             <DiscordMarkdown
-              content={props.data.content}
+              content={content}
               mentions={
                 props.type === "message"
                   ? props.data.mentions

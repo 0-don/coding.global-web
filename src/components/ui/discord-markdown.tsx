@@ -1,8 +1,11 @@
 "use client";
 
+import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
+import { GetApiByGuildIdNews200ItemAuthor } from "@/openapi";
 import hljs from "highlight.js";
 import { get as getEmoji } from "node-emoji";
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 
 // Types
 interface DiscordNode {
@@ -204,7 +207,7 @@ const createRules = (escape: boolean): ParseRule[] => {
       pattern: /^<@!?(\d+)>/,
       replace: (match, callbacks) => {
         const node = { id: match[1] };
-        return `<span class="${styles.mention}">${callbacks.user(node)}</span>`;
+        return `<span class="${styles.mention}" data-user-id="${escapeHtml(match[1])}">${callbacks.user(node)}</span>`;
       },
     },
     // Channel mention (<#id>)
@@ -426,10 +429,17 @@ export function toHTML(source: string, options?: HtmlOptions): string {
 }
 
 // Mention types for user resolution
+// MentionUser is the minimal type for name display
 interface MentionUser {
   id: string;
   username: string;
   globalName: string | null;
+  // Optional fields for popover (when resolved)
+  displayName?: string;
+  avatarUrl?: string;
+  bannerUrl?: string | null;
+  roles?: { name: string; position: number }[];
+  [key: string]: unknown;
 }
 
 interface MentionRole {
@@ -443,15 +453,11 @@ interface Mentions {
   everyone?: boolean;
 }
 
-// Resolved user type (from backend aggregation)
-type ResolvedUser = { id: string; username: string; globalName: string | null };
-
 // React component
 interface DiscordMarkdownProps {
   content: string;
   className?: string;
   mentions?: Mentions;
-  resolvedUsers?: ResolvedUser[];
   options?: Omit<HtmlOptions, "escapeHTML">;
 }
 
@@ -460,11 +466,39 @@ const getSnapshot = () => true;
 const getServerSnapshot = () => false;
 
 export function DiscordMarkdown(props: DiscordMarkdownProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [clickedUser, setClickedUser] = useState<MentionUser | null>(null);
+  const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | null>(null);
   const isClient = useSyncExternalStore(
     subscribe,
     getSnapshot,
     getServerSnapshot,
   );
+
+  // Close popover when clicking outside - must be before early returns
+  useEffect(() => {
+    if (!clickedUser) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Don't close if clicking inside the popover
+      if (target.closest("[data-slot='popover-content']")) return;
+      // Don't close if clicking on a mention (let handleClick handle it)
+      if (target.dataset.userId) return;
+      setClickedUser(null);
+      setPopoverAnchor(null);
+    };
+
+    // Use setTimeout to avoid closing immediately from the same click
+    const timer = setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [clickedUser]);
 
   if (!props.content) return null;
 
@@ -475,22 +509,18 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   }
 
   // Build lookup maps for mentions
-  const userMap = new Map(
+  const userMap = new Map<string, MentionUser>(
     props.mentions?.users?.map((u) => [u.id, u]) ?? [],
   );
   const roleMap = new Map(
     props.mentions?.roles?.map((r) => [r.id, r]) ?? [],
-  );
-  const resolvedUserMap = new Map(
-    props.resolvedUsers?.map((u) => [u.id, u]) ?? [],
   );
 
   // Create callbacks that resolve mentions
   const discordCallback: Partial<DiscordCallbacks> = {
     user: (node) => {
       const id = node.id || "";
-      // First check mentions array, then resolvedUsers fallback
-      const user = userMap.get(id) || resolvedUserMap.get(id);
+      const user = userMap.get(id);
       if (user) {
         return "@" + escapeHtml(user.globalName || user.username);
       }
@@ -515,10 +545,58 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
     },
   });
 
+  // Check if user has full data (resolved) for popover display
+  const isResolvedUser = (user: MentionUser): user is MentionUser & GetApiByGuildIdNews200ItemAuthor => {
+    return Boolean(user.displayName && user.avatarUrl);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const userId = target.dataset.userId;
+    if (userId) {
+      const user = userMap.get(userId);
+      // Only show popover if user has full data
+      if (user && isResolvedUser(user)) {
+        setClickedUser(user);
+        setPopoverAnchor(target);
+      }
+    }
+  };
+
+  // Render portal anchor for the popover (only when user has full data)
+  const portalAnchor = clickedUser && popoverAnchor && isResolvedUser(clickedUser) && createPortal(
+    <DiscordUserPopover
+      user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
+      open={true}
+      onOpenChange={(open) => {
+        if (!open) {
+          setClickedUser(null);
+          setPopoverAnchor(null);
+        }
+      }}
+    >
+      <span
+        style={{
+          position: "fixed",
+          left: popoverAnchor.getBoundingClientRect().left,
+          top: popoverAnchor.getBoundingClientRect().bottom + 4,
+          width: 0,
+          height: 0,
+        }}
+      />
+    </DiscordUserPopover>,
+    document.body
+  );
+
   return (
-    <div
-      className={`leading-snug ${props.className}`}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <>
+      <div
+        ref={containerRef}
+        className={`leading-snug ${props.className}`}
+        dangerouslySetInnerHTML={{ __html: html }}
+        onClick={handleClick}
+      />
+      {portalAnchor}
+    </>
   );
 }
