@@ -1,8 +1,8 @@
 import {
   getApiByGuildIdMembers,
   getApiByGuildIdTop,
-  getApiByGuildIdUserByUserId,
   getApiByGuildIdUserSearch,
+  postApiByGuildIdUsersStats,
 } from "@/openapi";
 import { Elysia, t } from "elysia";
 
@@ -65,13 +65,13 @@ export const terminalRoute = new Elysia({ prefix: "/terminal" })
       }),
     },
   )
-  .get(
-    "/user/:userId",
-    async ({ params, status }) => {
+  .post(
+    "/users",
+    async ({ body, status }) => {
       try {
-        const response = await getApiByGuildIdUserByUserId(
+        const response = await postApiByGuildIdUsersStats(
           process.env.NEXT_PUBLIC_GUILD_ID!,
-          params.userId,
+          { userIds: body.userIds },
         );
         if (response.status !== 200)
           return status("Unprocessable Content", response.data);
@@ -81,6 +81,6 @@ export const terminalRoute = new Elysia({ prefix: "/terminal" })
       }
     },
     {
-      params: t.Object({ userId: t.String() }),
+      body: t.Object({ userIds: t.Array(t.String()) }),
     },
   );

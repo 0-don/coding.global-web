@@ -3,19 +3,20 @@
 import {
   useTerminalMembersQuery,
   useTerminalTopQuery,
-  useTerminalUserQuery,
+  useTerminalUsersQuery,
   useTerminalUserSearchQuery,
 } from "@/hook/terminal-hook";
 import { useState } from "react";
 
 export function TerminalHooksTest() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userIds, setUserIds] = useState("");
 
   const membersQuery = useTerminalMembersQuery();
   const topQuery = useTerminalTopQuery({ limit: 10 });
   const userSearchQuery = useTerminalUserSearchQuery({ q: searchQuery });
-  const userQuery = useTerminalUserQuery(userId);
+  const parsedUserIds = userIds.split(",").map((id) => id.trim()).filter(Boolean);
+  const usersQuery = useTerminalUsersQuery(parsedUserIds);
 
   const handleFetchMembers = async () => {
     await membersQuery.fetch();
@@ -30,9 +31,9 @@ export function TerminalHooksTest() {
     await userSearchQuery.fetch();
   };
 
-  const handleFetchUser = async () => {
-    if (!userId) return;
-    await userQuery.fetch();
+  const handleFetchUsers = async () => {
+    if (parsedUserIds.length === 0) return;
+    await usersQuery.fetch();
   };
 
   return (
@@ -120,32 +121,32 @@ export function TerminalHooksTest() {
         </div>
       </div>
 
-      {/* User By ID Section */}
+      {/* Users By IDs Section */}
       <div className="rounded-lg border p-4">
-        <h3 className="mb-2 text-lg font-semibold">useTerminalUserQuery</h3>
+        <h3 className="mb-2 text-lg font-semibold">useTerminalUsersQuery</h3>
         <div className="mb-2 flex gap-2">
           <input
             type="text"
-            placeholder="Enter user ID..."
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            placeholder="Enter user IDs (comma-separated)..."
+            value={userIds}
+            onChange={(e) => setUserIds(e.target.value)}
             className="border-input bg-background flex-1 rounded border px-3 py-2"
           />
           <button
-            onClick={handleFetchUser}
-            disabled={userQuery.isLoading || !userId}
+            onClick={handleFetchUsers}
+            disabled={usersQuery.isLoading || parsedUserIds.length === 0}
             className="bg-primary text-primary-foreground rounded px-4 py-2 disabled:opacity-50"
           >
-            {userQuery.isLoading ? "Loading..." : "Fetch User"}
+            {usersQuery.isLoading ? "Loading..." : "Fetch Users"}
           </button>
         </div>
         <div className="space-y-1 text-sm">
-          {userQuery.error && (
-            <p className="text-red-500">Error: {userQuery.error.message}</p>
+          {usersQuery.error && (
+            <p className="text-red-500">Error: {usersQuery.error.message}</p>
           )}
-          {userQuery.data && (
+          {usersQuery.data && (
             <pre className="bg-muted mt-2 max-h-40 overflow-auto rounded p-2">
-              {JSON.stringify(userQuery.data, null, 2)}
+              {JSON.stringify(usersQuery.data, null, 2)}
             </pre>
           )}
         </div>

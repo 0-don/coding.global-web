@@ -1,5 +1,7 @@
 "use client";
 
+import { DiscordUserPopover } from "@/components/elements/discord/discord-user-popover";
+import { MemberStatus, StatusIndicator } from "@/components/elements/utils/enums";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Chat } from "@/components/ui/chat/chat";
@@ -98,22 +100,45 @@ export function ChatRoom() {
             return (
               <ChatEvent className="group hover:bg-accent/50 py-2">
                 <ChatEventAddon>
-                  <Avatar className="mx-auto size-8 @md/chat:size-10">
-                    <AvatarImage
-                      src={renderProps.item.user?.image ?? undefined}
-                      alt={renderProps.item.user?.name}
-                    />
-                    <AvatarFallback>
-                      {renderProps.item.user?.name?.slice(0, 2).toUpperCase() ??
-                        "??"}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="relative mx-auto">
+                    <Avatar className="size-8 @md/chat:size-10">
+                      <AvatarImage
+                        src={
+                          renderProps.item.discordUser?.avatarUrl ??
+                          renderProps.item.user?.image ??
+                          undefined
+                        }
+                        alt={renderProps.item.user?.name}
+                      />
+                      <AvatarFallback>
+                        {renderProps.item.user?.name
+                          ?.slice(0, 2)
+                          .toUpperCase() ?? "??"}
+                      </AvatarFallback>
+                    </Avatar>
+                    {renderProps.item.discordUser && (
+                      <StatusIndicator
+                        status={
+                          renderProps.item.discordUser.status as MemberStatus
+                        }
+                        className="-right-0.5 -bottom-0.5 size-3 border-2"
+                      />
+                    )}
+                  </div>
                 </ChatEventAddon>
                 <ChatEventBody>
                   <div className="flex items-baseline gap-2">
-                    <ChatEventTitle>
-                      {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
-                    </ChatEventTitle>
+                    {renderProps.item.discordUser ? (
+                      <DiscordUserPopover user={renderProps.item.discordUser}>
+                        <ChatEventTitle className="hover:underline cursor-pointer">
+                          {renderProps.item.discordUser.displayName}
+                        </ChatEventTitle>
+                      </DiscordUserPopover>
+                    ) : (
+                      <ChatEventTitle>
+                        {renderProps.item.user?.name ?? t("CHAT.UNKNOWN_USER")}
+                      </ChatEventTitle>
+                    )}
                     <ChatEventDescription>
                       {renderProps.item.createdAt
                         ? dayjs(renderProps.item.createdAt).format(
