@@ -9,6 +9,7 @@ import { Link } from "@/i18n/navigation";
 import { LinkHref } from "@/i18n/routing";
 import { dayjs } from "@/lib/utils/dayjs";
 import {
+  GetApiByGuildIdNews200ItemMentionsUsersItem,
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
@@ -143,7 +144,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                       {showAvatar && (
                         <div className="mb-1 flex items-baseline gap-2">
                           {message.author ? (
-                            <DiscordUserPopover user={message.author as any}>
+                            <DiscordUserPopover user={message.author as GetApiByGuildIdNews200ItemMentionsUsersItem}>
                               <button
                                 type="button"
                                 className="text-sm font-semibold hover:underline"
