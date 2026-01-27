@@ -6,6 +6,7 @@ import {
   useThreadMessagesInfiniteQuery,
   useThreadQuery,
 } from "@/hook/bot-hook";
+import { mergeResolvedUsers } from "@/lib/types";
 
 interface ShowcaseDetailProps {
   threadId: string;
@@ -23,6 +24,8 @@ export function ShowcaseDetail(props: ShowcaseDetailProps) {
     boardThreadMessages.data?.pages.flatMap((page) => page?.messages ?? []) ??
     [];
 
+  const resolvedUsers = mergeResolvedUsers(thread, boardThreadMessages.data?.pages);
+
   if (!thread) {
     return null;
   }
@@ -33,6 +36,7 @@ export function ShowcaseDetail(props: ShowcaseDetailProps) {
       <ThreadReplies
         messages={messages}
         parentThread={thread}
+        resolvedUsers={resolvedUsers}
         hasNextPage={boardThreadMessages.hasNextPage}
         isFetchingNextPage={boardThreadMessages.isFetchingNextPage}
         fetchNextPage={boardThreadMessages.fetchNextPage}

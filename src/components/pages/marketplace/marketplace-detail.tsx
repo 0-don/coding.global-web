@@ -6,7 +6,7 @@ import {
   useThreadMessagesInfiniteQuery,
   useThreadQuery,
 } from "@/hook/bot-hook";
-import { MarketplaceThreadType } from "@/lib/types";
+import { MarketplaceThreadType, mergeResolvedUsers } from "@/lib/types";
 
 interface MarketplaceDetailProps {
   threadId: string;
@@ -25,6 +25,8 @@ export function MarketplaceDetail(props: MarketplaceDetailProps) {
     boardThreadMessages.data?.pages.flatMap((page) => page?.messages ?? []) ??
     [];
 
+  const resolvedUsers = mergeResolvedUsers(thread, boardThreadMessages.data?.pages);
+
   if (!thread) {
     return null;
   }
@@ -35,6 +37,7 @@ export function MarketplaceDetail(props: MarketplaceDetailProps) {
       <ThreadReplies
         messages={messages}
         parentThread={thread}
+        resolvedUsers={resolvedUsers}
         hasNextPage={boardThreadMessages.hasNextPage}
         isFetchingNextPage={boardThreadMessages.isFetchingNextPage}
         fetchNextPage={boardThreadMessages.fetchNextPage}
