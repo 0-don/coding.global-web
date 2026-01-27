@@ -42,7 +42,9 @@ export function CtaSection() {
               posthog.capture("cta_discord_clicked", {
                 section: "footer_cta",
               });
-              posthog.capture("discord_link_clicked", { section: "footer_cta" });
+              posthog.capture("discord_link_clicked", {
+                section: "footer_cta",
+              });
             }}
           >
             {t("HOME.CTA_BUTTON")}

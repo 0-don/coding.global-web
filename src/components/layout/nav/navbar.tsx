@@ -44,7 +44,11 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-9 items-center justify-center rounded-md text-[#5865F2] transition-colors"
-            onClick={() => posthog.capture("discord_link_clicked", { section: "navbar_mobile" })}
+            onClick={() =>
+              posthog.capture("discord_link_clicked", {
+                section: "navbar_mobile",
+              })
+            }
           >
             <FaDiscord className="size-5" />
             <span className="sr-only">
@@ -67,7 +71,11 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 inline-flex size-8 items-center justify-center rounded-md text-[#5865F2] transition-colors"
-            onClick={() => posthog.capture("discord_link_clicked", { section: "navbar_desktop" })}
+            onClick={() =>
+              posthog.capture("discord_link_clicked", {
+                section: "navbar_desktop",
+              })
+            }
           >
             <FaDiscord className="size-4" />
             <span className="sr-only">
@@ -133,7 +141,7 @@ export default function Navbar() {
                                       >
                                         <div className="flex items-center gap-2">
                                           <subItem.icon className="size-4" />
-                                          <span className="whitespace-nowrap font-medium">
+                                          <span className="font-medium whitespace-nowrap">
                                             {t(subItem.name)}
                                           </span>
                                         </div>
@@ -176,7 +184,7 @@ export default function Navbar() {
                                                       )}
                                                     >
                                                       <nestedItem.icon className="size-4" />
-                                                      <span className="whitespace-nowrap font-medium">
+                                                      <span className="font-medium whitespace-nowrap">
                                                         {t(nestedItem.name)}
                                                       </span>
                                                     </Link>
@@ -209,7 +217,7 @@ export default function Navbar() {
                                           {subItem.icon && (
                                             <subItem.icon className="size-4" />
                                           )}
-                                          <span className="whitespace-nowrap text-sm font-medium">
+                                          <span className="text-sm font-medium whitespace-nowrap">
                                             {t(subItem.name)}
                                           </span>
                                         </Link>

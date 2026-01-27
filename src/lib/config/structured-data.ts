@@ -91,7 +91,11 @@ export function buildDiscussionForumPostingSchema(
     mainEntityOfPage: pageUrl,
     headline: thread.name,
     author: buildAuthorSchema(thread.author),
-    datePublished: thread.createdAt || thread.lastActivityAt || thread.updatedAt || undefined,
+    datePublished:
+      thread.createdAt ||
+      thread.lastActivityAt ||
+      thread.updatedAt ||
+      undefined,
     url: pageUrl,
     commentCount: thread.messageCount,
     interactionStatistic: buildInteractionStatistics(thread),
