@@ -7,6 +7,10 @@ import {
   commentSelectSchema,
 } from "@/lib/db-schema/comment-db-schema";
 import { pageable } from "@/lib/typebox/pageable";
+import {
+  PostApiByGuildIdUsersInfo200Item,
+  postApiByGuildIdUsersInfo,
+} from "@/openapi";
 import { and, desc, eq, getTableColumns, lt } from "drizzle-orm";
 import Elysia, { t } from "elysia";
 import { authUserGuard, authUserResolve } from "../auth/guard";
@@ -28,9 +32,32 @@ export const chatRoute = new Elysia({ prefix: "/chat" })
         )
         .orderBy(desc(comment.createdAt))
         .limit(query.limit || PAGEABLE_LIMIT);
-      return messages.reverse();
+
+      const discordIds = [
+        ...new Set(messages.map((m) => m.user?.discordId).filter(Boolean)),
+      ] as string[];
+
+      const discordResponse =
+        discordIds.length > 0
+          ? await postApiByGuildIdUsersInfo(process.env.NEXT_PUBLIC_GUILD_ID!, {
+              userIds: discordIds,
+            }).catch(() => null)
+          : null;
+
+      const discordUserMap = new Map<string, PostApiByGuildIdUsersInfo200Item>(
+        discordResponse?.status === 200
+          ? discordResponse.data.map((u) => [u.id, u])
+          : [],
+      );
+
+      return messages.reverse().map((m) => ({
+        ...m,
+        discordUser: m.user?.discordId
+          ? (discordUserMap.get(m.user.discordId) ?? null)
+          : null,
+      }));
     },
-    { query: t.Optional(pageable) },
+    { query: pageable },
   )
   .guard({ beforeHandle: [authUserGuard] }, (app) =>
     app

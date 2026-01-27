@@ -2,11 +2,23 @@ export const customFetch = async <T>(
   url: string,
   options: RequestInit,
 ): Promise<T> => {
+  let isJsonBody = false;
+  if (typeof options.body === "string") {
+    try {
+      JSON.parse(options.body);
+      isJsonBody = true;
+    } catch {}
+  }
+
   const response = await fetch(
     new URL(url, process.env.NEXT_PUBLIC_BOT_URL).toString(),
     {
       ...options,
       credentials: "include",
+      headers: {
+        ...(isJsonBody && { "Content-Type": "application/json" }),
+        ...options.headers,
+      },
     },
   );
 
