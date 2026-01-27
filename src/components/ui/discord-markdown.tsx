@@ -4,7 +4,7 @@ import { DiscordUserPopover } from "@/components/elements/discord/discord-user-p
 import { GetApiByGuildIdNews200ItemMentions, GetApiByGuildIdNews200ItemMentionsUsersItem } from "@/openapi";
 import hljs from "highlight.js";
 import { get as getEmoji } from "node-emoji";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 // Types
@@ -255,16 +255,10 @@ interface DiscordMarkdownProps {
   options?: Omit<HtmlOptions, "escapeHTML">;
 }
 
-// SSR helpers
-const subscribe = () => () => {};
-const getSnapshot = () => true;
-const getServerSnapshot = () => false;
-
 export function DiscordMarkdown(props: DiscordMarkdownProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [clickedUser, setClickedUser] = useState<GetApiByGuildIdNews200ItemMentionsUsersItem | null>(null);
   const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
-  const isClient = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   // Close popover on outside click
   useEffect(() => {
@@ -287,9 +281,6 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
 
   if (!props.content) return null;
 
-  if (!isClient) {
-    return <div className={`leading-snug ${props.className}`}>{props.content}</div>;
-  }
 
   // Build mention maps
   const userMap = new Map(props.mentions?.users?.map((u) => [u.id, u]) ?? []);
