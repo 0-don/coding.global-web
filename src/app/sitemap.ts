@@ -1,5 +1,6 @@
 import { getPathname } from "@/i18n/navigation";
 import { Pathname, pathnames, routing } from "@/i18n/routing";
+import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import {
   getApiByGuildIdThreadByThreadType,
   GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
@@ -73,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         continue;
       }
 
-      const threads = response.data;
+      const threads = response.data as GetApiByGuildIdThreadByThreadType200Item[];
       results.push(`${threadType}: ${threads.length}`);
 
       threads.forEach((thread) => {

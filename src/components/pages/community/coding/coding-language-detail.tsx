@@ -9,7 +9,7 @@ import {
   useThreadQuery,
 } from "@/hook/bot-hook";
 import { useRouter } from "@/i18n/navigation";
-import { mergeResolvedUsers, ProgrammingThreadType } from "@/lib/types";
+import { ProgrammingThreadType } from "@/lib/types";
 import { useTranslations } from "next-intl";
 import { FiHome } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
@@ -32,8 +32,6 @@ export function CodingLanguageDetail(props: CodingLanguageDetailProps) {
   const messages =
     boardThreadMessages.data?.pages.flatMap((page) => page?.messages ?? []) ??
     [];
-
-  const resolvedUsers = mergeResolvedUsers(thread, boardThreadMessages.data?.pages);
 
   if (!thread) {
     return (
@@ -80,7 +78,6 @@ export function CodingLanguageDetail(props: CodingLanguageDetailProps) {
       <ThreadReplies
         messages={messages}
         parentThread={thread}
-        resolvedUsers={resolvedUsers}
         hasNextPage={boardThreadMessages.hasNextPage}
         isFetchingNextPage={boardThreadMessages.isFetchingNextPage}
         fetchNextPage={boardThreadMessages.fetchNextPage}

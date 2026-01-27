@@ -91,14 +91,14 @@ export function buildDiscussionForumPostingSchema(
     mainEntityOfPage: pageUrl,
     headline: thread.name,
     author: buildAuthorSchema(thread.author),
-    datePublished: thread.createdAt || thread.lastActivityAt || thread.updatedAt,
+    datePublished: thread.createdAt || thread.lastActivityAt || thread.updatedAt || undefined,
     url: pageUrl,
     commentCount: thread.messageCount,
     interactionStatistic: buildInteractionStatistics(thread),
   };
 
-  if (thread.content) {
-    schema.text = thread.content;
+  if (thread.firstMessage?.content) {
+    schema.text = thread.firstMessage.content;
   }
 
   if (thread.lastActivityAt && thread.lastActivityAt !== thread.createdAt) {

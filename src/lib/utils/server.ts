@@ -1,3 +1,4 @@
+import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import type { Locale } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
@@ -6,7 +7,6 @@ import {
   LOCALES,
   SERVER_URL_KEY,
 } from "../config/constants";
-import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { rpc } from "../rpc";
 import { ThreadType } from "../types";
 
