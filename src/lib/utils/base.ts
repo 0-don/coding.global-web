@@ -1,3 +1,6 @@
+import { Pathname } from "@/i18n/routing";
+import { ApiThreadType } from "@/lib/types";
+
 export const getDiscordInviteLink = () =>
   `https://discord.com/invite/${process.env.NEXT_PUBLIC_INVITE_CODE}`;
 
@@ -32,4 +35,29 @@ export function chunkArray<T>(array: T[], size: number): T[][] {
     chunks.push(array.slice(i, i + size));
   }
   return chunks;
+}
+
+export function getThreadPathname(
+  boardType: ApiThreadType,
+  threadId: string,
+): Pathname {
+  if (boardType === "job-board") {
+    return {
+      pathname: "/marketplace/job-board/[id]",
+      params: { id: threadId },
+    };
+  }
+  if (boardType === "dev-board") {
+    return {
+      pathname: "/marketplace/dev-board/[id]",
+      params: { id: threadId },
+    };
+  }
+  if (boardType === "showcase") {
+    return { pathname: "/community/showcase/[id]", params: { id: threadId } };
+  }
+  return {
+    pathname: "/community/coding/[language]/[id]",
+    params: { language: boardType, id: threadId },
+  };
 }

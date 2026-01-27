@@ -1,5 +1,6 @@
 import { getPathname } from "@/i18n/navigation";
 import { Pathname, pathnames, routing } from "@/i18n/routing";
+import { getThreadPathname } from "@/lib/utils/base";
 import { GetApiByGuildIdThreadByThreadType200Item } from "@/openapi";
 import {
   getApiByGuildIdThreadByThreadType,
@@ -79,18 +80,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       results.push(`${threadType}: ${threads.length}`);
 
       threads.forEach((thread) => {
-        const pathname = getThreadPathname(threadType, thread.id);
-        if (pathname) {
-          entries.push(
-            ...getEntries(pathname, {
-              priority: 0.6,
-              changeFrequency: "weekly",
-              lastModified: thread.lastActivityAt
-                ? new Date(thread.lastActivityAt)
-                : undefined,
-            }),
-          );
-        }
+        entries.push(
+          ...getEntries(getThreadPathname(threadType, thread.id), {
+            priority: 0.6,
+            changeFrequency: "weekly",
+            lastModified: thread.lastActivityAt
+              ? new Date(thread.lastActivityAt)
+              : undefined,
+          }),
+        );
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "unknown error";
@@ -102,32 +100,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     `[Sitemap] Threads fetched: ${results.join(", ")}. Total entries: ${entries.length}`,
   );
   return entries;
-}
-
-function getThreadPathname(
-  threadType: GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,
-  threadId: string,
-): Pathname | null {
-  switch (threadType) {
-    case "showcase":
-      return { pathname: "/community/showcase/[id]", params: { id: threadId } };
-    case "job-board":
-      return {
-        pathname: "/marketplace/job-board/[id]",
-        params: { id: threadId },
-      };
-    case "dev-board":
-      return {
-        pathname: "/marketplace/dev-board/[id]",
-        params: { id: threadId },
-      };
-    default:
-      // All other thread types are programming languages
-      return {
-        pathname: "/community/coding/[language]/[id]",
-        params: { language: threadType, id: threadId },
-      } as Pathname;
-  }
 }
 
 function getEntries(
