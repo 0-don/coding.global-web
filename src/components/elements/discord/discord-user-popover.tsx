@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { useSessionHook } from "@/hook/session-hook";
 import { cn } from "@/lib/utils";
 import { getDiscordUserLink } from "@/lib/utils/base";
@@ -202,20 +203,31 @@ function UserCardContent({ user }: { user: GetApiByGuildIdNews200ItemMentionsUse
 }
 
 export function DiscordUserPopover(props: DiscordUserPopoverProps) {
-  // When anchorRect is provided, render at fixed position
+  // When anchorRect is provided, use virtual anchor for smart positioning
   if (props.anchorRect) {
+    const virtualAnchor = {
+      getBoundingClientRect: () => props.anchorRect!,
+    };
+
     return (
-      <div
-        data-slot="popover-content"
-        style={{
-          position: "fixed",
-          left: props.anchorRect.left,
-          top: props.anchorRect.bottom + 8,
-          zIndex: 50,
-        }}
-      >
-        <UserCardContent user={props.user} />
-      </div>
+      <PopoverPrimitive.Root open={true}>
+        <PopoverPrimitive.Portal>
+          <PopoverPrimitive.Positioner
+            anchor={virtualAnchor}
+            side="bottom"
+            align="start"
+            sideOffset={8}
+            className="isolate z-50"
+          >
+            <PopoverPrimitive.Popup
+              data-slot="popover-content"
+              className="ring-foreground/10 bg-popover text-popover-foreground z-50 origin-(--transform-origin) rounded-lg shadow-md ring-1 outline-hidden"
+            >
+              <UserCardContent user={props.user} />
+            </PopoverPrimitive.Popup>
+          </PopoverPrimitive.Positioner>
+        </PopoverPrimitive.Portal>
+      </PopoverPrimitive.Root>
     );
   }
 
