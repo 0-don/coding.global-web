@@ -33,14 +33,38 @@ function buildAuthorSchema(author: Author): Person {
 function buildCommentSchema(
   message: GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 ): Comment | null {
-  if (!message.author || !message.content?.trim()) return null;
+  if (!message.author) return null;
+
+  const hasText = !!message.content?.trim();
+  const imageAttachment = message.attachments?.find((a) =>
+    a.contentType?.startsWith("image/"),
+  );
+  const videoAttachment = message.attachments?.find((a) =>
+    a.contentType?.startsWith("video/"),
+  );
+
+  if (!hasText && !imageAttachment && !videoAttachment) return null;
 
   const comment: Comment = {
     "@type": "Comment",
     author: buildAuthorSchema(message.author),
     datePublished: message.createdAt,
-    text: message.content,
   };
+
+  if (hasText) {
+    comment.text = message.content;
+  }
+
+  if (imageAttachment) {
+    comment.image = imageAttachment.url;
+  }
+
+  if (videoAttachment) {
+    comment.video = {
+      "@type": "VideoObject",
+      contentUrl: videoAttachment.url,
+    };
+  }
 
   if (message.editedAt) {
     comment.dateModified = message.editedAt;
