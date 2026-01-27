@@ -1,7 +1,9 @@
 import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
-const NON_PROGRAMMING_TYPES = ["job-board", "dev-board", "showcase"] as const;
+export const MARKETPLACE_TYPES = ["job-board", "dev-board"] as const;
+export const COMMUNITY_TYPES = ["showcase"] as const;
+const NON_PROGRAMMING_TYPES = [...MARKETPLACE_TYPES, ...COMMUNITY_TYPES] as const;
 
 export const PROGRAMMING_LANGUAGES = Object.keys(
   GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType,

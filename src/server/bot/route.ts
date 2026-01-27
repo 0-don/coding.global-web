@@ -7,6 +7,7 @@ import {
   getApiByGuildIdThreadByThreadType,
   getApiByGuildIdThreadByThreadTypeByThreadId,
   getApiByGuildIdThreadByThreadTypeByThreadIdMessages,
+  getApiByGuildIdThreadLookupByThreadId,
   getApiByGuildIdTop,
   getApiByGuildIdWidget,
 } from "@/openapi";
@@ -120,4 +121,18 @@ export const botRoute = new Elysia({ prefix: "/bot" })
       params: t.Object({ threadType: threadTypeSchema, threadId: t.String() }),
       query: t.Object({ after: t.Optional(t.String()) }),
     },
+  )
+  .get(
+    "/thread-lookup/:threadId",
+    async ({ params, status }) => {
+      const response = await getApiByGuildIdThreadLookupByThreadId(
+        process.env.NEXT_PUBLIC_GUILD_ID!,
+        params.threadId,
+      );
+      if (response.status !== 200) {
+        throw status(response.status, response.data);
+      }
+      return response.data;
+    },
+    { params: t.Object({ threadId: t.String() }) },
   );
