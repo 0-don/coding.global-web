@@ -512,9 +512,7 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   const userMap = new Map<string, MentionUser>(
     props.mentions?.users?.map((u) => [u.id, u]) ?? [],
   );
-  const roleMap = new Map(
-    props.mentions?.roles?.map((r) => [r.id, r]) ?? [],
-  );
+  const roleMap = new Map(props.mentions?.roles?.map((r) => [r.id, r]) ?? []);
 
   // Create callbacks that resolve mentions
   const discordCallback: Partial<DiscordCallbacks> = {
@@ -546,7 +544,9 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   });
 
   // Check if user has full data (resolved) for popover display
-  const isResolvedUser = (user: MentionUser): user is MentionUser & GetApiByGuildIdNews200ItemAuthor => {
+  const isResolvedUser = (
+    user: MentionUser,
+  ): user is MentionUser & GetApiByGuildIdNews200ItemAuthor => {
     return Boolean(user.displayName && user.avatarUrl);
   };
 
@@ -564,29 +564,33 @@ export function DiscordMarkdown(props: DiscordMarkdownProps) {
   };
 
   // Render portal anchor for the popover (only when user has full data)
-  const portalAnchor = clickedUser && popoverAnchor && isResolvedUser(clickedUser) && createPortal(
-    <DiscordUserPopover
-      user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
-      open={true}
-      onOpenChange={(open) => {
-        if (!open) {
-          setClickedUser(null);
-          setPopoverAnchor(null);
-        }
-      }}
-    >
-      <span
-        style={{
-          position: "fixed",
-          left: popoverAnchor.getBoundingClientRect().left,
-          top: popoverAnchor.getBoundingClientRect().bottom + 4,
-          width: 0,
-          height: 0,
+  const portalAnchor =
+    clickedUser &&
+    popoverAnchor &&
+    isResolvedUser(clickedUser) &&
+    createPortal(
+      <DiscordUserPopover
+        user={clickedUser as GetApiByGuildIdNews200ItemAuthor}
+        open={true}
+        onOpenChange={(open) => {
+          if (!open) {
+            setClickedUser(null);
+            setPopoverAnchor(null);
+          }
         }}
-      />
-    </DiscordUserPopover>,
-    document.body
-  );
+      >
+        <span
+          style={{
+            position: "fixed",
+            left: popoverAnchor.getBoundingClientRect().left,
+            top: popoverAnchor.getBoundingClientRect().bottom + 4,
+            width: 0,
+            height: 0,
+          }}
+        />
+      </DiscordUserPopover>,
+      document.body,
+    );
 
   return (
     <>

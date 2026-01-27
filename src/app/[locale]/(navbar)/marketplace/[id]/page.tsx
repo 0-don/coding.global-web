@@ -5,9 +5,7 @@ import { getPageMetadata, getThreadPageMetadata } from "@/lib/config/metadata";
 import { rpc } from "@/lib/rpc";
 import { MarketplaceThreadType } from "@/lib/types";
 import { serverLocale } from "@/lib/utils/server";
-import {
-  GetApiByGuildIdThreadByThreadTypeByThreadId200
-} from "@/openapi";
+import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { getTranslations } from "next-intl/server";
 
 type ThreadWithType = {
@@ -112,11 +110,15 @@ export default async function MarketplaceDetailPage(props: {
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/marketplace/${params.id}`;
 
   const baseUrl = process.env.NEXT_PUBLIC_URL;
-  const boardName = result.threadType === "job-board" ? "Job Board" : "Dev Board";
+  const boardName =
+    result.threadType === "job-board" ? "Job Board" : "Dev Board";
   const breadcrumbs = [
     { name: "Home", url: `${baseUrl}/${params.locale}` },
     { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
-    { name: boardName, url: `${baseUrl}/${params.locale}/marketplace/${result.threadType}` },
+    {
+      name: boardName,
+      url: `${baseUrl}/${params.locale}/marketplace/${result.threadType}`,
+    },
     { name: result.thread.name },
   ];
 

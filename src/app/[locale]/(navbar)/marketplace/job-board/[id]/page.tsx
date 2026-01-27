@@ -69,7 +69,10 @@ export default async function JobBoardDetailPage(props: {
   const breadcrumbs = [
     { name: "Home", url: `${baseUrl}/${params.locale}` },
     { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
-    { name: "Job Board", url: `${baseUrl}/${params.locale}/marketplace/job-board` },
+    {
+      name: "Job Board",
+      url: `${baseUrl}/${params.locale}/marketplace/job-board`,
+    },
     { name: thread?.name || "Job Listing" },
   ];
 
@@ -83,7 +86,11 @@ export default async function JobBoardDetailPage(props: {
             data={{
               title: thread.name,
               description: thread.firstMessage?.content || thread.name,
-              datePosted: thread.createdAt || thread.lastActivityAt || thread.updatedAt || "",
+              datePosted:
+                thread.createdAt ||
+                thread.lastActivityAt ||
+                thread.updatedAt ||
+                "",
               employerName: thread.author.displayName || thread.author.username,
               pageUrl,
             }}

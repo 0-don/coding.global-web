@@ -49,7 +49,7 @@ type ContentCardProps = MessageCardProps | ThreadCardProps;
 function getContent(props: ContentCardProps) {
   return props.type === "message"
     ? props.data.content
-    : props.data.firstMessage?.content ?? null;
+    : (props.data.firstMessage?.content ?? null);
 }
 
 function getImageData(props: ContentCardProps) {
@@ -301,7 +301,11 @@ export function ContentCard(props: ContentCardProps) {
       <Card
         className={`h-full overflow-hidden pt-0 transition-shadow hover:shadow-lg ${props.className || ""}`}
       >
-        <Link href={href} className="flex h-full cursor-pointer flex-col" onClick={handleClick}>
+        <Link
+          href={href}
+          className="flex h-full cursor-pointer flex-col"
+          onClick={handleClick}
+        >
           {cardContent}
         </Link>
       </Card>

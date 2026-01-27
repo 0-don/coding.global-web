@@ -68,7 +68,10 @@ export default async function DevBoardDetailPage(props: {
   const breadcrumbs = [
     { name: "Home", url: `${baseUrl}/${params.locale}` },
     { name: "Marketplace", url: `${baseUrl}/${params.locale}/marketplace` },
-    { name: "Dev Board", url: `${baseUrl}/${params.locale}/marketplace/dev-board` },
+    {
+      name: "Dev Board",
+      url: `${baseUrl}/${params.locale}/marketplace/dev-board`,
+    },
     { name: thread?.name || "Thread" },
   ];
 

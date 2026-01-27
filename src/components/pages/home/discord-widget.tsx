@@ -44,7 +44,11 @@ export function DiscordWidget(props: DiscordWidgetProps) {
           href={getDiscordInviteLink()}
           className="relative z-10 mt-5 flex items-center gap-3"
           target="_blank"
-          onClick={() => posthog.capture("discord_link_clicked", { section: "discord_widget" })}
+          onClick={() =>
+            posthog.capture("discord_link_clicked", {
+              section: "discord_widget",
+            })
+          }
         >
           <Avatar className="h-12 w-12">
             <AvatarImage
