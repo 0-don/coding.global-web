@@ -527,6 +527,21 @@ export type GetApiByGuildIdWidget422 = {
   expected?: string;
 };
 
+export type GetApiByGuildIdThreadLookupByThreadId200 = {
+  boardType: string;
+  threadId: string;
+};
+
+export type GetApiByGuildIdThreadLookupByThreadId422 = {
+  type: "validation";
+  on: string;
+  summary?: string;
+  message?: string;
+  found?: unknown;
+  property?: string;
+  expected?: string;
+};
+
 export type GetApiByGuildIdThreadByThreadType200ItemFirstMessageAnyOfMentionsRolesItem =
   {
     id: string;
@@ -2967,6 +2982,50 @@ export const getApiByGuildIdWidget = async (
 ): Promise<getApiByGuildIdWidgetResponse> => {
   return customFetch<getApiByGuildIdWidgetResponse>(
     getGetApiByGuildIdWidgetUrl(guildId),
+    {
+      ...options,
+      method: "GET",
+    },
+  );
+};
+
+export type getApiByGuildIdThreadLookupByThreadIdResponse200 = {
+  data: GetApiByGuildIdThreadLookupByThreadId200;
+  status: 200;
+};
+
+export type getApiByGuildIdThreadLookupByThreadIdResponse422 = {
+  data: GetApiByGuildIdThreadLookupByThreadId422;
+  status: 422;
+};
+
+export type getApiByGuildIdThreadLookupByThreadIdResponseSuccess =
+  getApiByGuildIdThreadLookupByThreadIdResponse200 & {
+    headers: Headers;
+  };
+export type getApiByGuildIdThreadLookupByThreadIdResponseError =
+  getApiByGuildIdThreadLookupByThreadIdResponse422 & {
+    headers: Headers;
+  };
+
+export type getApiByGuildIdThreadLookupByThreadIdResponse =
+  | getApiByGuildIdThreadLookupByThreadIdResponseSuccess
+  | getApiByGuildIdThreadLookupByThreadIdResponseError;
+
+export const getGetApiByGuildIdThreadLookupByThreadIdUrl = (
+  guildId: string,
+  threadId: string,
+) => {
+  return `/api/${guildId}/thread-lookup/${threadId}`;
+};
+
+export const getApiByGuildIdThreadLookupByThreadId = async (
+  guildId: string,
+  threadId: string,
+  options?: RequestInit,
+): Promise<getApiByGuildIdThreadLookupByThreadIdResponse> => {
+  return customFetch<getApiByGuildIdThreadLookupByThreadIdResponse>(
+    getGetApiByGuildIdThreadLookupByThreadIdUrl(guildId, threadId),
     {
       ...options,
       method: "GET",
