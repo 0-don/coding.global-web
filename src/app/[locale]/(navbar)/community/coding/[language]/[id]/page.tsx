@@ -6,7 +6,6 @@ import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
 import { PROGRAMMING_LANGUAGES, ProgrammingThreadType } from "@/lib/types";
-import { handleElysia } from "@/lib/utils/base";
 import { getThread, serverLocale } from "@/lib/utils/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Locale } from "next-intl";
@@ -60,27 +59,26 @@ export default async function ProgrammingLanguageDetailPage(props: {
   const params = await props.params;
   const queryClient = getQueryClient();
 
-  const [thread, messagesData] = await Promise.all([
-    queryClient.fetchQuery({
-      queryKey: queryKeys.thread(params.language, params.id),
-      queryFn: async () =>
-        handleElysia(
-          await rpc.api.bot
-            .thread({ threadType: params.language })({ threadId: params.id })
-            .get(),
-        ),
-    }),
-    queryClient.fetchInfiniteQuery({
-      queryKey: queryKeys.threadMessages(params.language, params.id),
-      queryFn: async ({ pageParam }) =>
-        handleElysia(
-          await rpc.api.bot
-            .thread({ threadType: params.language })({ threadId: params.id })
-            .messages.get({ query: { after: pageParam } }),
-        ),
-      initialPageParam: undefined as string | undefined,
-    }),
-  ]);
+  const threadResponse = await rpc.api.bot
+    .thread({ threadType: params.language })({ threadId: params.id })
+    .get();
+
+  const thread = threadResponse.status === 200 ? threadResponse.data : null;
+
+  if (thread) {
+    queryClient.setQueryData(queryKeys.thread(params.language, params.id), thread);
+  }
+
+  const messagesData = await queryClient.fetchInfiniteQuery({
+    queryKey: queryKeys.threadMessages(params.language, params.id),
+    queryFn: async ({ pageParam }) => {
+      const response = await rpc.api.bot
+        .thread({ threadType: params.language })({ threadId: params.id })
+        .messages.get({ query: { after: pageParam } });
+      return response.status === 200 ? response.data : { messages: [], hasMore: false, nextCursor: "" };
+    },
+    initialPageParam: undefined as string | undefined,
+  });
 
   const messages = messagesData?.pages?.[0]?.messages ?? [];
   const pageUrl = `${process.env.NEXT_PUBLIC_URL}/${params.locale}/community/coding/${params.language}/${params.id}`;
