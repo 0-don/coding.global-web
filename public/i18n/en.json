@@ -76,7 +76,12 @@
 
     "CTA_TITLE": "Ready to Level Up?",
     "CTA_SUBTITLE": "Join thousands of developers learning and building together",
-    "CTA_BUTTON": "Join Our Discord Now"
+    "CTA_BUTTON": "Join Our Discord Now",
+
+    "EMPTY": {
+      "NEWS": "No news available",
+      "DATA": "No data available"
+    }
   },
   "MAIN": {
     "ACTIONS": {
@@ -1065,6 +1070,13 @@
         "KEYWORDS": "programming, languages, help, community, coding"
       }
     }
+  },
+  "TWEET": {
+    "NOT_FOUND": "Tweet not found",
+    "LINK": "Link to tweet",
+    "VIDEO_NOT_SUPPORTED": "Your browser does not support the video tag.",
+    "PROFILE_PICTURE": "Profile picture of {name}",
+    "PHOTO_BY": "Photo by {name}"
   },
   "DISCORD_WIDGET": {
     "ONLINE": "Online",

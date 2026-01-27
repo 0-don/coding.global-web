@@ -154,7 +154,7 @@ export function ThreadReplies(props: ThreadRepliesProps) {
                             </DiscordUserPopover>
                           ) : (
                             <span className="text-sm font-semibold">
-                              Unknown User
+                              {t("CHAT.UNKNOWN_USER")}
                             </span>
                           )}
                           <span className="text-muted-foreground text-xs">
