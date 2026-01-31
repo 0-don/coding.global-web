@@ -10,6 +10,7 @@ export const onRequestError: Instrumentation.onRequestError = async (
   request,
   context,
 ) => {
+  if (process.env.NODE_ENV === "development") return;
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { getPostHogServer } = require("./lib/posthog-server");
     const posthog = await getPostHogServer();
