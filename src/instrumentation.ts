@@ -47,6 +47,7 @@ export async function register() {
             key,
             host: new URL(siteUrl).host,
             keyPath: `${siteUrl}/${key}.txt`,
+            batchSize: 10000,
           });
 
           console.log("[IndexNow] Submitting sitemap...");
