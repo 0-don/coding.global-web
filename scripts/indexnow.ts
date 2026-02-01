@@ -3,7 +3,7 @@ import "@dotenvx/dotenvx/config";
 import { log } from "console";
 import { IndexNowSubmitter } from "indexnow-submitter";
 
-const INDEXNOW_KEY = "fd9e796366e293deabcb9be55dca07c5";
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY!;
 const SITE_URL = process.env.NEXT_PUBLIC_URL || "https://coding.global";
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
 
