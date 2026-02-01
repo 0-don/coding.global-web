@@ -2,6 +2,8 @@ import {
   GetApiByGuildIdThreadByThreadTypeByThreadId200,
   GetApiByGuildIdThreadByThreadTypeByThreadIdMessages200MessagesItem,
 } from "@/openapi";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import {
   BreadcrumbList,
   Comment,
@@ -13,6 +15,8 @@ import {
   WithContext,
 } from "schema-dts";
 import { getDiscordUserLink } from "../utils/base";
+
+dayjs.extend(utc);
 
 type Author = {
   id: string;
@@ -28,6 +32,13 @@ function buildAuthorSchema(author: Author): Person {
     url: getDiscordUserLink(author.id),
     image: author.avatarUrl,
   };
+}
+
+function toISOWithTimezone(
+  date: string | null | undefined,
+): string | undefined {
+  if (!date) return undefined;
+  return dayjs.utc(date).toISOString();
 }
 
 function buildCommentSchema(
@@ -48,7 +59,7 @@ function buildCommentSchema(
   const comment: Comment = {
     "@type": "Comment",
     author: buildAuthorSchema(message.author),
-    datePublished: message.createdAt,
+    datePublished: toISOWithTimezone(message.createdAt),
   };
 
   if (hasText) {
@@ -67,7 +78,7 @@ function buildCommentSchema(
   }
 
   if (message.editedAt) {
-    comment.dateModified = message.editedAt;
+    comment.dateModified = toISOWithTimezone(message.editedAt);
   }
 
   return comment;
@@ -109,36 +120,31 @@ export function buildDiscussionForumPostingSchema(
     .map(buildCommentSchema)
     .filter((c): c is Comment => c !== null);
 
+  const rawDate =
+    thread.createdAt || thread.lastActivityAt || thread.updatedAt;
+
   const schema: WithContext<DiscussionForumPosting> = {
     "@context": "https://schema.org",
     "@type": "DiscussionForumPosting",
     mainEntityOfPage: pageUrl,
     headline: thread.name,
     author: buildAuthorSchema(thread.author),
-    datePublished:
-      thread.createdAt ||
-      thread.lastActivityAt ||
-      thread.updatedAt ||
-      undefined,
+    datePublished: toISOWithTimezone(rawDate),
     url: pageUrl,
     commentCount: thread.messageCount,
     interactionStatistic: buildInteractionStatistics(thread),
+    // Always include text - use content or fallback to title
+    text: thread.firstMessage?.content || thread.name,
+    // Always include comment field (even if empty)
+    comment: comments,
   };
 
-  if (thread.firstMessage?.content) {
-    schema.text = thread.firstMessage.content;
-  }
-
   if (thread.lastActivityAt && thread.lastActivityAt !== thread.createdAt) {
-    schema.dateModified = thread.lastActivityAt;
+    schema.dateModified = toISOWithTimezone(thread.lastActivityAt);
   }
 
   if (thread.imageUrl) {
     schema.image = thread.imageUrl;
-  }
-
-  if (comments.length > 0) {
-    schema.comment = comments;
   }
 
   return schema;
@@ -191,7 +197,7 @@ export function buildJobPostingSchema(
     "@type": "JobPosting",
     title: data.title,
     description: data.description,
-    datePosted: data.datePosted,
+    datePosted: toISOWithTimezone(data.datePosted),
     hiringOrganization: {
       "@type": "Organization",
       name: data.employerName,
