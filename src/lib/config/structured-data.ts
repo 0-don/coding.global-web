@@ -187,12 +187,21 @@ export type JobPostingData = {
   datePosted: string;
   employerName: string;
   pageUrl: string;
+  jobLocationType?: "TELECOMMUTE" | string;
+  employmentType?: string;
+  validThroughDays?: number;
+  baseSalary?: {
+    currency: string;
+    minValue?: number;
+    maxValue?: number;
+    unitText?: "HOUR" | "DAY" | "WEEK" | "MONTH" | "YEAR";
+  };
 };
 
 export function buildJobPostingSchema(
   data: JobPostingData,
 ): WithContext<JobPosting> {
-  return {
+  const schema: WithContext<JobPosting> = {
     "@context": "https://schema.org",
     "@type": "JobPosting",
     title: data.title,
@@ -203,5 +212,37 @@ export function buildJobPostingSchema(
       name: data.employerName,
     },
     url: data.pageUrl,
+    jobLocationType: data.jobLocationType || "TELECOMMUTE",
+    applicantLocationRequirements: {
+      "@type": "Country",
+      name: "Worldwide",
+    },
   };
+
+  if (data.employmentType) {
+    schema.employmentType = data.employmentType;
+  }
+
+  if (data.validThroughDays && data.datePosted) {
+    const validThrough = dayjs
+      .utc(data.datePosted)
+      .add(data.validThroughDays, "day")
+      .toISOString();
+    schema.validThrough = validThrough;
+  }
+
+  if (data.baseSalary) {
+    schema.baseSalary = {
+      "@type": "MonetaryAmount",
+      currency: data.baseSalary.currency,
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: data.baseSalary.minValue,
+        maxValue: data.baseSalary.maxValue,
+        unitText: data.baseSalary.unitText || "YEAR",
+      },
+    };
+  }
+
+  return schema;
 }
