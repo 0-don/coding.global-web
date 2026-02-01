@@ -29,9 +29,35 @@ const loggerProvider =
       })
     : null;
 
-export function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs" && loggerProvider) {
-    logs.setGlobalLoggerProvider(loggerProvider);
+export async function register() {
+  if (process.env.NEXT_RUNTIME === "nodejs") {
+    if (loggerProvider) {
+      logs.setGlobalLoggerProvider(loggerProvider);
+    }
+
+    // Submit to IndexNow on server startup (production only)
+    if (!isDev) {
+      setTimeout(async () => {
+        try {
+          const { IndexNowSubmitter } = await import("indexnow-submitter");
+          const siteUrl = process.env.NEXT_PUBLIC_URL || "https://coding.global";
+          const key = "fd9e796366e293deabcb9be55dca07c5";
+
+          const indexNow = new IndexNowSubmitter({
+            key,
+            host: new URL(siteUrl).host,
+            keyPath: `${siteUrl}/${key}.txt`,
+          });
+
+          console.log("[IndexNow] Submitting sitemap...");
+          await indexNow.submitFromSitemap(`${siteUrl}/sitemap.xml`);
+          const analytics = indexNow.getAnalytics();
+          console.log(`[IndexNow] Done: ${analytics.successfulSubmissions} submitted, ${analytics.failedSubmissions} failed`);
+        } catch (error) {
+          console.error("[IndexNow] Failed:", error);
+        }
+      }, 10000);
+    }
   }
 }
 
