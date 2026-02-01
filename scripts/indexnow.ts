@@ -1,3 +1,4 @@
+import { log } from "console";
 import { IndexNowSubmitter } from "indexnow-submitter";
 
 const INDEXNOW_KEY = "fd9e796366e293deabcb9be55dca07c5";
@@ -11,17 +12,15 @@ async function submitToIndexNow() {
     keyPath: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
   });
 
-  console.log(`[IndexNow] Fetching sitemap from ${SITEMAP_URL}`);
+  log(`[IndexNow] Fetching sitemap from ${SITEMAP_URL}`);
 
   await indexNow.submitFromSitemap(SITEMAP_URL);
 
   const analytics = indexNow.getAnalytics();
-  console.log(`[IndexNow] Total: ${analytics.totalSubmissions}`);
-  console.log(`[IndexNow] Successful: ${analytics.successfulSubmissions}`);
-  console.log(`[IndexNow] Failed: ${analytics.failedSubmissions}`);
-  console.log(
-    `[IndexNow] Avg response time: ${analytics.averageResponseTime}ms`,
-  );
+  log(`[IndexNow] Total: ${analytics.totalSubmissions}`);
+  log(`[IndexNow] Successful: ${analytics.successfulSubmissions}`);
+  log(`[IndexNow] Failed: ${analytics.failedSubmissions}`);
+  log(`[IndexNow] Avg response time: ${analytics.averageResponseTime}ms`);
 
   return analytics;
 }
