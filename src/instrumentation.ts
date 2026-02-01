@@ -41,7 +41,7 @@ export async function register() {
         try {
           const { IndexNowSubmitter } = await import("indexnow-submitter");
           const siteUrl = process.env.NEXT_PUBLIC_URL || "https://coding.global";
-          const key = "fd9e796366e293deabcb9be55dca07c5";
+          const key = process.env.INDEXNOW_KEY;
 
           const indexNow = new IndexNowSubmitter({
             key,
