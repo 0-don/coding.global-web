@@ -18,5 +18,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_POSTHOG_KEY: string;
     POSTHOG_API_KEY: string;
     POSTHOG_ENV_ID: string;
+    INDEXNOW_KEY: string;
   }
 }

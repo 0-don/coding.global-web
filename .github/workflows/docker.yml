@@ -38,6 +38,8 @@ jobs:
           echo POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }} >> .env
           echo POSTHOG_ENV_ID=${{ secrets.POSTHOG_ENV_ID }} >> .env
 
+          echo INDEXNOW_KEY=${{ secrets.INDEXNOW_KEY }} >> .env
+
       # - name: Reset DB
       #   run: docker stop coding-global-web-db || true && docker rm coding-global-web-db || true
 
