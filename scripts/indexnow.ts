@@ -12,6 +12,7 @@ async function submitToIndexNow() {
     key: INDEXNOW_KEY,
     host: new URL(SITE_URL).host,
     keyPath: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
+    batchSize: 10000,
   });
 
   log(`[IndexNow] Fetching sitemap from ${SITEMAP_URL}`);
