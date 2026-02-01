@@ -1,3 +1,5 @@
+import "@dotenvx/dotenvx/config";
+
 import { create, insert } from "@orama/orama";
 import { persist } from "@orama/plugin-data-persistence";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

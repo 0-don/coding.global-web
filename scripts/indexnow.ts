@@ -1,3 +1,5 @@
+import "@dotenvx/dotenvx/config";
+
 import { log } from "console";
 import { IndexNowSubmitter } from "indexnow-submitter";
 
