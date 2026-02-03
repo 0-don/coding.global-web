@@ -134,15 +134,15 @@ export const STATUS_ROLES: StatusRoleData[] = [
 
 export const LEVEL_ROLES: LevelRoleData[] = [
   {
-    role: LevelRole.COPY_PASTER,
-    color: "text-cyan-500",
-    Icon: TbCopy,
-    level: 1,
-  },
-  {
     role: LevelRole.SCRIPT_KIDDIE,
     color: "text-cyan-500",
     Icon: RiScissorsCutFill,
+    level: 1,
+  },
+  {
+    role: LevelRole.COPY_PASTER,
+    color: "text-cyan-500",
+    Icon: TbCopy,
     level: 2,
   },
   {
