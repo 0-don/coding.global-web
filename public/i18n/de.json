@@ -1,10 +1,7 @@
 {
   "CHAT": {
-    "GENERAL": "allgemein",
     "TYPE_MESSAGE": "Nachricht eingeben...",
     "LOADING_MESSAGES": "Nachrichten werden geladen...",
-    "UNKNOWN_USER": "Unbekannter Benutzer",
-    "LOGIN_REQUIRED": "Anmeldung erforderlich",
     "LOGIN_REQUIRED_DESCRIPTION": "Du musst angemeldet sein, um Nachrichten im Chat zu sehen und zu senden. Bitte melde dich mit deinem Discord-Konto an, um an der Unterhaltung teilzunehmen.",
     "LOGIN_TO_SEND": "Anmelden um Nachrichten zu senden",
     "INFO": {
@@ -12,7 +9,10 @@
     },
     "SUCCESS": {
       "COMMENT_ADD": "Kommentar erfolgreich hinzugefügt"
-    }
+    },
+    "GENERAL": "allgemein",
+    "UNKNOWN_USER": "Unbekannter Benutzer",
+    "LOGIN_REQUIRED": "Anmeldung erforderlich"
   },
   "DASHBOARD": {
     "TITLE": "Dashboard"
@@ -27,7 +27,6 @@
     "WEBSITE": "Website",
     "WAITING_MESSAGE": "Wir warten darauf, dass du beitrittst...",
     "JOIN_BUTTON": "Beitreten",
-
     "HERO_TITLE": "Bauen. Lernen. Verbinden.",
     "HERO_SUBTITLE": "Werde Teil von tausenden Entwicklern in der ultimativen Coding-Community",
     "HERO_TERMINAL_TEXT": "$ verbinde mit coding.global...",
@@ -36,12 +35,10 @@
     "HERO_TERMINAL_OUTPUT_3": "✓ Verbinde mit Entwicklern weltweit...",
     "HERO_CTA_PRIMARY": "Discord beitreten",
     "HERO_CTA_SECONDARY": "Ressourcen entdecken",
-
     "STATS_MEMBERS": "Mitglieder",
     "STATS_ONLINE": "Online",
     "STATS_MESSAGES": "Nachrichten",
     "STATS_VOICE_HOURS": "Voice Stunden",
-
     "FEATURES_TITLE": "Alles was du brauchst",
     "FEATURES_SUBTITLE": "Alle Werkzeuge und Ressourcen um deine Coding-Reise zu beschleunigen",
     "FEATURES_CHAT_TITLE": "Community Chat",
@@ -56,11 +53,9 @@
     "FEATURES_RESOURCES_DESC": "Umfassende Anleitungen und Tutorials",
     "FEATURES_MARKETPLACE_TITLE": "Marktplatz",
     "FEATURES_MARKETPLACE_DESC": "Finde Jobs oder stelle talentierte Entwickler ein",
-
     "LANGUAGES_TITLE": "18+ Programmiersprachen",
     "LANGUAGES_SUBTITLE": "Finde Hilfe und Diskussionen für deine Lieblingssprache",
     "LANGUAGES_VIEW_ALL": "Alle Boards anzeigen",
-
     "CONTRIBUTORS_TITLE": "Top Mitwirkende",
     "CONTRIBUTORS_SUBTITLE": "Unsere aktivsten Community-Mitglieder",
     "CONTRIBUTORS_HELPERS": "Top Helfer",
@@ -69,15 +64,12 @@
     "CONTRIBUTORS_MESSAGES_COUNT": "{count} Nachrichten",
     "CONTRIBUTORS_VOICE": "Top Voice",
     "CONTRIBUTORS_VOICE_HOURS": "{hours} Stunden",
-
     "COMMUNITY_TITLE": "Werde Teil unserer wachsenden Community",
     "COMMUNITY_SUBTITLE": "Verbinde dich mit Entwicklern aus aller Welt",
     "COMMUNITY_NEWS_TITLE": "Neueste News",
-
     "CTA_TITLE": "Bereit durchzustarten?",
     "CTA_SUBTITLE": "Werde Teil von tausenden Entwicklern die gemeinsam lernen und bauen",
     "CTA_BUTTON": "Jetzt Discord beitreten",
-
     "EMPTY": {
       "NEWS": "Keine Neuigkeiten verfügbar",
       "DATA": "Keine Daten verfügbar"
