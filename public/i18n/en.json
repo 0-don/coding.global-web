@@ -1,10 +1,7 @@
 {
   "CHAT": {
-    "GENERAL": "general",
     "TYPE_MESSAGE": "Type your message...",
     "LOADING_MESSAGES": "Loading messages...",
-    "UNKNOWN_USER": "Unknown User",
-    "LOGIN_REQUIRED": "Login Required",
     "LOGIN_REQUIRED_DESCRIPTION": "You need to be logged in to view and send messages in the chat. Please sign in with your Discord account to join the conversation.",
     "LOGIN_TO_SEND": "Sign in to send messages",
     "INFO": {
@@ -12,7 +9,10 @@
     },
     "SUCCESS": {
       "COMMENT_ADD": "Comment added successfully"
-    }
+    },
+    "GENERAL": "general",
+    "UNKNOWN_USER": "Unknown User",
+    "LOGIN_REQUIRED": "Login Required"
   },
   "DASHBOARD": {
     "TITLE": "Dashboard"
@@ -27,7 +27,6 @@
     "WEBSITE": "Website",
     "WAITING_MESSAGE": "Waiting for u to join...",
     "JOIN_BUTTON": "Join",
-
     "HERO_TITLE": "Build. Learn. Connect.",
     "HERO_SUBTITLE": "Join thousands of developers in the ultimate coding community",
     "HERO_TERMINAL_TEXT": "$ connecting to coding.global...",
@@ -36,12 +35,10 @@
     "HERO_TERMINAL_OUTPUT_3": "✓ Connecting with developers worldwide...",
     "HERO_CTA_PRIMARY": "Join Our Discord",
     "HERO_CTA_SECONDARY": "Explore Resources",
-
     "STATS_MEMBERS": "Total Members",
     "STATS_ONLINE": "Online Now",
     "STATS_MESSAGES": "Total Messages",
     "STATS_VOICE_HOURS": "Voice Hours",
-
     "FEATURES_TITLE": "Everything You Need",
     "FEATURES_SUBTITLE": "All the tools and resources to accelerate your coding journey",
     "FEATURES_CHAT_TITLE": "Community Chat",
@@ -56,11 +53,9 @@
     "FEATURES_RESOURCES_DESC": "Comprehensive guides and tutorials",
     "FEATURES_MARKETPLACE_TITLE": "Marketplace",
     "FEATURES_MARKETPLACE_DESC": "Find jobs or hire talented developers",
-
     "LANGUAGES_TITLE": "18+ Programming Languages",
     "LANGUAGES_SUBTITLE": "Find help and discussions for your favorite language",
     "LANGUAGES_VIEW_ALL": "View All Boards",
-
     "CONTRIBUTORS_TITLE": "Top Contributors",
     "CONTRIBUTORS_SUBTITLE": "Our most active community members",
     "CONTRIBUTORS_HELPERS": "Top Helpers",
@@ -69,15 +64,12 @@
     "CONTRIBUTORS_MESSAGES_COUNT": "{count} messages",
     "CONTRIBUTORS_VOICE": "Top Voice",
     "CONTRIBUTORS_VOICE_HOURS": "{hours} hours",
-
     "COMMUNITY_TITLE": "Join Our Thriving Community",
     "COMMUNITY_SUBTITLE": "Connect with developers from around the world",
     "COMMUNITY_NEWS_TITLE": "Latest News",
-
     "CTA_TITLE": "Ready to Level Up?",
     "CTA_SUBTITLE": "Join thousands of developers learning and building together",
     "CTA_BUTTON": "Join Our Discord Now",
-
     "EMPTY": {
       "NEWS": "No news available",
       "DATA": "No data available"
