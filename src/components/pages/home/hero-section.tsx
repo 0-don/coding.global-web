@@ -179,7 +179,7 @@ function InteractiveTerminal() {
     }
   }, [currentCommand, isInteractive]);
 
-  // Auto-scroll to bottom when commands change
+  // Auto-scroll terminal content to bottom (only internal scroll, won't affect page)
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
@@ -294,13 +294,13 @@ function InteractiveTerminal() {
         <div className="flex items-center">
           <span className="mr-2 text-green-400">$</span>
           <input
+            ref={(el) => el?.focus({ preventScroll: true })}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             className="flex-1 bg-transparent outline-none"
             placeholder="Type /help for commands..."
-            autoFocus
           />
           <motion.span
             animate={{ opacity: [1, 0, 1] }}
@@ -323,22 +323,35 @@ export function HeroSection() {
   const [terminalSize, setTerminalSize] = useState({ width: 896, height: 500 }); // max-w-4xl = 896px
   const [isResizing, setIsResizing] = useState(false);
   const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
+  const stateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Helper to set terminal state after a delay, cancelling any pending timer
+  const setStateWithDelay = (state: typeof terminalState, delayMs: number) => {
+    if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
+    stateTimerRef.current = setTimeout(() => {
+      setTerminalState(state);
+      stateTimerRef.current = null;
+    }, delayMs);
+  };
 
   const handleClose = () => {
+    if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
     setTerminalState("closed");
-    setTimeout(() => {
-      setTerminalState("normal");
-    }, 3000);
+    setStateWithDelay("normal", 3000);
   };
 
   const handleMinimize = () => {
+    if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
     setTerminalState("minimized");
-    setTimeout(() => {
-      setTerminalState("normal");
-    }, 2000);
+    setStateWithDelay("normal", 2000);
   };
 
   const handleMaximize = () => {
+    // Cancel any pending auto-restore timers (e.g. from minimize)
+    if (stateTimerRef.current) {
+      clearTimeout(stateTimerRef.current);
+      stateTimerRef.current = null;
+    }
     if (terminalState === "maximized") {
       setTerminalState("normal");
     } else {
