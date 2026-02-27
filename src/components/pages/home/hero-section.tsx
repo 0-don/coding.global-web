@@ -11,85 +11,90 @@ import Link from "next/link";
 import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
 
-function TypewriterText({
-  text,
-  delay = 50,
-  loop = false,
-  deleteDelay = 50,
-  pauseTime = 2000,
-}: {
-  text: string;
-  delay?: number;
-  loop?: boolean;
-  deleteDelay?: number;
-  pauseTime?: number;
-}) {
+function StaggeredHeroTitle({ text }: { text: string }) {
+  // Split by "." to get individual words, filter empty strings, re-add the dot
+  const words = text
+    .split(".")
+    .map((w) => w.trim())
+    .filter(Boolean)
+    .map((w) => `${w}.`);
+
+  // Each word gets a unique gradient for visual variety
+  const wordGradients = [
+    "from-primary via-primary to-chart-2", // Build.
+    "from-chart-2 via-chart-2 to-chart-3", // Learn.
+    "from-chart-3 via-chart-3 to-primary", // Connect.
+  ];
+
+  return (
+    <span className="inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-x-6">
+      {words.map((word, i) => (
+        <motion.span
+          key={word}
+          initial={{
+            opacity: 0,
+            y: 40,
+            filter: "blur(12px)",
+            scale: 0.9,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 0.4 + i * 0.2,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
+          className="relative inline-block"
+        >
+          {/* Glow layer behind the text */}
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.6, 0] }}
+            transition={{
+              duration: 1.2,
+              delay: 0.6 + i * 0.2,
+              ease: "easeOut",
+            }}
+            className={`bg-linear-to-r ${wordGradients[i] ?? wordGradients[0]} pointer-events-none absolute inset-0 bg-clip-text text-transparent blur-xl`}
+            aria-hidden
+          >
+            {word}
+          </motion.span>
+          {/* Actual text */}
+          <span
+            className={`bg-linear-to-r ${wordGradients[i] ?? wordGradients[0]} bg-clip-text text-transparent`}
+          >
+            {word}
+          </span>
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
+/** Simple typewriter for terminal commands (no loop, just types out) */
+function TerminalTypewriter({ text, delay = 30 }: { text: string; delay?: number }) {
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (!loop) {
-      // Original behavior without looping
-      if (currentIndex < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayedText((prev) => prev + text[currentIndex]);
-          setCurrentIndex((prev) => prev + 1);
-        }, delay);
-        return () => clearTimeout(timeout);
-      }
-      return;
-    }
-
-    // Looping behavior
-    if (isPaused) {
+    if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
-        setIsPaused(false);
-        setIsDeleting(true);
-      }, pauseTime);
+        setDisplayedText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, delay);
       return () => clearTimeout(timeout);
     }
-
-    if (isDeleting) {
-      if (displayedText.length > 0) {
-        const timeout = setTimeout(() => {
-          setDisplayedText((prev) => prev.slice(0, -1));
-        }, deleteDelay);
-        return () => clearTimeout(timeout);
-      } else {
-        setIsDeleting(false);
-        setCurrentIndex(0);
-      }
-    } else {
-      if (currentIndex < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayedText((prev) => prev + text[currentIndex]);
-          setCurrentIndex((prev) => prev + 1);
-        }, delay);
-        return () => clearTimeout(timeout);
-      } else {
-        setIsPaused(true);
-      }
-    }
-  }, [
-    currentIndex,
-    text,
-    delay,
-    isDeleting,
-    displayedText,
-    loop,
-    deleteDelay,
-    pauseTime,
-    isPaused,
-  ]);
-
-  const showCursor = loop || currentIndex < text.length;
+  }, [currentIndex, text, delay]);
 
   return (
     <span>
       {displayedText}
-      {showCursor && (
+      {currentIndex < text.length && (
         <motion.span
           className="ml-0.5"
           animate={{ opacity: [1, 0, 1] }}
@@ -258,7 +263,7 @@ function InteractiveTerminal() {
               {cmd.isUser ? (
                 <span>{cmd.command}</span>
               ) : (
-                <TypewriterText text={cmd.command} delay={30} />
+                <TerminalTypewriter text={cmd.command} delay={30} />
               )}
             </div>
           )}
@@ -403,18 +408,12 @@ export function HeroSection() {
       >
         {/* Main heading with gradient and typewriter effect */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="from-primary to-chart-2 bg-linear-to-r bg-clip-text text-5xl font-bold text-transparent md:text-7xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-5xl font-bold md:text-7xl"
         >
-          <TypewriterText
-            text={t("HOME.HERO_TITLE")}
-            delay={100}
-            deleteDelay={50}
-            pauseTime={3000}
-            loop={true}
-          />
+          <StaggeredHeroTitle text={t("HOME.HERO_TITLE")} />
         </motion.h1>
 
         {/* Subtitle */}
