@@ -3,6 +3,11 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useDiscordWidget, useTopStatsQuery } from "@/hook/bot-hook";
+import {
+  useTerminalMembersQuery,
+  useTerminalTopQuery,
+} from "@/hook/terminal-hook";
 import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { motion } from "motion/react";
@@ -10,6 +15,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
+
 
 function StaggeredHeroTitle({ text }: { text: string }) {
   // Split by "." to get individual words, filter empty strings, re-add the dot
@@ -116,6 +122,12 @@ function InteractiveTerminal() {
   const [isInteractive, setIsInteractive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const terminalRef = useRef<HTMLDivElement>(null);
+  const cmdIdRef = useRef(0);
+
+  const { data: widget } = useDiscordWidget();
+  const { data: topStats } = useTopStatsQuery();
+  const membersQuery = useTerminalMembersQuery();
+  const topQuery = useTerminalTopQuery({ limit: 5 });
 
   const terminalCommands = [
     {
@@ -137,16 +149,136 @@ function InteractiveTerminal() {
     },
   ];
 
-  const availableCommands: Record<string, string> = {
+  const memberCount = widget?.memberCount?.toLocaleString() ?? "...";
+  const onlineCount = widget?.presenceCount?.toLocaleString() ?? "...";
+  const totalMessages = topStats?.totalMessages?.toLocaleString() ?? "...";
+  const voiceHours = topStats?.totalVoiceHours?.toLocaleString() ?? "...";
+  const discordLink = getDiscordInviteLink();
+
+  // Static commands (instant response)
+  const staticCommands: Record<string, string> = {
     "/help":
-      "Available commands:\n  /help - Show this help message\n  /about - Learn about coding.global\n  /usercount - Show member statistics\n  /discord - Get Discord invite link\n  /clear - Clear terminal",
+      "Available commands:\n  /help    - Show this help message\n  /about   - Learn about coding.global\n  /stats   - Show member statistics\n  /discord - Get Discord invite link\n  /members - Show online members\n  /top     - Show top contributors\n  /search  - Search users (e.g. /search John)\n  /clear   - Clear terminal",
     "/about":
       "coding.global is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
+    "/stats":
+      `📊 Community Stats:\n  • ${memberCount} Members\n  • ${onlineCount} Online\n  • ${totalMessages} Messages\n  • ${voiceHours} Voice Hours`,
     "/usercount":
-      "📊 Community Stats:\n  • 10,000+ Members\n  • 2,000+ Active Users\n  • 50,000+ Messages\n  • Growing daily!",
+      `📊 Community Stats:\n  • ${memberCount} Members\n  • ${onlineCount} Online\n  • ${totalMessages} Messages\n  • ${voiceHours} Voice Hours`,
     "/discord":
-      "Join our Discord: discord.gg/coding-global\nConnect with developers from around the world!",
+      `Join our Discord: ${discordLink}\nConnect with developers from around the world!`,
     "/clear": "CLEAR_COMMAND",
+  };
+
+  // Async commands that fetch real API data
+  const asyncCommands: Record<string, (args: string) => Promise<string>> = {
+    "/members": async () => {
+      try {
+        const data = await membersQuery.fetch();
+        if (!data) return "No members data available.";
+        const d = data as {
+          memberCount?: number;
+          thirtyDaysCount?: number;
+          sevenDaysCount?: number;
+          oneDayCount?: number;
+        };
+        return `👥 Member Stats:\n  • ${d.memberCount?.toLocaleString() ?? "?"} Total Members\n  • ${d.thirtyDaysCount?.toLocaleString() ?? "?"} joined last 30 days\n  • ${d.sevenDaysCount?.toLocaleString() ?? "?"} joined last 7 days\n  • ${d.oneDayCount?.toLocaleString() ?? "?"} joined today`;
+      } catch {
+        return "❌ Failed to fetch members. Try again later.";
+      }
+    },
+    "/top": async () => {
+      try {
+        const data = await topQuery.fetch();
+        if (!data) return "No data available.";
+        let output = "🏆 Top Contributors:\n";
+        const topData = data as {
+          mostActiveMessageUsers?: Array<{ displayName?: string; count?: number }>;
+          mostActiveVoiceUsers?: Array<{ displayName?: string; sum?: number }>;
+          mostHelpfulUsers?: Array<{ displayName?: string; count?: number }>;
+          totalMessages?: number;
+          totalVoiceHours?: number;
+        };
+        if (topData.mostActiveMessageUsers?.length) {
+          output += "\n  💬 Messages:\n";
+          output += topData.mostActiveMessageUsers
+            .slice(0, 5)
+            .map(
+              (u, i) =>
+                `    ${i + 1}. ${u.displayName || "Unknown"} — ${u.count?.toLocaleString() || 0}`,
+            )
+            .join("\n");
+        }
+        if (topData.mostActiveVoiceUsers?.length) {
+          output += "\n\n  🎙️ Voice:\n";
+          output += topData.mostActiveVoiceUsers
+            .slice(0, 5)
+            .map(
+              (u, i) =>
+                `    ${i + 1}. ${u.displayName || "Unknown"} — ${Math.round(u.sum || 0)}h`,
+            )
+            .join("\n");
+        }
+        if (topData.mostHelpfulUsers?.length) {
+          output += "\n\n  🤝 Helpers:\n";
+          output += topData.mostHelpfulUsers
+            .slice(0, 5)
+            .map(
+              (u, i) =>
+                `    ${i + 1}. ${u.displayName || "Unknown"} — ${u.count || 0} helps`,
+            )
+            .join("\n");
+        }
+        if (topData.totalMessages || topData.totalVoiceHours) {
+          output += `\n\n  📊 Total: ${topData.totalMessages?.toLocaleString() ?? "?"} messages, ${topData.totalVoiceHours?.toLocaleString() ?? "?"} voice hours`;
+        }
+        return output;
+      } catch {
+        return "❌ Failed to fetch top contributors. Try again later.";
+      }
+    },
+    "/search": async (args: string) => {
+      if (!args.trim()) return "Usage: /search <username>\nExample: /search Don";
+      try {
+        const data = await topQuery.fetch();
+        if (!data) return "No data available to search.";
+        const topData = data as {
+          mostActiveMessageUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; count?: number }>;
+          mostActiveVoiceUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; sum?: number }>;
+          mostHelpfulUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; count?: number }>;
+        };
+        const allUsers = [
+          ...(topData.mostActiveMessageUsers || []),
+          ...(topData.mostActiveVoiceUsers || []),
+          ...(topData.mostHelpfulUsers || []),
+        ];
+        // Deduplicate by id
+        const seen = new Set<string>();
+        const unique = allUsers.filter((u) => {
+          if (!u.id || seen.has(u.id)) return false;
+          seen.add(u.id);
+          return true;
+        });
+        const q = args.trim().toLowerCase();
+        const results = unique.filter(
+          (u) =>
+            u.displayName?.toLowerCase().includes(q) ||
+            u.username?.toLowerCase().includes(q) ||
+            u.globalName?.toLowerCase().includes(q),
+        );
+        if (results.length === 0)
+          return `No users found for "${args.trim()}".`;
+        const lines = results
+          .slice(0, 10)
+          .map(
+            (u) =>
+              `  • ${u.displayName || u.username || "Unknown"} (@${u.username || "?"})`,
+          );
+        return `🔍 Search results for "${args.trim()}":\n${lines.join("\n")}${results.length > 10 ? `\n  ... and ${results.length - 10} more` : ""}`;
+      } catch {
+        return "❌ Search failed. Try again later.";
+      }
+    },
   };
 
   useEffect(() => {
@@ -155,7 +287,7 @@ function InteractiveTerminal() {
         () => {
           setCommands((prev) => [
             ...prev,
-            { ...terminalCommands[currentCommand], id: Date.now() },
+            { ...terminalCommands[currentCommand], id: cmdIdRef.current++ },
           ]);
           setCurrentCommand((prev) => prev + 1);
         },
@@ -171,7 +303,7 @@ function InteractiveTerminal() {
           {
             command: "",
             output: "✨ Terminal ready! Type /help to see available commands.",
-            id: Date.now(),
+            id: cmdIdRef.current++,
           },
         ]);
       }, 1000);
@@ -186,62 +318,78 @@ function InteractiveTerminal() {
     }
   }, [commands]);
 
-  const handleCommand = (cmd: string) => {
-    const trimmedCmd = cmd.trim().toLowerCase();
+  const addOutput = (output: string) => {
+    setCommands((prev) => [
+      ...prev,
+      { command: "", output, id: cmdIdRef.current++ },
+    ]);
+  };
 
+  const handleCommand = async (cmd: string) => {
+    const trimmedCmd = cmd.trim().toLowerCase();
     if (!trimmedCmd) return;
 
+    // Parse command and args (e.g. "/search John" -> cmd="/search", args="John")
+    const parts = trimmedCmd.split(/\s+/);
+    const baseCmd = parts[0];
+    const args = cmd.trim().slice(baseCmd.length).trim();
+
     posthog.capture("terminal_command_executed", {
-      command: trimmedCmd,
-      is_valid_command: !!availableCommands[trimmedCmd],
+      command: baseCmd,
+      is_valid_command: !!(staticCommands[baseCmd] || asyncCommands[baseCmd]),
     });
 
     // Add user command to history
     setCommands((prev) => [
       ...prev,
-      { command: cmd, output: "", id: Date.now(), isUser: true },
+      { command: cmd, output: "", id: cmdIdRef.current++, isUser: true },
     ]);
+    setInputValue("");
 
-    // Process command
-    if (availableCommands[trimmedCmd]) {
-      if (trimmedCmd === "/clear") {
+    // Check static commands first
+    if (staticCommands[baseCmd]) {
+      if (baseCmd === "/clear") {
         setCommands([]);
         setTimeout(() => {
           setCommands([
             {
               command: "",
-              output:
-                "✨ Terminal cleared! Type /help to see available commands.",
-              id: Date.now(),
+              output: "✨ Terminal cleared! Type /help to see available commands.",
+              id: cmdIdRef.current++,
             },
           ]);
         }, 100);
-      } else {
-        setTimeout(() => {
-          setCommands((prev) => [
-            ...prev,
-            {
-              command: "",
-              output: availableCommands[trimmedCmd],
-              id: Date.now(),
-            },
-          ]);
-        }, 300);
+        return;
       }
-    } else {
-      setTimeout(() => {
-        setCommands((prev) => [
-          ...prev,
-          {
-            command: "",
-            output: `Command not found: ${cmd}\nType /help to see available commands.`,
-            id: Date.now(),
-          },
-        ]);
-      }, 300);
+      setTimeout(() => addOutput(staticCommands[baseCmd]), 300);
+      return;
     }
 
-    setInputValue("");
+    // Check async commands
+    if (asyncCommands[baseCmd]) {
+      addOutput("⏳ Loading...");
+      try {
+        const result = await asyncCommands[baseCmd](args);
+        // Replace the loading message with the result
+        setCommands((prev) => {
+          const loadingIdx = prev.findLastIndex((c) => c.output === "⏳ Loading...");
+          if (loadingIdx !== -1) {
+            const updated = [...prev];
+            updated[loadingIdx] = { ...updated[loadingIdx], output: result };
+            return updated;
+          }
+          return [...prev, { command: "", output: result, id: cmdIdRef.current++ }];
+        });
+      } catch {
+        addOutput("❌ An error occurred. Try again later.");
+      }
+      return;
+    }
+
+    // Unknown command
+    setTimeout(() => {
+      addOutput(`Command not found: ${cmd}\nType /help to see available commands.`);
+    }, 300);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
