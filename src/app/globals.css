@@ -315,3 +315,12 @@
   color: #ffdcd7;
   background-color: #67060c;
 }
+
+/* Terminal scrollbar - hide native, custom scrollbar via React */
+.terminal-scroll {
+  scrollbar-width: none !important;
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  display: none !important;
+}
