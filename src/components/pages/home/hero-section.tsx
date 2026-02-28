@@ -1080,7 +1080,7 @@ export function HeroSection() {
             }}
             className={cn(isDragging && "pointer-events-auto")}
           >
-          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black p-0 text-left">
+          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black/90 p-0 text-left backdrop-blur-sm">
             {/* ── Header (draggable) ── Win11 Terminal style */}
             <div
               onMouseDown={handleDragStart}
