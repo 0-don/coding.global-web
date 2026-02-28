@@ -10,8 +10,9 @@ import {
   useTerminalTopQuery,
 } from "@/hook/terminal-hook";
 import { authClient } from "@/lib/auth-client";
+import { rpc } from "@/lib/rpc";
 import { cn } from "@/lib/utils";
-import { getDiscordInviteLink } from "@/lib/utils/base";
+import { getDiscordInviteLink, handleElysia } from "@/lib/utils/base";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -183,6 +184,7 @@ const ALL_COMMANDS = [
   "/search",
   "/login",
   "/me",
+  "/os",
   "/clear",
 ];
 
@@ -243,17 +245,49 @@ function InteractiveTerminal() {
   const voiceHours = topStats?.totalVoiceHours?.toLocaleString() ?? "...";
   const discordLink = getDiscordInviteLink();
 
-  // Prompt prefix as JSX
+  // Detect OS
+  const [userOS, setUserOS] = useState<"windows" | "mac" | "linux">("windows");
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes("mac")) setUserOS("mac");
+    else if (ua.includes("linux") || ua.includes("android")) setUserOS("linux");
+    else setUserOS("windows");
+  }, []);
+
+  // Prompt prefix as JSX — OS-specific
   const promptUser = discordUsername || "guest";
-  const PromptPrefix = () => (
-    <span className="mr-2 shrink-0 select-none">
-      <span className="text-white">coding</span>
-      <span className="text-red-500">.global</span>
-      <span className="text-white/50">\</span>
-      <span className="text-blue-400">{promptUser}</span>
-      <span className="text-white/40">&gt;</span>
-    </span>
-  );
+  const PromptPrefix = () => {
+    if (userOS === "mac") return (
+      <span className="mr-2 shrink-0 select-none">
+        <span className="text-green-400">{promptUser}</span>
+        <span className="text-white/40">@</span>
+        <span className="text-cyan-400">coding.global</span>
+        <span className="text-white/30"> ~ </span>
+        <span className="text-purple-400">%</span>
+      </span>
+    );
+    if (userOS === "linux") return (
+      <span className="mr-2 shrink-0 select-none">
+        <span className="text-white/40">[</span>
+        <span className="text-green-400">{promptUser}</span>
+        <span className="text-white/40">@</span>
+        <span className="text-cyan-400">coding.global</span>
+        <span className="text-white/30"> ~</span>
+        <span className="text-white/40">]</span>
+        <span className="text-white/60">$</span>
+      </span>
+    );
+    // Windows default
+    return (
+      <span className="mr-2 shrink-0 select-none">
+        <span className="text-white">coding</span>
+        <span className="text-red-500">.global</span>
+        <span className="text-white/50">\</span>
+        <span className="text-yellow-400">{promptUser}</span>
+        <span className="text-white/40">&gt;</span>
+      </span>
+    );
+  };
 
   // Autocomplete ghost
   const suggestion = getAutocompleteSuggestion(inputValue);
@@ -263,18 +297,37 @@ function InteractiveTerminal() {
   // Static commands
   const staticCommands: Record<string, string> = {
     "/help":
-      "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/login}}   — Login with Discord\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/clear}}   — Clear terminal",
+      "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/login}}   — Login with Discord\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/os}}      — Show your system info\n  {{cyan:/clear}}   — Clear terminal",
     "/about":
       "{{green:coding.global}} is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
     "/stats": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
     "/usercount": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
     "/discord": `Join our Discord: {{cyan:${discordLink}}}\nConnect with developers from around the world!`,
     "/clear": "CLEAR_COMMAND",
+    "/os": (() => {
+      const ua = navigator.userAgent;
+      let os = "Unknown";
+      let device = "Desktop";
+      if (/iPhone|iPad|iPod/.test(ua)) { os = "iOS"; device = /iPad/.test(ua) ? "Tablet" : "Mobile"; }
+      else if (/Android/.test(ua)) { os = "Android"; device = /Mobile/.test(ua) ? "Mobile" : "Tablet"; }
+      else if (/Mac/.test(ua)) os = "macOS";
+      else if (/Win/.test(ua)) os = "Windows";
+      else if (/Linux/.test(ua)) os = "Linux";
+      let browser = "Unknown";
+      if (/Edg\//.test(ua)) browser = "Edge";
+      else if (/Chrome\//.test(ua)) browser = "Chrome";
+      else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
+      else if (/Firefox\//.test(ua)) browser = "Firefox";
+      const w = window.screen.width;
+      const h = window.screen.height;
+      const touch = "ontouchstart" in window ? "Yes" : "No";
+      return `{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`;
+    })(),
     "/login": isLoggedIn
       ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile.`
       : "LOGIN_COMMAND",
     "/me": isLoggedIn
-      ? `{{yellow:Your Profile:}}\n  {{cyan:Name}}     {{white:${session?.data?.user?.name || "—"}}}\n  {{cyan:Email}}    {{white:${session?.data?.user?.email || "—"}}}\n  {{cyan:ID}}       {{white:${session?.data?.user?.id || "—"}}}`
+      ? "ME_ASYNC"
       : "{{red:Not logged in.}} Type {{cyan:/login}} to login with Discord.",
   };
 
@@ -426,14 +479,13 @@ function InteractiveTerminal() {
     }
   }, []);
 
-  // Auto-scroll only if user is near bottom
+  // Auto-scroll to bottom after new commands
   useEffect(() => {
-    const el = terminalRef.current;
-    if (el) {
-      const isNearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
-      if (isNearBottom) {
-        el.scrollTop = el.scrollHeight;
-      }
+    const inner = terminalRef.current;
+    if (!inner) return;
+    const scrollEl = inner.closest(".terminal-scroll");
+    if (scrollEl) {
+      setTimeout(() => { scrollEl.scrollTop = scrollEl.scrollHeight; }, 50);
     }
   }, [commands]);
 
@@ -490,6 +542,45 @@ function InteractiveTerminal() {
             callbackURL: "/",
           });
         }, 500);
+        return;
+      }
+      if (staticCommands[baseCmd] === "ME_ASYNC") {
+        addOutput(LOADING_MARKER);
+        try {
+          const userId = session?.data?.user?.id;
+          const userName = session?.data?.user?.name || "User";
+          const userEmail = session?.data?.user?.email || "—";
+          const statsData = await handleElysia(await rpc.api.terminal.users.post({ userIds: [userId!] }));
+          const s = (statsData as Array<{
+            stats?: {
+              messages?: { total?: number; last7Days?: number; last24Hours?: number };
+              voice?: { totalHours?: number; last7DaysHours?: number; last24HoursHours?: number };
+              help?: { given?: number; received?: number };
+              lastActivity?: { lastVoice?: string; lastMessage?: string };
+            };
+          }>)?.[0]?.stats;
+          let output = `{{yellow:Your Profile:}}\n  {{cyan:Name}}      {{white:${userName}}}\n  {{cyan:Email}}     {{white:${userEmail}}}\n  {{cyan:ID}}        {{white:${userId}}}`;
+          if (s?.messages) {
+            output += `\n\n{{yellow:Messages:}}\n  {{cyan:Total}}     {{white:${s.messages.total?.toLocaleString() ?? "0"}}}\n  {{cyan:Last 7d}}   {{white:${s.messages.last7Days?.toLocaleString() ?? "0"}}}\n  {{cyan:Last 24h}}  {{white:${s.messages.last24Hours?.toLocaleString() ?? "0"}}}`;
+          }
+          if (s?.voice) {
+            output += `\n\n{{purple:Voice:}}\n  {{cyan:Total}}     {{purple:${Math.round(s.voice.totalHours ?? 0)}h}}\n  {{cyan:Last 7d}}   {{purple:${Math.round(s.voice.last7DaysHours ?? 0)}h}}\n  {{cyan:Last 24h}}  {{purple:${Math.round(s.voice.last24HoursHours ?? 0)}h}}`;
+          }
+          if (s?.help) {
+            output += `\n\n{{orange:Help:}}\n  {{cyan:Given}}     {{green:${s.help.given ?? 0}}}\n  {{cyan:Received}}  {{green:${s.help.received ?? 0}}}`;
+          }
+          setCommands((prev) => {
+            const idx = prev.findLastIndex((c) => c.output === LOADING_MARKER);
+            if (idx !== -1) {
+              const copy = [...prev];
+              copy[idx] = { ...copy[idx], output };
+              return copy;
+            }
+            return [...prev, { command: "", output, id: cmdIdRef.current++ }];
+          });
+        } catch {
+          addOutput("{{yellow:Your Profile:}}\n  {{cyan:Name}}  {{white:" + (session?.data?.user?.name || "User") + "}}\n  {{cyan:Email}} {{white:" + (session?.data?.user?.email || "—") + "}}\n  {{red:Could not fetch server stats.}}");
+        }
         return;
       }
       addOutput(staticCommands[baseCmd]);
@@ -648,6 +739,8 @@ function InteractiveTerminal() {
 // ─── HeroSection with draggable/resizable terminal ───────────────────────────
 export function HeroSection() {
   const t = useTranslations();
+  const session = useSessionHook();
+  const promptUser = session?.data?.user?.name ?? "guest";
 
   // Terminal window state
   const [terminalState, setTerminalState] = useState<
@@ -655,6 +748,15 @@ export function HeroSection() {
   >("normal");
   const [terminalSize, setTerminalSize] = useState({ ...ORIGIN_SIZE });
   const [terminalPos, setTerminalPos] = useState({ ...ORIGIN_POS });
+
+  // Detect OS for terminal styling
+  const [userOS, setUserOS] = useState<"windows" | "mac" | "linux">("windows");
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes("mac")) setUserOS("mac");
+    else if (ua.includes("linux") || ua.includes("android")) setUserOS("linux");
+    else setUserOS("windows");
+  }, []);
 
   // Refs for resize
   const [isResizing, setIsResizing] = useState(false);
@@ -766,7 +868,7 @@ export function HeroSection() {
       const clampedX = Math.max(-terminalSize.width + 100, Math.min(window.innerWidth - 100, rawX));
       const clampedY = Math.max(-20, Math.min(window.innerHeight - 44, rawY));
       setTerminalPos({ x: clampedX, y: clampedY });
-      setIsNearEdge(y <= 10 || x <= 10 || x >= window.innerWidth - 10);
+      setIsNearEdge(terminalState !== "minimized" && (y <= 10 || x <= 10 || x >= window.innerWidth - 10));
       if (dockZoneRef.current) {
         const dock = dockZoneRef.current.getBoundingClientRect();
         const visibleHeight = terminalState === "minimized" ? 44 : terminalSize.height;
@@ -978,7 +1080,7 @@ export function HeroSection() {
             }}
             className={cn(isDragging && "pointer-events-auto")}
           >
-          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black/90 p-0 text-left backdrop-blur-sm">
+          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black p-0 text-left">
             {/* ── Header (draggable) ── Win11 Terminal style */}
             <div
               onMouseDown={handleDragStart}
@@ -1000,56 +1102,61 @@ export function HeroSection() {
                 isDragging && "cursor-grabbing",
               )}
             >
-              {/* Left: icon + title */}
-              <div className="flex items-center gap-2 select-none">
-                <span className="text-primary text-xs font-bold">{">"}_</span>
-                <span className="text-[13px] text-white/60 font-medium">Terminal</span>
-              </div>
-              {/* Right: Win11 window controls */}
-              <div className="flex items-center">
-                <button
-                  onClick={handleMinimize}
-                  disabled={terminalState === "minimized"}
-                  className={cn("flex h-8 w-11 items-center justify-center transition-colors",
-                    terminalState === "minimized"
-                      ? "text-white/15 cursor-not-allowed"
-                      : "text-white/50 hover:bg-white/10 hover:text-white/80"
-                  )}
-                  aria-label="Minimize"
-                >
-                  <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
-                </button>
-                <button
-                  onClick={handleMaximize}
-                  className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
-                  aria-label="Maximize"
-                >
-                  {terminalState === "maximized" ? (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
-                      <rect x="2.5" y="0.5" width="7" height="7" rx="0.5"/>
-                      <rect x="0.5" y="2.5" width="7" height="7" rx="0.5"/>
-                    </svg>
-                  ) : (
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
-                      <rect x="0.5" y="0.5" width="9" height="9" rx="0.5"/>
-                    </svg>
-                  )}
-                </button>
-                <button
-                  onClick={handleClose}
-                  disabled={!isUndocked && terminalState !== "maximized"}
-                  className={cn("flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors",
-                    !isUndocked && terminalState !== "maximized"
-                      ? "text-white/15 cursor-not-allowed"
-                      : "text-white/50 hover:bg-red-500/90 hover:text-white"
-                  )}
-                  aria-label="Close"
-                >
-                  <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
-                    <line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/>
-                  </svg>
-                </button>
-              </div>
+              {userOS === "mac" ? (
+                <>
+                  {/* macOS traffic lights — left */}
+                  <div className="flex items-center gap-2 select-none">
+                    <button onClick={handleClose} className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors" aria-label="Close" />
+                    <button onClick={handleMinimize} className={cn("h-3 w-3 rounded-full transition-colors", terminalState === "minimized" ? "bg-yellow-800/50" : "bg-yellow-500 hover:bg-yellow-400")} aria-label="Minimize" />
+                    <button onClick={handleMaximize} className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors" aria-label="Maximize" />
+                  </div>
+                  {/* Center title */}
+                  <span className="text-[13px] text-white/50 font-medium select-none absolute left-1/2 -translate-x-1/2">{promptUser}@coding.global</span>
+                  <div />
+                </>
+              ) : userOS === "linux" ? (
+                <>
+                  {/* Linux — minimal left title */}
+                  <div className="flex items-center gap-2 select-none">
+                    <span className="text-[13px] text-white/50 font-medium">{promptUser}@coding.global: ~</span>
+                  </div>
+                  {/* Right: simple controls */}
+                  <div className="flex items-center gap-1">
+                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-7 w-7 items-center justify-center rounded transition-colors", terminalState === "minimized" ? "text-white/15" : "text-white/50 hover:bg-white/10")} aria-label="Minimize">
+                      <svg width="8" height="1" viewBox="0 0 8 1"><rect width="8" height="1" fill="currentColor"/></svg>
+                    </button>
+                    <button onClick={handleMaximize} className="flex h-7 w-7 items-center justify-center rounded text-white/50 transition-colors hover:bg-white/10" aria-label="Maximize">
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="7" height="7" rx="0.5"/></svg>
+                    </button>
+                    <button onClick={handleClose} disabled={!isUndocked && terminalState !== "maximized"} className={cn("flex h-7 w-7 items-center justify-center rounded transition-colors", !isUndocked && terminalState !== "maximized" ? "text-white/15" : "text-white/50 hover:bg-red-500/80 hover:text-white")} aria-label="Close">
+                      <svg width="8" height="8" viewBox="0 0 8 8" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="7" y2="7"/><line x1="7" y1="1" x2="1" y2="7"/></svg>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Windows — Win11 style */}
+                  <div className="flex items-center gap-2 select-none">
+                    <span className="text-primary text-xs font-bold">{">"}_</span>
+                    <span className="text-[13px] text-white/60 font-medium">Terminal</span>
+                  </div>
+                  <div className="flex items-center">
+                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-8 w-11 items-center justify-center transition-colors", terminalState === "minimized" ? "text-white/15 cursor-not-allowed" : "text-white/50 hover:bg-white/10 hover:text-white/80")} aria-label="Minimize">
+                      <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
+                    </button>
+                    <button onClick={handleMaximize} className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80" aria-label="Maximize">
+                      {terminalState === "maximized" ? (
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2.5" y="0.5" width="7" height="7" rx="0.5"/><rect x="0.5" y="2.5" width="7" height="7" rx="0.5"/></svg>
+                      ) : (
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="9" height="9" rx="0.5"/></svg>
+                      )}
+                    </button>
+                    <button onClick={handleClose} disabled={!isUndocked && terminalState !== "maximized"} className={cn("flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors", !isUndocked && terminalState !== "maximized" ? "text-white/15 cursor-not-allowed" : "text-white/50 hover:bg-red-500/90 hover:text-white")} aria-label="Close">
+                      <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* ── Terminal content ── */}
