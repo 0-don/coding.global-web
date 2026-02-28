@@ -149,6 +149,25 @@ function TerminalColoredOutput({ text }: { text: string }) {
   );
 }
 
+/** Fast colored typewriter — strips markers, types plain text, renders colored when done */
+function TerminalColoredTypewriter({ text, delay = 8 }: { text: string; delay?: number }) {
+  const plain = text.replace(/\{\{\w+:([^}]+)\}\}/g, "$1");
+  const [charIndex, setCharIndex] = useState(0);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (charIndex < plain.length) {
+      const t = setTimeout(() => setCharIndex(i => i + 1), delay);
+      return () => clearTimeout(t);
+    } else {
+      setDone(true);
+    }
+  }, [charIndex, plain.length, delay]);
+
+  if (done) return <TerminalColoredOutput text={text} />;
+  return <span>{plain.slice(0, charIndex)}<motion.span className="ml-0.5" animate={{ opacity: [1, 0, 1] }} transition={{ duration: 0.6, repeat: Infinity }}>|</motion.span></span>;
+}
+
 // ─── Constants ───────────────────────────────────────────────────────────────
 const ORIGIN_SIZE = { width: 700, height: 350 };
 const ORIGIN_POS = { x: 0, y: 0 }; // relative to container center
@@ -195,7 +214,7 @@ function InteractiveTerminal() {
   const discordUsername = session?.data?.user?.name ?? null;
   const t = useTranslations();
   const [commands, setCommands] = useState<
-    Array<{ command: string; output: string; id: number; isUser?: boolean }>
+    Array<{ command: string; output: string; id: number; isUser?: boolean; isBoot?: boolean }>
   >([]);
   const [isInteractive, setIsInteractive] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -397,15 +416,13 @@ function InteractiveTerminal() {
   // Boot sequence — single intro message
   useEffect(() => {
     if (!isInteractive && commands.length === 0) {
-      const timeout = setTimeout(() => {
-        setCommands([{
-          command: "",
-          output: bootMessage,
-          id: cmdIdRef.current++,
-        }]);
-        setIsInteractive(true);
-      }, 500);
-      return () => clearTimeout(timeout);
+      setCommands([{
+        command: "",
+        output: bootMessage,
+        id: cmdIdRef.current++,
+        isBoot: true,
+      }]);
+      setIsInteractive(true);
     }
   }, []);
 
@@ -514,6 +531,14 @@ function InteractiveTerminal() {
       return;
     }
 
+    // Ctrl+L → clear terminal
+    if (e.key === "l" && e.ctrlKey) {
+      e.preventDefault();
+      setCommands([]);
+      setInputValue("");
+      return;
+    }
+
     // Tab or Right arrow → accept autocomplete
     if ((e.key === "Tab" || e.key === "ArrowRight") && ghostText) {
       e.preventDefault();
@@ -577,6 +602,8 @@ function InteractiveTerminal() {
                   <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}>.</motion.span>
                   <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.4 }}>.</motion.span>
                 </span>
+              ) : cmd.isBoot ? (
+                <TerminalColoredTypewriter text={cmd.output} delay={8} />
               ) : (
                 <TerminalColoredOutput text={cmd.output} />
               )}
@@ -895,7 +922,9 @@ export function HeroSection() {
           style={{
             width: `${terminalSize.width}px`,
             maxWidth: "95vw",
-            height: `${terminalSize.height + 44}px`,
+            height: terminalState === "minimized"
+              ? 44
+              : `${terminalSize.height + 44}px`,
           }}
         >
           {/* Dock Zone — visible when terminal is undocked */}
@@ -978,15 +1007,18 @@ export function HeroSection() {
               </div>
               {/* Right: Win11 window controls */}
               <div className="flex items-center">
-                {terminalState !== "minimized" && (
                 <button
                   onClick={handleMinimize}
-                  className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
+                  disabled={terminalState === "minimized"}
+                  className={cn("flex h-8 w-11 items-center justify-center transition-colors",
+                    terminalState === "minimized"
+                      ? "text-white/15 cursor-not-allowed"
+                      : "text-white/50 hover:bg-white/10 hover:text-white/80"
+                  )}
                   aria-label="Minimize"
                 >
                   <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
                 </button>
-                )}
                 <button
                   onClick={handleMaximize}
                   className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
@@ -1003,17 +1035,20 @@ export function HeroSection() {
                     </svg>
                   )}
                 </button>
-                {(isUndocked || terminalState === "maximized") && (
                 <button
                   onClick={handleClose}
-                  className="flex h-8 w-11 items-center justify-center rounded-tr-lg text-white/50 transition-colors hover:bg-red-500/90 hover:text-white"
+                  disabled={!isUndocked && terminalState !== "maximized"}
+                  className={cn("flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors",
+                    !isUndocked && terminalState !== "maximized"
+                      ? "text-white/15 cursor-not-allowed"
+                      : "text-white/50 hover:bg-red-500/90 hover:text-white"
+                  )}
                   aria-label="Close"
                 >
                   <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
                     <line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/>
                   </svg>
                 </button>
-                )}
               </div>
             </div>
 
