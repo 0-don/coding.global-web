@@ -150,7 +150,7 @@ function TerminalColoredOutput({ text }: { text: string }) {
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
-const ORIGIN_SIZE = { width: 896, height: 500 };
+const ORIGIN_SIZE = { width: 700, height: 350 };
 const ORIGIN_POS = { x: 0, y: 0 }; // relative to container center
 const LOADING_MARKER = "__LOADING__";
 const ALL_COMMANDS = [
@@ -590,6 +590,8 @@ function InteractiveTerminal() {
           <div className="relative flex-1">
             <input
               ref={inputRef}
+              data-terminal-input
+              autoFocus
               type="text"
               value={inputValue}
               onChange={(e) => {
@@ -655,32 +657,20 @@ export function HeroSection() {
   // Terminal is undocked when it has been dragged away
   const isUndocked = terminalPos.x !== 0 || terminalPos.y !== 0;
 
-  // ── Close: exit to dock ──
+  // ── Close: instant dock + minimize ──
   const handleClose = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
+    setTerminalState("minimized");
+    setTerminalPos({ ...ORIGIN_POS });
     if (terminalState === "maximized") {
-      // Restore pre-fullscreen size and dock
-      setTerminalState("normal");
       setTerminalSize({ ...preFullscreenRef.current.size });
-      setTerminalPos({ ...ORIGIN_POS });
-      return;
-    }
-    // If undocked, fly back with animation
-    if (isUndocked) {
-      setIsSnapping(true);
-      setTerminalPos({ ...ORIGIN_POS });
-      setTimeout(() => setIsSnapping(false), 350);
     }
   };
 
-  // ── Minimize: toggle ──
+  // ── Minimize ──
   const handleMinimize = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
-    if (terminalState === "minimized") {
-      setTerminalState("normal");
-    } else {
-      setTerminalState("minimized");
-    }
+    setTerminalState("minimized");
   };
 
   // ── Maximize / restore ──
@@ -689,7 +679,9 @@ export function HeroSection() {
       clearTimeout(stateTimerRef.current);
       stateTimerRef.current = null;
     }
-    if (terminalState === "maximized") {
+    if (terminalState === "minimized") {
+      setTerminalState("normal");
+    } else if (terminalState === "maximized") {
       setTerminalState("normal");
       setTerminalSize({ ...preFullscreenRef.current.size });
       setTerminalPos({ ...preFullscreenRef.current.pos });
@@ -704,65 +696,50 @@ export function HeroSection() {
   };
 
   // ── Drag logic ──
-  const handleDragStart = (e: React.MouseEvent) => {
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
     // Don't drag if clicking buttons
     if ((e.target as HTMLElement).closest("button")) return;
     e.preventDefault();
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
     setIsDragging(true);
 
     if (terminalState === "maximized") {
-      // Exit fullscreen on drag — calculate fixed position from cursor
       const restoreSize = preFullscreenRef.current.size;
       setTerminalState("normal");
       setTerminalSize({ ...restoreSize });
-      const newX = e.clientX - restoreSize.width / 2;
-      const newY = e.clientY - 20;
+      const newX = clientX - restoreSize.width / 2;
+      const newY = clientY - 20;
       setTerminalPos({ x: newX, y: newY });
-      dragStartRef.current = {
-        mouseX: e.clientX,
-        mouseY: e.clientY,
-        posX: newX,
-        posY: newY,
-      };
+      dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: newX, posY: newY };
     } else {
-      // Calculate fixed position from current element position
       const el = (e.target as HTMLElement).closest('[data-terminal-window]');
       if (el) {
         const rect = el.getBoundingClientRect();
         setTerminalPos({ x: rect.left, y: rect.top });
-        dragStartRef.current = {
-          mouseX: e.clientX,
-          mouseY: e.clientY,
-          posX: rect.left,
-          posY: rect.top,
-        };
+        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: rect.left, posY: rect.top };
       } else {
-        dragStartRef.current = {
-          mouseX: e.clientX,
-          mouseY: e.clientY,
-          posX: terminalPos.x,
-          posY: terminalPos.y,
-        };
+        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
       }
     }
   };
 
   useEffect(() => {
     if (!isDragging) return;
-    const handleMouseMove = (e: MouseEvent) => {
-      const dx = e.clientX - dragStartRef.current.mouseX;
-      const dy = e.clientY - dragStartRef.current.mouseY;
+    const getXY = (e: MouseEvent | TouchEvent) => {
+      if ("touches" in e) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      return { x: e.clientX, y: e.clientY };
+    };
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      const { x, y } = getXY(e);
+      const dx = x - dragStartRef.current.mouseX;
+      const dy = y - dragStartRef.current.mouseY;
       const rawX = dragStartRef.current.posX + dx;
       const rawY = dragStartRef.current.posY + dy;
-      // Clamp: keep at least 100px visible horizontally, allow over navbar
       const clampedX = Math.max(-terminalSize.width + 100, Math.min(window.innerWidth - 100, rawX));
       const clampedY = Math.max(-20, Math.min(window.innerHeight - 44, rawY));
       setTerminalPos({ x: clampedX, y: clampedY });
-
-      // Check if near top edge for fullscreen snap
-      setIsNearEdge(e.clientY <= 10);
-
-      // Check if near dock zone
+      setIsNearEdge(y <= 10 || x <= 10 || x >= window.innerWidth - 10);
       if (dockZoneRef.current) {
         const dock = dockZoneRef.current.getBoundingClientRect();
         const visibleHeight = terminalState === "minimized" ? 44 : terminalSize.height;
@@ -774,25 +751,22 @@ export function HeroSection() {
         setIsNearDock(dist < 200);
       }
     };
-    const handleMouseUp = () => {
+    const handleEnd = () => {
       setIsDragging(false);
-      // Snap to fullscreen if near top edge
-      if (isNearEdge) {
-        setIsNearEdge(false);
-        handleMaximize();
-        return;
-      }
-      // Snap back if near dock zone — instant, no animation
-      if (isNearDock) {
-        setTerminalPos({ ...ORIGIN_POS });
-        setIsNearDock(false);
-      }
+      if (isNearEdge) { setIsNearEdge(false); handleMaximize(); return; }
+      if (isNearDock) { setTerminalPos({ ...ORIGIN_POS }); setIsNearDock(false); return; }
+      // Clamp: don't let terminal hide behind navbar (48px)
+      setTerminalPos(prev => prev.y < 48 && prev.y !== 0 ? { ...prev, y: 48 } : prev);
     };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mousemove", handleMove);
+    document.addEventListener("mouseup", handleEnd);
+    document.addEventListener("touchmove", handleMove, { passive: false });
+    document.addEventListener("touchend", handleEnd);
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleMove);
+      document.removeEventListener("touchend", handleEnd);
     };
   }, [isDragging, isNearDock, isNearEdge, terminalSize.width, terminalSize.height]);
 
@@ -871,10 +845,9 @@ export function HeroSection() {
       };
     }
     return {
-      position: "relative",
-      width: `${terminalSize.width}px`,
-      maxWidth: "95vw",
-      zIndex: isDragging ? 50 : "auto",
+      position: "absolute" as const,
+      inset: 0,
+      zIndex: isDragging ? 50 : 10,
     };
   };
 
@@ -916,65 +889,72 @@ export function HeroSection() {
           {t("HOME.HERO_SUBTITLE")}
         </motion.p>
 
-        {/* Dock Zone — gradient placeholder when terminal is undocked */}
+        {/* Terminal container — always maintains layout space */}
         <div
-          ref={dockZoneRef}
-          className={cn(
-            "relative rounded-lg",
-            isUndocked || terminalState === "maximized"
-              ? "opacity-100"
-              : "pointer-events-none h-0 opacity-0",
-          )}
+          className="relative"
           style={{
             width: `${terminalSize.width}px`,
             maxWidth: "95vw",
-            height: isUndocked || terminalState === "maximized"
-              ? `${terminalState === "minimized" ? 44 : terminalSize.height + 44}px`
-              : 0,
+            height: `${terminalSize.height + 44}px`,
           }}
         >
+          {/* Dock Zone — visible when terminal is undocked */}
           <div
+            ref={dockZoneRef}
             className={cn(
-              "h-full w-full rounded-lg border-2 border-dashed",
-              isNearDock
-                ? "border-primary/60 bg-primary/10 shadow-[0_0_30px_rgba(var(--primary-rgb,99,102,241),0.3)]"
-                : "border-muted-foreground/20 bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5",
+              "absolute top-0 left-0 right-0 rounded-lg",
+              isUndocked || terminalState === "maximized"
+                ? "opacity-100"
+                : "pointer-events-none opacity-0",
             )}
+            style={{
+              height: terminalState === "minimized" ? 44 : terminalSize.height + 44,
+            }}
           >
-            <div className="flex h-full items-center justify-center">
-              <span
-                className={cn(
-                  "font-mono text-sm",
-                  isNearDock ? "text-primary/60" : "text-muted-foreground/30",
-                )}
-              >
-                {isNearDock ? "Release to dock" : "Terminal undocked"}
-              </span>
+            <div
+              className={cn(
+                "h-full w-full rounded-lg border-2 border-dashed",
+                isNearDock
+                  ? "border-primary/60 bg-primary/10 shadow-[0_0_30px_rgba(var(--primary-rgb,99,102,241),0.3)]"
+                  : "border-muted-foreground/20 bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5",
+              )}
+            >
+              <div className="flex h-full items-center justify-center">
+                <span
+                  className={cn(
+                    "font-mono text-sm",
+                    isNearDock ? "text-primary/60" : "text-muted-foreground/30",
+                  )}
+                >
+                  {isNearDock ? "Release to dock" : "Terminal undocked"}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Terminal Window */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: terminalState === "minimized" ? 0.8 : 1,
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          style={{
-            ...getTerminalWrapperStyle(),
-            ...(isSnapping && {
-              transition: "left 0.35s ease-out, top 0.35s ease-out, width 0.35s ease-out, height 0.35s ease-out",
-            }),
-          }}
-          className={cn(isDragging && "pointer-events-auto")}
-        >
+          {/* Terminal Window */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: terminalState === "minimized" ? 0.8 : 1,
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{
+              ...getTerminalWrapperStyle(),
+              ...(isSnapping && {
+                transition: "left 0.35s ease-out, top 0.35s ease-out, width 0.35s ease-out, height 0.35s ease-out",
+              }),
+            }}
+            className={cn(isDragging && "pointer-events-auto")}
+          >
           <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black/90 p-0 text-left backdrop-blur-sm">
             {/* ── Header (draggable) ── Win11 Terminal style */}
             <div
               onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+              style={{ touchAction: "none" }}
               onDoubleClick={() => {
                 if (terminalState === "minimized") {
                   setTerminalState("normal");
@@ -998,6 +978,7 @@ export function HeroSection() {
               </div>
               {/* Right: Win11 window controls */}
               <div className="flex items-center">
+                {terminalState !== "minimized" && (
                 <button
                   onClick={handleMinimize}
                   className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
@@ -1005,6 +986,7 @@ export function HeroSection() {
                 >
                   <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
                 </button>
+                )}
                 <button
                   onClick={handleMaximize}
                   className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
@@ -1021,6 +1003,7 @@ export function HeroSection() {
                     </svg>
                   )}
                 </button>
+                {(isUndocked || terminalState === "maximized") && (
                 <button
                   onClick={handleClose}
                   className="flex h-8 w-11 items-center justify-center rounded-tr-lg text-white/50 transition-colors hover:bg-red-500/90 hover:text-white"
@@ -1030,6 +1013,7 @@ export function HeroSection() {
                     <line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/>
                   </svg>
                 </button>
+                )}
               </div>
             </div>
 
@@ -1040,6 +1024,10 @@ export function HeroSection() {
               }}>
                 <div
                   ref={terminalScrollRef}
+                  onClick={(e) => {
+                    const input = (e.currentTarget as HTMLElement).querySelector<HTMLInputElement>("[data-terminal-input]");
+                    input?.focus();
+                  }}
                   onScroll={() => {
                     const el = terminalScrollRef.current;
                     if (el) {
@@ -1048,7 +1036,6 @@ export function HeroSection() {
                       setScrollThumb({ ratio, thumbH, visible: el.scrollHeight > el.clientHeight });
                     }
                   }}
-                  style={{ overscrollBehavior: "contain" }}
                   className="terminal-scroll h-full overflow-y-auto px-4 py-3"
                 >
                   <InteractiveTerminal />
@@ -1123,6 +1110,7 @@ export function HeroSection() {
             )}
           </Card>
         </motion.div>
+        </div>
 
         {/* CTAs */}
         <motion.div
