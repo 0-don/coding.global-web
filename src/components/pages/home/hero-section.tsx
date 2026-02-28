@@ -4,10 +4,12 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useDiscordWidget, useTopStatsQuery } from "@/hook/bot-hook";
+import { useSessionHook } from "@/hook/session-hook";
 import {
   useTerminalMembersQuery,
   useTerminalTopQuery,
 } from "@/hook/terminal-hook";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { motion } from "motion/react";
@@ -113,41 +115,108 @@ function TerminalTypewriter({ text, delay = 30 }: { text: string; delay?: number
   );
 }
 
+// ─── Terminal colored output renderer ────────────────────────────────────────
+// Parses {{color:text}} markers in strings and renders colored spans
+const COLOR_MAP: Record<string, string> = {
+  green: "text-green-400",
+  yellow: "text-yellow-400",
+  cyan: "text-cyan-400",
+  purple: "text-purple-400",
+  red: "text-red-400",
+  orange: "text-orange-400",
+  blue: "text-blue-400",
+  white: "text-white",
+  pink: "text-pink-400",
+};
+
+function TerminalColoredOutput({ text }: { text: string }) {
+  const parts = text.split(/(\{\{\w+:[^}]+\}\})/);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const match = part.match(/^\{\{(\w+):(.+)\}\}$/);
+        if (match) {
+          const [, color, content] = match;
+          return (
+            <span key={i} className={COLOR_MAP[color] || "text-white"}>
+              {content}
+            </span>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
+// ─── Constants ───────────────────────────────────────────────────────────────
+const ORIGIN_SIZE = { width: 896, height: 500 };
+const ORIGIN_POS = { x: 0, y: 0 }; // relative to container center
+const LOADING_MARKER = "__LOADING__";
+const ALL_COMMANDS = [
+  "/help",
+  "/about",
+  "/stats",
+  "/usercount",
+  "/discord",
+  "/members",
+  "/top",
+  "/search",
+  "/login",
+  "/me",
+  "/clear",
+];
+
+// ─── Fuzzy autocomplete helper ───────────────────────────────────────────────
+function getAutocompleteSuggestion(input: string): string | null {
+  if (!input || !input.startsWith("/")) return null;
+  const lower = input.toLowerCase();
+  // Exact prefix match first
+  const prefixMatch = ALL_COMMANDS.find(
+    (c) => c.startsWith(lower) && c !== lower,
+  );
+  if (prefixMatch) return prefixMatch;
+  // Fuzzy: check if all chars of input appear in order
+  const fuzzy = ALL_COMMANDS.find((cmd) => {
+    let ci = 0;
+    for (const ch of cmd) {
+      if (ch === lower[ci]) ci++;
+      if (ci === lower.length) return cmd !== lower;
+    }
+    return false;
+  });
+  return fuzzy ?? null;
+}
+
+// ─── InteractiveTerminal ─────────────────────────────────────────────────────
 function InteractiveTerminal() {
+  const session = useSessionHook();
+  const isLoggedIn = !!session?.data?.user?.id;
+  const discordUsername = session?.data?.user?.name ?? null;
   const t = useTranslations();
   const [commands, setCommands] = useState<
     Array<{ command: string; output: string; id: number; isUser?: boolean }>
   >([]);
-  const [currentCommand, setCurrentCommand] = useState(0);
   const [isInteractive, setIsInteractive] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const terminalRef = useRef<HTMLDivElement>(null);
   const cmdIdRef = useRef(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  // Command history
+  const historyRef = useRef<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
+  // API hooks
   const { data: widget } = useDiscordWidget();
   const { data: topStats } = useTopStatsQuery();
   const membersQuery = useTerminalMembersQuery();
   const topQuery = useTerminalTopQuery({ limit: 5 });
 
-  const terminalCommands = [
-    {
-      command: "npm install coding.global",
-      output:
-        t("HOME.HERO_TERMINAL_OUTPUT_1") ||
-        "✓ Installing community features...",
-    },
-    {
-      command: "npm start learning",
-      output:
-        t("HOME.HERO_TERMINAL_OUTPUT_2") || "✓ Starting your coding journey...",
-    },
-    {
-      command: "npm run connect",
-      output:
-        t("HOME.HERO_TERMINAL_OUTPUT_3") ||
-        "✓ Connecting with developers worldwide...",
-    },
-  ];
+  // Boot intro message (single block)
+  const bootMessage = isLoggedIn
+    ? `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/me}}       {{white:— Your profile}}\n\n{{green:Logged in as}} {{cyan:${discordUsername || "User"}}}. Type {{cyan:/help}} for all commands.`
+    : `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/login}}    {{white:— Discord login}}\n\nType {{cyan:/help}} for all commands.`;
 
   const memberCount = widget?.memberCount?.toLocaleString() ?? "...";
   const onlineCount = widget?.presenceCount?.toLocaleString() ?? "...";
@@ -155,22 +224,42 @@ function InteractiveTerminal() {
   const voiceHours = topStats?.totalVoiceHours?.toLocaleString() ?? "...";
   const discordLink = getDiscordInviteLink();
 
-  // Static commands (instant response)
+  // Prompt prefix as JSX
+  const promptUser = discordUsername || "guest";
+  const PromptPrefix = () => (
+    <span className="mr-2 shrink-0 select-none">
+      <span className="text-white">coding</span>
+      <span className="text-red-500">.global</span>
+      <span className="text-white/50">\</span>
+      <span className="text-blue-400">{promptUser}</span>
+      <span className="text-white/40">&gt;</span>
+    </span>
+  );
+
+  // Autocomplete ghost
+  const suggestion = getAutocompleteSuggestion(inputValue);
+  const ghostText =
+    suggestion && inputValue ? suggestion.slice(inputValue.length) : "";
+
+  // Static commands
   const staticCommands: Record<string, string> = {
     "/help":
-      "Available commands:\n  /help    - Show this help message\n  /about   - Learn about coding.global\n  /stats   - Show member statistics\n  /discord - Get Discord invite link\n  /members - Show online members\n  /top     - Show top contributors\n  /search  - Search users (e.g. /search John)\n  /clear   - Clear terminal",
+      "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/login}}   — Login with Discord\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/clear}}   — Clear terminal",
     "/about":
-      "coding.global is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
-    "/stats":
-      `📊 Community Stats:\n  • ${memberCount} Members\n  • ${onlineCount} Online\n  • ${totalMessages} Messages\n  • ${voiceHours} Voice Hours`,
-    "/usercount":
-      `📊 Community Stats:\n  • ${memberCount} Members\n  • ${onlineCount} Online\n  • ${totalMessages} Messages\n  • ${voiceHours} Voice Hours`,
-    "/discord":
-      `Join our Discord: ${discordLink}\nConnect with developers from around the world!`,
+      "{{green:coding.global}} is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
+    "/stats": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
+    "/usercount": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
+    "/discord": `Join our Discord: {{cyan:${discordLink}}}\nConnect with developers from around the world!`,
     "/clear": "CLEAR_COMMAND",
+    "/login": isLoggedIn
+      ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile.`
+      : "LOGIN_COMMAND",
+    "/me": isLoggedIn
+      ? `{{yellow:Your Profile:}}\n  {{cyan:Name}}     {{white:${session?.data?.user?.name || "—"}}}\n  {{cyan:Email}}    {{white:${session?.data?.user?.email || "—"}}}\n  {{cyan:ID}}       {{white:${session?.data?.user?.id || "—"}}}`
+      : "{{red:Not logged in.}} Type {{cyan:/login}} to login with Discord.",
   };
 
-  // Async commands that fetch real API data
+  // Async commands
   const asyncCommands: Record<string, (args: string) => Promise<string>> = {
     "/members": async () => {
       try {
@@ -182,7 +271,7 @@ function InteractiveTerminal() {
           sevenDaysCount?: number;
           oneDayCount?: number;
         };
-        return `👥 Member Stats:\n  • ${d.memberCount?.toLocaleString() ?? "?"} Total Members\n  • ${d.thirtyDaysCount?.toLocaleString() ?? "?"} joined last 30 days\n  • ${d.sevenDaysCount?.toLocaleString() ?? "?"} joined last 7 days\n  • ${d.oneDayCount?.toLocaleString() ?? "?"} joined today`;
+        return `{{yellow:Member Stats:}}\n  • {{cyan:${d.memberCount?.toLocaleString() ?? "?"}}} Total Members\n  • {{green:${d.thirtyDaysCount?.toLocaleString() ?? "?"}}} joined last 30 days\n  • {{green:${d.sevenDaysCount?.toLocaleString() ?? "?"}}} joined last 7 days\n  • {{orange:${d.oneDayCount?.toLocaleString() ?? "?"}}} joined today`;
       } catch {
         return "❌ Failed to fetch members. Try again later.";
       }
@@ -191,46 +280,55 @@ function InteractiveTerminal() {
       try {
         const data = await topQuery.fetch();
         if (!data) return "No data available.";
-        let output = "🏆 Top Contributors:\n";
+        let output = "{{yellow:Top Contributors:}}\n";
         const topData = data as {
-          mostActiveMessageUsers?: Array<{ displayName?: string; count?: number }>;
-          mostActiveVoiceUsers?: Array<{ displayName?: string; sum?: number }>;
-          mostHelpfulUsers?: Array<{ displayName?: string; count?: number }>;
+          mostActiveMessageUsers?: Array<{
+            displayName?: string;
+            count?: number;
+          }>;
+          mostActiveVoiceUsers?: Array<{
+            displayName?: string;
+            sum?: number;
+          }>;
+          mostHelpfulUsers?: Array<{
+            displayName?: string;
+            count?: number;
+          }>;
           totalMessages?: number;
           totalVoiceHours?: number;
         };
         if (topData.mostActiveMessageUsers?.length) {
-          output += "\n  💬 Messages:\n";
+          output += "\n  {{cyan:Messages:}}\n";
           output += topData.mostActiveMessageUsers
             .slice(0, 5)
             .map(
               (u, i) =>
-                `    ${i + 1}. ${u.displayName || "Unknown"} — ${u.count?.toLocaleString() || 0}`,
+                `    {{white:${i + 1}.}} {{green:${u.displayName || "Unknown"}}} — {{cyan:${u.count?.toLocaleString() || 0}}}`,
             )
             .join("\n");
         }
         if (topData.mostActiveVoiceUsers?.length) {
-          output += "\n\n  🎙️ Voice:\n";
+          output += "\n\n  {{purple:Voice:}}\n";
           output += topData.mostActiveVoiceUsers
             .slice(0, 5)
             .map(
               (u, i) =>
-                `    ${i + 1}. ${u.displayName || "Unknown"} — ${Math.round(u.sum || 0)}h`,
+                `    {{white:${i + 1}.}} {{green:${u.displayName || "Unknown"}}} — {{purple:${Math.round(u.sum || 0)}h}}`,
             )
             .join("\n");
         }
         if (topData.mostHelpfulUsers?.length) {
-          output += "\n\n  🤝 Helpers:\n";
+          output += "\n\n  {{orange:Helpers:}}\n";
           output += topData.mostHelpfulUsers
             .slice(0, 5)
             .map(
               (u, i) =>
-                `    ${i + 1}. ${u.displayName || "Unknown"} — ${u.count || 0} helps`,
+                `    {{white:${i + 1}.}} {{green:${u.displayName || "Unknown"}}} — {{orange:${u.count || 0}}} helps`,
             )
             .join("\n");
         }
         if (topData.totalMessages || topData.totalVoiceHours) {
-          output += `\n\n  📊 Total: ${topData.totalMessages?.toLocaleString() ?? "?"} messages, ${topData.totalVoiceHours?.toLocaleString() ?? "?"} voice hours`;
+          output += `\n\n  {{yellow:Total:}} {{cyan:${topData.totalMessages?.toLocaleString() ?? "?"}}} messages, {{purple:${topData.totalVoiceHours?.toLocaleString() ?? "?"}}} voice hours`;
         }
         return output;
       } catch {
@@ -238,21 +336,36 @@ function InteractiveTerminal() {
       }
     },
     "/search": async (args: string) => {
-      if (!args.trim()) return "Usage: /search <username>\nExample: /search Don";
+      if (!args.trim())
+        return "Usage: /search <username>\nExample: /search Don";
       try {
         const data = await topQuery.fetch();
         if (!data) return "No data available to search.";
         const topData = data as {
-          mostActiveMessageUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; count?: number }>;
-          mostActiveVoiceUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; sum?: number }>;
-          mostHelpfulUsers?: Array<{ displayName?: string; username?: string; globalName?: string; id?: string; count?: number }>;
+          mostActiveMessageUsers?: Array<{
+            displayName?: string;
+            username?: string;
+            globalName?: string;
+            id?: string;
+          }>;
+          mostActiveVoiceUsers?: Array<{
+            displayName?: string;
+            username?: string;
+            globalName?: string;
+            id?: string;
+          }>;
+          mostHelpfulUsers?: Array<{
+            displayName?: string;
+            username?: string;
+            globalName?: string;
+            id?: string;
+          }>;
         };
         const allUsers = [
           ...(topData.mostActiveMessageUsers || []),
           ...(topData.mostActiveVoiceUsers || []),
           ...(topData.mostHelpfulUsers || []),
         ];
-        // Deduplicate by id
         const seen = new Set<string>();
         const unique = allUsers.filter((u) => {
           if (!u.id || seen.has(u.id)) return false;
@@ -272,7 +385,7 @@ function InteractiveTerminal() {
           .slice(0, 10)
           .map(
             (u) =>
-              `  • ${u.displayName || u.username || "Unknown"} (@${u.username || "?"})`,
+              `  • {{green:${u.displayName || u.username || "Unknown"}}} ({{cyan:@${u.username || "?"}}})`,
           );
         return `🔍 Search results for "${args.trim()}":\n${lines.join("\n")}${results.length > 10 ? `\n  ... and ${results.length - 10} more` : ""}`;
       } catch {
@@ -281,40 +394,29 @@ function InteractiveTerminal() {
     },
   };
 
+  // Boot sequence — single intro message
   useEffect(() => {
-    if (currentCommand < terminalCommands.length) {
-      const timeout = setTimeout(
-        () => {
-          setCommands((prev) => [
-            ...prev,
-            { ...terminalCommands[currentCommand], id: cmdIdRef.current++ },
-          ]);
-          setCurrentCommand((prev) => prev + 1);
-        },
-        currentCommand === 0 ? 500 : 2500,
-      );
-
-      return () => clearTimeout(timeout);
-    } else if (currentCommand === terminalCommands.length && !isInteractive) {
+    if (!isInteractive && commands.length === 0) {
       const timeout = setTimeout(() => {
+        setCommands([{
+          command: "",
+          output: bootMessage,
+          id: cmdIdRef.current++,
+        }]);
         setIsInteractive(true);
-        setCommands((prev) => [
-          ...prev,
-          {
-            command: "",
-            output: "✨ Terminal ready! Type /help to see available commands.",
-            id: cmdIdRef.current++,
-          },
-        ]);
-      }, 1000);
+      }, 500);
       return () => clearTimeout(timeout);
     }
-  }, [currentCommand, isInteractive]);
+  }, []);
 
-  // Auto-scroll terminal content to bottom (only internal scroll, won't affect page)
+  // Auto-scroll only if user is near bottom
   useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    const el = terminalRef.current;
+    if (el) {
+      const isNearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
+      if (isNearBottom) {
+        el.scrollTop = el.scrollHeight;
+      }
     }
   }, [commands]);
 
@@ -329,7 +431,6 @@ function InteractiveTerminal() {
     const trimmedCmd = cmd.trim().toLowerCase();
     if (!trimmedCmd) return;
 
-    // Parse command and args (e.g. "/search John" -> cmd="/search", args="John")
     const parts = trimmedCmd.split(/\s+/);
     const baseCmd = parts[0];
     const args = cmd.trim().slice(baseCmd.length).trim();
@@ -339,14 +440,16 @@ function InteractiveTerminal() {
       is_valid_command: !!(staticCommands[baseCmd] || asyncCommands[baseCmd]),
     });
 
-    // Add user command to history
+    // Add to history
+    historyRef.current.push(cmd.trim());
+    setHistoryIndex(-1);
+
     setCommands((prev) => [
       ...prev,
       { command: cmd, output: "", id: cmdIdRef.current++, isUser: true },
     ]);
     setInputValue("");
 
-    // Check static commands first
     if (staticCommands[baseCmd]) {
       if (baseCmd === "/clear") {
         setCommands([]);
@@ -354,31 +457,45 @@ function InteractiveTerminal() {
           setCommands([
             {
               command: "",
-              output: "✨ Terminal cleared! Type /help to see available commands.",
+              output:
+                "Terminal cleared. Type {{cyan:/help}} to see available commands.",
               id: cmdIdRef.current++,
             },
           ]);
         }, 100);
         return;
       }
-      setTimeout(() => addOutput(staticCommands[baseCmd]), 300);
+      if (staticCommands[baseCmd] === "LOGIN_COMMAND") {
+        addOutput("{{cyan:Redirecting to Discord login...}}");
+        setTimeout(() => {
+          authClient.signIn.social({
+            provider: "discord",
+            callbackURL: "/",
+          });
+        }, 500);
+        return;
+      }
+      addOutput(staticCommands[baseCmd]);
       return;
     }
 
-    // Check async commands
     if (asyncCommands[baseCmd]) {
-      addOutput("⏳ Loading...");
+      addOutput(LOADING_MARKER);
       try {
         const result = await asyncCommands[baseCmd](args);
-        // Replace the loading message with the result
         setCommands((prev) => {
-          const loadingIdx = prev.findLastIndex((c) => c.output === "⏳ Loading...");
+          const loadingIdx = prev.findLastIndex(
+            (c) => c.output === LOADING_MARKER,
+          );
           if (loadingIdx !== -1) {
             const updated = [...prev];
             updated[loadingIdx] = { ...updated[loadingIdx], output: result };
             return updated;
           }
-          return [...prev, { command: "", output: result, id: cmdIdRef.current++ }];
+          return [
+            ...prev,
+            { command: "", output: result, id: cmdIdRef.current++ },
+          ];
         });
       } catch {
         addOutput("❌ An error occurred. Try again later.");
@@ -386,28 +503,63 @@ function InteractiveTerminal() {
       return;
     }
 
-    // Unknown command
-    setTimeout(() => {
-      addOutput(`Command not found: ${cmd}\nType /help to see available commands.`);
-    }, 300);
+    addOutput(
+      `{{red:'${cmd}'}} is not recognized as an internal or external command.`,
+    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleCommand(inputValue);
+      return;
+    }
+
+    // Tab or Right arrow → accept autocomplete
+    if ((e.key === "Tab" || e.key === "ArrowRight") && ghostText) {
+      e.preventDefault();
+      setInputValue(suggestion ?? inputValue);
+      return;
+    }
+
+    // Command history: Up
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const hist = historyRef.current;
+      if (hist.length === 0) return;
+      const newIdx =
+        historyIndex === -1 ? hist.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(newIdx);
+      setInputValue(hist[newIdx]);
+      return;
+    }
+
+    // Command history: Down
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const hist = historyRef.current;
+      if (historyIndex === -1) return;
+      const newIdx = historyIndex + 1;
+      if (newIdx >= hist.length) {
+        setHistoryIndex(-1);
+        setInputValue("");
+      } else {
+        setHistoryIndex(newIdx);
+        setInputValue(hist[newIdx]);
+      }
+      return;
     }
   };
 
   return (
     <div
       ref={terminalRef}
-      className="scrollbar-thin scrollbar-thumb-primary/50 scrollbar-track-transparent max-h-96 space-y-3 overflow-y-auto font-mono text-base"
+      className="h-full space-y-1 font-mono text-sm"
     >
       {commands.map((cmd) => (
-        <div key={cmd.id} className="space-y-2">
+        <div key={cmd.id} className="space-y-0.5">
           {cmd.command && (
             <div className="flex items-center">
-              <span className="mr-2 text-green-400">$</span>
+              <PromptPrefix />
               {cmd.isUser ? (
                 <span>{cmd.command}</span>
               ) : (
@@ -416,158 +568,335 @@ function InteractiveTerminal() {
             </div>
           )}
           {cmd.output && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: cmd.isUser ? 0 : 0.5 }}
-              className="text-muted-foreground pl-5 text-sm whitespace-pre-line"
+            <div
+              className="text-muted-foreground text-sm whitespace-pre-line"
             >
-              {cmd.output}
-            </motion.div>
+              {cmd.output === LOADING_MARKER ? (
+                <span className="text-muted-foreground inline-flex gap-0.5 text-sm">
+                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0 }}>.</motion.span>
+                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}>.</motion.span>
+                  <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.4 }}>.</motion.span>
+                </span>
+              ) : (
+                <TerminalColoredOutput text={cmd.output} />
+              )}
+            </div>
           )}
         </div>
       ))}
-      {currentCommand < terminalCommands.length && commands.length > 0 && (
-        <div className="flex items-center">
-          <span className="mr-2 text-green-400">$</span>
-          <motion.span
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
-          >
-            _
-          </motion.span>
-        </div>
-      )}
       {isInteractive && (
         <div className="flex items-center">
-          <span className="mr-2 text-green-400">$</span>
-          <input
-            ref={(el) => el?.focus({ preventScroll: true })}
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent outline-none"
-            placeholder="Type /help for commands..."
-          />
-          <motion.span
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
-            className="ml-0.5"
-          >
-            |
-          </motion.span>
+          <PromptPrefix />
+          <div className="relative flex-1">
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                setHistoryIndex(-1);
+              }}
+              onKeyDown={handleKeyDown}
+              className="relative z-10 w-full bg-transparent outline-none"
+              placeholder={
+                commands.length <= 1 ? "Type /help for commands..." : ""
+              }
+            />
+            {/* Ghost autocomplete text */}
+            {ghostText && (
+              <span className="pointer-events-none absolute left-0 top-0 flex items-center">
+                <span className="invisible">{inputValue}</span>
+                <span className="text-muted-foreground/40">{ghostText}</span>
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>
   );
 }
 
+// ─── HeroSection with draggable/resizable terminal ───────────────────────────
 export function HeroSection() {
   const t = useTranslations();
+
+  // Terminal window state
   const [terminalState, setTerminalState] = useState<
-    "normal" | "maximized" | "minimized" | "closed"
+    "normal" | "maximized" | "minimized"
   >("normal");
-  const [terminalSize, setTerminalSize] = useState({ width: 896, height: 500 }); // max-w-4xl = 896px
+  const [terminalSize, setTerminalSize] = useState({ ...ORIGIN_SIZE });
+  const [terminalPos, setTerminalPos] = useState({ ...ORIGIN_POS });
+
+  // Refs for resize
   const [isResizing, setIsResizing] = useState(false);
-  const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0 });
+  const resizeStartRef = useRef({ x: 0, y: 0, width: 0, height: 0, posX: 0, posY: 0 });
+  const resizeDirRef = useRef({ top: false, bottom: false, left: false, right: false });
+
+  // Refs for drag
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
+
+  // Store pre-fullscreen state to restore on drag-out
+  const preFullscreenRef = useRef({ size: { ...ORIGIN_SIZE }, pos: { ...ORIGIN_POS } });
+
+  // Timer for minimize auto-restore
   const stateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Helper to set terminal state after a delay, cancelling any pending timer
-  const setStateWithDelay = (state: typeof terminalState, delayMs: number) => {
-    if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
-    stateTimerRef.current = setTimeout(() => {
-      setTerminalState(state);
-      stateTimerRef.current = null;
-    }, delayMs);
-  };
+  // Dock zone ref for snap-back
+  const dockZoneRef = useRef<HTMLDivElement>(null);
+  const [isNearDock, setIsNearDock] = useState(false);
+  const [isNearEdge, setIsNearEdge] = useState(false);
+  const [isSnapping, setIsSnapping] = useState(false);
 
+  // Custom scrollbar
+  const terminalScrollRef = useRef<HTMLDivElement>(null);
+  const [scrollThumb, setScrollThumb] = useState({ ratio: 0, thumbH: 0, visible: false });
+
+  // Terminal is undocked when it has been dragged away
+  const isUndocked = terminalPos.x !== 0 || terminalPos.y !== 0;
+
+  // ── Close: exit to dock ──
   const handleClose = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
-    setTerminalState("closed");
-    setStateWithDelay("normal", 3000);
+    if (terminalState === "maximized") {
+      // Restore pre-fullscreen size and dock
+      setTerminalState("normal");
+      setTerminalSize({ ...preFullscreenRef.current.size });
+      setTerminalPos({ ...ORIGIN_POS });
+      return;
+    }
+    // If undocked, fly back with animation
+    if (isUndocked) {
+      setIsSnapping(true);
+      setTerminalPos({ ...ORIGIN_POS });
+      setTimeout(() => setIsSnapping(false), 350);
+    }
   };
 
+  // ── Minimize: toggle ──
   const handleMinimize = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
-    setTerminalState("minimized");
-    setStateWithDelay("normal", 2000);
+    if (terminalState === "minimized") {
+      setTerminalState("normal");
+    } else {
+      setTerminalState("minimized");
+    }
   };
 
+  // ── Maximize / restore ──
   const handleMaximize = () => {
-    // Cancel any pending auto-restore timers (e.g. from minimize)
     if (stateTimerRef.current) {
       clearTimeout(stateTimerRef.current);
       stateTimerRef.current = null;
     }
     if (terminalState === "maximized") {
       setTerminalState("normal");
+      setTerminalSize({ ...preFullscreenRef.current.size });
+      setTerminalPos({ ...preFullscreenRef.current.pos });
     } else {
+      // Save current state before fullscreen
+      preFullscreenRef.current = {
+        size: { ...terminalSize },
+        pos: { ...terminalPos },
+      };
       setTerminalState("maximized");
-      // Reset to default size when maximizing
-      setTerminalSize({ width: 896, height: 500 });
     }
   };
 
-  const handleResizeStart = (e: React.MouseEvent) => {
+  // ── Drag logic ──
+  const handleDragStart = (e: React.MouseEvent) => {
+    // Don't drag if clicking buttons
+    if ((e.target as HTMLElement).closest("button")) return;
     e.preventDefault();
+    setIsDragging(true);
+
+    if (terminalState === "maximized") {
+      // Exit fullscreen on drag — calculate fixed position from cursor
+      const restoreSize = preFullscreenRef.current.size;
+      setTerminalState("normal");
+      setTerminalSize({ ...restoreSize });
+      const newX = e.clientX - restoreSize.width / 2;
+      const newY = e.clientY - 20;
+      setTerminalPos({ x: newX, y: newY });
+      dragStartRef.current = {
+        mouseX: e.clientX,
+        mouseY: e.clientY,
+        posX: newX,
+        posY: newY,
+      };
+    } else {
+      // Calculate fixed position from current element position
+      const el = (e.target as HTMLElement).closest('[data-terminal-window]');
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        setTerminalPos({ x: rect.left, y: rect.top });
+        dragStartRef.current = {
+          mouseX: e.clientX,
+          mouseY: e.clientY,
+          posX: rect.left,
+          posY: rect.top,
+        };
+      } else {
+        dragStartRef.current = {
+          mouseX: e.clientX,
+          mouseY: e.clientY,
+          posX: terminalPos.x,
+          posY: terminalPos.y,
+        };
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - dragStartRef.current.mouseX;
+      const dy = e.clientY - dragStartRef.current.mouseY;
+      const rawX = dragStartRef.current.posX + dx;
+      const rawY = dragStartRef.current.posY + dy;
+      // Clamp: keep at least 100px visible horizontally, allow over navbar
+      const clampedX = Math.max(-terminalSize.width + 100, Math.min(window.innerWidth - 100, rawX));
+      const clampedY = Math.max(-20, Math.min(window.innerHeight - 44, rawY));
+      setTerminalPos({ x: clampedX, y: clampedY });
+
+      // Check if near top edge for fullscreen snap
+      setIsNearEdge(e.clientY <= 10);
+
+      // Check if near dock zone
+      if (dockZoneRef.current) {
+        const dock = dockZoneRef.current.getBoundingClientRect();
+        const visibleHeight = terminalState === "minimized" ? 44 : terminalSize.height;
+        const centerX = (dragStartRef.current.posX + dx) + terminalSize.width / 2;
+        const centerY = (dragStartRef.current.posY + dy) + visibleHeight / 2;
+        const dockCenterX = dock.left + dock.width / 2;
+        const dockCenterY = dock.top + dock.height / 2;
+        const dist = Math.hypot(centerX - dockCenterX, centerY - dockCenterY);
+        setIsNearDock(dist < 200);
+      }
+    };
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      // Snap to fullscreen if near top edge
+      if (isNearEdge) {
+        setIsNearEdge(false);
+        handleMaximize();
+        return;
+      }
+      // Snap back if near dock zone — instant, no animation
+      if (isNearDock) {
+        setTerminalPos({ ...ORIGIN_POS });
+        setIsNearDock(false);
+      }
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, isNearDock, isNearEdge, terminalSize.width, terminalSize.height]);
+
+  // ── Resize logic (all edges) ──
+  const handleResizeStart = (dir: { top?: boolean; bottom?: boolean; left?: boolean; right?: boolean }) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setIsResizing(true);
+    resizeDirRef.current = { top: !!dir.top, bottom: !!dir.bottom, left: !!dir.left, right: !!dir.right };
     resizeStartRef.current = {
       x: e.clientX,
       y: e.clientY,
       width: terminalSize.width,
       height: terminalSize.height,
+      posX: terminalPos.x,
+      posY: terminalPos.y,
     };
   };
 
   useEffect(() => {
     if (!isResizing) return;
-
     const handleMouseMove = (e: MouseEvent) => {
-      const deltaX = e.clientX - resizeStartRef.current.x;
-      const deltaY = e.clientY - resizeStartRef.current.y;
+      const dx = e.clientX - resizeStartRef.current.x;
+      const dy = e.clientY - resizeStartRef.current.y;
+      const d = resizeDirRef.current;
+      let newW = resizeStartRef.current.width;
+      let newH = resizeStartRef.current.height;
+      let newX = resizeStartRef.current.posX;
+      let newY = resizeStartRef.current.posY;
 
-      const newWidth = Math.max(
-        400,
-        Math.min(1400, resizeStartRef.current.width + deltaX),
-      );
-      const newHeight = Math.max(
-        300,
-        Math.min(800, resizeStartRef.current.height + deltaY),
-      );
+      if (d.right) newW = Math.max(400, Math.min(1600, resizeStartRef.current.width + dx));
+      if (d.left) {
+        newW = Math.max(400, Math.min(1600, resizeStartRef.current.width - dx));
+        newX = resizeStartRef.current.posX + (resizeStartRef.current.width - newW);
+      }
+      if (d.bottom) newH = Math.max(250, Math.min(900, resizeStartRef.current.height + dy));
+      if (d.top) {
+        newH = Math.max(250, Math.min(900, resizeStartRef.current.height - dy));
+        newY = resizeStartRef.current.posY + (resizeStartRef.current.height - newH);
+      }
 
-      setTerminalSize({ width: newWidth, height: newHeight });
+      setTerminalSize({ width: newW, height: newH });
+      // Only adjust position for top/left resize when undocked (fixed positioning)
+      const wasDocked = resizeStartRef.current.posX === 0 && resizeStartRef.current.posY === 0;
+      if ((d.left || d.top) && !wasDocked) setTerminalPos({ x: newX, y: newY });
     };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-    };
-
+    const handleMouseUp = () => setIsResizing(false);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
-
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing]);
 
-  const getTerminalStyle = () => {
+  // ── Terminal style ──
+  const getTerminalWrapperStyle = (): React.CSSProperties => {
     if (terminalState === "maximized") {
-      return { width: "100%", maxWidth: "100%" };
+      return {
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
+        height: "100vh",
+        zIndex: 9999,
+      };
     }
-    return { width: `${terminalSize.width}px`, maxWidth: "90vw" };
+    // When dragged away from origin, use fixed positioning
+    if (terminalPos.x !== 0 || terminalPos.y !== 0) {
+      return {
+        position: "fixed",
+        left: `${terminalPos.x}px`,
+        top: `${terminalPos.y}px`,
+        width: `${terminalSize.width}px`,
+        maxWidth: "95vw",
+        zIndex: isDragging ? 50 : 40,
+      };
+    }
+    return {
+      position: "relative",
+      width: `${terminalSize.width}px`,
+      maxWidth: "95vw",
+      zIndex: isDragging ? 50 : "auto",
+    };
   };
 
   return (
     <div className="container mx-auto px-4">
+      {/* Fullscreen snap preview overlay */}
+      {isNearEdge && isDragging && (
+        <div
+          className="pointer-events-none fixed inset-2 z-[9998] rounded-lg border-2 border-primary/50 bg-primary/5 backdrop-blur-sm"
+        >
+          <div className="flex h-full items-center justify-center">
+            <span className="text-primary/60 font-mono text-sm">Release for fullscreen</span>
+          </div>
+        </div>
+      )}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ staggerChildren: 0.2, delayChildren: 0.3 }}
         className="flex flex-col items-center gap-8 text-center"
       >
-        {/* Main heading with gradient and typewriter effect */}
+        {/* Main heading */}
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -587,92 +916,212 @@ export function HeroSection() {
           {t("HOME.HERO_SUBTITLE")}
         </motion.p>
 
-        {/* Interactive Terminal window with macOS-style buttons */}
+        {/* Dock Zone — gradient placeholder when terminal is undocked */}
+        <div
+          ref={dockZoneRef}
+          className={cn(
+            "relative rounded-lg",
+            isUndocked || terminalState === "maximized"
+              ? "opacity-100"
+              : "pointer-events-none h-0 opacity-0",
+          )}
+          style={{
+            width: `${terminalSize.width}px`,
+            maxWidth: "95vw",
+            height: isUndocked || terminalState === "maximized"
+              ? `${terminalState === "minimized" ? 44 : terminalSize.height + 44}px`
+              : 0,
+          }}
+        >
+          <div
+            className={cn(
+              "h-full w-full rounded-lg border-2 border-dashed",
+              isNearDock
+                ? "border-primary/60 bg-primary/10 shadow-[0_0_30px_rgba(var(--primary-rgb,99,102,241),0.3)]"
+                : "border-muted-foreground/20 bg-gradient-to-br from-primary/5 via-transparent to-chart-2/5",
+            )}
+          >
+            <div className="flex h-full items-center justify-center">
+              <span
+                className={cn(
+                  "font-mono text-sm",
+                  isNearDock ? "text-primary/60" : "text-muted-foreground/30",
+                )}
+              >
+                {isNearDock ? "Release to dock" : "Terminal undocked"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Terminal Window */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{
-            opacity: terminalState === "closed" ? 0 : 1,
-            y: terminalState === "closed" ? 20 : 0,
+            opacity: 1,
+            y: 0,
             scale: terminalState === "minimized" ? 0.8 : 1,
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          style={getTerminalStyle()}
-          className="relative"
+          style={{
+            ...getTerminalWrapperStyle(),
+            ...(isSnapping && {
+              transition: "left 0.35s ease-out, top 0.35s ease-out, width 0.35s ease-out, height 0.35s ease-out",
+            }),
+          }}
+          className={cn(isDragging && "pointer-events-auto")}
         >
-          {terminalState !== "closed" && (
-            <Card className="border-primary relative overflow-hidden rounded-lg bg-black/40 backdrop-blur-sm">
-              {/* Terminal header with macOS-style buttons */}
-              <div className="bg-muted/30 border-border flex items-center justify-between border-b px-6 py-4">
-                <div className="text-muted-foreground flex-1 text-center font-mono text-sm">
-                  coding.global — terminal
-                </div>
-                <div className="flex items-center space-x-2.5">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleClose}
-                    className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 transition-all hover:bg-red-600"
-                    aria-label="Close"
-                  >
-                    <span className="text-[11px] leading-3 font-bold text-red-950">
-                      ✕
-                    </span>
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleMinimize}
-                    className="flex h-4 w-4 items-center justify-center rounded-full bg-yellow-500 transition-all hover:bg-yellow-600"
-                    aria-label="Minimize"
-                  >
-                    <span className="text-[11px] leading-3 font-bold text-yellow-950">
-                      −
-                    </span>
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleMaximize}
-                    className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500 transition-all hover:bg-green-600"
-                    aria-label="Maximize"
-                  >
-                    <span className="text-[11px] leading-3 font-bold text-green-950">
-                      +
-                    </span>
-                  </motion.button>
-                </div>
+          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black/90 p-0 text-left backdrop-blur-sm">
+            {/* ── Header (draggable) ── Win11 Terminal style */}
+            <div
+              onMouseDown={handleDragStart}
+              onDoubleClick={() => {
+                if (terminalState === "minimized") {
+                  setTerminalState("normal");
+                } else if (terminalState === "maximized") {
+                  setTerminalState("normal");
+                  setTerminalSize({ ...ORIGIN_SIZE });
+                } else {
+                  handleMaximize();
+                }
+              }}
+              className={cn(
+                "flex shrink-0 items-center justify-between rounded-t-lg border-b border-white/5 bg-[#1e1e1e] px-3 py-2",
+                terminalState !== "maximized" && "cursor-grab",
+                isDragging && "cursor-grabbing",
+              )}
+            >
+              {/* Left: icon + title */}
+              <div className="flex items-center gap-2 select-none">
+                <span className="text-primary text-xs font-bold">{">"}_</span>
+                <span className="text-[13px] text-white/60 font-medium">Terminal</span>
               </div>
+              {/* Right: Win11 window controls */}
+              <div className="flex items-center">
+                <button
+                  onClick={handleMinimize}
+                  className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
+                  aria-label="Minimize"
+                >
+                  <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
+                </button>
+                <button
+                  onClick={handleMaximize}
+                  className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80"
+                  aria-label="Maximize"
+                >
+                  {terminalState === "maximized" ? (
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+                      <rect x="2.5" y="0.5" width="7" height="7" rx="0.5"/>
+                      <rect x="0.5" y="2.5" width="7" height="7" rx="0.5"/>
+                    </svg>
+                  ) : (
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+                      <rect x="0.5" y="0.5" width="9" height="9" rx="0.5"/>
+                    </svg>
+                  )}
+                </button>
+                <button
+                  onClick={handleClose}
+                  className="flex h-8 w-11 items-center justify-center rounded-tr-lg text-white/50 transition-colors hover:bg-red-500/90 hover:text-white"
+                  aria-label="Close"
+                >
+                  <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
+                    <line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-              {/* Terminal content */}
-              {terminalState !== "minimized" && (
-                <motion.div
-                  initial={{ height: "auto" }}
-                  animate={{ height: "auto" }}
-                  style={{ height: `${terminalSize.height}px` }}
-                  className="overflow-hidden p-8"
+            {/* ── Terminal content ── */}
+            {terminalState !== "minimized" && (
+              <div className="relative" style={{
+                height: terminalState === "maximized" ? "calc(100vh - 56px)" : `${terminalSize.height}px`,
+              }}>
+                <div
+                  ref={terminalScrollRef}
+                  onScroll={() => {
+                    const el = terminalScrollRef.current;
+                    if (el) {
+                      const ratio = el.scrollTop / (el.scrollHeight - el.clientHeight || 1);
+                      const thumbH = Math.max(20, (el.clientHeight / el.scrollHeight) * el.clientHeight);
+                      setScrollThumb({ ratio, thumbH, visible: el.scrollHeight > el.clientHeight });
+                    }
+                  }}
+                  style={{ overscrollBehavior: "contain" }}
+                  className="terminal-scroll h-full overflow-y-auto px-4 py-3"
                 >
                   <InteractiveTerminal />
-                </motion.div>
-              )}
-
-              {/* Resize handle - bottom right corner */}
-              {terminalState !== "minimized" &&
-                terminalState !== "maximized" && (
+                </div>
+                {/* Custom scrollbar */}
+                {scrollThumb.visible && (
                   <div
-                    onMouseDown={handleResizeStart}
-                    className="bg-muted/50 absolute right-0 bottom-0 h-4 w-4 cursor-nwse-resize"
-                    style={{
-                      clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+                    className="group absolute top-1 bottom-1 right-0 z-10"
+                    style={{ width: 14 }}
+                    onMouseDown={(e) => {
+                      // Click on track → jump scroll to that position
+                      e.preventDefault();
+                      const el = terminalScrollRef.current;
+                      if (!el) return;
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const clickY = (e.clientY - rect.top) / rect.height;
+                      el.scrollTop = clickY * (el.scrollHeight - el.clientHeight);
                     }}
                   >
-                    <div className="absolute right-0.5 bottom-0.5 flex flex-col gap-0.5">
-                      <div className="bg-border h-px w-2 self-end" />
-                      <div className="bg-border h-px w-2.5 self-end" />
-                    </div>
+                    <div
+                      className="absolute right-0.5 rounded-full bg-white/20 hover:bg-white/50 active:bg-white/60"
+                      style={{
+                        width: 3,
+                        height: scrollThumb.thumbH,
+                        top: `${scrollThumb.ratio * (100 - (scrollThumb.thumbH / (terminalScrollRef.current?.clientHeight || 1)) * 100)}%`,
+                      }}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const el = terminalScrollRef.current;
+                        if (!el) return;
+                        const startY = e.clientY;
+                        const startScroll = el.scrollTop;
+                        const scrollRange = el.scrollHeight - el.clientHeight;
+                        const trackH = el.clientHeight - scrollThumb.thumbH;
+                        const thumb = e.currentTarget as HTMLElement;
+                        thumb.style.width = "8px";
+                        const onMove = (ev: MouseEvent) => {
+                          const dy = ev.clientY - startY;
+                          el.scrollTop = startScroll + (dy / trackH) * scrollRange;
+                        };
+                        const onUp = () => {
+                          thumb.style.width = "3px";
+                          document.removeEventListener("mousemove", onMove);
+                          document.removeEventListener("mouseup", onUp);
+                        };
+                        document.addEventListener("mousemove", onMove);
+                        document.addEventListener("mouseup", onUp);
+                      }}
+                      onMouseEnter={(e) => { (e.target as HTMLElement).style.width = "8px"; }}
+                      onMouseLeave={(e) => { if (!(e.buttons & 1)) (e.target as HTMLElement).style.width = "3px"; }}
+                    />
                   </div>
                 )}
-            </Card>
-          )}
+              </div>
+            )}
+
+            {/* ── Resize handles (all edges & corners) ── */}
+            {terminalState === "normal" && (
+              <>
+                {/* Edges */}
+                <div onMouseDown={handleResizeStart({ top: true })} className="absolute top-0 left-3 right-3 h-1 cursor-ns-resize" />
+                <div onMouseDown={handleResizeStart({ bottom: true })} className="absolute bottom-0 left-3 right-3 h-1 cursor-ns-resize" />
+                <div onMouseDown={handleResizeStart({ left: true })} className="absolute top-3 bottom-3 left-0 w-1 cursor-ew-resize" />
+                <div onMouseDown={handleResizeStart({ right: true })} className="absolute top-3 bottom-3 right-0 w-1 cursor-ew-resize" />
+                {/* Corners */}
+                <div onMouseDown={handleResizeStart({ top: true, left: true })} className="absolute top-0 left-0 h-3 w-3 cursor-nwse-resize" />
+                <div onMouseDown={handleResizeStart({ top: true, right: true })} className="absolute top-0 right-0 h-3 w-3 cursor-nesw-resize" />
+                <div onMouseDown={handleResizeStart({ bottom: true, left: true })} className="absolute bottom-0 left-0 h-3 w-3 cursor-nesw-resize" />
+                <div onMouseDown={handleResizeStart({ bottom: true, right: true })} className="absolute bottom-0 right-0 h-3 w-3 cursor-nwse-resize" />
+              </>
+            )}
+          </Card>
         </motion.div>
 
         {/* CTAs */}
@@ -712,3 +1161,4 @@ export function HeroSection() {
     </div>
   );
 }
+
