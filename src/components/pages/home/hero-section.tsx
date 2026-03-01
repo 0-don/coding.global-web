@@ -547,10 +547,10 @@ function InteractiveTerminal() {
       if (staticCommands[baseCmd] === "ME_ASYNC") {
         addOutput(LOADING_MARKER);
         try {
-          const userId = session?.data?.user?.id;
+          const discordId = (session?.data?.user as Record<string, unknown>)?.discordId as string | undefined;
           const userName = session?.data?.user?.name || "User";
           const userEmail = session?.data?.user?.email || "—";
-          const statsData = await handleElysia(await rpc.api.terminal.users.post({ userIds: [userId!] }));
+          const statsData = await handleElysia(await rpc.api.terminal.users.post({ userIds: [discordId!] }));
           const s = (statsData as Array<{
             stats?: {
               messages?: { total?: number; last7Days?: number; last24Hours?: number };
@@ -559,7 +559,7 @@ function InteractiveTerminal() {
               lastActivity?: { lastVoice?: string; lastMessage?: string };
             };
           }>)?.[0]?.stats;
-          let output = `{{yellow:Your Profile:}}\n  {{cyan:Name}}      {{white:${userName}}}\n  {{cyan:Email}}     {{white:${userEmail}}}\n  {{cyan:ID}}        {{white:${userId}}}`;
+          let output = `{{yellow:Your Profile:}}\n  {{cyan:Name}}      {{white:${userName}}}\n  {{cyan:Email}}     {{white:${userEmail}}}`;
           if (s?.messages) {
             output += `\n\n{{yellow:Messages:}}\n  {{cyan:Total}}     {{white:${s.messages.total?.toLocaleString() ?? "0"}}}\n  {{cyan:Last 7d}}   {{white:${s.messages.last7Days?.toLocaleString() ?? "0"}}}\n  {{cyan:Last 24h}}  {{white:${s.messages.last24Hours?.toLocaleString() ?? "0"}}}`;
           }
@@ -774,6 +774,7 @@ export function HeroSection() {
 
   // Dock zone ref for snap-back
   const dockZoneRef = useRef<HTMLDivElement>(null);
+  const terminalContainerRef = useRef<HTMLDivElement>(null);
   const [isNearDock, setIsNearDock] = useState(false);
   const [isNearEdge, setIsNearEdge] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
@@ -847,7 +848,17 @@ export function HeroSection() {
         setTerminalPos({ x: rect.left, y: rect.top });
         dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: rect.left, posY: rect.top };
       } else {
-        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
+        // Convert container-relative coords back to viewport for fixed drag
+        const container = terminalContainerRef.current;
+        if (container && (terminalPos.x !== 0 || terminalPos.y !== 0)) {
+          const cr = container.getBoundingClientRect();
+          const vpX = terminalPos.x + cr.left;
+          const vpY = terminalPos.y + cr.top;
+          setTerminalPos({ x: vpX, y: vpY });
+          dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: vpX, posY: vpY };
+        } else {
+          dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
+        }
       }
     }
   };
@@ -883,8 +894,16 @@ export function HeroSection() {
       setIsDragging(false);
       if (isNearEdge) { setIsNearEdge(false); handleMaximize(); return; }
       if (isNearDock) { setTerminalPos({ ...ORIGIN_POS }); setIsNearDock(false); return; }
-      // Clamp: don't let terminal hide behind navbar (48px)
-      setTerminalPos(prev => prev.y < 48 && prev.y !== 0 ? { ...prev, y: 48 } : prev);
+      // Convert viewport coords → container-relative coords for absolute positioning
+      setTerminalPos(prev => {
+        if (prev.x === 0 && prev.y === 0) return prev;
+        const container = terminalContainerRef.current;
+        if (!container) return prev;
+        const cr = container.getBoundingClientRect();
+        const absX = prev.x - cr.left;
+        const absY = prev.y - cr.top;
+        return { x: absX, y: absY < 0 ? 0 : absY };
+      });
     };
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleEnd);
@@ -961,10 +980,10 @@ export function HeroSection() {
         zIndex: 9999,
       };
     }
-    // When dragged away from origin, use fixed positioning
+    // When dragged away from origin
     if (terminalPos.x !== 0 || terminalPos.y !== 0) {
       return {
-        position: "fixed",
+        position: isDragging ? "fixed" : "absolute",
         left: `${terminalPos.x}px`,
         top: `${terminalPos.y}px`,
         width: `${terminalSize.width}px`,
@@ -1019,6 +1038,7 @@ export function HeroSection() {
 
         {/* Terminal container — always maintains layout space */}
         <div
+          ref={terminalContainerRef}
           className="relative"
           style={{
             width: `${terminalSize.width}px`,
@@ -1166,6 +1186,9 @@ export function HeroSection() {
                 <div
                   ref={terminalScrollRef}
                   onClick={(e) => {
+                    // Don't focus input if user is selecting text
+                    const sel = window.getSelection();
+                    if (sel && sel.toString().length > 0) return;
                     const input = (e.currentTarget as HTMLElement).querySelector<HTMLInputElement>("[data-terminal-input]");
                     input?.focus();
                   }}
