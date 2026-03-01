@@ -2,6 +2,8 @@
 
 A full-stack web platform for the **Coding Global** Discord community. Features real-time chat, programming guides for 20+ languages, job marketplace, and Discord integration.
 
+
+
 ## Features
 
 - **Community Hub** - Landing page with live Discord server statistics
