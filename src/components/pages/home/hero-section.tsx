@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 
 function StaggeredHeroTitle({ text }: { text: string }) {
@@ -183,6 +184,7 @@ const ALL_COMMANDS = [
   "/top",
   "/search",
   "/login",
+  "/logout",
   "/me",
   "/os",
   "/clear",
@@ -236,7 +238,7 @@ function InteractiveTerminal() {
 
   // Boot intro message (single block)
   const bootMessage = isLoggedIn
-    ? `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/me}}       {{white:— Your profile}}\n\n{{green:Logged in as}} {{cyan:${discordUsername || "User"}}}. Type {{cyan:/help}} for all commands.`
+    ? `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/me}}       {{white:— Your profile}}\n  {{cyan:/logout}}   {{white:— Sign out}}\n\n{{green:Logged in as}} {{cyan:${discordUsername || "User"}}}. Type {{cyan:/help}} for all commands.`
     : `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/login}}    {{white:— Discord login}}\n\nType {{cyan:/help}} for all commands.`;
 
   const memberCount = widget?.memberCount?.toLocaleString() ?? "...";
@@ -296,8 +298,9 @@ function InteractiveTerminal() {
 
   // Static commands
   const staticCommands: Record<string, string> = {
-    "/help":
-      "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/login}}   — Login with Discord\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/os}}      — Show your system info\n  {{cyan:/clear}}   — Clear terminal",
+    "/help": isLoggedIn
+      ? "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/logout}}  — Sign out\n  {{cyan:/os}}      — Show your system info\n  {{cyan:/clear}}   — Clear terminal"
+      : "{{yellow:Available commands:}}\n  {{cyan:/help}}    — Show this help message\n  {{cyan:/about}}   — Learn about coding.global\n  {{cyan:/stats}}   — Show member statistics\n  {{cyan:/discord}} — Get Discord invite link\n  {{cyan:/members}} — Show member join stats\n  {{cyan:/top}}     — Show top contributors\n  {{cyan:/search}}  — Search users (e.g. /search Don)\n  {{cyan:/login}}   — Login with Discord\n  {{cyan:/me}}      — Show your profile\n  {{cyan:/os}}      — Show your system info\n  {{cyan:/clear}}   — Clear terminal",
     "/about":
       "{{green:coding.global}} is a thriving community of developers!\nWe connect thousands of programmers worldwide to learn,\nshare knowledge, and build amazing projects together.",
     "/stats": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
@@ -324,8 +327,11 @@ function InteractiveTerminal() {
       return `{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`;
     })(),
     "/login": isLoggedIn
-      ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile.`
+      ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile or {{cyan:/logout}} to sign out.`
       : "LOGIN_COMMAND",
+    "/logout": isLoggedIn
+      ? "LOGOUT_COMMAND"
+      : "{{red:Not logged in.}} Type {{cyan:/login}} to login with Discord.",
     "/me": isLoggedIn
       ? "ME_ASYNC"
       : "{{red:Not logged in.}} Type {{cyan:/login}} to login with Discord.",
@@ -541,6 +547,13 @@ function InteractiveTerminal() {
             provider: "discord",
             callbackURL: "/",
           });
+        }, 500);
+        return;
+      }
+      if (staticCommands[baseCmd] === "LOGOUT_COMMAND") {
+        addOutput("{{yellow:Signing out...}}");
+        setTimeout(() => {
+          authClient.signOut();
         }, 500);
         return;
       }
@@ -783,17 +796,195 @@ export function HeroSection() {
   const terminalScrollRef = useRef<HTMLDivElement>(null);
   const [scrollThumb, setScrollThumb] = useState({ ratio: 0, thumbH: 0, visible: false });
 
+  // ── Desktop shortcut state (Windows 11 style) ──
+  const [isTerminalClosed, setIsTerminalClosed] = useState(false);
+  const [shortcutPos, setShortcutPos] = useState({ x: 0, y: 0 }); // relative to container
+  const [shortcutLabel, setShortcutLabel] = useState("Terminal");
+  const [isShortcutSelected, setIsShortcutSelected] = useState(false);
+  const [isEditingLabel, setIsEditingLabel] = useState(false);
+  const [isDraggingShortcut, setIsDraggingShortcut] = useState(false);
+  const shortcutDragRef = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
+  const shortcutClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shortcutLabelInputRef = useRef<HTMLTextAreaElement>(null);
+  const [editLabelValue, setEditLabelValue] = useState("Terminal");
+
+  // ── Windows 11 Context Menu (right-click) state ──
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
+  const contextMenuRef = useRef<HTMLElement>(null);
+
   // Terminal is undocked when it has been dragged away
   const isUndocked = terminalPos.x !== 0 || terminalPos.y !== 0;
 
-  // ── Close: instant dock + minimize ──
+  // ── Close: fully close terminal → show desktop shortcut ──
   const handleClose = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
-    setTerminalState("minimized");
+    setIsTerminalClosed(true);
+    setTerminalState("normal");
     setTerminalPos({ ...ORIGIN_POS });
-    if (terminalState === "maximized") {
-      setTerminalSize({ ...preFullscreenRef.current.size });
+    setTerminalSize({ ...ORIGIN_SIZE });
+    setIsShortcutSelected(false);
+    setIsEditingLabel(false);
+  };
+
+  // ── Open terminal from shortcut ──
+  const handleOpenFromShortcut = () => {
+    setIsTerminalClosed(false);
+    setTerminalState("normal");
+    setTerminalSize({ ...ORIGIN_SIZE });
+    setTerminalPos({ ...ORIGIN_POS });
+    setIsShortcutSelected(false);
+    setIsEditingLabel(false);
+  };
+
+  // ── Shortcut drag logic (threshold + scroll tracking + boundary clamp) ──
+  const handleShortcutDragStart = (e: React.MouseEvent) => {
+    if (isEditingLabel) return;
+    if (e.button !== 0) return;
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startPosX = shortcutPos.x;
+    const startPosY = shortcutPos.y;
+    const startScrollY = window.scrollY;
+    let dragging = false;
+    const DRAG_THRESHOLD = 3;
+
+    const onMove = (ev: MouseEvent) => {
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY + (window.scrollY - startScrollY);
+      if (!dragging) {
+        if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) {
+          dragging = true;
+          setIsDraggingShortcut(true);
+        }
+        return;
+      }
+      // Clamp to viewport bounds (not the small container)
+      const btnW = 70, btnH = 80; // approx shortcut size
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // The shortcut is centered in the container, so newX/newY are offsets from center
+      const container = terminalContainerRef.current;
+      if (container) {
+        const rect = container.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const newAbsX = centerX + startPosX + dx;
+        const newAbsY = centerY + startPosY + dy;
+        // Clamp so the shortcut stays within viewport
+        const clampedAbsX = Math.max(btnW / 2, Math.min(vw - btnW / 2, newAbsX));
+        const clampedAbsY = Math.max(56, Math.min(vh - btnH / 2, newAbsY)); // 56 = below navbar
+        setShortcutPos({
+          x: clampedAbsX - centerX,
+          y: clampedAbsY - centerY,
+        });
+      } else {
+        setShortcutPos({ x: startPosX + dx, y: startPosY + dy });
+      }
+    };
+    const onUp = () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+      if (dragging) setIsDraggingShortcut(false);
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  };
+
+  // ── Shortcut click logic (select / rename) ──
+  const handleShortcutClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isShortcutSelected) {
+      setIsShortcutSelected(true);
+      return;
     }
+    // Already selected → start rename timer (slow double-click like Windows)
+    if (!isEditingLabel) {
+      if (shortcutClickTimer.current) clearTimeout(shortcutClickTimer.current);
+      shortcutClickTimer.current = setTimeout(() => {
+        setIsEditingLabel(true);
+        setEditLabelValue(shortcutLabel);
+      }, 500);
+    }
+  };
+
+  const handleShortcutDoubleClick = () => {
+    if (shortcutClickTimer.current) clearTimeout(shortcutClickTimer.current);
+    handleOpenFromShortcut();
+  };
+
+  const confirmRename = () => {
+    const trimmed = editLabelValue.trim();
+    if (trimmed) setShortcutLabel(trimmed);
+    setIsEditingLabel(false);
+  };
+
+  const cancelRename = () => {
+    setIsEditingLabel(false);
+    setEditLabelValue(shortcutLabel);
+  };
+
+  // Focus rename textarea when editing starts (1:1 daedalOS RenameBox: focus + setSelectionRange)
+  useEffect(() => {
+    if (isEditingLabel && shortcutLabelInputRef.current) {
+      shortcutLabelInputRef.current.focus();
+      shortcutLabelInputRef.current.setSelectionRange(0, shortcutLabel.length);
+    }
+  }, [isEditingLabel]);
+
+  // Deselect shortcut & close context menu when clicking outside
+  useEffect(() => {
+    if (!isShortcutSelected && !isEditingLabel && !contextMenu) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Close context menu if clicking outside it
+      if (contextMenu && contextMenuRef.current && !contextMenuRef.current.contains(target)) {
+        setContextMenu(null);
+      }
+      if (!target.closest('[data-desktop-shortcut]') && !target.closest('[data-context-menu]')) {
+        if (isEditingLabel) confirmRename();
+        setIsShortcutSelected(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isShortcutSelected, isEditingLabel, contextMenu]);
+
+  // Close context menu on Escape (1:1 daedalOS)
+  useEffect(() => {
+    if (!contextMenu) return;
+    const onEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setContextMenu(null);
+    };
+    window.addEventListener("keydown", onEscape, { passive: true });
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [contextMenu]);
+
+  // Handle right-click anywhere in shortcut container (1:1 daedalOS)
+  const handleShortcutContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsShortcutSelected(true);
+    setContextMenu({ x: e.clientX, y: e.clientY });
+  };
+
+  // Context menu actions
+  const handleContextMenuOpen = () => {
+    setContextMenu(null);
+    handleOpenFromShortcut();
+  };
+
+  const handleContextMenuRename = () => {
+    setContextMenu(null);
+    setIsEditingLabel(true);
+    setEditLabelValue(shortcutLabel);
+  };
+
+  // Properties dialog state
+  const [showProperties, setShowProperties] = useState<{ x: number; y: number } | null>(null);
+  const handleContextMenuProperties = () => {
+    const pos = contextMenu;
+    setContextMenu(null);
+    if (pos) setShowProperties({ x: pos.x, y: pos.y });
   };
 
   // ── Minimize ──
@@ -848,17 +1039,8 @@ export function HeroSection() {
         setTerminalPos({ x: rect.left, y: rect.top });
         dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: rect.left, posY: rect.top };
       } else {
-        // Convert container-relative coords back to viewport for fixed drag
-        const container = terminalContainerRef.current;
-        if (container && (terminalPos.x !== 0 || terminalPos.y !== 0)) {
-          const cr = container.getBoundingClientRect();
-          const vpX = terminalPos.x + cr.left;
-          const vpY = terminalPos.y + cr.top;
-          setTerminalPos({ x: vpX, y: vpY });
-          dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: vpX, posY: vpY };
-        } else {
-          dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
-        }
+        // Coords are already viewport coords since we use position: fixed when undocked
+        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
       }
     }
   };
@@ -876,9 +1058,9 @@ export function HeroSection() {
       const rawX = dragStartRef.current.posX + dx;
       const rawY = dragStartRef.current.posY + dy;
       const clampedX = Math.max(-terminalSize.width + 100, Math.min(window.innerWidth - 100, rawX));
-      const clampedY = Math.max(-20, Math.min(window.innerHeight - 44, rawY));
+      const clampedY = Math.max(48, Math.min(window.innerHeight - 44, rawY)); // 48 = navbar height
       setTerminalPos({ x: clampedX, y: clampedY });
-      setIsNearEdge(terminalState !== "minimized" && (y <= 10 || x <= 10 || x >= window.innerWidth - 10));
+      setIsNearEdge(terminalState !== "minimized" && (y <= 48 || x <= 10 || x >= window.innerWidth - 10));
       if (dockZoneRef.current) {
         const dock = dockZoneRef.current.getBoundingClientRect();
         const visibleHeight = terminalState === "minimized" ? 44 : terminalSize.height;
@@ -894,16 +1076,7 @@ export function HeroSection() {
       setIsDragging(false);
       if (isNearEdge) { setIsNearEdge(false); handleMaximize(); return; }
       if (isNearDock) { setTerminalPos({ ...ORIGIN_POS }); setIsNearDock(false); return; }
-      // Convert viewport coords → container-relative coords for absolute positioning
-      setTerminalPos(prev => {
-        if (prev.x === 0 && prev.y === 0) return prev;
-        const container = terminalContainerRef.current;
-        if (!container) return prev;
-        const cr = container.getBoundingClientRect();
-        const absX = prev.x - cr.left;
-        const absY = prev.y - cr.top;
-        return { x: absX, y: absY < 0 ? 0 : absY };
-      });
+      // Keep viewport coords as-is since undocked terminal uses position: fixed
     };
     document.addEventListener("mousemove", handleMove);
     document.addEventListener("mouseup", handleEnd);
@@ -949,10 +1122,11 @@ export function HeroSection() {
         newW = Math.max(400, Math.min(1600, resizeStartRef.current.width - dx));
         newX = resizeStartRef.current.posX + (resizeStartRef.current.width - newW);
       }
-      if (d.bottom) newH = Math.max(250, Math.min(900, resizeStartRef.current.height + dy));
+      const maxH = window.innerHeight - 60; // navbar height (~48px) + padding
+      if (d.bottom) newH = Math.max(250, Math.min(maxH, resizeStartRef.current.height + dy));
       if (d.top) {
-        newH = Math.max(250, Math.min(900, resizeStartRef.current.height - dy));
-        newY = resizeStartRef.current.posY + (resizeStartRef.current.height - newH);
+        newH = Math.max(250, Math.min(maxH, resizeStartRef.current.height - dy));
+        newY = Math.max(48, resizeStartRef.current.posY + (resizeStartRef.current.height - newH)); // don't go above navbar
       }
 
       setTerminalSize({ width: newW, height: newH });
@@ -980,10 +1154,10 @@ export function HeroSection() {
         zIndex: 9999,
       };
     }
-    // When dragged away from origin
+    // When dragged away from origin — always fixed so it's not clipped by the hero section
     if (terminalPos.x !== 0 || terminalPos.y !== 0) {
       return {
-        position: isDragging ? "fixed" : "absolute",
+        position: "fixed" as const,
         left: `${terminalPos.x}px`,
         top: `${terminalPos.y}px`,
         width: `${terminalSize.width}px`,
@@ -1043,12 +1217,365 @@ export function HeroSection() {
           style={{
             width: `${terminalSize.width}px`,
             maxWidth: "95vw",
-            height: terminalState === "minimized"
-              ? 44
-              : `${terminalSize.height + 44}px`,
+            height: isTerminalClosed
+              ? 120
+              : terminalState === "minimized"
+                ? 44
+                : `${terminalSize.height + 44}px`,
           }}
         >
+          {/* ── Windows 11 Desktop Shortcut (1:1 daedalOS) ── */}
+          {isTerminalClosed && (
+            <div
+              data-desktop-shortcut
+              className="absolute flex items-center justify-center"
+              style={{ inset: 0, zIndex: 9999 }}
+              onContextMenu={handleShortcutContextMenu}
+            >
+              {/* daedalOS: StyledFileEntry (Icon view) + Button + StyledFigure */}
+              <button
+                data-shortcut-icon
+                type="button"
+                className="relative flex cursor-default flex-col items-center outline-none select-none"
+                style={{
+                  transform: `translate(${shortcutPos.x}px, ${shortcutPos.y}px)`,
+                  ...(isDraggingShortcut && { pointerEvents: "none" as const, opacity: 0.7 }),
+                  /* StyledFileEntry: padding */
+                  padding: "6px 8px",
+                  /* StyledFileEntry: outline-offset: -2px */
+                  outlineOffset: -2,
+                  /* colors.ts: fileEntry states — applied via data attributes */
+                  backgroundColor: isShortcutSelected
+                    ? "hsla(207, 60%, 72%, 35%)"  /* backgroundFocused */
+                    : undefined,
+                  outline: isShortcutSelected
+                    ? "1px solid hsla(207, 60%, 72%, 35%)" /* borderFocused */
+                    : undefined,
+                }}
+                /* daedalOS StyledFileEntry: &:hover */
+                onMouseEnter={(e) => {
+                  if (!isShortcutSelected) {
+                    e.currentTarget.style.backgroundColor = "hsla(207, 30%, 72%, 25%)"; /* background */
+                    e.currentTarget.style.outline = "1px solid hsla(207, 30%, 72%, 30%)"; /* border */
+                  } else {
+                    e.currentTarget.style.backgroundColor = "hsla(207, 90%, 72%, 30%)"; /* backgroundFocusedHover */
+                    e.currentTarget.style.outline = "1px solid hsla(207, 90%, 72%, 40%)"; /* borderFocusedHover */
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isShortcutSelected) {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.outline = "none";
+                  } else {
+                    e.currentTarget.style.backgroundColor = "hsla(207, 60%, 72%, 35%)";
+                    e.currentTarget.style.outline = "1px solid hsla(207, 60%, 72%, 35%)";
+                  }
+                }}
+                onMouseDown={handleShortcutDragStart}
+                onClick={handleShortcutClick}
+                onDoubleClick={handleShortcutDoubleClick}
+                onContextMenu={handleShortcutContextMenu}
+                onKeyDown={(e) => {
+                  if (e.key === "F2" && isShortcutSelected && !isEditingLabel) {
+                    e.preventDefault();
+                    setIsEditingLabel(true);
+                    setEditLabelValue(shortcutLabel);
+                  }
+                  if (e.key === "Enter" && !isEditingLabel) {
+                    handleOpenFromShortcut();
+                  }
+                }}
+              >
+                {/* StyledFigure: figure > flex column, place-items center, margin-bottom -2px */}
+                <figure
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    placeItems: "center",
+                    margin: 0,
+                    marginBottom: -2,
+                    pointerEvents: isEditingLabel ? "all" : undefined,
+                  }}
+                >
+                  {/* daedalOS: Icon picture { height/width: 48px } */}
+                  <picture style={{ height: 48, width: 48, position: "relative" }}>
+                    <img
+                      src="/images/terminal-icon.png"
+                      alt="Terminal"
+                      style={{ width: 48, height: 48 }}
+                      draggable={false}
+                    />
+                    {/* SubIcons — shortcut arrow overlay */}
+                    <svg
+                      style={{ position: "absolute", bottom: -2, left: -2 }}
+                      width="12"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <rect x="1" y="1" width="14" height="14" rx="2" fill="white" />
+                      <path d="M4 12V4l8 4-8 4z" fill="#2d7dd2" stroke="#1a5fa3" strokeWidth="0.5" />
+                    </svg>
+                  </picture>
+
+                  {/* StyledFileEntry: figcaption or RenameBox */}
+                  {isEditingLabel ? (
+                    <textarea
+                      ref={shortcutLabelInputRef}
+                      defaultValue={shortcutLabel}
+                      rows={1}
+                      onKeyDown={(e) => {
+                        e.stopPropagation();
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const val = (e.target as HTMLTextAreaElement).value.trim();
+                          if (val) setShortcutLabel(val);
+                          setIsEditingLabel(false);
+                        }
+                        if (e.key === "Escape") cancelRename();
+                      }}
+                      onBlur={(e) => {
+                        const val = e.target.value.trim();
+                        if (val) setShortcutLabel(val);
+                        setIsEditingLabel(false);
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                      onDoubleClick={(e) => e.stopPropagation()}
+                      onDragStart={(e) => e.preventDefault()}
+                      style={{
+                        /* StyledFileEntry: textarea { position: absolute; top: 48px } */
+                        position: "absolute",
+                        top: 48,
+                        backgroundColor: "rgb(33, 33, 33)",
+                        border: "1px solid #fff",
+                        borderRadius: 0,
+                        color: "#fff",
+                        fontFamily: "inherit",
+                        fontSize: "11.5px",
+                        marginBottom: 2,
+                        minHeight: 19,
+                        minWidth: 30,
+                        overflow: "hidden",
+                        padding: "1px 5px",
+                        resize: "none",
+                        textAlign: "center",
+                        userSelect: "text",
+                        whiteSpace: "break-spaces",
+                        zIndex: 1,
+                        outline: "none",
+                        width: 70,
+                      }}
+                    />
+                  ) : (
+                    /* StyledFileEntry figcaption: color, fontSize, textShadow from colors.ts */
+                    <figcaption
+                      style={{
+                        pointerEvents: "none",
+                        color: "#FFF",
+                        fontSize: "11.5px",
+                        lineHeight: 1.2,
+                        margin: "1px 0",
+                        overflowWrap: "anywhere",
+                        padding: "2px 0",
+                        textAlign: "center",
+                        /* colors.ts: fileEntry.textShadow (exact) */
+                        textShadow: `0 0 1px rgba(0, 0, 0, 75%),
+                          0 0 2px rgba(0, 0, 0, 50%),
+                          0 1px 1px rgba(0, 0, 0, 75%),
+                          0 1px 2px rgba(0, 0, 0, 50%),
+                          0 2px 1px rgba(0, 0, 0, 75%),
+                          0 2px 2px rgba(0, 0, 0, 50%)`,
+                      }}
+                    >
+                      {shortcutLabel}
+                    </figcaption>
+                  )}
+                </figure>
+              </button>
+
+              {/* Context Menu — rendered via portal to fix positioning */}
+              {contextMenu && createPortal(
+                <nav
+                  ref={contextMenuRef}
+                  data-context-menu
+                  className="fixed z-[10000]"
+                  style={{
+                    left: contextMenu.x,
+                    top: contextMenu.y,
+                    /* StyledMenu.ts */
+                    backgroundColor: "rgb(43 43 43)",
+                    border: "1px solid rgb(160 160 160)",
+                    boxShadow: "1px 1px 1px hsl(0 0% 20% / 70%), 2px 2px 2px hsl(0 0% 10% / 70%)",
+                    color: "rgb(255 255 255)",
+                    contain: "layout",
+                    fontSize: 12,
+                    maxHeight: "fit-content",
+                    maxWidth: "fit-content",
+                    padding: "4px 2px",
+                    pointerEvents: "none",
+                    width: "max-content",
+                  }}
+                >
+                  <ol style={{ listStyle: "none", margin: 0, padding: 0, pointerEvents: "all" }}>
+                    {/* ── Open (primary/bold) ── */}
+                    <li>
+                      <div
+                        role="button"
+                        tabIndex={-1}
+                        onMouseUp={(e) => { e.preventDefault(); e.stopPropagation(); handleContextMenuOpen(); }}
+                        style={{ display: "flex", padding: "3px 0", cursor: "default" }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgb(65 65 65)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
+                      >
+                        <picture style={{ margin: "0 -24px 0 8px", display: "flex", alignItems: "center" }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 3l5 5-5 5" stroke="#4fc3f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </picture>
+                        <figcaption
+                          style={{
+                            display: "flex", height: 16, lineHeight: "16px",
+                            marginLeft: 32, marginRight: 64, placeItems: "center",
+                            position: "relative", top: -1, whiteSpace: "nowrap", width: "max-content",
+                            fontWeight: 700,
+                          }}
+                        >
+                          Open
+                        </figcaption>
+                      </div>
+                    </li>
+
+                    <li><hr style={{ backgroundColor: "rgb(128 128 128)", height: 1, margin: "3px 8px", border: "none" }} /></li>
+
+                    {/* ── Rename ── */}
+                    <li>
+                      <div
+                        role="button"
+                        tabIndex={-1}
+                        onMouseUp={(e) => { e.preventDefault(); e.stopPropagation(); handleContextMenuRename(); }}
+                        style={{ display: "flex", padding: "3px 0", cursor: "default" }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgb(65 65 65)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
+                      >
+                        <picture style={{ margin: "0 -24px 0 8px", display: "flex", alignItems: "center" }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M11.498 2.002a1.75 1.75 0 0 1 2.474 0l.026.026a1.75 1.75 0 0 1 0 2.474l-7.07 7.07a1 1 0 0 1-.442.261l-2.822.94a.5.5 0 0 1-.632-.632l.94-2.822a1 1 0 0 1 .261-.442l7.265-6.875z" fill="#fff" />
+                          </svg>
+                        </picture>
+                        <figcaption
+                          style={{
+                            display: "flex", height: 16, lineHeight: "16px",
+                            marginLeft: 32, marginRight: 64, placeItems: "center",
+                            position: "relative", top: -1, whiteSpace: "nowrap", width: "max-content",
+                          }}
+                        >
+                          Rename
+                        </figcaption>
+                      </div>
+                    </li>
+
+                    <li><hr style={{ backgroundColor: "rgb(128 128 128)", height: 1, margin: "3px 8px", border: "none" }} /></li>
+
+                    {/* ── Properties ── */}
+                    <li>
+                      <div
+                        role="button"
+                        tabIndex={-1}
+                        onMouseUp={(e) => { e.preventDefault(); e.stopPropagation(); handleContextMenuProperties(); }}
+                        style={{ display: "flex", padding: "3px 0", cursor: "default" }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgb(65 65 65)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
+                      >
+                        <picture style={{ margin: "0 -24px 0 8px", display: "flex", alignItems: "center" }}>
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="4.5" r="1.5" fill="#fff" />
+                            <rect x="7" y="7" width="2" height="5" rx="1" fill="#fff" />
+                          </svg>
+                        </picture>
+                        <figcaption
+                          style={{
+                            display: "flex", height: 16, lineHeight: "16px",
+                            marginLeft: 32, marginRight: 64, placeItems: "center",
+                            position: "relative", top: -1, whiteSpace: "nowrap", width: "max-content",
+                          }}
+                        >
+                          Properties
+                        </figcaption>
+                      </div>
+                    </li>
+                  </ol>
+                </nav>,
+                document.body
+              )}
+
+              {/* Properties dialog — rendered via portal */}
+              {showProperties && createPortal(
+                <div
+                  className="fixed inset-0 z-[10001]"
+                  onMouseDown={() => setShowProperties(null)}
+                >
+                  <div
+                    onMouseDown={(e) => e.stopPropagation()}
+                    style={{
+                      position: "fixed",
+                      left: showProperties.x,
+                      top: showProperties.y,
+                      backgroundColor: "rgb(43 43 43)",
+                      border: "1px solid rgb(160 160 160)",
+                      boxShadow: "1px 1px 1px hsl(0 0% 20% / 70%), 2px 2px 2px hsl(0 0% 10% / 70%)",
+                      color: "rgb(255 255 255)",
+                      fontSize: 12,
+                      padding: "16px 20px",
+                      minWidth: 280,
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                      <img src="/images/terminal-icon.png" alt="Terminal" style={{ width: 32, height: 32 }} />
+                      <span style={{ fontSize: 14, fontWeight: 600 }}>{shortcutLabel}</span>
+                    </div>
+                    <hr style={{ backgroundColor: "rgb(128 128 128)", height: 1, margin: "8px 0", border: "none" }} />
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 8 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "rgb(170 170 170)" }}>Type:</span>
+                        <span>Shortcut</span>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "rgb(170 170 170)" }}>Target:</span>
+                        <span>Terminal</span>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ color: "rgb(170 170 170)" }}>Location:</span>
+                        <span>Desktop</span>
+                      </div>
+                    </div>
+                    <hr style={{ backgroundColor: "rgb(128 128 128)", height: 1, margin: "12px 0 8px", border: "none" }} />
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <button
+                        type="button"
+                        onClick={() => setShowProperties(null)}
+                        style={{
+                          backgroundColor: "rgb(55 55 55)",
+                          border: "1px solid rgb(160 160 160)",
+                          color: "#fff",
+                          padding: "4px 20px",
+                          fontSize: 12,
+                          cursor: "default",
+                        }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgb(70 70 70)"; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgb(55 55 55)"; }}
+                      >
+                        OK
+                      </button>
+                    </div>
+                  </div>
+                </div>,
+                document.body
+              )}
+            </div>
+          )}
+
           {/* Dock Zone — visible when terminal is undocked */}
+          {!isTerminalClosed && (
           <div
             ref={dockZoneRef}
             className={cn(
@@ -1081,8 +1608,10 @@ export function HeroSection() {
               </div>
             </div>
           </div>
+          )}
 
           {/* Terminal Window */}
+          {!isTerminalClosed && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{
@@ -1147,7 +1676,7 @@ export function HeroSection() {
                     <button onClick={handleMaximize} className="flex h-7 w-7 items-center justify-center rounded text-white/50 transition-colors hover:bg-white/10" aria-label="Maximize">
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="7" height="7" rx="0.5"/></svg>
                     </button>
-                    <button onClick={handleClose} disabled={!isUndocked && terminalState !== "maximized"} className={cn("flex h-7 w-7 items-center justify-center rounded transition-colors", !isUndocked && terminalState !== "maximized" ? "text-white/15" : "text-white/50 hover:bg-red-500/80 hover:text-white")} aria-label="Close">
+                    <button onClick={handleClose} className="flex h-7 w-7 items-center justify-center rounded transition-colors text-white/50 hover:bg-red-500/80 hover:text-white" aria-label="Close">
                       <svg width="8" height="8" viewBox="0 0 8 8" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="7" y2="7"/><line x1="7" y1="1" x2="1" y2="7"/></svg>
                     </button>
                   </div>
@@ -1170,7 +1699,7 @@ export function HeroSection() {
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="9" height="9" rx="0.5"/></svg>
                       )}
                     </button>
-                    <button onClick={handleClose} disabled={!isUndocked && terminalState !== "maximized"} className={cn("flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors", !isUndocked && terminalState !== "maximized" ? "text-white/15 cursor-not-allowed" : "text-white/50 hover:bg-red-500/90 hover:text-white")} aria-label="Close">
+                    <button onClick={handleClose} className="flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors text-white/50 hover:bg-red-500/90 hover:text-white" aria-label="Close">
                       <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
                     </button>
                   </div>
@@ -1274,6 +1803,7 @@ export function HeroSection() {
             )}
           </Card>
         </motion.div>
+        )}
         </div>
 
         {/* CTAs */}
