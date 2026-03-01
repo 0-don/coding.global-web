@@ -17,6 +17,8 @@ import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import posthog from "posthog-js";
+import { useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@/lib/react-query/keys";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -214,6 +216,7 @@ function getAutocompleteSuggestion(input: string): string | null {
 // ─── InteractiveTerminal ─────────────────────────────────────────────────────
 function InteractiveTerminal() {
   const session = useSessionHook();
+  const queryClient = useQueryClient();
   const isLoggedIn = !!session?.data?.user?.id;
   const discordUsername = session?.data?.user?.name ?? null;
   const t = useTranslations();
@@ -552,8 +555,18 @@ function InteractiveTerminal() {
       }
       if (staticCommands[baseCmd] === "LOGOUT_COMMAND") {
         addOutput("{{yellow:Signing out...}}");
-        setTimeout(() => {
-          authClient.signOut();
+        setTimeout(async () => {
+          await authClient.signOut();
+          await queryClient.invalidateQueries({ queryKey: queryKeys.session() });
+          await queryClient.refetchQueries({ queryKey: queryKeys.session() });
+          // Reset terminal to guest boot state
+          setCommands([{
+            command: "",
+            output: `  {{cyan:/top}}      {{white:— Top contributors}}\n  {{cyan:/members}}  {{white:— Member stats}}\n  {{cyan:/login}}    {{white:— Discord login}}\n\nType {{cyan:/help}} for all commands.`,
+            id: cmdIdRef.current++,
+            isBoot: false,
+          }]);
+          addOutput("{{green:Successfully signed out.}} Type {{cyan:/login}} to sign in again.");
         }, 500);
         return;
       }
