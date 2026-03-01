@@ -815,9 +815,38 @@ export function HeroSection() {
   // Terminal is undocked when it has been dragged away
   const isUndocked = terminalPos.x !== 0 || terminalPos.y !== 0;
 
-  // ── Close: fully close terminal → show desktop shortcut ──
+  // ── Close: fully close terminal → show desktop shortcut at terminal's position ──
   const handleClose = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
+
+    // Calculate where the shortcut icon should appear (center of terminal)
+    const container = terminalContainerRef.current;
+    const isUndockedNow = terminalPos.x !== 0 || terminalPos.y !== 0;
+    if (container && (isUndockedNow || terminalState === "maximized")) {
+      // Terminal is undocked (fixed position) or maximized — convert terminal center to shortcut offset
+      const rect = container.getBoundingClientRect();
+      const containerCenterX = rect.left + rect.width / 2;
+      const containerCenterY = rect.top + rect.height / 2;
+
+      let termCenterX: number, termCenterY: number;
+      if (terminalState === "maximized") {
+        // Maximized = fills whole screen, center is viewport center
+        termCenterX = window.innerWidth / 2;
+        termCenterY = window.innerHeight / 2;
+      } else {
+        termCenterX = terminalPos.x + terminalSize.width / 2;
+        termCenterY = terminalPos.y + terminalSize.height / 2;
+      }
+
+      setShortcutPos({
+        x: termCenterX - containerCenterX,
+        y: termCenterY - containerCenterY,
+      });
+    } else {
+      // Terminal was docked at origin — shortcut goes to center (default)
+      setShortcutPos({ x: 0, y: 0 });
+    }
+
     setIsTerminalClosed(true);
     setTerminalState("normal");
     setTerminalPos({ ...ORIGIN_POS });
@@ -826,43 +855,81 @@ export function HeroSection() {
     setIsEditingLabel(false);
   };
 
-  // ── Open terminal from shortcut ──
+  // ── Open terminal from shortcut — at the shortcut icon's position ──
   const handleOpenFromShortcut = () => {
     setIsTerminalClosed(false);
     setTerminalState("normal");
     setTerminalSize({ ...ORIGIN_SIZE });
-    setTerminalPos({ ...ORIGIN_POS });
+
+    const container = terminalContainerRef.current;
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      const containerCenterX = rect.left + rect.width / 2;
+      const containerCenterY = rect.top + rect.height / 2;
+
+      // Check if the shortcut icon is near the dock zone → auto-dock
+      const iconAbsX = containerCenterX + shortcutPos.x;
+      const iconAbsY = containerCenterY + shortcutPos.y;
+      const dockCenterX = rect.left + rect.width / 2;
+      const dockCenterY = rect.top + rect.height / 2;
+      const distToDock = Math.hypot(iconAbsX - dockCenterX, iconAbsY - dockCenterY);
+
+      if (distToDock < 100) {
+        // Close enough to dock zone → dock the terminal
+        setTerminalPos({ ...ORIGIN_POS });
+      } else {
+        // Open at the shortcut's position
+        const termX = iconAbsX - ORIGIN_SIZE.width / 2;
+        const termY = iconAbsY - ORIGIN_SIZE.height / 2;
+        const vw = document.documentElement.clientWidth;
+        const vh = window.innerHeight;
+        const clampedX = Math.max(0, Math.min(vw - ORIGIN_SIZE.width, termX));
+        const clampedY = Math.max(0, Math.min(vh - 44, termY));
+        setTerminalPos({ x: clampedX, y: clampedY });
+      }
+    } else {
+      setTerminalPos({ ...ORIGIN_POS });
+    }
+
     setIsShortcutSelected(false);
     setIsEditingLabel(false);
   };
 
-  // ── Shortcut drag logic (threshold + scroll tracking + boundary clamp) ──
-  const handleShortcutDragStart = (e: React.MouseEvent) => {
+  // ── Shortcut drag logic (threshold + scroll tracking + boundary clamp) ── supports mouse & touch
+  const shortcutLongPressRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleShortcutPointerStart = (e: React.MouseEvent | React.TouchEvent) => {
     if (isEditingLabel) return;
-    if (e.button !== 0) return;
-    const startX = e.clientX;
-    const startY = e.clientY;
+    if ('button' in e && e.button !== 0) return;
+
+    const isTouch = 'touches' in e;
+    const startX = isTouch ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+    const startY = isTouch ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
     const startPosX = shortcutPos.x;
     const startPosY = shortcutPos.y;
     const startScrollY = window.scrollY;
     let dragging = false;
-    const DRAG_THRESHOLD = 3;
+    const DRAG_THRESHOLD = isTouch ? 8 : 3; // larger threshold for touch
 
-    const onMove = (ev: MouseEvent) => {
-      const dx = ev.clientX - startX;
-      const dy = ev.clientY - startY + (window.scrollY - startScrollY);
-      if (!dragging) {
-        if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) {
-          dragging = true;
-          setIsDraggingShortcut(true);
+    // Long-press for context menu on touch (500ms)
+    if (isTouch) {
+      shortcutLongPressRef.current = setTimeout(() => {
+        if (!dragging) {
+          setIsShortcutSelected(true);
+          const menuW = 180, menuH = 120;
+          const cw = document.documentElement.clientWidth;
+          const ch = window.innerHeight;
+          setContextMenu({
+            x: Math.max(4, Math.min(cw - menuW - 4, startX)),
+            y: Math.max(4, Math.min(ch - menuH - 4, startY)),
+          });
         }
-        return;
-      }
-      // Clamp to viewport bounds (not the small container)
-      const btnW = 70, btnH = 80; // approx shortcut size
-      const vw = window.innerWidth;
+      }, 500);
+    }
+
+    const clampShortcut = (dx: number, dy: number) => {
+      const btnW = 70, btnH = 80;
+      const vw = document.documentElement.clientWidth;
       const vh = window.innerHeight;
-      // The shortcut is centered in the container, so newX/newY are offsets from center
       const container = terminalContainerRef.current;
       if (container) {
         const rect = container.getBoundingClientRect();
@@ -870,29 +937,48 @@ export function HeroSection() {
         const centerY = rect.top + rect.height / 2;
         const newAbsX = centerX + startPosX + dx;
         const newAbsY = centerY + startPosY + dy;
-        // Clamp so the shortcut stays within viewport
         const clampedAbsX = Math.max(btnW / 2, Math.min(vw - btnW / 2, newAbsX));
-        const clampedAbsY = Math.max(56, Math.min(vh - btnH / 2, newAbsY)); // 56 = below navbar
-        setShortcutPos({
-          x: clampedAbsX - centerX,
-          y: clampedAbsY - centerY,
-        });
+        const clampedAbsY = Math.max(56, Math.min(vh - btnH, newAbsY));
+        setShortcutPos({ x: clampedAbsX - centerX, y: clampedAbsY - centerY });
       } else {
         setShortcutPos({ x: startPosX + dx, y: startPosY + dy });
       }
     };
-    const onUp = () => {
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseup", onUp);
+
+    const onMove = (ev: MouseEvent | TouchEvent) => {
+      const cx = 'touches' in ev ? ev.touches[0].clientX : (ev as MouseEvent).clientX;
+      const cy = 'touches' in ev ? ev.touches[0].clientY : (ev as MouseEvent).clientY;
+      const dx = cx - startX;
+      const dy = cy - startY + (window.scrollY - startScrollY);
+      if (!dragging) {
+        if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) {
+          dragging = true;
+          setIsDraggingShortcut(true);
+          // Cancel long-press if we start dragging
+          if (shortcutLongPressRef.current) { clearTimeout(shortcutLongPressRef.current); shortcutLongPressRef.current = null; }
+        }
+        return;
+      }
+      if ('touches' in ev) ev.preventDefault(); // prevent scroll while dragging
+      clampShortcut(dx, dy);
+    };
+    const onEnd = () => {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+      if (shortcutLongPressRef.current) { clearTimeout(shortcutLongPressRef.current); shortcutLongPressRef.current = null; }
       if (dragging) setIsDraggingShortcut(false);
     };
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onEnd);
   };
 
-  // ── Shortcut click logic (select / rename) ──
-  const handleShortcutClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  // ── Shortcut click/tap logic (select / rename) ──
+  const handleShortcutClick = (e: React.MouseEvent | React.TouchEvent) => {
+    if ('stopPropagation' in e) e.stopPropagation();
     if (!isShortcutSelected) {
       setIsShortcutSelected(true);
       return;
@@ -910,6 +996,24 @@ export function HeroSection() {
   const handleShortcutDoubleClick = () => {
     if (shortcutClickTimer.current) clearTimeout(shortcutClickTimer.current);
     handleOpenFromShortcut();
+  };
+
+  // Double-tap detection for touch
+  const lastTapRef = useRef(0);
+  const handleShortcutTouchEnd = (e: React.TouchEvent) => {
+    // Don't handle if it was a drag or long-press
+    if (isDraggingShortcut || contextMenu) return;
+    const now = Date.now();
+    if (now - lastTapRef.current < 300) {
+      // Double-tap → open
+      e.preventDefault();
+      handleShortcutDoubleClick();
+      lastTapRef.current = 0;
+    } else {
+      // Single tap → select
+      lastTapRef.current = now;
+      handleShortcutClick(e);
+    }
   };
 
   const confirmRename = () => {
@@ -964,7 +1068,15 @@ export function HeroSection() {
     e.preventDefault();
     e.stopPropagation();
     setIsShortcutSelected(true);
-    setContextMenu({ x: e.clientX, y: e.clientY });
+    // Clamp context menu so it stays fully within the visible viewport
+    const menuW = 180; // approximate context menu width
+    const menuH = 120; // approximate context menu height
+    const cw = document.documentElement.clientWidth;
+    const ch = window.innerHeight;
+    setContextMenu({
+      x: Math.max(4, Math.min(cw - menuW - 4, e.clientX)),
+      y: Math.max(4, Math.min(ch - menuH - 4, e.clientY)),
+    });
   };
 
   // Context menu actions
@@ -984,13 +1096,34 @@ export function HeroSection() {
   const handleContextMenuProperties = () => {
     const pos = contextMenu;
     setContextMenu(null);
-    if (pos) setShowProperties({ x: pos.x, y: pos.y });
+    if (pos) {
+      // Clamp so the properties dialog is fully visible
+      const dlgW = 320; // approx dialog width (minWidth 280 + padding)
+      const dlgH = 250; // approx dialog height
+      const cw = document.documentElement.clientWidth;
+      const ch = window.innerHeight;
+      setShowProperties({
+        x: Math.max(4, Math.min(cw - dlgW - 4, pos.x)),
+        y: Math.max(4, Math.min(ch - dlgH - 4, pos.y)),
+      });
+    }
   };
 
   // ── Minimize ──
   const handleMinimize = () => {
     if (stateTimerRef.current) clearTimeout(stateTimerRef.current);
     setTerminalState("minimized");
+  };
+
+  // ── Clamp helper: ensure at least MIN_VISIBLE px of header remains visible ──
+  const MIN_VISIBLE = 150; // px of terminal that must stay on-screen
+  const clampPos = (pos: { x: number; y: number }, size: { width: number; height: number }) => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    return {
+      x: Math.max(-(size.width - MIN_VISIBLE), Math.min(vw - MIN_VISIBLE, pos.x)),
+      y: Math.max(0, Math.min(vh - 44, pos.y)), // 44 = header bar height, never hide header below viewport
+    };
   };
 
   // ── Maximize / restore ──
@@ -1003,8 +1136,10 @@ export function HeroSection() {
       setTerminalState("normal");
     } else if (terminalState === "maximized") {
       setTerminalState("normal");
-      setTerminalSize({ ...preFullscreenRef.current.size });
-      setTerminalPos({ ...preFullscreenRef.current.pos });
+      const restoredSize = { ...preFullscreenRef.current.size };
+      const restoredPos = clampPos(preFullscreenRef.current.pos, restoredSize);
+      setTerminalSize(restoredSize);
+      setTerminalPos(restoredPos);
     } else {
       // Save current state before fullscreen
       preFullscreenRef.current = {
@@ -1028,18 +1163,18 @@ export function HeroSection() {
       const restoreSize = preFullscreenRef.current.size;
       setTerminalState("normal");
       setTerminalSize({ ...restoreSize });
-      const newX = clientX - restoreSize.width / 2;
-      const newY = clientY - 20;
-      setTerminalPos({ x: newX, y: newY });
-      dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: newX, posY: newY };
+      const rawPos = { x: clientX - restoreSize.width / 2, y: clientY - 20 };
+      const clamped = clampPos(rawPos, restoreSize);
+      setTerminalPos(clamped);
+      dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: clamped.x, posY: clamped.y };
     } else {
       const el = (e.target as HTMLElement).closest('[data-terminal-window]');
       if (el) {
         const rect = el.getBoundingClientRect();
-        setTerminalPos({ x: rect.left, y: rect.top });
-        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: rect.left, posY: rect.top };
+        const clamped = clampPos({ x: rect.left, y: rect.top }, terminalSize);
+        setTerminalPos(clamped);
+        dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: clamped.x, posY: clamped.y };
       } else {
-        // Coords are already viewport coords since we use position: fixed when undocked
         dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: terminalPos.x, posY: terminalPos.y };
       }
     }
@@ -1057,9 +1192,8 @@ export function HeroSection() {
       const dy = y - dragStartRef.current.mouseY;
       const rawX = dragStartRef.current.posX + dx;
       const rawY = dragStartRef.current.posY + dy;
-      const clampedX = Math.max(-terminalSize.width + 100, Math.min(window.innerWidth - 100, rawX));
-      const clampedY = Math.max(48, Math.min(window.innerHeight - 44, rawY)); // 48 = navbar height
-      setTerminalPos({ x: clampedX, y: clampedY });
+      const clamped = clampPos({ x: rawX, y: rawY }, terminalSize);
+      setTerminalPos(clamped);
       setIsNearEdge(terminalState !== "minimized" && (y <= 48 || x <= 10 || x >= window.innerWidth - 10));
       if (dockZoneRef.current) {
         const dock = dockZoneRef.current.getBoundingClientRect();
@@ -1132,7 +1266,10 @@ export function HeroSection() {
       setTerminalSize({ width: newW, height: newH });
       // Only adjust position for top/left resize when undocked (fixed positioning)
       const wasDocked = resizeStartRef.current.posX === 0 && resizeStartRef.current.posY === 0;
-      if ((d.left || d.top) && !wasDocked) setTerminalPos({ x: newX, y: newY });
+      if ((d.left || d.top) && !wasDocked) {
+        const clamped = clampPos({ x: newX, y: newY }, { width: newW, height: newH });
+        setTerminalPos(clamped);
+      }
     };
     const handleMouseUp = () => setIsResizing(false);
     document.addEventListener("mousemove", handleMouseMove);
@@ -1143,14 +1280,39 @@ export function HeroSection() {
     };
   }, [isResizing]);
 
+  // ── Lock body scroll when maximized ──
+  useEffect(() => {
+    if (terminalState === "maximized") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [terminalState]);
+
+  // ── Re-clamp on window resize so terminal never gets stranded off-screen ──
+  useEffect(() => {
+    const onResize = () => {
+      if (terminalState === "maximized" || isTerminalClosed) return;
+      // Only re-clamp if undocked
+      if (terminalPos.x === 0 && terminalPos.y === 0) return;
+      setTerminalPos((prev) => clampPos(prev, terminalSize));
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [terminalState, isTerminalClosed, terminalSize]);
+
   // ── Terminal style ──
   const getTerminalWrapperStyle = (): React.CSSProperties => {
     if (terminalState === "maximized") {
       return {
         position: "fixed",
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         width: "100vw",
-        height: "100vh",
+        height: "100dvh",
         zIndex: 9999,
       };
     }
@@ -1219,9 +1381,11 @@ export function HeroSection() {
             maxWidth: "95vw",
             height: isTerminalClosed
               ? 120
-              : terminalState === "minimized"
-                ? 44
-                : `${terminalSize.height + 44}px`,
+              : (terminalPos.x !== 0 || terminalPos.y !== 0 || terminalState === "maximized")
+                ? 120 // Terminal is floating (fixed) — keep container compact so page doesn't jump
+                : terminalState === "minimized"
+                  ? 44
+                  : `${terminalSize.height + 44}px`,
           }}
         >
           {/* ── Windows 11 Desktop Shortcut (1:1 daedalOS) ── */}
@@ -1238,7 +1402,8 @@ export function HeroSection() {
                 type="button"
                 className="relative flex cursor-default flex-col items-center outline-none select-none"
                 style={{
-                  transform: `translate(${shortcutPos.x}px, ${shortcutPos.y}px)`,
+                  transform: `translate3d(${shortcutPos.x}px, ${shortcutPos.y}px, 0)`,
+                  willChange: "transform",
                   ...(isDraggingShortcut && { pointerEvents: "none" as const, opacity: 0.7 }),
                   /* StyledFileEntry: padding */
                   padding: "6px 8px",
@@ -1271,9 +1436,11 @@ export function HeroSection() {
                     e.currentTarget.style.outline = "1px solid hsla(207, 60%, 72%, 35%)";
                   }
                 }}
-                onMouseDown={handleShortcutDragStart}
+                onMouseDown={handleShortcutPointerStart}
+                onTouchStart={handleShortcutPointerStart}
                 onClick={handleShortcutClick}
                 onDoubleClick={handleShortcutDoubleClick}
+                onTouchEnd={handleShortcutTouchEnd}
                 onContextMenu={handleShortcutContextMenu}
                 onKeyDown={(e) => {
                   if (e.key === "F2" && isShortcutSelected && !isEditingLabel) {
@@ -1628,7 +1795,7 @@ export function HeroSection() {
             }}
             className={cn(isDragging && "pointer-events-auto")}
           >
-          <Card data-terminal-window className="border-primary relative flex flex-col gap-0 overflow-hidden rounded-lg bg-black/90 p-0 text-left backdrop-blur-sm">
+          <Card data-terminal-window className={cn("border-primary relative flex flex-col gap-0 overflow-hidden bg-black/90 p-0 text-left backdrop-blur-sm", terminalState === "maximized" ? "h-full rounded-none" : "rounded-lg")}>
             {/* ── Header (draggable) ── Win11 Terminal style */}
             <div
               onMouseDown={handleDragStart}
@@ -1638,8 +1805,11 @@ export function HeroSection() {
                 if (terminalState === "minimized") {
                   setTerminalState("normal");
                 } else if (terminalState === "maximized") {
+                  const restoredSize = { ...preFullscreenRef.current.size };
+                  const restoredPos = clampPos(preFullscreenRef.current.pos, restoredSize);
                   setTerminalState("normal");
-                  setTerminalSize({ ...ORIGIN_SIZE });
+                  setTerminalSize(restoredSize);
+                  setTerminalPos(restoredPos);
                 } else {
                   handleMaximize();
                 }
@@ -1709,8 +1879,8 @@ export function HeroSection() {
 
             {/* ── Terminal content ── */}
             {terminalState !== "minimized" && (
-              <div className="relative" style={{
-                height: terminalState === "maximized" ? "calc(100vh - 56px)" : `${terminalSize.height}px`,
+              <div className={cn("relative", terminalState === "maximized" && "flex-1")} style={{
+                ...(terminalState !== "maximized" && { height: `${terminalSize.height}px` }),
               }}>
                 <div
                   ref={terminalScrollRef}
