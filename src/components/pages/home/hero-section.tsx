@@ -626,7 +626,6 @@ function InteractiveTerminal() {
     if (e.key === "l" && e.ctrlKey) {
       e.preventDefault();
       setCommands([]);
-      setInputValue("");
       return;
     }
 
