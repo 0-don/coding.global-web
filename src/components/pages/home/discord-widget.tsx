@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 import { DiscordUser } from "../../elements/discord/discord-user";
 
 interface DiscordWidgetProps {
@@ -17,6 +17,7 @@ interface DiscordWidgetProps {
 
 export function DiscordWidget(props: DiscordWidgetProps) {
   const t = useTranslations();
+  const posthog = usePostHog();
   const { data: widget } = useDiscordWidget();
 
   if (!widget) return null;
