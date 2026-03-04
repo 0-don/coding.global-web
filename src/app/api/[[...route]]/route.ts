@@ -25,6 +25,7 @@ export const app = new Elysia({ prefix: "/api" })
         })
       : (app: Elysia) => app,
   )
+  .get("/health", () => "ok")
   .use(chatRoute)
   .use(botRoute)
   .use(searchRoute)
