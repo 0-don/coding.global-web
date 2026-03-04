@@ -17,8 +17,8 @@ import { filterThreads, getThreadAtoms } from "@/store/thread-store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import type { ComponentProps } from "react";
-import type { IconType } from "react-icons/lib";
+import type { ComponentProps, SVGAttributes, ReactNode } from "react";
+type IconType = (props: SVGAttributes<SVGElement> & { size?: string | number; color?: string; title?: string }) => ReactNode;
 import { RxCross2 } from "react-icons/rx";
 import { VList } from "virtua";
 
