@@ -50,11 +50,18 @@ export async function register() {
             batchSize: 10000,
           });
 
+          // Silence winston's verbose URL logging from indexnow-submitter
+          const { transports } = await import("winston");
+          const originalAdd = transports.Console.prototype.log;
+          transports.Console.prototype.log = function () {};
+
           const localUrl = `http://localhost:${process.env.PORT || 3000}/sitemap.xml`;
           console.log("[IndexNow] Submitting sitemap...");
           await indexNow.submitFromSitemap(localUrl);
           const analytics = indexNow.getAnalytics();
           console.log(`[IndexNow] Done: ${analytics.successfulSubmissions} submitted, ${analytics.failedSubmissions} failed`);
+
+          transports.Console.prototype.log = originalAdd;
         } catch (error) {
           console.error("[IndexNow] Failed:", error);
         }
