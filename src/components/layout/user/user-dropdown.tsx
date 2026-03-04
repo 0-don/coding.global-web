@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSessionHook } from "@/hook/session-hook";
 import { authClient } from "@/lib/auth-client";
+import { queryKeys } from "@/lib/react-query/keys";
+import { useQueryClient } from "@tanstack/react-query";
 import { deleteCookie, getCookies } from "cookies-next/client";
 import { useTranslations } from "next-intl";
 import posthog from "posthog-js";
@@ -40,6 +42,8 @@ export function UserDropdown({
     return null;
   }
 
+  const queryClient = useQueryClient();
+
   const handleLogout = async () => {
     posthog.capture("user_signed_out");
 
@@ -49,7 +53,8 @@ export function UserDropdown({
     );
 
     await authClient.signOut();
-    setTimeout(() => window.location.reload()); // react-query hydration issue workaround
+    await queryClient.invalidateQueries({ queryKey: queryKeys.session() });
+    await queryClient.refetchQueries({ queryKey: queryKeys.session() });
   };
 
   const username = session.data.user.name || "";
