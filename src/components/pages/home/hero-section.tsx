@@ -122,15 +122,15 @@ function TerminalTypewriter({ text, delay = 30 }: { text: string; delay?: number
 // ─── Terminal colored output renderer ────────────────────────────────────────
 // Parses {{color:text}} markers in strings and renders colored spans
 const COLOR_MAP: Record<string, string> = {
-  green: "text-green-400",
-  yellow: "text-yellow-400",
-  cyan: "text-cyan-400",
-  purple: "text-purple-400",
-  red: "text-red-400",
-  orange: "text-orange-400",
-  blue: "text-blue-400",
-  white: "text-white",
-  pink: "text-pink-400",
+  green: "text-emerald-700 dark:text-green-400",
+  yellow: "text-amber-700 dark:text-yellow-400",
+  cyan: "text-cyan-700 dark:text-cyan-400",
+  purple: "text-violet-700 dark:text-purple-400",
+  red: "text-red-700 dark:text-red-400",
+  orange: "text-orange-700 dark:text-orange-400",
+  blue: "text-blue-700 dark:text-blue-400",
+  white: "text-zinc-700 dark:text-white",
+  pink: "text-pink-700 dark:text-pink-400",
 };
 
 function TerminalColoredOutput({ text }: { text: string }) {
@@ -142,7 +142,7 @@ function TerminalColoredOutput({ text }: { text: string }) {
         if (match) {
           const [, color, content] = match;
           return (
-            <span key={i} className={COLOR_MAP[color] || "text-white"}>
+            <span key={i} className={COLOR_MAP[color] || "text-zinc-900 dark:text-white"}>
               {content}
             </span>
           );
@@ -264,32 +264,32 @@ function InteractiveTerminal() {
   const PromptPrefix = () => {
     if (userOS === "mac") return (
       <span className="mr-2 shrink-0 select-none">
-        <span className="text-green-400">{promptUser}</span>
-        <span className="text-white/40">@</span>
-        <span className="text-cyan-400">coding.global</span>
-        <span className="text-white/30"> ~ </span>
-        <span className="text-purple-400">%</span>
+        <span className="text-emerald-700 dark:text-green-400">{promptUser}</span>
+        <span className="text-zinc-500 dark:text-white/40">@</span>
+        <span className="text-cyan-700 dark:text-cyan-400">coding.global</span>
+        <span className="text-zinc-400 dark:text-white/30"> ~ </span>
+        <span className="text-violet-700 dark:text-purple-400">%</span>
       </span>
     );
     if (userOS === "linux") return (
       <span className="mr-2 shrink-0 select-none">
-        <span className="text-white/40">[</span>
-        <span className="text-green-400">{promptUser}</span>
-        <span className="text-white/40">@</span>
-        <span className="text-cyan-400">coding.global</span>
-        <span className="text-white/30"> ~</span>
-        <span className="text-white/40">]</span>
-        <span className="text-white/60">$</span>
+        <span className="text-zinc-500 dark:text-white/40">[</span>
+        <span className="text-emerald-700 dark:text-green-400">{promptUser}</span>
+        <span className="text-zinc-500 dark:text-white/40">@</span>
+        <span className="text-cyan-700 dark:text-cyan-400">coding.global</span>
+        <span className="text-zinc-400 dark:text-white/30"> ~</span>
+        <span className="text-zinc-500 dark:text-white/40">]</span>
+        <span className="text-zinc-600 dark:text-white/60">$</span>
       </span>
     );
     // Windows default
     return (
       <span className="mr-2 shrink-0 select-none">
-        <span className="text-white">coding</span>
-        <span className="text-red-500">.global</span>
-        <span className="text-white/50">\</span>
-        <span className="text-yellow-400">{promptUser}</span>
-        <span className="text-white/40">&gt;</span>
+        <span className="text-zinc-900 dark:text-white">coding</span>
+        <span className="text-red-600 dark:text-red-500">.global</span>
+        <span className="text-zinc-500 dark:text-white/50">\</span>
+        <span className="text-amber-700 dark:text-yellow-400">{promptUser}</span>
+        <span className="text-zinc-500 dark:text-white/40">&gt;</span>
       </span>
     );
   };
@@ -298,6 +298,42 @@ function InteractiveTerminal() {
   const suggestion = getAutocompleteSuggestion(inputValue);
   const ghostText =
     suggestion && inputValue ? suggestion.slice(inputValue.length) : "";
+
+  const getSystemInfoOutput = () => {
+    if (typeof window === "undefined" || typeof navigator === "undefined") {
+      return "{{red:System info is only available in the browser.}}";
+    }
+
+    const ua = navigator.userAgent;
+    let os = "Unknown";
+    let device = "Desktop";
+
+    if (/iPhone|iPad|iPod/.test(ua)) {
+      os = "iOS";
+      device = /iPad/.test(ua) ? "Tablet" : "Mobile";
+    } else if (/Android/.test(ua)) {
+      os = "Android";
+      device = /Mobile/.test(ua) ? "Mobile" : "Tablet";
+    } else if (/Mac/.test(ua)) {
+      os = "macOS";
+    } else if (/Win/.test(ua)) {
+      os = "Windows";
+    } else if (/Linux/.test(ua)) {
+      os = "Linux";
+    }
+
+    let browser = "Unknown";
+    if (/Edg\//.test(ua)) browser = "Edge";
+    else if (/Chrome\//.test(ua)) browser = "Chrome";
+    else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
+    else if (/Firefox\//.test(ua)) browser = "Firefox";
+
+    const w = window.screen.width;
+    const h = window.screen.height;
+    const touch = "ontouchstart" in window ? "Yes" : "No";
+
+    return `{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`;
+  };
 
   // Static commands
   const staticCommands: Record<string, string> = {
@@ -310,25 +346,7 @@ function InteractiveTerminal() {
     "/usercount": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
     "/discord": `Join our Discord: {{cyan:${discordLink}}}\nConnect with developers from around the world!`,
     "/clear": "CLEAR_COMMAND",
-    "/os": (() => {
-      const ua = navigator.userAgent;
-      let os = "Unknown";
-      let device = "Desktop";
-      if (/iPhone|iPad|iPod/.test(ua)) { os = "iOS"; device = /iPad/.test(ua) ? "Tablet" : "Mobile"; }
-      else if (/Android/.test(ua)) { os = "Android"; device = /Mobile/.test(ua) ? "Mobile" : "Tablet"; }
-      else if (/Mac/.test(ua)) os = "macOS";
-      else if (/Win/.test(ua)) os = "Windows";
-      else if (/Linux/.test(ua)) os = "Linux";
-      let browser = "Unknown";
-      if (/Edg\//.test(ua)) browser = "Edge";
-      else if (/Chrome\//.test(ua)) browser = "Chrome";
-      else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
-      else if (/Firefox\//.test(ua)) browser = "Firefox";
-      const w = window.screen.width;
-      const h = window.screen.height;
-      const touch = "ontouchstart" in window ? "Yes" : "No";
-      return `{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`;
-    })(),
+    "/os": "OS_COMMAND",
     "/login": isLoggedIn
       ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile or {{cyan:/logout}} to sign out.`
       : "LOGIN_COMMAND",
@@ -609,6 +627,10 @@ function InteractiveTerminal() {
         }
         return;
       }
+      if (staticCommands[baseCmd] === "OS_COMMAND") {
+        addOutput(getSystemInfoOutput());
+        return;
+      }
       addOutput(staticCommands[baseCmd]);
       return;
     }
@@ -694,7 +716,7 @@ function InteractiveTerminal() {
   return (
     <div
       ref={terminalRef}
-      className="h-full space-y-1 font-mono text-sm"
+      className="h-full space-y-1 font-mono text-sm text-zinc-900 dark:text-zinc-100"
     >
       {commands.map((cmd) => (
         <div key={cmd.id} className="space-y-0.5">
@@ -710,10 +732,10 @@ function InteractiveTerminal() {
           )}
           {cmd.output && (
             <div
-              className="text-muted-foreground text-sm whitespace-pre-line"
+              className="text-sm text-zinc-700 whitespace-pre-line dark:text-zinc-300"
             >
               {cmd.output === LOADING_MARKER ? (
-                <span className="text-muted-foreground inline-flex gap-0.5 text-sm">
+                <span className="inline-flex gap-0.5 text-sm text-zinc-500 dark:text-zinc-400">
                   <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0 }}>.</motion.span>
                   <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.2 }}>.</motion.span>
                   <motion.span animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.4 }}>.</motion.span>
@@ -742,7 +764,7 @@ function InteractiveTerminal() {
                 setHistoryIndex(-1);
               }}
               onKeyDown={handleKeyDown}
-              className="relative z-10 w-full bg-transparent outline-none"
+              className="relative z-10 w-full bg-transparent text-zinc-900 outline-none placeholder:text-zinc-400 dark:text-zinc-100 dark:placeholder:text-zinc-500"
               placeholder={
                 commands.length <= 1 ? "Type /help for commands..." : ""
               }
@@ -872,7 +894,8 @@ export function HeroSection() {
   const handleOpenFromShortcut = () => {
     setIsTerminalClosed(false);
     setTerminalState("normal");
-    setTerminalSize({ ...ORIGIN_SIZE });
+    const initialSize = clampSize({ ...ORIGIN_SIZE }, { x: 0, y: 0 });
+    setTerminalSize(initialSize);
 
     const container = terminalContainerRef.current;
     if (container) {
@@ -892,13 +915,9 @@ export function HeroSection() {
         setTerminalPos({ ...ORIGIN_POS });
       } else {
         // Open at the shortcut's position
-        const termX = iconAbsX - ORIGIN_SIZE.width / 2;
-        const termY = iconAbsY - ORIGIN_SIZE.height / 2;
-        const vw = document.documentElement.clientWidth;
-        const vh = window.innerHeight;
-        const clampedX = Math.max(0, Math.min(vw - ORIGIN_SIZE.width, termX));
-        const clampedY = Math.max(0, Math.min(vh - 44, termY));
-        setTerminalPos({ x: clampedX, y: clampedY });
+        const termX = iconAbsX - initialSize.width / 2;
+        const termY = iconAbsY - (initialSize.height + TERMINAL_HEADER_HEIGHT) / 2;
+        setTerminalPos(clampPos({ x: termX, y: termY }, initialSize));
       }
     } else {
       setTerminalPos({ ...ORIGIN_POS });
@@ -1128,14 +1147,59 @@ export function HeroSection() {
     setTerminalState("minimized");
   };
 
-  // ── Clamp helper: ensure at least MIN_VISIBLE px of header remains visible ──
-  const MIN_VISIBLE = 150; // px of terminal that must stay on-screen
-  const clampPos = (pos: { x: number; y: number }, size: { width: number; height: number }) => {
+  // ── Clamp helpers: keep terminal fully inside viewport ──
+  const TERMINAL_HEADER_HEIGHT = 44;
+  const TERMINAL_TOP_SAFE = 48; // matches fixed navbar height (h-12)
+  const TERMINAL_MIN_WIDTH = 400;
+  const TERMINAL_MIN_HEIGHT = 250;
+  const TERMINAL_MAX_WIDTH = 1600;
+
+  const getRenderedWidth = (width: number) =>
+    Math.min(width, Math.floor(window.innerWidth * 0.95));
+
+  const clampSize = (
+    size: { width: number; height: number },
+    pos: { x: number; y: number },
+  ) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
+    const safeX = Math.max(0, pos.x);
+    const safeY = Math.max(TERMINAL_TOP_SAFE, pos.y);
+
+    const maxWidth = Math.min(
+      TERMINAL_MAX_WIDTH,
+      Math.floor(vw * 0.95),
+      Math.max(1, vw - safeX),
+    );
+    const minWidth = Math.min(TERMINAL_MIN_WIDTH, maxWidth);
+
+    const maxHeight = Math.max(1, vh - safeY - TERMINAL_HEADER_HEIGHT);
+    const minHeight = Math.min(TERMINAL_MIN_HEIGHT, maxHeight);
+
     return {
-      x: Math.max(-(size.width - MIN_VISIBLE), Math.min(vw - MIN_VISIBLE, pos.x)),
-      y: Math.max(0, Math.min(vh - 44, pos.y)), // 44 = header bar height, never hide header below viewport
+      width: Math.max(minWidth, Math.min(maxWidth, size.width)),
+      height: Math.max(minHeight, Math.min(maxHeight, size.height)),
+    };
+  };
+
+  const clampPos = (
+    pos: { x: number; y: number },
+    size: { width: number; height: number },
+    options?: { minimized?: boolean },
+  ) => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const renderedWidth = getRenderedWidth(size.width);
+    const renderedHeight = options?.minimized
+      ? TERMINAL_HEADER_HEIGHT
+      : size.height + TERMINAL_HEADER_HEIGHT;
+    const maxX = Math.max(0, vw - renderedWidth);
+    const minY = Math.min(TERMINAL_TOP_SAFE, Math.max(0, vh - renderedHeight));
+    const maxY = Math.max(minY, vh - renderedHeight);
+
+    return {
+      x: Math.max(0, Math.min(maxX, pos.x)),
+      y: Math.max(minY, Math.min(maxY, pos.y)),
     };
   };
 
@@ -1149,7 +1213,10 @@ export function HeroSection() {
       setTerminalState("normal");
     } else if (terminalState === "maximized") {
       setTerminalState("normal");
-      const restoredSize = { ...preFullscreenRef.current.size };
+      const restoredSize = clampSize(
+        { ...preFullscreenRef.current.size },
+        preFullscreenRef.current.pos,
+      );
       const restoredPos = clampPos(preFullscreenRef.current.pos, restoredSize);
       setTerminalSize(restoredSize);
       setTerminalPos(restoredPos);
@@ -1173,7 +1240,7 @@ export function HeroSection() {
     setIsDragging(true);
 
     if (terminalState === "maximized") {
-      const restoreSize = preFullscreenRef.current.size;
+      const restoreSize = clampSize(preFullscreenRef.current.size, { x: 0, y: 0 });
       setTerminalState("normal");
       setTerminalSize({ ...restoreSize });
       const rawPos = { x: clientX - restoreSize.width / 2, y: clientY - 20 };
@@ -1184,7 +1251,11 @@ export function HeroSection() {
       const el = (e.target as HTMLElement).closest('[data-terminal-window]');
       if (el) {
         const rect = el.getBoundingClientRect();
-        const clamped = clampPos({ x: rect.left, y: rect.top }, terminalSize);
+        const clamped = clampPos(
+          { x: rect.left, y: rect.top },
+          terminalSize,
+          { minimized: terminalState === "minimized" },
+        );
         setTerminalPos(clamped);
         dragStartRef.current = { mouseX: clientX, mouseY: clientY, posX: clamped.x, posY: clamped.y };
       } else {
@@ -1205,13 +1276,19 @@ export function HeroSection() {
       const dy = y - dragStartRef.current.mouseY;
       const rawX = dragStartRef.current.posX + dx;
       const rawY = dragStartRef.current.posY + dy;
-      const clamped = clampPos({ x: rawX, y: rawY }, terminalSize);
+      const clamped = clampPos(
+        { x: rawX, y: rawY },
+        terminalSize,
+        { minimized: terminalState === "minimized" },
+      );
       setTerminalPos(clamped);
       setIsNearEdge(terminalState !== "minimized" && (y <= 48 || x <= 10 || x >= window.innerWidth - 10));
       if (dockZoneRef.current) {
         const dock = dockZoneRef.current.getBoundingClientRect();
-        const visibleHeight = terminalState === "minimized" ? 44 : terminalSize.height;
-        const centerX = (dragStartRef.current.posX + dx) + terminalSize.width / 2;
+        const visibleHeight = terminalState === "minimized"
+          ? TERMINAL_HEADER_HEIGHT
+          : terminalSize.height + TERMINAL_HEADER_HEIGHT;
+        const centerX = (dragStartRef.current.posX + dx) + getRenderedWidth(terminalSize.width) / 2;
         const centerY = (dragStartRef.current.posY + dy) + visibleHeight / 2;
         const dockCenterX = dock.left + dock.width / 2;
         const dockCenterY = dock.top + dock.height / 2;
@@ -1264,23 +1341,24 @@ export function HeroSection() {
       let newX = resizeStartRef.current.posX;
       let newY = resizeStartRef.current.posY;
 
-      if (d.right) newW = Math.max(400, Math.min(1600, resizeStartRef.current.width + dx));
+      if (d.right) newW = resizeStartRef.current.width + dx;
       if (d.left) {
-        newW = Math.max(400, Math.min(1600, resizeStartRef.current.width - dx));
+        newW = resizeStartRef.current.width - dx;
         newX = resizeStartRef.current.posX + (resizeStartRef.current.width - newW);
       }
-      const maxH = window.innerHeight - 60; // navbar height (~48px) + padding
-      if (d.bottom) newH = Math.max(250, Math.min(maxH, resizeStartRef.current.height + dy));
+      if (d.bottom) newH = resizeStartRef.current.height + dy;
       if (d.top) {
-        newH = Math.max(250, Math.min(maxH, resizeStartRef.current.height - dy));
-        newY = Math.max(48, resizeStartRef.current.posY + (resizeStartRef.current.height - newH)); // don't go above navbar
+        newH = resizeStartRef.current.height - dy;
+        newY = resizeStartRef.current.posY + (resizeStartRef.current.height - newH);
       }
 
-      setTerminalSize({ width: newW, height: newH });
-      // Only adjust position for top/left resize when undocked (fixed positioning)
       const wasDocked = resizeStartRef.current.posX === 0 && resizeStartRef.current.posY === 0;
-      if ((d.left || d.top) && !wasDocked) {
-        const clamped = clampPos({ x: newX, y: newY }, { width: newW, height: newH });
+      const nextPos = wasDocked ? { ...ORIGIN_POS } : { x: newX, y: newY };
+      const nextSize = clampSize({ width: newW, height: newH }, nextPos);
+      setTerminalSize(nextSize);
+
+      if (!wasDocked) {
+        const clamped = clampPos({ x: newX, y: newY }, nextSize);
         setTerminalPos(clamped);
       }
     };
@@ -1307,13 +1385,26 @@ export function HeroSection() {
   useEffect(() => {
     const onResize = () => {
       if (terminalState === "maximized" || isTerminalClosed) return;
-      // Only re-clamp if undocked
-      if (terminalPos.x === 0 && terminalPos.y === 0) return;
-      setTerminalPos((prev) => clampPos(prev, terminalSize));
+      const minimized = terminalState === "minimized";
+      const sizeForViewport =
+        terminalPos.x === 0 && terminalPos.y === 0
+          ? terminalSize
+          : clampSize(terminalSize, terminalPos);
+
+      if (
+        sizeForViewport.width !== terminalSize.width
+        || sizeForViewport.height !== terminalSize.height
+      ) {
+        setTerminalSize(sizeForViewport);
+      }
+
+      if (terminalPos.x !== 0 || terminalPos.y !== 0) {
+        setTerminalPos((prev) => clampPos(prev, sizeForViewport, { minimized }));
+      }
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [terminalState, isTerminalClosed, terminalSize]);
+  }, [terminalState, isTerminalClosed, terminalSize, terminalPos]);
 
   // ── Terminal style ──
   const getTerminalWrapperStyle = (): React.CSSProperties => {
@@ -1394,8 +1485,8 @@ export function HeroSection() {
             maxWidth: "95vw",
             height: isTerminalClosed
               ? 120
-              : (terminalPos.x !== 0 || terminalPos.y !== 0 || terminalState === "maximized")
-                ? 120 // Terminal is floating (fixed) — keep container compact so page doesn't jump
+              : terminalState === "maximized"
+                ? 120 // Maximized terminal is fixed, keep hero layout compact
                 : terminalState === "minimized"
                   ? 44
                   : `${terminalSize.height + 44}px`,
@@ -1808,7 +1899,7 @@ export function HeroSection() {
             }}
             className={cn(isDragging && "pointer-events-auto")}
           >
-          <Card data-terminal-window className={cn("border-primary relative flex flex-col gap-0 overflow-hidden bg-black/90 p-0 text-left backdrop-blur-sm", terminalState === "maximized" ? "h-full rounded-none" : "rounded-lg")}>
+          <Card data-terminal-window className={cn("relative flex flex-col gap-0 overflow-hidden border-zinc-300 bg-white/95 p-0 text-left shadow-xl backdrop-blur-sm dark:border-primary dark:bg-black/90", terminalState === "maximized" ? "h-full rounded-none" : "rounded-lg")}>
             {/* ── Header (draggable) ── Win11 Terminal style */}
             <div
               onMouseDown={handleDragStart}
@@ -1818,7 +1909,10 @@ export function HeroSection() {
                 if (terminalState === "minimized") {
                   setTerminalState("normal");
                 } else if (terminalState === "maximized") {
-                  const restoredSize = { ...preFullscreenRef.current.size };
+                  const restoredSize = clampSize(
+                    { ...preFullscreenRef.current.size },
+                    preFullscreenRef.current.pos,
+                  );
                   const restoredPos = clampPos(preFullscreenRef.current.pos, restoredSize);
                   setTerminalState("normal");
                   setTerminalSize(restoredSize);
@@ -1828,7 +1922,7 @@ export function HeroSection() {
                 }
               }}
               className={cn(
-                "flex shrink-0 items-center justify-between rounded-t-lg border-b border-white/5 bg-[#1e1e1e] px-3 py-2",
+                "flex shrink-0 items-center justify-between rounded-t-lg border-b border-zinc-200 bg-zinc-100/95 px-3 py-2 dark:border-white/5 dark:bg-[#1e1e1e]",
                 terminalState !== "maximized" && "cursor-grab",
                 isDragging && "cursor-grabbing",
               )}
@@ -1842,24 +1936,24 @@ export function HeroSection() {
                     <button onClick={handleMaximize} className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors" aria-label="Maximize" />
                   </div>
                   {/* Center title */}
-                  <span className="text-[13px] text-white/50 font-medium select-none absolute left-1/2 -translate-x-1/2">{promptUser}@coding.global</span>
+                  <span className="absolute left-1/2 -translate-x-1/2 select-none text-[13px] font-medium text-zinc-500 dark:text-white/50">{promptUser}@coding.global</span>
                   <div />
                 </>
               ) : userOS === "linux" ? (
                 <>
                   {/* Linux — minimal left title */}
                   <div className="flex items-center gap-2 select-none">
-                    <span className="text-[13px] text-white/50 font-medium">{promptUser}@coding.global: ~</span>
+                    <span className="text-[13px] font-medium text-zinc-500 dark:text-white/50">{promptUser}@coding.global: ~</span>
                   </div>
                   {/* Right: simple controls */}
                   <div className="flex items-center gap-1">
-                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-7 w-7 items-center justify-center rounded transition-colors", terminalState === "minimized" ? "text-white/15" : "text-white/50 hover:bg-white/10")} aria-label="Minimize">
+                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-7 w-7 items-center justify-center rounded transition-colors", terminalState === "minimized" ? "cursor-not-allowed text-zinc-300 dark:text-white/15" : "text-zinc-500 hover:bg-zinc-200 dark:text-white/50 dark:hover:bg-white/10")} aria-label="Minimize">
                       <svg width="8" height="1" viewBox="0 0 8 1"><rect width="8" height="1" fill="currentColor"/></svg>
                     </button>
-                    <button onClick={handleMaximize} className="flex h-7 w-7 items-center justify-center rounded text-white/50 transition-colors hover:bg-white/10" aria-label="Maximize">
+                    <button onClick={handleMaximize} className="flex h-7 w-7 items-center justify-center rounded text-zinc-500 transition-colors hover:bg-zinc-200 dark:text-white/50 dark:hover:bg-white/10" aria-label="Maximize">
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="7" height="7" rx="0.5"/></svg>
                     </button>
-                    <button onClick={handleClose} className="flex h-7 w-7 items-center justify-center rounded transition-colors text-white/50 hover:bg-red-500/80 hover:text-white" aria-label="Close">
+                    <button onClick={handleClose} className="flex h-7 w-7 items-center justify-center rounded text-zinc-500 transition-colors hover:bg-red-500/80 hover:text-white dark:text-white/50" aria-label="Close">
                       <svg width="8" height="8" viewBox="0 0 8 8" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="7" y2="7"/><line x1="7" y1="1" x2="1" y2="7"/></svg>
                     </button>
                   </div>
@@ -1869,20 +1963,20 @@ export function HeroSection() {
                   {/* Windows — Win11 style */}
                   <div className="flex items-center gap-2 select-none">
                     <span className="text-primary text-xs font-bold">{">"}_</span>
-                    <span className="text-[13px] text-white/60 font-medium">Terminal</span>
+                    <span className="text-[13px] font-medium text-zinc-600 dark:text-white/60">Terminal</span>
                   </div>
                   <div className="flex items-center">
-                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-8 w-11 items-center justify-center transition-colors", terminalState === "minimized" ? "text-white/15 cursor-not-allowed" : "text-white/50 hover:bg-white/10 hover:text-white/80")} aria-label="Minimize">
+                    <button onClick={handleMinimize} disabled={terminalState === "minimized"} className={cn("flex h-8 w-11 items-center justify-center transition-colors", terminalState === "minimized" ? "cursor-not-allowed text-zinc-300 dark:text-white/15" : "text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700 dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80")} aria-label="Minimize">
                       <svg width="10" height="1" viewBox="0 0 10 1"><rect width="10" height="1" fill="currentColor"/></svg>
                     </button>
-                    <button onClick={handleMaximize} className="flex h-8 w-11 items-center justify-center text-white/50 transition-colors hover:bg-white/10 hover:text-white/80" aria-label="Maximize">
+                    <button onClick={handleMaximize} className="flex h-8 w-11 items-center justify-center text-zinc-500 transition-colors hover:bg-zinc-200 hover:text-zinc-700 dark:text-white/50 dark:hover:bg-white/10 dark:hover:text-white/80" aria-label="Maximize">
                       {terminalState === "maximized" ? (
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2.5" y="0.5" width="7" height="7" rx="0.5"/><rect x="0.5" y="2.5" width="7" height="7" rx="0.5"/></svg>
                       ) : (
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1"><rect x="0.5" y="0.5" width="9" height="9" rx="0.5"/></svg>
                       )}
                     </button>
-                    <button onClick={handleClose} className="flex h-8 w-11 items-center justify-center rounded-tr-lg transition-colors text-white/50 hover:bg-red-500/90 hover:text-white" aria-label="Close">
+                    <button onClick={handleClose} className="flex h-8 w-11 items-center justify-center rounded-tr-lg text-zinc-500 transition-colors hover:bg-red-500/90 hover:text-white dark:text-white/50" aria-label="Close">
                       <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
                     </button>
                   </div>
@@ -1932,7 +2026,7 @@ export function HeroSection() {
                     }}
                   >
                     <div
-                      className="absolute right-0.5 rounded-full bg-white/20 hover:bg-white/50 active:bg-white/60"
+                      className="absolute right-0.5 rounded-full bg-zinc-400/40 hover:bg-zinc-500/50 active:bg-zinc-600/60 dark:bg-white/20 dark:hover:bg-white/50 dark:active:bg-white/60"
                       style={{
                         width: 3,
                         height: scrollThumb.thumbH,
