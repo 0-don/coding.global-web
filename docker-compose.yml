@@ -22,6 +22,7 @@ services:
       - "traefik.http.routers.coding-global-web.rule=Host(`coding.global`) || Host(`www.coding.global`)"
       - "traefik.http.routers.coding-global-web.entrypoints=websecure"
       - "traefik.http.routers.coding-global-web.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.coding-global-web.middlewares=inflight-limit@file,circuit-breaker@file"
       - "traefik.http.routers.coding-global-web.service=coding-global-web"
       - "traefik.http.services.coding-global-web.loadbalancer.server.port=3000"
       # PostHog reverse proxy via Traefik (replaces separate nginx container)
