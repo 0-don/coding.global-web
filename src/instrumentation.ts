@@ -50,8 +50,9 @@ export async function register() {
             batchSize: 10000,
           });
 
+          const localUrl = `http://localhost:${process.env.PORT || 3000}/sitemap.xml`;
           console.log("[IndexNow] Submitting sitemap...");
-          await indexNow.submitFromSitemap(`${siteUrl}/sitemap.xml`);
+          await indexNow.submitFromSitemap(localUrl);
           const analytics = indexNow.getAnalytics();
           console.log(`[IndexNow] Done: ${analytics.successfulSubmissions} submitted, ${analytics.failedSubmissions} failed`);
         } catch (error) {
