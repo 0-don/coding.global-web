@@ -311,25 +311,7 @@ function InteractiveTerminal() {
     "/usercount": `{{yellow:Community Stats:}}\n  • {{cyan:${memberCount}}} Members\n  • {{green:${onlineCount}}} Online\n  • {{purple:${totalMessages}}} Messages\n  • {{orange:${voiceHours}}} Voice Hours`,
     "/discord": `Join our Discord: {{cyan:${discordLink}}}\nConnect with developers from around the world!`,
     "/clear": "CLEAR_COMMAND",
-    "/os": (() => {
-      const ua = navigator.userAgent;
-      let os = "Unknown";
-      let device = "Desktop";
-      if (/iPhone|iPad|iPod/.test(ua)) { os = "iOS"; device = /iPad/.test(ua) ? "Tablet" : "Mobile"; }
-      else if (/Android/.test(ua)) { os = "Android"; device = /Mobile/.test(ua) ? "Mobile" : "Tablet"; }
-      else if (/Mac/.test(ua)) os = "macOS";
-      else if (/Win/.test(ua)) os = "Windows";
-      else if (/Linux/.test(ua)) os = "Linux";
-      let browser = "Unknown";
-      if (/Edg\//.test(ua)) browser = "Edge";
-      else if (/Chrome\//.test(ua)) browser = "Chrome";
-      else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
-      else if (/Firefox\//.test(ua)) browser = "Firefox";
-      const w = window.screen.width;
-      const h = window.screen.height;
-      const touch = "ontouchstart" in window ? "Yes" : "No";
-      return `{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`;
-    })(),
+    "/os": "OS_COMMAND",
     "/login": isLoggedIn
       ? `{{green:Already logged in as}} {{cyan:${discordUsername || "User"}}}\nType {{cyan:/me}} to view your profile or {{cyan:/logout}} to sign out.`
       : "LOGIN_COMMAND",
@@ -569,6 +551,26 @@ function InteractiveTerminal() {
           }]);
           addOutput("{{green:Successfully signed out.}} Type {{cyan:/login}} to sign in again.");
         }, 500);
+        return;
+      }
+      if (staticCommands[baseCmd] === "OS_COMMAND") {
+        const ua = navigator.userAgent;
+        let os = "Unknown";
+        let device = "Desktop";
+        if (/iPhone|iPad|iPod/.test(ua)) { os = "iOS"; device = /iPad/.test(ua) ? "Tablet" : "Mobile"; }
+        else if (/Android/.test(ua)) { os = "Android"; device = /Mobile/.test(ua) ? "Mobile" : "Tablet"; }
+        else if (/Mac/.test(ua)) os = "macOS";
+        else if (/Win/.test(ua)) os = "Windows";
+        else if (/Linux/.test(ua)) os = "Linux";
+        let browser = "Unknown";
+        if (/Edg\//.test(ua)) browser = "Edge";
+        else if (/Chrome\//.test(ua)) browser = "Chrome";
+        else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = "Safari";
+        else if (/Firefox\//.test(ua)) browser = "Firefox";
+        const w = window.screen.width;
+        const h = window.screen.height;
+        const touch = "ontouchstart" in window ? "Yes" : "No";
+        addOutput(`{{yellow:System Info:}}\n  {{cyan:OS}}         {{white:${os}}}\n  {{cyan:Device}}     {{white:${device}}}\n  {{cyan:Browser}}    {{white:${browser}}}\n  {{cyan:Screen}}     {{white:${w}×${h}}}\n  {{cyan:Language}}   {{white:${navigator.language}}}\n  {{cyan:Touch}}      {{white:${touch}}}\n  {{cyan:Cores}}      {{white:${navigator.hardwareConcurrency || "?"}}}`);
         return;
       }
       if (staticCommands[baseCmd] === "ME_ASYNC") {
