@@ -55,7 +55,7 @@ export async function register() {
           const originalAdd = transports.Console.prototype.log;
           transports.Console.prototype.log = function () {};
 
-          const localUrl = `http://localhost:${process.env.PORT || 3000}/sitemap.xml`;
+          const localUrl = `http://0.0.0.0:${process.env.PORT || 3000}/sitemap.xml`;
           console.log("[IndexNow] Submitting sitemap...");
           await indexNow.submitFromSitemap(localUrl);
           const analytics = indexNow.getAnalytics();
