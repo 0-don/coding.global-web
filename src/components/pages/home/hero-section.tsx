@@ -8,7 +8,7 @@ import { getDiscordInviteLink } from "@/lib/utils/base";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 import { useEffect, useRef, useState } from "react";
 
 function TypewriterText({
@@ -104,6 +104,7 @@ function TypewriterText({
 
 function InteractiveTerminal() {
   const t = useTranslations();
+  const posthog = usePostHog();
   const [commands, setCommands] = useState<
     Array<{ command: string; output: string; id: number; isUser?: boolean }>
   >([]);
@@ -312,6 +313,7 @@ function InteractiveTerminal() {
 
 export function HeroSection() {
   const t = useTranslations();
+  const posthog = usePostHog();
   const [terminalState, setTerminalState] = useState<
     "normal" | "maximized" | "minimized" | "closed"
   >("normal");

@@ -6,11 +6,12 @@ import { cn } from "@/lib/utils";
 import { getDiscordInviteLink } from "@/lib/utils/base";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 import { useRef } from "react";
 
 export function CtaSection() {
   const t = useTranslations();
+  const posthog = usePostHog();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
