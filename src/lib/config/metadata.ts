@@ -7,7 +7,7 @@ export async function getPageMetadata(
   params: MetadataParams,
 ): Promise<Metadata> {
   const canonicalPath = params.path || `/${params.locale}`;
-  const ogImageUrl = params.ogImage || "/images/logo.gif";
+  const ogImageUrl = params.ogImage || "/images/last-frame-coding.png";
   const shouldIndex = params.robots ?? true;
 
   return {
@@ -39,8 +39,8 @@ export async function getPageMetadata(
           url: ogImageUrl,
           alt: params.title,
           type: "image/png",
-          width: 512,
-          height: 512,
+          width: 960,
+          height: 540,
         },
       ],
     },
@@ -53,8 +53,8 @@ export async function getPageMetadata(
           url: ogImageUrl,
           alt: params.title,
           type: "image/png",
-          width: 512,
-          height: 512,
+          width: 960,
+          height: 540,
         },
       ],
     },
