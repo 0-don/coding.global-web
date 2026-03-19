@@ -100,7 +100,7 @@ export default function Navbar() {
                           className={cn(
                             "bg-transparent",
                             isActive &&
-                              "bg-primary text-primary-foreground hover:bg-primary/90 focus:bg-primary/90 data-open:bg-primary/90",
+                              "bg-primary! text-primary-foreground! hover:bg-primary/90! focus:bg-primary/90!",
                           )}
                         >
                           {t(item.name)}
