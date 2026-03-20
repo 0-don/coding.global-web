@@ -2,8 +2,8 @@ services:
   coding-global-web:
     container_name: coding-global-web
     restart: always
-    mem_limit: 2g
-    memswap_limit: 2g
+    mem_limit: 4g
+    memswap_limit: 4g
     build:
       context: ./
       dockerfile: Dockerfile
