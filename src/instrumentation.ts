@@ -15,7 +15,7 @@ export async function register() {
           const indexNow = new IndexNowSubmitter({
             key,
             host: new URL(siteUrl).host,
-            keyPath: `${siteUrl}/${key}.txt`,
+            keyLocation: `${siteUrl}/${key}.txt`,
             batchSize: 10000,
           });
 
