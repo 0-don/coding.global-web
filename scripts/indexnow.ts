@@ -11,7 +11,7 @@ async function submitToIndexNow() {
   const indexNow = new IndexNowSubmitter({
     key: INDEXNOW_KEY,
     host: new URL(SITE_URL).host,
-    keyPath: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
+    keyLocation: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
     batchSize: 10000,
   });
 
