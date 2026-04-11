@@ -34,7 +34,7 @@ export function UnoRouterBadge(props: UnoRouterBadgeProps) {
   const { resolvedTheme } = useTheme();
 
   const theme = resolvedTheme === "light" ? "light" : "dark";
-  const src = `${UNOROUTER_URL}/api/badge/${props.badge}?theme=${theme}&locale=${locale}&size=compact`;
+  const src = `${UNOROUTER_URL}/api/badge/${props.badge}?theme=${theme}&locale=${locale}&size=sm`;
 
   return (
     <a
