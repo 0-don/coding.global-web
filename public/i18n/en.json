@@ -104,7 +104,8 @@
       "UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Get Repository"
+      "GET_REPOSITORY": "Get Repository",
+      "AI_API": "AI API"
     },
     "MANIFEST": {
       "DESCRIPTION": "Your premier destination for coding resources and community",
@@ -1094,5 +1095,10 @@
       "OPEN_IN_DISCORD": "Open in Discord",
       "CONTACT_ME": "Contact me"
     }
+  },
+  "UNOROUTER": {
+    "BADGE_ALT": "UnoRouter AI API",
+    "AI_ASSISTANTS_PROMO_TITLE": "Unified AI API Access",
+    "AI_ASSISTANTS_PROMO_DESC": "Access 200+ AI models from 35+ providers through a single API. Pay per token with no subscriptions."
   }
 }

@@ -104,7 +104,8 @@
       "UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Repository abrufen"
+      "GET_REPOSITORY": "Repository abrufen",
+      "AI_API": "KI API"
     },
     "MANIFEST": {
       "DESCRIPTION": "Ihre erstklassige Anlaufstelle für Coding-Ressourcen und Community",
@@ -969,5 +970,10 @@
       "OPEN_IN_DISCORD": "In Discord öffnen",
       "CONTACT_ME": "Kontaktiere mich"
     }
+  },
+  "UNOROUTER": {
+    "BADGE_ALT": "UnoRouter KI API",
+    "AI_ASSISTANTS_PROMO_TITLE": "Einheitlicher KI API Zugang",
+    "AI_ASSISTANTS_PROMO_DESC": "Zugriff auf 200+ KI Modelle von 35+ Anbietern über eine einzige API. Zahle pro Token ohne Abonnement."
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { createTOC } from "@/components/layout/resources/toc";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import {
   Card,
   CardDescription,
@@ -221,6 +222,10 @@ export function AiAssistants() {
       <p className="text-muted-foreground mb-8">
         {t("RESOURCES.AI_ASSISTANTS.DESCRIPTION")}
       </p>
+
+      <section className="mb-12">
+        <UnoRouterBadge badge="sponsor" className="mx-auto" />
+      </section>
 
       <section id="chatbots" className="mb-12 scroll-mt-20">
         <h2 className="mb-4 text-2xl font-semibold">

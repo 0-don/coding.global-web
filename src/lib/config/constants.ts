@@ -2,6 +2,11 @@ import { DE, US } from "country-flag-icons/react/3x2";
 import type { Locale, useTranslations } from "next-intl";
 import type { FunctionComponent, SVGAttributes } from "react";
 
+export const UNOROUTER_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001"
+    : "https://unorouter.ai";
+
 export const SERVER_URL_KEY = "x-url";
 
 export const LOCALE_COOKIE_KEY = "NEXT_LOCALE";

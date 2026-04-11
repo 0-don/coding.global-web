@@ -12,6 +12,7 @@ import { msg } from "@/lib/config/constants";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
@@ -420,6 +421,10 @@ export function Javascript() {
           </div>
         </div>
       </section>
+
+      <div className="mt-12 flex justify-center">
+        <UnoRouterBadge badge="banner" />
+      </div>
 
       <ResourceFooter />
     </div>

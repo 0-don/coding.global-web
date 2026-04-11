@@ -1,6 +1,7 @@
 "use client";
 
 import { ResourceFooter } from "@/components/layout/resources/resource-footer";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import { createTOC } from "@/components/layout/resources/toc";
 import {
   Card,
@@ -499,6 +500,10 @@ export function Resources() {
             />
           </motion.div>
         </AnimatedSection>
+
+        <div className="mt-12 flex justify-center">
+          <UnoRouterBadge badge="hero" />
+        </div>
 
         <ResourceFooter />
       </div>
