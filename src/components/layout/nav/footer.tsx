@@ -1,3 +1,4 @@
+import { UNOROUTER_URL } from "@/lib/config/constants";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { use } from "react";
@@ -20,6 +21,14 @@ export function Footer() {
         target="_blank"
       >
         {t("MAIN.FOOTER.GET_REPOSITORY")}
+      </Link>
+      <p className="text-muted-foreground text-sm">|</p>
+      <Link
+        href={UNOROUTER_URL}
+        className="text-muted-foreground text-sm"
+        target="_blank"
+      >
+        {t("MAIN.FOOTER.AI_API")}
       </Link>
     </footer>
   );

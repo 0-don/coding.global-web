@@ -3,6 +3,7 @@
 import { ThreadHeader } from "@/components/elements/thread/thread-header";
 import { ThreadNotFound } from "@/components/elements/thread/thread-not-found";
 import { ThreadReplies } from "@/components/elements/thread/thread-replies";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import {
   useThreadMessagesInfiniteQuery,
   useThreadQuery,
@@ -33,6 +34,9 @@ export function BoardDetail(props: BoardDetailProps) {
   return (
     <div className="mx-auto max-w-4xl px-4 py-6 md:px-6">
       <ThreadHeader thread={thread} />
+      <div className="mb-6 flex justify-center">
+        <UnoRouterBadge badge="providers" />
+      </div>
       <ThreadReplies
         messages={messages}
         parentThread={thread}

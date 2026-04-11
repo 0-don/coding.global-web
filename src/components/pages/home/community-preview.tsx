@@ -10,6 +10,7 @@ import { DiscordMarkdown } from "@/components/ui/discord-markdown";
 import { DiscordUser } from "@/components/elements/discord/discord-user";
 import { Newspaper } from "lucide-react";
 import Link from "next/link";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 
 function NewsPreview() {
   const t = useTranslations();
@@ -94,6 +95,15 @@ export function CommunityPreview() {
           <NewsPreview />
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-6 flex justify-center"
+      >
+        <UnoRouterBadge badge="banner" />
+      </motion.div>
     </div>
   );
 }

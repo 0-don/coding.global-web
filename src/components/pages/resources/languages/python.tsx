@@ -3,6 +3,7 @@
 import { createTOC } from "@/components/layout/resources/toc";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { useTranslations } from "next-intl";
+import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [];
@@ -45,6 +46,10 @@ export function Python() {
           .
         </p>
       </section>
+
+      <div className="mt-12 flex justify-center">
+        <UnoRouterBadge badge="banner" />
+      </div>
 
       <ResourceFooter />
     </div>
