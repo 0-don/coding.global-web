@@ -104,7 +104,8 @@
       "UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Get Repository"
+      "GET_REPOSITORY": "Get Repository",
+      "AI_API": "AI API"
     },
     "MANIFEST": {
       "DESCRIPTION": "Your premier destination for coding resources and community",

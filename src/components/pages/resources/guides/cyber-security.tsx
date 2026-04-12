@@ -37,12 +37,12 @@ const toc: TOCItemType[] = [
   },
   {
     url: "#tools",
-    title: msg("RESOURCES.CYBER_SECURITY.TOOLS.TITLE"), // Fixed: matches "TOOLS" in JSON
+    title: msg("RESOURCES.CYBER_SECURITY.TOOLS.TITLE"),
     depth: 2
   },
   {
     url: "#ethics-deep-dive",
-    title: msg("RESOURCES.CYBER_SECURITY.ETHICS_DEEP_DIVE.TITLE"), // Fixed: matches "ETHICS_DEEP_DIVE" in JSON
+    title: msg("RESOURCES.CYBER_SECURITY.ETHICS_DEEP_DIVE.TITLE"),
     depth: 2
   },
 ];
@@ -177,7 +177,6 @@ export function CyberSecurity() {
       {t("RESOURCES.CYBER_SECURITY.TITLE")}
     </h1>
 
-    {/* 1. NEW: Welcome Section */}
     <section id="welcome" className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-2xl font-semibold">
         {t("RESOURCES.CYBER_SECURITY.WELCOME.TITLE")}
@@ -187,7 +186,6 @@ export function CyberSecurity() {
       </p>
     </section>
 
-    {/* 2. NEW: The Path (Roadmap/Speedrun Style) */}
     <section id="roadmap" className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-2xl font-semibold">
         {t("RESOURCES.CYBER_SECURITY.ROADMAP.TITLE")}
@@ -220,7 +218,6 @@ export function CyberSecurity() {
       </div>
     </section>
 
-    {/* 3. ORIGINAL: Introduction */}
     <section id="introduction" className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-2xl font-semibold border-t pt-12">
         {t("RESOURCES.CYBER_SECURITY.INTRODUCTION.TITLE")}
@@ -233,7 +230,6 @@ export function CyberSecurity() {
       </p>
     </section>
 
-    {/* 4. ORIGINAL: Learning Platforms */}
     <section id="learning-platforms" className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-2xl font-semibold">
         {t("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TITLE")}
