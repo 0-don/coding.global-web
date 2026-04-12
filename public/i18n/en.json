@@ -104,8 +104,7 @@
       "UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Get Repository",
-      "AI_API": "AI API"
+      "GET_REPOSITORY": "Get Repository"
     },
     "MANIFEST": {
       "DESCRIPTION": "Your premier destination for coding resources and community",
@@ -686,12 +685,12 @@
       "TITLE": "Cyber Security",
       "INTRODUCTION": {
         "TITLE": "Introduction",
-        "CONTENT_1": "Let's be honest - most of us got into cyber security because we wanted to be hackers. We imagined ourselves breaking into systems, bypassing firewalls, and doing cool stuff like in the movies. Then reality hit: turns out hacking is mostly just... coding. A lot of coding.",
-        "CONTENT_2": "But that's actually the good news. The skills you learn in cyber security - understanding systems, networks, and how software works - make you a better developer overall. Whether you end up in pentesting, security engineering, or just writing more secure code, it all starts with the fundamentals."
+        "CONTENT_1": "To break a system, you have to understand it better than the person who built it. This isn't just about running scripts or hacking tools. You have to go through the meticulous process of identifying logical flaws, memory corruption, and protocol weaknesses that developers never intended to exist, taking software and infrastructure apart at the binary level to map out every possible attack surface.",
+        "CONTENT_2": "This level of depth is what separates a researcher from someone just running scripts. When you’ve manually mapped the attack surface, you see the logic errors that everyone else walked right past. That’s how real-world research and exploitation actually happen."
       },
       "LEARNING_PLATFORMS": {
         "TITLE": "Learning Platforms",
-        "DESCRIPTION": "The best way to learn cyber security is by doing. These platforms offer hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
+        "DESCRIPTION": "These resources range from hands-on challenges, CTFs, and virtual labs where you can practice legally and safely, to writeups and researches that break down the logic behind how exploits are built and how vulnerabilities work.",
         "TRYHACKME": {
           "TITLE": "TryHackMe",
           "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
@@ -711,6 +710,18 @@
         "CISCO": {
           "TITLE": "Cisco Networking Academy",
           "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
+        },
+        "PHRACK": {
+          "TITLE": "Phrack.org",
+          "DESCRIPTION": "One of the oldest E-zine in the underground hacking community."
+        },
+        "TMPOUT": {
+          "TITLE": "tmp.0ut.",
+          "DESCRIPTION": "Hacking e-zine with a much tighter focus on low-level systems and binary exploitation. "
+        },
+        "PAGEDOUT": {
+          "TITLE": "Paged Out!",
+          "DESCRIPTION": "Technical magazine about programming, hacking, security hacking, retro computers, modern computers, electronics, demoscene, and other similar topics."
         }
       }
     },
