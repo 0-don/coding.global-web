@@ -11,7 +11,6 @@ import { msg } from "@/lib/config/constants";
 import type { TOCItemType } from "fumadocs-core/toc";
 import { ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { UnoRouterBadge } from "@/components/elements/unorouter-badge";
 import { ResourceFooter } from "../../../layout/resources/resource-footer";
 
 const toc: TOCItemType[] = [
@@ -66,6 +65,27 @@ const learningPlatforms = [
       "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.CISCO.DESCRIPTION",
     ),
     url: "https://netacad.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PHRACK.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PHRACK.DESCRIPTION",
+    ),
+    url: "https://phrack.org/",
+  },
+  {
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TMPOUT.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TMPOUT.DESCRIPTION",
+    ),
+    url: "https://tmpout.sh/",
+  },
+  {
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PAGEDOUT.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PAGEDOUT.DESCRIPTION",
+    ),
+    url: "https://pagedout.institute/",
   },
 ];
 
@@ -123,10 +143,6 @@ export function CyberSecurity() {
           ))}
         </div>
       </section>
-
-      <div className="mt-12 flex justify-center">
-        <UnoRouterBadge badge="pricing" />
-      </div>
 
       <ResourceFooter />
     </div>

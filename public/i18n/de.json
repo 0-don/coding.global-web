@@ -104,8 +104,7 @@
       "UNEXPECTED_ERROR_OCCURRED": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Repository abrufen",
-      "AI_API": "KI API"
+      "GET_REPOSITORY": "Repository abrufen"
     },
     "MANIFEST": {
       "DESCRIPTION": "Ihre erstklassige Anlaufstelle für Coding-Ressourcen und Community",
@@ -682,12 +681,12 @@
       "TITLE": "Cybersicherheit",
       "INTRODUCTION": {
         "TITLE": "Einführung",
-        "CONTENT_1": "Seien wir ehrlich - die meisten von uns sind in die Cybersicherheit eingestiegen, weil wir Hacker sein wollten. Wir haben uns vorgestellt, wie wir in Systeme einbrechen, Firewalls umgehen und coole Sachen wie in den Filmen machen. Dann kam die Realität: Es stellt sich heraus, dass Hacking hauptsächlich... Programmieren ist. Viel Programmieren.",
-        "CONTENT_2": "Aber das ist eigentlich die gute Nachricht. Die Fähigkeiten, die du in der Cybersicherheit lernst - Verständnis von Systemen, Netzwerken und wie Software funktioniert - machen dich insgesamt zu einem besseren Entwickler. Egal ob du im Pentesting, Security Engineering oder einfach beim Schreiben von sichererem Code landest, alles beginnt mit den Grundlagen."
+        "CONTENT_1": "Um ein System zu brechen, muss man es besser verstehen als die Person, die es gebaut hat. Es geht nicht nur darum, Skripte auszuführen oder Hacking-Tools zu nutzen. Man muss den akribischen Prozess durchlaufen, logische Fehler, Speicherfehler und Schwachstellen in Protokollen zu identifizieren, die von den Entwicklern nie vorgesehen waren. Dabei wird Software und Infrastruktur auf Binärebene zerlegt, um jede mögliche Angriffsfläche kartografieren zu können.",
+        "CONTENT_2": "Diese Tiefe ist es, die einen Researcher von jemandem unterscheidet, der lediglich Skripte abspielt. Wenn du die Angriffsfläche manuell erschlossen hast, siehst du die Logikfehler, an denen alle anderen blind vorbeigegangen sind. So funktionieren echte Forschung und Exploitation in der Praxis."
       },
       "LEARNING_PLATFORMS": {
         "TITLE": "Lernplattformen",
-        "DESCRIPTION": "Der beste Weg, Cybersicherheit zu lernen, ist durch Praxis. Diese Plattformen bieten praktische Herausforderungen, CTFs und virtuelle Labs, in denen du legal und sicher üben kannst.",
+        "DESCRIPTION": "Diese Ressourcen reichen von praxisnahen Challenges, CTFs und virtuellen Laboren, in denen du legal und sicher üben kannst, bis hin zu Write-ups und Forschungsarbeiten, welche die Logik hinter der Erstellung von Exploits und der Funktionsweise von Schwachstellen aufschlüsseln.",
         "TRYHACKME": {
           "TITLE": "TryHackMe",
           "DESCRIPTION": "Kostenlose Online-Plattform zum Erlernen von Cybersicherheit mit praktischen Übungen und Labs"
@@ -707,6 +706,18 @@
         "CISCO": {
           "TITLE": "Cisco Networking Academy",
           "DESCRIPTION": "Lerne Cybersicherheit, Netzwerke und Python im offiziellen Trainingsprogramm von Cisco"
+        },
+        "PHRACK": {
+          "TITLE": "Phrack.org",
+          "DESCRIPTION": "Eines der ältesten E-Zines der Underground-Hacking-Szene."
+        },
+        "TMPOUT": {
+          "TITLE": "tmp.0ut",
+          "DESCRIPTION": "Hacking-Magazin mit einem starken Fokus auf Low-Level-Systeme und Binary Exploitation."
+        },
+        "PAGEDOUT": {
+          "TITLE": "Paged Out!",
+          "DESCRIPTION": "Ein Technik-Magazin über Programmierung, Hacking, Retro-Computing, Elektronik und Demoszene."
         }
       }
     },
