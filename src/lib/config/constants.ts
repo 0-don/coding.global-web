@@ -4,7 +4,7 @@ import type { FunctionComponent, SVGAttributes } from "react";
 
 export const UNOROUTER_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:3001"
+    ? "https://unorouter.ai"
     : "https://unorouter.ai";
 
 export const SERVER_URL_KEY = "x-url";
