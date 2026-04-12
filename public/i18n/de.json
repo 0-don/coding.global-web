@@ -679,6 +679,38 @@
         "KEYWORDS": "cybersicherheit, sicherheit, hacking, penetrationstest, infosec"
       },
       "TITLE": "Cybersicherheit",
+      "WELCOME": {
+        "TITLE": "Willkommen",
+        "INTRO_TEXT": "Hallo! Willkommen auf dem Server. Wenn du neu im Bereich Hacking, Tech oder Programmierung bist – kein Problem! Dieser Beitrag ist für dich. Dies ist deine All-in-One-Ressource für den Einstieg."
+      },
+      "ROADMAP": {
+        "TITLE": "Der Weg zum Hacking",
+        "ETHICS": {
+          "TITLE": "Legalität & Ethik",
+          "DESC": "Bevor du beginnst, musst du die Rechtslage verstehen. Informiere dich über den Computer Fraud and Abuse Act (USA) sowie die DSGVO in der EU."
+        },
+        "BOUNTY": {
+          "TITLE": "Das Bug-Bounty-Schlupfloch",
+          "DESC": "Du willst legal hacken und dafür bezahlt werden? Bug-Bounty-Programme ermöglichen es ethischen Hackern, teilnehmende Unternehmen in einem sicheren Rahmen zu testen."
+        },
+        "LEARNING": {
+          "TITLE": "Computer verstehen",
+          "DESC": "Man kann nichts hacken, was man nicht versteht. Wähle ein System (Linux/Unix empfohlen) und lerne die Grundlagen über OverTheWire Bandit."
+        },
+        "GOOGLING": {
+          "TITLE": "Die Macht der Google-Suche",
+          "DESC": "Es ist unmöglich, alles auswendig zu lernen. Zu lernen, wie man sucht und welche Fragen man stellt, ist deine wichtigste Fähigkeit."
+        }
+      },
+      "TOOLS": {
+        "TITLE": "Empfehlenswerte Tools",
+        "DESCRIPTION": "Mach dir am Anfang keine Sorgen um Tools. Konzentriere dich zuerst auf das Verständnis. Wenn du bereit bist, starte mit diesen Standards."
+      },
+      "ETHICS_DEEP_DIVE": {
+        "TITLE": "Ethik und Recht im Detail",
+        "CONTENT_1": "Ethisches Hacking beinhaltet den autorisierten Versuch, Zugriff auf ein System zu erlangen, um Schwachstellen zu identifizieren und zu beheben, bevor diese ausgenutzt werden können.",
+        "CONTENT_2": "Denk daran: Du bist einer der Guten. Stelle immer sicher, dass du eine ausdrückliche Erlaubnis hast, bevor du ein System oder einen Account testest."
+      },
       "INTRODUCTION": {
         "TITLE": "Einführung",
         "CONTENT_1": "Um ein System zu brechen, muss man es besser verstehen als die Person, die es gebaut hat. Es geht nicht nur darum, Skripte auszuführen oder Hacking-Tools zu nutzen. Man muss den akribischen Prozess durchlaufen, logische Fehler, Speicherfehler und Schwachstellen in Protokollen zu identifizieren, die von den Entwicklern nie vorgesehen waren. Dabei wird Software und Infrastruktur auf Binärebene zerlegt, um jede mögliche Angriffsfläche kartografieren zu können.",
