@@ -230,7 +230,6 @@ export function CyberSecurity() {
       </p>
     </section>
 
-
     <section id="learning-platforms" className="mb-12 scroll-mt-20">
       <h2 className="mb-4 text-2xl font-semibold">
         {t("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.TITLE")}
