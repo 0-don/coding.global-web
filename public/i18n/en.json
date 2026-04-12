@@ -104,8 +104,7 @@
       "UNEXPECTED_ERROR_OCCURRED": "An unexpected error has occurred. Please try again later."
     },
     "FOOTER": {
-      "GET_REPOSITORY": "Get Repository",
-      "AI_API": "AI API"
+      "GET_REPOSITORY": "Get Repository"
     },
     "MANIFEST": {
       "DESCRIPTION": "Your premier destination for coding resources and community",
@@ -677,43 +676,87 @@
       "OR": "or",
       "CODECADEMY_LINK": "Codecademy's Python courses"
     },
-    "CYBER_SECURITY": {
-      "META": {
-        "TITLE": "Cyber Security - Coding Global",
-        "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
-        "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
+      "CYBER_SECURITY": {
+    "META": {
+      "TITLE": "Cyber Security - Coding Global",
+      "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
+      "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
+    },
+    "TITLE": "Cyber Security",
+    "WELCOME": {
+      "TITLE": "Welcome",
+      "INTRO_TEXT": "Hi there! Welcome to the server. If you're new to hacking, tech, or programming, that's okay! This post is for you. This is your all-in-one resource for getting started."
+    },
+    "ROADMAP": {
+      "TITLE": "The Path to Hacking",
+      "ETHICS": {
+        "TITLE": "Legality & Ethics",
+        "DESC": "Before you start, you must understand the law. Read up on the Computer Fraud and Abuse Act and the GDPR in the EU."
       },
-      "TITLE": "Cyber Security",
-      "INTRODUCTION": {
-        "TITLE": "Introduction",
-        "CONTENT_1": "Let's be honest - most of us got into cyber security because we wanted to be hackers. We imagined ourselves breaking into systems, bypassing firewalls, and doing cool stuff like in the movies. Then reality hit: turns out hacking is mostly just... coding. A lot of coding.",
-        "CONTENT_2": "But that's actually the good news. The skills you learn in cyber security - understanding systems, networks, and how software works - make you a better developer overall. Whether you end up in pentesting, security engineering, or just writing more secure code, it all starts with the fundamentals."
+      "BOUNTY": {
+        "TITLE": "Bug Bounty Loophole",
+        "DESC": "Want to hack legally and get paid? Bug bounties allow ethical hackers to test participating companies within a safe scope."
       },
-      "LEARNING_PLATFORMS": {
-        "TITLE": "Learning Platforms",
-        "DESCRIPTION": "The best way to learn cyber security is by doing. These platforms offer hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
-        "TRYHACKME": {
-          "TITLE": "TryHackMe",
-          "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
-        },
-        "HACKTHEBOX": {
-          "TITLE": "Hack The Box",
-          "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
-        },
-        "PICOCTF": {
-          "TITLE": "picoCTF",
-          "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
-        },
-        "ROOTME": {
-          "TITLE": "Root Me",
-          "DESCRIPTION": "Platform for practicing hacking skills with challenges and virtual environments"
-        },
-        "CISCO": {
-          "TITLE": "Cisco Networking Academy",
-          "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
-        }
+      "LEARNING": {
+        "TITLE": "Learning about Computers",
+        "DESC": "You can't hack what you don't understand. Pick a machine (Linux/Unix recommended) and learn basics via OverTheWire Bandit."
+      },
+      "GOOGLING": {
+        "TITLE": "The Power of Googling",
+        "DESC": "Its impossible to memorize everything. Learning how to search and what questions to ask is your most important skill."
       }
     },
+    "TOOLS": {
+      "TITLE": "Worthwhile Tools",
+      "DESCRIPTION": "Don't worry about tools right away. Focus on understanding first. When you're ready, start with these staples."
+    },
+    "ETHICS_DEEP_DIVE": {
+      "TITLE": "Ethics and Legal in Depth",
+      "CONTENT_1": "Ethical hacking involves an authorized attempt to gain access to a system to identify and resolve vulnerabilities before they are exploited.",
+      "CONTENT_2": "Remember: You are the good guy. Always ensure you have permission before testing any system or account."
+    },
+    "INTRODUCTION": {
+      "TITLE": "Introduction",
+      "CONTENT_1": "To break a system, you have to understand it better than the person who built it. This isn't just about running scripts or hacking tools. You have to go through the meticulous process of identifying logical flaws, memory corruption, and protocol weaknesses that developers never intended to exist, taking software and infrastructure apart at the binary level to map out every possible attack surface.",
+      "CONTENT_2": "This level of depth is what separates a researcher from someone just running scripts. When you’ve manually mapped the attack surface, you see the logic errors that everyone else walked right past. That’s how real-world research and exploitation actually happen."
+    },
+    "LEARNING_PLATFORMS": {
+      "TITLE": "Additional Resources",
+      "DESCRIPTION": "These resources range from hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
+      "TRYHACKME": {
+        "TITLE": "TryHackMe",
+        "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
+      },
+      "HACKTHEBOX": {
+        "TITLE": "Hack The Box",
+        "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
+      },
+      "PICOCTF": {
+        "TITLE": "picoCTF",
+        "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
+      },
+      "ROOTME": {
+        "TITLE": "Root Me",
+        "DESCRIPTION": "Platform for practicing hacking skills with challenges and virtual environments"
+      },
+      "CISCO": {
+        "TITLE": "Cisco Networking Academy",
+        "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
+      },
+      "PHRACK": {
+        "TITLE": "Phrack.org",
+        "DESCRIPTION": "One of the oldest E-zine in the underground hacking community."
+      },
+      "TMPOUT": {
+        "TITLE": "tmp.0ut.",
+        "DESCRIPTION": "Hacking e-zine with a much tighter focus on low-level systems and binary exploitation. "
+      },
+      "PAGEDOUT": {
+        "TITLE": "Paged Out!",
+        "DESCRIPTION": "Technical magazine about programming, hacking, security hacking, retro computers, modern computers, electronics, demoscene, and other similar topics."
+      }
+    }
+  },
     "AI_ASSISTANTS": {
       "META": {
         "TITLE": "Free AI Assistants - Coding Global",
