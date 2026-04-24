@@ -12,9 +12,8 @@ export const LogoImage = (
       height={28}
       width={28}
       {...props}
-      src={"/images/logo.gif"}
+      src={"/images/logo.svg"}
       alt={appName}
-      unoptimized
       className={cn("h-7 w-7 rounded-full object-cover", props.className)}
     />
   );

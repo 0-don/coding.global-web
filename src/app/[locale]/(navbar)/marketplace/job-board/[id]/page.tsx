@@ -6,6 +6,8 @@ import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { inferEmploymentType } from "@/lib/config/structured-data";
+import { getDiscordUserLink } from "@/lib/utils/base";
 import { getThread, serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
@@ -93,6 +95,8 @@ export default async function JobBoardDetailPage(props: {
                 thread.updatedAt ||
                 "",
               employerName: thread.author.displayName || thread.author.username,
+              employerUrl: getDiscordUserLink(thread.author.id),
+              employmentType: inferEmploymentType(thread.tags),
               pageUrl,
             }}
           />

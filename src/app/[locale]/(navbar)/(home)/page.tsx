@@ -18,6 +18,7 @@ export async function generateMetadata(props: {
     title: t("HOME.META.TITLE"),
     description: t("HOME.META.DESCRIPTION"),
     keywords: t("HOME.META.KEYWORDS"),
+    href: "/",
   });
 }
 

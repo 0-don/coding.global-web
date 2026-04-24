@@ -3,7 +3,12 @@ import { rpc } from "@/lib/rpc";
 import { ApiThreadType } from "@/lib/types";
 import { getThreadPathname } from "@/lib/utils/base";
 import { serverLocale } from "@/lib/utils/server";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function ThreadRedirectPage(props: {
   params: Promise<{ locale: string; threadId: string }>;

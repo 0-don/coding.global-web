@@ -1,5 +1,10 @@
 {
   "CHAT": {
+    "META": {
+      "TITLE": "Community-Chat bei Coding Global",
+      "DESCRIPTION": "Tritt dem Community-Chat von Coding Global bei und tausche dich in Echtzeit mit Entwicklern über Programmierung, Projekte und Technik aus.",
+      "KEYWORDS": "Entwickler-Chat, Coding-Community, Programmier-Diskussion, Live-Chat, Coding Global"
+    },
     "TYPE_MESSAGE": "Nachricht eingeben...",
     "LOADING_MESSAGES": "Nachrichten werden geladen...",
     "LOGIN_REQUIRED_DESCRIPTION": "Du musst angemeldet sein, um Nachrichten im Chat zu sehen und zu senden. Bitte melde dich mit deinem Discord-Konto an, um an der Unterhaltung teilzunehmen.",

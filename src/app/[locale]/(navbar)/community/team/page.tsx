@@ -18,6 +18,7 @@ export async function generateMetadata(props: {
     title: t("TEAM.META.TITLE"),
     description: t("TEAM.META.DESCRIPTION"),
     keywords: t("TEAM.META.KEYWORDS"),
+    href: "/community/team",
   });
 }
 

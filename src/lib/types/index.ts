@@ -1,3 +1,4 @@
+import { Pathname } from "@/i18n/routing";
 import { GetApiByGuildIdThreadByThreadTypeByThreadIdThreadType } from "@/openapi";
 import { Locale } from "next-intl";
 
@@ -31,7 +32,10 @@ export type MetadataParams = {
   title: string;
   description: string;
   keywords: string;
+  /** Explicit canonical path override. Prefer `href` so the path is derived from the routing table. */
   path?: string;
+  /** Structured pathname (from i18n/routing) that will be resolved to a localized canonical URL. */
+  href?: Pathname;
   ogImage?: string;
   robots?: boolean;
 };

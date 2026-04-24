@@ -17,6 +17,7 @@ export async function generateMetadata(props: {
     title: t("RESOURCES.META.TITLE"),
     description: t("RESOURCES.META.DESCRIPTION"),
     keywords: t("RESOURCES.META.KEYWORDS"),
+    href: "/resources",
   });
 }
 

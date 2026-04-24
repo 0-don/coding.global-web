@@ -1,5 +1,10 @@
 {
   "CHAT": {
+    "META": {
+      "TITLE": "Community Chat - Coding Global",
+      "DESCRIPTION": "Join the Coding Global community chat to talk with developers about programming, projects, and tech in real time.",
+      "KEYWORDS": "developer chat, coding community, programming discussion, live chat, Coding Global"
+    },
     "TYPE_MESSAGE": "Type your message...",
     "LOADING_MESSAGES": "Loading messages...",
     "LOGIN_REQUIRED_DESCRIPTION": "You need to be logged in to view and send messages in the chat. Please sign in with your Discord account to join the conversation.",

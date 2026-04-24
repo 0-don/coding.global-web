@@ -1,5 +1,6 @@
 import { Marketplace } from "@/components/pages/marketplace/marketplace";
 import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -19,11 +20,16 @@ export async function generateMetadata(props: {
     title: t("MARKETPLACE.META.TITLE"),
     description: t("MARKETPLACE.META.DESCRIPTION"),
     keywords: t("MARKETPLACE.META.KEYWORDS"),
+    href: "/marketplace",
   });
 }
 
-export default async function MarketplacePage() {
+export default async function MarketplacePage(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = await serverLocale(props);
   const queryClient = getQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const [listItemStore] = await Promise.all([
     getCookieValue<ThreadState>(getThreadStoreKey("marketplace")),
@@ -44,8 +50,16 @@ export default async function MarketplacePage() {
   ]);
 
   return (
-    <ThreadStoreProvider threadType="marketplace" data={listItemStore}>
-      <Marketplace />
-    </ThreadStoreProvider>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: `${baseUrl}/${locale}` },
+          { name: "Marketplace" },
+        ]}
+      />
+      <ThreadStoreProvider threadType="marketplace" data={listItemStore}>
+        <Marketplace />
+      </ThreadStoreProvider>
+    </>
   );
 }

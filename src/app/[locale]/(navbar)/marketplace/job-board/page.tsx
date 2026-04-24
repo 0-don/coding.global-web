@@ -1,5 +1,6 @@
 import { JobBoard } from "@/components/pages/marketplace/job-board";
 import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -20,11 +21,16 @@ export async function generateMetadata(props: {
     title: t("MARKETPLACE.JOB_BOARD.META.TITLE"),
     description: t("MARKETPLACE.JOB_BOARD.META.DESCRIPTION"),
     keywords: t("MARKETPLACE.JOB_BOARD.META.KEYWORDS"),
+    href: "/marketplace/job-board",
   });
 }
 
-export default async function JobBoardPage() {
+export default async function JobBoardPage(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = await serverLocale(props);
   const queryClient = getQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
 
   const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
@@ -38,10 +44,19 @@ export default async function JobBoardPage() {
   ]);
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider threadType="job-board" data={listItemStore}>
-        <JobBoard />
-      </ThreadStoreProvider>
-    </HydrationBoundary>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: `${baseUrl}/${locale}` },
+          { name: "Marketplace", url: `${baseUrl}/${locale}/marketplace` },
+          { name: "Job Board" },
+        ]}
+      />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ThreadStoreProvider threadType="job-board" data={listItemStore}>
+          <JobBoard />
+        </ThreadStoreProvider>
+      </HydrationBoundary>
+    </>
   );
 }
