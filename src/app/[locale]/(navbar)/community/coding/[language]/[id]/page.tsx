@@ -10,6 +10,7 @@ import { getThread, serverLocale } from "@/lib/utils/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -65,9 +66,11 @@ export default async function ProgrammingLanguageDetailPage(props: {
 
   const thread = threadResponse.status === 200 ? threadResponse.data : null;
 
-  if (thread) {
-    queryClient.setQueryData(queryKeys.thread(params.language, params.id), thread);
+  if (!thread) {
+    notFound();
   }
+
+  queryClient.setQueryData(queryKeys.thread(params.language, params.id), thread);
 
   const messagesData = await queryClient.fetchInfiniteQuery({
     queryKey: queryKeys.threadMessages(params.language, params.id),
