@@ -8,6 +8,7 @@ import { rpc } from "@/lib/rpc";
 import { getThread, serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string; id: string }>;
@@ -44,9 +45,11 @@ export default async function ShowcaseDetailPage(props: {
 
   const thread = threadResponse.status === 200 ? threadResponse.data : null;
 
-  if (thread) {
-    queryClient.setQueryData(queryKeys.thread("showcase", params.id), thread);
+  if (!thread) {
+    notFound();
   }
+
+  queryClient.setQueryData(queryKeys.thread("showcase", params.id), thread);
 
   const messagesData = await queryClient.fetchInfiniteQuery({
     queryKey: queryKeys.threadMessages("showcase", params.id),
