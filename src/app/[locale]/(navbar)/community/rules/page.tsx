@@ -13,6 +13,7 @@ export async function generateMetadata(props: {
     title: t("RULES.META.TITLE"),
     description: t("RULES.META.DESCRIPTION"),
     keywords: t("RULES.META.KEYWORDS"),
+    href: "/community/rules",
   });
 }
 

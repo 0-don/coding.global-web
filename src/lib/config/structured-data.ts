@@ -5,6 +5,7 @@ import {
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import {
+  Article,
   BreadcrumbList,
   Comment,
   DiscussionForumPosting,
@@ -12,6 +13,7 @@ import {
   JobPosting,
   Organization,
   Person,
+  WebSite,
   WithContext,
 } from "schema-dts";
 import { getDiscordUserLink } from "../utils/base";
@@ -150,13 +152,71 @@ export function buildDiscussionForumPostingSchema(
   return schema;
 }
 
+export function buildWebsiteSchema(locale: string): WithContext<WebSite> {
+  const siteUrl = process.env.NEXT_PUBLIC_URL;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: process.env.NEXT_PUBLIC_APP_NAME || "Coding Global",
+    url: siteUrl,
+    inLanguage: locale,
+    publisher: {
+      "@type": "Organization",
+      name: process.env.NEXT_PUBLIC_APP_NAME || "Coding Global",
+      url: siteUrl,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/${locale}/community/coding?q={search_term_string}`,
+      },
+      // schema.org requires query-input via literal; cast through unknown
+      "query-input": "required name=search_term_string",
+    } as WithContext<WebSite>["potentialAction"],
+  };
+}
+
+export type ArticleData = {
+  headline: string;
+  description: string;
+  pageUrl: string;
+  datePublished?: string;
+  dateModified?: string;
+  image?: string;
+  inLanguage: string;
+};
+
+export function buildArticleSchema(data: ArticleData): WithContext<Article> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: data.headline,
+    description: data.description,
+    url: data.pageUrl,
+    mainEntityOfPage: data.pageUrl,
+    inLanguage: data.inLanguage,
+    ...(data.image && { image: data.image }),
+    ...(data.datePublished && { datePublished: data.datePublished }),
+    ...(data.dateModified && { dateModified: data.dateModified }),
+    publisher: {
+      "@type": "Organization",
+      name: process.env.NEXT_PUBLIC_APP_NAME || "Coding Global",
+      logo: {
+        "@type": "ImageObject",
+        url: `${process.env.NEXT_PUBLIC_URL}/images/logo.svg`,
+      },
+    },
+  };
+}
+
 export function buildOrganizationSchema(): WithContext<Organization> {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: process.env.NEXT_PUBLIC_APP_NAME || "Coding Global",
     url: process.env.NEXT_PUBLIC_URL,
-    logo: `${process.env.NEXT_PUBLIC_URL}/images/logo.gif`,
+    logo: `${process.env.NEXT_PUBLIC_URL}/images/logo.svg`,
     sameAs: ["https://discord.gg/coding"],
   };
 }
@@ -186,6 +246,7 @@ export type JobPostingData = {
   description: string;
   datePosted: string;
   employerName: string;
+  employerUrl?: string;
   pageUrl: string;
   jobLocationType?: "TELECOMMUTE" | string;
   employmentType?: string;
@@ -197,6 +258,34 @@ export type JobPostingData = {
     unitText?: "HOUR" | "DAY" | "WEEK" | "MONTH" | "YEAR";
   };
 };
+
+const EMPLOYMENT_TYPE_MAP: Record<string, string> = {
+  "full-time": "FULL_TIME",
+  fulltime: "FULL_TIME",
+  "full time": "FULL_TIME",
+  "part-time": "PART_TIME",
+  parttime: "PART_TIME",
+  "part time": "PART_TIME",
+  contract: "CONTRACTOR",
+  contractor: "CONTRACTOR",
+  freelance: "CONTRACTOR",
+  intern: "INTERN",
+  internship: "INTERN",
+  temporary: "TEMPORARY",
+  volunteer: "VOLUNTEER",
+};
+
+/** Derive a schema.org JobPosting employmentType from free-text tags. */
+export function inferEmploymentType(
+  tags: ReadonlyArray<{ name: string }> | null | undefined,
+): string | undefined {
+  if (!tags) return undefined;
+  for (const tag of tags) {
+    const mapped = EMPLOYMENT_TYPE_MAP[tag.name.toLowerCase().trim()];
+    if (mapped) return mapped;
+  }
+  return undefined;
+}
 
 export function buildJobPostingSchema(
   data: JobPostingData,
@@ -210,6 +299,7 @@ export function buildJobPostingSchema(
     hiringOrganization: {
       "@type": "Organization",
       name: data.employerName,
+      ...(data.employerUrl && { url: data.employerUrl }),
     },
     url: data.pageUrl,
     jobLocationType: data.jobLocationType || "TELECOMMUTE",
@@ -218,6 +308,14 @@ export function buildJobPostingSchema(
       name: "Worldwide",
     },
   };
+
+  // Google Jobs prefers validThrough; default to 90 days after posting.
+  if (!data.validThroughDays && data.datePosted) {
+    schema.validThrough = dayjs
+      .utc(data.datePosted)
+      .add(90, "day")
+      .toISOString();
+  }
 
   if (data.employmentType) {
     schema.employmentType = data.employmentType;

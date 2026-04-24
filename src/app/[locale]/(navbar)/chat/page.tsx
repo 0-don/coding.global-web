@@ -1,9 +1,26 @@
 import { ChatRoom } from "@/components/pages/chat/chat-room";
 import { PAGEABLE_LIMIT } from "@/lib/config/constants";
+import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
 import { rpc } from "@/lib/rpc";
+import { serverLocale } from "@/lib/utils/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = await serverLocale(props);
+  const t = await getTranslations({ locale });
+  return getPageMetadata({
+    locale,
+    title: t("CHAT.META.TITLE"),
+    description: t("CHAT.META.DESCRIPTION"),
+    keywords: t("CHAT.META.KEYWORDS"),
+    href: "/chat",
+  });
+}
 
 export default async function ChatPage() {
   const queryClient = getQueryClient();

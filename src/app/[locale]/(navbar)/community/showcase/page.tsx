@@ -1,5 +1,6 @@
 import { Showcase } from "@/components/pages/community/showcase/showcase";
 import { ThreadStoreProvider } from "@/components/provider/store/thread-store-provider";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
@@ -20,13 +21,18 @@ export async function generateMetadata(props: {
     title: t("SHOWCASE.META.TITLE"),
     description: t("SHOWCASE.META.DESCRIPTION"),
     keywords: t("SHOWCASE.META.KEYWORDS"),
+    href: "/community/showcase",
   });
 }
 
-export default async function ShowcasePage() {
+export default async function ShowcasePage(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = await serverLocale(props);
   const queryClient = getQueryClient();
+  const baseUrl = process.env.NEXT_PUBLIC_URL;
 
-  const [, listItemStore, t] = await Promise.all([
+  const [, listItemStore] = await Promise.all([
     queryClient.prefetchQuery({
       queryKey: queryKeys.threads("showcase"),
       queryFn: async () =>
@@ -39,10 +45,19 @@ export default async function ShowcasePage() {
   ]);
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ThreadStoreProvider threadType="showcase" data={listItemStore}>
-        <Showcase />
-      </ThreadStoreProvider>
-    </HydrationBoundary>
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: `${baseUrl}/${locale}` },
+          { name: "Community", url: `${baseUrl}/${locale}/community/showcase` },
+          { name: "Showcase" },
+        ]}
+      />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ThreadStoreProvider threadType="showcase" data={listItemStore}>
+          <Showcase />
+        </ThreadStoreProvider>
+      </HydrationBoundary>
+    </>
   );
 }

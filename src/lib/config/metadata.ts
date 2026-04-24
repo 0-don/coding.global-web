@@ -1,12 +1,17 @@
+import { getPathname } from "@/i18n/navigation";
 import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
 import { Metadata } from "next";
+import { Locale } from "next-intl";
 import { MetadataKeys, MetadataParams } from "../types";
 import { LANGUAGES, LOCALES } from "./constants";
 
 export async function getPageMetadata(
   params: MetadataParams,
 ): Promise<Metadata> {
-  const canonicalPath = params.path || `/${params.locale}`;
+  const resolvedPath = params.href
+    ? `/${params.locale}${getPathname({ locale: params.locale as Locale, href: params.href })}`
+    : params.path;
+  const canonicalPath = (resolvedPath || `/${params.locale}`).split("?")[0];
   const ogImageUrl = params.ogImage || "/images/last-frame-coding.png";
   const shouldIndex = params.robots ?? true;
 
@@ -21,9 +26,16 @@ export async function getPageMetadata(
       languages: Object.fromEntries([
         ...LOCALES.map((loc) => [
           loc,
-          canonicalPath.replace(/^\/(en|de)/, `/${loc}`),
+          params.href
+            ? `/${loc}${getPathname({ locale: loc, href: params.href })}`
+            : canonicalPath.replace(/^\/(en|de)/, `/${loc}`),
         ]),
-        ["x-default", canonicalPath.replace(/^\/(en|de)/, `/${LOCALES[0]}`)],
+        [
+          "x-default",
+          params.href
+            ? `/${LOCALES[0]}${getPathname({ locale: LOCALES[0], href: params.href })}`
+            : canonicalPath.replace(/^\/(en|de)/, `/${LOCALES[0]}`),
+        ],
       ]),
     },
     openGraph: {
@@ -59,7 +71,7 @@ export async function getPageMetadata(
       ],
     },
     icons: {
-      icon: "/images/logo.gif",
+      icon: "/images/logo.svg",
     },
     robots: {
       index: shouldIndex,

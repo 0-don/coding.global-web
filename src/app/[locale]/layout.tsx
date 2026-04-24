@@ -1,4 +1,5 @@
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
+import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
@@ -66,6 +67,7 @@ export default function RootLayout(props: Props) {
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}
       >
         <OrganizationJsonLd />
+        <WebsiteJsonLd locale={locale} />
         <Toaster richColors />
         <Providers>{props.children}</Providers>
       </body>
