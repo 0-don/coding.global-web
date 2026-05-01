@@ -118,11 +118,10 @@ export async function generateSitemaps() {
   return [{ id: "static" }, ...THREAD_TYPES.map((t) => ({ id: `threads-${t}` }))];
 }
 
-export default async function sitemap({
-  id,
-}: {
-  id: string;
+export default async function sitemap(props: {
+  id: Promise<string>;
 }): Promise<MetadataRoute.Sitemap> {
+  const id = await props.id;
   if (id === "static") {
     const staticRoutes = Object.keys(pathnames).filter(
       (route) => !route.includes("["),
