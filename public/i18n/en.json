@@ -766,182 +766,229 @@
     "AI_ASSISTANTS": {
       "META": {
         "TITLE": "Free AI Assistants - Coding Global",
-        "DESCRIPTION": "Discover the best free AI assistants for chatting, coding, image generation, and research",
-        "KEYWORDS": "ai assistants, free ai, chatgpt, claude, gemini, coding ai, image generation"
+        "DESCRIPTION": "The best free AI tools in 2026 for chat, coding, image generation, and research. Updated for the modern landscape.",
+        "KEYWORDS": "ai assistants, free ai, gemini, chatgpt, claude, deepseek, opencode, nano banana, perplexity"
       },
       "TITLE": "Free AI Assistants",
-      "DESCRIPTION": "A curated list of the best free AI assistants available today. From chatbots to coding helpers, image generators to research tools.",
+      "DESCRIPTION": "The free AI landscape moves fast. This list focuses on what actually works for free users in 2026, ordered by where the free tier still has real teeth.",
       "CHATBOTS": {
         "TITLE": "AI Chatbots",
-        "DESCRIPTION": "General-purpose AI assistants for conversations, questions, and creative tasks.",
+        "DESCRIPTION": "General-purpose assistants. Gemini and DeepSeek currently offer the most generous free tiers; ChatGPT and Claude are tighter but still excellent for daily use.",
+        "GEMINI": {
+          "TITLE": "Gemini",
+          "DESCRIPTION": "Google's flagship. Best free tier overall, with web search, multimodal input, and Workspace integration."
+        },
         "CHATGPT": {
           "TITLE": "ChatGPT",
-          "DESCRIPTION": "OpenAI's powerful conversational AI with GPT-4"
+          "DESCRIPTION": "OpenAI's classic. Free tier covers GPT-5 with daily caps, image generation, and web search."
         },
         "CLAUDE": {
           "TITLE": "Claude",
-          "DESCRIPTION": "Anthropic's helpful, harmless, and honest AI assistant"
-        },
-        "GEMINI": {
-          "TITLE": "Gemini",
-          "DESCRIPTION": "Google's multimodal AI for text, code, and images"
-        },
-        "COPILOT": {
-          "TITLE": "Microsoft Copilot",
-          "DESCRIPTION": "AI assistant powered by GPT-4 with web access"
-        },
-        "GROK": {
-          "TITLE": "Grok",
-          "DESCRIPTION": "xAI's witty assistant with real-time X data"
+          "DESCRIPTION": "Anthropic's assistant. Best free tier for writing quality and careful reasoning."
         },
         "DEEPSEEK": {
           "TITLE": "DeepSeek",
-          "DESCRIPTION": "Advanced reasoning AI with strong coding abilities"
+          "DESCRIPTION": "Open-weight reasoning models. Free chat with no visible cap and strong coding ability."
         },
-        "LLAMA": {
-          "TITLE": "Meta AI",
-          "DESCRIPTION": "Meta's AI assistant powered by Llama models"
+        "GROK": {
+          "TITLE": "Grok",
+          "DESCRIPTION": "xAI's chatbot. Real-time X data, generous free image generation via Grok Imagine."
         },
-        "HUGGINGCHAT": {
-          "TITLE": "HuggingChat",
-          "DESCRIPTION": "Open-source AI chat with multiple model options"
+        "MISTRAL": {
+          "TITLE": "Le Chat",
+          "DESCRIPTION": "Mistral's assistant. EU-hosted, fast, with a free tier including web search and code interpreter."
+        },
+        "COPILOT": {
+          "TITLE": "Microsoft Copilot",
+          "DESCRIPTION": "GPT-powered assistant baked into Windows, Edge, and Microsoft 365 apps."
+        },
+        "QWEN": {
+          "TITLE": "Qwen Chat",
+          "DESCRIPTION": "Alibaba's open-weight family. Free chat with strong multilingual and coding performance."
         }
       },
       "CODING_ASSISTANTS": {
         "TITLE": "Coding Assistants",
-        "DESCRIPTION": "AI tools specifically designed to help you write, understand, and debug code.",
+        "DESCRIPTION": "Tools that write, refactor, and debug code with you. The free tier story has changed: terminal agents that bring-your-own-key (OpenCode, Aider, Cline) plus a local model or a free provider key now beat most paid editor subscriptions.",
+        "OPENCODE": {
+          "TITLE": "OpenCode",
+          "DESCRIPTION": "Open-source terminal agent. Provider-agnostic, supports 75+ models, and OpenCode Zen rotates a list of models that are free for limited periods."
+        },
+        "CLAUDE_CODE": {
+          "TITLE": "Claude Code",
+          "DESCRIPTION": "Anthropic's terminal agent. Best-in-class reasoning when paired with a Claude Pro/Max subscription; otherwise pay-per-token."
+        },
+        "GEMINI_CLI": {
+          "TITLE": "Gemini CLI",
+          "DESCRIPTION": "Google's terminal agent. The cheapest path to high-quality AI coding: 1,000 free requests/day with Gemini's 1M-token context."
+        },
         "GITHUB_COPILOT": {
-          "TITLE": "GitHub Copilot",
-          "DESCRIPTION": "AI pair programmer that suggests code in your editor"
+          "TITLE": "GitHub Copilot Free",
+          "DESCRIPTION": "Free tier for GitHub users. Inline completions and chat in VS Code, JetBrains, and Visual Studio."
         },
         "CURSOR": {
           "TITLE": "Cursor",
-          "DESCRIPTION": "AI-first code editor built for pair programming"
+          "DESCRIPTION": "AI-first IDE. The best supervised editor experience; the free tier is limited but enough to evaluate."
         },
-        "CODEIUM": {
-          "TITLE": "Codeium",
-          "DESCRIPTION": "Free AI code completion for 70+ languages"
+        "CLINE": {
+          "TITLE": "Cline",
+          "DESCRIPTION": "Open-source VS Code extension. Bring your own key, including free providers, with a polished agentic UI."
         },
-        "TABNINE": {
-          "TITLE": "Tabnine",
-          "DESCRIPTION": "AI assistant trained on your codebase"
+        "CONTINUE": {
+          "TITLE": "Continue",
+          "DESCRIPTION": "Open-source IDE assistant for VS Code and JetBrains. Pairs cleanly with local models via Ollama."
         },
-        "REPLIT": {
-          "TITLE": "Replit AI",
-          "DESCRIPTION": "Code, debug, and deploy with AI assistance"
-        },
-        "BLACKBOX": {
-          "TITLE": "Blackbox AI",
-          "DESCRIPTION": "AI code generation and search engine"
+        "AIDER": {
+          "TITLE": "Aider",
+          "DESCRIPTION": "Terminal pair-programmer with git-native workflow. Architect/editor split keeps cost low on any provider."
         }
       },
       "IMAGE_GENERATION": {
         "TITLE": "Image Generation",
-        "DESCRIPTION": "AI tools that create images from text descriptions.",
-        "DALL_E": {
-          "TITLE": "DALL-E 3",
-          "DESCRIPTION": "OpenAI's latest image generation model"
+        "DESCRIPTION": "AI image tools you can use without paying. Nano Banana 2 inside Gemini is the strongest free pick; Flux is the best self-hosted option.",
+        "NANO_BANANA": {
+          "TITLE": "Nano Banana 2 (Gemini)",
+          "DESCRIPTION": "Google's image model inside Gemini. Best free quality, ~20 images/day, excellent for editing existing images."
         },
-        "MIDJOURNEY": {
-          "TITLE": "Midjourney",
-          "DESCRIPTION": "Stunning artistic image generation"
+        "CHATGPT": {
+          "TITLE": "ChatGPT Image",
+          "DESCRIPTION": "GPT Image inside ChatGPT. Strong text rendering, good for infographics, mockups, and marketing visuals."
         },
-        "LEONARDO": {
-          "TITLE": "Leonardo.AI",
-          "DESCRIPTION": "AI image generation with creative control"
-        },
-        "STABLE_DIFFUSION": {
-          "TITLE": "Stable Diffusion",
-          "DESCRIPTION": "Open-source image generation you can run locally"
+        "FLUX": {
+          "TITLE": "Flux",
+          "DESCRIPTION": "Black Forest Labs' open-weight model. Run Flux Schnell or Flux Dev locally for unlimited free generation."
         },
         "IDEOGRAM": {
           "TITLE": "Ideogram",
-          "DESCRIPTION": "AI art with excellent text rendering"
+          "DESCRIPTION": "Best-in-class for text inside images. Free credits weekly. Great for posters, signs, and logos."
+        },
+        "RECRAFT": {
+          "TITLE": "Recraft",
+          "DESCRIPTION": "Design-focused with SVG export. Free plan is for exploration only; commercial use requires the paid plan."
+        },
+        "GROK_IMAGINE": {
+          "TITLE": "Grok Imagine",
+          "DESCRIPTION": "Inside Grok. ~10 images every 2 hours; the highest free volume of any major option."
+        },
+        "LEONARDO": {
+          "TITLE": "Leonardo",
+          "DESCRIPTION": "Daily free credits, multiple model styles, and fine-grained controls for artists and designers."
         },
         "BING_IMAGE": {
           "TITLE": "Bing Image Creator",
-          "DESCRIPTION": "Free DALL-E 3 access through Microsoft"
+          "DESCRIPTION": "Free, no install. Sign in with a Microsoft account and generate with daily boost credits."
         }
       },
       "SEARCH_ENGINES": {
         "TITLE": "AI Search Engines",
-        "DESCRIPTION": "Search engines enhanced with AI for better answers and research.",
+        "DESCRIPTION": "Search with citations and synthesized answers. Perplexity is still the benchmark; Phind is best for developers; Brave and DuckDuckGo lead on privacy.",
         "PERPLEXITY": {
           "TITLE": "Perplexity",
-          "DESCRIPTION": "AI-powered answer engine with citations"
-        },
-        "YOU": {
-          "TITLE": "You.com",
-          "DESCRIPTION": "AI search with chat and app integrations"
+          "DESCRIPTION": "Cited answers with real-time web grounding. Free tier covers most everyday research."
         },
         "PHIND": {
           "TITLE": "Phind",
-          "DESCRIPTION": "AI search engine optimized for developers"
+          "DESCRIPTION": "Built for developers. Searches docs, GitHub, Stack Overflow, and explains code with cited answers."
+        },
+        "BRAVE": {
+          "TITLE": "Brave Search AI",
+          "DESCRIPTION": "Independent index, AI answers, no tracking. Free, privacy-first, no account required."
+        },
+        "DUCKDUCKGO": {
+          "TITLE": "Duck.ai",
+          "DESCRIPTION": "Anonymous chat with GPT, Claude, and Llama models. Zero data retention by DuckDuckGo."
         },
         "KAGI": {
           "TITLE": "Kagi",
-          "DESCRIPTION": "Premium search with AI assistant features"
+          "DESCRIPTION": "Paid, but the cleanest premium search. Strong AI assistant and universal summarizer with no ads."
+        },
+        "YOU": {
+          "TITLE": "You.com",
+          "DESCRIPTION": "Agent-based search with specialized modes for research, writing, and coding."
         }
+      },
+      "UNOROUTER_PROMO": {
+        "TITLE": "Want all of these models from one API?",
+        "DESCRIPTION": "UnoRouter gives you a single endpoint with intelligent routing, automatic failover, and 200+ models from 35+ providers. Subscribe for better value or pay as you go, no per-provider sign-up needed."
       }
     },
     "VIBE_CODING": {
       "META": {
         "TITLE": "Vibe Coding - Coding Global",
-        "DESCRIPTION": "Discover tips and techniques for achieving flow state and maximum productivity while coding",
-        "KEYWORDS": "vibe coding, productivity, flow state, coding tips, developer experience"
+        "DESCRIPTION": "How to vibe code in 2026 for free: install OpenCode, pick a free model on OpenCode Zen, and ship.",
+        "KEYWORDS": "vibe coding, opencode, opencode zen, claude code, gemini cli, free ai coding, terminal agent"
       },
       "TITLE": "Vibe Coding",
       "WHAT_IS_VIBE_CODING": {
         "TITLE": "What is Vibe Coding?",
-        "CONTENT_1": "Vibe coding is a new approach to programming where you describe what you want in natural language and let AI build it for you. Instead of writing every line of code yourself, you guide the AI with prompts and let it handle the implementation.",
+        "CONTENT_1": "Vibe coding is a way of programming where you describe what you want in plain language and let an AI agent do the typing. You stay in the loop reviewing diffs, running things, and steering, but you stop hand-writing every line.",
         "CONTENT_2": "The term was coined by Andrej Karpathy in this tweet:",
-        "CONTENT_3": "To vibe code effectively, you need the right tools. Here are the best AI-powered editors and CLIs available today."
+        "CONTENT_3": "The free-tier landscape changed a lot in 2025 and 2026. Editor subscriptions used to be the obvious choice; today the best free setup is an open-source terminal agent plus a free or cheap model. Here's the setup, then a tour of the alternatives."
+      },
+      "OPENCODE_SETUP": {
+        "TITLE": "Best Free Setup: OpenCode",
+        "CONTENT_1": "Start with",
+        "OPENCODE_LINK": "OpenCode",
+        "CONTENT_2": "an open-source, MIT-licensed terminal agent built by the SST team. It's provider-agnostic, supports 75+ models including local ones via Ollama, and has a polished TUI plus a desktop app and IDE extensions for VS Code, Cursor, Zed, and JetBrains.",
+        "INSTALL_HEADING": "Install (pick one):",
+        "INSTALL_COMMAND": "# macOS / Linux\ncurl -fsSL https://opencode.ai/install | bash\n\n# Or via npm\nnpm i -g opencode-ai@latest\n\n# Then run\nopencode",
+        "CONTENT_3": "Once installed, run the /connect command and sign in with",
+        "ZEN_LINK": "OpenCode Zen",
+        "CONTENT_4": "OpenCode Zen is a curated set of models served by the OpenCode team. Some are free for limited periods. The current free lineup rotates as feedback windows close, so check the Zen page for what's available right now. If you want a stable cost-effective baseline, Anthropic's Claude (with a Pro/Max plan) and DeepSeek are the usual go-tos.",
+        "CONTENT_5": "To help the agent see your codebase efficiently, pair it with",
+        "CODE_COLLECTOR_LINK": "Code Collector",
+        "CONTENT_6": "a VS Code extension that walks import graphs and packages just the relevant files into your prompt. Useful when you're switching to a model with a smaller context window.",
+        "UNOROUTER_NOTE": "Want a single endpoint for every model instead of juggling provider keys? UnoRouter routes across 200+ models from 35+ providers with automatic failover."
       },
       "CHOOSING_THE_BEST_MODEL": {
-        "TITLE": "Choosing the Best Model",
-        "CONTENT_1": "The AI model you use matters just as much as the tool. You can find the latest rankings of AI models for web development on the",
+        "TITLE": "Choosing a Model",
+        "CONTENT_1": "Different models are better at different things. As a rough 2026 starting point: Claude Sonnet/Opus for dense refactors and reasoning, Gemini 2.5 Pro when you need a giant context window, GPT-5 codex variants for general coding, DeepSeek V3 when you want strong quality at near-zero cost, and OpenCode Zen's currently-free models when you're experimenting.",
+        "CONTENT_2": "For an independent ranking that updates as new models drop, check the",
         "LEADERBOARD_LINK": "LM Arena Web Development Leaderboard",
-        "CONTENT_2": "That said, Claude models by Anthropic consistently rank at the top for coding tasks. If you want the best results for vibe coding, Claude is usually the way to go."
-      },
-      "MY_SETUP": {
-        "TITLE": "My Setup",
-        "CONTENT_1": "I personally use the",
-        "CLAUDE_CODE_LINK": "Claude Code VSCode Extension",
-        "CONTENT_2": "for my vibe coding workflow. It integrates Claude directly into VSCode with agentic capabilities.",
-        "CONTENT_3": "To help gather context for AI assistants, I also built the",
-        "CODE_COLLECTOR_LINK": "Code Collector",
-        "CONTENT_4": "extension. It automatically collects files based on import dependencies, making it easy to provide your codebase context to any AI assistant."
-      },
-      "AI_EDITORS": {
-        "TITLE": "AI Editors",
-        "DESCRIPTION": "These editors have AI deeply integrated into the coding experience, allowing you to chat with AI, generate code, and get intelligent completions.",
-        "CURSOR": {
-          "TITLE": "Cursor",
-          "DESCRIPTION": "AI-first code editor built on VSCode"
-        },
-        "WINDSURF": {
-          "TITLE": "Windsurf",
-          "DESCRIPTION": "AI-powered IDE by Codeium"
-        },
-        "ANTIGRAVITY": {
-          "TITLE": "Antigravity",
-          "DESCRIPTION": "AI coding environment"
-        }
+        "CONTENT_3": "Don't lock in. Switching models in OpenCode is a single command, so try a few on the same task and keep whichever one wins for your stack."
       },
       "AI_CLIS": {
-        "TITLE": "AI CLIs",
-        "DESCRIPTION": "Command-line tools that let you vibe code directly from your terminal. These are great for quick tasks, automation, and working in any editor you prefer.",
+        "TITLE": "Terminal Agents (Alternatives to OpenCode)",
+        "DESCRIPTION": "Other terminal agents worth knowing. The list is ordered roughly by popularity in 2026.",
+        "OPENCODE": {
+          "TITLE": "OpenCode",
+          "DESCRIPTION": "Open source. Provider-agnostic, with 75+ models and a free Zen tier that rotates."
+        },
         "CLAUDE_CODE": {
           "TITLE": "Claude Code",
-          "DESCRIPTION": "Anthropic's agentic coding CLI"
-        },
-        "OPENAI_CODEX": {
-          "TITLE": "OpenAI Codex CLI",
-          "DESCRIPTION": "OpenAI's terminal coding assistant"
+          "DESCRIPTION": "Anthropic's official agent. Top-tier reasoning, especially with a Pro/Max subscription."
         },
         "GEMINI_CLI": {
           "TITLE": "Gemini CLI",
-          "DESCRIPTION": "Google's AI coding assistant for terminal"
+          "DESCRIPTION": "Google's official agent. 1,000 free requests/day with Gemini's 1M-token context."
+        },
+        "OPENAI_CODEX": {
+          "TITLE": "Codex CLI",
+          "DESCRIPTION": "OpenAI's official agent. Pairs with ChatGPT Plus or pay-per-token via the API."
+        },
+        "AIDER": {
+          "TITLE": "Aider",
+          "DESCRIPTION": "Git-native pair programmer. Architect/editor split keeps cost low across any provider."
+        },
+        "CLINE": {
+          "TITLE": "Cline",
+          "DESCRIPTION": "Open-source VS Code extension. Bring your own key, including free providers."
+        }
+      },
+      "AI_EDITORS": {
+        "TITLE": "AI-First Editors",
+        "DESCRIPTION": "If you'd rather have AI baked into a graphical editor than driven from a terminal, these are the modern picks.",
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "VS Code fork. Best supervised IDE experience, with multi-file Composer and parallel agents."
+        },
+        "WINDSURF": {
+          "TITLE": "Windsurf",
+          "DESCRIPTION": "AI-native IDE from the Windsurf team. Cascade agent and free tier with daily message limits."
+        },
+        "ANTIGRAVITY": {
+          "TITLE": "Antigravity",
+          "DESCRIPTION": "Google's AI-first coding environment. Plans, browses, and edits across multiple files."
         }
       }
     }

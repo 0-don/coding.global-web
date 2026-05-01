@@ -759,64 +759,232 @@
         }
       }
     },
+    "AI_ASSISTANTS": {
+      "META": {
+        "TITLE": "Kostenlose KI-Assistenten - Coding Global",
+        "DESCRIPTION": "Die besten kostenlosen KI-Werkzeuge 2026 für Chat, Coding, Bildgenerierung und Recherche. Aktualisiert für die heutige Landschaft.",
+        "KEYWORDS": "ki-assistenten, kostenlose ki, gemini, chatgpt, claude, deepseek, opencode, nano banana, perplexity"
+      },
+      "TITLE": "Kostenlose KI-Assistenten",
+      "DESCRIPTION": "Die kostenlose KI-Landschaft entwickelt sich schnell. Diese Liste konzentriert sich auf das, was 2026 für kostenlose Nutzer wirklich gut funktioniert, sortiert nach den großzügigsten Free-Tiers.",
+      "CHATBOTS": {
+        "TITLE": "KI-Chatbots",
+        "DESCRIPTION": "Allzweck-Assistenten. Gemini und DeepSeek bieten derzeit die großzügigsten kostenlosen Tarife; ChatGPT und Claude sind enger begrenzt, aber immer noch hervorragend für den täglichen Gebrauch.",
+        "GEMINI": {
+          "TITLE": "Gemini",
+          "DESCRIPTION": "Googles Flaggschiff. Bester kostenloser Tarif insgesamt, mit Websuche, multimodaler Eingabe und Workspace-Integration."
+        },
+        "CHATGPT": {
+          "TITLE": "ChatGPT",
+          "DESCRIPTION": "Der Klassiker von OpenAI. Free-Tier umfasst GPT-5 mit Tageslimits, Bildgenerierung und Websuche."
+        },
+        "CLAUDE": {
+          "TITLE": "Claude",
+          "DESCRIPTION": "Anthropics Assistent. Bester kostenloser Tarif für Schreibqualität und sorgfältiges Reasoning."
+        },
+        "DEEPSEEK": {
+          "TITLE": "DeepSeek",
+          "DESCRIPTION": "Open-Weight Reasoning-Modelle. Kostenloser Chat ohne sichtbares Limit und mit starker Coding-Leistung."
+        },
+        "GROK": {
+          "TITLE": "Grok",
+          "DESCRIPTION": "xAIs Chatbot. Echtzeit-Daten von X, großzügige kostenlose Bildgenerierung über Grok Imagine."
+        },
+        "MISTRAL": {
+          "TITLE": "Le Chat",
+          "DESCRIPTION": "Mistrals Assistent. EU-gehostet, schnell, mit Free-Tier inklusive Websuche und Code-Interpreter."
+        },
+        "COPILOT": {
+          "TITLE": "Microsoft Copilot",
+          "DESCRIPTION": "GPT-basierter Assistent, integriert in Windows, Edge und Microsoft 365."
+        },
+        "QWEN": {
+          "TITLE": "Qwen Chat",
+          "DESCRIPTION": "Alibabas Open-Weight-Familie. Kostenloser Chat mit starker mehrsprachiger und Coding-Leistung."
+        }
+      },
+      "CODING_ASSISTANTS": {
+        "TITLE": "Coding-Assistenten",
+        "DESCRIPTION": "Werkzeuge, die mit dir Code schreiben, refaktorieren und debuggen. Die Free-Tier-Lage hat sich verschoben: Terminal-Agenten mit eigenem API-Schlüssel (OpenCode, Aider, Cline) plus ein lokales Modell oder ein kostenloser Provider-Schlüssel schlagen heute die meisten kostenpflichtigen Editor-Abos.",
+        "OPENCODE": {
+          "TITLE": "OpenCode",
+          "DESCRIPTION": "Open-Source-Terminal-Agent. Provider-unabhängig, unterstützt 75+ Modelle, OpenCode Zen rotiert eine Liste zeitlich begrenzt kostenloser Modelle."
+        },
+        "CLAUDE_CODE": {
+          "TITLE": "Claude Code",
+          "DESCRIPTION": "Anthropics Terminal-Agent. Bestes Reasoning, besonders mit Claude Pro/Max-Abo; sonst pay-per-token."
+        },
+        "GEMINI_CLI": {
+          "TITLE": "Gemini CLI",
+          "DESCRIPTION": "Googles Terminal-Agent. Günstigster Weg zu hochwertigem KI-Coding: 1.000 freie Anfragen/Tag mit 1M-Token-Kontext."
+        },
+        "GITHUB_COPILOT": {
+          "TITLE": "GitHub Copilot Free",
+          "DESCRIPTION": "Kostenloser Tarif für GitHub-Nutzer. Inline-Vervollständigungen und Chat in VS Code, JetBrains und Visual Studio."
+        },
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "KI-first IDE. Beste überwachte Editor-Erfahrung; der Free-Tier ist begrenzt, reicht aber zum Testen."
+        },
+        "CLINE": {
+          "TITLE": "Cline",
+          "DESCRIPTION": "Open-Source-VS-Code-Erweiterung. Eigener API-Schlüssel inklusive kostenloser Provider, mit polierter Agent-Oberfläche."
+        },
+        "CONTINUE": {
+          "TITLE": "Continue",
+          "DESCRIPTION": "Open-Source-IDE-Assistent für VS Code und JetBrains. Funktioniert sauber mit lokalen Modellen via Ollama."
+        },
+        "AIDER": {
+          "TITLE": "Aider",
+          "DESCRIPTION": "Terminal-Pair-Programmer mit git-nativem Workflow. Architect/Editor-Trennung hält Kosten bei jedem Provider niedrig."
+        }
+      },
+      "IMAGE_GENERATION": {
+        "TITLE": "Bildgenerierung",
+        "DESCRIPTION": "KI-Bildwerkzeuge, die du ohne Bezahlung nutzen kannst. Nano Banana 2 in Gemini ist die stärkste kostenlose Wahl; Flux ist die beste selbstgehostete Option.",
+        "NANO_BANANA": {
+          "TITLE": "Nano Banana 2 (Gemini)",
+          "DESCRIPTION": "Googles Bildmodell in Gemini. Beste kostenlose Qualität, ~20 Bilder/Tag, hervorragend zum Bearbeiten vorhandener Bilder."
+        },
+        "CHATGPT": {
+          "TITLE": "ChatGPT Image",
+          "DESCRIPTION": "GPT Image in ChatGPT. Starke Textwiedergabe, gut für Infografiken, Mockups und Marketing-Visuals."
+        },
+        "FLUX": {
+          "TITLE": "Flux",
+          "DESCRIPTION": "Open-Weight-Modell von Black Forest Labs. Flux Schnell oder Flux Dev lokal ausführen für unbegrenzte Generierung."
+        },
+        "IDEOGRAM": {
+          "TITLE": "Ideogram",
+          "DESCRIPTION": "Erstklassig für Text in Bildern. Wöchentliche Gratis-Credits. Ideal für Poster, Schilder und Logos."
+        },
+        "RECRAFT": {
+          "TITLE": "Recraft",
+          "DESCRIPTION": "Design-fokussiert mit SVG-Export. Kostenloser Plan nur zum Erkunden; kommerzielle Nutzung erfordert den Bezahlplan."
+        },
+        "GROK_IMAGINE": {
+          "TITLE": "Grok Imagine",
+          "DESCRIPTION": "In Grok. ~10 Bilder alle 2 Stunden; das höchste kostenlose Volumen unter den großen Anbietern."
+        },
+        "LEONARDO": {
+          "TITLE": "Leonardo",
+          "DESCRIPTION": "Tägliche Gratis-Credits, mehrere Modellstile und feinkörnige Kontrollen für Künstler und Designer."
+        },
+        "BING_IMAGE": {
+          "TITLE": "Bing Image Creator",
+          "DESCRIPTION": "Kostenlos, ohne Installation. Mit Microsoft-Konto anmelden und mit täglichen Boost-Credits generieren."
+        }
+      },
+      "SEARCH_ENGINES": {
+        "TITLE": "KI-Suchmaschinen",
+        "DESCRIPTION": "Suche mit Quellenangaben und zusammengefassten Antworten. Perplexity ist weiterhin der Maßstab; Phind ist die beste Wahl für Entwickler; Brave und DuckDuckGo führen beim Datenschutz.",
+        "PERPLEXITY": {
+          "TITLE": "Perplexity",
+          "DESCRIPTION": "Antworten mit Quellen und Echtzeit-Web-Grounding. Free-Tier deckt die meiste alltägliche Recherche ab."
+        },
+        "PHIND": {
+          "TITLE": "Phind",
+          "DESCRIPTION": "Für Entwickler gebaut. Sucht in Docs, GitHub und Stack Overflow und erklärt Code mit Quellen."
+        },
+        "BRAVE": {
+          "TITLE": "Brave Search AI",
+          "DESCRIPTION": "Unabhängiger Index, KI-Antworten, kein Tracking. Kostenlos, datenschutzfreundlich, ohne Konto."
+        },
+        "DUCKDUCKGO": {
+          "TITLE": "Duck.ai",
+          "DESCRIPTION": "Anonymer Chat mit GPT-, Claude- und Llama-Modellen. Keine Datenspeicherung durch DuckDuckGo."
+        },
+        "KAGI": {
+          "TITLE": "Kagi",
+          "DESCRIPTION": "Kostenpflichtig, aber die sauberste Premium-Suche. Starker KI-Assistent und Universal-Summarizer ohne Werbung."
+        },
+        "YOU": {
+          "TITLE": "You.com",
+          "DESCRIPTION": "Agent-basierte Suche mit spezialisierten Modi für Recherche, Schreiben und Coding."
+        }
+      },
+      "UNOROUTER_PROMO": {
+        "TITLE": "Alle diese Modelle aus einer API?",
+        "DESCRIPTION": "UnoRouter bietet dir einen einzigen Endpunkt mit intelligentem Routing, automatischem Failover und 200+ Modellen von 35+ Anbietern. Abonnement für besseren Preis oder Pay-as-you-go, ohne pro Anbieter ein Konto anlegen zu müssen."
+      }
+    },
     "VIBE_CODING": {
       "META": {
         "TITLE": "Vibe Coding - Coding Global",
-        "DESCRIPTION": "Entdecken Sie Tipps und Techniken für Flow-Zustand und maximale Produktivität beim Coden",
-        "KEYWORDS": "vibe coding, produktivität, flow-zustand, coding-tipps, entwicklererfahrung"
+        "DESCRIPTION": "Wie du 2026 kostenlos Vibe Coden kannst: OpenCode installieren, ein kostenloses Modell auf OpenCode Zen wählen und loslegen.",
+        "KEYWORDS": "vibe coding, opencode, opencode zen, claude code, gemini cli, kostenlose ki coding, terminal agent"
       },
       "TITLE": "Vibe Coding",
       "WHAT_IS_VIBE_CODING": {
         "TITLE": "Was ist Vibe Coding?",
-        "CONTENT_1": "Vibe Coding ist ein neuer Ansatz zum Programmieren, bei dem du beschreibst, was du willst, in natürlicher Sprache und die KI es für dich baut. Anstatt jede Codezeile selbst zu schreiben, leitest du die KI mit Prompts an und lässt sie die Implementierung übernehmen.",
+        "CONTENT_1": "Vibe Coding ist eine Art zu programmieren, bei der du in einfacher Sprache beschreibst, was du willst, und einen KI-Agenten das Tippen übernehmen lässt. Du bleibst im Loop, prüfst Diffs, führst Dinge aus und steuerst, aber du schreibst nicht mehr jede Zeile von Hand.",
         "CONTENT_2": "Der Begriff wurde von Andrej Karpathy in diesem Tweet geprägt:",
-        "CONTENT_3": "Um effektiv Vibe Coding zu betreiben, brauchst du die richtigen Werkzeuge. Hier sind die besten KI-gestützten Editoren und CLIs, die heute verfügbar sind."
+        "CONTENT_3": "Die Free-Tier-Landschaft hat sich 2025 und 2026 stark verändert. Editor-Abos waren früher die offensichtliche Wahl; heute ist das beste kostenlose Setup ein Open-Source-Terminal-Agent plus ein kostenloses oder günstiges Modell. Hier ist das Setup, gefolgt von einer Tour durch die Alternativen."
+      },
+      "OPENCODE_SETUP": {
+        "TITLE": "Bestes kostenloses Setup: OpenCode",
+        "CONTENT_1": "Starte mit",
+        "OPENCODE_LINK": "OpenCode",
+        "CONTENT_2": "einem Open-Source-Terminal-Agenten unter MIT-Lizenz, gebaut vom SST-Team. Er ist provider-unabhängig, unterstützt 75+ Modelle inklusive lokaler Modelle via Ollama und bietet eine polierte TUI sowie eine Desktop-App und IDE-Erweiterungen für VS Code, Cursor, Zed und JetBrains.",
+        "INSTALL_HEADING": "Installieren (eine Variante wählen):",
+        "INSTALL_COMMAND": "# macOS / Linux\ncurl -fsSL https://opencode.ai/install | bash\n\n# Oder via npm\nnpm i -g opencode-ai@latest\n\n# Dann starten\nopencode",
+        "CONTENT_3": "Nach der Installation den Befehl /connect ausführen und einloggen über",
+        "ZEN_LINK": "OpenCode Zen",
+        "CONTENT_4": "OpenCode Zen ist eine kuratierte Modellauswahl, die vom OpenCode-Team gehostet wird. Einige Modelle sind zeitlich begrenzt kostenlos. Das aktuelle Free-Lineup rotiert mit den Feedback-Phasen, prüfe also die Zen-Seite für den aktuellen Stand. Wenn du eine stabile, kostengünstige Basis willst, sind Anthropics Claude (mit Pro/Max-Plan) und DeepSeek die üblichen Empfehlungen.",
+        "CONTENT_5": "Damit der Agent deine Codebasis effizient wahrnimmt, kombiniere ihn mit",
+        "CODE_COLLECTOR_LINK": "Code Collector",
+        "CONTENT_6": "einer VS-Code-Erweiterung, die Import-Graphen ausliest und nur die relevanten Dateien in deinen Prompt packt. Nützlich, wenn du auf ein Modell mit kleinerem Kontextfenster wechselst.",
+        "UNOROUTER_NOTE": "Lieber einen einzigen Endpunkt für alle Modelle, statt Provider-Schlüssel zu jonglieren? UnoRouter routet über 200+ Modelle von 35+ Anbietern mit automatischem Failover."
       },
       "CHOOSING_THE_BEST_MODEL": {
-        "TITLE": "Das beste Modell wählen",
-        "CONTENT_1": "Das KI-Modell, das du verwendest, ist genauso wichtig wie das Werkzeug. Du findest die neuesten Rankings von KI-Modellen für Webentwicklung auf dem",
+        "TITLE": "Modell wählen",
+        "CONTENT_1": "Verschiedene Modelle sind in verschiedenen Dingen besser. Als grober Startpunkt für 2026: Claude Sonnet/Opus für dichte Refactorings und Reasoning, Gemini 2.5 Pro wenn du ein riesiges Kontextfenster brauchst, GPT-5 Codex-Varianten für allgemeines Coden, DeepSeek V3 für starke Qualität bei nahezu null Kosten und die aktuell kostenlosen Modelle auf OpenCode Zen zum Experimentieren.",
+        "CONTENT_2": "Für ein unabhängiges Ranking, das mit jedem neuen Modell aktualisiert wird, schau auf das",
         "LEADERBOARD_LINK": "LM Arena Web Development Leaderboard",
-        "CONTENT_2": "Allerdings rangieren Claude-Modelle von Anthropic durchgehend an der Spitze für Coding-Aufgaben. Wenn du die besten Ergebnisse beim Vibe Coding willst, ist Claude normalerweise die richtige Wahl."
-      },
-      "MY_SETUP": {
-        "TITLE": "Mein Setup",
-        "CONTENT_1": "Ich persönlich verwende die",
-        "CLAUDE_CODE_LINK": "Claude Code VSCode Extension",
-        "CONTENT_2": "für meinen Vibe Coding Workflow. Sie integriert Claude direkt in VSCode mit agentischen Fähigkeiten.",
-        "CONTENT_3": "Um beim Sammeln von Kontext für KI-Assistenten zu helfen, habe ich auch die",
-        "CODE_COLLECTOR_LINK": "Code Collector",
-        "CONTENT_4": "Extension gebaut. Sie sammelt automatisch Dateien basierend auf Import-Abhängigkeiten, was es einfach macht, deinen Codebase-Kontext jedem KI-Assistenten bereitzustellen."
-      },
-      "AI_EDITORS": {
-        "TITLE": "KI-Editoren",
-        "DESCRIPTION": "Diese Editoren haben KI tief in das Coding-Erlebnis integriert und ermöglichen es dir, mit KI zu chatten, Code zu generieren und intelligente Vervollständigungen zu erhalten.",
-        "CURSOR": {
-          "TITLE": "Cursor",
-          "DESCRIPTION": "KI-first Code-Editor basierend auf VSCode"
-        },
-        "WINDSURF": {
-          "TITLE": "Windsurf",
-          "DESCRIPTION": "KI-gestützte IDE von Codeium"
-        },
-        "ANTIGRAVITY": {
-          "TITLE": "Antigravity",
-          "DESCRIPTION": "KI-Coding-Umgebung"
-        }
+        "CONTENT_3": "Lege dich nicht fest. In OpenCode wechselst du das Modell mit einem einzigen Befehl, also probier mehrere an derselben Aufgabe und behalte das, das für deinen Stack gewinnt."
       },
       "AI_CLIS": {
-        "TITLE": "KI-CLIs",
-        "DESCRIPTION": "Kommandozeilentools, mit denen du direkt von deinem Terminal aus Vibe Coden kannst. Diese sind ideal für schnelle Aufgaben, Automatisierung und Arbeiten in jedem Editor deiner Wahl.",
+        "TITLE": "Terminal-Agenten (Alternativen zu OpenCode)",
+        "DESCRIPTION": "Weitere Terminal-Agenten, die man kennen sollte. Die Liste ist grob nach Bekanntheit in 2026 sortiert.",
+        "OPENCODE": {
+          "TITLE": "OpenCode",
+          "DESCRIPTION": "Open Source. Provider-unabhängig, mit 75+ Modellen und einem rotierenden kostenlosen Zen-Tarif."
+        },
         "CLAUDE_CODE": {
           "TITLE": "Claude Code",
-          "DESCRIPTION": "Anthropics agentisches Coding-CLI"
-        },
-        "OPENAI_CODEX": {
-          "TITLE": "OpenAI Codex CLI",
-          "DESCRIPTION": "OpenAIs Terminal-Coding-Assistent"
+          "DESCRIPTION": "Anthropics offizieller Agent. Erstklassiges Reasoning, besonders mit Pro/Max-Abo."
         },
         "GEMINI_CLI": {
           "TITLE": "Gemini CLI",
-          "DESCRIPTION": "Googles KI-Coding-Assistent für das Terminal"
+          "DESCRIPTION": "Googles offizieller Agent. 1.000 kostenlose Anfragen/Tag mit Geminis 1M-Token-Kontext."
+        },
+        "OPENAI_CODEX": {
+          "TITLE": "Codex CLI",
+          "DESCRIPTION": "OpenAIs offizieller Agent. Pairs mit ChatGPT Plus oder pay-per-token via API."
+        },
+        "AIDER": {
+          "TITLE": "Aider",
+          "DESCRIPTION": "Git-nativer Pair-Programmer. Architect/Editor-Trennung hält Kosten bei jedem Provider niedrig."
+        },
+        "CLINE": {
+          "TITLE": "Cline",
+          "DESCRIPTION": "Open-Source-VS-Code-Erweiterung. Eigener API-Schlüssel inklusive kostenloser Provider."
+        }
+      },
+      "AI_EDITORS": {
+        "TITLE": "KI-first Editoren",
+        "DESCRIPTION": "Wenn du KI lieber in einem grafischen Editor statt im Terminal hast, sind das die modernen Empfehlungen.",
+        "CURSOR": {
+          "TITLE": "Cursor",
+          "DESCRIPTION": "VS-Code-Fork. Beste überwachte IDE-Erfahrung, mit Multi-File-Composer und parallelen Agenten."
+        },
+        "WINDSURF": {
+          "TITLE": "Windsurf",
+          "DESCRIPTION": "KI-native IDE des Windsurf-Teams. Cascade-Agent und Free-Tier mit täglichem Nachrichtenlimit."
+        },
+        "ANTIGRAVITY": {
+          "TITLE": "Antigravity",
+          "DESCRIPTION": "Googles KI-first Coding-Umgebung. Plant, surft und bearbeitet über mehrere Dateien hinweg."
         }
       }
     }
