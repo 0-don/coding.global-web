@@ -41,29 +41,19 @@ export const aiAssistantsTOC = createTOC(toc);
 
 const chatbots = [
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CHATGPT.TITLE"),
-    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CHATGPT.DESCRIPTION"),
-    url: "https://chat.openai.com/",
-  },
-  {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CLAUDE.TITLE"),
-    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CLAUDE.DESCRIPTION"),
-    url: "https://claude.ai/",
-  },
-  {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GEMINI.TITLE"),
     descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GEMINI.DESCRIPTION"),
     url: "https://gemini.google.com/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.COPILOT.TITLE"),
-    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.COPILOT.DESCRIPTION"),
-    url: "https://copilot.microsoft.com/",
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CHATGPT.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CHATGPT.DESCRIPTION"),
+    url: "https://chatgpt.com/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GROK.TITLE"),
-    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GROK.DESCRIPTION"),
-    url: "https://grok.x.ai/",
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CLAUDE.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.CLAUDE.DESCRIPTION"),
+    url: "https://claude.ai/",
   },
   {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.DEEPSEEK.TITLE"),
@@ -73,20 +63,49 @@ const chatbots = [
     url: "https://chat.deepseek.com/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.LLAMA.TITLE"),
-    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.LLAMA.DESCRIPTION"),
-    url: "https://www.meta.ai/",
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GROK.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.GROK.DESCRIPTION"),
+    url: "https://grok.com/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.HUGGINGCHAT.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.CHATBOTS.HUGGINGCHAT.DESCRIPTION",
-    ),
-    url: "https://huggingface.co/chat/",
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.MISTRAL.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.MISTRAL.DESCRIPTION"),
+    url: "https://chat.mistral.ai/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.COPILOT.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.COPILOT.DESCRIPTION"),
+    url: "https://copilot.microsoft.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.QWEN.TITLE"),
+    descriptionKey: msg("RESOURCES.AI_ASSISTANTS.CHATBOTS.QWEN.DESCRIPTION"),
+    url: "https://chat.qwen.ai/",
   },
 ];
 
 const codingAssistants = [
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.OPENCODE.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.OPENCODE.DESCRIPTION",
+    ),
+    url: "https://opencode.ai/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CLAUDE_CODE.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CLAUDE_CODE.DESCRIPTION",
+    ),
+    url: "https://github.com/anthropics/claude-code",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.GEMINI_CLI.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.GEMINI_CLI.DESCRIPTION",
+    ),
+    url: "https://github.com/google-gemini/gemini-cli",
+  },
   {
     titleKey: msg(
       "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.GITHUB_COPILOT.TITLE",
@@ -104,65 +123,51 @@ const codingAssistants = [
     url: "https://cursor.com/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CODEIUM.TITLE"),
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CLINE.TITLE"),
     descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CODEIUM.DESCRIPTION",
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CLINE.DESCRIPTION",
     ),
-    url: "https://codeium.com/",
+    url: "https://cline.bot/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.TABNINE.TITLE"),
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CONTINUE.TITLE"),
     descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.TABNINE.DESCRIPTION",
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.CONTINUE.DESCRIPTION",
     ),
-    url: "https://www.tabnine.com/",
+    url: "https://continue.dev/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.REPLIT.TITLE"),
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.AIDER.TITLE"),
     descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.REPLIT.DESCRIPTION",
+      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.AIDER.DESCRIPTION",
     ),
-    url: "https://replit.com/",
-  },
-  {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.BLACKBOX.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.CODING_ASSISTANTS.BLACKBOX.DESCRIPTION",
-    ),
-    url: "https://www.blackbox.ai/",
+    url: "https://aider.chat/",
   },
 ];
 
 const imageGeneration = [
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.DALL_E.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.DALL_E.DESCRIPTION",
-    ),
-    url: "https://openai.com/dall-e-3",
-  },
-  {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.MIDJOURNEY.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.MIDJOURNEY.DESCRIPTION",
-    ),
-    url: "https://www.midjourney.com/",
-  },
-  {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.LEONARDO.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.LEONARDO.DESCRIPTION",
-    ),
-    url: "https://leonardo.ai/",
-  },
-  {
     titleKey: msg(
-      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.STABLE_DIFFUSION.TITLE",
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.NANO_BANANA.TITLE",
     ),
     descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.STABLE_DIFFUSION.DESCRIPTION",
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.NANO_BANANA.DESCRIPTION",
     ),
-    url: "https://stability.ai/",
+    url: "https://gemini.google.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.CHATGPT.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.CHATGPT.DESCRIPTION",
+    ),
+    url: "https://chatgpt.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.FLUX.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.FLUX.DESCRIPTION",
+    ),
+    url: "https://blackforestlabs.ai/",
   },
   {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.IDEOGRAM.TITLE"),
@@ -170,6 +175,29 @@ const imageGeneration = [
       "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.IDEOGRAM.DESCRIPTION",
     ),
     url: "https://ideogram.ai/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.RECRAFT.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.RECRAFT.DESCRIPTION",
+    ),
+    url: "https://www.recraft.ai/",
+  },
+  {
+    titleKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.GROK_IMAGINE.TITLE",
+    ),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.GROK_IMAGINE.DESCRIPTION",
+    ),
+    url: "https://grok.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.LEONARDO.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.LEONARDO.DESCRIPTION",
+    ),
+    url: "https://leonardo.ai/",
   },
   {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.IMAGE_GENERATION.BING_IMAGE.TITLE"),
@@ -189,13 +217,6 @@ const searchEngines = [
     url: "https://www.perplexity.ai/",
   },
   {
-    titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.YOU.TITLE"),
-    descriptionKey: msg(
-      "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.YOU.DESCRIPTION",
-    ),
-    url: "https://you.com/",
-  },
-  {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.PHIND.TITLE"),
     descriptionKey: msg(
       "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.PHIND.DESCRIPTION",
@@ -203,11 +224,32 @@ const searchEngines = [
     url: "https://www.phind.com/",
   },
   {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.BRAVE.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.BRAVE.DESCRIPTION",
+    ),
+    url: "https://search.brave.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.DUCKDUCKGO.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.DUCKDUCKGO.DESCRIPTION",
+    ),
+    url: "https://duck.ai/",
+  },
+  {
     titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.KAGI.TITLE"),
     descriptionKey: msg(
       "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.KAGI.DESCRIPTION",
     ),
     url: "https://kagi.com/",
+  },
+  {
+    titleKey: msg("RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.YOU.TITLE"),
+    descriptionKey: msg(
+      "RESOURCES.AI_ASSISTANTS.SEARCH_ENGINES.YOU.DESCRIPTION",
+    ),
+    url: "https://you.com/",
   },
 ];
 
@@ -284,6 +326,18 @@ export function AiAssistants() {
               </Card>
             </a>
           ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <div className="bg-muted/40 rounded-lg border p-6">
+          <h3 className="mb-2 text-lg font-semibold">
+            {t("RESOURCES.AI_ASSISTANTS.UNOROUTER_PROMO.TITLE")}
+          </h3>
+          <p className="text-muted-foreground mb-4 text-sm">
+            {t("RESOURCES.AI_ASSISTANTS.UNOROUTER_PROMO.DESCRIPTION")}
+          </p>
+          <UnoRouterBadge badge="providers" />
         </div>
       </section>
 
