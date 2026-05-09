@@ -14,8 +14,6 @@ import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
   return PROGRAMMING_LANGUAGES.map((language) => ({
     language,
