@@ -10,6 +10,7 @@ RUN bun install
 FROM oven/bun:1-alpine AS builder
 WORKDIR /app
 
+COPY --from=deps /usr/local/bin/bun /usr/local/bin/bun
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 ENV STANDALONE=1
@@ -17,15 +18,23 @@ ENV STANDALONE=1
 RUN bun run build
 
 #
+# Prod runtime: Node (Next.js standalone is built for Node and is ~5-10x faster
+# than running it under Bun, which has incomplete fast paths for the RSC pipeline
+# and AsyncLocalStorage). Build still runs on Bun (faster install + build).
 FROM node:24-alpine AS prod
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/drizzle ./drizzle
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -S appuser -u 1001 -G appgroup
+
+COPY --from=builder --chown=appuser:appgroup /app/.next/standalone ./
+COPY --from=builder --chown=appuser:appgroup /app/drizzle ./drizzle
+COPY --from=builder --chown=appuser:appgroup /app/.next/static ./.next/static
+COPY --from=builder --chown=appuser:appgroup /app/public ./public
+
+USER appuser
 
 EXPOSE 3000
 

@@ -1,47 +1,57 @@
+networks:
+  proxy:
+    external: false
+    name: proxy
+
 services:
   coding-global-web:
     container_name: coding-global-web
     restart: always
-    mem_limit: 4g
-    memswap_limit: 4g
     build:
       context: ./
       dockerfile: Dockerfile
       target: prod
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://0.0.0.0:3000/api/health"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "/dev/null",
+          "http://127.0.0.1:3000/api/health",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
     networks:
       - proxy
     labels:
       - "autoheal=true"
       - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
       - "traefik.http.routers.coding-global-web.rule=Host(`coding.global`) || Host(`www.coding.global`)"
       - "traefik.http.routers.coding-global-web.entrypoints=websecure"
       - "traefik.http.routers.coding-global-web.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.coding-global-web.middlewares=inflight-limit@file,circuit-breaker@file"
       - "traefik.http.routers.coding-global-web.service=coding-global-web"
       - "traefik.http.services.coding-global-web.loadbalancer.server.port=3000"
-      # PostHog reverse proxy via Traefik (replaces separate nginx container)
+      # PostHog reverse proxy (avoids ad blockers)
       - "traefik.http.routers.posthog-proxy.rule=Host(`ph.coding.global`)"
       - "traefik.http.routers.posthog-proxy.entrypoints=websecure"
       - "traefik.http.routers.posthog-proxy.tls.certresolver=letsencrypt"
       - "traefik.http.routers.posthog-proxy.service=posthog-ext"
       - "traefik.http.services.posthog-ext.loadbalancer.server.url=https://eu.i.posthog.com"
       - "traefik.http.services.posthog-ext.loadbalancer.passHostHeader=false"
-    env_file: .env
-    environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
 
   coding-global-web-db:
     container_name: coding-global-web-db
     image: postgres:18-alpine
     restart: always
-    mem_limit: 2g
-    memswap_limit: 2g
     networks:
       - proxy
     ports:
@@ -50,8 +60,3 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-
-networks:
-  proxy:
-    external: false
-    name: proxy
