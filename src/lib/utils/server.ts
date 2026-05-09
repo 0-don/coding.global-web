@@ -10,7 +10,7 @@ import {
   LOCALES,
   SERVER_URL_KEY,
 } from "../config/constants";
-import { ThreadType } from "../types";
+import { ApiThreadType } from "../types";
 
 export const serverUrl = async () => (await headers()).get(SERVER_URL_KEY);
 
@@ -43,7 +43,7 @@ export const getCookieValue = async <T>(
 
 export async function getThread(
   threadId: string,
-  threadType: ThreadType,
+  threadType: ApiThreadType,
 ): Promise<GetApiByGuildIdThreadByThreadTypeByThreadId200 | null> {
   try {
     const response = await getApiByGuildIdThreadByThreadTypeByThreadId(
