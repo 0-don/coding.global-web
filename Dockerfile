@@ -17,7 +17,7 @@ ENV STANDALONE=1
 RUN bun run build
 
 #
-FROM oven/bun:24-alpine AS prod
+FROM node:24-alpine AS prod
 WORKDIR /app
 
 ENV NODE_ENV=production
