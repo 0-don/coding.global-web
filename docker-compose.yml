@@ -32,6 +32,7 @@ services:
       - "traefik.http.routers.posthog-proxy.service=posthog-ext"
       - "traefik.http.services.posthog-ext.loadbalancer.server.url=https://eu.i.posthog.com"
       - "traefik.http.services.posthog-ext.loadbalancer.passHostHeader=false"
+    env_file: .env
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
 

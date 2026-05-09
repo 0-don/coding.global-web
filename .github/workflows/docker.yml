@@ -45,3 +45,28 @@ jobs:
 
       - name: Docker run
         run: docker compose up -d --force-recreate --build
+
+      - name: Wait for site to be healthy
+        run: |
+          for i in {1..30}; do
+            if curl -fsS "${{ secrets.NEXT_PUBLIC_URL }}/sitemap.xml" > /dev/null; then
+              echo "Site is up"
+              exit 0
+            fi
+            echo "Waiting for site... ($i/30)"
+            sleep 5
+          done
+          echo "Site did not come up in time"
+          exit 1
+
+      - name: Submit to IndexNow
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -v "$PWD":/app -w /app \
+            -e INDEXNOW_KEY="${{ secrets.INDEXNOW_KEY }}" \
+            -e NEXT_PUBLIC_URL="${{ secrets.NEXT_PUBLIC_URL }}" \
+            -e HOME=/tmp \
+            oven/bun:1-alpine \
+            sh -c "bun add indexnow-submitter --no-save && bun scripts/indexnow.ts"
+        continue-on-error: true
