@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@base-ui/react": "1.4.1",
-    "@better-auth/drizzle-adapter": "^1.6.10",
+    "@better-auth/drizzle-adapter": "1.6.10",
     "@elysiajs/eden": "1.4.9",
     "@orama/orama": "3.1.18",
     "@orama/plugin-data-persistence": "3.1.18",
@@ -67,6 +67,7 @@
     "drizzle-kit": "0.31.10",
     "eslint": "10.3.0",
     "eslint-config-next": "16.2.6",
+    "indexnow-submitter": "1.4.0",
     "jsdom": "29.1.1",
     "orval": "8.9.1",
     "postgres": "3.4.9",
