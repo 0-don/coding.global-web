@@ -26,8 +26,6 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/drizzle ./drizzle
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=deps /app/node_modules/indexnow-submitter ./node_modules/indexnow-submitter
-COPY --from=deps /app/node_modules/axios ./node_modules/axios
 
 EXPOSE 3000
 
