@@ -12,9 +12,6 @@ import { Locale } from "next-intl";
 
 export const revalidate = 3600;
 
-// Threads with fewer than this many messages are excluded from the sitemap.
-// One-message threads are the main driver of "Crawled - currently not indexed"
-// since Google sees thousands of near-identical shell pages.
 const MIN_MESSAGES_FOR_SITEMAP = 3;
 
 const THREAD_TYPES = Object.values(
@@ -49,6 +46,11 @@ function getRoutePriority(route: string): SitemapEntryOptions {
   return { priority: 0.5, changeFrequency: "weekly" };
 }
 
+function getUrl(href: Pathname, locale: Locale): string {
+  const pathname = getPathname({ locale, href });
+  return `${new URL(process.env.NEXT_PUBLIC_URL).origin}${pathname}`;
+}
+
 function getEntries(
   href: Pathname,
   options?: SitemapEntryOptions,
@@ -66,11 +68,6 @@ function getEntries(
       ),
     },
   }));
-}
-
-function getUrl(href: Pathname, locale: Locale): string {
-  const pathname = getPathname({ locale, href });
-  return `${new URL(process.env.NEXT_PUBLIC_URL).origin}${pathname}`;
 }
 
 async function fetchThreads(
@@ -93,56 +90,35 @@ async function fetchThreads(
   }
 }
 
-function threadEntries(
-  threadType: (typeof THREAD_TYPES)[number],
-  threads: GetApiByGuildIdThreadByThreadType200Item[],
-): MetadataRoute.Sitemap {
-  return threads
-    .filter((thread) => thread.messageCount >= MIN_MESSAGES_FOR_SITEMAP)
-    .flatMap((thread) =>
-      getEntries(getThreadPathname(threadType, thread.id), {
-        priority: 0.6,
-        changeFrequency: "weekly",
-        lastModified: thread.lastActivityAt
-          ? new Date(thread.lastActivityAt)
-          : undefined,
-      }),
-    );
-}
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticRoutes = Object.keys(pathnames).filter(
+    (route) => !route.includes("["),
+  ) as (keyof typeof pathnames)[];
 
-// Generate one sitemap per section. Next.js produces:
-//   /sitemap.xml            -> index of /sitemap/<id>.xml
-//   /sitemap/static.xml     -> localized static routes
-//   /sitemap/threads-<t>.xml -> threads for type <t>
-export async function generateSitemaps() {
-  return [{ id: "static" }, ...THREAD_TYPES.map((t) => ({ id: `threads-${t}` }))];
-}
+  const staticEntries = staticRoutes.flatMap((route) =>
+    getEntries(route as Pathname, getRoutePriority(route)),
+  );
 
-export default async function sitemap(props: {
-  id: Promise<string>;
-}): Promise<MetadataRoute.Sitemap> {
-  const id = await props.id;
-  if (id === "static") {
-    const staticRoutes = Object.keys(pathnames).filter(
-      (route) => !route.includes("["),
-    ) as (keyof typeof pathnames)[];
-    return staticRoutes.flatMap((route) =>
-      getEntries(route as Pathname, getRoutePriority(route)),
-    );
-  }
+  const threadsByType = await Promise.all(
+    THREAD_TYPES.map(async (threadType) => {
+      const threads = await fetchThreads(threadType);
+      const kept = threads.filter(
+        (thread) => thread.messageCount >= MIN_MESSAGES_FOR_SITEMAP,
+      );
+      log(
+        `[Sitemap] ${threadType}: kept ${kept.length}/${threads.length} (messageCount >= ${MIN_MESSAGES_FOR_SITEMAP})`,
+      );
+      return kept.flatMap((thread) =>
+        getEntries(getThreadPathname(threadType, thread.id), {
+          priority: 0.6,
+          changeFrequency: "weekly",
+          lastModified: thread.lastActivityAt
+            ? new Date(thread.lastActivityAt)
+            : undefined,
+        }),
+      );
+    }),
+  );
 
-  const threadsPrefix = "threads-";
-  if (id.startsWith(threadsPrefix)) {
-    const threadType = id.slice(threadsPrefix.length) as
-      (typeof THREAD_TYPES)[number];
-    if (!THREAD_TYPES.includes(threadType)) return [];
-    const threads = await fetchThreads(threadType);
-    const entries = threadEntries(threadType, threads);
-    log(
-      `[Sitemap] ${threadType}: kept ${entries.length / routing.locales.length}/${threads.length} (messageCount >= ${MIN_MESSAGES_FOR_SITEMAP})`,
-    );
-    return entries;
-  }
-
-  return [];
+  return [...staticEntries, ...threadsByType.flat()];
 }
