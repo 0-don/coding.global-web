@@ -4,7 +4,7 @@ import { ThreadJsonLd } from "@/components/seo/thread-json-ld";
 import { getThreadPageMetadata } from "@/lib/config/metadata";
 import getQueryClient from "@/lib/react-query/client";
 import { queryKeys } from "@/lib/react-query/keys";
-import { PROGRAMMING_LANGUAGES, ProgrammingThreadType } from "@/lib/types";
+import { ProgrammingThreadType } from "@/lib/types";
 import { getThread } from "@/lib/utils/server";
 import {
   getApiByGuildIdThreadByThreadTypeByThreadIdMessages,
@@ -13,12 +13,6 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-
-export async function generateStaticParams() {
-  return PROGRAMMING_LANGUAGES.map((language) => ({
-    language,
-  }));
-}
 
 export async function generateMetadata(props: {
   params: Promise<{
