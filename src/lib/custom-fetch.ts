@@ -14,7 +14,6 @@ export const customFetch = async <T>(
     new URL(url, process.env.NEXT_PUBLIC_BOT_URL).toString(),
     {
       ...options,
-      credentials: "include",
       headers: {
         ...(isJsonBody && { "Content-Type": "application/json" }),
         ...options.headers,
