@@ -3,7 +3,6 @@ import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
-import { serverLocale } from "@/lib/utils/server";
 import { Viewport } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -37,7 +36,7 @@ const geistMono = Geist_Mono({
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
 }) {
-  const locale = await serverLocale(props);
+  const { locale } = await props.params;
   const t = await getTranslations({ locale });
   return getPageMetadata({
     locale,
