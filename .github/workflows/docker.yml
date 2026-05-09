@@ -49,7 +49,7 @@ jobs:
       - name: Wait for site to be healthy
         run: |
           for i in {1..30}; do
-            if curl -fsS "${{ secrets.NEXT_PUBLIC_URL }}/api/health" > /dev/null; then
+            if curl -fsS "${{ secrets.NEXT_PUBLIC_URL }}/sitemap.xml" > /dev/null; then
               echo "Site is up"
               exit 0
             fi
