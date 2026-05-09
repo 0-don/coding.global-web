@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { getPageMetadata } from "@/lib/config/metadata";
 import { Viewport } from "next";
-import { hasLocale } from "next-intl";
+import { hasLocale, Locale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
@@ -34,7 +34,7 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(props: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await props.params;
   const t = await getTranslations({ locale });
