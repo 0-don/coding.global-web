@@ -1,4 +1,7 @@
-import { GetApiByGuildIdThreadByThreadTypeByThreadId200 } from "@/openapi";
+import {
+  GetApiByGuildIdThreadByThreadTypeByThreadId200,
+  getApiByGuildIdThreadByThreadTypeByThreadId,
+} from "@/openapi";
 import type { Locale } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
@@ -7,7 +10,6 @@ import {
   LOCALES,
   SERVER_URL_KEY,
 } from "../config/constants";
-import { rpc } from "../rpc";
 import { ThreadType } from "../types";
 
 export const serverUrl = async () => (await headers()).get(SERVER_URL_KEY);
@@ -44,9 +46,11 @@ export async function getThread(
   threadType: ThreadType,
 ): Promise<GetApiByGuildIdThreadByThreadTypeByThreadId200 | null> {
   try {
-    const response = await rpc.api.bot
-      .thread({ threadType })({ threadId })
-      .get();
+    const response = await getApiByGuildIdThreadByThreadTypeByThreadId(
+      process.env.NEXT_PUBLIC_GUILD_ID!,
+      threadType,
+      threadId,
+    );
     if (response.status === 200) {
       return response.data;
     }
