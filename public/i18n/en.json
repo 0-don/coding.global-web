@@ -682,87 +682,87 @@
       "OR": "or",
       "CODECADEMY_LINK": "Codecademy's Python courses"
     },
-      "CYBER_SECURITY": {
-    "META": {
-      "TITLE": "Cyber Security - Coding Global",
-      "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
-      "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
-    },
-    "TITLE": "Cyber Security",
-    "WELCOME": {
-      "TITLE": "Welcome",
-      "INTRO_TEXT": "Hi there! Welcome to the server. If you're new to hacking, tech, or programming, that's okay! This post is for you. This is your all-in-one resource for getting started."
-    },
-    "ROADMAP": {
-      "TITLE": "The Path to Hacking",
-      "ETHICS": {
-        "TITLE": "Legality & Ethics",
-        "DESC": "Before you start, you must understand the law. Read up on the Computer Fraud and Abuse Act and the GDPR in the EU."
+    "CYBER_SECURITY": {
+      "META": {
+        "TITLE": "Cyber Security - Coding Global",
+        "DESCRIPTION": "Learn cyber security fundamentals, best practices, and techniques to protect your applications",
+        "KEYWORDS": "cyber security, security, hacking, penetration testing, infosec"
       },
-      "BOUNTY": {
-        "TITLE": "Bug Bounty Loophole",
-        "DESC": "Want to hack legally and get paid? Bug bounties allow ethical hackers to test participating companies within a safe scope."
+      "TITLE": "Cyber Security",
+      "WELCOME": {
+        "TITLE": "Welcome",
+        "INTRO_TEXT": "Hi there! Welcome to the server. If you're new to hacking, tech, or programming, that's okay! This post is for you. This is your all-in-one resource for getting started."
       },
-      "LEARNING": {
-        "TITLE": "Learning about Computers",
-        "DESC": "You can't hack what you don't understand. Pick a machine (Linux/Unix recommended) and learn basics via OverTheWire Bandit."
+      "ROADMAP": {
+        "TITLE": "The Path to Hacking",
+        "ETHICS": {
+          "TITLE": "Legality & Ethics",
+          "DESC": "Before you start, you must understand the law. Read up on the Computer Fraud and Abuse Act and the GDPR in the EU."
+        },
+        "BOUNTY": {
+          "TITLE": "Bug Bounty Loophole",
+          "DESC": "Want to hack legally and get paid? Bug bounties allow ethical hackers to test participating companies within a safe scope."
+        },
+        "LEARNING": {
+          "TITLE": "Learning about Computers",
+          "DESC": "You can't hack what you don't understand. Pick a machine (Linux/Unix recommended) and learn basics via OverTheWire Bandit."
+        },
+        "GOOGLING": {
+          "TITLE": "The Power of Googling",
+          "DESC": "Its impossible to memorize everything. Learning how to search and what questions to ask is your most important skill."
+        }
       },
-      "GOOGLING": {
-        "TITLE": "The Power of Googling",
-        "DESC": "Its impossible to memorize everything. Learning how to search and what questions to ask is your most important skill."
+      "TOOLS": {
+        "TITLE": "Worthwhile Tools",
+        "DESCRIPTION": "Don't worry about tools right away. Focus on understanding first. When you're ready, start with these staples."
+      },
+      "ETHICS_DEEP_DIVE": {
+        "TITLE": "Ethics and Legal in Depth",
+        "CONTENT_1": "Ethical hacking involves an authorized attempt to gain access to a system to identify and resolve vulnerabilities before they are exploited.",
+        "CONTENT_2": "Remember: You are the good guy. Always ensure you have permission before testing any system or account."
+      },
+      "INTRODUCTION": {
+        "TITLE": "Introduction",
+        "CONTENT_1": "To break a system, you have to understand it better than the person who built it. This isn't just about running scripts or hacking tools. You have to go through the meticulous process of identifying logical flaws, memory corruption, and protocol weaknesses that developers never intended to exist, taking software and infrastructure apart at the binary level to map out every possible attack surface.",
+        "CONTENT_2": "This level of depth is what separates a researcher from someone just running scripts. When you’ve manually mapped the attack surface, you see the logic errors that everyone else walked right past. That’s how real-world research and exploitation actually happen."
+      },
+      "LEARNING_PLATFORMS": {
+        "TITLE": "Additional Resources",
+        "DESCRIPTION": "These resources range from hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
+        "TRYHACKME": {
+          "TITLE": "TryHackMe",
+          "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
+        },
+        "HACKTHEBOX": {
+          "TITLE": "Hack The Box",
+          "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
+        },
+        "PICOCTF": {
+          "TITLE": "picoCTF",
+          "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
+        },
+        "ROOTME": {
+          "TITLE": "Root Me",
+          "DESCRIPTION": "Platform for practicing hacking skills with challenges and virtual environments"
+        },
+        "CISCO": {
+          "TITLE": "Cisco Networking Academy",
+          "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
+        },
+        "PHRACK": {
+          "TITLE": "Phrack.org",
+          "DESCRIPTION": "One of the oldest E-zine in the underground hacking community."
+        },
+        "TMPOUT": {
+          "TITLE": "tmp.0ut.",
+          "DESCRIPTION": "Hacking e-zine with a much tighter focus on low-level systems and binary exploitation. "
+        },
+        "PAGEDOUT": {
+          "TITLE": "Paged Out!",
+          "DESCRIPTION": "Technical magazine about programming, hacking, security hacking, retro computers, modern computers, electronics, demoscene, and other similar topics."
+        }
       }
     },
-    "TOOLS": {
-      "TITLE": "Worthwhile Tools",
-      "DESCRIPTION": "Don't worry about tools right away. Focus on understanding first. When you're ready, start with these staples."
-    },
-    "ETHICS_DEEP_DIVE": {
-      "TITLE": "Ethics and Legal in Depth",
-      "CONTENT_1": "Ethical hacking involves an authorized attempt to gain access to a system to identify and resolve vulnerabilities before they are exploited.",
-      "CONTENT_2": "Remember: You are the good guy. Always ensure you have permission before testing any system or account."
-    },
-    "INTRODUCTION": {
-      "TITLE": "Introduction",
-      "CONTENT_1": "To break a system, you have to understand it better than the person who built it. This isn't just about running scripts or hacking tools. You have to go through the meticulous process of identifying logical flaws, memory corruption, and protocol weaknesses that developers never intended to exist, taking software and infrastructure apart at the binary level to map out every possible attack surface.",
-      "CONTENT_2": "This level of depth is what separates a researcher from someone just running scripts. When you’ve manually mapped the attack surface, you see the logic errors that everyone else walked right past. That’s how real-world research and exploitation actually happen."
-    },
-    "LEARNING_PLATFORMS": {
-      "TITLE": "Additional Resources",
-      "DESCRIPTION": "These resources range from hands-on challenges, CTFs, and virtual labs where you can practice legally and safely.",
-      "TRYHACKME": {
-        "TITLE": "TryHackMe",
-        "DESCRIPTION": "Free online platform for learning cyber security with hands-on exercises and labs"
-      },
-      "HACKTHEBOX": {
-        "TITLE": "Hack The Box",
-        "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
-      },
-      "PICOCTF": {
-        "TITLE": "picoCTF",
-        "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
-      },
-      "ROOTME": {
-        "TITLE": "Root Me",
-        "DESCRIPTION": "Platform for practicing hacking skills with challenges and virtual environments"
-      },
-      "CISCO": {
-        "TITLE": "Cisco Networking Academy",
-        "DESCRIPTION": "Learn cybersecurity, networking, and Python from Cisco's official training program"
-      },
-      "PHRACK": {
-        "TITLE": "Phrack.org",
-        "DESCRIPTION": "One of the oldest E-zine in the underground hacking community."
-      },
-      "TMPOUT": {
-        "TITLE": "tmp.0ut.",
-        "DESCRIPTION": "Hacking e-zine with a much tighter focus on low-level systems and binary exploitation. "
-      },
-      "PAGEDOUT": {
-        "TITLE": "Paged Out!",
-        "DESCRIPTION": "Technical magazine about programming, hacking, security hacking, retro computers, modern computers, electronics, demoscene, and other similar topics."
-      }
-    }
-  },
     "AI_ASSISTANTS": {
       "META": {
         "TITLE": "Free AI Assistants - Coding Global",
@@ -1196,5 +1196,64 @@
     "BADGE_ALT": "UnoRouter AI API",
     "AI_ASSISTANTS_PROMO_TITLE": "Unified AI API Access",
     "AI_ASSISTANTS_PROMO_DESC": "Access 200+ AI models from 35+ providers through a single API. Pay per token with no subscriptions."
+  },
+  "PRIVACY": {
+    "META": {
+      "TITLE": "Privacy Policy - Coding Global",
+      "DESCRIPTION": "How the Coding Global Discord bot and website collect, use, and store your data.",
+      "KEYWORDS": "privacy policy, data protection, discord bot, coding global, data usage"
+    },
+    "HEADING": "Privacy Policy",
+    "LAST_UPDATED": "Last updated: June 12, 2026",
+    "SECTIONS": {
+      "INTRO": {
+        "TITLE": "Introduction",
+        "BODY": "This Privacy Policy explains how the Coding Global Discord application (the \"Bot\") and this website handle data. By using our Discord server while the Bot is present, you acknowledge the practices described here. We aim to collect only what is necessary to operate community features such as moderation, role automation, leveling, help threads, and server statistics."
+      },
+      "DATA_COLLECTED": {
+        "TITLE": "Data We Process",
+        "BODY": "We process the following categories of Discord data: account identifiers (user ID, username, nickname), server membership and role information, message content in public server channels, voice channel activity, message reactions, and presence (online status and current activity). We do not process direct messages, and the Bot only operates inside the servers it has been added to."
+      },
+      "MEMBER_DATA": {
+        "TITLE": "Member Data",
+        "BODY": "We use the Server Members intent to detect joins and leaves, synchronize role changes, track nickname updates, and maintain accurate member counts and statistics. Member records (user ID, roles, join/leave events, nickname) are stored in our database to power welcome flows, role automation, moderation, and leveling."
+      },
+      "MESSAGE_DATA": {
+        "TITLE": "Message Content",
+        "BODY": "We use the Message Content intent to provide automated moderation (spam, scam, and phishing detection), keyword-based warnings, duplicate-flood protection, an AI assistant that answers coding questions when mentioned, help-thread indexing, and on-demand translation. Message content from public channels may be stored to support these features and server statistics."
+      },
+      "PRESENCE_DATA": {
+        "TITLE": "Presence Data",
+        "BODY": "We use the Presence intent to display live member online/offline status and current activity in our public server-statistics widget. The most recent presence status and activity name are stored alongside the member record and updated as presence changes."
+      },
+      "AI_USAGE": {
+        "TITLE": "AI Processing",
+        "BODY": "Message content may be sent to third-party AI providers (such as Google AI) at runtime to classify spam and to generate assistant responses. This processing is for inference only. Your message content is NOT used to train, fine-tune, or otherwise improve any machine-learning or AI model, whether ours or a third party's."
+      },
+      "STORAGE": {
+        "TITLE": "Data Storage",
+        "BODY": "Data is stored off-platform (outside of Discord) in our own database, hosted on infrastructure we control. Access is restricted to the operators of Coding Global. We apply reasonable technical measures to protect stored data against unauthorized access."
+      },
+      "RETENTION": {
+        "TITLE": "Data Retention",
+        "BODY": "We retain data for as long as it is needed to provide community features. Member and statistics data persists while you are a member of the server. You may request deletion of your data as described below; data tied to moderation actions may be retained where required for safety and abuse prevention."
+      },
+      "SHARING": {
+        "TITLE": "Data Sharing",
+        "BODY": "We do not sell your data. We share data only with the third-party AI providers described above for the sole purpose of operating Bot features, and only as necessary. We may disclose data where required by law."
+      },
+      "OPT_OUT": {
+        "TITLE": "Your Choices",
+        "BODY": "You can limit data processing by leaving the server or by removing the Bot if you are a server administrator. Where an opt-out command is offered, you may use it to exclude your data from optional tracking. Contact us for help with any of these choices."
+      },
+      "RIGHTS": {
+        "TITLE": "Your Rights",
+        "BODY": "Depending on your jurisdiction, you may have the right to access, correct, or delete the personal data we hold about you, and to object to or restrict certain processing. To exercise these rights, contact us using the details below."
+      },
+      "CONTACT": {
+        "TITLE": "Contact",
+        "BODY": "For privacy questions or data requests, reach out to the Coding Global team through our Discord server at discord.gg/coding. We will respond to legitimate requests within a reasonable timeframe."
+      }
+    }
   }
 }
