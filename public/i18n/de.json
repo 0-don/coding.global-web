@@ -1192,5 +1192,64 @@
     "BADGE_ALT": "UnoRouter KI API",
     "AI_ASSISTANTS_PROMO_TITLE": "Einheitlicher KI API Zugang",
     "AI_ASSISTANTS_PROMO_DESC": "Zugriff auf 200+ KI Modelle von 35+ Anbietern über eine einzige API. Zahle pro Token ohne Abonnement."
+  },
+  "PRIVACY": {
+    "META": {
+      "TITLE": "Datenschutzerklaerung - Coding Global",
+      "DESCRIPTION": "Wie der Coding-Global-Discord-Bot und die Website deine Daten erheben, verwenden und speichern.",
+      "KEYWORDS": "datenschutz, datenschutzerklaerung, discord bot, coding global, datennutzung"
+    },
+    "HEADING": "Datenschutzerklaerung",
+    "LAST_UPDATED": "Zuletzt aktualisiert: 12. Juni 2026",
+    "SECTIONS": {
+      "INTRO": {
+        "TITLE": "Einleitung",
+        "BODY": "Diese Datenschutzerklaerung erlaeutert, wie die Coding-Global-Discord-Anwendung (der \"Bot\") und diese Website mit Daten umgehen. Durch die Nutzung unseres Discord-Servers, auf dem der Bot aktiv ist, erkennst du die hier beschriebenen Praktiken an. Wir erheben nur das, was zum Betrieb von Community-Funktionen wie Moderation, Rollenautomatisierung, Level-System, Hilfe-Threads und Serverstatistiken erforderlich ist."
+      },
+      "DATA_COLLECTED": {
+        "TITLE": "Verarbeitete Daten",
+        "BODY": "Wir verarbeiten folgende Kategorien von Discord-Daten: Kontokennungen (Benutzer-ID, Benutzername, Spitzname), Mitgliedschafts- und Rolleninformationen, Nachrichteninhalte in oeffentlichen Serverkanaelen, Aktivitaet in Sprachkanaelen, Nachrichtenreaktionen sowie Praesenz (Online-Status und aktuelle Aktivitaet). Wir verarbeiten keine Direktnachrichten, und der Bot ist nur in den Servern aktiv, denen er hinzugefuegt wurde."
+      },
+      "MEMBER_DATA": {
+        "TITLE": "Mitgliederdaten",
+        "BODY": "Wir nutzen den Server-Members-Intent, um Beitritte und Austritte zu erkennen, Rollenaenderungen zu synchronisieren, Spitznamenaenderungen zu verfolgen und genaue Mitgliederzahlen und Statistiken zu fuehren. Mitgliederdatensaetze (Benutzer-ID, Rollen, Beitritts-/Austrittsereignisse, Spitzname) werden in unserer Datenbank gespeichert, um Willkommensablaeufe, Rollenautomatisierung, Moderation und das Level-System zu ermoeglichen."
+      },
+      "MESSAGE_DATA": {
+        "TITLE": "Nachrichteninhalte",
+        "BODY": "Wir nutzen den Message-Content-Intent fuer automatische Moderation (Erkennung von Spam, Betrug und Phishing), stichwortbasierte Warnungen, Schutz vor Mehrfach-Spam, einen KI-Assistenten, der bei Erwaehnung Programmierfragen beantwortet, die Indexierung von Hilfe-Threads sowie Uebersetzung auf Anfrage. Nachrichteninhalte aus oeffentlichen Kanaelen koennen zur Bereitstellung dieser Funktionen und fuer Serverstatistiken gespeichert werden."
+      },
+      "PRESENCE_DATA": {
+        "TITLE": "Praesenzdaten",
+        "BODY": "Wir nutzen den Presence-Intent, um den Live-Online-/Offline-Status und die aktuelle Aktivitaet von Mitgliedern in unserem oeffentlichen Serverstatistik-Widget anzuzeigen. Der zuletzt bekannte Praesenzstatus und der Name der Aktivitaet werden zusammen mit dem Mitgliederdatensatz gespeichert und bei Aenderungen aktualisiert."
+      },
+      "AI_USAGE": {
+        "TITLE": "KI-Verarbeitung",
+        "BODY": "Nachrichteninhalte koennen zur Laufzeit an Drittanbieter von KI-Diensten (etwa Google AI) gesendet werden, um Spam zu klassifizieren und Assistentenantworten zu erzeugen. Diese Verarbeitung dient ausschliesslich der Inferenz. Deine Nachrichteninhalte werden NICHT verwendet, um Modelle des maschinellen Lernens oder KI-Modelle zu trainieren, zu verfeinern oder anderweitig zu verbessern, weder unsere eigenen noch die von Dritten."
+      },
+      "STORAGE": {
+        "TITLE": "Datenspeicherung",
+        "BODY": "Daten werden ausserhalb der Plattform (ausserhalb von Discord) in unserer eigenen Datenbank gespeichert, die auf von uns kontrollierter Infrastruktur gehostet wird. Der Zugriff ist auf die Betreiber von Coding Global beschraenkt. Wir treffen angemessene technische Massnahmen, um gespeicherte Daten vor unbefugtem Zugriff zu schuetzen."
+      },
+      "RETENTION": {
+        "TITLE": "Speicherdauer",
+        "BODY": "Wir speichern Daten so lange, wie es zur Bereitstellung der Community-Funktionen erforderlich ist. Mitglieder- und Statistikdaten bleiben erhalten, solange du Mitglied des Servers bist. Du kannst die Loeschung deiner Daten wie unten beschrieben beantragen; Daten im Zusammenhang mit Moderationsmassnahmen koennen aufbewahrt werden, soweit dies zur Sicherheit und Missbrauchspraevention erforderlich ist."
+      },
+      "SHARING": {
+        "TITLE": "Datenweitergabe",
+        "BODY": "Wir verkaufen deine Daten nicht. Wir geben Daten nur an die oben genannten KI-Drittanbieter weiter, ausschliesslich zum Betrieb der Bot-Funktionen und nur soweit erforderlich. Wir koennen Daten offenlegen, wenn dies gesetzlich vorgeschrieben ist."
+      },
+      "OPT_OUT": {
+        "TITLE": "Deine Wahlmoeglichkeiten",
+        "BODY": "Du kannst die Datenverarbeitung einschraenken, indem du den Server verlaesst oder, falls du Serveradministrator bist, den Bot entfernst. Wo ein Opt-out-Befehl angeboten wird, kannst du ihn nutzen, um deine Daten von optionaler Erfassung auszuschliessen. Kontaktiere uns, wenn du Hilfe bei diesen Optionen benoetigst."
+      },
+      "RIGHTS": {
+        "TITLE": "Deine Rechte",
+        "BODY": "Je nach Rechtsordnung hast du moeglicherweise das Recht, auf die ueber dich gespeicherten personenbezogenen Daten zuzugreifen, sie zu berichtigen oder zu loeschen sowie bestimmten Verarbeitungen zu widersprechen oder sie einzuschraenken. Um diese Rechte auszuueben, kontaktiere uns ueber die unten stehenden Angaben."
+      },
+      "CONTACT": {
+        "TITLE": "Kontakt",
+        "BODY": "Bei Fragen zum Datenschutz oder fuer Datenanfragen wende dich ueber unseren Discord-Server unter discord.gg/coding an das Coding-Global-Team. Wir beantworten berechtigte Anfragen innerhalb eines angemessenen Zeitraums."
+      }
+    }
   }
 }

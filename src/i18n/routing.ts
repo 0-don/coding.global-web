@@ -15,6 +15,9 @@ export const pathnames = {
   "/chat": {
     de: "/chat",
   },
+  "/privacy": {
+    de: "/datenschutz",
+  },
   "/community/news": {
     de: "/community/nachrichten",
   },
