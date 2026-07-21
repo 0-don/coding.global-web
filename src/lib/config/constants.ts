@@ -3,9 +3,7 @@ import type { Locale, useTranslations } from "next-intl";
 import type { FunctionComponent, SVGAttributes } from "react";
 
 export const UNOROUTER_URL =
-  process.env.NODE_ENV === "development"
-    ? "https://unorouter.ai"
-    : "https://unorouter.ai";
+  process.env.NEXT_PUBLIC_UNOROUTER_URL ?? "https://unorouter.com";
 
 export const SERVER_URL_KEY = "x-url";
 
