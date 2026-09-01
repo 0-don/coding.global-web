@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24,
     remotePatterns: [{ hostname: "*.discordapp.com" }],
   },
+
+  async rewrites() {
+    return [
+      // Static evidence page for Discord's privileged intent review. It lives in
+      // public/ rather than as a route, so the next-intl middleware would send the
+      // bare path to /<locale>/bot-review and 404. Serve the file directly.
+      { source: "/bot-review", destination: "/bot-review/index.html" },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin({

@@ -13,7 +13,8 @@ export default async function proxy(request: NextRequest) {
 
 export const config = {
   // Match all pathnames except:
-  // - … if they start with `/api`, `/trpc`, `/_next`, `/_vercel` or `/ingest`
+  // - … if they start with `/api`, `/trpc`, `/_next`, `/_vercel`, `/ingest` or
+  //   `/bot-review` (a static page in public/, which must not be sent to a locale route)
   // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher: "/((?!api|trpc|_next|_vercel|ingest|.*\\..*).*)",
+  matcher: "/((?!api|trpc|_next|_vercel|ingest|bot-review|.*\\..*).*)",
 };
