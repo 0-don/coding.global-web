@@ -20,6 +20,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import {
   HiOutlineBolt,
+  HiOutlineBuildingLibrary,
   HiOutlineCpuChip,
   HiOutlineShieldCheck,
 } from "react-icons/hi2";
@@ -251,6 +252,12 @@ const resourceCategories = [
         descriptionKey: msg("RESOURCES.ITEMS.CYBER_SECURITY.DESCRIPTION"),
         href: "/resources/guides/cyber-security" as const,
         icon: HiOutlineShieldCheck,
+      },
+      {
+        nameKey: msg("RESOURCES.ITEMS.LIBRARY.NAME"),
+        descriptionKey: msg("RESOURCES.ITEMS.LIBRARY.DESCRIPTION"),
+        href: "/resources/library" as const,
+        icon: HiOutlineBuildingLibrary,
       },
     ],
   },

@@ -69,6 +69,9 @@ export const pathnames = {
   "/resources/ai-assistants": {
     de: "/ressourcen/ki-assistenten",
   },
+  "/resources/library": {
+    de: "/ressourcen/bibliothek",
+  },
   // Coding language pages (dynamic route)
   "/community/coding": {
     de: "/community/coding",

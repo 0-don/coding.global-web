@@ -158,6 +158,8 @@
       "RESOURCES_DEVOPS_DESCRIPTION": "DevOps practices and tools",
       "RESOURCES_CYBER_SECURITY": "Cyber Security",
       "RESOURCES_CYBER_SECURITY_DESCRIPTION": "Security best practices and guides",
+      "RESOURCES_LIBRARY": "Library",
+      "RESOURCES_LIBRARY_DESCRIPTION": "Free ebooks, papers and courses",
       "RESOURCES_AI_ASSISTANTS": "AI Assistants",
       "RESOURCES_AI_ASSISTANTS_DESCRIPTION": "Free AI tools for coding and productivity",
       "RESOURCES_BEST_TOOLS": "Best Tools",
@@ -467,6 +469,10 @@
       "CYBER_SECURITY": {
         "NAME": "Cyber Security",
         "DESCRIPTION": "Security best practices"
+      },
+      "LIBRARY": {
+        "NAME": "Library",
+        "DESCRIPTION": "Ebooks, papers, docs and courses"
       }
     },
     "SECTIONS": {
@@ -737,8 +743,8 @@
           "TITLE": "Hack The Box",
           "DESCRIPTION": "Cyber mastery platform with beginner-friendly modules and real-world challenges"
         },
-        "PICOCTF": {
-          "TITLE": "picoCTF",
+        "CYLAB": {
+          "TITLE": "CyLab Security Academy",
           "DESCRIPTION": "Free computer security education program by Carnegie Mellon University"
         },
         "ROOTME": {
@@ -910,6 +916,147 @@
       "UNOROUTER_PROMO": {
         "TITLE": "Want all of these models from one API?",
         "DESCRIPTION": "UnoRouter gives you a single endpoint with intelligent routing, automatic failover, and 200+ models from 35+ providers. Subscribe for better value or pay as you go, no per-provider sign-up needed."
+      }
+    },
+    "LIBRARY": {
+      "TITLE": "Library",
+      "DESCRIPTION": "Books, papers, docs and courses to learn anything, all free to read",
+      "META": {
+        "TITLE": "Library - Coding Global",
+        "DESCRIPTION": "Free ebooks, programming books, research papers, documentation and computer science courses",
+        "KEYWORDS": "ebooks, programming books, free books, research papers, textbooks, documentation, courses, library"
+      },
+      "PROGRAMMING_BOOKS": {
+        "TITLE": "Programming Books",
+        "DESCRIPTION": "Full programming books, free to read online",
+        "FREE_PROGRAMMING_BOOKS": {
+          "TITLE": "Free Programming Books",
+          "DESCRIPTION": "Searchable list of thousands of legally free programming books"
+        },
+        "GOALKICKER": {
+          "TITLE": "GoalKicker",
+          "DESCRIPTION": "Free programming notes compiled from Stack Overflow"
+        },
+        "GREEN_TEA_PRESS": {
+          "TITLE": "Green Tea Press",
+          "DESCRIPTION": "Free books like Think Python by Allen B. Downey"
+        },
+        "ELOQUENT_JAVASCRIPT": {
+          "TITLE": "Eloquent JavaScript",
+          "DESCRIPTION": "Modern introduction to JavaScript and programming"
+        },
+        "AUTOMATE_THE_BORING_STUFF": {
+          "TITLE": "Automate the Boring Stuff",
+          "DESCRIPTION": "Practical Python for total beginners"
+        },
+        "RUST_BOOK": {
+          "TITLE": "The Rust Book",
+          "DESCRIPTION": "The official guide to the Rust language"
+        },
+        "PRO_GIT": {
+          "TITLE": "Pro Git",
+          "DESCRIPTION": "Everything about Git, from basics to internals"
+        },
+        "CODERS_GUILD": {
+          "TITLE": "Coders Guild",
+          "DESCRIPTION": "Catalog of programming books to read online or as PDF"
+        },
+        "IT_EBOOKS": {
+          "TITLE": "IT eBooks",
+          "DESCRIPTION": "Open-licensed IT books, tutorials and source code"
+        }
+      },
+      "FREE_BOOKS": {
+        "TITLE": "Free Books & Textbooks",
+        "DESCRIPTION": "Legal libraries for public domain books, textbooks and borrowing",
+        "OPEN_LIBRARY": {
+          "TITLE": "Open Library",
+          "DESCRIPTION": "Borrow millions of ebooks for free"
+        },
+        "INTERNET_ARCHIVE": {
+          "TITLE": "Internet Archive",
+          "DESCRIPTION": "Free and borrowable texts, scans and old manuals"
+        },
+        "PROJECT_GUTENBERG": {
+          "TITLE": "Project Gutenberg",
+          "DESCRIPTION": "70,000+ free public domain ebooks"
+        },
+        "STANDARD_EBOOKS": {
+          "TITLE": "Standard Ebooks",
+          "DESCRIPTION": "Beautifully formatted public domain ebooks"
+        },
+        "OPENSTAX": {
+          "TITLE": "OpenStax",
+          "DESCRIPTION": "Free peer-reviewed college textbooks"
+        },
+        "OPEN_TEXTBOOK_LIBRARY": {
+          "TITLE": "Open Textbook Library",
+          "DESCRIPTION": "Openly licensed textbooks, including computer science"
+        },
+        "LIBBY": {
+          "TITLE": "Libby",
+          "DESCRIPTION": "Borrow ebooks and audiobooks with your library card"
+        },
+        "LIBRIVOX": {
+          "TITLE": "LibriVox",
+          "DESCRIPTION": "Free public domain audiobooks read by volunteers"
+        }
+      },
+      "RESEARCH_PAPERS": {
+        "TITLE": "Research Papers",
+        "DESCRIPTION": "Academic papers, preprints and open access research",
+        "ARXIV": {
+          "TITLE": "arXiv",
+          "DESCRIPTION": "Free preprints in computer science, math and physics"
+        },
+        "SEMANTIC_SCHOLAR": {
+          "TITLE": "Semantic Scholar",
+          "DESCRIPTION": "AI-powered search across 200M+ papers"
+        },
+        "CORE": {
+          "TITLE": "CORE",
+          "DESCRIPTION": "The largest collection of open access papers"
+        }
+      },
+      "DOCUMENTATION": {
+        "TITLE": "Docs & Cheat Sheets",
+        "DESCRIPTION": "Quick references to keep open while you code",
+        "DEVDOCS": {
+          "TITLE": "DevDocs",
+          "DESCRIPTION": "Fast, offline-capable docs for hundreds of APIs"
+        },
+        "MDN": {
+          "TITLE": "MDN Web Docs",
+          "DESCRIPTION": "The reference for HTML, CSS and JavaScript"
+        },
+        "TLDR": {
+          "TITLE": "tldr pages",
+          "DESCRIPTION": "Simplified, example-first man pages"
+        },
+        "CHEAT_SH": {
+          "TITLE": "cheat.sh",
+          "DESCRIPTION": "Cheat sheets for any language, right from curl"
+        }
+      },
+      "COURSES": {
+        "TITLE": "Courses & Lectures",
+        "DESCRIPTION": "Free university-level computer science courses",
+        "CS50": {
+          "TITLE": "CS50",
+          "DESCRIPTION": "Harvard's intro to computer science"
+        },
+        "MIT_OCW": {
+          "TITLE": "MIT OpenCourseWare",
+          "DESCRIPTION": "Lecture notes, videos and exams from MIT"
+        },
+        "TEACH_YOURSELF_CS": {
+          "TITLE": "Teach Yourself CS",
+          "DESCRIPTION": "A self-study curriculum with the best books per topic"
+        },
+        "OSSU": {
+          "TITLE": "OSSU Computer Science",
+          "DESCRIPTION": "A complete free CS degree path from online courses"
+        }
       }
     },
     "VIBE_CODING": {

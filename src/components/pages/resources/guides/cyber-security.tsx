@@ -67,11 +67,11 @@ const learningPlatforms = [
     url: "https://hackthebox.com/",
   },
   {
-    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PICOCTF.TITLE"),
+    titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.CYLAB.TITLE"),
     descriptionKey: msg(
-      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.PICOCTF.DESCRIPTION",
+      "RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.CYLAB.DESCRIPTION",
     ),
-    url: "https://www.picoctf.org/",
+    url: "https://cylabacademy.org/",
   },
   {
     titleKey: msg("RESOURCES.CYBER_SECURITY.LEARNING_PLATFORMS.ROOTME.TITLE"),
@@ -120,7 +120,7 @@ const roadmapSteps = [
   {
     titleKey: msg("RESOURCES.CYBER_SECURITY.ROADMAP.BOUNTY.TITLE"),
     descriptionKey: msg("RESOURCES.CYBER_SECURITY.ROADMAP.BOUNTY.DESC"),
-    url: "https://www.hackerone.com/vulnerability-management/what-are-bug-bounties-how-do-they-work-examples",
+    url: "https://www.hackerone.com/blog/what-are-bug-bounties-and-how-do-they-work",
     step: 2,
   },
   {

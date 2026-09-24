@@ -138,6 +138,10 @@ const components: Record<
     load: () => import("../src/components/pages/resources/ai-assistants"),
     name: "AiAssistants",
   },
+  library: {
+    load: () => import("../src/components/pages/resources/library"),
+    name: "Library",
+  },
   "coding-language": {
     load: () =>
       import("../src/components/pages/community/coding/coding-language"),
@@ -230,6 +234,11 @@ const pages: {
     url: "/resources/ai-assistants",
     category: "Resources",
     component: "ai-assistants",
+  },
+  {
+    url: "/resources/library",
+    category: "Resources",
+    component: "library",
   },
   {
     url: "/community/coding",
